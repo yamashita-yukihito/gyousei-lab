@@ -51,10 +51,17 @@ INVENTORY_PATH = Path(
         str(DATA_DIR / "all-subject-inventory.json"),
     )
 )
+WEAKNESS_PATH = Path(
+    os.environ.get(
+        "GYOUSEI_LAB_WEAKNESS_SNAPSHOT",
+        str(DATA_DIR / "weakness-latest.json"),
+    )
+)
 
 MAX_BODY_BYTES = 128 * 1024
 MAX_BUNDLE_BYTES = 128 * 1024 * 1024
 MAX_INVENTORY_BYTES = 2 * 1024 * 1024
+MAX_WEAKNESS_BYTES = 8 * 1024 * 1024
 MAX_SELECTED_ANSWER_BYTES = 32 * 1024
 MAX_ANSWER_TEXT_CHARS = 20_000
 MAX_NOTE_CHARS = 4_000
@@ -102,6 +109,26 @@ INVENTORY_EXCLUSION_REASONS = {
     "task_count_requires_question_level_review",
     "task_unknown_requires_question_level_review",
     "withdrawn_question_requires_question_level_review",
+}
+WEAKNESS_SCHEMA_VERSION = "gyousei-weakness-snapshot@1"
+WEAKNESS_ANALYZER_VERSION = "card-attempts-v1"
+WEAKNESS_STATUSES = (
+    "unlearned",
+    "learning",
+    "watch",
+    "weak",
+    "recovering",
+    "mastered",
+)
+WEAKNESS_TARGET_STATUSES = {"watch", "weak", "recovering"}
+WEAKNESS_REASON_CODES = {
+    "consecutive_incorrect_2",
+    "recent_accuracy_lte_50",
+    "single_error_watch",
+    "latest_incorrect_watch",
+    "recovering_2_correct",
+    "mastered_3_correct",
+    "stale_revision_ignored",
 }
 
 
@@ -1356,6 +1383,325 @@ def card_progress_statistics(
     }
 
 
+def _build_current_weakness_snapshot(
+    snapshot: BundleSnapshot,
+    deck: dict | None,
+) -> dict:
+    from weakness_analysis import build_weakness_snapshot
+
+    eligible_cards = cards_for_study_deck(snapshot, deck)
+    current_revisions = {
+        card["id"]: card_answer_revision(card, snapshot, deck)
+        for card in eligible_cards
+    }
+    with connect() as connection:
+        return build_weakness_snapshot(
+            connection,
+            eligible_cards,
+            current_revisions,
+            bundle_revision=snapshot.revision,
+            study_deck=deck,
+            known_card_ids=snapshot.cards,
+            generated_at=utc_now(),
+        )
+
+
+def refresh_weakness_latest(
+    snapshot: BundleSnapshot,
+    deck: dict | None,
+) -> None:
+    from weakness_analysis import atomic_write_private_json
+
+    analysis = _build_current_weakness_snapshot(snapshot, deck)
+    atomic_write_private_json(WEAKNESS_PATH, analysis)
+
+
+def _weakness_int(
+    value: object,
+    field: str,
+    *,
+    maximum: int = 100_000_000,
+) -> int:
+    if type(value) is not int or not 0 <= value <= maximum:
+        raise ValueError(f"invalid {field}")
+    return value
+
+
+def _weakness_accuracy(value: object, field: str) -> float | None:
+    if value is None:
+        return None
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise ValueError(f"invalid {field}")
+    number = float(value)
+    if not math.isfinite(number) or not 0 <= number <= 1:
+        raise ValueError(f"invalid {field}")
+    return number
+
+
+def _weakness_public_projection(
+    analysis: object,
+    snapshot: BundleSnapshot,
+    deck: dict | None,
+    *,
+    source: str,
+    stored_available: bool,
+    stored_fresh: bool,
+    stale_reasons: list[str],
+) -> dict:
+    if not isinstance(analysis, dict):
+        raise ValueError("weakness snapshot root must be an object")
+    if analysis.get("schemaVersion") != WEAKNESS_SCHEMA_VERSION:
+        raise ValueError("unsupported weakness snapshot schema")
+    if analysis.get("analyzerVersion") != WEAKNESS_ANALYZER_VERSION:
+        raise ValueError("unsupported weakness analyzer")
+    generated_at = analysis.get("generatedAt")
+    if not isinstance(generated_at, str) or not generated_at or len(generated_at) > 40:
+        raise ValueError("invalid weakness generatedAt")
+    datetime.fromisoformat(generated_at.replace("Z", "+00:00"))
+
+    expected_cards = {
+        card["id"] for card in cards_for_study_deck(snapshot, deck)
+    }
+    raw_summary = analysis.get("summary")
+    if not isinstance(raw_summary, dict):
+        raise ValueError("invalid weakness summary")
+    raw_status_counts = raw_summary.get("statusCounts")
+    if not isinstance(raw_status_counts, dict):
+        raise ValueError("invalid weakness status counts")
+    status_counts = {
+        status: _weakness_int(
+            raw_status_counts.get(status),
+            f"statusCounts.{status}",
+        )
+        for status in WEAKNESS_STATUSES
+    }
+
+    raw_targets = analysis.get("targets")
+    if not isinstance(raw_targets, list) or len(raw_targets) > len(expected_cards):
+        raise ValueError("invalid weakness targets")
+    targets = []
+    seen_ids: set[str] = set()
+    for raw_target in raw_targets:
+        if not isinstance(raw_target, dict):
+            raise ValueError("invalid weakness target")
+        card_id = raw_target.get("cardId")
+        status = raw_target.get("status")
+        if (
+            not valid_id(card_id)
+            or card_id not in expected_cards
+            or card_id in seen_ids
+            or status not in WEAKNESS_TARGET_STATUSES
+        ):
+            raise ValueError("invalid weakness target identity")
+        seen_ids.add(card_id)
+        reason_codes = raw_target.get("reasonCodes")
+        if (
+            not isinstance(reason_codes, list)
+            or not all(
+                isinstance(code, str) and code in WEAKNESS_REASON_CODES
+                for code in reason_codes
+            )
+        ):
+            raise ValueError("invalid weakness target reasons")
+        raw_evidence = raw_target.get("evidence")
+        if not isinstance(raw_evidence, dict):
+            raise ValueError("invalid weakness target evidence")
+        priority_band = raw_target.get("priorityBand")
+        if priority_band not in {"high", "medium", "recovery"}:
+            raise ValueError("invalid weakness priority band")
+        targets.append(
+            {
+                "cardId": card_id,
+                "status": status,
+                "priority": _weakness_int(
+                    raw_target.get("priority"),
+                    "target.priority",
+                    maximum=10_000,
+                ),
+                "priorityBand": priority_band,
+                "reasonCodes": list(reason_codes),
+                "evidence": {
+                    "attempts": _weakness_int(
+                        raw_evidence.get("attempts"),
+                        "target.evidence.attempts",
+                    ),
+                    "correct": _weakness_int(
+                        raw_evidence.get("correct"),
+                        "target.evidence.correct",
+                    ),
+                    "incorrect": _weakness_int(
+                        raw_evidence.get("incorrect"),
+                        "target.evidence.incorrect",
+                    ),
+                    "recentWindowSize": _weakness_int(
+                        raw_evidence.get("recentWindowSize"),
+                        "target.evidence.recentWindowSize",
+                        maximum=5,
+                    ),
+                    "recentIncorrect": _weakness_int(
+                        raw_evidence.get("recentIncorrect"),
+                        "target.evidence.recentIncorrect",
+                        maximum=5,
+                    ),
+                    "recentAccuracy": _weakness_accuracy(
+                        raw_evidence.get("recentAccuracy"),
+                        "target.evidence.recentAccuracy",
+                    ),
+                    "correctStreak": _weakness_int(
+                        raw_evidence.get("correctStreak"),
+                        "target.evidence.correctStreak",
+                    ),
+                    "incorrectStreak": _weakness_int(
+                        raw_evidence.get("incorrectStreak"),
+                        "target.evidence.incorrectStreak",
+                    ),
+                },
+            }
+        )
+    target_count = _weakness_int(
+        raw_summary.get("targetCount"),
+        "summary.targetCount",
+    )
+    if target_count != len(targets):
+        raise ValueError("weakness target count mismatch")
+    card_count = _weakness_int(
+        raw_summary.get("cardCount"),
+        "summary.cardCount",
+    )
+    current_attempts = _weakness_int(
+        raw_summary.get("currentRevisionAttempts"),
+        "summary.currentRevisionAttempts",
+    )
+    correct = _weakness_int(
+        raw_summary.get("correct"),
+        "summary.correct",
+    )
+    incorrect = _weakness_int(
+        raw_summary.get("incorrect"),
+        "summary.incorrect",
+    )
+    if (
+        card_count != len(expected_cards)
+        or sum(status_counts.values()) != card_count
+        or target_count
+        != sum(status_counts[status] for status in WEAKNESS_TARGET_STATUSES)
+        or correct + incorrect != current_attempts
+    ):
+        raise ValueError("inconsistent weakness summary")
+
+    return {
+        "schemaVersion": 1,
+        "available": True,
+        "serverTime": utc_now(),
+        "studyView": {
+            "id": "weakness",
+            "label": "苦手・要観察",
+            "targetStatuses": ["weak", "watch", "recovering"],
+        },
+        "analysis": {
+            "generatedAt": generated_at,
+            "analyzerVersion": WEAKNESS_ANALYZER_VERSION,
+            "source": source,
+        },
+        "freshness": {
+            "storedSnapshotAvailable": stored_available,
+            "storedSnapshotFresh": stored_fresh,
+            "fallbackToLiveAnalysis": source == "live",
+            "reasonCodes": stale_reasons,
+        },
+        "bundle": snapshot.metadata(),
+        "studyDeck": (
+            {
+                "id": deck["id"],
+                "cardCount": len(expected_cards),
+            }
+            if deck is not None
+            else None
+        ),
+        "summary": {
+            "cardCount": card_count,
+            "targetCount": target_count,
+            "currentRevisionAttempts": current_attempts,
+            "correct": correct,
+            "incorrect": incorrect,
+            "accuracy": _weakness_accuracy(
+                raw_summary.get("accuracy"),
+                "summary.accuracy",
+            ),
+            "statusCounts": status_counts,
+        },
+        "targets": targets,
+    }
+
+
+def _read_weakness_snapshot() -> tuple[dict | None, str | None]:
+    try:
+        if WEAKNESS_PATH.stat().st_size > MAX_WEAKNESS_BYTES:
+            return None, "invalid"
+        decoded = json.loads(WEAKNESS_PATH.read_text(encoding="utf-8"))
+        if not isinstance(decoded, dict):
+            return None, "invalid"
+        return decoded, None
+    except FileNotFoundError:
+        return None, "missing"
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return None, "invalid"
+
+
+def learning_analysis() -> dict:
+    snapshot = CATALOG.load()
+    deck = default_study_deck(snapshot)
+    with connect() as connection:
+        row = connection.execute(
+            "SELECT COALESCE(MAX(id), 0) AS max_id FROM card_attempts"
+        ).fetchone()
+        current_max_attempt_id = int(row["max_id"])
+
+    stored, read_issue = _read_weakness_snapshot()
+    stale_reasons = [read_issue] if read_issue else []
+    stored_available = stored is not None
+    if stored is not None:
+        if stored.get("schemaVersion") != WEAKNESS_SCHEMA_VERSION:
+            stale_reasons.append("schema")
+        if stored.get("analyzerVersion") != WEAKNESS_ANALYZER_VERSION:
+            stale_reasons.append("analyzer")
+        if stored.get("bundleRevision") != snapshot.revision:
+            stale_reasons.append("bundle")
+        if stored.get("maxAttemptId") != current_max_attempt_id:
+            stale_reasons.append("attempts")
+        stored_deck = stored.get("studyDeck")
+        expected_deck_id = deck["id"] if deck is not None else None
+        stored_deck_id = (
+            stored_deck.get("id") if isinstance(stored_deck, dict) else None
+        )
+        if stored_deck_id != expected_deck_id:
+            stale_reasons.append("study_deck")
+        if not stale_reasons:
+            try:
+                return _weakness_public_projection(
+                    stored,
+                    snapshot,
+                    deck,
+                    source="stored",
+                    stored_available=True,
+                    stored_fresh=True,
+                    stale_reasons=[],
+                )
+            except (TypeError, ValueError):
+                stale_reasons.append("invalid")
+
+    current = _build_current_weakness_snapshot(snapshot, deck)
+    return _weakness_public_projection(
+        current,
+        snapshot,
+        deck,
+        source="live",
+        stored_available=stored_available,
+        stored_fresh=False,
+        stale_reasons=list(dict.fromkeys(stale_reasons)),
+    )
+
+
 def add_card_attempt(payload: dict) -> tuple[dict, bool, BundleSnapshot, dict | None]:
     event_id = payload.get("eventId")
     session_id = payload.get("sessionId")
@@ -2138,6 +2484,9 @@ class ProductionHandler(BaseHTTPRequestHandler):
                 result["bundle"] = snapshot.metadata()
                 self.send_json(result)
                 return
+            if parsed.path == "/api/learning-analysis":
+                self.send_json(learning_analysis())
+                return
             if parsed.path == "/api/questions":
                 snapshot = CATALOG.load()
                 self.send_json(paginated(question_items(snapshot, query), query, snapshot))
@@ -2210,11 +2559,19 @@ class ProductionHandler(BaseHTTPRequestHandler):
                 with connect() as connection:
                     progress = card_progress_statistics(connection, snapshot, deck)
                 progress["bundle"] = snapshot.metadata()
+                analysis_updated = False
+                if inserted:
+                    try:
+                        refresh_weakness_latest(snapshot, deck)
+                        analysis_updated = True
+                    except Exception:
+                        analysis_updated = False
                 self.send_json(
                     {
                         "saved": inserted,
                         "duplicate": not inserted,
                         "attempt": attempt,
+                        "learningAnalysisUpdated": analysis_updated,
                         **progress,
                     },
                     HTTPStatus.CREATED if inserted else HTTPStatus.OK,

@@ -16,6 +16,7 @@ class StaticUiContractTest(unittest.TestCase):
         initial_loader = source[start:end]
 
         self.assertIn('fetchJson(API + "/overview")', initial_loader)
+        self.assertIn('fetchJson(API + "/learning-analysis")', initial_loader)
         self.assertIn("fetchAllCardPages()", initial_loader)
         self.assertNotIn('API + "/questions', initial_loader)
         self.assertNotIn('API + "/claude-reviews', initial_loader)
@@ -38,6 +39,16 @@ class StaticUiContractTest(unittest.TestCase):
         ):
             self.assertIn(f'id="{element_id}"', html)
         self.assertNotIn("選択式210問", html)
+
+    def test_weakness_view_uses_the_shared_study_engine(self) -> None:
+        source = (ROOT / "static" / "app.js").read_text(encoding="utf-8")
+        html = (ROOT / "static" / "index.html").read_text(encoding="utf-8")
+
+        self.assertIn('id="study-view"', html)
+        self.assertIn('<option value="weakness">苦手・要観察</option>', html)
+        self.assertIn('fetchJson(API + "/learning-analysis")', source)
+        self.assertIn("state.weaknessTargets.has(studyCardId(item))", source)
+        self.assertEqual(source.count('postJson(API + "/card-attempts"'), 1)
 
 
 if __name__ == "__main__":

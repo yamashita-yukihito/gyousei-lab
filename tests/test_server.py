@@ -87,7 +87,9 @@ def fixture_bundle() -> dict:
                 "id": "card-1",
                 "questionId": "q-regular",
                 "subjectId": "administrative-law",
+                "category": "行政法",
                 "topic": "行政手続法",
+                "subtopic": "聴聞",
                 "easy": "やさしい説明",
                 "lawAsOf": "2026-04-01",
                 "variants": {
@@ -106,7 +108,9 @@ def fixture_bundle() -> dict:
                 "id": "card-2",
                 "questionId": "q-written",
                 "subjectId": "civil-law",
+                "category": "民法",
                 "topic": "代理",
+                "subtopic": "代理権",
                 "variants": {
                     "a": "書面でのみ申立てができる。",
                     "b": "必ず紙で出す、という意味です。",
@@ -270,6 +274,7 @@ class ProductionApiTest(unittest.TestCase):
         self.bundle_path = self.root / "bundle.json"
         self.inventory_path = self.root / "inventory.json"
         self.database_path = self.root / "state" / "production.sqlite3"
+        self.weakness_path = self.root / "state" / "weakness-latest.json"
         self.write_bundle(fixture_bundle())
         self.inventory_path.write_text(
             json.dumps(fixture_inventory(), ensure_ascii=False),
@@ -279,15 +284,18 @@ class ProductionApiTest(unittest.TestCase):
         self.original_database_path = server.DB_PATH
         self.original_catalog = server.CATALOG
         self.original_inventory_path = server.INVENTORY_PATH
+        self.original_weakness_path = server.WEAKNESS_PATH
         server.DB_PATH = self.database_path
         server.CATALOG = server.BundleCatalog(self.bundle_path)
         server.INVENTORY_PATH = self.inventory_path
+        server.WEAKNESS_PATH = self.weakness_path
         server.init_database()
 
     def tearDown(self) -> None:
         server.DB_PATH = self.original_database_path
         server.CATALOG = self.original_catalog
         server.INVENTORY_PATH = self.original_inventory_path
+        server.WEAKNESS_PATH = self.original_weakness_path
         self.temp_directory.cleanup()
 
     def write_bundle(self, payload: dict) -> None:
@@ -990,6 +998,62 @@ class ProductionApiTest(unittest.TestCase):
             server.add_card_attempt(false_client_result)
         self.assertEqual(context.exception.status, HTTPStatus.BAD_REQUEST)
 
+    def test_learning_analysis_projects_fresh_snapshot_and_falls_back_live(self) -> None:
+        initial = server.learning_analysis()
+        self.assertTrue(initial["available"])
+        self.assertEqual(initial["analysis"]["source"], "live")
+        self.assertEqual(initial["summary"]["targetCount"], 0)
+        self.assertIn("missing", initial["freshness"]["reasonCodes"])
+
+        server.add_card_attempt(
+            self.card_attempt_payload(
+                event_id="card-weakness-1",
+                selected_answer=False,
+            )
+        )
+        server.add_card_attempt(
+            self.card_attempt_payload(
+                event_id="card-weakness-2",
+                selected_answer=False,
+            )
+        )
+        snapshot = server.CATALOG.load()
+        deck = server.default_study_deck(snapshot)
+        server.refresh_weakness_latest(snapshot, deck)
+        self.assertEqual(self.weakness_path.stat().st_mode & 0o777, 0o600)
+
+        private_snapshot = json.loads(
+            self.weakness_path.read_text(encoding="utf-8")
+        )
+        private_snapshot["providerExplanation"] = "PRIVATE_EXPLANATION"
+        private_snapshot["localPath"] = "/home/yuki/private/weakness.json"
+        private_snapshot["targets"][0]["rawResponse"] = "PRIVATE_RESPONSE"
+        self.weakness_path.write_text(
+            json.dumps(private_snapshot, ensure_ascii=False),
+            encoding="utf-8",
+        )
+
+        projected = server.learning_analysis()
+        serialized = json.dumps(projected, ensure_ascii=False)
+        self.assertEqual(projected["analysis"]["source"], "stored")
+        self.assertTrue(projected["freshness"]["storedSnapshotFresh"])
+        self.assertEqual(projected["summary"]["targetCount"], 1)
+        self.assertEqual(projected["targets"][0]["cardId"], "card-1")
+        self.assertEqual(projected["targets"][0]["status"], "weak")
+        self.assertNotIn("PRIVATE_EXPLANATION", serialized)
+        self.assertNotIn("PRIVATE_RESPONSE", serialized)
+        self.assertNotIn("/home/yuki/", serialized)
+
+        server.add_card_attempt(
+            self.card_attempt_payload(
+                event_id="card-weakness-3",
+                selected_answer=True,
+            )
+        )
+        current = server.learning_analysis()
+        self.assertEqual(current["analysis"]["source"], "live")
+        self.assertIn("attempts", current["freshness"]["reasonCodes"])
+
     def test_card_attempt_table_is_append_only(self) -> None:
         server.add_card_attempt(self.card_attempt_payload())
         with self.assertRaises(sqlite3.IntegrityError):
@@ -1094,6 +1158,18 @@ class ProductionApiTest(unittest.TestCase):
             self.assertEqual(card_progress["overall"]["attempts"], 0)
             self.assertIn("card-1", card_progress["byCard"])
 
+            status, learning_analysis = self.request(
+                http_server,
+                "GET",
+                "/api/learning-analysis",
+            )
+            self.assertEqual(status, HTTPStatus.OK)
+            self.assertTrue(learning_analysis["available"])
+            self.assertEqual(
+                learning_analysis["studyView"]["id"],
+                "weakness",
+            )
+
             status, reviews = self.request(
                 http_server,
                 "GET",
@@ -1192,6 +1268,8 @@ class ProductionApiTest(unittest.TestCase):
             self.assertEqual(payload["attempt"]["scopeMode"], "review")
             self.assertEqual(payload["attempt"]["mode"], "review")
             self.assertEqual(payload["overall"]["attempts"], 1)
+            self.assertTrue(payload["learningAnalysisUpdated"])
+            self.assertTrue(self.weakness_path.is_file())
 
             status, similarities = self.request(
                 http_server,

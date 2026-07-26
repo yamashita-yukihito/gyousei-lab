@@ -482,7 +482,7 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 
 .study-controls {
   display: grid;
-  grid-template-columns: minmax(120px, .7fr) minmax(150px, 1fr) minmax(150px, 1fr) minmax(220px, 1.25fr) minmax(190px, 1fr);
+  grid-template-columns: minmax(110px, .65fr) minmax(140px, .9fr) minmax(155px, .95fr) minmax(135px, .85fr) minmax(205px, 1.2fr) minmax(180px, 1fr);
   gap: 10px;
   padding: 13px;
   border: 1px solid var(--line);
@@ -492,6 +492,7 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .study-controls label, .study-history { display: grid; gap: 5px; align-content: start; }
 .study-controls label > span, .study-history > span { color: var(--muted); font-size: 11px; font-weight: 800; }
 .study-controls label > small, .study-history > small { color: var(--muted); font-size: 11px; line-height: 1.45; }
+.study-controls select:disabled { cursor: not-allowed; opacity: .62; }
 .study-history { padding: 5px 10px; border-left: 3px solid #91b9a5; }
 .study-history strong { color: var(--deep); font-size: 15px; }
 .study-storage.saved { color: var(--green); }

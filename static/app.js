@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260726-3";
+  const APP_VERSION = "20260726-4";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -42,6 +42,8 @@
     cardStorageMode: "loading",
     cardSaveChain: Promise.resolve(),
     cardApiAvailable: false,
+    weaknessAnalysis: { available: false, summary: {}, targets: [] },
+    weaknessTargets: new Map(),
     quizPool: [],
     quizIndex: 0,
     quizAnswered: false,
@@ -85,12 +87,19 @@
       const cardRequest = fetchAllCardPages()
         .then((payload) => ({ payload, error: null }))
         .catch((error) => ({ payload: {}, error }));
-      const [overview, cardResult] = await Promise.all([
+      const weaknessRequest = fetchJson(API + "/learning-analysis")
+        .then((payload) => ({ payload, error: null }))
+        .catch((error) => ({ payload: { available: false }, error }));
+      const [overview, cardResult, weaknessResult] = await Promise.all([
         fetchJson(API + "/overview"),
-        cardRequest
+        cardRequest,
+        weaknessRequest
       ]);
 
-      ingestInitialData(overview, cardResult.payload);
+      ingestInitialData(overview, cardResult.payload, weaknessResult.payload);
+      if (weaknessResult.error) {
+        console.warn("弱点分析だけ読み込めませんでした", weaknessResult.error);
+      }
       await syncPendingAttempts();
       renderSummary();
       try {
@@ -122,7 +131,7 @@
     }
   }
 
-  function ingestInitialData(overview, cardPayload) {
+  function ingestInitialData(overview, cardPayload, weaknessPayload) {
     state.overview = overview || {};
     state.dataInventory = state.overview.dataInventory || {};
     state.cards = pickArray(cardPayload, ["explanationCards", "cards", "items"]);
@@ -136,6 +145,7 @@
     );
     state.evidenceById = new Map(state.relatedEvidence.map((item) => [item.choiceId, item]));
     state.studyById = new Map(state.studyDecks.map((item) => [studyCardId(item), item]));
+    ingestWeaknessAnalysis(weaknessPayload);
   }
 
   function mergeQuestionPayloads(payloads) {
@@ -381,17 +391,56 @@
 
   // ---- Frequent-topic OX study cards -----------------------------------
 
+  function ingestWeaknessAnalysis(payload) {
+    const analysis = payload && typeof payload === "object" ? payload : {};
+    const targets = Array.isArray(analysis.targets)
+      ? analysis.targets.filter((target) =>
+        target && typeof target.cardId === "string" &&
+        ["weak", "watch", "recovering"].includes(target.status)
+      )
+      : [];
+    state.weaknessAnalysis = {
+      available: analysis.available === true,
+      analysis: analysis.analysis || {},
+      freshness: analysis.freshness || {},
+      summary: analysis.summary || {},
+      targets
+    };
+    state.weaknessTargets = new Map(targets.map((target) => [target.cardId, target]));
+  }
+
+  async function loadWeaknessAnalysis() {
+    try {
+      ingestWeaknessAnalysis(await fetchJson(API + "/learning-analysis"));
+      renderStudyViewSummary();
+      if (state.cardApiAvailable) {
+        renderStudyScopeSummary();
+        if (state.studyCurrent) renderStudyBadges(state.studyCurrent);
+      }
+      return true;
+    } catch (error) {
+      console.warn("弱点分析を更新できませんでした", error);
+      return false;
+    }
+  }
+
   function bindStudyEvents() {
     $("study-subject").addEventListener("change", () => {
       refreshStudyTopicOptions();
       refreshStudyPool();
     });
     $("study-topic").addEventListener("change", refreshStudyPool);
+    $("study-view").addEventListener("change", () => {
+      updateStudyViewControls();
+      refreshStudyPool();
+    });
     $("study-scope").addEventListener("change", refreshStudyPool);
     $("study-order").addEventListener("change", () => { state.studyIndex = 0; });
     $("study-next").addEventListener("click", showNextStudyCard);
     $("study-show-all").addEventListener("click", () => {
+      $("study-view").value = "standard";
       $("study-scope").value = "all";
+      updateStudyViewControls();
       refreshStudyPool();
     });
     $("study-show-all-topics").addEventListener("click", () => {
@@ -427,8 +476,32 @@
     state.cardPendingAttempts = loadCardPendingAttempts();
     await loadCardProgress();
     rebuildCardProgress();
+    updateStudyViewControls();
     refreshStudyPool();
     scheduleCardPendingSync();
+  }
+
+  function isWeaknessStudyView() {
+    return $("study-view").value === "weakness";
+  }
+
+  function updateStudyViewControls() {
+    const weakness = isWeaknessStudyView();
+    $("study-scope").disabled = weakness;
+    $("study-mode-note").textContent = weakness
+      ? "苦手・要観察では、現行版カードの回答だけを使い、要観察・苦手・回復中を表示します。1回の誤答だけで「苦手」とは判定しません。"
+      : "おまかせでは、正解が不正解より3回多くなった問題を「習得済み」として出題から外します。全問題モードならいつでも復習できます。";
+    renderStudyViewSummary();
+  }
+
+  function renderStudyViewSummary() {
+    const node = $("study-view-summary");
+    if (!state.weaknessAnalysis.available) {
+      node.textContent = "現在は通常ビューのみ利用できます";
+      return;
+    }
+    const summary = state.weaknessAnalysis.summary || {};
+    node.textContent = "復習対象 " + safeCount(summary.targetCount) + "問・最新回答まで反映";
   }
 
   function refreshStudyTopicOptions() {
@@ -467,6 +540,15 @@
 
   function getFilteredStudyCards() {
     const cards = getStudyTopicCards();
+    if (isWeaknessStudyView()) {
+      return cards
+        .filter((item) => state.weaknessTargets.has(studyCardId(item)))
+        .sort((left, right) => {
+          const leftTarget = state.weaknessTargets.get(studyCardId(left));
+          const rightTarget = state.weaknessTargets.get(studyCardId(right));
+          return safeCount(rightTarget && rightTarget.priority) - safeCount(leftTarget && leftTarget.priority);
+        });
+    }
     return $("study-scope").value === "all" ? cards : cards.filter((item) => !isStudyMastered(item));
   }
 
@@ -480,6 +562,17 @@
 
   function renderStudyScopeSummary() {
     const cards = getStudyTopicCards();
+    if (isWeaknessStudyView()) {
+      const targets = cards
+        .map((item) => state.weaknessTargets.get(studyCardId(item)))
+        .filter(Boolean);
+      const weak = targets.filter((target) => target.status === "weak").length;
+      const watch = targets.filter((target) => target.status === "watch").length;
+      const recovering = targets.filter((target) => target.status === "recovering").length;
+      $("study-scope-summary").textContent =
+        "復習対象 " + targets.length + "問 / 苦手 " + weak + "・要観察 " + watch + "・回復中 " + recovering;
+      return;
+    }
     const mastered = cards.filter(isStudyMastered).length;
     const target = $("study-scope").value === "all" ? cards.length : cards.length - mastered;
     $("study-scope-summary").textContent = $("study-scope").value === "all"
@@ -489,13 +582,24 @@
 
   function renderStudyEmpty() {
     const cards = getStudyTopicCards();
+    const weakness = isWeaknessStudyView();
     const review = $("study-scope").value === "review";
     const topicSelected = $("study-topic").value !== "all" || $("study-subject").value !== "all";
     const allMastered = cards.length && cards.every(isStudyMastered);
     $("study-empty").hidden = false;
-    $("study-show-all").hidden = !review || !cards.length;
+    $("study-show-all").hidden = (!review && !weakness) || !cards.length;
+    $("study-show-all").textContent = weakness ? "通常ビューで全問題を見る" : "全問題モードで復習する";
     $("study-show-all-topics").hidden = !topicSelected;
-    if (review && allMastered && topicSelected) {
+    if (weakness && !state.weaknessAnalysis.available) {
+      $("study-empty-title").textContent = "弱点分析を読み込めませんでした";
+      $("study-empty-message").textContent = "通常ビューはそのまま利用できます。少し待って再読み込みしてください。";
+    } else if (weakness && topicSelected) {
+      $("study-empty-title").textContent = "この分野に復習対象はありません";
+      $("study-empty-message").textContent = "科目・分野を「すべて」に戻すか、通常ビューで学習を続けられます。";
+    } else if (weakness) {
+      $("study-empty-title").textContent = "現在、復習対象の苦手はありません";
+      $("study-empty-message").textContent = "通常ビューで回答すると、要観察・苦手・回復中が自動更新されます。";
+    } else if (review && allMastered && topicSelected) {
       $("study-empty-title").textContent = "この分野の問題はすべて習得済みです";
       $("study-empty-message").textContent = "全問題モードで復習するか、科目・分野を「すべて」に戻すと続けられます。";
     } else if (review && allMastered) {
@@ -557,6 +661,14 @@
   function renderStudyBadges(item) {
     const relatedCount = (item.relatedPastQuestions || []).length;
     const labels = [item.category, item.topic];
+    const weaknessTarget = state.weaknessTargets.get(studyCardId(item));
+    if (weaknessTarget) {
+      labels.push({
+        weak: "苦手",
+        watch: "要観察",
+        recovering: "回復中"
+      }[weaknessTarget.status]);
+    }
     if (relatedCount) labels.push(relatedCount + "件の実際の肢");
     if (item.derivedFromWritten) labels.push("記述式から作成");
     if (isStudyMastered(item)) labels.push("習得済み");
@@ -575,6 +687,7 @@
     const isCorrect = selected === Boolean(item.correct);
     const answeredAt = new Date().toISOString();
     const attemptId = "card-attempt-" + uuid();
+    const studyMode = isWeaknessStudyView() ? "weakness" : $("study-scope").value;
     const responseMs = state.studyStartedAt === null
       ? null
       : Math.max(0, Math.min(86400000, Math.round(performance.now() - state.studyStartedAt)));
@@ -586,10 +699,10 @@
       cardId: studyCardId(item),
       answerRevision: studyAnswerRevision(item),
       selectedAnswer: selected,
-      mode: $("study-scope").value,
+      mode: studyMode,
       orderMode: $("study-order").value,
       topicFilter: $("study-topic").value,
-      scopeMode: $("study-scope").value,
+      scopeMode: studyMode,
       shownAt: state.studyShownAt,
       answeredAt,
       responseMs,
@@ -712,7 +825,9 @@
     $("study-subject").value = target.subjectId || "all";
     refreshStudyTopicOptions();
     $("study-topic").value = target.topic || "all";
+    $("study-view").value = "standard";
     $("study-scope").value = "all";
+    updateStudyViewControls();
     state.studyFiltered = getFilteredStudyCards();
     state.studyCurrent = target;
     state.studyIndex = state.studyFiltered.indexOf(target);
@@ -783,6 +898,8 @@
   }
 
   function studyWeaknessScore(item) {
+    const analyzed = state.weaknessTargets.get(studyCardId(item));
+    if (isWeaknessStudyView() && analyzed) return safeCount(analyzed.priority);
     const progress = getCardProgress(studyCardId(item));
     if (!progress.correct && !progress.incorrect) return 2;
     return progress.incorrect * 3 - progress.correct;
@@ -913,6 +1030,7 @@
     }
 
     setCardStorageStatus("サーバーへ保存中…", "saving");
+    let savedAny = false;
     while (state.cardPendingAttempts.length) {
       const attempt = state.cardPendingAttempts[0];
       try {
@@ -922,6 +1040,7 @@
         if (hasCardProgressSnapshot(snapshot)) state.cardServerProgress = normalizeCardProgress(snapshot);
         else applyCardAttempt(state.cardServerProgress, attempt);
         state.cardStorageMode = "server";
+        savedAny = true;
         rebuildCardProgress();
         renderStudyProgressDisplays();
       } catch (error) {
@@ -942,6 +1061,7 @@
         return false;
       }
     }
+    if (savedAny) await loadWeaknessAnalysis();
     setCardStorageStatus(countCardFailedAttempts() ? "サーバー保存・要確認データあり" : "サーバーに保存", countCardFailedAttempts() ? "error" : "saved");
     if (!$("study-save-status").classList.contains("error")) $("study-save-status").textContent = "回答履歴をサーバーに保存しました。";
     return true;

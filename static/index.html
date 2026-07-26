@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#183a34">
   <title>行政書士 過去問ラボ</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23183a34'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='39' fill='white'%3E%E8%A1%8C%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=20260726-3">
+  <link rel="stylesheet" href="styles.css?v=20260726-4">
 </head>
 <body>
   <a class="skip-link" href="#main-content">本文へ移動</a>
@@ -63,11 +63,12 @@
       <div class="study-controls" aria-label="○×学習の出題設定">
         <label><span>科目</span><select id="study-subject"><option value="all">すべて</option></select></label>
         <label><span>分野</span><select id="study-topic"><option value="all">すべて</option></select></label>
+        <label><span>学習ビュー</span><select id="study-view"><option value="standard">通常</option><option value="weakness">苦手・要観察</option></select><small id="study-view-summary">弱点分析を確認中…</small></label>
         <label><span>出題順</span><select id="study-order"><option value="sequence">順番に見る</option><option value="weak">苦手を優先</option><option value="random">ランダム</option></select></label>
         <label><span>出題範囲</span><select id="study-scope"><option value="review">おまかせ（習得済みを除く）</option><option value="all">全問題を出す</option></select><small id="study-scope-summary">出題対象を計算中…</small></label>
         <div class="study-history"><span>この問題の履歴</span><strong id="study-history-label">正解 0 / 不正解 0</strong><small id="study-storage-status" class="study-storage saving" aria-live="polite">保存先を確認中…</small></div>
       </div>
-      <p class="study-mastery-note">おまかせでは、正解が不正解より3回多くなった問題を「習得済み」として出題から外します。全問題モードならいつでも復習できます。</p>
+      <p id="study-mode-note" class="study-mastery-note">おまかせでは、正解が不正解より3回多くなった問題を「習得済み」として出題から外します。全問題モードならいつでも復習できます。</p>
 
       <div id="study-loading" class="message-card" hidden>学習カードを読み込んでいます…</div>
       <div id="study-error" class="message-card error" hidden><strong>学習カードを読み込めませんでした。</strong><p>過去問原文・記述式・Claude監査などの画面は、そのまま利用できます。</p></div>
@@ -350,6 +351,6 @@
 
   <footer><p>本人専用・行政書士学習環境　回答履歴と類似判定はサーバー保存</p></footer>
   <noscript>この画面の利用にはJavaScriptが必要です。</noscript>
-  <script src="app.js?v=20260726-3"></script>
+  <script src="app.js?v=20260726-4"></script>
 </body>
 </html>

@@ -159,6 +159,7 @@ flowchart LR
     Event --> SQLite[(SQLite 正本)]
     SQLite --> Aggregate[決定論的集計]
     Aggregate --> Snapshot[弱点分析snapshot]
+    Snapshot --> WeaknessView[苦手・要観察 studyView]
     Snapshot --> AI[AIによる説明・教材提案]
     AI --> Reviewed[人が画面で確認できる小さな更新]
     Reviewed --> Solve
@@ -210,17 +211,25 @@ MVPの判定:
 
 - AIへ渡す標準データは集計snapshotとし、原則として全回答イベントの生exportを渡さない。
 - AI文章はカードIDと数値を引用する。法律説明は検証済みカードを根拠にする。
+- `/api/learning-analysis`はsnapshotから固定項目だけを公開する。snapshotが未生成・
+  stale・不正なら、同じ判定器でSQLiteから現在値を読み取り専用集計して継続する。
+- カード回答の保存成功後は`weakness-latest.json`だけをatomic更新する。世代別snapshotは
+  手動分析時に残し、回答イベントや本番bundleは変更しない。
 
 ## 7. 学習ビュー
 
 別々のアプリや重複データを作らず、共通のカードrenderer、回答API、履歴を使う。
 
-予定する `studyView`:
+実装済み:
+
+- `weakness`: 「苦手」「要観察」「回復中」を優先度順に出す。通常学習と同じ
+  card ID、renderer、`/api/card-attempts`、回答履歴を使う。
+
+今後追加する `studyView`:
 
 - `administrative-law`: 行政法
 - `civil-law`: 民法
 - `all-subjects-frequent`: 全分野頻出
-- `weakness`: 苦手
 - `cross-subject`: 分野横断比較
 - `all`: 全問題
 
@@ -264,7 +273,7 @@ MVPの判定:
 4. `/api/cards` は `subjectId`、`topic`とページングを扱う。
 5. `/api/similarities` は、紐づく過去問の科目・年度・topic・formatと
    ページングを扱う。
-6. UI初回はoverviewと学習カードだけを読み、過去問、記述、Claude監査、
+6. UI初回はoverview、学習カード、弱点分析projectionを読み、過去問、記述、Claude監査、
    類似候補は各タブを初めて開いた時に読む。各ページは250件ずつ最後まで追う。
 7. ○×学習はquestions、Claude監査、similaritiesが取得できなくても起動する。
 
@@ -303,6 +312,8 @@ fail closedを保ったままrelease manifest由来へ移すことである。
 
 現在の読取API:
 
+- `/api/learning-analysis`: 弱点snapshotの固定schema公開projection。
+  `bundleRevision`と`maxAttemptId`を照合し、stale時は現在値へfallback
 - `/api/questions`: `subjectId`、`year`、`topic`、`format`、`limit`、`offset`
 - `/api/cards`: `subjectId`、`topic`、`limit`、`offset`
 - `/api/similarities`: 紐づく過去問の`subjectId`、`year`、`topic`、`format`、
@@ -310,8 +321,7 @@ fail closedを保ったままrelease manifest由来へ移すことである。
 
 将来:
 
-- `/api/learning-analysis` または同等の弱点集計API
-- `studyViews` と `learningRelations`
+- 追加の`studyViews`と`learningRelations`
 
 ## 11. 3か月ロードマップ
 
@@ -323,13 +333,13 @@ fail closedを保ったままrelease manifest由来へ移すことである。
 - 完了: 1,205件・複数科目fixture
 - 完了: API filter/page、タブ遅延読込
 - 完了: SQLite backup/quick_checkとruntime権限の確認
-- 完了: PC幅・スマホ幅の実Chrome確認
+- 完了: PC幅・スマホ幅の実Chrome確認（苦手`studyView`追加前）
 - 完了: current revisionの`card_attempts`だけを使う弱点分析snapshot MVP
+- 完了: 同じカードID・回答履歴を使う苦手`studyView`
 
 ### Phase 1: 8月
 
 - 民法の優先20〜30論点
-- 苦手`studyView`
 - 科目別view
 - 実際の回答でB二案と出題順を調整
 
@@ -361,11 +371,11 @@ fail closedを保ったままrelease manifest由来へ移すことである。
 
 ## 12. 次に行う作業
 
-多科目化の基礎工事、PC・スマホ実画面確認、弱点分析snapshot MVPは完了した。
+多科目化の基礎工事、弱点分析snapshot MVP、苦手`studyView`は完了した。
 
-1. snapshotを読む苦手`studyView`を実装する。
-2. 民法追加前に、カード×原問監査schemaを全科目向けに一般化する。
-3. 民法の優先20〜30論点へ進む。
+1. 民法追加前に、カード×原問監査schemaを全科目向けに一般化する。
+2. 民法の優先20〜30論点へ進む。
+3. 行政法と民法の`learningRelations`へ進む。
 
 このディレクトリはprivate Gitリポジトリ `yamashita-yukihito/gyousei-lab` で管理する。
 親の `yuki-services` はGitリポジトリではないため、親で `git init` しない。

@@ -8,13 +8,13 @@
 
 最初に、次の指示をそのまま実行する。
 
-> 大量の民法カード作成はまだ始めないでください。多科目化の基礎工事とPC・スマホ実画面確認は完了し、ユーザー確認待ちです。まず `AGENTS.md`、`HANDOFF.md`、`ARCHITECTURE.md`、`authoring/README.md` を読んでください。
+> 大量の民法カード作成はまだ始めないでください。多科目化の基礎工事、弱点分析snapshot、苦手・要観察`studyView`まで実装済みです。まず `AGENTS.md`、`HANDOFF.md`、`ARCHITECTURE.md`、`authoring/README.md` を読んでください。
 >
-> ユーザーが確認するまではそこで止まり、確認後に弱点分析MVPまたは民法20〜30論点へ進んでください。UIを変更した場合だけ、PC幅とスマホ幅を再確認してください。
+> 次はカード×原問監査schemaを全科目向けに一般化し、その後に民法20〜30論点へ進んでください。直前作業でUIを変更しているため、ブラウザを利用できる環境ではPC幅とスマホ幅を再確認してください。
 >
 > 既存の問題ID・カードID・deck ID・`production.sqlite3`の行を変更しないでください。このディレクトリはprivate Gitリポジトリとして管理し、親の `yuki-services` では `git init` しないでください。
 
-2026年7月26日に、rawを変えないcanonical科目ID変換、1,205件・複数科目fixture、API filter/page、タブ遅延読込を実装した。UI初回はoverviewと学習カードだけを読み、APIは各ページを最後まで取得する。PC 1440px・スマホ用CSS幅500pxと、過去問・記述・Claude監査・類似確認の遅延読込を実Chromeで確認済み。詳細は `ARCHITECTURE.md` の「多科目化のスケーラビリティ基盤」を参照する。
+2026年7月26日に、rawを変えないcanonical科目ID変換、1,205件・複数科目fixture、API filter/page、タブ遅延読込を実装した。UI初回はoverview、学習カード、弱点分析projectionを読み、APIは各ページを最後まで取得する。既存画面はPC 1440px・スマホ用CSS幅500pxで実Chrome確認済み。苦手`studyView`追加後の実ブラウザ確認は未実施。詳細は `ARCHITECTURE.md` の「多科目化のスケーラビリティ基盤」を参照する。
 
 ## 1. 現在の到達点
 
@@ -316,6 +316,17 @@ PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/python3.12 weakness_analysis.py
 stale revisionは履歴として残したまま現在判定から除外し、
 `stale_revision_ignored`と件数をsnapshotへ記録する。
 
+### 7.2 苦手studyView
+
+学習画面の「学習ビュー」で「苦手・要観察」を選ぶと、`weak`、`watch`、
+`recovering`のカードだけを優先度順に表示する。別deckや別回答履歴は作らず、
+通常学習と同じcard ID、renderer、`/api/card-attempts`を使う。
+
+`/api/learning-analysis`は非公開snapshotから固定項目だけを返す。
+`bundleRevision`または`maxAttemptId`が一致しない場合は、同じ判定器で現在のSQLiteを
+読み取り専用集計する。カード回答が保存された時は`weakness-latest.json`を
+`0600`でatomic更新する。snapshotの内部パス、provider本文、raw回答は返さない。
+
 ## 8. 問題生成・頻出度・類似探索
 
 Macを正本とし、次の境界で管理する。
@@ -376,8 +387,8 @@ safe ○×候補へ分解せず、問題単位reviewへ残す。全分野の件�
 
 - このディレクトリはprivate Gitリポジトリ `yamashita-yukihito/gyousei-lab` で管理する。親の `yuki-services` はGitリポジトリではない。
 - タブ補足と本番掲載件数はAPI集計から動的表示する。行政法の現件数を固定値へ戻さない。
-- `static/app.js` の版は `20260726-3`。UI資産を変更する時はHTMLのクエリ版と一緒に更新する。
-- UI初回はoverviewとcardsだけを読み、questions、Claude監査、similaritiesはタブ単位で遅延読込する。
+- `static/app.js` の版は `20260726-4`。UI資産を変更する時はHTMLのクエリ版と一緒に更新する。
+- UI初回はoverview、cards、learning-analysisを読み、questions、Claude監査、similaritiesはタブ単位で遅延読込する。
 - rawのunderscore科目IDは変えず、`authoring/src/gyousei_pipeline/subjects.py`を公開canonical変換の正本にする。
 - production bundle builderには現行件数の固定期待値がある。多科目化時はfail closedを保ちつつrelease manifest由来へ一般化する。
 - `static/app.js` は `const API = "api"` という相対URLを使う。末尾スラッシュ付きサービスURLとnginxの `proxy_pass .../api/` が前提なので、安易に絶対 `/api` へ変えない。
@@ -386,10 +397,9 @@ safe ○×候補へ分解せず、問題単位reviewへ残す。全分野の件�
 
 次の優先順位:
 
-1. 弱点分析snapshotを使う苦手`studyView`。
-2. カード×原問監査schemaの全科目一般化。
-3. 民法の優先20〜30論点と、行政法との分野横断関係。
-4. 全分野頻出view、憲法・商法等の重点追加。
+1. カード×原問監査schemaの全科目一般化。
+2. 民法の優先20〜30論点と、行政法との分野横断関係。
+3. 全分野頻出view、憲法・商法等の重点追加。
 
 弱点分析snapshotはSQLiteを更新せず、未学習と苦手を分け、1回の誤答だけで
 不得意と断定しない。科目別・全分野頻出・弱点は別deckの複製ではなく、
