@@ -192,6 +192,49 @@ class LearningIndexTests(unittest.TestCase):
             ["admin-card"], topic_index["administrative-law::行政手続法"]["cardIds"]
         )
 
+    def test_private_explanation_candidate_is_ranked_without_frequency_or_leaks(
+        self,
+    ) -> None:
+        private_candidate = candidate(
+            "q-2025-10:provider-explanation:ア",
+            2025,
+            10,
+            "弁明の機会の付与を受ける当事者は代理人を選任できる。",
+            subject="administrative_law",
+        )
+        private_candidate.update(
+            {
+                "candidateKind": "provider_explanation_proposition",
+                "frequencyEligible": False,
+                "providerExplanationParagraphs": [
+                    "PRIVATE-PROVIDER-NARRATIVE-MUST-NOT-BE-PROJECTED"
+                ],
+                "questionContext": {
+                    "prompt": "PRIVATE-PROMPT-MUST-NOT-BE-PROJECTED"
+                },
+                "sourceInput": "/private/internal/path/must-not-be-projected.json",
+            }
+        )
+
+        result = build_learning_index(
+            [card("admin-card")],
+            [private_candidate],
+            min_score=0.01,
+            generated_at="2026-07-26T00:00:00Z",
+        )
+
+        admin = result["cards"][0]
+        self.assertEqual(
+            ["q-2025-10:provider-explanation:ア"],
+            [item["candidateId"] for item in admin["rankings"]["sameField"]],
+        )
+        self.assertFalse(admin["rankings"]["sameField"][0]["frequencyEligible"])
+        self.assertEqual(0, admin["frequency"]["questionCount"])
+        serialized = json.dumps(result, ensure_ascii=False)
+        self.assertNotIn("PRIVATE-PROVIDER-NARRATIVE", serialized)
+        self.assertNotIn("PRIVATE-PROMPT", serialized)
+        self.assertNotIn("/private/internal/path", serialized)
+
     def test_same_topic_plus_direct_relation_can_count(self) -> None:
         value = candidate(
             "q-2025-9:choice:1",

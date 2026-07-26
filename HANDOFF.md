@@ -309,6 +309,15 @@ safe ○×候補へ分解せず、問題単位reviewへ残す。全分野の件�
 `gyousei-dataset-inventory` で再生成できる。平成30年問56と令和6年問34の
 没問を含め、直近10年のsafe候補は1,630肢、20年合計は3,295肢である。
 
+正解番号だけでは分解できない直近10年の組合せ・個数問題には、保存済み解説の
+単一ラベル正誤と元の正解を再照合する別工程を用意した。第1段階632肢と
+監査allowlistによる第2段階41肢、合計673肢・140原問を非公開sidecarへ生成する。
+全候補は`reviewed=false`、`publishable=false`、`frequencyEligible=false`であり、
+既存`review_candidates.json`を置換せず、本番bundleへ自動投入しない。
+実問題を含むallowlistは
+`all_subjects/current_2016_2025/curation/explanation_mapping_ox_rules.json`
+を正本とする。
+
 ## 9. 将来の科目追加
 
 - 現在の安定したdeck IDを維持し、すべての科目を同じ回答履歴へ追加する。

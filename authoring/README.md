@@ -146,6 +146,39 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m gyousei_pipeline.learning_in
 
 `similarity_candidates.json`では、従来の厳密類似9組・7グループ（16肢）を残したまま、文字n-gramと重要法令語による高再現率のレビュー候補を追加しています。現在は588組・363肢（655肢の55.42%）です。同一問題内を除外し、行政法サブラベルの一致と各肢top 4で候補数を制限しています。これは頻出論点を確定した結果ではなく、人が関連性を確認するための候補です。
 
+## 解説から作る非公開○×候補
+
+正解番号だけでは肢ごとの真偽を決められない組合せ・個数問題について、
+保存済みの合格道場解説と元問題の正解を厳格に再結合して候補を作ります。
+
+- `gyousei-explanation-ox`: 単一ラベルと明示的な正誤見出しから632肢を生成
+- `gyousei-mapping-ox`: 監査済みallowlistから41肢を生成
+- 合計673肢・140原問
+- 全候補を`reviewed=false`、`publishable=false`、
+  `frequencyEligible=false`で生成
+- provider解説本文、監査ルール、sidecarは非公開編集データだけに保存
+
+実問題を含むルールの正本:
+
+```text
+$GYOUSEI_DATA_ROOT/all_subjects/current_2016_2025/curation/explanation_mapping_ox_rules.json
+```
+
+生成:
+
+```bash
+export GYOUSEI_DATA_ROOT="$HOME/.local/share/yuki-services/gyousei-lab/authoring"
+/opt/homebrew/bin/uv run gyousei-explanation-ox \
+  --expected-candidate-count 632 \
+  --expected-corroboration-count 1534 \
+  --expected-target-crosscheck-count 132
+/opt/homebrew/bin/uv run gyousei-mapping-ox
+```
+
+2つのsidecarは既存`review_candidates.json`を置換しません。
+`learning_index`の検索・編集候補には追加できますが、内容監査と
+topic分類が終わるまで頻出回数へ入れません。本番bundleへの昇格は別工程です。
+
 ## AI法令監査の安全境界
 
 令和8年度試験は2026年4月1日現在施行の法令から出題されるため、監査実行日と試験基準日を分離しています。現在のreview schema v3は`ai-legal-review-manifest@3`、`ai-legal-review-batch@3`、`ai-legal-review-response@3`、`ai-legal-review-import@3`です。全655肢を、`targetLegalAsOf=2026-04-01`をIDに含む10肢単位の66バッチへ作り直しました。応答は`targetLawStatus`と`targetTruth`を返し、`legalAsOf`がバッチの基準日と異なればimportできません。
