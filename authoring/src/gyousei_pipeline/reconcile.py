@@ -19,6 +19,7 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 from .common import atomic_write_json, data_root, load_json, utc_now
+from .subjects import canonical_subject_id
 
 
 REPORT_SCHEMA_VERSION = "answer-reconciliation@1"
@@ -348,6 +349,16 @@ def reconcile_record(
             official_answer=None,
             status="unsupported",
             reason="invalid_record_identity",
+        )
+
+    explicit_subject_id = canonical_subject_id(record.get("subjectId"))
+    if explicit_subject_id and explicit_subject_id != "administrative-law":
+        return _result(
+            record,
+            provider_answer=provider,
+            official_answer=None,
+            status="unavailable",
+            reason="official_reconciliation_not_run_for_subject",
         )
 
     state, unavailable_reason = _year_state(official_index, exam_year)

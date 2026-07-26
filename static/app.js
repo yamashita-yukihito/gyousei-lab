@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260726-4";
+  const APP_VERSION = "20260727-2";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -396,7 +396,7 @@
     const targets = Array.isArray(analysis.targets)
       ? analysis.targets.filter((target) =>
         target && typeof target.cardId === "string" &&
-        ["weak", "watch", "recovering"].includes(target.status)
+        ["weak", "watch"].includes(target.status)
       )
       : [];
     state.weaknessAnalysis = {
@@ -489,7 +489,7 @@
     const weakness = isWeaknessStudyView();
     $("study-scope").disabled = weakness;
     $("study-mode-note").textContent = weakness
-      ? "苦手・要観察では、現行版カードの回答だけを使い、要観察・苦手・回復中を表示します。1回の誤答だけで「苦手」とは判定しません。"
+      ? "苦手・要観察では、現行版カードの回答から要観察・苦手だけを表示します。2回連続で正解して「回復中」になった問題は、このビューから外れます。"
       : "おまかせでは、正解が不正解より3回多くなった問題を「習得済み」として出題から外します。全問題モードならいつでも復習できます。";
     renderStudyViewSummary();
   }
@@ -568,9 +568,8 @@
         .filter(Boolean);
       const weak = targets.filter((target) => target.status === "weak").length;
       const watch = targets.filter((target) => target.status === "watch").length;
-      const recovering = targets.filter((target) => target.status === "recovering").length;
       $("study-scope-summary").textContent =
-        "復習対象 " + targets.length + "問 / 苦手 " + weak + "・要観察 " + watch + "・回復中 " + recovering;
+        "復習対象 " + targets.length + "問 / 苦手 " + weak + "・要観察 " + watch;
       return;
     }
     const mastered = cards.filter(isStudyMastered).length;
@@ -666,7 +665,6 @@
       labels.push({
         weak: "苦手",
         watch: "要観察",
-        recovering: "回復中"
       }[weaknessTarget.status]);
     }
     if (relatedCount) labels.push(relatedCount + "件の実際の肢");
@@ -678,6 +676,8 @@
   function renderStudyHistory(item) {
     const progress = getCardProgress(studyCardId(item));
     $("study-history-label").textContent = "正解 " + progress.correct + " / 不正解 " + progress.incorrect;
+    $("study-card-correct-count").textContent = progress.correct;
+    $("study-card-incorrect-count").textContent = progress.incorrect;
   }
 
   function answerStudyCard(button) {
@@ -1681,7 +1681,9 @@
       statement: choice && choice.text,
       labels: question.labels,
       historicalTruth,
-      officialStatus: check && check.status === "unavailable" ? "公式未照合" : "公式照合済み"
+      officialStatus: check && ["exact", "match-after-normalization", "mismatch"].includes(check.status)
+        ? "公式照合済み"
+        : "公式未照合"
     };
   }
 
@@ -2022,7 +2024,7 @@
       ["本番掲載中の過去問", questionCount + "問（択一式" + safeCount(formatCounts.regular) + "・多肢選択式" + safeCount(formatCounts.multiple_blank) + "・記述式" + safeCount(formatCounts.written) + "）"],
       ["収録科目", state.subjects.map((subject) => subject.label).join("・") || "未設定"],
       ["取得検証", "抽出エラー0件・警告0件"],
-      ["公式正答との照合", "一致" + matchedAnswers + "問・文言差" + safeCount(answerStatuses.mismatch) + "問・公式未取得" + safeCount(answerStatuses.unavailable) + "問"],
+      ["公式正答との照合", "一致" + matchedAnswers + "問・文言差" + safeCount(answerStatuses.mismatch) + "問・公式未照合" + (safeCount(answerStatuses.unavailable) + safeCount(answerStatuses.unsupported)) + "問"],
       ["Claude監査", reviewCount + "肢（2026年7月18日時点・AI一次確認）"],
       ["類似候補", similarityCount + "組（自動抽出。人の仕分け前を含む）"],
       ["学習用解説カード", cardCount + "論点"],
@@ -2261,7 +2263,9 @@
   function similarityTruthText(item) {
     const check = state.checkById.get(item.questionId);
     const base = "出題時の判定：" + truthLabel(item.inferredTruth);
-    if (!check || check.status === "unavailable") return base + "（取得元正答から推定・公式未照合）";
+    if (!check || !["exact", "match-after-normalization", "mismatch"].includes(check.status)) {
+      return base + "（取得元正答から推定・公式未照合）";
+    }
     if (check.status === "exact" || check.status === "match-after-normalization") return base + "（公式正答と照合済み）";
     return base + "（正答の照合に注意が必要）";
   }
@@ -2281,7 +2285,13 @@
     if (!check) return "正解は取得元データによるものです（公式照合状態を取得できません）。";
     if (check.status === "exact" || check.status === "match-after-normalization") return "試験実施機関の公式正答と一致しています。";
     if (check.status === "mismatch") return check.format === "written" ? "公式答案例と取得元の答案例に文言差があります。誤答とは限らないため、両方を表示しています。" : "取得元正答と公式正答に差があるため、要確認です。";
-    if (check.status === "unavailable") return "平成28・29年度は公式正答を取得できていないため、取得元に掲載された正答を表示しています。";
+    if (check.status === "unavailable") {
+      if (check.reason === "official_reconciliation_not_run_for_subject") {
+        return "この科目は公式正答との照合前のため、取得元に掲載された正答を表示しています。";
+      }
+      return "平成28・29年度は公式正答を取得できていないため、取得元に掲載された正答を表示しています。";
+    }
+    if (check.status === "unsupported") return "この問題は公式正答との照合対象外のため、取得元に掲載された正答を表示しています。";
     return "正答の照合状態：" + (check.status || "不明");
   }
 

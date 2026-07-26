@@ -12,6 +12,7 @@ from gyousei_pipeline.production_bundle import (
     BundleExpectations,
     ProductionBundleError,
     build_production_bundle,
+    expectations_from_question_manifest,
     write_private_bundle,
 )
 
@@ -462,6 +463,7 @@ class ProductionBundleTests(unittest.TestCase):
         raw_ids = ["administrative_law", "civil_law", "basic_knowledge"]
         for question, raw_id in zip(questions, raw_ids, strict=True):
             question["subjectId"] = raw_id
+        questions[1]["providerUpdatedAt"] = None
 
         bundle = self.build(
             questions=questions,
@@ -473,6 +475,7 @@ class ProductionBundleTests(unittest.TestCase):
             ["administrative-law", "civil-law", "general-knowledge"],
             [item["subjectId"] for item in bundle["questions"]],
         )
+        self.assertIsNone(bundle["questions"][1]["source"]["providerUpdatedAt"])
 
         deck = bundle["studyDecks"][0]
         self.assertEqual("deck-1", deck["id"])
@@ -600,10 +603,80 @@ class ProductionBundleTests(unittest.TestCase):
         with self.assertRaisesRegex(ProductionBundleError, "expected 3 questions"):
             self.build(questions=self.questions[:2])
 
+        subject_expectations = BundleExpectations(
+            question_count=3,
+            question_subject_counts=(
+                ("administrative-law", 2),
+                ("civil-law", 1),
+            ),
+            explanation_card_count=1,
+            related_question_evidence_count=1,
+            claude_review_count=1,
+            claude_run_count=1,
+            similarity_pair_count=1,
+            target_years=None,
+        )
+        with self.assertRaisesRegex(ProductionBundleError, "subject counts differ"):
+            self.build(expectations=subject_expectations)
+
+        format_expectations = BundleExpectations(
+            question_count=3,
+            question_format_counts=(("regular", 3),),
+            explanation_card_count=1,
+            related_question_evidence_count=1,
+            claude_review_count=1,
+            claude_run_count=1,
+            similarity_pair_count=1,
+            target_years=None,
+        )
+        with self.assertRaisesRegex(ProductionBundleError, "format counts differ"):
+            self.build(expectations=format_expectations)
+
         unsafe = similarity()
         unsafe["reviewPairs"][0]["publishable"] = "false"
         with self.assertRaisesRegex(ProductionBundleError, "publishable must be a boolean"):
             self.build(similarity=unsafe)
+
+    def test_all_subject_question_manifest_is_canonical_and_fail_closed(self) -> None:
+        manifest = {
+            "schemaVersion": "all-subjects-target@1",
+            "target": {
+                "examYears": [2025],
+                "expectedTotal": 3,
+                "expectedByFormat": {
+                    "regular": 1,
+                    "multiple_blank": 1,
+                    "written": 1,
+                },
+                "expectedBySubject": {
+                    "administrative_law": 1,
+                    "civil_law": 1,
+                    "basic_knowledge": 1,
+                },
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            path.write_text(json.dumps(manifest), encoding="utf-8")
+            expectations = expectations_from_question_manifest(path)
+
+            self.assertEqual(3, expectations.question_count)
+            self.assertEqual((2025,), expectations.target_years)
+            self.assertEqual(
+                (
+                    ("administrative-law", 1),
+                    ("civil-law", 1),
+                    ("general-knowledge", 1),
+                ),
+                expectations.question_subject_counts,
+            )
+
+            manifest["target"]["expectedTotal"] = 4
+            path.write_text(json.dumps(manifest), encoding="utf-8")
+            with self.assertRaisesRegex(
+                ProductionBundleError, "subject counts do not match"
+            ):
+                expectations_from_question_manifest(path)
 
     def test_study_deck_membership_cross_fields_and_written_origins_fail_closed(self) -> None:
         unknown_card = explanation_cards()

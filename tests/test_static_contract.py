@@ -45,6 +45,8 @@ class StaticUiContractTest(unittest.TestCase):
         html = (ROOT / "static" / "index.html").read_text(encoding="utf-8")
 
         self.assertIn('id="study-view"', html)
+        self.assertIn('id="study-card-correct-count"', html)
+        self.assertIn('id="study-card-incorrect-count"', html)
         self.assertIn('<option value="weakness">苦手・要観察</option>', html)
         self.assertIn('fetchJson(API + "/learning-analysis")', source)
         self.assertIn("state.weaknessTargets.has(studyCardId(item))", source)

@@ -83,6 +83,20 @@ class ReconciliationTests(unittest.TestCase):
         self.assertEqual("unsupported", report["results"][0]["status"])
         self.assertEqual("official_answer_ambiguous", report["results"][0]["reason"])
 
+    def test_non_administrative_subject_stays_explicitly_unreconciled(self) -> None:
+        record = json.loads(json.dumps(self.records[1]))
+        record["rawQuestionId"] = "provider:2018-27"
+        record["questionNumber"] = 27
+        record["subjectId"] = "civil_law"
+
+        report = reconcile_records([record], self.official)
+
+        self.assertEqual("unavailable", report["results"][0]["status"])
+        self.assertEqual(
+            "official_reconciliation_not_run_for_subject",
+            report["results"][0]["reason"],
+        )
+
     def test_rejects_unknown_official_index_schema(self) -> None:
         official = dict(self.official)
         official["schemaVersion"] = "unknown"

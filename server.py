@@ -120,7 +120,7 @@ WEAKNESS_STATUSES = (
     "recovering",
     "mastered",
 )
-WEAKNESS_TARGET_STATUSES = {"watch", "weak", "recovering"}
+WEAKNESS_TARGET_STATUSES = {"watch", "weak"}
 WEAKNESS_REASON_CODES = {
     "consecutive_incorrect_2",
     "recent_accuracy_lte_50",
@@ -1507,7 +1507,7 @@ def _weakness_public_projection(
         if not isinstance(raw_evidence, dict):
             raise ValueError("invalid weakness target evidence")
         priority_band = raw_target.get("priorityBand")
-        if priority_band not in {"high", "medium", "recovery"}:
+        if priority_band not in {"high", "medium"}:
             raise ValueError("invalid weakness priority band")
         targets.append(
             {
@@ -1596,7 +1596,7 @@ def _weakness_public_projection(
         "studyView": {
             "id": "weakness",
             "label": "苦手・要観察",
-            "targetStatuses": ["weak", "watch", "recovering"],
+            "targetStatuses": ["weak", "watch"],
         },
         "analysis": {
             "generatedAt": generated_at,

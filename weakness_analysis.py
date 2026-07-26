@@ -41,12 +41,10 @@ STATUSES = (
 TARGET_BASE_PRIORITY = {
     "weak": 300,
     "watch": 200,
-    "recovering": 100,
 }
 TARGET_PRIORITY_BANDS = {
     "weak": "high",
     "watch": "medium",
-    "recovering": "recovery",
 }
 
 

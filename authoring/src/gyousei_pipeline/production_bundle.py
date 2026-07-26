@@ -60,6 +60,8 @@ class BundleExpectations:
     # The administrative-law subset is checked by year/number below.  ``None``
     # lets future subjects be appended without changing code-level totals.
     question_count: int | None = None
+    question_subject_counts: tuple[tuple[str, int], ...] | None = None
+    question_format_counts: tuple[tuple[str, int], ...] | None = None
     study_deck_count: int = 1
     explanation_card_count: int = 55
     related_question_evidence_count: int = 211
@@ -322,6 +324,11 @@ def _project_question(value: Any, index: int) -> dict[str, Any]:
             raise ProductionBundleError(
                 f"{context} has no recognizable administrative-scrivener subject label"
             )
+    provider_updated_at = record.get("providerUpdatedAt")
+    if provider_updated_at is not None:
+        provider_updated_at = _text(
+            provider_updated_at, f"{context}.providerUpdatedAt"
+        )
     projected = {
         "id": raw_id,
         "source": {
@@ -336,9 +343,7 @@ def _project_question(value: Any, index: int) -> dict[str, Any]:
             "bodySha256": _text(
                 record.get("sourceBodySha256"), f"{context}.sourceBodySha256"
             ),
-            "providerUpdatedAt": _text(
-                record.get("providerUpdatedAt"), f"{context}.providerUpdatedAt"
-            ),
+            "providerUpdatedAt": provider_updated_at,
             "parserVersion": _text(
                 record.get("parserVersion"), f"{context}.parserVersion"
             ),
@@ -377,6 +382,24 @@ def _validate_question_corpus(
     ids = [question["id"] for question in questions]
     if len(ids) != len(set(ids)):
         raise ProductionBundleError("question ids are not unique")
+    if expectations.question_subject_counts is not None:
+        actual_subject_counts = Counter(
+            question["subjectId"] for question in questions
+        )
+        expected_subject_counts = dict(expectations.question_subject_counts)
+        if actual_subject_counts != expected_subject_counts:
+            raise ProductionBundleError(
+                "question subject counts differ from the release manifest: "
+                f"expected {expected_subject_counts}, got {dict(actual_subject_counts)}"
+            )
+    if expectations.question_format_counts is not None:
+        actual_format_counts = Counter(question["format"] for question in questions)
+        expected_format_counts = dict(expectations.question_format_counts)
+        if actual_format_counts != expected_format_counts:
+            raise ProductionBundleError(
+                "question format counts differ from the release manifest: "
+                f"expected {expected_format_counts}, got {dict(actual_format_counts)}"
+            )
     if expectations.target_years is None:
         return
     by_year_format: dict[int, dict[str, set[int]]] = defaultdict(
@@ -1544,6 +1567,77 @@ def build_from_paths(
     )
 
 
+def expectations_from_question_manifest(path: Path) -> BundleExpectations:
+    """Read exact question corpus expectations from an all-subject target."""
+
+    document = _object(load_json(path), str(path))
+    if document.get("schemaVersion") != "all-subjects-target@1":
+        raise ProductionBundleError("unsupported question release manifest schema")
+    target = _object(document.get("target"), f"{path}.target")
+    question_count = _integer(
+        target.get("expectedTotal"), f"{path}.target.expectedTotal"
+    )
+    years = tuple(
+        _integer(value, f"{path}.target.examYears[{index}]")
+        for index, value in enumerate(
+            _array(target.get("examYears"), f"{path}.target.examYears")
+        )
+    )
+    if not years or len(years) != len(set(years)):
+        raise ProductionBundleError("question release manifest years are invalid")
+
+    raw_subject_counts = _object(
+        target.get("expectedBySubject"), f"{path}.target.expectedBySubject"
+    )
+    subject_counts: dict[str, int] = {}
+    for raw_subject_id, raw_count in raw_subject_counts.items():
+        subject_id = canonical_subject_id(
+            _text(raw_subject_id, f"{path}.target.expectedBySubject key")
+        )
+        if subject_id not in QUESTION_SUBJECT_LABELS_BY_ID:
+            raise ProductionBundleError(
+                f"question release manifest has unsupported subject: {raw_subject_id}"
+            )
+        if subject_id in subject_counts:
+            raise ProductionBundleError(
+                f"question release manifest repeats subject: {subject_id}"
+            )
+        subject_counts[subject_id] = _integer(
+            raw_count, f"{path}.target.expectedBySubject[{raw_subject_id}]"
+        )
+
+    raw_format_counts = _object(
+        target.get("expectedByFormat"), f"{path}.target.expectedByFormat"
+    )
+    format_counts: dict[str, int] = {}
+    for raw_format, raw_count in raw_format_counts.items():
+        question_format = _text(
+            raw_format, f"{path}.target.expectedByFormat key"
+        )
+        if question_format not in TARGET_QUESTION_NUMBERS:
+            raise ProductionBundleError(
+                f"question release manifest has unsupported format: {question_format}"
+            )
+        format_counts[question_format] = _integer(
+            raw_count, f"{path}.target.expectedByFormat[{question_format}]"
+        )
+
+    if sum(subject_counts.values()) != question_count:
+        raise ProductionBundleError(
+            "question release manifest subject counts do not match expectedTotal"
+        )
+    if sum(format_counts.values()) != question_count:
+        raise ProductionBundleError(
+            "question release manifest format counts do not match expectedTotal"
+        )
+    return BundleExpectations(
+        question_count=question_count,
+        question_subject_counts=tuple(sorted(subject_counts.items())),
+        question_format_counts=tuple(sorted(format_counts.items())),
+        target_years=years,
+    )
+
+
 def write_private_bundle(path: Path, bundle: Mapping[str, Any]) -> None:
     """Atomically replace ``path`` with an fsynced mode-0600 JSON file."""
 
@@ -1622,6 +1716,14 @@ def _parser() -> argparse.ArgumentParser:
         type=Path,
         default=root / "builds" / "releases" / "gyousei-production.json",
     )
+    parser.add_argument(
+        "--question-manifest",
+        type=Path,
+        help=(
+            "all-subject target JSON whose exact total, subject, format, and year "
+            "counts must match"
+        ),
+    )
     parser.add_argument("--generated-at", help="fixed ISO timestamp for reproducible builds")
     return parser
 
@@ -1630,6 +1732,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
         _assert_private_output(args.output)
+        expectations = (
+            expectations_from_question_manifest(args.question_manifest)
+            if args.question_manifest
+            else None
+        )
         bundle = build_from_paths(
             questions_dir=args.questions_dir,
             reconciliation_path=args.reconciliation,
@@ -1639,6 +1746,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             claude_logs_dir=args.claude_logs_dir,
             similarity_path=args.similarity,
             generated_at=args.generated_at,
+            expectations=expectations,
         )
         write_private_bundle(args.output, bundle)
     except (OSError, json.JSONDecodeError, ProductionBundleError) as error:

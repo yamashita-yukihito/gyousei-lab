@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#183a34">
   <title>行政書士 過去問ラボ</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23183a34'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='39' fill='white'%3E%E8%A1%8C%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=20260726-4">
+  <link rel="stylesheet" href="styles.css?v=20260727-2">
 </head>
 <body>
   <a class="skip-link" href="#main-content">本文へ移動</a>
@@ -16,7 +16,7 @@
       <div>
         <p class="eyebrow">PRIVATE STUDY LAB · 本番運用版</p>
         <h1>行政書士<br><span>過去問ラボ</span></h1>
-        <p class="header-copy">現在は行政法を収録しています。今後は憲法・民法なども同じ回答履歴と学習方式で追加できる、本人専用の学習画面です。</p>
+        <p class="header-copy">直近10年の過去問は全6科目、○×学習カードは行政法を収録しています。回答履歴を共有して育てる、本人専用の学習画面です。</p>
       </div>
       <aside class="exam-date-card" aria-label="試験基準日">
         <span>令和8年度試験の法令基準日</span>
@@ -80,6 +80,10 @@
 
       <article id="study-card" class="content-card study-card" hidden>
         <div class="card-topline"><div id="study-badges" class="badges"></div><span id="study-position" class="position"></span></div>
+        <div class="study-card-history" aria-label="この問題の過去の回答">
+          <span>この問題の過去の回答</span>
+          <div><strong class="correct">正解 <b id="study-card-correct-count">0</b>回</strong><strong class="incorrect">不正解 <b id="study-card-incorrect-count">0</b>回</strong></div>
+        </div>
         <p id="study-subtopic" class="study-subtopic"></p>
         <p id="study-frequency" class="study-frequency" hidden></p>
 
@@ -351,6 +355,6 @@
 
   <footer><p>本人専用・行政書士学習環境　回答履歴と類似判定はサーバー保存</p></footer>
   <noscript>この画面の利用にはJavaScriptが必要です。</noscript>
-  <script src="app.js?v=20260726-4"></script>
+  <script src="app.js?v=20260727-2"></script>
 </body>
 </html>

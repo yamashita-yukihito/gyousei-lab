@@ -152,9 +152,9 @@ class WeaknessAnalysisTests(unittest.TestCase):
             by_id["weak-consecutive"]["lastAnsweredAt"],
         )
         self.assertEqual(1, snapshot["summary"]["staleRevisionAttemptsIgnored"])
-        self.assertEqual(4, snapshot["summary"]["targetCount"])
+        self.assertEqual(3, snapshot["summary"]["targetCount"])
         self.assertEqual(
-            ["weak-consecutive", "weak-window", "watch", "recovering"],
+            ["weak-consecutive", "weak-window", "watch"],
             [target["cardId"] for target in snapshot["targets"]],
         )
         self.assertEqual(

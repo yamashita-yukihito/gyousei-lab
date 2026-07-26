@@ -224,25 +224,29 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m gyousei_pipeline.review_batc
 
 ## 非公開production bundle
 
-取得済み220問、公式正答照合、本人用の行政法・頻出論点55問デッキ、学習カード55件、カードから参照する過去問肢211件、旧Claude Fable成功応答20肢と全6件のrun概要、類似候補588組を、本人用API向けの単一JSONへまとめます。run概要には成功2件だけでなく、CLI失敗2件、無効応答1件、rate limit 1件も含めます。
+直近10年の全6科目569問、正答照合、本人用の行政法・頻出論点55問デッキ、学習カード55件、カードから参照する過去問肢211件、旧Claude Fable成功応答20肢と全6件のrun概要、類似候補588組を、本人用API向けの単一JSONへまとめます。run概要には成功2件だけでなく、CLI失敗2件、無効応答1件、rate limit 1件も含めます。
 
 ```bash
-PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m gyousei_pipeline.production_bundle
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m gyousei_pipeline.production_bundle \
+  --questions-dir "$GYOUSEI_DATA_ROOT/all_subjects/current_2016_2025/extracted" \
+  --reconciliation "$GYOUSEI_DATA_ROOT/all_subjects/current_2016_2025/reports/answer-reconciliation-production.json" \
+  --question-manifest config/all_subjects_current_target.json
 ```
 
 既定の出力は
 `$GYOUSEI_DATA_ROOT/builds/releases/gyousei-production.json`です。
 編集正本は`$GYOUSEI_DATA_ROOT/canonical/`から読みます。出力先は非公開データ
 配下の`builds/`に限定し、ファイルをatomicに置き換えて権限を`0600`にします。
-件数、年度別の問題番号、公式正答との対応、旧Fable応答と成功runのdigestが
-一つでも合わなければ書き込みません。
+過去問の総数・科目別件数・形式別件数・年度、行政法の年度別問題番号、
+正答照合との対応、旧Fable応答と成功runのdigestが一つでも合わなければ
+書き込みません。
 
 bundleはホワイトリスト方式で作り、合格道場の解説、Claudeへのprompt・stdout、絶対パスを含めません。`reviewed`と`publishable`は入力値をそのまま保持し、ビルド時に承認済みへ変更しません。`similarityPairs[].pairContentDigest`は、pair IDと左右の出題表示内容から算出します。
 
 主な配列は次のとおりです。
 
 - `questions`: 3形式の問題本文・選択肢・正答。表形式14問の`choiceColumns`と`choices[].cells`も保持
-- `officialAnswerChecks`: 220問の提供元正答と公式正答の照合結果
+- `officialAnswerChecks`: 569問の正答照合結果。行政法は公式資料と照合し、他科目は未照合状態を明示
 - `studyDecks`: 本人用の頻出論点55問デッキ1件（`visibility=private`、2026年4月1日施行法令基準）
 - `explanationCards`: B二案、C、深掘り、常識力、必要な⑥を加えた学習カード55件
 - `relatedQuestionEvidence`: カードの`relatedPastQuestions[].choiceId`から参照できる平成28年度以降の過去問肢211件

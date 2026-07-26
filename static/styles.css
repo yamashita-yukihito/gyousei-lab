@@ -502,6 +502,23 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .study-empty-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 14px; }
 
 .study-card { scroll-margin-top: 88px; padding: clamp(20px, 5vw, 38px); }
+.study-card-history {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin: -7px 0 18px;
+  padding: 11px 14px;
+  border: 1px solid #cad8d0;
+  border-radius: 10px;
+  background: #f7faf8;
+}
+.study-card-history > span { color: var(--muted); font-size: 12px; font-weight: 800; }
+.study-card-history > div { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.study-card-history strong { font-size: 13px; }
+.study-card-history strong.correct { color: var(--green); }
+.study-card-history strong.incorrect { color: var(--red); }
+.study-card-history b { font-size: 17px; }
 .study-subtopic { margin: -7px 0 17px; color: var(--deep); font-family: "Yu Mincho", "Hiragino Mincho ProN", serif; font-size: clamp(22px, 4vw, 30px); font-weight: 800; }
 .study-frequency { display: inline-flex; margin: -8px 0 18px; padding: 7px 12px; border: 1px solid #b9c9c2; border-radius: 999px; background: #f0f7f4; color: #244f43; font-size: 13px; font-weight: 800; }
 
