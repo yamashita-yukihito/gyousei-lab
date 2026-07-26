@@ -134,6 +134,11 @@ install -m 0600 \
 
 大量の候補から⑤と⑥を探す補助として、`learning_index`が同一科目・同一論点・他制度を分けた候補索引を作ります。これは自動確定ではなく、文字n-gramと重要法令語で候補を絞るための非公開ツールです。
 
+`learning_index`は頻出度の正本ではありません。候補の
+`frequencyEligible`は未指定なら`false`とし、明示的に許可された候補だけを
+旧来の参考集計へ入れます。正式な頻出回数はreview済みのカード×原問監査データを
+正本とします。
+
 ```bash
 export GYOUSEI_DATA_ROOT="$HOME/.local/share/yuki-services/gyousei-lab/authoring"
 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m gyousei_pipeline.learning_index \

@@ -109,6 +109,8 @@ launchd: com.yuki.gyousei-lab
 | 安全な件数集計 | `~/.local/share/yuki-services/gyousei-lab/all-subject-inventory.json` |
 | bundle | `~/.local/share/yuki-services/gyousei-lab/gyousei-production.json` |
 | 回答履歴 | `~/.local/share/yuki-services/gyousei-lab/production.sqlite3` |
+| 最新の弱点分析 | `~/.local/share/yuki-services/gyousei-lab/weakness-latest.json` |
+| 世代別の弱点分析 | `~/.local/share/yuki-services/gyousei-lab/analytics/snapshots/` |
 | ログ | `~/Library/Logs/yuki-services/gyousei-lab/` |
 | launchd正本 | `~/dev/yuki-services/deploy/macos/launchd/com.yuki.gyousei-lab.plist` |
 | launchd設置先 | `~/Library/LaunchAgents/com.yuki.gyousei-lab.plist` |
@@ -282,6 +284,38 @@ SQLite schemaの `user_version` は3。主要3表はDB triggerでもappend-only�
 
 localStorageはorigin単位なので、旧VPSのブラウザにだけ残っていた未送信回答はMacへ自動移行されていない。サーバーへ送信済みの履歴はSQLiteで移行済み。
 
+### 7.1 弱点分析snapshot MVP
+
+`weakness_analysis.py`は本番SQLiteを読み取り専用で開き、`card_attempts`のcurrent
+`answerRevision`だけをDBの`id`順で集計する。`answer_attempts`はカードの苦手判定へ
+混ぜない。
+
+```bash
+cd ~/dev/yuki-services/apps/gyousei-lab
+PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/python3.12 weakness_analysis.py
+```
+
+生成物:
+
+```text
+~/.local/share/yuki-services/gyousei-lab/analytics/snapshots/weakness-<timestamp>.json
+~/.local/share/yuki-services/gyousei-lab/weakness-latest.json
+```
+
+- schema: `gyousei-weakness-snapshot@1`
+- 権限: `0600`
+- 保存: atomic
+- 必須識別子: `bundleRevision`、`maxAttemptId`、`analyzerVersion`
+- 分類: `unlearned`、`learning`、`watch`、`weak`、`recovering`、`mastered`
+- 直近窓: 5回
+- 苦手: 誤答2回以上かつ、直近2連続誤答、または直近5回中2回以上誤答・正答率50%以下
+- 回復中: 過去に苦手で直近2回正解
+- 習得復帰: 直近3回正解かつ`correct - incorrect >= 3`
+- 時間減衰: 使わない
+
+stale revisionは履歴として残したまま現在判定から除外し、
+`stale_revision_ignored`と件数をsnapshotへ記録する。
+
 ## 8. 問題生成・頻出度・類似探索
 
 Macを正本とし、次の境界で管理する。
@@ -325,6 +359,10 @@ safe ○×候補へ分解せず、問題単位reviewへ残す。全分野の件�
 へ保存する。これにより今回の行政法原問は、現行カードに数えるものと数えないものを
 区別済みである。候補全体を`true`にして自動集計してはならない。
 
+`learning_index`は⑤・⑥・新カードの候補探索専用であり、頻出度の正本ではない。
+候補の`frequencyEligible`は明示的に`true`と監査された場合以外は`false`とする。
+新科目ではカード作成後にカード×原問監査を行い、監査前は未判定として扱う。
+
 ## 9. 将来の科目追加
 
 - 現在の安定したdeck IDを維持し、すべての科目を同じ回答履歴へ追加する。
@@ -348,12 +386,14 @@ safe ○×候補へ分解せず、問題単位reviewへ残す。全分野の件�
 
 次の優先順位:
 
-1. PC幅・スマホ幅の実画面を利用者に見せて確認を待つ。
-2. 確認後、回答履歴をcurrent revisionだけで決定論的に集計する弱点分析MVP。
+1. 弱点分析snapshotを使う苦手`studyView`。
+2. カード×原問監査schemaの全科目一般化。
 3. 民法の優先20〜30論点と、行政法との分野横断関係。
 4. 全分野頻出view、憲法・商法等の重点追加。
 
-弱点分析はSQLiteを更新せず、集計snapshotを別ファイルへ出す。未学習と苦手を分け、1回の誤答だけで不得意と断定しない。科目別・全分野頻出・弱点は別deckの複製ではなく、共通エンジンの `studyView` として実装する。詳細は `ARCHITECTURE.md`。
+弱点分析snapshotはSQLiteを更新せず、未学習と苦手を分け、1回の誤答だけで
+不得意と断定しない。科目別・全分野頻出・弱点は別deckの複製ではなく、
+共通エンジンの`studyView`として実装する。詳細は`ARCHITECTURE.md`。
 
 ## 11. 基本検証
 

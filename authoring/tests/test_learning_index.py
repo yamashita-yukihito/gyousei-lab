@@ -63,6 +63,7 @@ def candidate(
     category: str | None = None,
     topic: str | None = None,
     relation: str | None = None,
+    frequency_eligible: bool | None = None,
 ) -> dict:
     value = {
         "candidateId": identifier,
@@ -87,6 +88,8 @@ def candidate(
         value["topic"] = topic
     if relation is not None:
         value["relation"] = relation
+    if frequency_eligible is not None:
+        value["frequencyEligible"] = frequency_eligible
     return value
 
 
@@ -122,12 +125,14 @@ class LearningIndexTests(unittest.TestCase):
                 2025,
                 10,
                 "弁明の機会の付与を受ける当事者は代理人を選任できる。",
+                frequency_eligible=True,
             ),
             candidate(
                 "q-2025-10:choice:2",
                 2025,
                 10,
                 "弁明では、本人に代わる代理人を選ぶことが認められる。",
+                frequency_eligible=True,
             ),
             candidate(
                 "q-2024-11:choice:1",
@@ -135,6 +140,7 @@ class LearningIndexTests(unittest.TestCase):
                 11,
                 "行政手続法の弁明でも代理人を選任できる。",
                 relation="same-topic",
+                frequency_eligible=True,
             ),
             candidate(
                 "q-2023-3:choice:1",
@@ -243,8 +249,23 @@ class LearningIndexTests(unittest.TestCase):
             "行政手続法上、弁明では代理人を選任できる。",
         )
         value["relations"] = ["same_topic", "same_rule"]
+        value["frequencyEligible"] = True
         result = build_learning_index([card("card-1")], [value], min_score=0.01)
         self.assertEqual(1, result["cards"][0]["frequency"]["questionCount"])
+
+    def test_frequency_is_fail_closed_unless_explicitly_enabled(self) -> None:
+        value = candidate(
+            "q-2025-9:choice:1",
+            2025,
+            9,
+            "行政手続法上、弁明では代理人を選任できる。",
+        )
+        result = build_learning_index([card("card-1")], [value], min_score=0.01)
+
+        ranked = result["cards"][0]["rankings"]["sameField"][0]
+        self.assertFalse(ranked["frequencyEligible"])
+        self.assertEqual(0, result["cards"][0]["frequency"]["questionCount"])
+        self.assertFalse(result["rankingPolicy"]["candidateFrequencyDefault"])
 
     def test_legal_terms_contribute_to_similarity(self) -> None:
         left = card(

@@ -35,6 +35,10 @@
 読み取り専用バンドルです。`production.sqlite3`は回答履歴、学習カード履歴、
 類似問題の判断を保存します。
 
+`weakness-latest.json`は、`production.sqlite3`を読み取り専用で集計した
+非公開の弱点分析snapshotです。current revisionの学習カード回答だけを使い、
+回答履歴そのものは変更しません。
+
 `all-subject-inventory.json`は、全分野20年分について「問題」「通常5肢」
 「安全な○×候補」「多肢選択」「記述」を区別した、本文を含まない集計です。
 
@@ -48,6 +52,13 @@ cd ~/dev/yuki-services/apps/gyousei-lab
 PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/python3.12 -m unittest discover -s tests -v
 /opt/homebrew/bin/node --check static/app.js
 curl http://127.0.0.1:8817/health
+```
+
+弱点分析snapshotの生成:
+
+```bash
+cd ~/dev/yuki-services/apps/gyousei-lab
+PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/python3.12 weakness_analysis.py
 ```
 
 ## 移行記録

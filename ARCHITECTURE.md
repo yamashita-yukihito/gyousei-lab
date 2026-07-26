@@ -29,6 +29,8 @@
 6. 大量生成より、小さな教材リリースと実際の回答による反復を優先する。
 7. 取得元本文・解説は非公開編集領域に置き、ブラウザへ返さない。
 8. 2026年度向け法令基準日は `2026-04-01`。
+9. 頻出度の正本はreview済みのカード×原問監査データとし、候補単体の
+   `frequencyEligible`や文字類似の集計を正本にしない。
 
 ## 3. システム構成
 
@@ -71,6 +73,8 @@ flowchart TD
 |---|---|
 | 本番bundle | `~/.local/share/yuki-services/gyousei-lab/gyousei-production.json` |
 | 回答履歴 | `~/.local/share/yuki-services/gyousei-lab/production.sqlite3` |
+| 最新の弱点分析 | `~/.local/share/yuki-services/gyousei-lab/weakness-latest.json` |
+| 世代別の弱点分析 | `~/.local/share/yuki-services/gyousei-lab/analytics/snapshots/` |
 | 公開可能な件数集計 | `~/.local/share/yuki-services/gyousei-lab/all-subject-inventory.json` |
 | 非公開編集データ | `~/.local/share/yuki-services/gyousei-lab/authoring/` |
 | 全分野20年分 | `…/authoring/all_subjects/` |
@@ -168,24 +172,42 @@ flowchart LR
 - A・C・正解などに基づく `answerRevision` で、改訂前回答を現行習得判定へ混ぜない。
 - Bだけの表現変更ではrevisionを変えない。
 
-計画する分析snapshot:
+実装済みの弱点分析MVP:
 
 ```text
 analytics/snapshots/<timestamp>.json
 weakness-latest.json
 ```
 
-最低限の項目:
+`weakness_analysis.py`が本番SQLiteを読み取り専用で開き、
+`gyousei-weakness-snapshot@1`を`0600`でatomic生成する。SQLiteの行やschemaは
+変更しない。snapshotは次を持つ。
 
 - `generatedAt`, `analyzerVersion`, `bundleRevision`, `maxAttemptId`
-- 科目・topic・subtopic別の回答数、正解、不正解、正答率
-- current revisionだけの連続正誤、直近誤答、最終回答時刻、所要時間
-- `targets[]`: cardId、priority、reasonCodes、根拠数値、推奨関連cardId
+- 科目・topic・subtopic別のカード数、回答数、正解、不正解、正答率
+- current revisionだけの直近5回答、連続正誤、最終回答、所要時間
+- `targets[]`: cardId、priority、status、reasonCodes、根拠数値
+- stale revision、deck外、未知カードを除外した件数
+
+MVPの判定:
+
+- `unlearned`: current revisionの回答0回
+- `learning`: 誤答がなく、習得条件にはまだ達していない
+- `watch`: 誤答が1回だけ、または最新誤答だが苦手条件未満
+- `weak`: 誤答が2回以上あり、直近2回が連続誤答、または直近5回中
+  2回以上誤答かつ正答率50%以下
+- `recovering`: 過去に苦手条件を満たし、その後の直近2回が連続正解
+- `mastered`: 直近3回が連続正解し、`correct - incorrect >= 3`
+
+壁時計による時間減衰は使わない。回答順はクライアント時刻ではなくDBの`id`順とし、
+古い誤答は直近5回の窓から外れることで自然に重みを下げる。
+
+`answer_attempts`は過去問単位・科目・topicの集計に使い、カードの苦手判定へ
+直接混ぜない。択一誤答を関連カードすべての誤答としてばらまかない。将来反映する
+場合は、頻出関係とは別のreview済み`attemptEvidenceRelations`を用意する。
 
 注意:
 
-- 未学習と苦手を分ける。
-- 1回の誤答だけで不得意と断定しない。
 - AIへ渡す標準データは集計snapshotとし、原則として全回答イベントの生exportを渡さない。
 - AI文章はカードIDと数値を引用する。法律説明は検証済みカードを根拠にする。
 
@@ -222,6 +244,12 @@ weakness-latest.json
 - `legalAsOf`, `reviewStatus`, `publishable`
 
 当面は既存 `crossFieldComparisons` を壊さず、builderで互換表示へ投影する。類似度だけで自動公開しない。AIで判断できない少数だけ利用者へ回す。
+
+頻出度はこれらの類似候補から自動確定しない。正本はカード×原問の監査データで、
+同じ年度・問番号をカードごとに1回へ重複除去する。`learning_index`は⑤・⑥・
+新カードの候補探索専用とし、候補の`frequencyEligible`既定値は`false`にする。
+新しい科目はカード作成後に監査を行い、監査前は「頻出でない」ではなく
+「未判定」としてfail closedに扱う。
 
 ## 9. 多科目化のスケーラビリティ基盤
 
@@ -296,12 +324,12 @@ fail closedを保ったままrelease manifest由来へ移すことである。
 - 完了: API filter/page、タブ遅延読込
 - 完了: SQLite backup/quick_checkとruntime権限の確認
 - 完了: PC幅・スマホ幅の実Chrome確認
-- 利用者確認待ち: 次を弱点分析MVPと民法20〜30論点のどちらにするか
+- 完了: current revisionの`card_attempts`だけを使う弱点分析snapshot MVP
 
 ### Phase 1: 8月
 
 - 民法の優先20〜30論点
-- 弱点分析MVP
+- 苦手`studyView`
 - 科目別view
 - 実際の回答でB二案と出題順を調整
 
@@ -333,11 +361,11 @@ fail closedを保ったままrelease manifest由来へ移すことである。
 
 ## 12. 次に行う作業
 
-多科目化の基礎工事とPC・スマホ実画面確認は完了した。大量の民法カード作成は、
-利用者の確認前には始めない。
+多科目化の基礎工事、PC・スマホ実画面確認、弱点分析snapshot MVPは完了した。
 
-1. 利用者へ実装・検証結果を示して一度止める。
-2. 利用者の確認後に、弱点分析MVPまたは民法20〜30論点へ進む。
+1. snapshotを読む苦手`studyView`を実装する。
+2. 民法追加前に、カード×原問監査schemaを全科目向けに一般化する。
+3. 民法の優先20〜30論点へ進む。
 
 このディレクトリはprivate Gitリポジトリ `yamashita-yukihito/gyousei-lab` で管理する。
 親の `yuki-services` はGitリポジトリではないため、親で `git init` しない。
@@ -366,3 +394,5 @@ fail closedを保ったままrelease manifest由来へ移すことである。
 | 2026-07-26 | 構成図を人間向けHTMLとAI向けMarkdownの二つで継続更新 |
 | 2026-07-26 | raw科目IDを公開bundle境界でcanonical化し、APIページングとタブ遅延読込を導入 |
 | 2026-07-26 | PC 1440px・スマホ用CSS幅500pxと各遅延読込タブを実Chromeで確認 |
+| 2026-07-26 | 頻出度の正本をカード×原問監査データへ一本化 |
+| 2026-07-26 | `card_attempts`のcurrent revisionだけを使う弱点分析snapshot MVPを導入 |

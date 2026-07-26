@@ -46,11 +46,12 @@
           <b aria-hidden="true">→</b>
           <article><span>2</span><strong>サーバーへ保存</strong><small>正誤・問題・時刻・所要時間</small></article>
           <b aria-hidden="true">→</b>
-          <article><span>3</span><strong>集計してAI分析</strong><small>直近の誤答、正答率、頻出度</small></article>
+          <article><span>3</span><strong>集計してAI分析</strong><small>現行カードの直近5回答・連続正誤</small></article>
           <b aria-hidden="true">→</b>
           <article><span>4</span><strong>弱点教材を更新</strong><small>不得意ページ・比較解説</small></article>
         </div>
         <p class="return-arrow">↖　更新した教材を、また解く　↙</p>
+        <p>弱点分析は学習カードの現行版への回答だけを使います。1回の誤答だけでは苦手と決めず、「要観察」「苦手」「回復中」「習得復帰」を根拠付きで分けます。過去問の択一誤答を、関連する全カードの誤答として自動加算しません。</p>
       </div>
     </section>
 
@@ -86,8 +87,8 @@
         <article class="api"><span>アプリAPI</span><strong>絞り込み＋ページング</strong><p>科目・年度・分野・形式で絞り、250件ずつ安全に表示する</p></article>
         <div class="layer-arrow" aria-hidden="true">↕</div>
         <div class="layer-bottom">
-          <article><span>本番データ</span><strong>検証済み教材 + SQLite</strong><p>学習カード、回答イベント、類似判定</p></article>
-          <article class="private"><span>非公開の編集領域</span><strong>過去問素材 + 生成パイプライン</strong><p>取得元本文・解説、候補生成、頻出度・類似探索</p></article>
+          <article><span>本番データ</span><strong>検証済み教材 + SQLite</strong><p>学習カード、追記型回答イベント、非公開の弱点分析snapshot</p></article>
+          <article class="private"><span>非公開の編集領域</span><strong>過去問素材 + 生成パイプライン</strong><p>取得元本文・解説、候補生成、カード×原問の頻出監査</p></article>
         </div>
       </div>
     </section>
@@ -129,8 +130,8 @@
         <p>大量生成を一度に行わず、20〜30論点ずつ、実際に解いて確かめながら進めます。</p>
       </div>
       <ol class="roadmap">
-        <li class="current"><span>今〜8月初旬</span><strong>多科目化の土台</strong><p>科目ID統一、1,000件超テスト、APIページング、タブ遅延読込、PC・スマホ確認まで完了。</p></li>
-        <li><span>8月</span><strong>民法と弱点分析MVP</strong><p>優先20〜30論点を追加。回答履歴から苦手を見つける集計ページを作る。</p></li>
+        <li class="current"><span>今〜8月初旬</span><strong>多科目化と弱点分析の土台</strong><p>APIページング、PC・スマホ確認に加え、回答履歴を変更しない弱点分析snapshotまで完了。</p></li>
+        <li><span>8月</span><strong>苦手ビューと民法</strong><p>根拠付きの苦手表示を作り、優先20〜30論点を追加する。</p></li>
         <li><span>9月</span><strong>横断関係と全分野頻出</strong><p>民法を拡充し、行政法との「似ているが結論が違う」関係を整理する。</p></li>
         <li><span>10月前半</span><strong>憲法・商法等を重点追加</strong><p>出題実績と本人の誤答を優先し、週1〜2回の小さな教材更新を続ける。</p></li>
         <li><span>試験前3週</span><strong>復習へ集中</strong><p>新規大量追加を止め、混合演習・記述・苦手回復を中心にする。</p></li>

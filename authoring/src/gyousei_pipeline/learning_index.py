@@ -404,6 +404,10 @@ def normalize_candidate(record: Mapping[str, Any]) -> dict[str, Any]:
     if not isinstance(citation, Mapping):
         citation = {}
     codes = relation_codes(record)
+    explicitly_enabled = (
+        record.get("frequencyEligible") is True
+        or record.get("autoAddToFrequency") is True
+    )
     explicitly_disabled = (
         record.get("frequencyEligible") is False
         or record.get("autoAddToFrequency") is False
@@ -428,7 +432,11 @@ def normalize_candidate(record: Mapping[str, Any]) -> dict[str, Any]:
         "statementText": statement,
         "field": field,
         "relationCodes": list(codes),
-        "frequencyEligible": not explicitly_disabled and not same_topic_only,
+        "frequencyEligible": (
+            explicitly_enabled
+            and not explicitly_disabled
+            and not same_topic_only
+        ),
         "sameTopicOnly": same_topic_only,
         "sourceCitation": {
             "title": normalize_dimension(citation.get("title")),
@@ -859,6 +867,8 @@ def build_learning_index(
             "sameFieldLimit": same_field_limit,
             "crossFieldLimit": cross_field_limit,
             "sameTopicOnlyAutoFrequency": False,
+            "candidateFrequencyDefault": False,
+            "frequencyAuthority": "reviewed_card_question_audit",
             "questionIdentity": ["examYear", "questionNumber"],
             "pairMaterialization": "bounded_per_card_via_inverted_index",
         },
