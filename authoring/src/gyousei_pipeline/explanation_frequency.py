@@ -3,7 +3,13 @@
 ``frequencyEligible`` is intentionally a fail-closed, candidate-global flag.
 Actual frequency is a relation between one learning card and one source exam
 question, so this module joins the generated candidates to the completed
-``card-frequency-audit@2`` without enabling automatic candidate counting.
+``card-frequency-audit@3`` without enabling automatic candidate counting.
+
+``card-frequency-audit@3`` scopes the audit by subject (``subjects[]``,
+each with its own ``subjectId``/``examYears``/``questionCount``) so future
+subjects (e.g. civil law) can be appended to the same file without changing
+this module. Only the administrative-law scope is consumed today because
+that is the only subject with completed cards.
 
 The output contains private editorial IDs and must never be served to the web.
 """
@@ -17,7 +23,7 @@ import os
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 
 from .common import atomic_write_json, data_root, load_json, utc_now
 
@@ -53,7 +59,12 @@ DEFAULT_OUTPUT = (
 )
 
 ADMINISTRATIVE_LAW = "administrative_law"
+# The frequency audit's cards[]/subjects[] use the canonical, hyphenated
+# subject ID (matching explanation_cards.json), not the raw underscore form
+# candidates carry (``ADMINISTRATIVE_LAW`` above).
+ADMINISTRATIVE_LAW_AUDIT_SUBJECT_ID = "administrative-law"
 COMPLETE_AUDIT_STATUS = "independent_recheck_complete"
+FREQUENCY_AUDIT_SCHEMA_VERSION = "card-frequency-audit@3"
 
 
 class ExplanationFrequencyError(ValueError):
@@ -113,38 +124,74 @@ def _current_card_ids(cards_document: dict[str, Any]) -> set[str]:
     return set(card_ids)
 
 
+def _audit_subjects_scope(
+    audit: Mapping[str, Any],
+) -> dict[str, tuple[set[int], int]]:
+    """Read the audit's per-subject scope from ``subjects[]``.
+
+    Returns a mapping of ``subjectId`` (canonical, hyphenated, as used by
+    ``cards[].subjectId``) to its audited ``(examYears, questionCount)``.
+    Every subject a future card references must have an entry here; this
+    keeps the file extensible (e.g. appending a civil-law entry) without any
+    subject's exam-year count being hardcoded in this module.
+    """
+
+    subjects = audit.get("subjects")
+    if not isinstance(subjects, list) or not subjects:
+        raise ExplanationFrequencyError(
+            "frequency audit subjects must be a non-empty list"
+        )
+    scope: dict[str, tuple[set[int], int]] = {}
+    for index, value in enumerate(subjects):
+        context = f"frequency audit subjects[{index}]"
+        if not isinstance(value, dict):
+            raise ExplanationFrequencyError(f"{context} must be an object")
+        subject_id = _required_text(value.get("subjectId"), name=f"{context}.subjectId")
+        if subject_id in scope:
+            raise ExplanationFrequencyError(
+                f"frequency audit has duplicate subject scope: {subject_id}"
+            )
+        raw_years = value.get("examYears")
+        if not isinstance(raw_years, list) or not raw_years:
+            raise ExplanationFrequencyError(
+                f"{context}.examYears must be a non-empty list"
+            )
+        years = {
+            _required_integer(year, name=f"{context} exam year")
+            for year in raw_years
+        }
+        question_count = _required_integer(
+            value.get("questionCount"), name=f"{context}.questionCount"
+        )
+        if question_count <= 0:
+            raise ExplanationFrequencyError(
+                f"{context}.questionCount must be positive"
+            )
+        scope[subject_id] = (years, question_count)
+    return scope
+
+
 def _audited_relations(
     audit: dict[str, Any], *, current_card_ids: set[str]
 ) -> tuple[dict[str, list[str]], set[int], int]:
     if not isinstance(audit, dict):
         raise ExplanationFrequencyError("frequency audit must be an object")
-    if audit.get("schemaVersion") != "card-frequency-audit@2":
+    if audit.get("schemaVersion") != FREQUENCY_AUDIT_SCHEMA_VERSION:
         raise ExplanationFrequencyError(
-            "frequency audit must use card-frequency-audit@2"
+            f"frequency audit must use {FREQUENCY_AUDIT_SCHEMA_VERSION}"
         )
     if audit.get("status") != COMPLETE_AUDIT_STATUS:
         raise ExplanationFrequencyError(
             "frequency audit is not independently rechecked and complete"
         )
-    scope = audit.get("scope")
-    if not isinstance(scope, dict):
-        raise ExplanationFrequencyError("frequency audit scope must be an object")
-    raw_years = scope.get("examYears")
-    if not isinstance(raw_years, list) or not raw_years:
+    subjects_scope = _audit_subjects_scope(audit)
+    administrative_scope = subjects_scope.get(ADMINISTRATIVE_LAW_AUDIT_SUBJECT_ID)
+    if administrative_scope is None:
         raise ExplanationFrequencyError(
-            "frequency audit scope.examYears must be a non-empty list"
+            "frequency audit subjects must include "
+            f"{ADMINISTRATIVE_LAW_AUDIT_SUBJECT_ID}"
         )
-    years = {
-        _required_integer(year, name="frequency audit scope exam year")
-        for year in raw_years
-    }
-    question_count = _required_integer(
-        scope.get("questionCount"), name="frequency audit scope.questionCount"
-    )
-    if question_count <= 0:
-        raise ExplanationFrequencyError(
-            "frequency audit scope.questionCount must be positive"
-        )
+    years, question_count = administrative_scope
 
     cards = audit.get("cards")
     if not isinstance(cards, list) or not cards:
@@ -162,6 +209,14 @@ def _audited_relations(
             card.get("cardId"), name=f"frequency audit cards[{index}].cardId"
         )
         audit_card_ids.append(card_id)
+        card_subject_id = _required_text(
+            card.get("subjectId"), name=f"{card_id}: subjectId"
+        )
+        if card_subject_id not in subjects_scope:
+            raise ExplanationFrequencyError(
+                f"{card_id}: subjectId {card_subject_id!r} is not declared in "
+                "frequency audit subjects"
+            )
         recent = card.get("recent")
         if not isinstance(recent, dict):
             raise ExplanationFrequencyError(
@@ -376,7 +431,7 @@ def build_crosswalk(
         "sourceFrequencyAudit": source_frequency_audit,
         "sourceCards": source_cards,
         "policy": {
-            "frequencyAuthority": "card-frequency-audit@2",
+            "frequencyAuthority": FREQUENCY_AUDIT_SCHEMA_VERSION,
             "frequencyUnit": "one source exam question per learning card",
             "candidateGlobalFrequencyEligible": False,
             "candidateGlobalFlagReason": (

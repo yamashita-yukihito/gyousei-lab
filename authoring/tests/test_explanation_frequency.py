@@ -47,12 +47,19 @@ def cards() -> dict:
 
 def audit() -> dict:
     return {
-        "schemaVersion": "card-frequency-audit@2",
+        "schemaVersion": "card-frequency-audit@3",
         "status": "independent_recheck_complete",
-        "scope": {"examYears": list(range(2006, 2026)), "questionCount": 440},
+        "subjects": [
+            {
+                "subjectId": "administrative-law",
+                "examYears": list(range(2006, 2026)),
+                "questionCount": 440,
+            }
+        ],
         "cards": [
             {
                 "cardId": "card-a",
+                "subjectId": "administrative-law",
                 "recent": {
                     "questionKeys": ["2025-q1"],
                     "count": 1,
@@ -60,6 +67,7 @@ def audit() -> dict:
             },
             {
                 "cardId": "card-b",
+                "subjectId": "administrative-law",
                 "recent": {
                     "questionKeys": [],
                     "count": 0,
@@ -204,6 +212,46 @@ class ExplanationFrequencyTests(unittest.TestCase):
             ExplanationFrequencyError, "card IDs differ"
         ):
             build_crosswalk(base, mapping, audit(), changed_cards)
+
+    def test_rejects_legacy_schema_version(self) -> None:
+        base, mapping = documents()
+        legacy = copy.deepcopy(audit())
+        legacy["schemaVersion"] = "card-frequency-audit@2"
+        legacy["scope"] = {
+            "examYears": legacy["subjects"][0]["examYears"],
+            "questionCount": legacy["subjects"][0]["questionCount"],
+        }
+        del legacy["subjects"]
+        with self.assertRaisesRegex(
+            ExplanationFrequencyError, "card-frequency-audit@3"
+        ):
+            build_crosswalk(base, mapping, legacy, cards())
+
+    def test_rejects_card_subject_id_outside_declared_scope(self) -> None:
+        base, mapping = documents()
+        drifted = copy.deepcopy(audit())
+        drifted["cards"][0]["subjectId"] = "civil-law"
+        with self.assertRaisesRegex(
+            ExplanationFrequencyError,
+            "is not declared in frequency audit subjects",
+        ):
+            build_crosswalk(base, mapping, drifted, cards())
+
+    def test_rejects_audit_missing_administrative_law_subject_scope(self) -> None:
+        base, mapping = documents()
+        no_admin_scope = copy.deepcopy(audit())
+        no_admin_scope["subjects"] = [
+            {
+                "subjectId": "civil-law",
+                "examYears": [2025],
+                "questionCount": 220,
+            }
+        ]
+        with self.assertRaisesRegex(
+            ExplanationFrequencyError,
+            "subjects must include administrative-law",
+        ):
+            build_crosswalk(base, mapping, no_admin_scope, cards())
 
     def test_cli_writes_private_atomic_artifacts(self) -> None:
         base, mapping = documents()

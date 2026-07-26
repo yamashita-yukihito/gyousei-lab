@@ -14,7 +14,7 @@ import os
 import sys
 import tempfile
 from collections import Counter, defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
@@ -1638,6 +1638,54 @@ def expectations_from_question_manifest(path: Path) -> BundleExpectations:
     )
 
 
+def resolve_expectations(
+    *,
+    question_manifest: Path | None,
+    expected_card_count: int | None = None,
+    expected_evidence_count: int | None = None,
+    expected_similarity_count: int | None = None,
+) -> BundleExpectations:
+    """Build the effective ``BundleExpectations``, honoring CLI overrides.
+
+    ``expected_card_count``/``expected_evidence_count``/
+    ``expected_similarity_count`` override
+    ``explanation_card_count``/``related_question_evidence_count``/
+    ``similarity_pair_count`` respectively when not ``None``. Every override
+    is still an exact-match, fail-closed expectation -- only the source of
+    the number changes, never the equality check itself. Leaving all three
+    unset reproduces the exact same ``BundleExpectations`` (and therefore the
+    exact same behavior) as before these options existed.
+    """
+
+    expectations = (
+        expectations_from_question_manifest(question_manifest)
+        if question_manifest
+        else BundleExpectations()
+    )
+    overrides: dict[str, int] = {}
+    for value, field, option in (
+        (expected_card_count, "explanation_card_count", "--expected-card-count"),
+        (
+            expected_evidence_count,
+            "related_question_evidence_count",
+            "--expected-evidence-count",
+        ),
+        (
+            expected_similarity_count,
+            "similarity_pair_count",
+            "--expected-similarity-count",
+        ),
+    ):
+        if value is None:
+            continue
+        if value < 0:
+            raise ProductionBundleError(f"{option} must be non-negative")
+        overrides[field] = value
+    if overrides:
+        expectations = replace(expectations, **overrides)
+    return expectations
+
+
 def write_private_bundle(path: Path, bundle: Mapping[str, Any]) -> None:
     """Atomically replace ``path`` with an fsynced mode-0600 JSON file."""
 
@@ -1724,6 +1772,33 @@ def _parser() -> argparse.ArgumentParser:
             "counts must match"
         ),
     )
+    parser.add_argument(
+        "--expected-card-count",
+        type=int,
+        default=None,
+        help=(
+            "exact explanation-card count required to build (default: "
+            f"{BundleExpectations.explanation_card_count}, unchanged unless set)"
+        ),
+    )
+    parser.add_argument(
+        "--expected-evidence-count",
+        type=int,
+        default=None,
+        help=(
+            "exact related-question-evidence count required to build (default: "
+            f"{BundleExpectations.related_question_evidence_count}, unchanged unless set)"
+        ),
+    )
+    parser.add_argument(
+        "--expected-similarity-count",
+        type=int,
+        default=None,
+        help=(
+            "exact similarity-pair count required to build (default: "
+            f"{BundleExpectations.similarity_pair_count}, unchanged unless set)"
+        ),
+    )
     parser.add_argument("--generated-at", help="fixed ISO timestamp for reproducible builds")
     return parser
 
@@ -1732,10 +1807,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
         _assert_private_output(args.output)
-        expectations = (
-            expectations_from_question_manifest(args.question_manifest)
-            if args.question_manifest
-            else None
+        expectations = resolve_expectations(
+            question_manifest=args.question_manifest,
+            expected_card_count=args.expected_card_count,
+            expected_evidence_count=args.expected_evidence_count,
+            expected_similarity_count=args.expected_similarity_count,
         )
         bundle = build_from_paths(
             questions_dir=args.questions_dir,

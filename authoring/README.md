@@ -114,19 +114,24 @@ install -m 0600 \
 
 - 保存先: `archive_frequency/`
 - 頻度判定用corpus: `archive_frequency/corpus.json`（`0600`）
-- カード別の判定: `curation/card_frequency_2006_2025.json`（`0600`、全55件を独立再監査済み）
+- カード別の判定: `curation/card_frequency_2006_2025.json`（`0600`、行政法55件・民法25件の全80件を独立再監査済み）
+- schema: `card-frequency-audit@3`。トップレベル`subjects[]`が科目ごとの
+  `subjectId`・`examYears`・`questionCount`を持ち、`cards[]`各件も
+  `subjectId`を持つ。現在は行政法（440問・55カード）だけだが、次科目は
+  同じファイルへ`subjects[]`とカードを追記する設計で、440や55はコードに
+  ハードコードしない
 - 用途: 同じ論点が過去に出たかを問題単位で数えることだけ
 - 非公開: 旧年度の問題文・当時の答え・URL・内部IDはWeb用bundleへ出さない
 
 同一問題内に関連肢が複数あっても1回と数えます。単に同じ分野というだけの問題は頻度へ入れず、同一命題、逆向き、条件、例外、直接比較に絞ります。平成28年度以降の実際の肢は⑤へ表示しますが、平成18～27年度の文言は表示しません。
 
-一次判定後に全カードを別視点で再監査しています。最初の35件では10件を維持、25件を修正し、追加20件では14件を維持、6件を修正しました。`official-*`と`goukakudojyo:*`が同じ年度・同じ問題を指す場合や、同じ問題内の複数肢は1回に統合しています。現在は最頻出5件、頻出28件、繰り返し出題16件、重要論点6件です。⑤には平成28年度以降の実際の肢を延べ263件、重複を除く211件掲載し、組合せ・記述式の元問題は表示用の肢にせず頻度だけへ反映します。
+一次判定後に全カードを別視点で再監査しています。行政法は最初の35件で10件を維持、25件を修正し、追加20件では14件を維持、6件を修正しました。民法25件（2026-07-27追加）は独立再監査でpass 14件・修正11件でした。`official-*`と`goukakudojyo:*`が同じ年度・同じ問題を指す場合や、同じ問題内の複数肢は1回に統合しています。⑤には平成28年度以降の実際の肢を延べ332件、重複を除く276件掲載し、組合せ・記述式の元問題は表示用の肢にせず頻度だけへ反映します。表示できる肢が1本もないカードは⑤を見出しごと非表示にします。
 
 ## 学習カードと将来の科目追加
 
 - Bは、やさしい説明と、問題に応じて条件・時間・用語などからほどく説明の2案です。
 - ⑤は平成28年度以降の実際の肢を表示し、本番での聞かれ方を確認できるようにします。
-- ⑥は、不服審査法と行政事件訴訟法のように混同しやすい別制度があるカードだけ表示します。現在55件中30件に設定済みです。
+- ⑥は、不服審査法と行政事件訴訟法のように混同しやすい別制度があるカードだけ表示します。現在80件中37件に設定済みです。
 - 解説図6枚はカード内へ挿入せず、独立した「図で整理」ページにまとめます。
 - 回答履歴を保つためデッキIDは維持し、今後の憲法・民法なども同じデッキへ`subjectId`付きで追加します。
 
@@ -179,7 +184,7 @@ export GYOUSEI_DATA_ROOT="$HOME/.local/share/yuki-services/gyousei-lab/authoring
   --expected-corroboration-count 1534 \
   --expected-target-crosscheck-count 132
 /opt/homebrew/bin/uv run gyousei-mapping-ox
-/opt/homebrew/bin/uv run gyousei-explanation-frequency
+/opt/homebrew/bin/uv run gyousei-explanation-frequency --expected-current-card-count 80
 ```
 
 2つのsidecarは既存`review_candidates.json`を置換しません。
@@ -224,13 +229,14 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m gyousei_pipeline.review_batc
 
 ## 非公開production bundle
 
-直近10年の全6科目569問、正答照合、本人用の行政法・頻出論点55問デッキ、学習カード55件、カードから参照する過去問肢211件、旧Claude Fable成功応答20肢と全6件のrun概要、類似候補588組を、本人用API向けの単一JSONへまとめます。run概要には成功2件だけでなく、CLI失敗2件、無効応答1件、rate limit 1件も含めます。
+直近10年の全6科目569問、正答照合、本人用の頻出論点デッキ（行政法55・民法25の80件）、カードから参照する過去問肢276件、旧Claude Fable成功応答20肢と全6件のrun概要、類似候補588組を、本人用API向けの単一JSONへまとめます。run概要には成功2件だけでなく、CLI失敗2件、無効応答1件、rate limit 1件も含めます。
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m gyousei_pipeline.production_bundle \
   --questions-dir "$GYOUSEI_DATA_ROOT/all_subjects/current_2016_2025/extracted" \
   --reconciliation "$GYOUSEI_DATA_ROOT/all_subjects/current_2016_2025/reports/answer-reconciliation-production.json" \
-  --question-manifest config/all_subjects_current_target.json
+  --question-manifest config/all_subjects_current_target.json \
+  --expected-card-count 80 --expected-evidence-count 276
 ```
 
 既定の出力は
@@ -241,15 +247,21 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m gyousei_pipeline.production_
 正答照合との対応、旧Fable応答と成功runのdigestが一つでも合わなければ
 書き込みません。
 
+学習カード55件・関連過去問肢211件・類似候補588組は既定値です。民法カード
+追加などで件数が変わる時は、`--expected-card-count`・
+`--expected-evidence-count`・`--expected-similarity-count`で明示的に
+上書きできます。未指定なら既定値のまま変わらず、指定しても「以上」ではなく
+完全一致のfail closedを維持します。
+
 bundleはホワイトリスト方式で作り、合格道場の解説、Claudeへのprompt・stdout、絶対パスを含めません。`reviewed`と`publishable`は入力値をそのまま保持し、ビルド時に承認済みへ変更しません。`similarityPairs[].pairContentDigest`は、pair IDと左右の出題表示内容から算出します。
 
 主な配列は次のとおりです。
 
 - `questions`: 3形式の問題本文・選択肢・正答。表形式14問の`choiceColumns`と`choices[].cells`も保持
 - `officialAnswerChecks`: 569問の正答照合結果。行政法は公式資料と照合し、他科目は未照合状態を明示
-- `studyDecks`: 本人用の頻出論点55問デッキ1件（`visibility=private`、2026年4月1日施行法令基準）
-- `explanationCards`: B二案、C、深掘り、常識力、必要な⑥を加えた学習カード55件
-- `relatedQuestionEvidence`: カードの`relatedPastQuestions[].choiceId`から参照できる平成28年度以降の過去問肢211件
+- `studyDecks`: 本人用の頻出論点デッキ1件・80カード（`visibility=private`、2026年4月1日施行法令基準）
+- `explanationCards`: B二案、C、深掘り、常識力、必要な⑥を加えた学習カード80件（行政法55・民法25）
+- `relatedQuestionEvidence`: カードの`relatedPastQuestions[].choiceId`から参照できる平成28年度以降の過去問肢276件
 - `claudeReviews` / `claudeRuns`: 旧schema v2のAI候補20肢と、秘密情報を除いた全run概要（状態、時刻、model、`errorKind`のみ）
 - `similarityPairs`: 人が確認する類似候補588組
 

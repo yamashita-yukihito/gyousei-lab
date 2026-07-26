@@ -13,6 +13,7 @@ from gyousei_pipeline.production_bundle import (
     ProductionBundleError,
     build_production_bundle,
     expectations_from_question_manifest,
+    resolve_expectations,
     write_private_bundle,
 )
 
@@ -755,6 +756,97 @@ class ProductionBundleTests(unittest.TestCase):
         report["results"][0]["rawQuestionId"] = "q:unknown"
         with self.assertRaisesRegex(ProductionBundleError, "unknown question"):
             self.build(reconciliation=report)
+
+    def test_resolve_expectations_defaults_are_unchanged_without_overrides(self) -> None:
+        self.assertEqual(BundleExpectations(), resolve_expectations(question_manifest=None))
+
+    def test_resolve_expectations_overrides_only_the_three_targeted_fields(self) -> None:
+        expectations = resolve_expectations(
+            question_manifest=None,
+            expected_card_count=10,
+            expected_evidence_count=20,
+            expected_similarity_count=30,
+        )
+        self.assertEqual(10, expectations.explanation_card_count)
+        self.assertEqual(20, expectations.related_question_evidence_count)
+        self.assertEqual(30, expectations.similarity_pair_count)
+        # Everything else stays at the fixed default -- overrides are additive,
+        # not a replacement of the whole expectations object.
+        defaults = BundleExpectations()
+        self.assertEqual(defaults.question_count, expectations.question_count)
+        self.assertEqual(defaults.study_deck_count, expectations.study_deck_count)
+        self.assertEqual(defaults.claude_review_count, expectations.claude_review_count)
+        self.assertEqual(defaults.claude_run_count, expectations.claude_run_count)
+        self.assertEqual(defaults.target_years, expectations.target_years)
+
+    def test_resolve_expectations_combines_question_manifest_and_overrides(self) -> None:
+        manifest = {
+            "schemaVersion": "all-subjects-target@1",
+            "target": {
+                "examYears": [2025],
+                "expectedTotal": 3,
+                "expectedByFormat": {
+                    "regular": 1,
+                    "multiple_blank": 1,
+                    "written": 1,
+                },
+                "expectedBySubject": {
+                    "administrative_law": 1,
+                    "civil_law": 1,
+                    "basic_knowledge": 1,
+                },
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            path.write_text(json.dumps(manifest), encoding="utf-8")
+            expectations = resolve_expectations(
+                question_manifest=path,
+                expected_card_count=1,
+                expected_evidence_count=1,
+                expected_similarity_count=1,
+            )
+        self.assertEqual(3, expectations.question_count)
+        self.assertEqual((2025,), expectations.target_years)
+        self.assertEqual(1, expectations.explanation_card_count)
+        self.assertEqual(1, expectations.related_question_evidence_count)
+        self.assertEqual(1, expectations.similarity_pair_count)
+
+    def test_resolve_expectations_rejects_negative_overrides(self) -> None:
+        with self.assertRaisesRegex(
+            ProductionBundleError, "--expected-card-count must be non-negative"
+        ):
+            resolve_expectations(question_manifest=None, expected_card_count=-1)
+        with self.assertRaisesRegex(
+            ProductionBundleError, "--expected-evidence-count must be non-negative"
+        ):
+            resolve_expectations(question_manifest=None, expected_evidence_count=-1)
+        with self.assertRaisesRegex(
+            ProductionBundleError, "--expected-similarity-count must be non-negative"
+        ):
+            resolve_expectations(question_manifest=None, expected_similarity_count=-1)
+
+    def test_cli_accepts_expected_count_override_flags_and_defaults_to_none(self) -> None:
+        from gyousei_pipeline.production_bundle import _parser
+
+        args = _parser().parse_args(
+            [
+                "--expected-card-count",
+                "10",
+                "--expected-evidence-count",
+                "20",
+                "--expected-similarity-count",
+                "30",
+            ]
+        )
+        self.assertEqual(10, args.expected_card_count)
+        self.assertEqual(20, args.expected_evidence_count)
+        self.assertEqual(30, args.expected_similarity_count)
+
+        defaulted = _parser().parse_args([])
+        self.assertIsNone(defaulted.expected_card_count)
+        self.assertIsNone(defaulted.expected_evidence_count)
+        self.assertIsNone(defaulted.expected_similarity_count)
 
     def test_private_writer_atomically_replaces_with_mode_0600(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

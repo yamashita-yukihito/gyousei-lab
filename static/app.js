@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260727-2";
+  const APP_VERSION = "20260727-3";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -762,6 +762,8 @@
   function renderStudyRelated(item) {
     const refs = item.relatedPastQuestions || [];
     const origin = item.derivedFromWritten;
+    // ⑤に載せられる通常択一肢がないカード（組合せ・記述式由来のみ）は見出しごと隠す
+    $("study-related-section").hidden = !origin && !refs.length;
     $("study-related-count").textContent = origin
       ? "記述式由来 1問" + (refs.length ? "＋関連肢 " + refs.length + "件" : "")
       : refs.length + "件";
