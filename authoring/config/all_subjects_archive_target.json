@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "all-subjects-target@1",
+  "source": {
+    "id": "goukakudojyo_archive",
+    "baseUrl": "https://www.pro.goukakudojyo.com",
+    "topUrl": "https://www.pro.goukakudojyo.com/worksheet2/w_toparch.php",
+    "yearUrlTemplate": "https://www.pro.goukakudojyo.com/worksheet2/w_subcatnendo.php?nendoID={nendoId}#arch",
+    "termsUrl": "https://www.pro.goukakudojyo.com/pagestatic/w_main.php?pageID=93",
+    "robotsUrl": "https://www.pro.goukakudojyo.com/robots.txt"
+  },
+  "target": {
+    "datasetId": "all_subjects_archive_2006_2015",
+    "examYears": [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015],
+    "expectedTotal": 570,
+    "defaultQuestionNumberRanges": [[1, 57]],
+    "questionNumberRangeOverrides": {},
+    "listingKindRules": [
+      {"kind": "regular", "ranges": [[1, 40], [47, 57]]},
+      {"kind": "multiple_blank", "ranges": [[41, 43]]},
+      {"kind": "written", "ranges": [[44, 46]]}
+    ],
+    "subjectRules": [
+      {"subjectId": "legal_foundations", "subjectLabel": "基礎法学", "ranges": [[1, 2]]},
+      {"subjectId": "constitutional_law", "subjectLabel": "憲法", "ranges": [[3, 7], [41, 41]]},
+      {"subjectId": "administrative_law", "subjectLabel": "行政法", "ranges": [[8, 26], [42, 44]]},
+      {"subjectId": "civil_law", "subjectLabel": "民法", "ranges": [[27, 35], [45, 46]]},
+      {"subjectId": "commercial_law", "subjectLabel": "商法・会社法", "ranges": [[36, 40]]},
+      {"subjectId": "basic_knowledge", "subjectLabel": "基礎知識", "ranges": [[47, 57]]}
+    ],
+    "expectedByFormat": {
+      "regular": 510,
+      "multiple_blank": 30,
+      "written": 30
+    },
+    "expectedBySubject": {
+      "legal_foundations": 20,
+      "constitutional_law": 60,
+      "administrative_law": 220,
+      "civil_law": 110,
+      "commercial_law": 50,
+      "basic_knowledge": 110
+    },
+    "expectedExplanations": {
+      "available": 0,
+      "unavailable": 570
+    },
+    "historicalUse": "frequency_only"
+  },
+  "years": [
+    {"examYear": 2006, "eraYear": "平成18年", "nendoId": 20},
+    {"examYear": 2007, "eraYear": "平成19年", "nendoId": 21},
+    {"examYear": 2008, "eraYear": "平成20年", "nendoId": 22},
+    {"examYear": 2009, "eraYear": "平成21年", "nendoId": 23},
+    {"examYear": 2010, "eraYear": "平成22年", "nendoId": 24},
+    {"examYear": 2011, "eraYear": "平成23年", "nendoId": 25},
+    {"examYear": 2012, "eraYear": "平成24年", "nendoId": 26},
+    {"examYear": 2013, "eraYear": "平成25年", "nendoId": 27},
+    {"examYear": 2014, "eraYear": "平成26年", "nendoId": 28},
+    {"examYear": 2015, "eraYear": "平成27年", "nendoId": 32}
+  ],
+  "fetch": {
+    "userAgent": "YukiPersonalStudyArchive/1.0 (single-user, non-commercial)",
+    "minimumDelaySeconds": 1.5,
+    "timeoutSeconds": 30,
+    "maxAttempts": 3
+  },
+  "rights": {
+    "storage": "private_outside_web_root",
+    "purpose": "internal_frequency_count_only",
+    "providerExplanationUse": "not_available",
+    "webCitation": "never"
+  }
+}

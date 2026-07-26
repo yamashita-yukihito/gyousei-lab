@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183a34">
+  <title>行政書士 過去問ラボ</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23183a34'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='39' fill='white'%3E%E8%A1%8C%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css?v=20260726-3">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div>
+        <p class="eyebrow">PRIVATE STUDY LAB · 本番運用版</p>
+        <h1>行政書士<br><span>過去問ラボ</span></h1>
+        <p class="header-copy">現在は行政法を収録しています。今後は憲法・民法なども同じ回答履歴と学習方式で追加できる、本人専用の学習画面です。</p>
+      </div>
+      <aside class="exam-date-card" aria-label="試験基準日">
+        <span>令和8年度試験の法令基準日</span>
+        <strong>2026年4月1日</strong>
+        <small>7月18日時点のAI監査とは分けて表示します</small>
+      </aside>
+    </div>
+  </header>
+
+  <main id="main-content" class="page-shell">
+    <section class="summary-grid" aria-label="データ概要">
+      <article><span>収録済みの過去問</span><strong id="summary-questions">—</strong><small id="summary-subjects">収録科目を読込中</small></article>
+      <article><span>記述式</span><strong id="summary-written">—</strong><small>実際に入力して確認</small></article>
+      <article><span>Claude法令監査</span><strong id="summary-claude">—</strong><small id="summary-claude-note">結果を読込中</small></article>
+      <article><span>類似候補</span><strong id="summary-similarity">—</strong><small id="summary-similarity-note">確認状況を読込中</small></article>
+    </section>
+
+    <section class="status-strip" aria-label="現在のデータ状態">
+      <div><span class="status-dot"></span><strong id="source-data-status">全分野20年分の保存件数を確認中</strong></div>
+      <p><span id="production-status">本番掲載件数を確認中です。</span> <span id="study-card-status">学習カードの件数を確認中です。</span> 保存済み素材と本番掲載済み教材は分けて数えます。</p>
+    </section>
+
+    <nav class="app-tabs" aria-label="画面を切り替える">
+      <button class="tab-button active" type="button" data-tab="study" aria-pressed="true"><span>○×学習</span><small id="study-tab-count">読込中</small></button>
+      <button class="tab-button" type="button" data-tab="diagrams" aria-pressed="false"><span>図で整理</span><small>解説図6枚</small></button>
+      <button class="tab-button" type="button" data-tab="quiz" aria-pressed="false"><span>過去問原文</span><small id="quiz-tab-count">読込中</small></button>
+      <button class="tab-button" type="button" data-tab="written" aria-pressed="false"><span>記述式</span><small id="written-tab-count">読込中</small></button>
+      <button class="tab-button" type="button" data-tab="cards" aria-pressed="false"><span>解説カード</span><small id="editorial-tab-count">読込中</small></button>
+      <button class="tab-button" type="button" data-tab="claude" aria-pressed="false"><span>Claude監査</span><small id="claude-tab-count">読込中</small></button>
+      <button class="tab-button" type="button" data-tab="similarity" aria-pressed="false"><span>類似確認</span><small id="similarity-tab-count">読込中</small></button>
+      <button class="tab-button" type="button" data-tab="about" aria-pressed="false"><span>データ状態</span><small>どこまで完成？</small></button>
+      <a class="tab-button architecture-link" href="architecture.html"><span>全体構成図</span><small>仕組みと今後</small></a>
+    </nav>
+
+    <div id="global-loading" class="message-card">本番データを読み込んでいます…</div>
+    <div id="global-error" class="message-card error" hidden></div>
+
+    <section id="panel-study" class="tab-panel" data-panel="study">
+      <div class="section-heading">
+        <div><p class="kicker">STUDY CARDS</p><h2>頻出論点を○×で解く</h2></div>
+        <p>A・B二案・Cで問題の意味をつかんでから答えます。回答後は、解説と実際に出た肢を続けて確認できます。</p>
+      </div>
+
+      <div class="study-controls" aria-label="○×学習の出題設定">
+        <label><span>科目</span><select id="study-subject"><option value="all">すべて</option></select></label>
+        <label><span>分野</span><select id="study-topic"><option value="all">すべて</option></select></label>
+        <label><span>出題順</span><select id="study-order"><option value="sequence">順番に見る</option><option value="weak">苦手を優先</option><option value="random">ランダム</option></select></label>
+        <label><span>出題範囲</span><select id="study-scope"><option value="review">おまかせ（習得済みを除く）</option><option value="all">全問題を出す</option></select><small id="study-scope-summary">出題対象を計算中…</small></label>
+        <div class="study-history"><span>この問題の履歴</span><strong id="study-history-label">正解 0 / 不正解 0</strong><small id="study-storage-status" class="study-storage saving" aria-live="polite">保存先を確認中…</small></div>
+      </div>
+      <p class="study-mastery-note">おまかせでは、正解が不正解より3回多くなった問題を「習得済み」として出題から外します。全問題モードならいつでも復習できます。</p>
+
+      <div id="study-loading" class="message-card" hidden>学習カードを読み込んでいます…</div>
+      <div id="study-error" class="message-card error" hidden><strong>学習カードを読み込めませんでした。</strong><p>過去問原文・記述式・Claude監査などの画面は、そのまま利用できます。</p></div>
+      <section id="study-empty" class="message-card complete" hidden>
+        <strong id="study-empty-title" tabindex="-1">この条件に合う問題がありません</strong>
+        <p id="study-empty-message"></p>
+        <div class="study-empty-actions"><button id="study-show-all" class="secondary-button" type="button">全問題モードで復習する</button><button id="study-show-all-topics" class="secondary-button" type="button">科目・分野を「すべて」に戻す</button></div>
+      </section>
+
+      <article id="study-card" class="content-card study-card" hidden>
+        <div class="card-topline"><div id="study-badges" class="badges"></div><span id="study-position" class="position"></span></div>
+        <p id="study-subtopic" class="study-subtopic"></p>
+        <p id="study-frequency" class="study-frequency" hidden></p>
+
+        <div class="study-variants" aria-label="同じ問題の三つの表現">
+          <section class="study-variant study-variant-a"><h3 id="study-question-heading" tabindex="-1"><span>A</span> 標準問題文</h3><p id="study-variant-a"></p></section>
+          <section class="study-variant study-variant-b">
+            <h3><span>B</span> やさしい言い換え</h3>
+            <div class="study-b-copies"><div class="study-b-copy"><small>現在の言い換え</small><p id="study-variant-b"></p></div><hr><div class="study-b-copy"><small>もうひとつの言い方 <em id="study-variant-b-style"></em></small><p id="study-variant-b-casual"></p></div></div>
+          </section>
+          <section class="study-variant study-variant-c"><h3><span>C</span> 短い読み替え</h3><p id="study-variant-c"></p></section>
+        </div>
+
+        <p class="study-answer-prompt">上の文章は、法律のルールに合っている？</p>
+        <div class="study-answer-buttons" role="group" aria-label="○か×で回答する"><button type="button" data-study-answer="true" aria-label="丸、合っているを選ぶ"><span>○</span> 合っている</button><button type="button" data-study-answer="false" aria-label="ばつ、間違っているを選ぶ"><span>×</span> 間違っている</button></div>
+
+        <section id="study-answer-panel" class="study-answer-panel" hidden>
+          <div id="study-answer-summary" class="study-answer-summary" tabindex="-1" role="region" aria-label="回答結果">
+            <p id="study-feedback" class="study-feedback" aria-live="polite" aria-atomic="true"></p>
+            <div class="study-answer-comparison"><div><span>あなたが選んだ答え</span><strong id="study-selected-answer"></strong></div><div><span>この文章の正しい判定</span><strong id="study-correct-answer"></strong></div></div>
+            <div class="study-correction"><span>正しい形で覚えると</span><p id="study-correction-text"></p></div>
+            <div class="study-accuracy-grid"><div id="study-question-accuracy-card"><span>この問題の正答率</span><b id="study-mastery-status" hidden>習得済み</b><strong id="study-question-accuracy">—</strong><small id="study-question-accuracy-detail"></small></div><div><span>学習カード全体の正答率</span><strong id="study-overall-accuracy">—</strong><small id="study-overall-accuracy-detail"></small></div></div>
+            <p class="study-memory"><span>一言で覚える</span><strong id="study-memory-point"></strong></p>
+          </div>
+
+          <section class="study-explanation-block"><h3>① 普通の解説</h3><p id="study-normal-explanation"></p></section>
+          <section class="study-deep-dive"><h3>② 深掘り解説</h3><div><section><h4>制度の背景・理由</h4><p id="study-deep-background"></p></section><section><h4>試験のひっかけ</h4><p id="study-deep-trap"></p></section><section><h4>具体的な場面</h4><p id="study-deep-example"></p></section></div></section>
+          <section class="study-explanation-block study-basis"><h3>③ 根拠・確認時点</h3><p id="study-law-date"></p><ul id="study-basis-list"></ul></section>
+          <section class="study-explanation-block study-common-sense"><h3>④ 常識力</h3><p id="study-common-sense"></p></section>
+          <section class="study-explanation-block study-related"><div class="related-heading"><h3>⑤ 実際の肢・本番での聞かれ方</h3><strong id="study-related-count"></strong></div><p class="study-related-note">平成28年度以降の実際の肢を、同じルールだけでなく、逆の言い方・例外・条件・比較も含めて表示します。頻出回数には非表示の旧年度や、肢ごとの○×を安全に出せない組合せ・記述式も問題単位で含むため、ここの表示件数とは一致しないことがあります。</p><div id="study-related-list"></div></section>
+          <section id="study-cross-field" class="study-explanation-block study-cross-field" hidden><div class="related-heading"><h3>⑥ 似た制度・他分野との違い</h3><strong id="study-cross-field-count"></strong></div><p class="study-related-note">名前や場面が似ていても結論が違う、試験で混同しやすいルールだけを表示します。</p><div id="study-cross-field-list"></div></section>
+          <p id="study-save-status" class="save-status" aria-live="polite"></p>
+          <div class="question-nav"><button id="study-next" class="primary-button" type="button">次の問題へ</button></div>
+        </section>
+      </article>
+    </section>
+
+    <section id="panel-diagrams" class="tab-panel" data-panel="diagrams" hidden>
+      <div class="section-heading">
+        <div><p class="kicker">VISUAL NOTES</p><h2>行政法を図で整理する</h2></div>
+        <p>制度の流れや違いを見比べるための解説図です。問題の解説中には表示せず、このページだけにまとめています。</p>
+      </div>
+      <div class="diagram-grid">
+        <figure class="diagram-card"><a href="assets/diagrams/zentai_map.png" target="_blank" rel="noopener noreferrer"><img src="assets/diagrams/zentai_map.png" alt="行政法の全体像を、処分前・処分後・違法な処分・損害の場面に分けた整理図" loading="lazy" decoding="async"></a><figcaption><strong>行政法の全体マップ</strong><span>まず迷子になったときに見る全体案内です。</span></figcaption></figure>
+        <figure class="diagram-card"><a href="assets/diagrams/tetu.png" target="_blank" rel="noopener noreferrer"><img src="assets/diagrams/tetu.png" alt="行政手続法の申請、不利益処分、届出、行政指導を比較した整理図" loading="lazy" decoding="async"></a><figcaption><strong>行政手続法の要点整理</strong><span>申請・不利益処分・届出・行政指導の違いを見比べます。</span></figcaption></figure>
+        <figure class="diagram-card"><a href="assets/diagrams/huhuku.png" target="_blank" rel="noopener noreferrer"><img src="assets/diagrams/huhuku.png" alt="行政不服申立ての流れと審査請求の要点をまとめた整理図" loading="lazy" decoding="async"></a><figcaption><strong>不服申立ての整理</strong><span>行政の中で見直してもらう流れをまとめています。</span></figcaption></figure>
+        <figure class="diagram-card"><a href="assets/diagrams/jiken.png" target="_blank" rel="noopener noreferrer"><img src="assets/diagrams/jiken.png" alt="行政事件訴訟の種類と取消訴訟の要件をまとめた整理図" loading="lazy" decoding="async"></a><figcaption><strong>行政事件訴訟</strong><span>裁判所に訴える場合の種類と基本を整理します。</span></figcaption></figure>
+        <figure class="diagram-card"><a href="assets/diagrams/kyosei.png" target="_blank" rel="noopener noreferrer"><img src="assets/diagrams/kyosei.png" alt="代執行、執行罰、直接強制、即時強制を比較した整理図" loading="lazy" decoding="async"></a><figcaption><strong>行政上の強制手段</strong><span>似やすい4つの強制手段を、目的と方法で比べます。</span></figcaption></figure>
+        <figure class="diagram-card"><a href="assets/diagrams/kokka.png" target="_blank" rel="noopener noreferrer"><img src="assets/diagrams/kokka.png" alt="国家賠償と損失補償の違いを比較した整理図" loading="lazy" decoding="async"></a><figcaption><strong>国家賠償と損失補償</strong><span>違法な被害と、適法だけれど特別な犠牲になった場合を分けます。</span></figcaption></figure>
+      </div>
+    </section>
+
+    <section id="panel-quiz" class="tab-panel" data-panel="quiz" hidden>
+      <div class="section-heading">
+        <div><p class="kicker">PAST QUESTIONS · ORIGINAL</p><h2>過去問原文をそのまま解く</h2></div>
+        <p>問題文と選択肢は取得した過去問データです。回答はこのサーバーに保存されます。</p>
+      </div>
+      <div id="quiz-loading" class="message-card" hidden></div>
+
+      <div class="filter-bar">
+        <label><span>科目</span><select id="quiz-subject"><option value="all">すべて</option></select></label>
+        <label><span>年度</span><select id="quiz-year"><option value="all">すべて</option></select></label>
+        <label><span>分野</span><select id="quiz-topic"><option value="all">すべて</option></select></label>
+        <label><span>形式</span><select id="quiz-format"><option value="all">選択式＋多肢選択式</option><option value="regular">択一式</option><option value="multiple_blank">多肢選択式</option></select></label>
+        <label><span>出題範囲</span><select id="quiz-scope"><option value="review">おまかせ（習得済みを除く）</option><option value="all">全問題を出す</option></select></label>
+      </div>
+
+      <div class="progress-row">
+        <div><span>出題対象</span><strong id="quiz-pool-count">—</strong></div>
+        <div><span>選択式の正答率</span><strong id="overall-accuracy">—</strong></div>
+        <p>3回多く正解した問題は「習得済み」として、おまかせ出題から外れます。全問題モードならいつでも出せます。</p>
+      </div>
+
+      <article id="quiz-card" class="content-card question-card" hidden>
+        <div class="card-topline">
+          <div id="quiz-badges" class="badges"></div>
+          <span id="quiz-position" class="position"></span>
+        </div>
+        <h3 id="quiz-title"></h3>
+        <p id="quiz-instruction" class="instruction"></p>
+        <p id="quiz-question" class="question-copy"></p>
+        <p id="quiz-source-note" class="source-note" hidden></p>
+        <form id="quiz-answer-form">
+          <div id="quiz-answer-area"></div>
+          <button id="quiz-check" class="primary-button" type="submit">答え合わせ</button>
+        </form>
+        <section id="quiz-result" class="result-panel" tabindex="-1" hidden>
+          <p id="quiz-feedback" class="feedback"></p>
+          <div class="answer-grid">
+            <div><span>あなたの回答</span><strong id="quiz-selected-answer"></strong></div>
+            <div><span>正解</span><strong id="quiz-correct-answer"></strong></div>
+          </div>
+          <p id="quiz-answer-source" class="answer-source"></p>
+          <p id="quiz-save-status" class="save-status" aria-live="polite"></p>
+          <div class="accuracy-row">
+            <div><span>この問題の正答率</span><strong id="question-accuracy">—</strong><small id="question-accuracy-detail"></small></div>
+            <div><span>選択式の正答率</span><strong id="result-overall-accuracy">—</strong><small id="result-overall-detail"></small></div>
+          </div>
+        </section>
+        <div class="question-nav">
+          <button id="quiz-prev" class="secondary-button" type="button">前の問題</button>
+          <button id="quiz-random" class="secondary-button" type="button">別の問題をランダム表示</button>
+          <button id="quiz-next" class="primary-button" type="button">次の問題</button>
+        </div>
+      </article>
+      <div id="quiz-empty" class="message-card" hidden>この条件に合う未習得問題はありません。出題範囲を「全問題」に切り替えると復習できます。</div>
+    </section>
+
+    <section id="panel-written" class="tab-panel" data-panel="written" hidden>
+      <div class="section-heading">
+        <div><p class="kicker">WRITTEN ANSWER</p><h2>記述式を実際に書く</h2></div>
+        <p>40字程度の答案をここで作り、公式答案または取得元の答案例と比べられます。</p>
+      </div>
+      <div id="written-loading" class="message-card" hidden></div>
+      <div class="filter-bar compact">
+        <label><span>科目</span><select id="written-subject"><option value="all">すべて</option></select></label>
+        <label><span>問題</span><select id="written-year"></select></label>
+        <div class="filter-status"><span>表示中</span><strong id="written-position">—</strong></div>
+      </div>
+      <article id="written-card" class="content-card written-card" hidden>
+        <div class="card-topline"><div id="written-badges" class="badges"></div><a id="written-source-link" class="source-link" target="_blank" rel="noopener noreferrer">取得元を見る</a></div>
+        <h3 id="written-title"></h3>
+        <p id="written-question" class="question-copy"></p>
+        <aside id="written-reference-wrap" class="reference-box" hidden><strong>参照条文</strong><p id="written-reference"></p></aside>
+        <label class="answer-editor"><span>自分の答案</span><textarea id="written-answer" rows="5" placeholder="ここに答案を書きます"></textarea><small><strong id="written-count">0字</strong> / <span id="written-limit">40字程度</span></small></label>
+        <button id="written-reveal" class="primary-button" type="button">答案例を見る</button>
+        <section id="written-model" class="result-panel" tabindex="-1" aria-label="答案例と自己評価" hidden>
+          <h4>答案例</h4>
+          <div id="written-official-wrap" class="model-answer" hidden><span>試験実施機関の公式答案</span><p id="written-official"></p></div>
+          <div id="written-provider-wrap" class="model-answer" hidden><span>取得元に掲載された答案例</span><p id="written-provider"></p></div>
+          <p id="written-check-note" class="answer-source"></p>
+          <div class="self-grade">
+            <p>答案例と比べて、必要な内容をだいたい書けた？</p>
+            <button type="button" data-written-grade="true">だいたい書けた</button>
+            <button type="button" data-written-grade="false">もう一度やる</button>
+          </div>
+          <p id="written-save-status" class="save-status" aria-live="polite"></p>
+          <div class="accuracy-row written-accuracy">
+            <div><span>この記述の「書けた」率</span><strong id="written-question-accuracy">—</strong><small id="written-question-accuracy-detail"></small></div>
+            <div><span>記述式全体の「書けた」率</span><strong id="written-overall-accuracy">—</strong><small id="written-overall-accuracy-detail"></small></div>
+          </div>
+        </section>
+        <div class="question-nav">
+          <button id="written-prev" class="secondary-button" type="button">前の年度</button>
+          <button id="written-next" class="primary-button" type="button">次の年度</button>
+        </div>
+      </article>
+    </section>
+
+    <section id="panel-cards" class="tab-panel" data-panel="cards" hidden>
+      <div class="section-heading">
+        <div><p class="kicker">EDITORIAL CARDS</p><h2>A・B二案・Cと解説</h2></div>
+        <p>ここは過去問をそのまま並べる画面ではなく、同じ論点を読みやすく作り直した学習カードです。<span id="editorial-card-count">件数を読込中です。</span></p>
+      </div>
+      <div id="card-selector" class="chip-list" aria-label="解説カードを選ぶ"></div>
+      <article id="editorial-card" class="content-card editorial-card" hidden>
+        <div class="card-topline"><div id="editorial-badges" class="badges"></div><span id="editorial-position" class="position"></span></div>
+        <h3 id="editorial-subtopic"></h3>
+        <section class="variant a"><h4><span>A</span> 標準問題文</h4><p id="editorial-a"></p></section>
+        <section class="variant b"><h4><span>B</span> やさしい言い換え</h4><div><small>現在の言い換え</small><p id="editorial-b"></p></div><hr><div><small id="editorial-b-style">もうひとつの言い方</small><p id="editorial-b-casual"></p></div></section>
+        <section class="variant c"><h4><span>C</span> 短い読み替え</h4><p id="editorial-c"></p></section>
+        <div class="judgment-line"><span>この文章の判定</span><strong id="editorial-correct"></strong><p id="editorial-correction"></p></div>
+        <section class="explanation"><h4>普通の解説</h4><p id="editorial-normal"></p></section>
+        <section class="deep-details"><h4>深掘り解説</h4><div><section><h5>制度の背景・理由</h5><p id="editorial-background"></p></section><section><h5>試験のひっかけ</h5><p id="editorial-trap"></p></section><section><h5>具体的な場面</h5><p id="editorial-example"></p></section></div></section>
+        <section class="common-sense"><h4>常識力</h4><p id="editorial-common-sense"></p></section>
+        <section class="related-section"><div class="related-heading"><h4>本番での聞かれ方</h4><strong id="editorial-related-count"></strong></div><div id="editorial-related"></div></section>
+        <section id="editorial-cross-field-section" class="related-section" hidden><div class="related-heading"><h4>似た制度・他分野との違い</h4><strong id="editorial-cross-field-count"></strong></div><div id="editorial-cross-field"></div></section>
+        <div class="question-nav"><button id="editorial-prev" class="secondary-button" type="button">前の論点</button><button id="editorial-next" class="primary-button" type="button">次の論点</button></div>
+      </article>
+    </section>
+
+    <section id="panel-claude" class="tab-panel" data-panel="claude" hidden>
+      <div class="section-heading">
+        <div><p class="kicker">SECOND OPINION</p><h2>Claude Fableの法令監査結果</h2></div>
+        <p>2026年7月18日時点の現行法をAIに調べさせた結果です。令和8年度試験の基準日（4月1日）と同じ意味ではありません。</p>
+      </div>
+      <div id="claude-loading" class="message-card" hidden></div>
+      <div class="coverage-notice">
+        <strong id="claude-coverage-count">現在の監査範囲を確認中</strong>
+        <p>表示中の結果はいずれもAI候補で、最終承認ではありません。問題形式ごとの対象範囲は監査データ側で管理します。</p>
+      </div>
+      <div id="claude-runs" class="run-list"></div>
+      <div class="split-layout">
+        <aside><label class="search-label"><span>監査結果を探す</span><input id="claude-search" type="search" placeholder="年度・分野・言葉"></label><div id="claude-list" class="record-list"></div></aside>
+        <article id="claude-detail" class="content-card audit-card" hidden>
+          <div class="card-topline"><div id="claude-badges" class="badges"></div><span id="claude-position" class="position"></span></div>
+          <h3 id="claude-title"></h3>
+          <blockquote id="claude-statement"></blockquote>
+          <div class="truth-comparison"><div><span>過去問時の判定</span><strong id="claude-historical"></strong></div><div><span>Claudeの現行法判定</span><strong id="claude-current"></strong></div></div>
+          <section class="risk-box"><h4>先に見る注意点</h4><ul id="claude-risks"></ul></section>
+          <section><h4>Claudeの確認メモ</h4><ul id="claude-notes"></ul></section>
+          <section><h4>参照候補</h4><div id="claude-citations" class="citation-list"></div></section>
+        </article>
+      </div>
+    </section>
+
+    <section id="panel-similarity" class="tab-panel" data-panel="similarity" hidden>
+      <div class="section-heading">
+        <div><p class="kicker">FINAL CHECK</p><h2>AIが迷った候補だけ確認する</h2></div>
+        <p id="similarity-heading-copy">候補件数を確認中です。</p>
+      </div>
+      <div id="similarity-loading" class="message-card" hidden></div>
+      <section class="review-guide">
+        <div>
+          <span class="guide-number">お願いするのは判断が割れたものだけ</span>
+          <h3>もし候補が残っていたら、この2つを一緒に覚えたいか見てください</h3>
+          <ul><li>誰についての話か</li><li>条件や時期は同じか</li><li>最後の結論は同じか</li><li>「必ず・原則・できる」の強さは同じか</li></ul>
+        </div>
+        <aside><strong>何も表示されなければ、確認作業はありません。</strong><p>AIの判定済み一覧は「すべて」で見られます。法律上の正誤確認は別工程です。</p></aside>
+      </section>
+      <div class="curation-progress"><div><span>AIを含む確認済み</span><strong id="similarity-reviewed">0 / —</strong></div><div id="similarity-progress-track" class="progress-track" role="progressbar" aria-label="類似候補の確認進捗" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"><span id="similarity-progress-bar"></span></div><label class="curation-scope"><span>表示する候補</span><select id="similarity-scope"><option value="deferred">AIが保留したもの</option><option value="unreviewed">まだ未判定のもの</option><option value="all">すべて（判定済みを含む）</option></select></label></div>
+      <article id="similarity-card" class="content-card similarity-card" hidden>
+        <div class="card-topline"><div id="similarity-badges" class="badges"></div><span id="similarity-position" class="position"></span></div>
+        <div class="pair-grid">
+          <section><div class="pair-title"><span>過去問の肢 1</span><strong id="similarity-left-meta"></strong></div><p id="similarity-left"></p><small id="similarity-left-truth"></small></section>
+          <div class="pair-divider">と</div>
+          <section><div class="pair-title"><span>過去問の肢 2</span><strong id="similarity-right-meta"></strong></div><p id="similarity-right"></p><small id="similarity-right-truth"></small></section>
+        </div>
+        <details class="candidate-details"><summary>自動計算で「似ている」と抽出された理由</summary><p id="similarity-reason"></p><p id="similarity-score"></p></details>
+        <div id="similarity-current-decision" class="current-decision" hidden></div>
+        <div class="decision-area">
+          <p>この2つをどう整理しますか？</p>
+          <button class="decision-button merge" type="button" data-decision="merge">同じ論点グループにまとめる<small>ほぼ同じ知識・結論</small></button>
+          <button id="similarity-related-open" class="decision-button related" type="button" aria-expanded="false" aria-controls="similarity-relations">まとめないが、関連問題として残す<small>つながりはある</small></button>
+          <div id="similarity-relations" class="relation-choices" hidden>
+            <p>どんな関係に近い？</p>
+            <button type="button" data-relation="opposite_claim">逆の言い方</button>
+            <button type="button" data-relation="exception">原則と例外</button>
+            <button type="button" data-relation="contrast">比べて覚える</button>
+            <button type="button" data-relation="same_topic">同じテーマだけ</button>
+          </div>
+          <div class="decision-secondary"><button type="button" data-decision="reject">関係ない</button><button type="button" data-decision="defer">あとで見る</button></div>
+        </div>
+        <p id="similarity-save-status" class="save-status" aria-live="polite"></p>
+        <div class="question-nav"><button id="similarity-prev" class="secondary-button" type="button">ひとつ前</button><button id="similarity-next" class="primary-button" type="button">次の候補へ</button></div>
+      </article>
+      <div id="similarity-empty" class="message-card complete" hidden><strong id="similarity-empty-title">表示対象の確認が終わりました</strong><p id="similarity-empty-copy">表示範囲を切り替えると、判定を見直せます。</p><button id="similarity-show-deferred" class="secondary-button" type="button" hidden>保留した候補を見る</button></div>
+    </section>
+
+    <section id="panel-about" class="tab-panel" data-panel="about" hidden>
+      <div class="section-heading"><div><p class="kicker">DATA STATUS</p><h2>「本番へ昇格」の意味</h2></div><p>あなたに専門的な承認作業を頼む、という意味ではありません。</p></div>
+      <div class="pipeline-grid">
+        <article class="done"><span>1</span><h3>全分野の過去問を保存</h3><p id="pipeline-source-count">20年分の保存件数を読込中です。問題文・取得元解説は本番画面と分離して保管します。</p><strong>保存・構造化済み</strong></article>
+        <article class="active"><span>2</span><h3>似た肢を仕分け</h3><p id="pipeline-similarity-copy">候補件数を確認中です。</p><strong id="pipeline-similarity-status">AI判定を反映中</strong></article>
+        <article><span>3</span><h3>法律上の正しさを確認</h3><p>試験基準日で正しいかを、一次資料・公式答案・AI監査を分けて確認します。</p><strong>一部進行中</strong></article>
+        <article><span>4</span><h3>学習カードに編集</h3><p>確認できた論点から、A・B二案・C・普通の解説・深掘り・常識力を作ります。</p><strong id="pipeline-card-count">件数を読込中</strong></article>
+      </div>
+      <section class="what-to-check content-card"><h3>あなたに確認してほしいこと</h3><div><p><strong>類似確認では</strong><br>AIがどうしても決めきれなかった候補だけです。0件なら何もしなくて大丈夫です。</p><p><strong>解説カードでは</strong><br>Bの文章が、頭が回らないときにも読めるか。意味がずれていないか。</p><p><strong>記述式では</strong><br>実際の入力欄・字数表示・答案の見比べ方が使いやすいか。</p></div><aside>「この法律解釈が正しい」と承認する必要はありません。そこは資料確認の工程としてこちらで分けて扱います。</aside></section>
+      <section class="source-inventory content-card">
+        <div class="inventory-heading"><div><p class="kicker">SOURCE INVENTORY</p><h3>保存している過去問データ</h3></div><p id="inventory-coverage-copy">集計を読込中です。</p></div>
+        <div id="inventory-unavailable" class="inventory-unavailable" hidden></div>
+        <div id="inventory-content" hidden>
+          <div id="inventory-scope-cards" class="inventory-scope-cards"></div>
+          <div class="inventory-table-wrap">
+            <table class="inventory-table">
+              <thead><tr><th>科目</th><th>問題</th><th>通常5肢</th><th>○×候補</th><th>多肢選択</th><th>記述</th></tr></thead>
+              <tbody id="inventory-subject-rows"></tbody>
+              <tfoot id="inventory-subject-total"></tfoot>
+            </table>
+          </div>
+          <div class="inventory-notes">
+            <p><strong>「問題」と「肢」は別です。</strong>通常5肢択一は1問から5肢あります。組合せ問題・個数問題・没問などは、正解番号だけでは各肢の○×を安全に決められないため候補数から外します。</p>
+            <p id="inventory-missing-note"></p>
+          </div>
+        </div>
+      </section>
+      <section class="data-integrity content-card"><h3>現在の検証状態</h3><dl id="data-status-list"></dl></section>
+    </section>
+  </main>
+
+  <footer><p>本人専用・行政書士学習環境　回答履歴と類似判定はサーバー保存</p></footer>
+  <noscript>この画面の利用にはJavaScriptが必要です。</noscript>
+  <script src="app.js?v=20260726-3"></script>
+</body>
+</html>

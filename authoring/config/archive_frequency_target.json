@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "target@1",
+  "source": {
+    "id": "goukakudojyo_archive",
+    "baseUrl": "https://www.pro.goukakudojyo.com",
+    "topUrl": "https://www.pro.goukakudojyo.com/worksheet2/w_toparch.php",
+    "yearUrlTemplate": "https://www.pro.goukakudojyo.com/worksheet2/w_subcatnendo.php?nendoID={nendoId}#arch",
+    "termsUrl": "https://www.pro.goukakudojyo.com/pagestatic/w_main.php?pageID=93",
+    "robotsUrl": "https://www.pro.goukakudojyo.com/robots.txt"
+  },
+  "target": {
+    "subjectId": "administrative_law_frequency_archive",
+    "subjectLabel": "行政法",
+    "examYears": [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015],
+    "expectedPerYear": {
+      "regular": 19,
+      "multipleChoice": 2,
+      "written": 1,
+      "total": 22
+    },
+    "expectedTotal": 220,
+    "questionNumbersByKind": {
+      "regular": [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26],
+      "multiple_blank": [42, 43],
+      "written": [44]
+    },
+    "listingRules": [
+      {"kind": "regular", "requiredLabels": ["行政法"]},
+      {"kind": "multiple_blank", "requiredLabels": ["多肢選択式"]},
+      {"kind": "written", "requiredLabels": ["記述式"]}
+    ]
+  },
+  "years": [
+    {"examYear": 2006, "eraYear": "平成18年", "nendoId": 20},
+    {"examYear": 2007, "eraYear": "平成19年", "nendoId": 21},
+    {"examYear": 2008, "eraYear": "平成20年", "nendoId": 22},
+    {"examYear": 2009, "eraYear": "平成21年", "nendoId": 23},
+    {"examYear": 2010, "eraYear": "平成22年", "nendoId": 24},
+    {"examYear": 2011, "eraYear": "平成23年", "nendoId": 25},
+    {"examYear": 2012, "eraYear": "平成24年", "nendoId": 26},
+    {"examYear": 2013, "eraYear": "平成25年", "nendoId": 27},
+    {"examYear": 2014, "eraYear": "平成26年", "nendoId": 28},
+    {"examYear": 2015, "eraYear": "平成27年", "nendoId": 32}
+  ],
+  "fetch": {
+    "userAgent": "YukiPersonalStudyArchive/1.0 (single-user, non-commercial)",
+    "minimumDelaySeconds": 1.0,
+    "timeoutSeconds": 30,
+    "maxAttempts": 3
+  },
+  "rights": {
+    "storage": "private_outside_web_root",
+    "purpose": "internal_frequency_count_only",
+    "webCitation": "never",
+    "providerExplanationUse": "not_available"
+  }
+}

@@ -1,0 +1,389 @@
+# 行政書士 過去問ラボ 引き継ぎ
+
+更新日: 2026-07-26 JST
+
+この文書は、VPSで開発していた行政書士クイズをMacBookへ移した時点の設計・判断・現状を、次のCodexまたはClaude Codeへ引き継ぐためのものです。日々の強制ルールは `AGENTS.md` を正本とします。
+
+## 0. 次のMac AIへ最初に依頼する内容
+
+最初に、次の指示をそのまま実行する。
+
+> 大量の民法カード作成はまだ始めないでください。多科目化の基礎工事とPC・スマホ実画面確認は完了し、ユーザー確認待ちです。まず `AGENTS.md`、`HANDOFF.md`、`ARCHITECTURE.md`、`authoring/README.md` を読んでください。
+>
+> ユーザーが確認するまではそこで止まり、確認後に弱点分析MVPまたは民法20〜30論点へ進んでください。UIを変更した場合だけ、PC幅とスマホ幅を再確認してください。
+>
+> 既存の問題ID・カードID・deck ID・`production.sqlite3`の行を変更しないでください。このディレクトリはprivate Gitリポジトリとして管理し、親の `yuki-services` では `git init` しないでください。
+
+2026年7月26日に、rawを変えないcanonical科目ID変換、1,205件・複数科目fixture、API filter/page、タブ遅延読込を実装した。UI初回はoverviewと学習カードだけを読み、APIは各ページを最後まで取得する。PC 1440px・スマホ用CSS幅500pxと、過去問・記述・Claude監査・類似確認の遅延読込を実Chromeで確認済み。詳細は `ARCHITECTURE.md` の「多科目化のスケーラビリティ基盤」を参照する。
+
+## 1. 現在の到達点
+
+MacBook上の本番URL:
+
+```text
+http://192.168.10.102:8080/services/gyousei-lab/
+```
+
+2026年7月26日の移行確認時点:
+
+- 過去問: 220問
+  - 通常択一: 190問
+  - 多肢選択式: 20問
+  - 記述式: 10問
+- ○×学習カード: 55件
+- ⑤に使う関連過去問肢: 重複を除いて211件、各カードへの表示は延べ263件
+- ⑥「似た制度・他分野との違い」: 30カード
+- Claude監査候補: 20件
+- 類似候補: 588組
+- 収録科目: 行政法
+- 法令基準日: 2026-04-01
+- bundle revision:
+  `44b10faef72fc1e753683e8206b3508bc96d43c5fc634a5da4227a487c40980d`
+
+このプロジェクトは、2026年11月8日の受験日まで約3か月、利用者が実際に問題を解きながら育てる。行政法・民法などの科目別、全分野頻出、回答履歴から作る苦手ページ、行政法と民法などの分野横断比較を、同じ回答履歴と共通学習エンジン上に順次追加する。
+
+次科目用の非公開編集資料:
+
+- 合格道場・平成18〜令和7年度の全分野: 1,139問
+- 平成28〜令和7年度: 569問
+  - 解説あり558問
+  - 解説公開終了11問
+- 平成18〜27年度: 570問
+  - 問題と当時の答えを保存
+  - 解説提供なし
+- 全1,139問が抽出警告0・検証エラー0
+- 全20年の通常5肢: 5,095肢
+- 正解番号だけから安全に○×候補化できる肢: 3,295肢
+  - 行政法: 440問、通常5肢1,900肢、safe候補1,375肢
+  - 民法: 220問、通常5肢900肢、safe候補555肢
+- 多肢選択: 60問、語群1,200項目、空欄240個
+- 記述: 60問
+- 保存先:
+  `~/.local/share/yuki-services/gyousei-lab/authoring/all_subjects/`
+
+これはまだ現行の行政法bundleへ組み込んでいない。憲法・民法などを追加する時の
+取得証跡・論点探索・解説編集資料として使う。
+
+年60問×20年なら理論上1,200問である。1,139問なのは、問58〜60の本文が著作権上の理由で20年分60問なく、2017年度問39が取得元の年度一覧にないため。行政法440問は全試験ではなく、行政法22問/年×20年である。
+
+件数の再現可能な集計は、`gyousei-dataset-inventory` で生成する。runtimeの
+`all-subject-inventory.json` は問題文・解説・内部パスを含まない集計専用で、
+`/api/data-inventory` と「データ状態」「全体構成図」から表示する。
+
+回答履歴の移行時点スナップショット:
+
+- 過去問回答: 2件
+- 学習カード回答: 15件
+- 類似候補の判断: 588件
+
+これらの回答件数は利用のたびに増えるので、将来の固定期待値ではない。
+
+## 2. Mac上の構成
+
+```text
+ブラウザ
+  └─ Homebrew nginx :8080
+       ├─ /services/gyousei-lab/      → static/ を直接配信
+       ├─ /services/gyousei-lab/api/  → 127.0.0.1:8817/api/
+       └─ /services/gyousei-lab/health→ 127.0.0.1:8817/health
+
+launchd: com.yuki.gyousei-lab
+  └─ /opt/homebrew/bin/python3.12 server.py
+       ├─ gyousei-production.json（読取り中心）
+       └─ production.sqlite3（回答履歴の正本）
+```
+
+主要パス:
+
+| 用途 | パス |
+|---|---|
+| アプリ | `~/dev/yuki-services/apps/gyousei-lab/` |
+| 静的UI | `~/dev/yuki-services/apps/gyousei-lab/static/` |
+| API | `~/dev/yuki-services/apps/gyousei-lab/server.py` |
+| APIテスト | `~/dev/yuki-services/apps/gyousei-lab/tests/` |
+| 問題生成コード | `~/dev/yuki-services/apps/gyousei-lab/authoring/` |
+| AI向け全体構成 | `~/dev/yuki-services/apps/gyousei-lab/ARCHITECTURE.md` |
+| 人間向け全体構成 | `~/dev/yuki-services/apps/gyousei-lab/static/architecture.html` |
+| 非公開編集データ | `~/.local/share/yuki-services/gyousei-lab/authoring/` |
+| 全分野20年分 | `~/.local/share/yuki-services/gyousei-lab/authoring/all_subjects/` |
+| 安全な件数集計 | `~/.local/share/yuki-services/gyousei-lab/all-subject-inventory.json` |
+| bundle | `~/.local/share/yuki-services/gyousei-lab/gyousei-production.json` |
+| 回答履歴 | `~/.local/share/yuki-services/gyousei-lab/production.sqlite3` |
+| ログ | `~/Library/Logs/yuki-services/gyousei-lab/` |
+| launchd正本 | `~/dev/yuki-services/deploy/macos/launchd/com.yuki.gyousei-lab.plist` |
+| launchd設置先 | `~/Library/LaunchAgents/com.yuki.gyousei-lab.plist` |
+| nginx location | `/opt/homebrew/etc/nginx/locations/yuki-services.conf` |
+
+`server.py` はPython標準ライブラリだけで動き、仮想環境は不要。APIは `127.0.0.1:8817` だけで待ち受ける。
+
+既存deck IDは `administrative-law-frequent-10`。名前は行政法由来だが、回答履歴互換のため変更せず、将来の全科目もこのdeckへ追加する。
+
+## 3. ソースと永続データの境界
+
+ソースディレクトリに置くもの:
+
+- `server.py`
+- `static/`
+- `tests/`
+- `authoring/`
+- `README.md`
+- `AGENTS.md`
+- `HANDOFF.md`
+- `docs/`
+
+ソースディレクトリへ置かないもの:
+
+- `gyousei-production.json`
+- `production.sqlite3`、WAL、SHM
+- 合格道場から取得したHTML
+- 公式PDF
+- provider解説全文
+- AIの生prompt・stdout
+- ログ、キャッシュ、バックアップ
+
+Mac移行時、リリース済みbundleとSQLiteは
+`~/.local/share/yuki-services/gyousei-lab/` へ置き、権限を `0600` にした。
+
+## 4. 現在の画面
+
+- ○×学習
+- 図で整理
+- 過去問原文
+- 記述式
+- 解説カード
+- Claude監査
+- 類似確認
+- データ状態
+- 全体構成図（独立ページ）
+
+○×学習では次を表示する。
+
+1. A: 標準問題文
+2. B: やさしい言い換え
+3. Bの別案: 条件、用語、時間の流れなど、問題に合うほどき方
+4. C: 短い読み替え
+5. 回答後の正解、訂正文、普通の解説、深掘り、根拠、常識力
+6. ⑤ 実際の肢・本番での聞かれ方
+7. ⑥ 似た制度・他分野との違い（データがある時だけ）
+
+深掘り解説は折りたたまず、回答後にそのまま表示する。全体マップなどの画像6枚は「図で整理」だけに置き、各問題内には表示しない。
+
+## 5. 問題追加の正本ルール
+
+### 5.1 基本構造
+
+- `subjectId`: 科目を表す安定した英数字ID。
+- `category`: 科目の表示名。
+- `topic`: 科目内の分野。
+- `subtopic`: 1カードで覚える一つの論点。
+- Aは○×判定できる一つの命題にする。独立した二命題を安易に一枚へ詰め込まない。
+- `correct`、誤りなら正しい形を示す `correction`、正しい形を覚える `memoryPoint` を持つ。
+- Bは `variants.b` と `variants.bCasual` の2案を持つ。
+- `variants.bCasualStyle` に、2案目で採用したほどき方を短く記録する。
+- Cは `variants.c` に置く。
+- 普通の解説、深掘りの背景・ひっかけ・例、常識力を持つ。
+- 法令根拠、主資料、review状態、頻出度、⑤、必要な⑥を持つ。
+
+### 5.2 Bの文章
+
+- 頭が回っていない時や集中が乱れている時でも、一度で場面を想像できる言葉にする。
+- 1行だけの雑な言い換えで終わらせない。
+- 誰が、いつ、何をできるかを日常語で説明する。
+- 初めて出る専門用語は、その場で普段の言葉へほどく。
+- 1案目は日常の場面から説明する。
+- 2案目は、問題に合う型を選ぶ。
+  - 用語からほどく
+  - 条件を番号で並べる
+  - 時間の流れで追う
+  - 単純な問題なら自然な2段落
+- 番号を振ること自体を目的にしない。条件が一つなら無理に列挙しない。
+- 短さだけを狙わない。最短確認はCが担当する。
+- 改行は段落の意味が変わる所だけに使う。
+- Aの主語、時期、例外、否定、結論の強さを変えない。
+
+望ましい調子の例:
+
+> 行政から「処分する前に、あなたの言い分を聞きます」と言われたときは、本人が自分で全部話さなくても大丈夫です。
+>
+> 弁護士など、自分の代わりに説明してくれる人を選べます。
+
+### 5.3 ⑤ 実際の肢・本番での聞かれ方
+
+- 平成28年度以降の実際の過去問肢を、出典付きでそのまま表示する。
+- 同じ結論だけでなく、逆向き、条件、例外、直接比較も含める。
+- 単に同じ章というだけのものは、学習に本当に役立つ場合だけ表示する。
+- 平成18〜27年度の問題文は⑤へ表示しない。頻出回数の内部判定だけに使う。
+- 同じ年度・同じ問題に関連肢が複数あっても、頻出度では1問と数える。
+- provider版と公式版が同じ本試験問題を指す場合も1問にまとめる。
+
+### 5.4 頻出度
+
+- 同一命題、逆向き、条件、例外、直接比較だけを数える。
+- `same_topic` だけの問題は頻出度へ入れない。
+- 問題単位で重複除去する。
+- 一次判定後、別のAIまたは別担当が全件を独立再確認する。
+- 最初の35カードは10件維持・25件修正、追加20カードは14件維持・6件修正した。AIの最初の類似判定だけでは件数を確定しない。
+- 現行ラベル基準:
+  - 10回以上: 最頻出
+  - 6〜9回: 頻出
+  - 3〜5回: 繰り返し出題
+  - 1〜2回: 重要論点
+
+### 5.5 ⑥ 似た制度・他分野との違い
+
+- 不服審査法ではこうだが行政事件訴訟法では違う、というような本試験上の混同を防ぐ欄。
+- 本当に結論・主体・期間・効果などを取り違えやすい時だけ付ける。
+- `title`: 何を混同するか。
+- `explanation`: 両制度の差。
+- `memoryCue`: 見分ける着眼点。
+- 対応するカードが実在する場合だけ `relatedCardId` を付ける。
+- 比較がなければ空配列にし、画面では⑥全体を隠す。
+
+## 6. データの出典と法令確認
+
+- 平成28年度〜令和7年度の行政法220問は、合格道場の年度別ページから取得した。
+- 平成18〜27年度の行政法220問は頻出度判定専用として取得した。
+- 全分野についても、合格道場の実在リンクから平成18〜令和7年度1,139問を取得した。直近10年は解説あり558問・公開終了11問、旧10年は解説提供なし570問である。
+- 全分野データの件数・hash・抽出結果は`all_subjects/manifest.json`と、各期間の`reports/validation.json`を正本とする。
+- 合格道場の正答・解説を、過去問の正誤と普通の解説の第一基準にした。
+- AIには、正誤をゼロから置き換えるより、B二案、C、深掘り、常識力、⑤・⑥の整理を期待する。
+- 解説本文は非公開の編集資料であり、bundleへ丸ごとコピーしない。
+- 令和8年度試験は2026年4月1日現在施行の法令が基準。取得日や実装日の現行法と混同しない。
+- 公式資料の表示許諾は未確認なので、raw一式をLANの静的ディレクトリへ置かない。
+
+## 7. 回答履歴とAPI
+
+主要GET:
+
+- `/health`
+- `/api/overview`
+- `/api/data-inventory`
+- `/api/progress`
+- `/api/card-progress`
+- `/api/questions`
+- `/api/cards`
+- `/api/claude-reviews`
+- `/api/similarities`
+- `/api/export`
+
+主要POST:
+
+- `/api/attempts`
+- `/api/card-attempts`
+- `/api/similarity-decisions`
+
+回答イベントにはクライアント生成IDがあり、同じ送信の再試行を二重加算しない。学習カードは問題文・正解のrevisionを使い、カード内容が変わった時に古い判定を現在の正答率へ誤って混ぜない設計である。
+
+Bだけの表現変更は回答revisionを変えない。A、C、正解などを変えるとrevisionが変わり、旧回答は履歴として残るが現在の習得判定から外れる。
+
+ブラウザには通信失敗時だけ未送信キューを置く。集計の正本はSQLiteである。localStorageを全回答履歴の正本へ戻さない。
+
+SQLite schemaの `user_version` は3。主要3表はDB triggerでもappend-onlyを守る。通常操作でUPDATEやDELETEを行わない。
+
+localStorageはorigin単位なので、旧VPSのブラウザにだけ残っていた未送信回答はMacへ自動移行されていない。サーバーへ送信済みの履歴はSQLiteで移行済み。
+
+## 8. 問題生成・頻出度・類似探索
+
+Macを正本とし、次の境界で管理する。
+
+```text
+apps/gyousei-lab/authoring/                 取得・抽出・候補作成・監査・bundle生成コード
+~/.local/share/yuki-services/gyousei-lab/
+  ├─ gyousei-production.json               実行中bundle
+  ├─ production.sqlite3                    回答履歴
+  └─ authoring/
+      ├─ canonical/                        学習カードと関連肢の編集正本
+      ├─ raw/、extracted/、catalog/         取得証跡と抽出結果
+      ├─ archive_frequency/                 平成18〜27年度の頻度専用データ
+      ├─ curation/、review/、reports/       候補・監査・照合
+      ├─ reference/official-r2-r7/          公式全科目の参考コーパス
+      └─ builds/                            検証済みbundleの生成先
+```
+
+`reference/official-r2-r7/`は令和2〜7年度の1,360肢を含むが、正誤は出題当時基準で、抽出上の欠落もある。本番へ直接流さず、行政法以外の論点候補・類似候補を探す用途に限定する。行政法は既存の合格道場データを優先する。
+
+bundleは`authoring/README.md`の手順で非公開`builds/`へ生成し、現行bundleと件数・digestを比較する。実行中bundleの置換は別工程としてatomicに行う。
+
+`authoring/src/gyousei_pipeline/candidates.py` は `isWithdrawn=true` の問題を
+safe ○×候補へ分解せず、問題単位reviewへ残す。全分野の件数集計は
+`gyousei-dataset-inventory` で再生成できる。平成30年問56と令和6年問34の
+没問を含め、直近10年のsafe候補は1,630肢、20年合計は3,295肢である。
+
+## 9. 将来の科目追加
+
+- 現在の安定したdeck IDを維持し、すべての科目を同じ回答履歴へ追加する。
+- 学習カード、過去問原文、記述式のすべてに `subjectId` を付ける。
+- UIは3か所とも同じ科目カタログを使う。
+- 現在の `220問`、`210問`、`10問`、`行政法` をコード上の永続的な前提にしない。
+- 憲法や民法を追加する前に、bundle schema、API、フィルタ、summary、タブ表示、テストを複数科目fixtureで確認する。
+- 大量データでは全組合せ比較を避け、科目・topic・重要法令語で候補を絞る補助索引を使う。自動類似度は候補抽出に限り、最終分類は監査データとして保存する。
+
+## 10. 既知の注意点
+
+- このディレクトリはprivate Gitリポジトリ `yamashita-yukihito/gyousei-lab` で管理する。親の `yuki-services` はGitリポジトリではない。
+- タブ補足と本番掲載件数はAPI集計から動的表示する。行政法の現件数を固定値へ戻さない。
+- `static/app.js` の版は `20260726-3`。UI資産を変更する時はHTMLのクエリ版と一緒に更新する。
+- UI初回はoverviewとcardsだけを読み、questions、Claude監査、similaritiesはタブ単位で遅延読込する。
+- rawのunderscore科目IDは変えず、`authoring/src/gyousei_pipeline/subjects.py`を公開canonical変換の正本にする。
+- production bundle builderには現行件数の固定期待値がある。多科目化時はfail closedを保ちつつrelease manifest由来へ一般化する。
+- `static/app.js` は `const API = "api"` という相対URLを使う。末尾スラッシュ付きサービスURLとnginxの `proxy_pass .../api/` が前提なので、安易に絶対 `/api` へ変えない。
+- launchd plistのソースと設置済みファイルは、移行時点ではSHA-256が一致している。
+- LAN専用でBasic認証は付けていない。外部公開へ変える場合は、現状の前提をそのまま使わず脅威モデルを見直す。
+
+次の優先順位:
+
+1. PC幅・スマホ幅の実画面を利用者に見せて確認を待つ。
+2. 確認後、回答履歴をcurrent revisionだけで決定論的に集計する弱点分析MVP。
+3. 民法の優先20〜30論点と、行政法との分野横断関係。
+4. 全分野頻出view、憲法・商法等の重点追加。
+
+弱点分析はSQLiteを更新せず、集計snapshotを別ファイルへ出す。未学習と苦手を分け、1回の誤答だけで不得意と断定しない。科目別・全分野頻出・弱点は別deckの複製ではなく、共通エンジンの `studyView` として実装する。詳細は `ARCHITECTURE.md`。
+
+## 11. 基本検証
+
+```bash
+cd ~/dev/yuki-services/apps/gyousei-lab
+PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/python3.12 -m unittest discover -s tests -v
+/opt/homebrew/bin/node --check static/app.js
+curl -fsS http://127.0.0.1:8817/health
+curl -fsS http://192.168.10.102:8080/services/gyousei-lab/health
+plutil -lint ~/dev/yuki-services/deploy/macos/launchd/com.yuki.gyousei-lab.plist
+/opt/homebrew/bin/nginx -t
+```
+
+問題生成コード:
+
+```bash
+cd ~/dev/yuki-services/apps/gyousei-lab/authoring
+export GYOUSEI_DATA_ROOT="$HOME/.local/share/yuki-services/gyousei-lab/authoring"
+PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/uv run \
+  python -m unittest discover -s tests -v
+```
+
+DBを触った場合:
+
+```bash
+/opt/homebrew/bin/python3.12 - <<'PY'
+import sqlite3
+from pathlib import Path
+
+path = Path.home() / ".local/share/yuki-services/gyousei-lab/production.sqlite3"
+with sqlite3.connect(path) as db:
+    print(db.execute("PRAGMA quick_check").fetchone()[0])
+PY
+```
+
+サービス状態:
+
+```bash
+launchctl print "gui/$(id -u)/com.yuki.gyousei-lab"
+```
+
+APIコードの反映:
+
+```bash
+launchctl kickstart -k "gui/$(id -u)/com.yuki.gyousei-lab"
+curl -fsS http://127.0.0.1:8817/health
+```
+
+静的UIはソースをnginxが直接読んでいるため、別のdeployコピー操作はない。

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "answer-reconciliation@1",
+  "generatedAt": "2026-07-18T00:00:00Z",
+  "summary": {
+    "total": 4
+  },
+  "results": [
+    {
+      "rawQuestionId": "gkd:90",
+      "status": "unavailable"
+    },
+    {
+      "rawQuestionId": "gkd:100",
+      "status": "exact"
+    },
+    {
+      "rawQuestionId": "gkd:110",
+      "status": "exact"
+    },
+    {
+      "rawQuestionId": "gkd:300",
+      "status": "match-after-normalization"
+    }
+  ]
+}

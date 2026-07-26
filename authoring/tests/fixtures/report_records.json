@@ -1,0 +1,43 @@
+[
+  {
+    "schemaVersion": "raw-question@1",
+    "examYear": 2016,
+    "listingKind": "regular",
+    "task": {"kind": "select_true"},
+    "labels": ["行政法", "行政手続法"],
+    "isAmended": false,
+    "extraction": {"status": "parsed", "warnings": []},
+    "questionText": "REPORT-MUST-NOT-COPY-QUESTION-TEXT"
+  },
+  {
+    "schemaVersion": "raw-question@1",
+    "examYear": 2016,
+    "listingKind": "regular",
+    "task": {"kind": "select_false"},
+    "labels": ["行政法", "行政手続法"],
+    "isAmended": true,
+    "extraction": {
+      "status": "needs_review",
+      "warnings": ["catalog_page_labels_mismatch"]
+    },
+    "providerExplanation": "REPORT-MUST-NOT-COPY-PROVIDER-EXPLANATION"
+  },
+  {
+    "schemaVersion": "raw-question@1",
+    "examYear": 2016,
+    "listingKind": "multiple_blank",
+    "task": {"kind": "fill_four_blanks"},
+    "labels": ["行政法", "多肢選択式"],
+    "isAmended": false,
+    "extraction": {"status": "parsed", "warnings": []}
+  },
+  {
+    "schemaVersion": "raw-question@1",
+    "examYear": 2016,
+    "listingKind": "written",
+    "task": {"kind": "written_response"},
+    "labels": ["行政法", "記述式"],
+    "isAmended": false,
+    "extraction": {"status": "parsed", "warnings": []}
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "study-target@1",
+  "exam": {
+    "name": "令和8年度行政書士試験",
+    "examYear": 2026,
+    "examDate": "2026-11-08",
+    "lawAsOf": "2026-04-01",
+    "guideUrl": "https://gyosei-shiken.or.jp/doc/guide/guide.html",
+    "checkedAt": "2026-07-18"
+  },
+  "scope": {
+    "subjectId": "administrative_law",
+    "subjectLabel": "行政法",
+    "sourceExamYears": {
+      "from": 2016,
+      "through": 2025
+    }
+  },
+  "lawDates": {
+    "examTruthField": "examTruth",
+    "currentTruthField": "currentTruth",
+    "keepSeparate": true
+  }
+}

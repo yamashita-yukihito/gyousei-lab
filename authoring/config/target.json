@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "target@1",
+  "source": {
+    "id": "goukakudojyo",
+    "baseUrl": "https://www.pro.goukakudojyo.com",
+    "topUrl": "https://www.pro.goukakudojyo.com/worksheet2/w_topnendo.php",
+    "yearUrlTemplate": "https://www.pro.goukakudojyo.com/worksheet2/w_subcatnendo.php?nendoID={nendoId}",
+    "termsUrl": "https://www.pro.goukakudojyo.com/pagestatic/w_main.php?pageID=93",
+    "robotsUrl": "https://www.pro.goukakudojyo.com/robots.txt"
+  },
+  "officialSource": {
+    "id": "gyosei-shiken",
+    "archiveUrl": "https://gyosei-shiken.or.jp/doc/exam/index.html",
+    "copyrightUrl": "https://gyosei-shiken.or.jp/doc/about/copyright.html",
+    "questionUrlTemplate": "https://gyosei-shiken.or.jp/pdf/{officialCode}_mondai.pdf",
+    "answerUrlTemplate": "https://gyosei-shiken.or.jp/doc/exam/{officialCode}ans.html"
+  },
+  "target": {
+    "subjectId": "administrative_law",
+    "subjectLabel": "行政法",
+    "examYears": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "expectedPerYear": {
+      "regular": 19,
+      "multipleChoice": 2,
+      "written": 1,
+      "total": 22
+    },
+    "expectedTotal": 220,
+    "listingRules": [
+      {"kind": "regular", "requiredLabels": ["行政法"]},
+      {"kind": "multiple_blank", "requiredLabels": ["多肢選択式", "行政法"]},
+      {"kind": "written", "requiredLabels": ["記述式", "行政法"]}
+    ]
+  },
+  "years": [
+    {"examYear": 2016, "eraYear": "平成28年", "nendoId": 33, "officialCode": "h28"},
+    {"examYear": 2017, "eraYear": "平成29年", "nendoId": 34, "officialCode": "h29"},
+    {"examYear": 2018, "eraYear": "平成30年", "nendoId": 35, "officialCode": "h30"},
+    {"examYear": 2019, "eraYear": "令和元年", "nendoId": 36, "officialCode": "r1"},
+    {"examYear": 2020, "eraYear": "令和2年", "nendoId": 37, "officialCode": "r2"},
+    {"examYear": 2021, "eraYear": "令和3年", "nendoId": 38, "officialCode": "r3"},
+    {"examYear": 2022, "eraYear": "令和4年", "nendoId": 39, "officialCode": "r4"},
+    {"examYear": 2023, "eraYear": "令和5年", "nendoId": 40, "officialCode": "r5"},
+    {"examYear": 2024, "eraYear": "令和6年", "nendoId": 41, "officialCode": "r6"},
+    {"examYear": 2025, "eraYear": "令和7年", "nendoId": 42, "officialCode": "r7"}
+  ],
+  "fetch": {
+    "userAgent": "YukiPersonalStudyArchive/1.0 (single-user, non-commercial)",
+    "minimumDelaySeconds": 1.0,
+    "timeoutSeconds": 30,
+    "maxAttempts": 3
+  },
+  "rights": {
+    "storage": "private_outside_web_root",
+    "providerExplanationUse": "do_not_publish_or_copy_into_quiz",
+    "officialQuestionWebDisplay": "permission_not_confirmed",
+    "quizExplanations": "independently_authored"
+  }
+}

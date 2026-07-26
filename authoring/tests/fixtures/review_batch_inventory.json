@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "review-candidate-inventory@1",
+  "candidates": [
+    {
+      "candidateId": "gkd:90:choice:1",
+      "candidateKind": "choice_proposition",
+      "rawQuestionId": "gkd:90",
+      "sourceSnapshotId": "snapshot:90",
+      "examYear": 2025,
+      "questionNumber": 10,
+      "task": "select_false",
+      "taskMetadata": {
+        "prompt": "行政手続法について、誤っているものはどれか。"
+      },
+      "choiceLabel": "1",
+      "statementText": "聴聞の当事者は代理人を選任できない。",
+      "inferredTruth": false,
+      "sourceCitation": {
+        "sourceId": "goukakudojyo",
+        "externalQuestionId": "90",
+        "sourceUrl": "https://example.test/question/90",
+        "title": "令和7年－問10改題",
+        "eraYear": "令和7年",
+        "labels": ["行政法", "行政手続法"],
+        "isAmended": true,
+        "sourceBodySha256": "hash90"
+      },
+      "providerExplanation": "PROVIDER-EXPLANATION-MUST-NOT-LEAK"
+    },
+    {
+      "candidateId": "gkd:110:choice:2",
+      "candidateKind": "choice_proposition",
+      "rawQuestionId": "gkd:110",
+      "sourceSnapshotId": "snapshot:110",
+      "examYear": 2024,
+      "questionNumber": 11,
+      "task": "select_true",
+      "taskMetadata": {
+        "prompt": "行政手続法について、正しいものはどれか。"
+      },
+      "choiceLabel": "2",
+      "statementText": "申請に対する処分には審査基準がある。",
+      "inferredTruth": true,
+      "sourceCitation": {
+        "sourceId": "goukakudojyo",
+        "externalQuestionId": "110",
+        "sourceUrl": "https://example.test/question/110",
+        "title": "令和6年－問11",
+        "eraYear": "令和6年",
+        "labels": ["行政法", "行政手続法"],
+        "isAmended": false,
+        "sourceBodySha256": "hash110"
+      }
+    },
+    {
+      "candidateId": "gkd:300:choice:1",
+      "candidateKind": "choice_proposition",
+      "rawQuestionId": "gkd:300",
+      "sourceSnapshotId": "snapshot:300",
+      "examYear": 2016,
+      "questionNumber": 22,
+      "task": "select_true",
+      "taskMetadata": {
+        "prompt": "地方自治法について、正しいものはどれか。"
+      },
+      "choiceLabel": "1",
+      "statementText": "条例の制定改廃を請求できる。",
+      "inferredTruth": true,
+      "sourceCitation": {
+        "sourceId": "goukakudojyo",
+        "externalQuestionId": "300",
+        "sourceUrl": "https://example.test/question/300",
+        "title": "平成28年－問22",
+        "eraYear": "平成28年",
+        "labels": ["行政法", "地方自治法"],
+        "isAmended": false,
+        "sourceBodySha256": "hash300"
+      }
+    },
+    {
+      "candidateId": "gkd:100:choice:1",
+      "candidateKind": "choice_proposition",
+      "rawQuestionId": "gkd:100",
+      "sourceSnapshotId": "snapshot:100",
+      "examYear": 2025,
+      "questionNumber": 8,
+      "task": "select_true",
+      "taskMetadata": {
+        "prompt": "行政総論について、正しいものはどれか。"
+      },
+      "choiceLabel": "1",
+      "statementText": "行政行為には公定力が認められる。",
+      "inferredTruth": true,
+      "sourceCitation": {
+        "sourceId": "goukakudojyo",
+        "externalQuestionId": "100",
+        "sourceUrl": "https://example.test/question/100",
+        "title": "令和7年－問8",
+        "eraYear": "令和7年",
+        "labels": ["行政法", "行政総論"],
+        "isAmended": false,
+        "sourceBodySha256": "hash100"
+      }
+    },
+    {
+      "candidateId": "gkd:110:choice:1",
+      "candidateKind": "choice_proposition",
+      "rawQuestionId": "gkd:110",
+      "sourceSnapshotId": "snapshot:110",
+      "examYear": 2024,
+      "questionNumber": 11,
+      "task": "select_true",
+      "taskMetadata": {
+        "prompt": "行政手続法について、正しいものはどれか。"
+      },
+      "choiceLabel": "1",
+      "statementText": "行政庁は審査基準を定める。",
+      "inferredTruth": false,
+      "sourceCitation": {
+        "sourceId": "goukakudojyo",
+        "externalQuestionId": "110",
+        "sourceUrl": "https://example.test/question/110",
+        "title": "令和6年－問11",
+        "eraYear": "令和6年",
+        "labels": ["行政法", "行政手続法"],
+        "isAmended": false,
+        "sourceBodySha256": "hash110"
+      }
+    },
+    {
+      "candidateId": "gkd:original",
+      "candidateKind": "original_question",
+      "providerExplanation": "PROVIDER-EXPLANATION-MUST-NOT-LEAK"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "official-snapshots@1",
+  "sourceId": "official",
+  "years": {
+    "2016": {
+      "examYear": 2016,
+      "fetchStatus": "failed"
+    },
+    "2018": {
+      "examYear": 2018,
+      "fetchStatus": "complete",
+      "answerDisplays": {
+        "schemaVersion": "official-answer-displays@1",
+        "answers": [
+          {"questionNumber": 8, "kind": "single", "display": "1", "answer": 1},
+          {"questionNumber": 9, "kind": "single", "display": "2", "answer": 2},
+          {
+            "questionNumber": 42,
+            "kind": "multiple_blank",
+            "display": "ア 3 / イ 6 / ウ 19 / エ 16",
+            "blanks": {"ア": 3, "イ": 6, "ウ": 19, "エ": 16}
+          },
+          {
+            "questionNumber": 43,
+            "kind": "multiple_blank",
+            "display": "ア 4 / イ 11 / ウ 20 / エ 15",
+            "blanks": {"ア": 4, "イ": 11, "ウ": 20, "エ": 15}
+          },
+          {
+            "questionNumber": 44,
+            "kind": "written",
+            "display": "行政庁は、理由を示す。",
+            "answerText": "行政庁は、理由を示す。",
+            "characterCount": 10
+          }
+        ]
+      }
+    },
+    "2019": {
+      "examYear": 2019,
+      "fetchStatus": "complete",
+      "answerDisplays": {
+        "schemaVersion": "official-answer-displays@1",
+        "answers": [
+          {"questionNumber": 8, "kind": "single", "display": "4", "answer": 4},
+          {
+            "questionNumber": 42,
+            "kind": "multiple_blank",
+            "display": "ア 1 / イ 2 / ウ 3 / エ 4",
+            "blanks": {"ア": 1, "イ": 2, "ウ": 3, "エ": 4}
+          },
+          {
+            "questionNumber": 44,
+            "kind": "written",
+            "display": "処分の取消を求める。",
+            "answerText": "処分の取消を求める。",
+            "characterCount": 10
+          }
+        ]
+      }
+    }
+  }
+}

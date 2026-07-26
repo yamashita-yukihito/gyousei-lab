@@ -1,0 +1,12 @@
+{
+  "target": {
+    "examYears": [2016],
+    "expectedPerYear": {
+      "regular": 2,
+      "multipleChoice": 1,
+      "written": 1,
+      "total": 4
+    },
+    "expectedTotal": 4
+  }
+}

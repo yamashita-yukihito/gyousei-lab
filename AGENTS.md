@@ -1,0 +1,168 @@
+# AGENTS.md — gyousei-lab
+
+このファイルが `gyousei-lab` 配下のAI向けルールの正本です。
+`CLAUDE.md` はこのファイルへのシンボリックリンクにし、内容を二重管理しません。
+
+## 1. 作業開始時
+
+- ユーザーへの説明は日本語で、簡潔かつ具体的に行う。
+- 最初に `pwd` を確認し、`README.md`、`HANDOFF.md`、`ARCHITECTURE.md`、`docs/migration.md` を読む。
+- 変更前に対象ファイル、起動方法、実行中サービス、永続データの場所を確認する。
+- 親ディレクトリの `../../AGENTS.md` も適用される。矛盾する場合は、このファイルのプロジェクト固有ルールを優先する。
+- このディレクトリはprivate Gitリポジトリ `yamashita-yukihito/gyousei-lab` として管理する。親の `yuki-services` はGitリポジトリではないため、親で `git init` しない。
+- `rg` はMacに未導入だった。利用できれば使い、なければ `grep` と `find` を使う。
+
+## 2. このサービスの目的
+
+- 1人の利用者がLAN内で使う行政書士試験の学習サービス。
+- 2026年11月8日の受験日まで約3か月、実際に問題を解きながら教材・弱点分析・分野横断学習を育てる長期プロジェクト。
+- 過去問、○×学習カード、記述式、解説、類似肢、回答履歴を扱う。
+- 会員登録、利用者分離、IP別集計、Basic認証は、ユーザーが改めて求めない限り追加しない。
+- 現在は行政法だけだが、将来は憲法、民法、商法・会社法、基礎法学、基礎知識を同じアプリへ追加する。
+- 科目別、全分野頻出、苦手、分野横断は別アプリへ複製せず、共通学習エンジンのfilter preset / `studyView` として作る。
+- 構成・データフロー・正本・ロードマップの正本は `ARCHITECTURE.md`。人間向けは `static/architecture.html`。
+
+## 3. 配置と実行環境
+
+- ソース: `~/dev/yuki-services/apps/gyousei-lab/`
+- 静的UI: `static/`
+- API: `server.py`
+- テスト: `tests/`
+- 問題生成コード: `authoring/`
+- 問題バンドルとSQLite: `~/.local/share/yuki-services/gyousei-lab/`
+- 非公開編集データ:
+  `~/.local/share/yuki-services/gyousei-lab/authoring/`
+- ログ: `~/Library/Logs/yuki-services/gyousei-lab/`
+- LAN URL: `http://192.168.10.102:8080/services/gyousei-lab/`
+- API直接待受: `127.0.0.1:8817`
+- launchd label: `com.yuki.gyousei-lab`
+- nginxは `static/` を直接配信し、`/services/gyousei-lab/api/` と `/health` だけをAPIへ転送する。
+
+ソース、実行時データ、ログを混在させない。問題バンドル、SQLite、WAL、ログ、キャッシュをソース側へコピーしない。
+
+## 4. 絶対に守る互換性
+
+- `production.sqlite3` は利用者の正本データ。削除、初期化、別DBでの上書きをしない。
+- 回答イベントは追記型として扱い、既存回答を更新・削除する仕様へ変えない。
+- カードID、問題ID、既存のdeck ID `administrative-law-frequent-10` を不用意に変更しない。ID変更は回答履歴との対応を切る。
+- 今後の科目も既存の1デッキへ追加し、`subjectId` で絞り込む。科目ごとに別deckへ分割しない。
+- 行政法用、民法用、全分野頻出、苦手などの画面でも、同じカードIDと回答履歴を共有する。
+- APIの公開用projectionを迂回して、内部パス、provider解説全文、prompt、ログ、archive内部IDをブラウザへ返さない。
+- Bだけの表現変更では回答revisionは変わらない。A、C、正解などの変更ではrevisionが変わり、旧回答は保存されたまま現在の習得判定から外れる。この違いを意識して編集する。
+
+## 5. UI・文章の確定方針
+
+- 解説図は独立した「図で整理」タブだけに置き、各問題の解説内へ自動挿入しない。
+- Bは必ず2案を持つ。
+  - 1案目: 日常の場面から説明する、やさしい言い換え。
+  - 2案目: 問題に応じて「用語からほどく」「条件を並べる」「時間の流れで追う」などを選ぶ。
+- Bは、頭が回っていない時でも一度で場面を想像できる文章にする。専門用語を専門用語のまま説明しない。最短要約はCの役割。
+- 改行は意味の切れ目だけに使う。1行ごとの過剰な改行や、長い一段落を避ける。
+- ⑤には平成28年度以降の実際の過去問肢を原文のまま表示し、本番での聞かれ方を確認できるようにする。
+- ⑥「似た制度・他分野との違い」は、本当に混同しやすい比較があるカードだけに付ける。データがなければ見出しごと表示しない。
+- 深掘り解説は開閉式に戻さず、回答後に普通に表示する。
+
+詳細なカード作成・頻出度ルールは `HANDOFF.md` の「問題追加の正本ルール」を参照する。
+
+## 6. 問題・バンドルを変更する時
+
+- 問題生成コードは`authoring/`、取得スナップショット・抽出結果・編集正本・監査データは非公開編集データ配下を正本とする。
+- 合格道場の平成18〜令和7年度・全分野1,139問は、非公開編集データの`all_subjects/`にある。直近10年569問は解説558問を含み、旧10年570問は問題と当時の答えだけで解説はない。`all_subjects/README.md`と各期間の`reports/validation.json`を先に確認する。
+- `all_subjects/`は次科目の編集資料であり、現行の行政法bundleへ自動投入しない。科目別に正本ルールへ昇格させ、B二案・C・深掘り・常識力は独自に作る。
+- 全分野候補を作る時、没問・正解なし・組合せ・個数・多肢・記述を正解番号だけで自動○×化しない。`gyousei-dataset-inventory` のsafe候補数と除外理由を確認する。
+- 令和2〜7年度の公式全科目コーパスは`authoring/reference/official-r2-r7/`に隔離されている。論点候補の探索だけに使い、出題当時の正誤を2026年基準の正誤として公開しない。
+- リリース済みbundleを手作業で直接つぎはぎしない。候補データ、監査データ、公開bundleを分ける。
+- 新しい科目・問題・カードには安定した `subjectId` を付ける。画面の件数を行政法の現件数で固定しない。
+- 既存bundleを置換する時は、schema、全参照、件数、内部情報漏洩を検証し、権限 `0600` でatomicに置き換える。
+- 合格道場の正答・解説を編集上の第一基準にするが、解説本文をそのまま転載しない。B、C、深掘り、常識力は独自文にする。
+- 令和8年度試験向けの法令基準日は `2026-04-01`。取得日や今日の日付と混同しない。
+
+## 7. 編集と検証
+
+- 既存の書き方と構造を確認してから、必要最小限の変更を行う。
+- 無関係なリファクタリングや、利用者の既存変更の巻戻しをしない。
+- `static/` はnginxが直接配信しているため、UIファイルの変更は保存直後から本番へ反映される。試作コードを置かない。
+- JavaScriptやCSSを変更したら、`APP_VERSION` と `index.html` のクエリ版を同時に更新し、古いキャッシュを避ける。
+- 全体構成、主要画面、データ正本、分析方式、ロードマップを変更したら、`ARCHITECTURE.md` と `static/architecture.html` を同じ作業で更新する。件数はHTMLへ手入力せず、集計APIから表示する。
+- UIのAPI基準は相対URL `api` であり、末尾スラッシュ付きの `/services/gyousei-lab/` とnginxの転送規則が前提。理由なく `/api` の絶対URLへ変えない。
+- UI変更ではPC幅とスマホ幅を実ブラウザで確認する。
+- 回答POSTを含むブラウザテストは、本番SQLiteへ向けない。別ポート・一時DBで行う。
+- `server.py` 変更後は、テスト成功後にlaunchdを再起動する。静的ファイルだけの変更ではAPI再起動は不要。
+- nginx設定を変更していないのにnginxを再起動しない。設定変更時は先に `nginx -t` を通す。
+- nginxの設定は `~/dev/yuki-services/deploy/macos/nginx/yuki-services.locations.conf` を正本にし、実設定だけを直接編集しない。
+
+基本確認:
+
+```bash
+cd ~/dev/yuki-services/apps/gyousei-lab
+PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/python3.12 -m unittest discover -s tests -v
+/opt/homebrew/bin/node --check static/app.js
+curl -fsS http://127.0.0.1:8817/health
+curl -fsS http://192.168.10.102:8080/services/gyousei-lab/health
+```
+
+問題生成コードの確認:
+
+```bash
+cd ~/dev/yuki-services/apps/gyousei-lab/authoring
+export GYOUSEI_DATA_ROOT="$HOME/.local/share/yuki-services/gyousei-lab/authoring"
+PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/uv run \
+  python -m unittest discover -s tests -v
+```
+
+全分野データ件数の再生成:
+
+```bash
+cd ~/dev/yuki-services/apps/gyousei-lab/authoring
+export GYOUSEI_DATA_ROOT="$HOME/.local/share/yuki-services/gyousei-lab/authoring"
+/opt/homebrew/bin/uv run gyousei-dataset-inventory
+install -m 0600 \
+  "$GYOUSEI_DATA_ROOT/all_subjects/data_inventory.json" \
+  "$HOME/.local/share/yuki-services/gyousei-lab/all-subject-inventory.json"
+```
+
+`all-subject-inventory.json` は問題文・取得元解説・内部パスを含まない集計専用コピー。rawやprovider解説をruntime直下へ代用コピーしない。
+
+API再起動:
+
+```bash
+launchctl kickstart -k "gui/$(id -u)/com.yuki.gyousei-lab"
+curl -fsS http://127.0.0.1:8817/health
+```
+
+launchd plistを変更する場合は、リポジトリ側
+`~/dev/yuki-services/deploy/macos/launchd/com.yuki.gyousei-lab.plist`
+とインストール済み
+`~/Library/LaunchAgents/com.yuki.gyousei-lab.plist`
+の両方を同期し、反映後にhashを比較する。
+
+設定とUIの追加確認:
+
+```bash
+plutil -lint ~/dev/yuki-services/deploy/macos/launchd/com.yuki.gyousei-lab.plist
+/opt/homebrew/bin/nginx -t
+diff -u \
+  ~/dev/yuki-services/deploy/macos/nginx/yuki-services.locations.conf \
+  /opt/homebrew/etc/nginx/locations/yuki-services.conf
+~/dev/yuki-services/scripts/chrome-screenshot-mac.sh \
+  http://192.168.10.102:8080/services/gyousei-lab/ \
+  /tmp/gyousei-lab.png
+```
+
+## 8. SQLiteを扱う時
+
+- 稼働中DBを単純な `cp` でバックアップしない。SQLite backup APIまたは `.backup` を使う。
+- schema変更前に整合性確認とバックアップを行い、失敗時の戻し方を明示する。
+- `production.sqlite3-wal` と `production.sqlite3-shm` を独立した正本として扱わない。
+- 検証後に `PRAGMA quick_check` を実行する。
+- 回答件数は利用により増えるため、`HANDOFF.md` の件数を固定期待値としてテストしない。
+
+## 9. 完了報告
+
+- 何を変更したか。
+- どの検証を実行し、結果がどうだったか。
+- APIやnginxを再起動したか。
+- 本番データと回答履歴を変更したか。
+- 未解決事項や、次の担当者が判断すべき点。
+
+を日本語で簡潔に報告する。

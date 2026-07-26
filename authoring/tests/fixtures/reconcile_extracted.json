@@ -1,0 +1,85 @@
+[
+  {
+    "schemaVersion": "raw-question@1",
+    "rawQuestionId": "provider:2016-8",
+    "examYear": 2016,
+    "questionNumber": 8,
+    "listingKind": "regular",
+    "answer": {"kind": "option", "value": 1},
+    "questionText": "REPORT-MUST-NOT-COPY-QUESTION-TEXT",
+    "providerExplanation": "REPORT-MUST-NOT-COPY-PROVIDER-EXPLANATION"
+  },
+  {
+    "schemaVersion": "raw-question@1",
+    "rawQuestionId": "provider:2018-8",
+    "examYear": 2018,
+    "questionNumber": 8,
+    "listingKind": "regular",
+    "answer": {"kind": "option", "value": 1}
+  },
+  {
+    "schemaVersion": "raw-question@1",
+    "rawQuestionId": "provider:2018-9",
+    "examYear": 2018,
+    "questionNumber": 9,
+    "listingKind": "regular",
+    "answer": {"kind": "option", "value": "２"}
+  },
+  {
+    "schemaVersion": "raw-question@1",
+    "rawQuestionId": "provider:2018-42",
+    "examYear": 2018,
+    "questionNumber": 42,
+    "listingKind": "multiple_blank",
+    "answer": {
+      "kind": "blank_numbers",
+      "values": {"ア": 3, "イ": 6, "ウ": 19, "エ": 16}
+    }
+  },
+  {
+    "schemaVersion": "raw-question@1",
+    "rawQuestionId": "provider:2018-43",
+    "examYear": 2018,
+    "questionNumber": 43,
+    "listingKind": "multiple_blank",
+    "answer": {
+      "kind": "blank_numbers",
+      "values": {"ア": "４", "イ": "11", "ウ": "２０", "エ": "15"}
+    }
+  },
+  {
+    "schemaVersion": "raw-question@1",
+    "rawQuestionId": "provider:2018-44",
+    "examYear": 2018,
+    "questionNumber": 44,
+    "listingKind": "written",
+    "answer": {"kind": "model_answer", "value": "行政庁は， 理由を示す。（10字）"}
+  },
+  {
+    "schemaVersion": "raw-question@1",
+    "rawQuestionId": "provider:2019-8",
+    "examYear": 2019,
+    "questionNumber": 8,
+    "listingKind": "regular",
+    "answer": {"kind": "option", "value": 5}
+  },
+  {
+    "schemaVersion": "raw-question@1",
+    "rawQuestionId": "provider:2019-42",
+    "examYear": 2019,
+    "questionNumber": 42,
+    "listingKind": "multiple_blank",
+    "answer": {
+      "kind": "blank_numbers",
+      "values": {"ア": 1, "イ": 2, "ウ": 3}
+    }
+  },
+  {
+    "schemaVersion": "raw-question@1",
+    "rawQuestionId": "provider:2019-44",
+    "examYear": 2019,
+    "questionNumber": 44,
+    "listingKind": "written",
+    "answer": {"kind": "model_answer", "value": "処分の取消しを求める。"}
+  }
+]

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "all-subjects-target@1",
+  "source": {
+    "id": "goukakudojyo",
+    "baseUrl": "https://www.pro.goukakudojyo.com",
+    "topUrl": "https://www.pro.goukakudojyo.com/worksheet2/w_topnendo.php",
+    "yearUrlTemplate": "https://www.pro.goukakudojyo.com/worksheet2/w_subcatnendo.php?nendoID={nendoId}",
+    "termsUrl": "https://www.pro.goukakudojyo.com/pagestatic/w_main.php?pageID=93",
+    "robotsUrl": "https://www.pro.goukakudojyo.com/robots.txt"
+  },
+  "target": {
+    "datasetId": "all_subjects_current_2016_2025",
+    "examYears": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "expectedTotal": 569,
+    "defaultQuestionNumberRanges": [[1, 57]],
+    "questionNumberRangeOverrides": {
+      "2017": [[1, 38], [40, 57]]
+    },
+    "listingKindRules": [
+      {"kind": "regular", "ranges": [[1, 40], [47, 57]]},
+      {"kind": "multiple_blank", "ranges": [[41, 43]]},
+      {"kind": "written", "ranges": [[44, 46]]}
+    ],
+    "subjectRules": [
+      {"subjectId": "legal_foundations", "subjectLabel": "基礎法学", "ranges": [[1, 2]]},
+      {"subjectId": "constitutional_law", "subjectLabel": "憲法", "ranges": [[3, 7], [41, 41]]},
+      {"subjectId": "administrative_law", "subjectLabel": "行政法", "ranges": [[8, 26], [42, 44]]},
+      {"subjectId": "civil_law", "subjectLabel": "民法", "ranges": [[27, 35], [45, 46]]},
+      {"subjectId": "commercial_law", "subjectLabel": "商法・会社法", "ranges": [[36, 40]]},
+      {"subjectId": "basic_knowledge", "subjectLabel": "基礎知識", "ranges": [[47, 57]]}
+    ],
+    "expectedByFormat": {
+      "regular": 509,
+      "multiple_blank": 30,
+      "written": 30
+    },
+    "expectedBySubject": {
+      "legal_foundations": 20,
+      "constitutional_law": 60,
+      "administrative_law": 220,
+      "civil_law": 110,
+      "commercial_law": 49,
+      "basic_knowledge": 110
+    },
+    "expectedExplanations": {
+      "available": 558,
+      "unavailable": 11
+    },
+    "historicalUse": "current_editorial_reference"
+  },
+  "years": [
+    {"examYear": 2016, "eraYear": "平成28年", "nendoId": 33},
+    {"examYear": 2017, "eraYear": "平成29年", "nendoId": 34},
+    {"examYear": 2018, "eraYear": "平成30年", "nendoId": 35},
+    {"examYear": 2019, "eraYear": "令和元年", "nendoId": 36},
+    {"examYear": 2020, "eraYear": "令和2年", "nendoId": 37},
+    {"examYear": 2021, "eraYear": "令和3年", "nendoId": 38},
+    {"examYear": 2022, "eraYear": "令和4年", "nendoId": 39},
+    {"examYear": 2023, "eraYear": "令和5年", "nendoId": 40},
+    {"examYear": 2024, "eraYear": "令和6年", "nendoId": 41},
+    {"examYear": 2025, "eraYear": "令和7年", "nendoId": 42}
+  ],
+  "fetch": {
+    "userAgent": "YukiPersonalStudyArchive/1.0 (single-user, non-commercial)",
+    "minimumDelaySeconds": 1.5,
+    "timeoutSeconds": 30,
+    "maxAttempts": 3
+  },
+  "rights": {
+    "storage": "private_outside_web_root",
+    "purpose": "private_study_and_editorial_reference",
+    "providerExplanationUse": "private_reference_only_do_not_publish_wholesale",
+    "quizExplanations": "independently_authored"
+  }
+}

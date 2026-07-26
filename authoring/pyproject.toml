@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gyousei-pipeline"
+version = "0.1.0"
+description = "Private acquisition and build pipeline for the administrative scrivener quiz"
+requires-python = ">=3.12"
+dependencies = [
+  "beautifulsoup4>=4.12,<5",
+  "requests>=2.31,<3",
+]
+
+[project.scripts]
+gyousei-discover = "gyousei_pipeline.discover:main"
+gyousei-discover-all-subjects = "gyousei_pipeline.discover_all_subjects:main"
+gyousei-fetch = "gyousei_pipeline.fetch:main"
+gyousei-extract = "gyousei_pipeline.extract:main"
+gyousei-validate = "gyousei_pipeline.validate:main"
+gyousei-validate-all-subjects = "gyousei_pipeline.validate_all_subjects:main"
+gyousei-official = "gyousei_pipeline.official:main"
+gyousei-report = "gyousei_pipeline.report:main"
+gyousei-candidates = "gyousei_pipeline.candidates:main"
+gyousei-dataset-inventory = "gyousei_pipeline.dataset_inventory:main"
+gyousei-reconcile = "gyousei_pipeline.reconcile:main"
+gyousei-similarity = "gyousei_pipeline.similarity:main"
+gyousei-fable-review = "gyousei_pipeline.fable_review:main"
+gyousei-review-batches = "gyousei_pipeline.review_batches:main"
+gyousei-production-bundle = "gyousei_pipeline.production_bundle:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
