@@ -318,6 +318,13 @@ safe ○×候補へ分解せず、問題単位reviewへ残す。全分野の件�
 `all_subjects/current_2016_2025/curation/explanation_mapping_ox_rules.json`
 を正本とする。
 
+`frequencyEligible`は候補単体のフラグで、カード×原問の頻出判定を表現できないため、
+673肢では`false`を維持する。行政法440問・55カードの独立再監査済み正本
+`curation/card_frequency_2006_2025.json`へ原問単位で照合し、結果を
+`all_subjects/current_2016_2025/curation/explanation_ox_frequency_crosswalk.json`
+へ保存する。これにより今回の行政法原問は、現行カードに数えるものと数えないものを
+区別済みである。候補全体を`true`にして自動集計してはならない。
+
 ## 9. 将来の科目追加
 
 - 現在の安定したdeck IDを維持し、すべての科目を同じ回答履歴へ追加する。

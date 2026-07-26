@@ -153,6 +153,7 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m gyousei_pipeline.learning_in
 
 - `gyousei-explanation-ox`: 単一ラベルと明示的な正誤見出しから632肢を生成
 - `gyousei-mapping-ox`: 監査済みallowlistから41肢を生成
+- `gyousei-explanation-frequency`: 673肢の原問を既存のカード別頻出監査へ照合
 - 合計673肢・140原問
 - 全候補を`reviewed=false`、`publishable=false`、
   `frequencyEligible=false`で生成
@@ -173,11 +174,20 @@ export GYOUSEI_DATA_ROOT="$HOME/.local/share/yuki-services/gyousei-lab/authoring
   --expected-corroboration-count 1534 \
   --expected-target-crosscheck-count 132
 /opt/homebrew/bin/uv run gyousei-mapping-ox
+/opt/homebrew/bin/uv run gyousei-explanation-frequency
 ```
 
 2つのsidecarは既存`review_candidates.json`を置換しません。
-`learning_index`の検索・編集候補には追加できますが、内容監査と
-topic分類が終わるまで頻出回数へ入れません。本番bundleへの昇格は別工程です。
+`learning_index`の検索・編集候補には追加できますが、本番bundleへの昇格は
+別工程です。
+
+`frequencyEligible`は候補全体に効くため、カードごとに同じ原問を数えるかどうかを
+表現できません。そのため673肢は`false`を維持し、頻出回数の正本である
+`card_frequency_2006_2025.json`との照合結果を
+`explanation_ox_frequency_crosswalk.json`へ保存します。行政法440問・55カードの
+独立再監査が完了しているので、行政法の原問は「現行カードに数える／数えない」を
+この照合表で確定できます。行政法以外はまだ対応カードがないため、現時点では
+`no_current_subject_cards`です。
 
 ## AI法令監査の安全境界
 
