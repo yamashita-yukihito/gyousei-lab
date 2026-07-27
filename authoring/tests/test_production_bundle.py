@@ -517,6 +517,25 @@ class ProductionBundleTests(unittest.TestCase):
             bundle["similarityPairs"][0]["pairContentDigest"], r"^[0-9a-f]{64}$"
         )
 
+    def test_combination_format_and_evidence_highlights_reach_the_screen(self) -> None:
+        cards = explanation_cards()
+        cards["items"][0]["evidenceHighlights"] = ["理由を示す", "申請"]
+        source = related_question_source()
+        source["records"][0]["questionFormat"] = "combination"
+
+        bundle = self.build(explanation_cards=cards, related_question_source=source)
+
+        card = bundle["explanationCards"][0]
+        self.assertEqual(["理由を示す", "申請"], card["evidenceHighlights"])
+        self.assertEqual(
+            "combination", bundle["relatedQuestionEvidence"][0]["questionFormat"]
+        )
+
+    def test_optional_display_fields_stay_absent_when_not_authored(self) -> None:
+        bundle = self.build()
+        self.assertNotIn("evidenceHighlights", bundle["explanationCards"][0])
+        self.assertNotIn("questionFormat", bundle["relatedQuestionEvidence"][0])
+
     def test_whitelist_excludes_provider_explanations_prompts_and_private_paths(self) -> None:
         bundle = self.build()
         serialized = json.dumps(bundle, ensure_ascii=False)

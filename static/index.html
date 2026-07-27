@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#183a34">
   <title>行政書士 過去問ラボ</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23183a34'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='39' fill='white'%3E%E8%A1%8C%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=20260727-3">
+  <link rel="stylesheet" href="styles.css?v=20260727-4">
 </head>
 <body>
   <a class="skip-link" href="#main-content">本文へ移動</a>
@@ -85,6 +85,7 @@
           <div><strong class="correct">正解 <b id="study-card-correct-count">0</b>回</strong><strong class="incorrect">不正解 <b id="study-card-incorrect-count">0</b>回</strong></div>
         </div>
         <p id="study-subtopic" class="study-subtopic"></p>
+        <p class="card-id-line"><span>カードID</span><code id="study-card-id"></code></p>
         <p id="study-frequency" class="study-frequency" hidden></p>
 
         <div class="study-variants" aria-label="同じ問題の三つの表現">
@@ -112,7 +113,7 @@
           <section class="study-deep-dive"><h3>② 深掘り解説</h3><div><section><h4>制度の背景・理由</h4><p id="study-deep-background"></p></section><section><h4>試験のひっかけ</h4><p id="study-deep-trap"></p></section><section><h4>具体的な場面</h4><p id="study-deep-example"></p></section></div></section>
           <section class="study-explanation-block study-basis"><h3>③ 根拠・確認時点</h3><p id="study-law-date"></p><ul id="study-basis-list"></ul></section>
           <section class="study-explanation-block study-common-sense"><h3>④ 常識力</h3><p id="study-common-sense"></p></section>
-          <section id="study-related-section" class="study-explanation-block study-related"><div class="related-heading"><h3>⑤ 実際の肢・本番での聞かれ方</h3><strong id="study-related-count"></strong></div><p class="study-related-note">平成28年度以降の実際の肢を、同じルールだけでなく、逆の言い方・例外・条件・比較も含めて表示します。頻出回数には非表示の旧年度や、肢ごとの○×を安全に出せない組合せ・記述式も問題単位で含むため、ここの表示件数とは一致しないことがあります。</p><div id="study-related-list"></div></section>
+          <section id="study-related-section" class="study-explanation-block study-related"><div class="related-heading"><h3>⑤ 実際の肢・本番での聞かれ方</h3><strong id="study-related-count"></strong></div><p class="study-related-note">平成28年度以降の実際の肢を、同じルールだけでなく、逆の言い方・例外・条件・比較も含めて表示します。組合せ問題から採った肢にはその印を付けています。頻出回数には表示していない平成27年度以前や記述式も問題単位で含むため、ここの表示件数とは一致しないことがあります。</p><div id="study-related-list"></div></section>
           <section id="study-cross-field" class="study-explanation-block study-cross-field" hidden><div class="related-heading"><h3>⑥ 似た制度・他分野との違い</h3><strong id="study-cross-field-count"></strong></div><p class="study-related-note">名前や場面が似ていても結論が違う、試験で混同しやすいルールだけを表示します。</p><div id="study-cross-field-list"></div></section>
           <p id="study-save-status" class="save-status" aria-live="polite"></p>
           <div class="question-nav"><button id="study-next" class="primary-button" type="button">次の問題へ</button></div>
@@ -241,6 +242,7 @@
       <article id="editorial-card" class="content-card editorial-card" hidden>
         <div class="card-topline"><div id="editorial-badges" class="badges"></div><span id="editorial-position" class="position"></span></div>
         <h3 id="editorial-subtopic"></h3>
+        <p class="card-id-line"><span>カードID</span><code id="editorial-card-id"></code></p>
         <section class="variant a"><h4><span>A</span> 標準問題文</h4><p id="editorial-a"></p></section>
         <section class="variant b"><h4><span>B</span> やさしい言い換え</h4><div><small>現在の言い換え</small><p id="editorial-b"></p></div><hr><div><small id="editorial-b-style">もうひとつの言い方</small><p id="editorial-b-casual"></p></div></section>
         <section class="variant c"><h4><span>C</span> 短い読み替え</h4><p id="editorial-c"></p></section>
@@ -355,6 +357,6 @@
 
   <footer><p>本人専用・行政書士学習環境　回答履歴と類似判定はサーバー保存</p></footer>
   <noscript>この画面の利用にはJavaScriptが必要です。</noscript>
-  <script src="app.js?v=20260727-3"></script>
+  <script src="app.js?v=20260727-4"></script>
 </body>
 </html>

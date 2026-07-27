@@ -811,6 +811,38 @@ class ProductionApiTest(unittest.TestCase):
             ),
         )
 
+    def test_display_markup_does_not_change_the_answer_revision(self) -> None:
+        first = server.CATALOG.load()
+        first_revision = server.card_answer_revision(
+            first.cards["card-1"],
+            first,
+            first.study_decks["deck-1"],
+        )
+
+        decorated = copy.deepcopy(first.cards["card-1"])
+        variants = decorated["variants"]
+        variants["a"] = f"**{variants['a']}**"
+        variants["c"] = f"=={variants['c']}=="
+        self.assertEqual(
+            first_revision,
+            server.card_answer_revision(
+                decorated,
+                first,
+                first.study_decks["deck-1"],
+            ),
+        )
+
+        reworded = copy.deepcopy(first.cards["card-1"])
+        reworded["variants"]["a"] += "重要"
+        self.assertNotEqual(
+            first_revision,
+            server.card_answer_revision(
+                reworded,
+                first,
+                first.study_decks["deck-1"],
+            ),
+        )
+
     def test_card_progress_uses_only_current_answer_revision(self) -> None:
         server.add_card_attempt(self.card_attempt_payload())
 

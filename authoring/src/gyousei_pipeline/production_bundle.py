@@ -710,6 +710,14 @@ def _project_explanation_card(value: Any, index: int) -> dict[str, Any]:
         ),
         **_state_fields(review, f"{context}.review"),
     }
+    if "evidenceHighlights" in card:
+        # ⑤の肢は原文を書き換えられないため、画面側で目立たせる語だけを渡す
+        projected["evidenceHighlights"] = [
+            _text(term, f"{context}.evidenceHighlights[{term_index}]")
+            for term_index, term in enumerate(
+                _array(card.get("evidenceHighlights"), f"{context}.evidenceHighlights")
+            )
+        ]
     if "derivedFromWritten" in card:
         projected["derivedFromWritten"] = _project_written_origin(
             card["derivedFromWritten"], f"{context}.derivedFromWritten"
@@ -976,6 +984,11 @@ def _project_related_question_evidence(
                 choice.get("verification"), f"{context}.verification"
             ),
         }
+        if "questionFormat" in record:
+            # 組合せ問題から採った肢は、画面でその印を出せるように形式を渡す
+            evidence["questionFormat"] = _text(
+                record.get("questionFormat"), f"{context}.questionFormat"
+            )
         for optional_field, output_field in (
             ("contextSummary", "contextSummary"),
             ("scopeLabel", "scopeLabel"),

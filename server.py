@@ -829,6 +829,25 @@ def card_law_as_of(
     return ""
 
 
+DISPLAY_MARKUP_PATTERN = re.compile(r"(\*\*|__|==|!!|%%|@@)(.+?)\1", re.DOTALL)
+
+
+def strip_display_markup(value: object) -> object:
+    """本文の装飾記法を取り除く。
+
+    装飾は表示だけの変更で、命題そのものは変わらない。回答revisionの算出から
+    外さないと、色を付けただけで過去の回答が習得判定から落ちてしまう。
+    """
+    if not isinstance(value, str):
+        return value
+    previous = None
+    current = value
+    while previous != current:
+        previous = current
+        current = DISPLAY_MARKUP_PATTERN.sub(r"\2", current)
+    return current
+
+
 def card_answer_revision(
     card: dict,
     snapshot: BundleSnapshot,
@@ -836,8 +855,8 @@ def card_answer_revision(
 ) -> str:
     variants = card.get("variants") or {}
     revision_source = {
-        "a": variants.get("a"),
-        "c": variants.get("c"),
+        "a": strip_display_markup(variants.get("a")),
+        "c": strip_display_markup(variants.get("c")),
         "correct": card.get("correct"),
         "lawAsOf": card_law_as_of(card, snapshot, deck),
     }

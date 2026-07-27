@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260727-3";
+  const APP_VERSION = "20260727-4";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -629,13 +629,14 @@
     $("study-save-status").className = "save-status";
     $("study-feedback").textContent = "";
     $("study-subtopic").textContent = item.subtopic || "";
+    $("study-card-id").textContent = studyCardId(item);
     renderStudyFrequency(item);
     $("study-position").textContent = (state.studyFiltered.indexOf(item) + 1) + " / " + state.studyFiltered.length;
-    $("study-variant-a").textContent = variants.a || "";
-    $("study-variant-b").textContent = variants.b || "";
-    $("study-variant-b-casual").textContent = variants.bCasual || variants.b || "";
+    setRichText($("study-variant-a"), variants.a || "");
+    setRichText($("study-variant-b"), variants.b || "");
+    setRichText($("study-variant-b-casual"), variants.bCasual || variants.b || "");
     $("study-variant-b-style").textContent = variants.bCasualStyle || "やわらかくほどく";
-    $("study-variant-c").textContent = variants.c || "";
+    setRichText($("study-variant-c"), variants.c || "");
     renderStudyBadges(item);
     renderStudyHistory(item);
     document.querySelectorAll("[data-study-answer]").forEach((button) => {
@@ -727,15 +728,15 @@
     $("study-feedback").textContent = isCorrect ? "正解です！" : "今回は不正解です";
     $("study-selected-answer").textContent = studyTruthLabel(selected);
     $("study-correct-answer").textContent = studyTruthLabel(Boolean(item.correct));
-    $("study-correction-text").textContent = item.correction || "";
-    $("study-memory-point").textContent = item.memoryPoint || item.variants && item.variants.c || "";
+    setRichText($("study-correction-text"), item.correction || "");
+    setRichText($("study-memory-point"), item.memoryPoint || item.variants && item.variants.c || "");
     const explanations = item.explanations || {};
     const deep = explanations.deepDive || {};
-    $("study-normal-explanation").textContent = explanations.normal || "";
-    $("study-deep-background").textContent = deep.background || "";
-    $("study-deep-trap").textContent = deep.trap || "";
-    $("study-deep-example").textContent = deep.example || "";
-    $("study-common-sense").textContent = explanations.commonSense || "";
+    setRichText($("study-normal-explanation"), explanations.normal || "");
+    setRichText($("study-deep-background"), deep.background || "");
+    setRichText($("study-deep-trap"), deep.trap || "");
+    setRichText($("study-deep-example"), deep.example || "");
+    setRichText($("study-common-sense"), explanations.commonSense || "");
     $("study-answer-summary").classList.toggle("incorrect-result", !isCorrect);
     renderStudyAccuracy();
     renderStudyBasis(item);
@@ -781,7 +782,10 @@
     refs.forEach((ref) => {
       const evidence = state.evidenceById.get(ref.choiceId) || ref;
       const article = make("article", { className: "study-related-item" });
-      article.appendChild(make("p", {}, evidence.statementText || evidence.officialOriginalText || ref.statementText || ref.text || "関連する過去問肢"));
+      const statement = evidence.statementText || evidence.officialOriginalText || ref.statementText || ref.text || "関連する過去問肢";
+      const body = make("p");
+      body.replaceChildren(...highlightNodes(statement, item.evidenceHighlights));
+      article.appendChild(body);
       const meta = make("footer");
       const historical = ref.historicalTruth !== undefined ? ref.historicalTruth : evidence.historicalTruth;
       if (typeof historical === "boolean") meta.appendChild(make("span", { className: historical ? "true" : "false" }, "出題時 " + (historical ? "○" : "×")));
@@ -789,6 +793,8 @@
       const questionNumber = ref.questionNumber || evidence.questionNumber;
       const choiceNumber = ref.choiceNumber || evidence.choiceNumber;
       meta.appendChild(make("span", {}, [era, questionNumber ? "問" + questionNumber : null, choiceNumber ? "肢" + choiceNumber : null].filter(Boolean).join(" · ")));
+      const formatText = evidenceFormatLabel(ref.questionFormat || evidence.questionFormat);
+      if (formatText) meta.appendChild(make("span", { className: "format" }, formatText));
       meta.appendChild(make("span", {}, relationLabel(ref.relation)));
       const url = ref.sourceUrl || evidence.sourceUrl;
       if (safeUrl(url)) meta.appendChild(make("a", { href: url, target: "_blank", rel: "noopener noreferrer" }, "出典を見る ↗"));
@@ -1536,19 +1542,20 @@
     const deep = explanations.deepDive || {};
     $("editorial-position").textContent = (state.cardIndex + 1) + " / " + state.cards.length;
     $("editorial-subtopic").textContent = card.subtopic || "";
+    $("editorial-card-id").textContent = String(card.cardId || card.id || "");
     renderBadges($("editorial-badges"), [card.category, card.topic].filter(Boolean));
-    $("editorial-a").textContent = variants.a || "";
-    $("editorial-b").textContent = variants.b || "";
-    $("editorial-b-casual").textContent = variants.bCasual || "";
+    setRichText($("editorial-a"), variants.a || "");
+    setRichText($("editorial-b"), variants.b || "");
+    setRichText($("editorial-b-casual"), variants.bCasual || "");
     $("editorial-b-style").textContent = "もうひとつの言い方 · " + (variants.bCasualStyle || "やわらかくほどく");
-    $("editorial-c").textContent = variants.c || "";
+    setRichText($("editorial-c"), variants.c || "");
     $("editorial-correct").textContent = card.correct ? "○ 合っている" : "× 間違っている";
-    $("editorial-correction").textContent = card.correction || "";
-    $("editorial-normal").textContent = explanations.normal || "";
-    $("editorial-background").textContent = deep.background || "";
-    $("editorial-trap").textContent = deep.trap || "";
-    $("editorial-example").textContent = deep.example || "";
-    $("editorial-common-sense").textContent = explanations.commonSense || "";
+    setRichText($("editorial-correction"), card.correction || "");
+    setRichText($("editorial-normal"), explanations.normal || "");
+    setRichText($("editorial-background"), deep.background || "");
+    setRichText($("editorial-trap"), deep.trap || "");
+    setRichText($("editorial-example"), deep.example || "");
+    setRichText($("editorial-common-sense"), explanations.commonSense || "");
     renderRelatedEvidence(card);
     renderEditorialCrossField(card);
     Array.from($("card-selector").children).forEach((button, index) => button.classList.toggle("active", index === state.cardIndex));
@@ -2171,6 +2178,71 @@
     return node;
   }
 
+  // ---- 表示用の文字装飾 ---------------------------------------------------
+  // カード本文に書いた軽量記法を要素へ変換する。HTMLは解釈せず、記法で囲んだ
+  // 部分だけを装飾要素にするので、データ側にタグを書く必要はない。
+  const MARKUP_PATTERN = /(\*\*[^*\n]+\*\*|__[^_\n]+__|==[^=\n]+==|!![^!\n]+!!|%%[^%\n]+%%|@@[^@\n]+@@)/g;
+  const MARKUP_TAGS = {
+    "**": { tag: "strong", className: "mk-strong" },
+    "__": { tag: "span", className: "mk-underline" },
+    "==": { tag: "mark", className: "mk-mark" },
+    "!!": { tag: "span", className: "mk-warn" },
+    "%%": { tag: "span", className: "mk-key" },
+    "@@": { tag: "span", className: "mk-quiet" }
+  };
+
+  function richTextNodes(text) {
+    const source = String(text === undefined || text === null ? "" : text);
+    if (!source) return [];
+    const nodes = [];
+    let lastIndex = 0;
+    let match;
+    MARKUP_PATTERN.lastIndex = 0;
+    while ((match = MARKUP_PATTERN.exec(source)) !== null) {
+      if (match.index > lastIndex) nodes.push(document.createTextNode(source.slice(lastIndex, match.index)));
+      const token = match[0];
+      const rule = MARKUP_TAGS[token.slice(0, 2)];
+      nodes.push(make(rule.tag, { className: rule.className }, token.slice(2, -2)));
+      lastIndex = match.index + token.length;
+    }
+    if (lastIndex < source.length) nodes.push(document.createTextNode(source.slice(lastIndex)));
+    return nodes;
+  }
+
+  function setRichText(node, text) {
+    if (!node) return;
+    node.replaceChildren(...richTextNodes(text));
+  }
+
+  // ⑤の肢は原文を書き換えられないので、カード側の強調語リストで表示だけ目立たせる
+  function highlightNodes(text, terms) {
+    const source = String(text === undefined || text === null ? "" : text);
+    const words = (Array.isArray(terms) ? terms : []).map((term) => String(term || "")).filter((term) => term.length > 1);
+    if (!source || !words.length) return [document.createTextNode(source)];
+    const nodes = [];
+    let rest = source;
+    let guard = 0;
+    while (rest && guard < 400) {
+      guard += 1;
+      let hitIndex = -1;
+      let hitWord = "";
+      words.forEach((word) => {
+        const index = rest.indexOf(word);
+        if (index < 0) return;
+        if (hitIndex < 0 || index < hitIndex || (index === hitIndex && word.length > hitWord.length)) {
+          hitIndex = index;
+          hitWord = word;
+        }
+      });
+      if (hitIndex < 0) break;
+      if (hitIndex > 0) nodes.push(document.createTextNode(rest.slice(0, hitIndex)));
+      nodes.push(make("mark", { className: "mk-evidence" }, hitWord));
+      rest = rest.slice(hitIndex + hitWord.length);
+    }
+    if (rest) nodes.push(document.createTextNode(rest));
+    return nodes;
+  }
+
   function renderBadges(container, labels) {
     const unique = [...new Set(labels.filter(Boolean))];
     container.replaceChildren(...unique.map((label, index) => make("span", { className: "badge" + (index === 0 ? "" : index === 1 ? " blue" : " gray") }, label)));
@@ -2226,6 +2298,7 @@
   function truthLabel(value) { return value === true ? "○ 正しい" : value === false ? "× 誤り" : ""; }
   function statusLabel(value) { return ({ confirmed: "現行法でも同じ", changed: "法改正等で変化", uncertain: "要確認" })[value] || value || "要確認"; }
   function relationLabel(value) { return ({ same_rule: "同じルール", wording_variant: "聞き方違い", opposite_claim: "逆の言い方", exception: "原則と例外", contrast: "比べて覚える", same_topic: "同じテーマ" })[value] || value || "関連問題"; }
+  function evidenceFormatLabel(value) { return ({ combination: "組合せ問題の肢", multiple_blank: "多肢選択式", written: "記述式" })[value] || ""; }
   function runStatusLabel(value) { return ({ completed: "完了", rate_limited: "レート制限", claude_failed: "実行失敗", invalid_stream: "応答形式エラー", invalid_outer_json: "応答形式エラー" })[value] || value; }
   function tierRank(value) { return value === "strict" ? 0 : 1; }
   function percentage(value) { return Number.isFinite(Number(value)) ? Math.round(Number(value) * 100) + "%" : "—"; }

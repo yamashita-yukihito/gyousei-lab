@@ -680,3 +680,33 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; transition: none !important; }
 }
+
+/* カードID表示 */
+.card-id-line { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 0 0 12px; }
+.card-id-line > span { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: 0.05em; }
+.card-id-line code {
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #f3f7f4;
+  color: #4c5a54;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11.5px;
+  user-select: all;
+}
+
+/* 本文の文字装飾（カード側の軽量記法から生成） */
+.mk-strong { color: var(--deep); font-weight: 800; }
+.mk-underline {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--green-2);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.mk-mark { padding: 0 2px; background: linear-gradient(transparent 56%, #ffe487 56%); color: inherit; font-weight: 700; }
+.mk-warn { color: var(--red); font-weight: 800; }
+.mk-key { padding: 1px 6px; border-radius: 5px; background: var(--blue-soft); color: #2d6285; font-weight: 800; }
+.mk-quiet { color: var(--muted); font-size: 0.94em; }
+.mk-evidence { padding: 0 2px; border-radius: 3px; background: #fff0c2; color: inherit; font-weight: 700; }
+.study-related-item footer .format { background: #ece2f7; color: #57407c; }
