@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#183a34">
   <title>行政書士 過去問ラボ</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23183a34'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='39' fill='white'%3E%E8%A1%8C%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=20260727-5">
+  <link rel="stylesheet" href="styles.css?v=20260727-6">
 </head>
 <body>
   <a class="skip-link" href="#main-content">本文へ移動</a>
@@ -64,7 +64,8 @@
         <label class="study-search-field"><span>ことばで探す</span><input id="study-search" type="search" placeholder="論点名・問題文・解説・カードID（例: 制限行為 / min-general-capacity-demand-001）" autocomplete="off" spellcheck="false"><small id="study-search-summary">空欄なら絞り込みません。空白で区切るとすべてを含むカードを探します。</small></label>
         <label><span>科目</span><select id="study-subject"><option value="all">すべて</option></select></label>
         <label><span>分野</span><select id="study-topic"><option value="all">すべて</option></select></label>
-        <label><span>学習ビュー</span><select id="study-view"><option value="standard">通常</option><option value="weakness">苦手・要観察</option></select><small id="study-view-summary">弱点分析を確認中…</small></label>
+        <label><span>学習ビュー</span><select id="study-view"><option value="standard">通常</option><option value="weakness">苦手・要観察</option><option value="rapid">高速○×</option></select><small id="study-view-summary">弱点分析を確認中…</small></label>
+        <label id="study-set-field" hidden><span>1セットの問題数</span><select id="study-set-size"><option value="10">10問</option><option value="20" selected>20問</option><option value="30">30問</option><option value="0">全部</option></select><small id="study-set-summary">1問10秒が目安です。</small></label>
         <label><span>出題順</span><select id="study-order"><option value="sequence">順番に見る</option><option value="weak">苦手を優先</option><option value="random">ランダム</option></select></label>
         <label><span>出題範囲</span><select id="study-scope"><option value="review">おまかせ（習得済みを除く）</option><option value="all">全問題を出す</option></select><small id="study-scope-summary">出題対象を計算中…</small></label>
         <div class="study-history"><span>この問題の履歴</span><strong id="study-history-label">正解 0 / 不正解 0</strong><small id="study-storage-status" class="study-storage saving" aria-live="polite">保存先を確認中…</small></div>
@@ -80,14 +81,28 @@
       </section>
 
       <article id="study-card" class="content-card study-card" hidden>
-        <div class="card-topline"><div id="study-badges" class="badges"></div><span id="study-position" class="position"></span></div>
+        <div id="study-flash" class="study-flash" aria-hidden="true"></div>
+        <div class="card-topline"><div id="study-badges" class="badges"></div><span id="study-timer" class="study-timer" hidden aria-live="off">0.0秒</span><span id="study-position" class="position"></span></div>
         <div class="study-card-history" aria-label="この問題の過去の回答">
           <span>この問題の過去の回答</span>
-          <div><strong class="correct">正解 <b id="study-card-correct-count">0</b>回</strong><strong class="incorrect">不正解 <b id="study-card-incorrect-count">0</b>回</strong></div>
+          <div><strong class="correct">正解 <b id="study-card-correct-count">0</b>回</strong><strong class="incorrect">不正解 <b id="study-card-incorrect-count">0</b>回</strong><strong class="pace">1問 <b id="study-card-median">—</b></strong></div>
         </div>
         <p id="study-subtopic" class="study-subtopic"></p>
         <p class="card-id-line"><span>カードID</span><code id="study-card-id"></code></p>
         <p id="study-frequency" class="study-frequency" hidden></p>
+
+        <details class="markup-legend">
+          <summary>色の意味</summary>
+          <p>青（だれ）→ 下線（条件）→ 黄色（結論）の順に目で追うと、文の意味を組み立てられます。</p>
+          <ul>
+            <li><span class="mk-key">保証人</span> だれ・立場</li>
+            <li><span class="mk-underline">1か月以上</span> 条件・期間</li>
+            <li><strong class="mk-strong">追認</strong> 用語・制度</li>
+            <li><mark class="mk-mark">取り消せない</mark> 結論</li>
+            <li><span class="mk-warn">逆にすると誤り</span> ひっかけ</li>
+            <li><span class="mk-quiet">民法145条</span> 根拠・補足</li>
+          </ul>
+        </details>
 
         <div class="study-variants" aria-label="同じ問題の三つの表現">
           <section class="study-variant study-variant-a"><h3 id="study-question-heading" tabindex="-1"><span>A</span> 標準問題文</h3><p id="study-variant-a"></p></section>
@@ -97,9 +112,11 @@
           </section>
           <section class="study-variant study-variant-c"><h3><span>C</span> 短い読み替え</h3><p id="study-variant-c"></p></section>
         </div>
+        <button id="rapid-reveal-b" class="rapid-reveal" type="button" hidden>迷ったら…やさしい言い換え（B・C）を開く</button>
 
         <p class="study-answer-prompt">上の文章は、法律のルールに合っている？</p>
         <div class="study-answer-buttons" role="group" aria-label="○か×で回答する"><button type="button" data-study-answer="true" aria-label="丸、合っているを選ぶ"><span>○</span> 合っている</button><button type="button" data-study-answer="false" aria-label="ばつ、間違っているを選ぶ"><span>×</span> 間違っている</button></div>
+        <p id="study-key-hint" class="study-key-hint" hidden><b>←</b> または <b>F</b> ＝○　　<b>→</b> または <b>J</b> ＝×　　<b>スペース</b> ＝次へ</p>
 
         <section id="study-answer-panel" class="study-answer-panel" hidden>
           <div id="study-answer-summary" class="study-answer-summary" tabindex="-1" role="region" aria-label="回答結果">
@@ -117,9 +134,23 @@
           <section id="study-related-section" class="study-explanation-block study-related"><div class="related-heading"><h3>⑤ 実際の肢・本番での聞かれ方</h3><strong id="study-related-count"></strong></div><p class="study-related-note">平成28年度以降の実際の肢を、同じルールだけでなく、逆の言い方・例外・条件・比較も含めて表示します。組合せ問題から採った肢にはその印を付けています。頻出回数には表示していない平成27年度以前や記述式も問題単位で含むため、ここの表示件数とは一致しないことがあります。</p><div id="study-related-list"></div></section>
           <section id="study-cross-field" class="study-explanation-block study-cross-field" hidden><div class="related-heading"><h3>⑥ 似た制度・他分野との違い</h3><strong id="study-cross-field-count"></strong></div><p class="study-related-note">名前や場面が似ていても結論が違う、試験で混同しやすいルールだけを表示します。</p><div id="study-cross-field-list"></div></section>
           <p id="study-save-status" class="save-status" aria-live="polite"></p>
+          <button id="rapid-reveal-all" class="rapid-reveal" type="button" hidden>深掘り・常識力・実際の肢も見る</button>
           <div class="question-nav"><button id="study-next" class="primary-button" type="button">次の問題へ</button></div>
         </section>
       </article>
+
+      <section id="rapid-summary" class="content-card rapid-summary" hidden>
+        <h3 id="rapid-summary-title" tabindex="-1">セット終了</h3>
+        <div class="rapid-summary-grid">
+          <article><span>解いた数</span><strong id="rapid-summary-count">0</strong></article>
+          <article><span>正答率</span><strong id="rapid-summary-accuracy">—</strong></article>
+          <article><span>1問あたり</span><strong id="rapid-summary-median">—</strong><small>中央値</small></article>
+          <article><span>10秒を超えた数</span><strong id="rapid-summary-slow">0</strong></article>
+        </div>
+        <p id="rapid-summary-note" class="rapid-summary-note"></p>
+        <div id="rapid-summary-review" class="rapid-summary-review"></div>
+        <div class="study-empty-actions"><button id="rapid-again" class="primary-button" type="button">もう1セット</button><button id="rapid-to-standard" class="secondary-button" type="button">通常ビューでじっくり復習する</button></div>
+      </section>
     </section>
 
     <section id="panel-diagrams" class="tab-panel" data-panel="diagrams" hidden>
@@ -358,6 +389,6 @@
 
   <footer><p>本人専用・行政書士学習環境　回答履歴と類似判定はサーバー保存</p></footer>
   <noscript>この画面の利用にはJavaScriptが必要です。</noscript>
-  <script src="app.js?v=20260727-5"></script>
+  <script src="app.js?v=20260727-6"></script>
 </body>
 </html>

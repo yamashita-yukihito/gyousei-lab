@@ -1,10 +1,11 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260727-5";
+  const APP_VERSION = "20260727-6";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
+  const RAPID_TARGET_SECONDS = 10;
   const SESSION_KEY = "gyousei_production_session_v1";
   const PENDING_ATTEMPTS_KEY = "gyousei_production_pending_attempts_v1";
   const CARD_PENDING_PREFIX = "gyousei_production_card_pending_v1:";
@@ -31,6 +32,9 @@
     evidenceById: new Map(),
     studyById: new Map(),
     studySearchIndex: new Map(),
+    studyTimerId: null,
+    rapidQueue: [],
+    rapidLog: [],
     studyFiltered: [],
     studyCurrent: null,
     studyIndex: 0,
@@ -460,6 +464,51 @@
     document.querySelectorAll("[data-study-answer]").forEach((button) => {
       button.addEventListener("click", () => answerStudyCard(button));
     });
+    $("study-set-size").addEventListener("change", refreshStudyPool);
+    $("rapid-reveal-b").addEventListener("click", (event) => {
+      document.querySelector(".study-variants").classList.add("reveal");
+      event.currentTarget.hidden = true;
+    });
+    $("rapid-reveal-all").addEventListener("click", (event) => {
+      $("study-answer-panel").classList.add("reveal-all");
+      event.currentTarget.hidden = true;
+    });
+    $("rapid-again").addEventListener("click", () => {
+      refreshStudyPool();
+      scrollToPanelCard($("study-card"));
+    });
+    $("rapid-to-standard").addEventListener("click", () => {
+      $("study-view").value = "standard";
+      $("rapid-summary").hidden = true;
+      updateStudyViewControls();
+      refreshStudyPool();
+      scrollToPanelCard($("study-card"));
+    });
+    document.addEventListener("keydown", handleStudyShortcut);
+  }
+
+  // 高速○×はキーボードで解けるようにする。入力中と修飾キー付きは無視する
+  function handleStudyShortcut(event) {
+    if (!isRapidStudyView()) return;
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    const target = event.target;
+    if (target && (target.tagName === "INPUT" || target.tagName === "SELECT" || target.tagName === "TEXTAREA" || target.isContentEditable)) return;
+    if ($("panel-study").hidden) return;
+    const key = event.key;
+    if (!state.studyAnswered && (key === "ArrowLeft" || key === "f" || key === "F")) {
+      const button = document.querySelector('[data-study-answer="true"]');
+      if (button && !button.disabled) { event.preventDefault(); answerStudyCard(button); }
+      return;
+    }
+    if (!state.studyAnswered && (key === "ArrowRight" || key === "j" || key === "J")) {
+      const button = document.querySelector('[data-study-answer="false"]');
+      if (button && !button.disabled) { event.preventDefault(); answerStudyCard(button); }
+      return;
+    }
+    if (state.studyAnswered && (key === " " || key === "Enter")) {
+      event.preventDefault();
+      showNextStudyCard();
+    }
   }
 
   async function setupStudy(cardError) {
@@ -493,13 +542,106 @@
     return $("study-view").value === "weakness";
   }
 
+  function isRapidStudyView() {
+    return $("study-view").value === "rapid";
+  }
+
   function updateStudyViewControls() {
     const weakness = isWeaknessStudyView();
+    const rapid = isRapidStudyView();
     $("study-scope").disabled = weakness;
+    $("study-set-field").hidden = !rapid;
+    $("study-key-hint").hidden = !rapid;
+    $("panel-study").classList.toggle("rapid-view", rapid);
+    if (!rapid) {
+      stopStudyTimer();
+      $("study-timer").hidden = true;
+      $("rapid-summary").hidden = true;
+    }
     $("study-mode-note").textContent = weakness
       ? "苦手・要観察では、現行版カードの回答から要観察・苦手だけを表示します。2回連続で正解して「回復中」になった問題は、このビューから外れます。"
-      : "おまかせでは、正解が不正解より3回多くなった問題を「習得済み」として出題から外します。全問題モードならいつでも復習できます。";
+      : rapid
+        ? "高速○×では、Aの本試験文だけを見て即答します。1問10秒が目安です。迷ったらBを開いてかまいませんが、時間は計り続けます。習得済みの判定は通常ビューと同じです。"
+        : "おまかせでは、正解が不正解より3回多くなった問題を「習得済み」として出題から外します。全問題モードならいつでも復習できます。";
     renderStudyViewSummary();
+  }
+
+  function rapidSetSize() {
+    const value = Number($("study-set-size").value);
+    return Number.isFinite(value) && value > 0 ? value : 0;
+  }
+
+  function startRapidSet() {
+    state.rapidLog = [];
+    $("rapid-summary").hidden = true;
+  }
+
+  // 高速○×の1問ごとの経過時間。0.1秒ごとに書き換える
+  function startStudyTimer() {
+    stopStudyTimer();
+    const node = $("study-timer");
+    node.hidden = !isRapidStudyView();
+    if (node.hidden) return;
+    node.textContent = "0.0秒";
+    node.className = "study-timer";
+    state.studyTimerId = window.setInterval(() => {
+      if (state.studyStartedAt === null) return;
+      const seconds = (performance.now() - state.studyStartedAt) / 1000;
+      node.textContent = seconds.toFixed(1) + "秒";
+      node.className = "study-timer" + (seconds > RAPID_TARGET_SECONDS * 1.5 ? " over" : seconds > RAPID_TARGET_SECONDS ? " warn" : "");
+    }, 100);
+  }
+
+  function stopStudyTimer() {
+    if (state.studyTimerId !== null) {
+      window.clearInterval(state.studyTimerId);
+      state.studyTimerId = null;
+    }
+  }
+
+  function flashStudyResult(isCorrect) {
+    if (!isRapidStudyView()) return;
+    const node = $("study-flash");
+    node.textContent = isCorrect ? "○" : "×";
+    node.className = "study-flash";
+    void node.offsetWidth;
+    node.className = "study-flash show " + (isCorrect ? "correct" : "wrong");
+  }
+
+  function renderRapidSummary() {
+    const log = state.rapidLog;
+    const correct = log.filter((entry) => entry.correct).length;
+    const slow = log.filter((entry) => entry.ms !== null && entry.ms > RAPID_TARGET_SECONDS * 1000).length;
+    const samples = log.map((entry) => entry.ms).filter((value) => value !== null).sort((left, right) => left - right);
+    const median = samples.length
+      ? (samples.length % 2 ? samples[(samples.length - 1) / 2] : Math.round((samples[samples.length / 2 - 1] + samples[samples.length / 2]) / 2))
+      : null;
+    $("rapid-summary-count").textContent = log.length;
+    $("rapid-summary-accuracy").textContent = log.length ? Math.round(correct / log.length * 100) + "%" : "—";
+    $("rapid-summary-median").textContent = secondsLabel(median);
+    $("rapid-summary-slow").textContent = slow;
+    $("rapid-summary-note").textContent = !log.length
+      ? "このセットでは回答がありませんでした。"
+      : slow
+        ? "時間がかかった問題は、覚えていても本番では迷います。下の問題をもう一度見ておくと効きます。"
+        : "すべて10秒以内でした。この調子なら本試験の時間配分に余裕が持てます。";
+    const review = log
+      .filter((entry) => !entry.correct || (entry.ms !== null && entry.ms > RAPID_TARGET_SECONDS * 1000))
+      .slice(0, 12)
+      .map((entry) => {
+        const row = make("button", { className: "rapid-review-item", type: "button" });
+        row.appendChild(make("strong", {}, entry.subtopic || entry.cardId));
+        const meta = make("span");
+        meta.appendChild(make("b", { className: entry.correct ? "ok" : "ng" }, entry.correct ? "正解" : "不正解"));
+        meta.appendChild(make("i", {}, secondsLabel(entry.ms)));
+        row.appendChild(meta);
+        row.addEventListener("click", () => openRelatedStudyCard(entry.cardId));
+        return row;
+      });
+    $("rapid-summary-review").replaceChildren(...review);
+    $("rapid-summary").hidden = false;
+    $("study-card").hidden = true;
+    requestAnimationFrame(() => $("rapid-summary-title").focus({ preventScroll: true }));
   }
 
   function renderStudyViewSummary() {
@@ -601,8 +743,35 @@
       : "該当なし。語を減らすか、別の言い方で探してください。";
   }
 
+  // 高速○×は、途中で習得済みになってもセットの中身が入れ替わらないよう最初に固定する
+  function buildRapidQueue() {
+    const cards = getStudyTopicCards();
+    const pool = $("study-scope").value === "all" ? cards : cards.filter((item) => !isStudyMastered(item));
+    const order = $("study-order").value;
+    let ordered;
+    if (order === "weak") ordered = pool.slice().sort((left, right) => studyWeaknessScore(right) - studyWeaknessScore(left));
+    else if (order === "random") ordered = shuffleCards(pool);
+    else ordered = pool.slice();
+    const size = rapidSetSize();
+    state.rapidQueue = (size ? ordered.slice(0, size) : ordered).map(studyCardId);
+    state.rapidLog = [];
+    $("rapid-summary").hidden = true;
+  }
+
+  function shuffleCards(cards) {
+    const copy = cards.slice();
+    for (let index = copy.length - 1; index > 0; index -= 1) {
+      const swap = Math.floor(Math.random() * (index + 1));
+      [copy[index], copy[swap]] = [copy[swap], copy[index]];
+    }
+    return copy;
+  }
+
   function getFilteredStudyCards() {
     const cards = getStudyTopicCards();
+    if (isRapidStudyView()) {
+      return state.rapidQueue.map((id) => state.studyById.get(id)).filter(Boolean);
+    }
     if (isWeaknessStudyView()) {
       return cards
         .filter((item) => state.weaknessTargets.has(studyCardId(item)))
@@ -616,6 +785,7 @@
   }
 
   function refreshStudyPool() {
+    if (isRapidStudyView()) buildRapidQueue();
     state.studyFiltered = getFilteredStudyCards();
     state.studyIndex = 0;
     state.studyCurrent = state.studyFiltered[0] || null;
@@ -626,6 +796,15 @@
 
   function renderStudyScopeSummary() {
     const cards = getStudyTopicCards();
+    if (isRapidStudyView()) {
+      const done = state.rapidLog.length;
+      const total = state.rapidQueue.length;
+      $("study-scope-summary").textContent = total
+        ? "このセット " + done + " / " + total + "問"
+        : "出題できる問題がありません";
+      $("study-set-summary").textContent = "1問" + RAPID_TARGET_SECONDS + "秒が目安です。";
+      return;
+    }
     if (isWeaknessStudyView()) {
       const targets = cards
         .map((item) => state.weaknessTargets.get(studyCardId(item)))
@@ -658,6 +837,9 @@
     if (searching && !cards.length) {
       $("study-empty-title").textContent = "この言葉に合うカードがありません";
       $("study-empty-message").textContent = "語を減らすか、科目・分野を「すべて」に戻すと見つかることがあります。カードIDでも探せます。";
+    } else if (isRapidStudyView()) {
+      $("study-empty-title").textContent = "高速○×に出せる問題がありません";
+      $("study-empty-message").textContent = "この条件では未習得の問題が残っていません。出題範囲を「全問題を出す」に変えるか、科目・分野を広げてください。";
     } else if (weakness && !state.weaknessAnalysis.available) {
       $("study-empty-title").textContent = "弱点分析を読み込めませんでした";
       $("study-empty-message").textContent = "通常ビューはそのまま利用できます。少し待って再読み込みしてください。";
@@ -708,10 +890,17 @@
     setRichText($("study-variant-c"), variants.c || "");
     renderStudyBadges(item);
     renderStudyHistory(item);
+    $("study-flash").className = "study-flash";
+    const rapid = isRapidStudyView();
+    document.querySelector(".study-variants").classList.remove("reveal");
+    $("study-answer-panel").classList.remove("reveal-all");
+    $("rapid-reveal-b").hidden = !rapid;
+    $("rapid-reveal-all").hidden = !rapid;
     document.querySelectorAll("[data-study-answer]").forEach((button) => {
       button.disabled = false;
       button.classList.remove("correct-answer", "selected-wrong");
     });
+    startStudyTimer();
   }
 
   function renderStudyFrequency(item) {
@@ -748,6 +937,12 @@
     $("study-history-label").textContent = "正解 " + progress.correct + " / 不正解 " + progress.incorrect;
     $("study-card-correct-count").textContent = progress.correct;
     $("study-card-incorrect-count").textContent = progress.incorrect;
+    const median = $("study-card-median");
+    median.textContent = secondsLabel(progress.medianResponseMs);
+    median.className = progress.medianResponseMs !== null && progress.medianResponseMs > RAPID_TARGET_SECONDS * 1000 ? "slow" : "";
+    median.parentElement.title = progress.responseSamples
+      ? "この問題に答えるまでの時間の中央値（" + progress.responseSamples + "回分）"
+      : "解答時間はまだ記録されていません";
   }
 
   function answerStudyCard(button) {
@@ -781,6 +976,16 @@
     };
 
     state.studyAnswered = true;
+    stopStudyTimer();
+    flashStudyResult(isCorrect);
+    if (isRapidStudyView()) {
+      state.rapidLog.push({
+        cardId: studyCardId(item),
+        subtopic: item.subtopic || "",
+        correct: isCorrect,
+        ms: responseMs
+      });
+    }
     queueCardAttempt(attempt);
     rebuildCardProgress();
     renderStudyProgressDisplays();
@@ -944,6 +1149,21 @@
     const cards = getFilteredStudyCards();
     state.studyFiltered = cards;
     renderStudyScopeSummary();
+    if (isRapidStudyView() && cards.length) {
+      const answered = state.rapidLog.length;
+      if (answered >= cards.length) {
+        stopStudyTimer();
+        renderRapidSummary();
+        scrollToPanelCard($("rapid-summary"));
+        return;
+      }
+      state.studyCurrent = cards[answered];
+      state.studyIndex = answered;
+      renderStudyCard();
+      scrollToPanelCard($("study-card"));
+      requestAnimationFrame(() => $("study-question-heading").focus({ preventScroll: true }));
+      return;
+    }
     if (!cards.length) {
       state.studyCurrent = null;
       renderStudyCard();
@@ -1010,8 +1230,19 @@
     return {
       correct: safeCount(entry && entry.correct),
       incorrect: safeCount(entry && entry.incorrect),
-      lastAnsweredAt: entry && entry.lastAnsweredAt || null
+      lastAnsweredAt: entry && entry.lastAnsweredAt || null,
+      medianResponseMs: safeMs(entry && entry.medianResponseMs),
+      responseSamples: safeCount(entry && entry.responseSamples)
     };
+  }
+
+  function safeMs(value) {
+    const number = Number(value);
+    return Number.isFinite(number) && number >= 0 ? Math.round(number) : null;
+  }
+
+  function secondsLabel(ms) {
+    return ms === null || ms === undefined ? "—" : (ms / 1000).toFixed(1) + "秒";
   }
 
   function getCardProgress(cardId) {

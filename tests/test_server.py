@@ -811,6 +811,29 @@ class ProductionApiTest(unittest.TestCase):
             ),
         )
 
+    def test_response_time_median_ignores_outliers_and_missing_values(self) -> None:
+        self.assertIsNone(server._median_ms([]))
+        self.assertEqual(4000, server._median_ms([4000]))
+        self.assertEqual(5000, server._median_ms([9000, 1000, 5000]))
+        self.assertEqual(3000, server._median_ms([2000, 4000]))
+
+        for elapsed in (1000, 4000, None, 900_000):
+            payload = self.card_attempt_payload()
+            payload["attemptId"] = f"card-attempt-{elapsed}"
+            payload["eventId"] = payload["attemptId"]
+            payload["responseMs"] = elapsed
+            server.add_card_attempt(payload)
+
+        snapshot = server.CATALOG.load()
+        deck = server.default_study_deck(snapshot)
+        with server.connect() as connection:
+            progress = server.card_progress_statistics(connection, snapshot, deck)
+        card = progress["byCard"]["card-1"]
+        # 5分を超える計測と未記録は捨てるので、残る標本は1000と4000だけ
+        self.assertEqual(2, card["responseSamples"])
+        self.assertEqual(2500, card["medianResponseMs"])
+        self.assertEqual(4000, card["lastResponseMs"])
+
     def test_display_markup_does_not_change_the_answer_revision(self) -> None:
         first = server.CATALOG.load()
         first_revision = server.card_answer_revision(
@@ -910,6 +933,7 @@ class ProductionApiTest(unittest.TestCase):
                 "correct": 1,
                 "incorrect": 1,
                 "accuracy": 0.5,
+                "medianResponseMs": 5000,
             },
         )
         self.assertEqual(progress["byCard"]["card-1"]["streak"], 0)

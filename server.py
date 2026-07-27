@@ -1088,6 +1088,21 @@ def _accuracy(correct: int, incorrect: int) -> float | None:
     return round(correct / graded, 6) if graded else None
 
 
+# 席を外したままの回答で解答時間が壊れないよう、5分を超える計測は捨てる
+RESPONSE_SAMPLE_LIMIT_MS = 300_000
+
+
+def _median_ms(samples: list[int]) -> int | None:
+    """解答時間は平均より中央値を使う。1回の中断で数値が跳ねないようにする。"""
+    if not samples:
+        return None
+    ordered = sorted(samples)
+    middle = len(ordered) // 2
+    if len(ordered) % 2:
+        return ordered[middle]
+    return (ordered[middle - 1] + ordered[middle]) // 2
+
+
 def progress_statistics(
     connection: sqlite3.Connection,
     snapshot: BundleSnapshot | None = None,
@@ -1347,9 +1362,13 @@ def card_progress_statistics(
             "maxStreak": 0,
             "lastAnsweredAt": None,
             "answerRevision": current_revisions[card["id"]],
+            "responseSamples": 0,
+            "medianResponseMs": None,
+            "lastResponseMs": None,
         }
         for card in eligible_cards
     }
+    response_samples: dict[str, list[int]] = {card["id"]: [] for card in eligible_cards}
 
     rows = connection.execute(
         "SELECT * FROM card_attempts ORDER BY id"
@@ -1379,9 +1398,16 @@ def card_progress_statistics(
             item["incorrect"] += 1
             item["streak"] = 0
         item["lastAnsweredAt"] = row["answered_at_client"]
+        elapsed = row["response_ms"]
+        if elapsed is not None and 0 <= elapsed <= RESPONSE_SAMPLE_LIMIT_MS:
+            response_samples[row["card_id"]].append(int(elapsed))
+            item["lastResponseMs"] = int(elapsed)
 
-    for item in by_card.values():
+    for card_id, item in by_card.items():
         item["accuracy"] = _accuracy(item["correct"], item["incorrect"])
+        samples = response_samples[card_id]
+        item["responseSamples"] = len(samples)
+        item["medianResponseMs"] = _median_ms(samples)
 
     return {
         "schemaVersion": 1,
@@ -1392,6 +1418,9 @@ def card_progress_statistics(
             "correct": current_correct,
             "incorrect": current_incorrect,
             "accuracy": _accuracy(current_correct, current_incorrect),
+            "medianResponseMs": _median_ms(
+                [value for samples in response_samples.values() for value in samples]
+            ),
         },
         "byCard": by_card,
         "stats": {
