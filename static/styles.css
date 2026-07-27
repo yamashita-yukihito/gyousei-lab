@@ -681,6 +681,11 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
   * { scroll-behavior: auto !important; transition: none !important; }
 }
 
+/* ○×学習のことば検索 */
+.study-search-field { grid-column: 1 / -1; }
+.study-search-field input[type="search"] { padding: 9px 11px; font-size: 14px; }
+.study-search-field input[type="search"]:focus-visible { outline: 2px solid var(--green-2); outline-offset: 1px; }
+
 /* カードID表示 */
 .card-id-line { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 0 0 12px; }
 .card-id-line > span { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: 0.05em; }

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#183a34">
   <title>行政書士 過去問ラボ</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23183a34'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='39' fill='white'%3E%E8%A1%8C%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=20260727-4">
+  <link rel="stylesheet" href="styles.css?v=20260727-5">
 </head>
 <body>
   <a class="skip-link" href="#main-content">本文へ移動</a>
@@ -61,6 +61,7 @@
       </div>
 
       <div class="study-controls" aria-label="○×学習の出題設定">
+        <label class="study-search-field"><span>ことばで探す</span><input id="study-search" type="search" placeholder="論点名・問題文・解説・カードID（例: 制限行為 / min-general-capacity-demand-001）" autocomplete="off" spellcheck="false"><small id="study-search-summary">空欄なら絞り込みません。空白で区切るとすべてを含むカードを探します。</small></label>
         <label><span>科目</span><select id="study-subject"><option value="all">すべて</option></select></label>
         <label><span>分野</span><select id="study-topic"><option value="all">すべて</option></select></label>
         <label><span>学習ビュー</span><select id="study-view"><option value="standard">通常</option><option value="weakness">苦手・要観察</option></select><small id="study-view-summary">弱点分析を確認中…</small></label>
@@ -75,7 +76,7 @@
       <section id="study-empty" class="message-card complete" hidden>
         <strong id="study-empty-title" tabindex="-1">この条件に合う問題がありません</strong>
         <p id="study-empty-message"></p>
-        <div class="study-empty-actions"><button id="study-show-all" class="secondary-button" type="button">全問題モードで復習する</button><button id="study-show-all-topics" class="secondary-button" type="button">科目・分野を「すべて」に戻す</button></div>
+        <div class="study-empty-actions"><button id="study-show-all" class="secondary-button" type="button">全問題モードで復習する</button><button id="study-show-all-topics" class="secondary-button" type="button">科目・分野を「すべて」に戻す</button><button id="study-clear-search" class="secondary-button" type="button" hidden>検索をやめる</button></div>
       </section>
 
       <article id="study-card" class="content-card study-card" hidden>
@@ -357,6 +358,6 @@
 
   <footer><p>本人専用・行政書士学習環境　回答履歴と類似判定はサーバー保存</p></footer>
   <noscript>この画面の利用にはJavaScriptが必要です。</noscript>
-  <script src="app.js?v=20260727-4"></script>
+  <script src="app.js?v=20260727-5"></script>
 </body>
 </html>

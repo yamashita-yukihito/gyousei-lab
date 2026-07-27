@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260727-4";
+  const APP_VERSION = "20260727-5";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -30,6 +30,7 @@
     checkById: new Map(),
     evidenceById: new Map(),
     studyById: new Map(),
+    studySearchIndex: new Map(),
     studyFiltered: [],
     studyCurrent: null,
     studyIndex: 0,
@@ -430,6 +431,13 @@
       refreshStudyPool();
     });
     $("study-topic").addEventListener("change", refreshStudyPool);
+    $("study-search").addEventListener("input", refreshStudyPool);
+    $("study-search").addEventListener("search", refreshStudyPool);
+    $("study-clear-search").addEventListener("click", () => {
+      $("study-search").value = "";
+      refreshStudyPool();
+      $("study-search").focus();
+    });
     $("study-view").addEventListener("change", () => {
       updateStudyViewControls();
       refreshStudyPool();
@@ -532,10 +540,65 @@
   function getStudyTopicCards() {
     const subject = $("study-subject").value;
     const topic = $("study-topic").value;
+    const words = studySearchWords();
     return state.studyDecks.filter((item) =>
       (subject === "all" || item.subjectId === subject) &&
-      (topic === "all" || item.topic === topic)
+      (topic === "all" || item.topic === topic) &&
+      matchesStudySearch(item, words)
     );
+  }
+
+  function studySearchWords() {
+    return String($("study-search").value || "")
+      .split(/\s+/)
+      .map(normalizeText)
+      .filter(Boolean);
+  }
+
+  // カードID・論点名・A/B/C・解説・⑤の肢まで一続きの文字列にして探す
+  function studySearchHaystack(item) {
+    const cardId = studyCardId(item);
+    const cached = state.studySearchIndex.get(cardId);
+    if (cached !== undefined) return cached;
+    const variants = item.variants || {};
+    const explanations = item.explanations || {};
+    const deep = explanations.deepDive || {};
+    const parts = [
+      cardId, item.category, item.topic, item.subtopic,
+      variants.a, variants.b, variants.bCasual, variants.c,
+      item.correction, item.memoryPoint,
+      explanations.normal, deep.background, deep.trap, deep.example, explanations.commonSense,
+      item.frequency && item.frequency.label
+    ];
+    (item.crossFieldComparisons || []).forEach((comparison) => {
+      parts.push(comparison.title, comparison.explanation, comparison.memoryCue);
+    });
+    (item.relatedPastQuestions || []).forEach((ref) => {
+      const evidence = state.evidenceById.get(ref.choiceId);
+      if (evidence) parts.push(evidence.statementText, evidence.eraYear);
+    });
+    const haystack = normalizeText(stripMarkup(parts.filter(Boolean).join(" ")));
+    state.studySearchIndex.set(cardId, haystack);
+    return haystack;
+  }
+
+  function matchesStudySearch(item, words) {
+    if (!words.length) return true;
+    const haystack = studySearchHaystack(item);
+    return words.every((word) => haystack.includes(word));
+  }
+
+  function renderStudySearchSummary() {
+    const words = studySearchWords();
+    const node = $("study-search-summary");
+    if (!words.length) {
+      node.textContent = "空欄なら絞り込みません。空白で区切るとすべてを含むカードを探します。";
+      return;
+    }
+    const hits = state.studyDecks.filter((item) => matchesStudySearch(item, words)).length;
+    node.textContent = hits
+      ? "全科目で " + hits + "件が該当（科目・分野の絞り込みも同時に効きます）"
+      : "該当なし。語を減らすか、別の言い方で探してください。";
   }
 
   function getFilteredStudyCards() {
@@ -556,6 +619,7 @@
     state.studyFiltered = getFilteredStudyCards();
     state.studyIndex = 0;
     state.studyCurrent = state.studyFiltered[0] || null;
+    renderStudySearchSummary();
     renderStudyScopeSummary();
     renderStudyCard();
   }
@@ -584,12 +648,17 @@
     const weakness = isWeaknessStudyView();
     const review = $("study-scope").value === "review";
     const topicSelected = $("study-topic").value !== "all" || $("study-subject").value !== "all";
+    const searching = studySearchWords().length > 0;
     const allMastered = cards.length && cards.every(isStudyMastered);
     $("study-empty").hidden = false;
     $("study-show-all").hidden = (!review && !weakness) || !cards.length;
     $("study-show-all").textContent = weakness ? "通常ビューで全問題を見る" : "全問題モードで復習する";
     $("study-show-all-topics").hidden = !topicSelected;
-    if (weakness && !state.weaknessAnalysis.available) {
+    $("study-clear-search").hidden = !searching;
+    if (searching && !cards.length) {
+      $("study-empty-title").textContent = "この言葉に合うカードがありません";
+      $("study-empty-message").textContent = "語を減らすか、科目・分野を「すべて」に戻すと見つかることがあります。カードIDでも探せます。";
+    } else if (weakness && !state.weaknessAnalysis.available) {
       $("study-empty-title").textContent = "弱点分析を読み込めませんでした";
       $("study-empty-message").textContent = "通常ビューはそのまま利用できます。少し待って再読み込みしてください。";
     } else if (weakness && topicSelected) {
@@ -2212,6 +2281,17 @@
   function setRichText(node, text) {
     if (!node) return;
     node.replaceChildren(...richTextNodes(text));
+  }
+
+  // 検索は装飾を挟まない素の文章に対して行う
+  function stripMarkup(text) {
+    let previous = null;
+    let current = String(text === undefined || text === null ? "" : text);
+    while (previous !== current) {
+      previous = current;
+      current = current.replace(MARKUP_PATTERN, (token) => token.slice(2, -2));
+    }
+    return current;
   }
 
   // ⑤の肢は原文を書き換えられないので、カード側の強調語リストで表示だけ目立たせる
