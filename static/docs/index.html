@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183a34">
+  <title>AIへの依頼文 · 行政書士 過去問ラボ</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23183a34'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='39' fill='white'%3E%E8%A1%8C%3C/text%3E%3C/svg%3E">
+  <style>
+    :root { color-scheme: light; --ink:#1a2723; --muted:#64716c; --canvas:#edf2ee; --paper:#fffefa; --deep:#183a34; --green:#1c7157; --line:#d4ddd7; }
+    * { box-sizing: border-box; }
+    body { margin:0; padding:0 0 60px; background:var(--canvas); color:var(--ink);
+      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Yu Gothic", sans-serif; line-height:1.8; }
+    header { padding:26px 20px; background:var(--deep); color:#fff; }
+    .inner { max-width:820px; margin:0 auto; }
+    header h1 { margin:0 0 6px; font-size:22px; }
+    header p { margin:0; opacity:.85; font-size:13px; }
+    header a { color:#cfe6da; }
+    main { max-width:820px; margin:22px auto 0; padding:0 20px; }
+    .card { padding:20px; border:1px solid var(--line); border-radius:12px; background:var(--paper); margin-bottom:16px; }
+    .card h2 { margin:0 0 6px; font-size:17px; color:var(--deep); }
+    .card .meta { margin:0 0 10px; color:var(--muted); font-size:12px; }
+    .card p { margin:0 0 14px; font-size:14px; }
+    .actions { display:flex; flex-wrap:wrap; gap:9px; }
+    .actions a { display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:9px;
+      font-size:13.5px; font-weight:800; text-decoration:none; }
+    .primary { background:var(--green); color:#fff; }
+    .secondary { border:1px solid var(--line); background:var(--paper); color:var(--deep); }
+    .note { color:var(--muted); font-size:12.5px; }
+    .steps { margin:14px 0 0; padding-left:20px; color:var(--muted); font-size:12.5px; }
+    .steps li { margin-bottom:4px; }
+    footer { max-width:820px; margin:26px auto 0; padding:0 20px; color:var(--muted); font-size:12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="inner">
+      <h1>AIへの依頼文</h1>
+      <p>別のAI（ChatGPTなど）に渡す調査・作業の依頼文です。<a href="../">○×学習へ戻る</a></p>
+    </div>
+  </header>
+
+  <main>
+    <article class="card">
+      <h2>行政書士試験の合格者の得点戦略を調べる</h2>
+      <p class="meta">2026-07-27 · 未依頼</p>
+      <p>独学合格者の科目別得点、記述式にどこまで時間を使うか、民法の線引き、基礎知識の攻め方を調べてもらうための依頼文です。回答は出典URL付きで求めています。</p>
+      <div class="actions">
+        <a class="primary" href="pass-strategy-research-request.md" download>ダウンロード（.md）</a>
+        <a class="secondary" href="pass-strategy-research-request.md" target="_blank" rel="noopener">開いて中身を見る</a>
+      </div>
+      <ol class="steps">
+        <li>ダウンロードしたファイルをChatGPT（Web版・検索が使えるもの）へ添付する。</li>
+        <li>返ってきた回答を <code>PASS_STRATEGY_RESEARCH_RESPONSE.md</code> という名前で保存する。</li>
+        <li>そのファイルをMac側の <code>static/docs/</code> へ置くか、内容をそのまま貼って渡す。</li>
+      </ol>
+    </article>
+
+    <p class="note">依頼文の正本はこのディレクトリ（<code>static/docs/</code>）です。採用した判断は <code>AGENTS.md</code>・<code>HANDOFF.md</code>・<code>ARCHITECTURE.md</code> へ反映します。APIキーや個人情報は依頼文へ書きません。</p>
+  </main>
+
+  <footer>本人専用・行政書士学習環境</footer>
+</body>
+</html>
