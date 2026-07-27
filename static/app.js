@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260727-6";
+  const APP_VERSION = "20260728-1";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -1057,6 +1057,9 @@
       const evidence = state.evidenceById.get(ref.choiceId) || ref;
       const article = make("article", { className: "study-related-item" });
       const statement = evidence.statementText || evidence.officialOriginalText || ref.statementText || ref.text || "関連する過去問肢";
+      // 語句だけの肢は、何を問われたのかが分からないので設問の文脈を添える
+      const context = evidence.contextSummary || ref.contextSummary;
+      if (context) article.appendChild(make("p", { className: "study-related-context" }, context));
       const body = make("p");
       body.replaceChildren(...highlightNodes(statement, item.evidenceHighlights));
       article.appendChild(body);
@@ -1870,6 +1873,8 @@
       const evidence = state.evidenceById.get(ref.choiceId) || {};
       const item = make("article", { className: "related-item" });
       const text = ref.statementText || ref.text || ref.questionText || evidence.statementText;
+      const context = evidence.contextSummary || ref.contextSummary;
+      if (context) item.appendChild(make("p", { className: "study-related-context" }, context));
       if (text) item.appendChild(make("p", {}, text));
       else item.appendChild(make("p", {}, "関連する過去問肢（本文データの関連付け待ち）"));
       const examYear = ref.examYear || evidence.examYear;
