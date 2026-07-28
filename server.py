@@ -70,7 +70,11 @@ ID_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$")
 DIGEST_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,255}$")
 ANSWER_REVISION_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 QUESTION_FORMATS = {"regular", "multiple_blank", "written"}
-DATABASE_SCHEMA_VERSION = 3
+DATABASE_SCHEMA_VERSION = 4
+# 卒業判定のしきい値。static/app.js の MASTERY_SCORE と同じ値でなければならない。
+MASTERY_SCORE = 3
+CARD_MARK_ACTIONS = ("certain", "uncertain", "reset", "confidence")
+CARD_MARK_CONFIDENCE = ("sure", "likely", "guess")
 SIMILARITY_DECISIONS = {"merge", "related", "reject", "defer"}
 RELATION_TYPES = {"opposite_claim", "exception", "contrast", "same_topic"}
 MERGE_RELATION_TYPE = "same_proposition"
@@ -902,7 +906,8 @@ def init_database() -> None:
     DB_PATH.parent.mkdir(parents=True, exist_ok=True, mode=0o750)
     with connect() as connection:
         schema_version = connection.execute("PRAGMA user_version").fetchone()[0]
-        if schema_version not in {0, DATABASE_SCHEMA_VERSION}:
+        # 3 は card_marks を入れる前の版。表を足すだけなので既存の行には触れない。
+        if schema_version not in {0, 3, DATABASE_SCHEMA_VERSION}:
             raise RuntimeError(
                 f"unsupported database schema version: {schema_version}"
             )
@@ -967,6 +972,55 @@ def init_database() -> None:
                 ON card_attempts(session_id, id);
             CREATE INDEX IF NOT EXISTS idx_card_attempts_revision
                 ON card_attempts(card_id, answer_revision, id);
+
+            -- 卒業・絶対覚えた・自信度。回答と同じく追記のみで、過去の事実を消さない。
+            -- reset は「ここより前の回答を習得判定に使わない」という区切りを置くだけで、
+            -- card_attempts の行はそのまま残る。
+            CREATE TABLE IF NOT EXISTS card_marks (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                event_id TEXT NOT NULL UNIQUE,
+                session_id TEXT NOT NULL,
+                study_deck_id TEXT,
+                card_id TEXT,
+                answer_revision TEXT,
+                attempt_event_id TEXT,
+                action TEXT NOT NULL
+                    CHECK (action IN ('certain', 'uncertain', 'reset', 'confidence')),
+                scope TEXT NOT NULL CHECK (scope IN ('card', 'deck')),
+                confidence TEXT
+                    CHECK (
+                        confidence IS NULL
+                        OR confidence IN ('sure', 'likely', 'guess')
+                    ),
+                marked_at_client TEXT NOT NULL,
+                app_version TEXT,
+                payload_digest TEXT NOT NULL,
+                created_at_server TEXT NOT NULL,
+                CHECK (
+                    (scope = 'deck' AND action = 'reset' AND card_id IS NULL)
+                    OR (scope = 'card' AND card_id IS NOT NULL)
+                ),
+                CHECK (
+                    (
+                        action = 'confidence'
+                        AND confidence IS NOT NULL
+                        AND attempt_event_id IS NOT NULL
+                    )
+                    OR (
+                        action <> 'confidence'
+                        AND confidence IS NULL
+                        AND attempt_event_id IS NULL
+                    )
+                )
+            );
+
+            CREATE INDEX IF NOT EXISTS idx_card_marks_card_id
+                ON card_marks(card_id, id);
+            CREATE INDEX IF NOT EXISTS idx_card_marks_action
+                ON card_marks(action, id);
+            CREATE UNIQUE INDEX IF NOT EXISTS idx_card_marks_attempt
+                ON card_marks(attempt_event_id)
+                WHERE attempt_event_id IS NOT NULL;
 
             CREATE TABLE IF NOT EXISTS similarity_decisions (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -1035,6 +1089,18 @@ def init_database() -> None:
                 SELECT RAISE(ABORT, 'card_attempts is append-only');
             END;
 
+            CREATE TRIGGER IF NOT EXISTS card_marks_no_update
+            BEFORE UPDATE ON card_marks
+            BEGIN
+                SELECT RAISE(ABORT, 'card_marks is append-only');
+            END;
+
+            CREATE TRIGGER IF NOT EXISTS card_marks_no_delete
+            BEFORE DELETE ON card_marks
+            BEGIN
+                SELECT RAISE(ABORT, 'card_marks is append-only');
+            END;
+
             CREATE TRIGGER IF NOT EXISTS similarity_decisions_no_update
             BEFORE UPDATE ON similarity_decisions
             BEGIN
@@ -1077,6 +1143,27 @@ def init_database() -> None:
         }
         if actual_card_columns != expected_card_columns:
             raise RuntimeError("card_attempts schema does not match this server")
+        expected_mark_columns = {
+            "id",
+            "event_id",
+            "session_id",
+            "study_deck_id",
+            "card_id",
+            "answer_revision",
+            "attempt_event_id",
+            "action",
+            "scope",
+            "confidence",
+            "marked_at_client",
+            "app_version",
+            "payload_digest",
+            "created_at_server",
+        }
+        actual_mark_columns = {
+            row["name"] for row in connection.execute("PRAGMA table_info(card_marks)")
+        }
+        if actual_mark_columns != expected_mark_columns:
+            raise RuntimeError("card_marks schema does not match this server")
     try:
         os.chmod(DB_PATH, 0o600)
     except OSError:
@@ -1365,10 +1452,76 @@ def card_progress_statistics(
             "responseSamples": 0,
             "medianResponseMs": None,
             "lastResponseMs": None,
+            # ここから下は卒業・絶対覚えた・自信度。過去の事実は消さずに持ち続ける。
+            "certain": False,
+            "certainAt": None,
+            "resetAt": None,
+            "resetCount": 0,
+            "sinceResetAttempts": 0,
+            "sinceResetCorrect": 0,
+            "sinceResetIncorrect": 0,
+            "masteryScore": 0,
+            "mastered": False,
+            "graduatedTimes": 0,
+            "lastGraduatedAt": None,
+            "graduated": False,
+            "confidenceCounts": {name: 0 for name in CARD_MARK_CONFIDENCE},
+            "lastConfidence": None,
         }
         for card in eligible_cards
     }
     response_samples: dict[str, list[int]] = {card["id"]: [] for card in eligible_cards}
+
+    marks = connection.execute("SELECT * FROM card_marks ORDER BY id").fetchall()
+    deck_reset_at: str | None = None
+    for mark in marks:
+        if mark["action"] != "reset" or mark["scope"] != "deck":
+            continue
+        deck_reset_at = mark["created_at_server"]
+    card_reset_at: dict[str, str] = {}
+    for mark in marks:
+        if mark["action"] != "reset" or mark["scope"] != "card":
+            continue
+        item = by_card.get(mark["card_id"])
+        if item is None:
+            continue
+        card_reset_at[mark["card_id"]] = mark["created_at_server"]
+        item["resetCount"] += 1
+    deck_reset_points = sorted(
+        mark["created_at_server"]
+        for mark in marks
+        if mark["action"] == "reset" and mark["scope"] == "deck"
+    )
+    card_reset_points: dict[str, list[str]] = {}
+    for mark in marks:
+        if mark["action"] != "reset" or mark["scope"] != "card":
+            continue
+        card_reset_points.setdefault(mark["card_id"], []).append(
+            mark["created_at_server"]
+        )
+    # 全リセットと個別リセットは同じ区切りの列に並べる。新しい区切りを越えるたびに
+    # 習得判定の数え直しが始まるが、card_attempts の行そのものは残したままにする。
+    reset_points: dict[str, list[str]] = {
+        card_id: sorted(deck_reset_points + card_reset_points.get(card_id, []))
+        for card_id in by_card
+    }
+    for card_id, item in by_card.items():
+        points = reset_points[card_id]
+        item["resetAt"] = points[-1] if points else None
+        item["resetCount"] = len(points)
+    for mark in marks:
+        item = by_card.get(mark["card_id"]) if mark["card_id"] else None
+        if item is None:
+            continue
+        if mark["action"] in {"certain", "uncertain"}:
+            item["certain"] = mark["action"] == "certain"
+            item["certainAt"] = mark["marked_at_client"] if item["certain"] else None
+        elif mark["action"] == "confidence":
+            item["confidenceCounts"][mark["confidence"]] += 1
+            item["lastConfidence"] = mark["confidence"]
+
+    reset_cursor: dict[str, int] = {card_id: 0 for card_id in by_card}
+    graduated_in_cycle: dict[str, bool] = {card_id: False for card_id in by_card}
 
     rows = connection.execute(
         "SELECT * FROM card_attempts ORDER BY id"
@@ -1403,11 +1556,47 @@ def card_progress_statistics(
             response_samples[row["card_id"]].append(int(elapsed))
             item["lastResponseMs"] = int(elapsed)
 
+        # リセットの区切りを越えたら習得の数え直しを始める。卒業した事実は回数として残す。
+        cursor = reset_cursor[row["card_id"]]
+        points = reset_points[row["card_id"]]
+        created = row["created_at_server"]
+        while cursor < len(points) and points[cursor] <= created:
+            cursor += 1
+            item["sinceResetAttempts"] = 0
+            item["sinceResetCorrect"] = 0
+            item["sinceResetIncorrect"] = 0
+            item["masteryScore"] = 0
+            graduated_in_cycle[row["card_id"]] = False
+        reset_cursor[row["card_id"]] = cursor
+        item["sinceResetAttempts"] += 1
+        if is_correct:
+            item["sinceResetCorrect"] += 1
+        else:
+            item["sinceResetIncorrect"] += 1
+        item["masteryScore"] = item["sinceResetCorrect"] - item["sinceResetIncorrect"]
+        if item["masteryScore"] >= MASTERY_SCORE and not graduated_in_cycle[row["card_id"]]:
+            graduated_in_cycle[row["card_id"]] = True
+            item["graduatedTimes"] += 1
+            item["lastGraduatedAt"] = row["answered_at_client"]
+
     for card_id, item in by_card.items():
         item["accuracy"] = _accuracy(item["correct"], item["incorrect"])
         samples = response_samples[card_id]
         item["responseSamples"] = len(samples)
         item["medianResponseMs"] = _median_ms(samples)
+        # 最後のリセットが最後の回答より後なら、そこで数え直しになっている
+        points = reset_points[card_id]
+        if points and (
+            item["lastAnsweredAt"] is None
+            or reset_cursor[card_id] < len(points)
+        ):
+            item["sinceResetAttempts"] = 0
+            item["sinceResetCorrect"] = 0
+            item["sinceResetIncorrect"] = 0
+            item["masteryScore"] = 0
+        item["mastered"] = item["masteryScore"] >= MASTERY_SCORE
+        # 「絶対覚えた」は全リセットの対象外なので、卒業状態はリセット後も残る
+        item["graduated"] = item["mastered"] or item["certain"]
 
     return {
         "schemaVersion": 1,
@@ -1427,6 +1616,16 @@ def card_progress_statistics(
             "allTimeAttempts": len(rows),
             "deckAllTimeAttempts": relevant_all_time,
             "staleRevisionAttempts": relevant_all_time - current_attempts,
+            "masteredCards": sum(1 for item in by_card.values() if item["mastered"]),
+            "certainCards": sum(1 for item in by_card.values() if item["certain"]),
+            "graduatedCards": sum(1 for item in by_card.values() if item["graduated"]),
+            "everGraduatedCards": sum(
+                1 for item in by_card.values() if item["graduatedTimes"]
+            ),
+            "confidenceMarks": sum(
+                sum(item["confidenceCounts"].values()) for item in by_card.values()
+            ),
+            "masteryScore": MASTERY_SCORE,
         },
     }
 
@@ -1923,6 +2122,169 @@ def add_card_attempt(payload: dict) -> tuple[dict, bool, BundleSnapshot, dict | 
         ).fetchone()
         connection.commit()
     return _card_attempt_from_row(row), True, snapshot, deck
+
+
+def _card_mark_from_row(row: sqlite3.Row) -> dict:
+    return {
+        "eventId": row["event_id"],
+        "sessionId": row["session_id"],
+        "studyDeckId": row["study_deck_id"],
+        "cardId": row["card_id"],
+        "answerRevision": row["answer_revision"],
+        "attemptEventId": row["attempt_event_id"],
+        "action": row["action"],
+        "scope": row["scope"],
+        "confidence": row["confidence"],
+        "markedAt": row["marked_at_client"],
+        "appVersion": row["app_version"],
+        "createdAt": row["created_at_server"],
+    }
+
+
+def add_card_mark(payload: dict) -> tuple[dict, bool, BundleSnapshot, dict | None]:
+    """卒業・絶対覚えた・自信度を追記する。回答も過去の卒業事実も書き換えない。"""
+    event_id = payload.get("eventId")
+    session_id = payload.get("sessionId")
+    if not valid_id(event_id):
+        raise ApiError(HTTPStatus.BAD_REQUEST, "invalid eventId")
+    if not valid_id(session_id):
+        raise ApiError(HTTPStatus.BAD_REQUEST, "invalid sessionId")
+
+    action = payload.get("action")
+    if action not in CARD_MARK_ACTIONS:
+        raise ApiError(HTTPStatus.BAD_REQUEST, "invalid action")
+    scope = payload.get("scope", "card")
+    if scope not in {"card", "deck"}:
+        raise ApiError(HTTPStatus.BAD_REQUEST, "invalid scope")
+    if scope == "deck" and action != "reset":
+        raise ApiError(HTTPStatus.BAD_REQUEST, "deck scope is only valid for reset")
+
+    card_id = payload.get("cardId")
+    snapshot = CATALOG.load()
+    card = None
+    if scope == "card":
+        if not valid_id(card_id):
+            raise ApiError(HTTPStatus.BAD_REQUEST, "invalid cardId")
+        card, snapshot = CATALOG.card(card_id)
+    elif card_id is not None:
+        raise ApiError(HTTPStatus.BAD_REQUEST, "cardId is not allowed for deck scope")
+
+    deck = resolve_study_deck(
+        snapshot,
+        study_deck_id_from_payload(payload),
+        require_if_ambiguous=True,
+    )
+    if card is not None and deck is not None and card_id not in deck["cardIds"]:
+        raise ApiError(HTTPStatus.BAD_REQUEST, "cardId is not in the study deck")
+
+    # 「絶対覚えた」はどのカードの、どの版に対する判断かを残す。リセットは版に依存しない。
+    answer_revision = None
+    if card is not None and action in {"certain", "uncertain", "confidence"}:
+        answer_revision = card_answer_revision(card, snapshot, deck)
+
+    attempt_event_id = payload.get("attemptEventId")
+    confidence = payload.get("confidence")
+    if action == "confidence":
+        if confidence not in CARD_MARK_CONFIDENCE:
+            raise ApiError(HTTPStatus.BAD_REQUEST, "invalid confidence")
+        if not valid_id(attempt_event_id):
+            raise ApiError(HTTPStatus.BAD_REQUEST, "invalid attemptEventId")
+    else:
+        if confidence is not None:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST, "confidence is only valid for confidence marks"
+            )
+        if attempt_event_id is not None:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST,
+                "attemptEventId is only valid for confidence marks",
+            )
+
+    marked_at = parse_timestamp(payload.get("markedAt"), "markedAt", required=True)
+    app_version = short_text(payload.get("appVersion"), "appVersion", 64)
+    study_deck_id = deck["id"] if deck is not None else None
+
+    normalized = {
+        "eventId": event_id,
+        "sessionId": session_id,
+        "studyDeckId": study_deck_id,
+        "cardId": card_id if scope == "card" else None,
+        "answerRevision": answer_revision,
+        "attemptEventId": attempt_event_id,
+        "action": action,
+        "scope": scope,
+        "confidence": confidence,
+        "markedAt": marked_at,
+        "appVersion": app_version,
+    }
+    payload_digest = hashlib.sha256(
+        canonical_json(normalized, "card mark", MAX_BODY_BYTES).encode("utf-8")
+    ).hexdigest()
+    now = utc_now()
+
+    with WRITE_LOCK, connect() as connection:
+        connection.execute("BEGIN IMMEDIATE")
+        existing = connection.execute(
+            "SELECT * FROM card_marks WHERE event_id = ?",
+            (event_id,),
+        ).fetchone()
+        if existing is not None:
+            if not hmac.compare_digest(existing["payload_digest"], payload_digest):
+                raise ApiError(
+                    HTTPStatus.CONFLICT,
+                    "eventId already exists with different content",
+                )
+            connection.commit()
+            return _card_mark_from_row(existing), False, snapshot, deck
+        if action == "confidence":
+            attempt = connection.execute(
+                "SELECT card_id FROM card_attempts WHERE event_id = ?",
+                (attempt_event_id,),
+            ).fetchone()
+            if attempt is None:
+                raise ApiError(HTTPStatus.BAD_REQUEST, "unknown attemptEventId")
+            if attempt["card_id"] != card_id:
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST, "attemptEventId belongs to another card"
+                )
+            duplicate = connection.execute(
+                "SELECT 1 FROM card_marks WHERE attempt_event_id = ?",
+                (attempt_event_id,),
+            ).fetchone()
+            if duplicate is not None:
+                raise ApiError(
+                    HTTPStatus.CONFLICT, "this answer already has a confidence mark"
+                )
+        connection.execute(
+            """
+            INSERT INTO card_marks (
+                event_id, session_id, study_deck_id, card_id, answer_revision,
+                attempt_event_id, action, scope, confidence, marked_at_client,
+                app_version, payload_digest, created_at_server
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                event_id,
+                session_id,
+                study_deck_id,
+                card_id if scope == "card" else None,
+                answer_revision,
+                attempt_event_id,
+                action,
+                scope,
+                confidence,
+                marked_at,
+                app_version,
+                payload_digest,
+                now,
+            ),
+        )
+        row = connection.execute(
+            "SELECT * FROM card_marks WHERE event_id = ?",
+            (event_id,),
+        ).fetchone()
+        connection.commit()
+    return _card_mark_from_row(row), True, snapshot, deck
 
 
 def _decision_from_row(row: sqlite3.Row, current_digest: str | None = None) -> dict:
@@ -2460,6 +2822,10 @@ def export_data() -> dict:
                 "SELECT * FROM card_attempts ORDER BY id"
             )
         ]
+        card_marks = [
+            _card_mark_from_row(row)
+            for row in connection.execute("SELECT * FROM card_marks ORDER BY id")
+        ]
         card_progress = card_progress_statistics(
             connection,
             snapshot,
@@ -2473,6 +2839,7 @@ def export_data() -> dict:
         "attempts": attempts,
         "cardProgress": card_progress,
         "cardAttempts": card_attempts,
+        "cardMarks": card_marks,
         "similarityDecisions": decisions,
     }
 
@@ -2620,6 +2987,21 @@ class ProductionHandler(BaseHTTPRequestHandler):
                         "duplicate": not inserted,
                         "attempt": attempt,
                         "learningAnalysisUpdated": analysis_updated,
+                        **progress,
+                    },
+                    HTTPStatus.CREATED if inserted else HTTPStatus.OK,
+                )
+                return
+            if path == "/api/card-marks":
+                mark, inserted, snapshot, deck = add_card_mark(payload)
+                with connect() as connection:
+                    progress = card_progress_statistics(connection, snapshot, deck)
+                progress["bundle"] = snapshot.metadata()
+                self.send_json(
+                    {
+                        "saved": inserted,
+                        "duplicate": not inserted,
+                        "mark": mark,
                         **progress,
                     },
                     HTTPStatus.CREATED if inserted else HTTPStatus.OK,

@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260729-1";
+  const APP_VERSION = "20260729-3";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -44,6 +44,7 @@
     cardServerProgress: {},
     cardProgress: {},
     cardPendingAttempts: [],
+    studyLastAttemptId: null,
     cardStorageMode: "loading",
     cardSaveChain: Promise.resolve(),
     cardApiAvailable: false,
@@ -447,6 +448,63 @@
       refreshStudyPool();
     });
     $("study-scope").addEventListener("change", refreshStudyPool);
+    $("study-certain-button").addEventListener("click", () => {
+      const item = state.studyCurrent;
+      if (!item) return;
+      const certain = isStudyCertain(item);
+      sendCardMark({
+        action: certain ? "uncertain" : "certain",
+        cardId: studyCardId(item),
+        statusNode: $("study-certain-status"),
+        message: certain ? "「絶対覚えた」を解除しました。" : "「絶対覚えた」に入れました。どの出題範囲でも出なくなります。"
+      });
+    });
+    $("study-reset-button").addEventListener("click", () => {
+      const item = state.studyCurrent;
+      if (!item) return;
+      sendCardMark({
+        action: "reset",
+        cardId: studyCardId(item),
+        statusNode: $("study-certain-status"),
+        message: "この問題の習得判定をリセットしました。過去の回答はそのまま残っています。"
+      });
+    });
+    $("study-reset-all").addEventListener("click", () => {
+      if (!window.confirm("習得済みの判定をすべてリセットします。過去の回答・卒業した事実・「絶対覚えた」は消えません。よろしいですか？")) return;
+      sendCardMark({
+        action: "reset",
+        scope: "deck",
+        statusNode: $("study-graduated-status"),
+        refreshPool: true,
+        message: "習得済みをすべてリセットしました。「絶対覚えた」はそのまま残っています。"
+      });
+    });
+    $("study-confidence-buttons").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-study-confidence]");
+      if (!button || !state.studyLastAttemptId || !state.studyCurrent) return;
+      sendCardMark({
+        action: "confidence",
+        cardId: studyCardId(state.studyCurrent),
+        confidence: button.dataset.studyConfidence,
+        attemptEventId: state.studyLastAttemptId,
+        statusNode: $("study-confidence-status"),
+        message: "手ごたえを記録しました。出題には影響しません。"
+      });
+    });
+    $("study-graduated-list").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-graduated-action]");
+      if (!button) return;
+      const action = button.dataset.graduatedAction;
+      sendCardMark({
+        action: action === "release" ? "uncertain" : "reset",
+        cardId: button.dataset.cardId,
+        statusNode: $("study-graduated-status"),
+        refreshPool: true,
+        message: action === "release"
+          ? "「絶対覚えた」を解除しました。出題に戻ります。"
+          : "習得判定をリセットしました。出題に戻ります。"
+      });
+    });
     $("study-order").addEventListener("change", () => { state.studyIndex = 0; });
     $("study-next").addEventListener("click", showNextStudyCard);
     $("study-show-all").addEventListener("click", () => {
@@ -562,7 +620,7 @@
       ? "苦手・要観察では、現行版カードの回答から要観察・苦手だけを表示します。2回連続で正解して「回復中」になった問題は、このビューから外れます。"
       : rapid
         ? "高速○×では、Aの本試験文だけを見て即答します。1問10秒が目安です。迷ったらBを開いてかまいませんが、時間は計り続けます。習得済みの判定は通常ビューと同じです。"
-        : "おまかせでは、正解が不正解より3回多くなった問題を「習得済み」として出題から外します。全問題モードならいつでも復習できます。";
+        : "おまかせでは、正解が不正解より3回多くなった問題を「習得済み」として出題から外します。全問題モードならいつでも復習できます。回答後に「絶対覚えた」を押した問題は、どの出題範囲でも出しません。解除は「卒業済みだけ」の一覧からできます。";
     renderStudyViewSummary();
   }
 
@@ -752,7 +810,7 @@
   // 高速○×は、途中で習得済みになってもセットの中身が入れ替わらないよう最初に固定する
   function buildRapidQueue() {
     const cards = getStudyTopicCards();
-    const pool = $("study-scope").value === "all" ? cards : cards.filter((item) => !isStudyMastered(item));
+    const pool = studyScopePool(cards);
     const order = $("study-order").value;
     let ordered;
     if (order === "weak") ordered = pool.slice().sort((left, right) => studyWeaknessScore(right) - studyWeaknessScore(left));
@@ -787,7 +845,7 @@
           return safeCount(rightTarget && rightTarget.priority) - safeCount(leftTarget && leftTarget.priority);
         });
     }
-    return $("study-scope").value === "all" ? cards : cards.filter((item) => !isStudyMastered(item));
+    return studyScopePool(cards);
   }
 
   function refreshStudyPool() {
@@ -797,6 +855,7 @@
     state.studyCurrent = state.studyFiltered[0] || null;
     renderStudySearchSummary();
     renderStudyScopeSummary();
+    renderStudyGraduatedList();
     renderStudyCard();
   }
 
@@ -821,11 +880,20 @@
         "復習対象 " + targets.length + "問 / 苦手 " + weak + "・要観察 " + watch;
       return;
     }
+    const scope = $("study-scope").value;
     const mastered = cards.filter(isStudyMastered).length;
-    const target = $("study-scope").value === "all" ? cards.length : cards.length - mastered;
-    $("study-scope-summary").textContent = $("study-scope").value === "all"
-      ? "全" + cards.length + "問を出題 / 習得済み " + mastered + "問"
-      : "出題対象 " + target + "問 / 習得済み " + mastered + "問 / 全" + cards.length + "問";
+    const certain = cards.filter(isStudyCertain).length;
+    const target = studyScopePool(cards).length;
+    if (scope === "graduated") {
+      $("study-scope-summary").textContent =
+        "卒業済み " + target + "問（習得済み " + mastered + "・絶対覚えた " + certain + "）";
+    } else if (scope === "all") {
+      $("study-scope-summary").textContent =
+        "出題対象 " + target + "問 / 絶対覚えた " + certain + "問は常に除外 / 全" + cards.length + "問";
+    } else {
+      $("study-scope-summary").textContent =
+        "出題対象 " + target + "問 / 習得済み " + mastered + "・絶対覚えた " + certain + " / 全" + cards.length + "問";
+    }
   }
 
   function renderStudyEmpty() {
@@ -834,7 +902,8 @@
     const review = $("study-scope").value === "review";
     const topicSelected = $("study-topic").value !== "all" || $("study-subject").value !== "all";
     const searching = studySearchWords().length > 0;
-    const allMastered = cards.length && cards.every(isStudyMastered);
+    const graduatedScope = $("study-scope").value === "graduated";
+    const allMastered = cards.length && cards.every(isStudyGraduated);
     $("study-empty").hidden = false;
     $("study-show-all").hidden = (!review && !weakness) || !cards.length;
     $("study-show-all").textContent = weakness ? "通常ビューで全問題を見る" : "全問題モードで復習する";
@@ -855,6 +924,9 @@
     } else if (weakness) {
       $("study-empty-title").textContent = "現在、復習対象の苦手はありません";
       $("study-empty-message").textContent = "通常ビューで回答すると、要観察・苦手・回復中が自動更新されます。";
+    } else if (graduatedScope) {
+      $("study-empty-title").textContent = "卒業済みの問題はまだありません";
+      $("study-empty-message").textContent = "正解が不正解より3回多くなると習得済みになります。回答後の「絶対覚えた」を押した問題もここに入ります。";
     } else if (review && allMastered && topicSelected) {
       $("study-empty-title").textContent = "この分野の問題はすべて習得済みです";
       $("study-empty-message").textContent = "全問題モードで復習するか、科目・分野を「すべて」に戻すと続けられます。";
@@ -888,6 +960,8 @@
     $("study-subtopic").textContent = item.subtopic || "";
     $("study-card-id").textContent = studyCardId(item);
     renderSourceLinks($("study-source-links"), item);
+    renderStudyMarkControls(item);
+    state.studyLastAttemptId = null;
     renderStudyFrequency(item);
     $("study-position").textContent = (state.studyFiltered.indexOf(item) + 1) + " / " + state.studyFiltered.length;
     setRichText($("study-variant-a"), variants.a || "");
@@ -933,6 +1007,73 @@
     node.hidden = !nodes.length;
   }
 
+  function renderStudyMarkControls(item) {
+    const progress = getCardProgress(studyCardId(item));
+    const certainButton = $("study-certain-button");
+    certainButton.textContent = progress.certain ? "「絶対覚えた」を解除する" : "絶対覚えた（もう出さない）";
+    certainButton.classList.toggle("is-certain", progress.certain);
+    $("study-reset-button").hidden = !progress.mastered && !progress.resetCount;
+    const history = [];
+    if (progress.graduatedTimes) history.push("これまでに卒業 " + progress.graduatedTimes + "回");
+    if (progress.resetCount) history.push("リセット " + progress.resetCount + "回");
+    if (progress.certain) history.push("絶対覚えた");
+    $("study-certain-status").textContent = history.join(" · ");
+    $("study-certain-status").className = "study-mark-status";
+    $("study-confidence-status").textContent = progress.lastConfidence
+      ? "前回の手ごたえ: " + confidenceLabel(progress.lastConfidence)
+      : "";
+    $("study-confidence-status").className = "study-mark-status";
+    document.querySelectorAll("[data-study-confidence]").forEach((button) => {
+      button.classList.remove("active");
+    });
+  }
+
+  function confidenceLabel(value) {
+    return { sure: "確信あり", likely: "たぶん", guess: "あてずっぽう" }[value] || value;
+  }
+
+  function renderStudyGraduatedList() {
+    const section = $("study-graduated");
+    const graduatedScope = $("study-scope").value === "graduated";
+    section.hidden = !graduatedScope || isWeaknessStudyView();
+    if (section.hidden) return;
+    const cards = getStudyTopicCards().filter(isStudyGraduated);
+    $("study-graduated-count").textContent = cards.length + "件";
+    const nodes = cards.map((item) => {
+      const cardId = studyCardId(item);
+      const progress = getCardProgress(cardId);
+      const row = make("article", { className: "graduated-item" });
+      const head = make("div", { className: "graduated-head" });
+      head.appendChild(make("strong", {}, item.subtopic || cardId));
+      if (progress.certain) head.appendChild(make("span", { className: "graduated-badge certain" }, "絶対覚えた"));
+      if (progress.mastered) head.appendChild(make("span", { className: "graduated-badge" }, "習得済み"));
+      row.appendChild(head);
+      row.appendChild(make("small", {}, [
+        cardId,
+        "正解 " + progress.correct + " / 不正解 " + progress.incorrect,
+        progress.graduatedTimes ? "卒業 " + progress.graduatedTimes + "回" : null
+      ].filter(Boolean).join(" · ")));
+      const actions = make("div", { className: "graduated-actions" });
+      if (progress.certain) {
+        actions.appendChild(make("button", {
+          type: "button", className: "secondary-button",
+          dataset: { graduatedAction: "release", cardId }
+        }, "「絶対覚えた」を解除"));
+      }
+      if (progress.mastered) {
+        actions.appendChild(make("button", {
+          type: "button", className: "secondary-button",
+          dataset: { graduatedAction: "reset", cardId }
+        }, "習得をリセット"));
+      }
+      row.appendChild(actions);
+      return row;
+    });
+    $("study-graduated-list").replaceChildren(...(nodes.length
+      ? nodes
+      : [make("p", {}, "この条件に卒業済みの問題はありません。")]));
+  }
+
   function renderStudyFrequency(item) {
     const node = $("study-frequency");
     const frequency = item.frequency;
@@ -958,6 +1099,7 @@
     }
     if (relatedCount) labels.push(relatedCount + "件の実際の肢");
     if (item.derivedFromWritten) labels.push("記述式から作成");
+    if (isStudyCertain(item)) labels.push("絶対覚えた");
     if (isStudyMastered(item)) labels.push("習得済み");
     renderBadges($("study-badges"), labels);
   }
@@ -1006,6 +1148,7 @@
     };
 
     state.studyAnswered = true;
+    state.studyLastAttemptId = attemptId;
     stopStudyTimer();
     flashStudyResult(isCorrect);
     if (isRapidStudyView()) {
@@ -1195,9 +1338,11 @@
 
   function renderStudyProgressDisplays() {
     renderStudyScopeSummary();
+    renderStudyGraduatedList();
     if (state.studyCurrent) {
       renderStudyHistory(state.studyCurrent);
       renderStudyBadges(state.studyCurrent);
+      renderStudyMarkControls(state.studyCurrent);
     }
     if (state.studyAnswered) renderStudyAccuracy();
   }
@@ -1285,13 +1430,32 @@
   }
 
   function cleanCardProgress(entry) {
-    return {
+    const cleaned = {
       correct: safeCount(entry && entry.correct),
       incorrect: safeCount(entry && entry.incorrect),
       lastAnsweredAt: entry && entry.lastAnsweredAt || null,
       medianResponseMs: safeMs(entry && entry.medianResponseMs),
-      responseSamples: safeCount(entry && entry.responseSamples)
+      responseSamples: safeCount(entry && entry.responseSamples),
+      // 卒業・絶対覚えた・自信度。サーバーが正で、未送信の回答だけ手元で足す。
+      certain: Boolean(entry && entry.certain),
+      certainAt: entry && entry.certainAt || null,
+      resetAt: entry && entry.resetAt || null,
+      resetCount: safeCount(entry && entry.resetCount),
+      sinceResetCorrect: safeCount(entry && entry.sinceResetCorrect),
+      sinceResetIncorrect: safeCount(entry && entry.sinceResetIncorrect),
+      graduatedTimes: safeCount(entry && entry.graduatedTimes),
+      lastGraduatedAt: entry && entry.lastGraduatedAt || null,
+      lastConfidence: entry && entry.lastConfidence || null
     };
+    recomputeMastery(cleaned);
+    return cleaned;
+  }
+
+  function recomputeMastery(entry) {
+    entry.masteryScore = entry.sinceResetCorrect - entry.sinceResetIncorrect;
+    entry.mastered = entry.masteryScore >= MASTERY_SCORE;
+    // 「絶対覚えた」は全リセットの対象外なので、習得済みとは別に卒業扱いにする
+    entry.graduated = entry.mastered || entry.certain;
   }
 
   function safeMs(value) {
@@ -1318,9 +1482,15 @@
     const item = state.studyById.get(attempt.cardId);
     if (!item) return;
     const entry = progress[attempt.cardId] || cleanCardProgress({});
-    if (attempt.selectedAnswer === Boolean(item.correct)) entry.correct += 1;
-    else entry.incorrect += 1;
+    if (attempt.selectedAnswer === Boolean(item.correct)) {
+      entry.correct += 1;
+      entry.sinceResetCorrect += 1;
+    } else {
+      entry.incorrect += 1;
+      entry.sinceResetIncorrect += 1;
+    }
     entry.lastAnsweredAt = attempt.answeredAt || entry.lastAnsweredAt;
+    recomputeMastery(entry);
     progress[attempt.cardId] = entry;
   }
 
@@ -1333,9 +1503,58 @@
     }, cleanCardProgress({}));
   }
 
+  // 卒業・絶対覚えた・自信度は本人が押した瞬間の一度きりの記録なので、回答のように
+  // 端末へ溜めて再送しない。送れなかったときは、その場で失敗として見せる。
+  async function sendCardMark(options) {
+    const status = options.statusNode;
+    if (status) { status.textContent = "保存中…"; status.className = "study-mark-status saving"; }
+    try {
+      const snapshot = await postJson(API + "/card-marks", {
+        eventId: "card-mark-" + uuid(),
+        sessionId: state.sessionId,
+        studyDeckId: state.activeStudyDeck && state.activeStudyDeck.id || undefined,
+        cardId: options.cardId,
+        action: options.action,
+        scope: options.scope || "card",
+        confidence: options.confidence,
+        attemptEventId: options.attemptEventId,
+        markedAt: new Date().toISOString(),
+        appVersion: APP_VERSION
+      });
+      if (hasCardProgressSnapshot(snapshot)) state.cardServerProgress = normalizeCardProgress(snapshot);
+      rebuildCardProgress();
+      renderStudyProgressDisplays();
+      // 解いている途中のカードで押したときは、読みかけの解説を消さないよう出題プールを
+      // 組み直さない。次へ進んだ時点で showNextStudyCard が新しいプールを使う。
+      if (options.refreshPool) refreshStudyPool();
+      if (status) { status.textContent = options.message; status.className = "study-mark-status saved"; }
+    } catch (error) {
+      console.warn("卒業・自信度の記録を保存できません", error);
+      if (status) {
+        status.textContent = "保存できませんでした。通信を確認してもう一度押してください。";
+        status.className = "study-mark-status error";
+      }
+    }
+  }
+
   function isStudyMastered(item) {
-    const progress = getCardProgress(studyCardId(item));
-    return progress.correct - progress.incorrect >= MASTERY_SCORE;
+    return getCardProgress(studyCardId(item)).mastered;
+  }
+
+  // 「絶対覚えた」を押したカードはどのモードでも出さない。習得済みはおまかせだけ外す。
+  function isStudyCertain(item) {
+    return getCardProgress(studyCardId(item)).certain;
+  }
+
+  function isStudyGraduated(item) {
+    return getCardProgress(studyCardId(item)).graduated;
+  }
+
+  function studyScopePool(cards) {
+    const scope = $("study-scope").value;
+    if (scope === "graduated") return cards.filter(isStudyGraduated);
+    if (scope === "all") return cards.filter((item) => !isStudyCertain(item));
+    return cards.filter((item) => !isStudyGraduated(item));
   }
 
   function queueCardAttempt(attempt) {

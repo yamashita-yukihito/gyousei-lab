@@ -285,11 +285,32 @@ flowchart LR
 
 現状:
 
-- SQLite schema `user_version=3`。
-- `answer_attempts`、`card_attempts`、`similarity_decisions` は追記型。
+- SQLite schema `user_version=4`。
+- `answer_attempts`、`card_attempts`、`card_marks`、`similarity_decisions` は追記型。
 - client生成 `eventId` で再送を冪等にする。
 - A・C・正解などに基づく `answerRevision` で、改訂前回答を現行習得判定へ混ぜない。
 - Bだけの表現変更ではrevisionを変えない。
+
+### 6.1 卒業・絶対覚えた・自信度
+
+出題から外す仕組みは2層ある。どちらも `card_marks`（追記型）に記録し、
+`card_attempts` の行は書き換えも削除もしない。
+
+| 層 | 付き方 | 外れる範囲 | 全リセット | 解除の導線 |
+| --- | --- | --- | --- | --- |
+| 習得済み | 自動（`正解 − 不正解 >= 3`） | おまかせのみ | 対象 | 一覧の「習得をリセット」 |
+| 絶対覚えた | 手動（回答後のボタン） | すべての出題範囲 | **対象外** | 一覧の「「絶対覚えた」を解除」 |
+
+- `action` は `certain` / `uncertain` / `reset` / `confidence` の4種類。
+  `reset` だけが `scope='deck'`（全リセット）を取れる。
+- `reset` は「ここより前の回答を習得判定に数えない」という区切りを置くだけで、
+  回答そのものは残る。したがってリセット後も `correct` / `incorrect` は減らない。
+- 過去に卒業した事実は `graduatedTimes` / `lastGraduatedAt` として残り、
+  解除してもリセットしても消えない。あとからAI分析で使う。
+- 自信度（`sure` / `likely` / `guess`）は回答1件につき1つまで。
+  `attemptEventId` で回答と結び付けるだけで、**出題対象の判定には一切効かない**。
+- 出題範囲の「卒業済みだけ」は、この2層に入ったカードの一覧を兼ねる。
+  絶対覚えたカードはどこにも出題されないため、解除の導線はここに集約する。
 
 実装済みの弱点分析MVP:
 

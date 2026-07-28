@@ -761,7 +761,69 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .rapid-view .study-related,
 .rapid-view .study-cross-field,
 .rapid-view .study-comparison-table,
+.rapid-view .study-mark-row,
 .rapid-view .markup-legend { display: none; }
+
+/* 卒業・絶対覚えた・自信度 */
+.study-mark-row {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+}
+.study-mark-group > span {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+.study-mark-buttons { display: flex; flex-wrap: wrap; gap: 7px; }
+.study-mark-buttons .secondary-button { padding: 7px 13px; font-size: 12.5px; }
+.study-mark-buttons .secondary-button.is-certain {
+  border-color: #c8a34e;
+  background: #fdf6e4;
+  color: #7a5c15;
+}
+.study-mark-status { display: block; margin-top: 7px; color: var(--muted); font-size: 11.5px; }
+.study-mark-status.saved { color: #2f6b50; }
+.study-mark-status.error { color: #a3341f; }
+
+.study-graduated { margin-bottom: 18px; }
+.study-graduated-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0 14px;
+}
+.study-graduated-actions .study-mark-status { margin-top: 0; }
+#study-graduated-list { display: grid; gap: 10px; }
+.graduated-item {
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fbfcfb;
+}
+.graduated-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.graduated-head strong { font-size: 14.5px; }
+.graduated-badge {
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: #e7f1ea;
+  color: #2f6b50;
+  font-size: 11px;
+  font-weight: 700;
+}
+.graduated-badge.certain { background: #fdf6e4; color: #7a5c15; }
+.graduated-item small { color: var(--muted); font-size: 11.5px; }
+.graduated-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+.graduated-actions .secondary-button { padding: 6px 12px; font-size: 12px; }
 .rapid-view .study-answer-panel.reveal-all .study-deep-dive,
 .rapid-view .study-answer-panel.reveal-all .study-common-sense,
 .rapid-view .study-answer-panel.reveal-all .study-related,

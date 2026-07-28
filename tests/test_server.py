@@ -940,6 +940,217 @@ class ProductionApiTest(unittest.TestCase):
         self.assertEqual(progress["byCard"]["card-1"]["maxStreak"], 1)
         self.assertEqual(len(server.export_data()["cardAttempts"]), 2)
 
+    def card_mark_payload(
+        self,
+        *,
+        event_id: str = "mark-1",
+        action: str = "certain",
+        scope: str = "card",
+        card_id: str | None = "card-1",
+        confidence: str | None = None,
+        attempt_event_id: str | None = None,
+    ) -> dict:
+        snapshot = server.CATALOG.load()
+        deck = server.default_study_deck(snapshot)
+        payload = {
+            "eventId": event_id,
+            "sessionId": "session-card-1",
+            "studyDeckId": deck["id"] if deck else None,
+            "action": action,
+            "scope": scope,
+            "markedAt": "2026-07-18T12:10:00Z",
+            "appVersion": "test",
+        }
+        if card_id is not None:
+            payload["cardId"] = card_id
+        if confidence is not None:
+            payload["confidence"] = confidence
+        if attempt_event_id is not None:
+            payload["attemptEventId"] = attempt_event_id
+        return payload
+
+    def test_certain_mark_survives_a_deck_wide_reset(self) -> None:
+        for index in range(3):
+            server.add_card_attempt(
+                self.card_attempt_payload(event_id=f"card-event-{index}")
+            )
+        snapshot = server.CATALOG.load()
+        deck = server.default_study_deck(snapshot)
+        with server.connect() as connection:
+            before = server.card_progress_statistics(connection, snapshot, deck)
+        self.assertTrue(before["byCard"]["card-1"]["mastered"])
+        self.assertTrue(before["byCard"]["card-1"]["graduated"])
+        self.assertEqual(before["byCard"]["card-1"]["graduatedTimes"], 1)
+
+        server.add_card_mark(self.card_mark_payload())
+        server.add_card_mark(
+            self.card_mark_payload(
+                event_id="mark-reset", action="reset", scope="deck", card_id=None
+            )
+        )
+        with server.connect() as connection:
+            after = server.card_progress_statistics(connection, snapshot, deck)
+        item = after["byCard"]["card-1"]
+        # 全リセットで習得判定は数え直しになるが、絶対覚えたと過去の卒業事実は残る
+        self.assertFalse(item["mastered"])
+        self.assertEqual(item["masteryScore"], 0)
+        self.assertEqual(item["sinceResetAttempts"], 0)
+        self.assertTrue(item["certain"])
+        self.assertTrue(item["graduated"])
+        self.assertEqual(item["graduatedTimes"], 1)
+        self.assertEqual(item["correct"], 3)
+        self.assertEqual(item["attempts"], 3)
+
+        server.add_card_mark(
+            self.card_mark_payload(event_id="mark-off", action="uncertain")
+        )
+        with server.connect() as connection:
+            released = server.card_progress_statistics(connection, snapshot, deck)
+        self.assertFalse(released["byCard"]["card-1"]["certain"])
+        self.assertFalse(released["byCard"]["card-1"]["graduated"])
+        self.assertEqual(released["byCard"]["card-1"]["graduatedTimes"], 1)
+        self.assertEqual(released["stats"]["masteryScore"], server.MASTERY_SCORE)
+
+        with server.connect() as connection:
+            attempts = connection.execute(
+                "SELECT COUNT(*) FROM card_attempts"
+            ).fetchone()[0]
+        self.assertEqual(attempts, 3)
+        self.assertEqual(len(server.export_data()["cardMarks"]), 3)
+
+    def test_confidence_is_recorded_per_answer_without_changing_selection(self) -> None:
+        server.add_card_attempt(self.card_attempt_payload())
+        mark, inserted, snapshot, deck = server.add_card_mark(
+            self.card_mark_payload(
+                event_id="mark-confidence",
+                action="confidence",
+                confidence="guess",
+                attempt_event_id="card-event-1",
+            )
+        )
+        self.assertTrue(inserted)
+        self.assertEqual(mark["confidence"], "guess")
+        with server.connect() as connection:
+            progress = server.card_progress_statistics(connection, snapshot, deck)
+        item = progress["byCard"]["card-1"]
+        self.assertEqual(item["confidenceCounts"]["guess"], 1)
+        self.assertEqual(item["lastConfidence"], "guess")
+        # 自信度は出題対象の判定には効かない
+        self.assertFalse(item["mastered"])
+        self.assertEqual(item["correct"], 1)
+
+        with self.assertRaises(server.ApiError) as context:
+            server.add_card_mark(
+                self.card_mark_payload(
+                    event_id="mark-confidence-2",
+                    action="confidence",
+                    confidence="sure",
+                    attempt_event_id="card-event-1",
+                )
+            )
+        self.assertEqual(context.exception.status, HTTPStatus.CONFLICT)
+
+    def test_card_mark_validation_and_append_only_storage(self) -> None:
+        for payload, status in (
+            (self.card_mark_payload(action="graduate"), HTTPStatus.BAD_REQUEST),
+            (
+                self.card_mark_payload(
+                    event_id="m2", action="certain", scope="deck", card_id=None
+                ),
+                HTTPStatus.BAD_REQUEST,
+            ),
+            (
+                self.card_mark_payload(
+                    event_id="m3", action="reset", scope="deck", card_id="card-1"
+                ),
+                HTTPStatus.BAD_REQUEST,
+            ),
+            (
+                self.card_mark_payload(event_id="m4", confidence="sure"),
+                HTTPStatus.BAD_REQUEST,
+            ),
+            (
+                self.card_mark_payload(
+                    event_id="m5",
+                    action="confidence",
+                    confidence="sure",
+                    attempt_event_id="missing-attempt",
+                ),
+                HTTPStatus.BAD_REQUEST,
+            ),
+            (
+                self.card_mark_payload(event_id="m6", card_id="card-unknown"),
+                HTTPStatus.BAD_REQUEST,
+            ),
+        ):
+            with self.assertRaises(server.ApiError) as context:
+                server.add_card_mark(payload)
+            self.assertEqual(context.exception.status, status)
+
+        server.add_card_mark(self.card_mark_payload(event_id="mark-keep"))
+        replayed, inserted, _, _ = server.add_card_mark(
+            self.card_mark_payload(event_id="mark-keep")
+        )
+        self.assertFalse(inserted)
+        self.assertEqual(replayed["eventId"], "mark-keep")
+        with self.assertRaises(server.ApiError) as context:
+            server.add_card_mark(
+                self.card_mark_payload(event_id="mark-keep", action="uncertain")
+            )
+        self.assertEqual(context.exception.status, HTTPStatus.CONFLICT)
+
+        with server.connect() as connection:
+            with self.assertRaises(sqlite3.IntegrityError):
+                connection.execute("DELETE FROM card_marks")
+            with self.assertRaises(sqlite3.IntegrityError):
+                connection.execute("UPDATE card_marks SET action = 'uncertain'")
+            columns = {
+                row["name"]
+                for row in connection.execute("PRAGMA table_info(card_marks)")
+            }
+        self.assertEqual(
+            columns,
+            {
+                "id",
+                "event_id",
+                "session_id",
+                "study_deck_id",
+                "card_id",
+                "answer_revision",
+                "attempt_event_id",
+                "action",
+                "scope",
+                "confidence",
+                "marked_at_client",
+                "app_version",
+                "payload_digest",
+                "created_at_server",
+            },
+        )
+
+    def test_individual_reset_only_clears_that_card(self) -> None:
+        for index in range(3):
+            server.add_card_attempt(
+                self.card_attempt_payload(event_id=f"a-{index}", card_id="card-1")
+            )
+        snapshot = server.CATALOG.load()
+        deck = server.default_study_deck(snapshot)
+        server.add_card_mark(
+            self.card_mark_payload(event_id="reset-1", action="reset", card_id="card-1")
+        )
+        server.add_card_attempt(
+            self.card_attempt_payload(event_id="a-after", card_id="card-1")
+        )
+        with server.connect() as connection:
+            progress = server.card_progress_statistics(connection, snapshot, deck)
+        item = progress["byCard"]["card-1"]
+        self.assertEqual(item["attempts"], 4)
+        self.assertEqual(item["sinceResetAttempts"], 1)
+        self.assertEqual(item["masteryScore"], 1)
+        self.assertFalse(item["mastered"])
+        self.assertEqual(item["resetCount"], 1)
+        self.assertEqual(item["graduatedTimes"], 1)
+
     def test_database_schema_version_and_card_attempt_columns(self) -> None:
         with server.connect() as connection:
             version = connection.execute("PRAGMA user_version").fetchone()[0]
