@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260728-1";
+  const APP_VERSION = "20260728-2";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -715,6 +715,12 @@
     (item.crossFieldComparisons || []).forEach((comparison) => {
       parts.push(comparison.title, comparison.explanation, comparison.memoryCue);
     });
+    if (item.comparisonTable) {
+      parts.push(item.comparisonTable.title, item.comparisonTable.memoryCue);
+      (item.comparisonTable.rows || []).forEach((row) => {
+        parts.push(row.label, row.article, row.rule, row.conclusion);
+      });
+    }
     (item.relatedPastQuestions || []).forEach((ref) => {
       const evidence = state.evidenceById.get(ref.choiceId);
       if (evidence) parts.push(evidence.statementText, evidence.eraYear);
@@ -1016,6 +1022,7 @@
     renderStudyBasis(item);
     renderStudyRelated(item);
     renderStudyCrossField(item);
+    renderStudyComparisonTable(item);
     $("study-answer-panel").hidden = false;
     requestAnimationFrame(() => $("study-answer-summary").focus({ preventScroll: true }));
   }
@@ -1102,6 +1109,30 @@
       return article;
     });
     $("study-cross-field-list").replaceChildren(...nodes);
+  }
+
+  function renderStudyComparisonTable(item) {
+    const table = item.comparisonTable;
+    const rows = table && Array.isArray(table.rows) ? table.rows : [];
+    const section = $("study-comparison-table");
+    section.hidden = rows.length < 2;
+    if (section.hidden) {
+      $("study-comparison-rows").replaceChildren();
+      return;
+    }
+    $("study-comparison-title").textContent = table.title || "";
+    const nodes = rows.map((row) => {
+      const article = make("article", { className: "comparison-row" });
+      const heading = make("div", { className: "comparison-row-heading" });
+      heading.appendChild(make("strong", {}, row.label));
+      if (row.article) heading.appendChild(make("span", {}, row.article));
+      article.appendChild(heading);
+      article.appendChild(make("p", {}, row.rule));
+      article.appendChild(make("b", {}, row.conclusion));
+      return article;
+    });
+    $("study-comparison-rows").replaceChildren(...nodes);
+    $("study-comparison-cue").textContent = table.memoryCue || "";
   }
 
   function openRelatedStudyCard(cardId) {

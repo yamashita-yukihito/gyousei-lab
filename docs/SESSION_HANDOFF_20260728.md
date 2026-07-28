@@ -117,7 +117,7 @@ curl -fsS http://127.0.0.1:8817/health
 
 - `ARCHITECTURE.md`（版数、カード件数、得点計画、「確信のない170点」の節、次に行う作業、Decision log）
 - `HANDOFF.md`（件数、bundle revision、冒頭の依頼文）
-- `authoring/README.md`（件数、`--expected-card-count 98 --expected-evidence-count 334`）
+- `authoring/README.md`（件数、`--expected-card-count 101 --expected-evidence-count 344`）
 - `authoring/CARD_AUTHORING.md`（`contextSummary`、改正で結論が変わった肢を⑤へ載せない、装飾の隣接ルールの訂正）
 - `static/architecture.html`（版数、8月のロードマップ）
 

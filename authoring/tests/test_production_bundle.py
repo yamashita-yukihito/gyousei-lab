@@ -210,6 +210,24 @@ def explanation_cards() -> dict:
                         "memoryCue": "いつの場面かを見る",
                     }
                 ],
+                "comparisonTable": {
+                    "title": "書面に不備があったとき",
+                    "rows": [
+                        {
+                            "label": "行政手続法",
+                            "article": "7条",
+                            "rule": "補正を求めるか拒否するかを選ぶ。",
+                            "conclusion": "補正させなくてよい",
+                        },
+                        {
+                            "label": "行政不服審査法",
+                            "article": "23条",
+                            "rule": "審査庁は補正を命じる。",
+                            "conclusion": "補正命令が義務",
+                        },
+                    ],
+                    "memoryCue": "入口が最後かどうかで分ける",
+                },
                 "review": {
                     "currentLawStatus": "sample-reviewed",
                     "humanReview": "prototype",
@@ -496,6 +514,12 @@ class ProductionBundleTests(unittest.TestCase):
         self.assertEqual(
             "reason-vs-litigation", card["crossFieldComparisons"][0]["id"]
         )
+        table = card["comparisonTable"]
+        self.assertEqual("書面に不備があったとき", table["title"])
+        self.assertEqual(
+            ["行政手続法", "行政不服審査法"], [row["label"] for row in table["rows"]]
+        )
+        self.assertEqual("補正命令が義務", table["rows"][1]["conclusion"])
         self.assertEqual(7, card["frequency"]["occurrences"])
         self.assertEqual(3, card["frequency"]["archiveOccurrences"])
         self.assertEqual("q:written", card["derivedFromWritten"]["questionId"])
@@ -725,6 +749,30 @@ class ProductionBundleTests(unittest.TestCase):
         non_written_origin["items"][0]["derivedFromWritten"]["questionId"] = "q:regular"
         with self.assertRaisesRegex(ProductionBundleError, "origin is not a written"):
             self.build(explanation_cards=non_written_origin)
+
+    def test_comparison_table_fails_closed(self) -> None:
+        single_row = explanation_cards()
+        single_row["items"][0]["comparisonTable"]["rows"] = [
+            single_row["items"][0]["comparisonTable"]["rows"][0]
+        ]
+        with self.assertRaisesRegex(ProductionBundleError, "2 to 4 rows"):
+            self.build(explanation_cards=single_row)
+
+        repeated_label = explanation_cards()
+        rows = repeated_label["items"][0]["comparisonTable"]["rows"]
+        rows[1]["label"] = rows[0]["label"]
+        with self.assertRaisesRegex(ProductionBundleError, "must not repeat a label"):
+            self.build(explanation_cards=repeated_label)
+
+        missing_conclusion = explanation_cards()
+        del missing_conclusion["items"][0]["comparisonTable"]["rows"][0]["conclusion"]
+        with self.assertRaisesRegex(ProductionBundleError, "conclusion must be"):
+            self.build(explanation_cards=missing_conclusion)
+
+        no_table = explanation_cards()
+        del no_table["items"][0]["comparisonTable"]
+        bundle = self.build(explanation_cards=no_table)
+        self.assertNotIn("comparisonTable", bundle["explanationCards"][0])
 
     def test_one_private_deck_can_cover_multiple_subjects(self) -> None:
         document = explanation_cards()

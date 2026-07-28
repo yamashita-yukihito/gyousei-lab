@@ -563,6 +563,35 @@ def _project_cross_field_comparison(value: Any, context: str) -> dict[str, str]:
     return projected
 
 
+def _project_comparison_table(value: Any, context: str) -> dict[str, Any]:
+    # ⑦ 手続法・不服審査法・事件訴訟法のように、同じ場面で結論が分かれる法律を
+    # 一枚の表で並べる。⑥が1対1の比較なのに対し、こちらは3つ以上を同じ列で見る。
+    table = _object(value, context)
+    rows = _array(table.get("rows"), f"{context}.rows")
+    if not 2 <= len(rows) <= 4:
+        raise ProductionBundleError(f"{context}.rows must hold 2 to 4 rows")
+    projected_rows: list[dict[str, str]] = []
+    for row_index, row_value in enumerate(rows):
+        row_context = f"{context}.rows[{row_index}]"
+        row = _object(row_value, row_context)
+        projected_rows.append(
+            {
+                "label": _text(row.get("label"), f"{row_context}.label"),
+                "article": _text(row.get("article"), f"{row_context}.article"),
+                "rule": _text(row.get("rule"), f"{row_context}.rule"),
+                "conclusion": _text(row.get("conclusion"), f"{row_context}.conclusion"),
+            }
+        )
+    labels = [row["label"] for row in projected_rows]
+    if len(labels) != len(set(labels)):
+        raise ProductionBundleError(f"{context}.rows must not repeat a label")
+    return {
+        "title": _text(table.get("title"), f"{context}.title"),
+        "rows": projected_rows,
+        "memoryCue": _text(table.get("memoryCue"), f"{context}.memoryCue"),
+    }
+
+
 def _project_explanation_card(value: Any, index: int) -> dict[str, Any]:
     context = f"explanationCards[{index}]"
     card = _object(value, context)
@@ -710,6 +739,10 @@ def _project_explanation_card(value: Any, index: int) -> dict[str, Any]:
         ),
         **_state_fields(review, f"{context}.review"),
     }
+    if "comparisonTable" in card:
+        projected["comparisonTable"] = _project_comparison_table(
+            card["comparisonTable"], f"{context}.comparisonTable"
+        )
     if "evidenceHighlights" in card:
         # ⑤の肢は原文を書き換えられないため、画面側で目立たせる語だけを渡す
         projected["evidenceHighlights"] = [

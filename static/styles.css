@@ -599,6 +599,19 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .cross-field-item > small { display: block; margin-top: 8px; color: #735b22; font-weight: 700; }
 .cross-field-jump { margin-top: 10px; padding: 6px 10px; border: 1px solid #cdbb8e; border-radius: 7px; background: #fffaf0; cursor: pointer; color: #654b12; font-size: 12px; font-weight: 800; }
 
+.study-comparison-table { border-color: #b9cfe2; background: #f7fbff; }
+#study-comparison-rows { display: grid; gap: 10px; margin-top: 10px; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); }
+.comparison-row { display: flex; flex-direction: column; gap: 7px; padding: 13px 14px; border: 1px solid #cddce8; border-radius: 9px; background: #fff; }
+.comparison-row-heading { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+.comparison-row-heading strong { color: #1f4f74; font-size: 14px; }
+.comparison-row-heading span { padding: 2px 7px; border-radius: 999px; background: var(--blue-soft); color: #4d7087; font-size: 10px; font-weight: 800; }
+.comparison-row p { margin: 0; font-size: 13px; line-height: 1.8; white-space: pre-wrap; }
+.comparison-row b { margin-top: auto; padding: 6px 9px; border-radius: 7px; background: var(--amber-soft); color: #6b4f0f; font-size: 13px; }
+.comparison-cue { display: flex; flex-wrap: wrap; gap: 4px 9px; align-items: baseline; margin: 11px 0 0; }
+.comparison-cue > span { padding: 2px 8px; border-radius: 999px; background: #dbe7f1; color: #38607f; font-size: 10px; font-weight: 800; }
+.comparison-cue > strong { color: #1f4f74; font-weight: 800; }
+#study-comparison-title { color: #38607f; font-size: 12px; font-weight: 800; }
+
 @media (max-width: 860px) {
   .header-inner { grid-template-columns: 1fr; gap: 20px; }
   .exam-date-card { max-width: 400px; }
@@ -747,11 +760,13 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .rapid-view .study-common-sense,
 .rapid-view .study-related,
 .rapid-view .study-cross-field,
+.rapid-view .study-comparison-table,
 .rapid-view .markup-legend { display: none; }
 .rapid-view .study-answer-panel.reveal-all .study-deep-dive,
 .rapid-view .study-answer-panel.reveal-all .study-common-sense,
 .rapid-view .study-answer-panel.reveal-all .study-related,
-.rapid-view .study-answer-panel.reveal-all .study-cross-field { display: block; }
+.rapid-view .study-answer-panel.reveal-all .study-cross-field,
+.rapid-view .study-answer-panel.reveal-all .study-comparison-table { display: block; }
 .rapid-reveal {
   display: inline-flex;
   align-items: center;
