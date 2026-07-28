@@ -876,6 +876,20 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
   font-size: 11.5px;
   user-select: all;
 }
+/* 元問題リンク。カードIDの見出しspanと同じ装飾を拾わないように打ち消す */
+.card-id-line > .source-links { display: inline-flex; flex-wrap: wrap; gap: 8px; color: inherit; font-size: inherit; font-weight: inherit; letter-spacing: 0; }
+.card-id-line .source-link {
+  padding: 2px 10px;
+  border: 1px solid #b9d2c4;
+  border-radius: 999px;
+  background: #eef6f1;
+  color: #2f6b50;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.card-id-line .source-link:hover { background: #dceee4; }
+.card-id-line .source-link.official { border-color: #ccd7e5; background: #eff3f9; color: #3a5675; }
 
 /* 本文の文字装飾（カード側の軽量記法から生成） */
 .mk-strong { color: var(--deep); font-weight: 800; }

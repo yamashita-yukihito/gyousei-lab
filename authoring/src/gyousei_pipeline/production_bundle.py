@@ -1057,6 +1057,48 @@ def _project_related_question_evidence(
     return evidence
 
 
+def _attach_source_question_links(
+    document: Mapping[str, Any],
+    cards: Sequence[dict[str, Any]],
+) -> None:
+    """カードのsourceRefsへ、元問題ページへ飛ぶための最小限の情報を足す。
+
+    渡すのは公開済みの出題年度・問番号・公開URLだけで、取得元の解説本文、内部パス、
+    provider内部IDはここでも公開側へ出さない。合格道場のページを`providerUrl`、
+    試験実施機関の公式PDFを`officialQuestionUrl`として分けて持たせ、画面側で
+    どちらを見せるかを選べるようにする。
+    """
+    records_by_id: dict[str, Mapping[str, Any]] = {}
+    for index, value in enumerate(
+        _array(document.get("records"), "relatedSource.records")
+    ):
+        context = f"relatedSource.records[{index}]"
+        record = _object(value, context)
+        records_by_id[_text(record.get("rawId"), f"{context}.rawId")] = record
+    for card in cards:
+        for ref in card["sourceRefs"]:
+            raw_id = ref["rawId"]
+            record = records_by_id.get(raw_id)
+            if record is None:
+                raise ProductionBundleError(
+                    f"card sourceRef refers to missing related-source record: {raw_id}"
+                )
+            context = f"relatedSource.records[{raw_id}]"
+            ref["eraYear"] = _text(record.get("eraYear"), f"{context}.eraYear")
+            ref["questionNumber"] = _integer(
+                record.get("questionNumber"), f"{context}.questionNumber"
+            )
+            ref["providerUrl"] = _text(
+                record.get("providerUrl"), f"{context}.providerUrl"
+            )
+            official_url = _text(
+                record.get("officialQuestionUrl"), f"{context}.officialQuestionUrl"
+            )
+            # 合格道場由来のレコードは両者が同じURLなので、二重にリンクを出さない
+            if official_url != ref["providerUrl"]:
+                ref["officialQuestionUrl"] = official_url
+
+
 def _project_citation(value: Any, context: str) -> dict[str, str]:
     citation = _object(value, context)
     return {
@@ -1411,6 +1453,7 @@ def build_production_bundle(
     related_evidence = _project_related_question_evidence(
         related_question_source, cards, expected
     )
+    _attach_source_question_links(related_question_source, cards)
     reviews, response_info = _project_claude_reviews(claude_responses, expected)
     runs = _project_claude_runs(claude_runs, response_info, expected)
     similarity_pairs = _project_similarity_pairs(

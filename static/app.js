@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260728-2";
+  const APP_VERSION = "20260729-1";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -887,6 +887,7 @@
     $("study-feedback").textContent = "";
     $("study-subtopic").textContent = item.subtopic || "";
     $("study-card-id").textContent = studyCardId(item);
+    renderSourceLinks($("study-source-links"), item);
     renderStudyFrequency(item);
     $("study-position").textContent = (state.studyFiltered.indexOf(item) + 1) + " / " + state.studyFiltered.length;
     setRichText($("study-variant-a"), variants.a || "");
@@ -907,6 +908,29 @@
       button.classList.remove("correct-answer", "selected-wrong");
     });
     startStudyTimer();
+  }
+
+  // カードの素になった過去問へ飛べるようにする。関連肢はすべて⑤側にリンクがあるので、
+  // ここに出すのは「このカードがどの問題から作られたか」を示す1本だけにする。
+  const ORIGIN_RELATIONSHIPS = ["provider-explanation-primary", "written-origin", "direct-topic"];
+
+  function renderSourceLinks(node, item) {
+    const refs = Array.isArray(item.sourceRefs) ? item.sourceRefs : [];
+    const origins = refs.filter((ref) => ORIGIN_RELATIONSHIPS.includes(ref.relationship));
+    const chosen = (origins.length ? origins : refs).slice(0, 1);
+    const nodes = [];
+    chosen.forEach((ref) => {
+      const label = [ref.eraYear, ref.questionNumber ? "問" + ref.questionNumber : null, ref.choiceNumber ? "肢" + ref.choiceNumber : null].filter(Boolean).join(" ");
+      if (safeUrl(ref.providerUrl)) {
+        nodes.push(make("a", { href: ref.providerUrl, className: "source-link", target: "_blank", rel: "noopener noreferrer" }, "元問題" + (label ? " " + label : "") + " ↗"));
+      }
+      // 公式PDFがある年度は、取得元と食い違っていないかを自分で確かめられるようにする
+      if (safeUrl(ref.officialQuestionUrl)) {
+        nodes.push(make("a", { href: ref.officialQuestionUrl, className: "source-link official", target: "_blank", rel: "noopener noreferrer" }, "公式PDF ↗"));
+      }
+    });
+    node.replaceChildren(...nodes);
+    node.hidden = !nodes.length;
   }
 
   function renderStudyFrequency(item) {
@@ -1877,6 +1901,7 @@
     $("editorial-position").textContent = (state.cardIndex + 1) + " / " + state.cards.length;
     $("editorial-subtopic").textContent = card.subtopic || "";
     $("editorial-card-id").textContent = String(card.cardId || card.id || "");
+    renderSourceLinks($("editorial-source-links"), card);
     renderBadges($("editorial-badges"), [card.category, card.topic].filter(Boolean));
     setRichText($("editorial-a"), variants.a || "");
     setRichText($("editorial-b"), variants.b || "");

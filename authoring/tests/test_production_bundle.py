@@ -259,6 +259,7 @@ def related_question_source() -> dict:
                 "eraYear": "令和7年",
                 "questionNumber": 1,
                 "officialQuestionUrl": "https://official.example.test/question.pdf",
+                "providerUrl": "https://provider.example.test/q1",
                 "providerExplanation": "RELATED-RECORD-SECRET",
             }
         ],
@@ -524,6 +525,16 @@ class ProductionBundleTests(unittest.TestCase):
         self.assertEqual(3, card["frequency"]["archiveOccurrences"])
         self.assertEqual("q:written", card["derivedFromWritten"]["questionId"])
 
+        source_ref = card["sourceRefs"][0]
+        self.assertEqual("令和7年", source_ref["eraYear"])
+        self.assertEqual(1, source_ref["questionNumber"])
+        self.assertEqual("オ", source_ref["choiceNumber"])
+        self.assertEqual("https://provider.example.test/q1", source_ref["providerUrl"])
+        self.assertEqual(
+            "https://official.example.test/question.pdf",
+            source_ref["officialQuestionUrl"],
+        )
+
         evidence = bundle["relatedQuestionEvidence"][0]
         self.assertEqual("official-test-q1-co", evidence["choiceId"])
         self.assertEqual("オ", evidence["choiceNumber"])
@@ -773,6 +784,21 @@ class ProductionBundleTests(unittest.TestCase):
         del no_table["items"][0]["comparisonTable"]
         bundle = self.build(explanation_cards=no_table)
         self.assertNotIn("comparisonTable", bundle["explanationCards"][0])
+
+    def test_source_question_links_fail_closed_and_stay_deduplicated(self) -> None:
+        missing_provider_url = related_question_source()
+        del missing_provider_url["records"][0]["providerUrl"]
+        with self.assertRaisesRegex(ProductionBundleError, "providerUrl must be"):
+            self.build(related_question_source=missing_provider_url)
+
+        same_url = related_question_source()
+        same_url["records"][0]["officialQuestionUrl"] = same_url["records"][0][
+            "providerUrl"
+        ]
+        bundle = self.build(related_question_source=same_url)
+        source_ref = bundle["explanationCards"][0]["sourceRefs"][0]
+        self.assertEqual("https://provider.example.test/q1", source_ref["providerUrl"])
+        self.assertNotIn("officialQuestionUrl", source_ref)
 
     def test_one_private_deck_can_cover_multiple_subjects(self) -> None:
         document = explanation_cards()
