@@ -18,7 +18,7 @@ from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
-from .common import data_root, load_json, utc_now
+from .common import PACKAGE_ROOT, data_root, load_json, utc_now
 from .subjects import CANONICAL_SUBJECT_LABELS, canonical_subject_id
 
 
@@ -1802,6 +1802,80 @@ def write_private_bundle(path: Path, bundle: Mapping[str, Any]) -> None:
             temporary_path.unlink()
 
 
+def release_regression_report(
+    bundle: Mapping[str, Any],
+    previous: Mapping[str, Any],
+) -> list[str]:
+    """本番へ出ている束と比べて、収録が減っていないかを調べる。
+
+    件数のfail closed検証は「指定した数と一致するか」しか見ないため、`--questions-dir`
+    を渡し忘れて科目がまるごと落ちるような縮小は素通りしてしまう。ここで前回の公開内容と
+    突き合わせ、減っている項目を並べて返す。意図した取り下げのときだけ明示的に許可する。
+    """
+    losses: list[str] = []
+    summary = _object(bundle.get("summary"), "bundle.summary")
+    before = _object(previous.get("summary"), "previous.summary")
+    for field, label in (
+        ("questionCount", "過去問"),
+        ("explanationCardCount", "学習カード"),
+        ("relatedQuestionEvidenceCount", "⑤の肢"),
+        ("studyDeckCount", "学習デッキ"),
+        ("similarityPairCount", "類似候補"),
+    ):
+        old_value = before.get(field)
+        new_value = summary.get(field)
+        if isinstance(old_value, int) and isinstance(new_value, int) and new_value < old_value:
+            losses.append(f"{label}が{old_value}件から{new_value}件へ減っています")
+    for field, label in (
+        ("questionSubjectCounts", "科目"),
+        ("questionFormatCounts", "出題形式"),
+    ):
+        old_counts = before.get(field)
+        new_counts = summary.get(field)
+        if not isinstance(old_counts, Mapping) or not isinstance(new_counts, Mapping):
+            continue
+        for key in sorted(old_counts):
+            old_count = old_counts.get(key)
+            new_count = new_counts.get(key, 0)
+            if isinstance(old_count, int) and isinstance(new_count, int) and new_count < old_count:
+                losses.append(
+                    f"{label}{key}の過去問が{old_count}問から{new_count}問へ減っています"
+                )
+    return losses
+
+
+def _assert_no_release_regression(
+    bundle: Mapping[str, Any],
+    previous_path: Path,
+    allow_shrink: bool,
+) -> None:
+    if not previous_path.exists():
+        return
+    try:
+        previous = json.loads(previous_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        # 比較先が読めないだけで公開を止めない。減っていないことは確認できないので黙らない。
+        print(
+            f"warning: 前回の公開bundleを読めないため収録減の確認を省きました: {previous_path.name}",
+            file=sys.stderr,
+        )
+        return
+    if not isinstance(previous, Mapping):
+        return
+    losses = release_regression_report(bundle, previous)
+    if not losses:
+        return
+    if allow_shrink:
+        for loss in losses:
+            print(f"note: 収録減を明示的に許可しました: {loss}", file=sys.stderr)
+        return
+    raise ProductionBundleError(
+        "前回の公開bundleより収録が減っています。"
+        "引数の指定漏れでないかを確かめ、意図した取り下げなら --allow-shrink を付けてください:\n  - "
+        + "\n  - ".join(losses)
+    )
+
+
 def _assert_private_output(path: Path) -> None:
     private_build_root = (data_root() / "builds").resolve()
     resolved = path.resolve(strict=False)
@@ -1819,11 +1893,21 @@ def _parser() -> argparse.ArgumentParser:
         os.environ.get("GYOUSEI_CANONICAL_ROOT", root / "canonical")
     )
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--questions-dir", type=Path, default=root / "extracted")
+    # 既定は本番と同じ「直近10年・全6科目」。行政法だけの`extracted`を既定にすると、
+    # 引数を省いただけで5科目が落ちた束ができてしまう。
+    parser.add_argument(
+        "--questions-dir",
+        type=Path,
+        default=root / "all_subjects" / "current_2016_2025" / "extracted",
+    )
     parser.add_argument(
         "--reconciliation",
         type=Path,
-        default=root / "reports" / "answer-reconciliation.json",
+        default=root
+        / "all_subjects"
+        / "current_2016_2025"
+        / "reports"
+        / "answer-reconciliation-production.json",
     )
     parser.add_argument(
         "--explanation-cards",
@@ -1856,10 +1940,33 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--question-manifest",
         type=Path,
+        default=PACKAGE_ROOT / "config" / "all_subjects_current_target.json",
         help=(
             "all-subject target JSON whose exact total, subject, format, and year "
-            "counts must match"
+            "counts must match (default: config/all_subjects_current_target.json)"
         ),
+    )
+    parser.add_argument(
+        "--compare-to",
+        type=Path,
+        default=Path(
+            os.environ.get(
+                "GYOUSEI_LAB_BUNDLE",
+                str(
+                    Path.home()
+                    / ".local/share/yuki-services/gyousei-lab/gyousei-production.json"
+                ),
+            )
+        ),
+        help=(
+            "currently published bundle to compare against; the build refuses to "
+            "shrink coverage unless --allow-shrink is given"
+        ),
+    )
+    parser.add_argument(
+        "--allow-shrink",
+        action="store_true",
+        help="permit a build that covers fewer questions/cards than the published bundle",
     )
     parser.add_argument(
         "--expected-card-count",
@@ -1913,6 +2020,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             generated_at=args.generated_at,
             expectations=expectations,
         )
+        _assert_no_release_regression(bundle, args.compare_to, args.allow_shrink)
         write_private_bundle(args.output, bundle)
     except (OSError, json.JSONDecodeError, ProductionBundleError) as error:
         print(f"production bundle failed: {error}", file=sys.stderr)

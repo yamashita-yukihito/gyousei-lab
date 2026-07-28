@@ -75,7 +75,8 @@
 - 全分野候補を作る時、没問・正解なし・組合せ・個数・多肢・記述を正解番号だけで自動○×化しない。`gyousei-dataset-inventory` のsafe候補数と除外理由を確認する。
 - 令和2〜7年度の公式全科目コーパスは`authoring/reference/official-r2-r7/`に隔離されている。論点候補の探索だけに使い、出題当時の正誤を2026年基準の正誤として公開しない。
 - リリース済みbundleを手作業で直接つぎはぎしない。候補データ、監査データ、公開bundleを分ける。
-- `gyousei-production-bundle` を引数なしで実行しない。`--questions-dir` の既定値は行政法220問だけを指しており、そのまま作ると過去問が569問から220問へ、科目が6から1へ静かに縮む。件数のfail closed検証はカード数と⑤の肢数しか見ないため、この縮小は素通りする。必ず `--questions-dir`・`--reconciliation`・`--question-manifest` を明示し、差し替え前に旧bundleと `summary.questionCount`・`questionSubjectCounts` を突き合わせる。手順は `docs/SESSION_HANDOFF_20260728.md`。
+- bundleの収録を減らす変更は、`gyousei-production-bundle` が自分で止める。`--compare-to`（既定は稼働中の `gyousei-production.json`）と比べて過去問・カード・⑤の肢・科目別件数・形式別件数のどれかが減っていれば、`--allow-shrink` を付けない限り失敗する。カードを意図的に取り下げる時だけ `--allow-shrink` を付け、何を減らしたかを完了報告に書く。
+- 件数のfail closed検証（`--expected-card-count` など）は「指定した数と一致するか」しか見ないため、科目がまるごと落ちる縮小は検出できない。上の収録減チェックと `--question-manifest`（既定 `config/all_subjects_current_target.json`）の2つが、その担保になっている。既定値を行政法だけのパスへ戻さない。
 - 新しい科目・問題・カードには安定した `subjectId` を付ける。画面の件数を行政法の現件数で固定しない。
 - 既存bundleを置換する時は、schema、全参照、件数、内部情報漏洩を検証し、権限 `0600` でatomicに置き換える。
 - 合格道場の正答・解説を編集上の第一基準にするが、解説本文をそのまま転載しない。B、C、深掘り、常識力は独自文にする。

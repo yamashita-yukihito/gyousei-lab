@@ -941,6 +941,79 @@ class ProductionBundleTests(unittest.TestCase):
         self.assertIsNone(defaulted.expected_evidence_count)
         self.assertIsNone(defaulted.expected_similarity_count)
 
+    def test_cli_defaults_cover_every_subject_and_the_all_subject_manifest(self) -> None:
+        from gyousei_pipeline.production_bundle import _parser
+
+        args = _parser().parse_args([])
+        # 引数を省いた素の呼び出しが、行政法だけの束を作らないこと
+        self.assertEqual("extracted", args.questions_dir.name)
+        self.assertEqual("current_2016_2025", args.questions_dir.parent.name)
+        self.assertEqual("all_subjects", args.questions_dir.parent.parent.name)
+        self.assertEqual(
+            "answer-reconciliation-production.json", args.reconciliation.name
+        )
+        self.assertEqual(
+            "all_subjects_current_target.json", args.question_manifest.name
+        )
+        self.assertTrue(args.question_manifest.exists())
+        self.assertFalse(args.allow_shrink)
+
+    def test_release_refuses_to_publish_less_than_the_previous_bundle(self) -> None:
+        from gyousei_pipeline.production_bundle import (
+            _assert_no_release_regression,
+            release_regression_report,
+        )
+
+        published = {
+            "summary": {
+                "questionCount": 569,
+                "explanationCardCount": 100,
+                "relatedQuestionEvidenceCount": 344,
+                "studyDeckCount": 1,
+                "similarityPairCount": 588,
+                "questionSubjectCounts": {
+                    "administrative-law": 220,
+                    "civil-law": 110,
+                    "constitutional-law": 60,
+                },
+                "questionFormatCounts": {"regular": 509, "written": 30},
+            }
+        }
+        shrunk = {
+            "summary": {
+                "questionCount": 220,
+                "explanationCardCount": 100,
+                "relatedQuestionEvidenceCount": 344,
+                "studyDeckCount": 1,
+                "similarityPairCount": 588,
+                "questionSubjectCounts": {"administrative-law": 220},
+                "questionFormatCounts": {"regular": 190, "written": 10},
+            }
+        }
+        losses = release_regression_report(shrunk, published)
+        self.assertTrue(any("過去問が" in loss or "過去問" in loss for loss in losses))
+        self.assertTrue(any("civil-law" in loss for loss in losses))
+        self.assertTrue(any("constitutional-law" in loss for loss in losses))
+        self.assertTrue(any("written" in loss for loss in losses))
+
+        with tempfile.TemporaryDirectory() as directory:
+            previous_path = Path(directory) / "published.json"
+            previous_path.write_text(json.dumps(published), encoding="utf-8")
+            with self.assertRaisesRegex(ProductionBundleError, "収録が減っています"):
+                _assert_no_release_regression(shrunk, previous_path, False)
+            # 意図した取り下げは明示すれば通る
+            _assert_no_release_regression(shrunk, previous_path, True)
+            # 同じか増えているだけなら黙って通る
+            _assert_no_release_regression(published, previous_path, False)
+            grown = json.loads(json.dumps(published))
+            grown["summary"]["explanationCardCount"] = 115
+            _assert_no_release_regression(grown, previous_path, False)
+            # 比較先が無いときは止めない
+            _assert_no_release_regression(
+                shrunk, Path(directory) / "missing.json", False
+            )
+        self.assertEqual([], release_regression_report(published, published))
+
     def test_private_writer_atomically_replaces_with_mode_0600(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "nested" / "bundle.json"

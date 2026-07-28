@@ -191,6 +191,10 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /opt/homebrew/bin/python3.12 -m gyousei
   --expected-card-count 98 --expected-evidence-count 334
 ```
 
+> 2026-07-29追記。上の3つのパスは既定値になったので省いても同じ束ができる。あわせて、
+> 稼働中bundleより収録が減るビルドは `--allow-shrink` を付けない限り失敗するようにした。
+> カードを取り下げる時だけ付ける。
+
 6. 本番へ置く前に、旧bundleを退避してからatomicに差し替える。`install` ではなく同一ディレクトリの
    一時ファイル＋`mv` を使う。権限は `0600`。
 
