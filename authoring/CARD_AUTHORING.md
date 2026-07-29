@@ -37,6 +37,30 @@
   過去20年で一度も出題されていない。号ずれをひっかけとした説明もあわせて誤りだったため、
   2026-07-29に取り下げ、記載事項カードの一項目として残した。
 
+## 1.15 ○と×のバランスを必ず確認する
+
+**科目を追加したら、その科目の中で○と×がどちらかへ寄っていないかを数える。**
+2026-07-29に憲法20枚を作ったとき、**20枚すべてが×**になった。誤りの肢は解説の題材として
+書きやすいので、放っておくと自然に×へ寄る。この状態では、**×と答え続ければ全問正解できて
+しまい、カードが問題として成立しない。**
+
+- 目安は、科目ごとに**○が3〜5割**に収まること。
+- ○のカードを作るときは、その設問の**正解肢の原文**をAに使う。判例や条文の言い回しを
+  そのまま覚える練習になるので、×のカードより学習効果が高い場面もある。
+- 数え方:
+
+```bash
+/opt/homebrew/bin/python3.12 -c "
+import json,os
+from collections import Counter
+b=json.load(open(os.path.expanduser('~/.local/share/yuki-services/gyousei-lab/gyousei-production.json')))
+c=b['explanationCards']
+for s in sorted({x['subjectId'] for x in c}):
+    sub=[x for x in c if x['subjectId']==s]; n=Counter(x['correct'] for x in sub)
+    print(f'{s:22} ○{n[True]:3d} ×{n[False]:3d} ({n[True]/len(sub)*100:.0f}%)')
+"
+```
+
 ## 1.2 元問題へのリンク
 
 - カードには必ず `sourceRefs` を持たせ、そこから画面の「元問題」リンクを作る。
