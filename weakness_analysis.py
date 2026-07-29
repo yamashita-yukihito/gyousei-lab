@@ -26,7 +26,8 @@ DEFAULT_LATEST_PATH = DATA_DIR / "weakness-latest.json"
 
 SCHEMA_VERSION = "gyousei-weakness-snapshot@1"
 ANALYZER_VERSION = "card-attempts-v1"
-DATABASE_SCHEMA_VERSION = 3
+# 3はcard_marksを入れる前の版。どちらでも card_attempts の構造は同じなので読める。
+SUPPORTED_DATABASE_SCHEMA_VERSIONS = (3, 4)
 RECENT_WINDOW_SIZE = 5
 MASTERY_SCORE = 3
 DIGEST_PATTERN = re.compile(r"^[0-9a-f]{64}$")
@@ -496,7 +497,7 @@ def _readonly_connection(path: Path) -> sqlite3.Connection:
     connection.execute("PRAGMA query_only = ON")
     connection.execute("PRAGMA trusted_schema = OFF")
     version = connection.execute("PRAGMA user_version").fetchone()[0]
-    if version != DATABASE_SCHEMA_VERSION:
+    if version not in SUPPORTED_DATABASE_SCHEMA_VERSIONS:
         connection.close()
         raise WeaknessAnalysisError(
             f"unsupported database schema version: {version}"

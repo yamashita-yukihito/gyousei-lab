@@ -1467,6 +1467,8 @@ def card_progress_statistics(
             "graduated": False,
             "confidenceCounts": {name: 0 for name in CARD_MARK_CONFIDENCE},
             "lastConfidence": None,
+            # 改訂前の版に付けられ、現在の判定へ数えなかった印の件数
+            "staleMarks": 0,
         }
         for card in eligible_cards
     }
@@ -1512,6 +1514,16 @@ def card_progress_statistics(
     for mark in marks:
         item = by_card.get(mark["card_id"]) if mark["card_id"] else None
         if item is None:
+            continue
+        # 「絶対覚えた」と自信度は、押した時点のカードの版に対する判断である。
+        # A・C・正解を直して版が変わったら、その判断は新しい問題文には引き継がない。
+        # リセットは版に依存しない区切りなので answer_revision を持たず、ここを通らない。
+        current_revision = current_revisions.get(mark["card_id"])
+        stored_revision = mark["answer_revision"]
+        if current_revision is None or not isinstance(stored_revision, str):
+            continue
+        if not hmac.compare_digest(stored_revision, current_revision):
+            item["staleMarks"] += 1
             continue
         if mark["action"] in {"certain", "uncertain"}:
             item["certain"] = mark["action"] == "certain"
@@ -1625,6 +1637,7 @@ def card_progress_statistics(
             "confidenceMarks": sum(
                 sum(item["confidenceCounts"].values()) for item in by_card.values()
             ),
+            "staleRevisionMarks": sum(item["staleMarks"] for item in by_card.values()),
             "masteryScore": MASTERY_SCORE,
         },
     }

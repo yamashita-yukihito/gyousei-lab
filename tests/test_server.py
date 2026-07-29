@@ -1018,6 +1018,66 @@ class ProductionApiTest(unittest.TestCase):
         self.assertEqual(attempts, 3)
         self.assertEqual(len(server.export_data()["cardMarks"]), 3)
 
+    def test_marks_from_an_older_card_revision_are_not_carried_over(self) -> None:
+        server.add_card_mark(self.card_mark_payload())
+        server.add_card_attempt(self.card_attempt_payload())
+        server.add_card_mark(
+            self.card_mark_payload(
+                event_id="mark-confidence",
+                action="confidence",
+                confidence="sure",
+                attempt_event_id="card-event-1",
+            )
+        )
+        snapshot = server.CATALOG.load()
+        deck = server.default_study_deck(snapshot)
+        with server.connect() as connection:
+            before = server.card_progress_statistics(connection, snapshot, deck)
+        self.assertTrue(before["byCard"]["card-1"]["certain"])
+        self.assertEqual(before["byCard"]["card-1"]["confidenceCounts"]["sure"], 1)
+        self.assertEqual(before["stats"]["staleRevisionMarks"], 0)
+
+        # A を直して回答revisionを変えると、旧版に付けた印は現在の判定へ持ち越さない
+        revised = fixture_bundle()
+        revised["explanationCards"][0]["variants"]["a"] += " ただし例外がある"
+        self.write_bundle(revised)
+        changed = server.CATALOG.load()
+        changed_deck = server.default_study_deck(changed)
+        with server.connect() as connection:
+            after = server.card_progress_statistics(connection, changed, changed_deck)
+        item = after["byCard"]["card-1"]
+        self.assertFalse(item["certain"])
+        self.assertFalse(item["graduated"])
+        self.assertEqual(item["confidenceCounts"]["sure"], 0)
+        self.assertEqual(item["staleMarks"], 2)
+        self.assertEqual(after["stats"]["staleRevisionMarks"], 2)
+        # 印そのものは消さない。追記型なので行は残る。
+        with server.connect() as connection:
+            stored = connection.execute("SELECT COUNT(*) FROM card_marks").fetchone()[0]
+        self.assertEqual(stored, 2)
+
+    def test_deck_reset_still_applies_after_a_card_revision(self) -> None:
+        for index in range(3):
+            server.add_card_attempt(
+                self.card_attempt_payload(event_id=f"card-event-{index}")
+            )
+        server.add_card_mark(
+            self.card_mark_payload(
+                event_id="mark-reset", action="reset", scope="deck", card_id=None
+            )
+        )
+        revised = fixture_bundle()
+        revised["explanationCards"][0]["variants"]["a"] += " 改訂"
+        self.write_bundle(revised)
+        changed = server.CATALOG.load()
+        with server.connect() as connection:
+            after = server.card_progress_statistics(
+                connection, changed, server.default_study_deck(changed)
+            )
+        # リセットは版に依存しない区切りなので、改訂後も効き続ける
+        self.assertEqual(after["byCard"]["card-1"]["resetCount"], 1)
+        self.assertEqual(after["stats"]["staleRevisionMarks"], 0)
+
     def test_confidence_is_recorded_per_answer_without_changing_selection(self) -> None:
         server.add_card_attempt(self.card_attempt_payload())
         mark, inserted, snapshot, deck = server.add_card_mark(

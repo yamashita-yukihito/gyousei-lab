@@ -42,6 +42,18 @@
 
 同日さらに、自信度の記録と卒業を実装した。追記型の`card_marks`表を足してschemaを`user_version=4`へ上げ（`card_attempts`の行は一切触っていない。移行前に`backups/production.pre-marks-20260729.sqlite3`へbackup APIで退避済み）、回答後に「絶対覚えた」「習得をリセット」「いまの手ごたえ（確信あり／たぶん／あてずっぽう）」を押せるようにした。出題範囲に「卒業済みだけ」を足し、そこを解除の一覧として使う。詳細は下の7.0。
 
+2026年7月29日に、別AIによる全体レビュー（`~/.local/share/yuki-services/gyousei-lab/authoring/incoming/GYOUSEI_LAB_REVIEW_2026-07-29.md`）を受けて次を直した。
+
+1. **公開URL経由の回答が403で弾かれていた。** Mac側nginxが `proxy_set_header X-Forwarded-Proto $scheme;` で上流の `https` を `http` へ上書きするため、APIのOrigin照合が `https://kuruma-matome.com` と `http://kuruma-matome.com` を比べて失敗していた。`$http_x_forwarded_proto` を渡す形に変更。LAN直アクセスでは上流ヘッダが無く、nginxは空値のヘッダを送らないので `server.py` 側の既定値 `http` が使われる。
+2. **行政書士法の2026年改正を反映。** 令和7年法律第65号（2026年1月1日施行）で条番号が繰り下がり（業務1条の2→1条の3、不服申立ての代理1条の3→1条の4）、代理できる範囲が「行政書士が**作成した**書類」から「行政書士が**作成することができる**書類」へ拡大された。`gk-gyosei-law-specified-appeal-001` は旧法のままだったので、改正点そのものを問う形へ作り替えた（回答0件のためA変更可）。
+3. **旧版の「絶対覚えた」「自信度」が改訂後も効いていた。** `card_marks.answer_revision` を現行revisionと照合し、不一致なら現在の判定へ数えないようにした。印そのものは追記型なので消さず、`staleMarks` / `stats.staleRevisionMarks` として件数を返す。リセットは版に依存しない区切りなので従来どおり効き続ける。
+4. **弱点ビューが「絶対覚えた」を除外していなかった。** `getFilteredStudyCards` の弱点分岐へ `!isStudyCertain(item)` を追加。
+5. **`weakness_analysis.py` がschema 3固定で手動実行に失敗していた。** `SUPPORTED_DATABASE_SCHEMA_VERSIONS = (3, 4)` へ変更。
+6. **未送信回答を改訂後カードへ誤加算していた。** `applyCardAttempt` で `answerRevision` が現行と違う回答は数えないようにし、サーバーが409を返したときは出題プールを組み直すようにした。409のときの画面文言も専用のものへ変えた。
+7. 内容誤り3件を修正。個人情報保護法156〜159条にない「公表」の記述を削除、社会保障カードのB2へ65歳以上の障害認定という例外を追加、一般法・特別法カードの「明示した立法が必要」という断定を緩和、法人設立の⑦から「羈束・裁量」の言い切りを削除。
+
+**未着手（利用者の指示で後回し）**: 行政法・民法以外78カードの頻出度再監査、B文章の型の固定を緩める作業、⑤の`currentLawAsOf`が17肢だけ2026-07-17である点、release guardの科目別比較、ドキュメントの件数更新、**Mac外バックアップ**。最後の1件は、ディスク障害でカード正本・bundle・回答履歴がすべて失われる状態なので優先度が高い。
+
 ## 1. 現在の到達点
 
 MacBook上の本番URL:
