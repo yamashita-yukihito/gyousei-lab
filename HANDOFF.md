@@ -188,6 +188,41 @@ launchd: com.yuki.gyousei-lab
 Mac移行時、リリース済みbundleとSQLiteは
 `~/.local/share/yuki-services/gyousei-lab/` へ置き、権限を `0600` にした。
 
+### 3.1 Mac外バックアップ
+
+GitHubにあるのはソースだけである。**カード正本・頻出度監査・回答履歴はGitHubに入っていない**ため、
+Macが壊れると戻せない。Time Machineも未設定である。
+
+`scripts/backup-private-data.sh` が、その復元不能な部分だけを暗号化して
+Windows共有 `~/mnt/win-new-folder/gyousei-lab-backup/` へ退避する。
+
+対象:
+
+| 中身 | 再生成 |
+|---|---|
+| `authoring/canonical` | 不可。カード正本と⑤の出典 |
+| `authoring/curation` | 不可。頻出度監査と類似候補の判断 |
+| `authoring/all_subjects` | 合格道場から再取得は可能だが、提供が終われば戻せない |
+| `authoring/incoming` | AI間連絡の受信分 |
+| `analytics` | 弱点分析のスナップショット |
+| `production.sqlite3` | 不可。回答履歴。`.backup` APIで取得し `quick_check` する |
+| 各runtime json | canonicalから作り直せるが、確認用に同梱 |
+
+`builds/` と `backups/` は canonical と SQLite から作り直せるので含めない。
+
+守っている前提:
+
+- 保存先はゲスト共有なので、必ず `openssl enc -aes-256-cbc -pbkdf2 -iter 300000` で暗号化してから置く。
+  中身には合格道場の過去問原文とprovider解説が入っている。
+- パスフレーズはキーチェーンの `gyousei-lab-backup`。復元先の別マシンにはキーチェーン項目が
+  ないため、そのときだけ `GYOUSEI_BACKUP_PASSPHRASE` で渡せる。常用しない。
+- 共有が未マウントのときは**中止する**。同じパスのローカルディレクトリへ書くと、
+  Mac内に控えがあるだけなのに「Mac外にある」と誤認するため。
+- 古い世代は既定では消さない。超過分を一覧表示するだけで、`--prune` を付けたときだけ削除する。
+- 書き出したあと、実際に復号して `tar tzf` が通るかまで確認する。`.sha256` を併置する。
+
+定期実行: `~/dev/yuki-services/deploy/macos/launchd/com.yuki.gyousei-lab-backup.plist`（毎日3:30）。
+
 ## 4. 現在の画面
 
 - ○×学習

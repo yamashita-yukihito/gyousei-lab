@@ -157,6 +157,9 @@ diff -u \
 ## 8. SQLiteを扱う時
 
 - 稼働中DBを単純な `cp` でバックアップしない。SQLite backup APIまたは `.backup` を使う。
+- Mac外バックアップは `scripts/backup-private-data.sh` が正本。GitHubにはソースしか入っていないため、
+  カード正本・頻出度監査・回答履歴はここでしか守られていない。暗号化を外す、共有未マウント時の
+  中止をやめる、世代削除を既定で有効にする、といった緩和をしない。詳細は `HANDOFF.md` の3.1。
 - schema変更前に整合性確認とバックアップを行い、失敗時の戻し方を明示する。
 - `production.sqlite3-wal` と `production.sqlite3-shm` を独立した正本として扱わない。
 - 検証後に `PRAGMA quick_check` を実行する。
