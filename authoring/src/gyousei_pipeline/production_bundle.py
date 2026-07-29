@@ -1466,6 +1466,9 @@ def build_production_bundle(
     question_subject_counts = Counter(
         question["subjectId"] for question in projected_questions
     )
+    # カードの総数だけを見ていると、ある科目が丸ごと落ちても別の科目を増やした分で
+    # 相殺されて気づけない。科目別の内訳を残し、収録減の判定でも使う。
+    card_subject_counts = Counter(card["subjectId"] for card in cards)
     subjects = [dict(subject) for subject in card_meta["subjects"]]
     known_subject_ids = {subject["id"] for subject in subjects}
     for subject_id in sorted(question_subject_counts):
@@ -1526,6 +1529,7 @@ def build_production_bundle(
             },
             "studyDeckCount": len(decks),
             "explanationCardCount": len(cards),
+            "explanationCardSubjectCounts": dict(sorted(card_subject_counts.items())),
             "relatedQuestionEvidenceCount": len(related_evidence),
             "claudeReviewCount": len(reviews),
             "claudeRunCount": len(runs),
@@ -1811,6 +1815,9 @@ def release_regression_report(
     件数のfail closed検証は「指定した数と一致するか」しか見ないため、`--questions-dir`
     を渡し忘れて科目がまるごと落ちるような縮小は素通りしてしまう。ここで前回の公開内容と
     突き合わせ、減っている項目を並べて返す。意図した取り下げのときだけ明示的に許可する。
+
+    総数だけでなく科目別も見る。学習カードは全科目が1デッキに同居しているため、
+    ある科目のカードが丸ごと落ちても、別の科目を増やした分で総数が相殺されて気づけない。
     """
     losses: list[str] = []
     summary = _object(bundle.get("summary"), "bundle.summary")
@@ -1826,9 +1833,10 @@ def release_regression_report(
         new_value = summary.get(field)
         if isinstance(old_value, int) and isinstance(new_value, int) and new_value < old_value:
             losses.append(f"{label}が{old_value}件から{new_value}件へ減っています")
-    for field, label in (
-        ("questionSubjectCounts", "科目"),
-        ("questionFormatCounts", "出題形式"),
+    for field, label, unit in (
+        ("questionSubjectCounts", "科目", "の過去問が{old}問から{new}問"),
+        ("questionFormatCounts", "出題形式", "の過去問が{old}問から{new}問"),
+        ("explanationCardSubjectCounts", "科目", "の学習カードが{old}枚から{new}枚"),
     ):
         old_counts = before.get(field)
         new_counts = summary.get(field)
@@ -1838,9 +1846,8 @@ def release_regression_report(
             old_count = old_counts.get(key)
             new_count = new_counts.get(key, 0)
             if isinstance(old_count, int) and isinstance(new_count, int) and new_count < old_count:
-                losses.append(
-                    f"{label}{key}の過去問が{old_count}問から{new_count}問へ減っています"
-                )
+                changed = unit.format(old=old_count, new=new_count)
+                losses.append(f"{label}{key}{changed}へ減っています")
     return losses
 
 

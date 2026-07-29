@@ -968,6 +968,7 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .mk-quiet { color: var(--muted); font-size: 0.94em; }
 .mk-evidence { padding: 0 2px; border-radius: 3px; background: #fff0c2; color: inherit; font-weight: 700; }
 .study-related-item footer .format { background: #ece2f7; color: #57407c; }
+.study-related-item footer .amended { background: #fdf0dd; color: #8a5a12; }
 /* 語句だけの肢で、何を問われたのかを肢本文の前に小さく添える */
 .study-related-context { margin: 0 0 6px; color: var(--muted); font-size: 11.5px; font-weight: 700; line-height: 1.7; }
 .related-item .study-related-context { margin-bottom: 4px; }

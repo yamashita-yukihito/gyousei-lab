@@ -1014,6 +1014,39 @@ class ProductionBundleTests(unittest.TestCase):
             )
         self.assertEqual([], release_regression_report(published, published))
 
+    def test_release_refuses_to_drop_cards_of_one_subject(self) -> None:
+        """科目別のカードが減っていれば、総数が同じでも止める。"""
+        from gyousei_pipeline.production_bundle import release_regression_report
+
+        published = {
+            "summary": {
+                "explanationCardCount": 167,
+                "explanationCardSubjectCounts": {
+                    "administrative-law": 58,
+                    "constitutional-law": 21,
+                    "legal-foundations": 10,
+                },
+            }
+        }
+        # 憲法を丸ごと落とし、その分を行政法で埋めた束。総数は変わらない。
+        swapped = {
+            "summary": {
+                "explanationCardCount": 167,
+                "explanationCardSubjectCounts": {
+                    "administrative-law": 79,
+                    "legal-foundations": 10,
+                },
+            }
+        }
+        losses = release_regression_report(swapped, published)
+        self.assertTrue(any("constitutional-law" in loss for loss in losses))
+        self.assertTrue(any("学習カードが21枚から0枚" in loss for loss in losses))
+        self.assertEqual([], release_regression_report(published, published))
+
+        # 比較先に内訳が無い旧bundleでは、この判定だけを黙って飛ばす
+        legacy = {"summary": {"explanationCardCount": 167}}
+        self.assertEqual([], release_regression_report(swapped, legacy))
+
     def test_private_writer_atomically_replaces_with_mode_0600(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "nested" / "bundle.json"

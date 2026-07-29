@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260729-6";
+  const APP_VERSION = "20260729-7";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -1264,6 +1264,10 @@
       meta.appendChild(make("span", {}, [era, questionNumber ? "問" + questionNumber : null, choiceNumber ? "肢" + choiceNumber : null].filter(Boolean).join(" · ")));
       const formatText = evidenceFormatLabel(ref.questionFormat || evidence.questionFormat);
       if (formatText) meta.appendChild(make("span", { className: "format" }, formatText));
+      // ⑤は原文のまま出すのが原則。取得元が法改正に合わせて直した肢だけは、
+      // 出題当時の文言と違うことが分かるようにする
+      const amended = (ref.modified !== undefined ? ref.modified : evidence.modified) === true;
+      if (amended) meta.appendChild(make("span", { className: "amended" }, "法改正に合わせた改題版"));
       meta.appendChild(make("span", {}, relationLabel(ref.relation)));
       const url = ref.sourceUrl || evidence.sourceUrl;
       if (safeUrl(url)) meta.appendChild(make("a", { href: url, target: "_blank", rel: "noopener noreferrer" }, "出典を見る ↗"));
