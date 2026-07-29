@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260729-4";
+  const APP_VERSION = "20260729-5";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -1074,6 +1074,19 @@
       : [make("p", {}, "この条件に卒業済みの問題はありません。")]));
   }
 
+  // 「平成18年度〜令和7年度」のような集計範囲から、表示用の年数を作る
+  function frequencySpanLabel(scope) {
+    const years = String(scope || "").match(/(平成|令和)\s*(\d+|元)\s*年度/g);
+    if (!years || years.length < 2) return "過去問";
+    const toYear = (text) => {
+      const era = text.startsWith("令和") ? 2018 : 1988;
+      const digits = text.replace(/[^0-9元]/g, "");
+      return era + (digits === "元" ? 1 : Number(digits));
+    };
+    const span = toYear(years[years.length - 1]) - toYear(years[0]) + 1;
+    return span > 0 ? span + "年" : "過去問";
+  }
+
   function renderStudyFrequency(item) {
     const node = $("study-frequency");
     const frequency = item.frequency;
@@ -1083,7 +1096,10 @@
       node.removeAttribute("title");
       return;
     }
-    node.textContent = "20年の出題傾向：" + frequency.label + " · 関連出題 " + frequency.occurrences + "問（" + frequency.yearCount + "年度）";
+    // 集計した年の幅はカードごとに違う。行政法・民法は20年、後から足した科目は10年なので、
+    // 「20年の出題傾向」と決め打ちにせず frequency.scope から年数を出す。
+    const span = frequencySpanLabel(frequency.scope);
+    node.textContent = span + "の出題傾向：" + frequency.label + " · 関連出題 " + frequency.occurrences + "問（" + frequency.yearCount + "年度）";
     node.title = frequency.scope + "。" + frequency.basis + "。単に同じ分野というだけの問題は回数に含めていません。";
   }
 
