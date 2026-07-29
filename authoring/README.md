@@ -114,24 +114,29 @@ install -m 0600 \
 
 - 保存先: `archive_frequency/`
 - 頻度判定用corpus: `archive_frequency/corpus.json`（`0600`）
-- カード別の判定: `curation/card_frequency_2006_2025.json`（`0600`、行政法55件・民法25件の全80件を独立再監査済み。基礎知識18件は⑤の肢を問題単位で数えた自前集計）
+- カード別の判定: `curation/card_frequency_2006_2025.json`（`0600`、本番カード187件を収録）
 - schema: `card-frequency-audit@3`。トップレベル`subjects[]`が科目ごとの
   `subjectId`・`examYears`・`questionCount`を持ち、`cards[]`各件も
-  `subjectId`を持つ。現在は行政法（440問・55カード）だけだが、次科目は
-  同じファイルへ`subjects[]`とカードを追記する設計で、440や55はコードに
-  ハードコードしない
+  `subjectId`を持つ。全6科目を同じファイルへ収録し、カードを追加するたび
+  対応する監査レコードも追加する。科目別件数はコードにハードコードしない
 - 用途: 同じ論点が過去に出たかを問題単位で数えることだけ
 - 非公開: 旧年度の問題文・当時の答え・URL・内部IDはWeb用bundleへ出さない
 
 同一問題内に関連肢が複数あっても1回と数えます。単に同じ分野というだけの問題は頻度へ入れず、同一命題、逆向き、条件、例外、直接比較に絞ります。平成28年度以降の実際の肢は⑤へ表示しますが、平成18～27年度の文言は表示しません。
 
-一次判定後に全カードを別視点で再監査しています。行政法は最初の35件で10件を維持、25件を修正し、追加20件では14件を維持、6件を修正しました。民法25件（2026-07-27追加）は独立再監査でpass 14件・修正11件でした。`official-*`と`goukakudojyo:*`が同じ年度・同じ問題を指す場合や、同じ問題内の複数肢は1回に統合しています。⑤には平成28年度以降の実際の肢を延べ403件、重複を除く344件掲載します。組合せ・個数問題の肢も形式を明示して載せ、記述式の元問題だけは表示用の肢にせず頻度へ反映します。全101カードが⑤の肢を1本以上持ちます。
+一次判定後に別視点で再監査しています。2026-07-29の全科目再監査直後は
+監査JSONが169枚しか覆っておらず、行政事件訴訟3枚が漏れていました。
+この3枚を再監査し、新規15枚とともに統合したため、現在はカード187枚と
+監査187件が一致します。`official-*`と`goukakudojyo:*`が同じ年度・同じ問題を
+指す場合や、同じ問題内の複数肢は1回に統合します。⑤には平成28年度以降の
+実際の肢を重複を除いて702件、延べ782件掲載します。組合せ・個数問題の肢も
+形式を明示して載せ、記述式の元問題だけは表示用の肢にせず頻度へ反映します。
 
 ## 学習カードと将来の科目追加
 
 - Bは、やさしい説明と、問題に応じて条件・時間・用語などからほどく説明の2案です。
 - ⑤は平成28年度以降の実際の肢を表示し、本番での聞かれ方を確認できるようにします。
-- ⑥は、不服審査法と行政事件訴訟法のように混同しやすい別制度があるカードだけ表示します。現在101件中45件に設定済みです。
+- ⑥は、不服審査法と行政事件訴訟法のように混同しやすい別制度があるカードだけ表示します。現在187件中75件に設定済みです。
 - 解説図6枚はカード内へ挿入せず、独立した「図で整理」ページにまとめます。
 - 回答履歴を保つためデッキIDは維持し、今後の憲法・民法なども同じデッキへ`subjectId`付きで追加します。
 
@@ -229,14 +234,16 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m gyousei_pipeline.review_batc
 
 ## 非公開production bundle
 
-直近10年の全6科目569問、正答照合、本人用の頻出論点デッキ（行政法55・民法25・基礎知識21の101件）、カードから参照する過去問肢344件、旧Claude Fable成功応答20肢と全6件のrun概要、類似候補588組を、本人用API向けの単一JSONへまとめます。run概要には成功2件だけでなく、CLI失敗2件、無効応答1件、rate limit 1件も含めます。
+直近10年の全6科目569問、正答照合、本人用の全6科目187カード、
+カードから参照する過去問肢702件、旧Claude Fable成功応答20肢と全6件のrun概要、
+類似候補588組を、本人用API向けの単一JSONへまとめます。
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m gyousei_pipeline.production_bundle \
   --questions-dir "$GYOUSEI_DATA_ROOT/all_subjects/current_2016_2025/extracted" \
   --reconciliation "$GYOUSEI_DATA_ROOT/all_subjects/current_2016_2025/reports/answer-reconciliation-production.json" \
   --question-manifest config/all_subjects_current_target.json \
-  --expected-card-count 101 --expected-evidence-count 344
+  --expected-card-count 187 --expected-evidence-count 702
 ```
 
 既定の出力は
@@ -247,8 +254,7 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m gyousei_pipeline.production_
 正答照合との対応、旧Fable応答と成功runのdigestが一つでも合わなければ
 書き込みません。
 
-学習カード55件・関連過去問肢211件・類似候補588組は既定値です。民法カード
-追加などで件数が変わる時は、`--expected-card-count`・
+カードや関連過去問肢を追加するときは、`--expected-card-count`・
 `--expected-evidence-count`・`--expected-similarity-count`で明示的に
 上書きできます。未指定なら既定値のまま変わらず、指定しても「以上」ではなく
 完全一致のfail closedを維持します。
@@ -259,9 +265,9 @@ bundleはホワイトリスト方式で作り、合格道場の解説、Claude�
 
 - `questions`: 3形式の問題本文・選択肢・正答。表形式14問の`choiceColumns`と`choices[].cells`も保持
 - `officialAnswerChecks`: 569問の正答照合結果。行政法は公式資料と照合し、他科目は未照合状態を明示
-- `studyDecks`: 本人用の頻出論点デッキ1件・80カード（`visibility=private`、2026年4月1日施行法令基準）
-- `explanationCards`: B二案、C、深掘り、常識力、必要な⑥と⑦を加えた学習カード101件（行政法55・民法25・基礎知識21）
-- `relatedQuestionEvidence`: カードの`relatedPastQuestions[].choiceId`から参照できる平成28年度以降の過去問肢344件
+- `studyDecks`: 本人用の全科目共通デッキ1件・187カード（`visibility=private`、2026年4月1日施行法令基準）
+- `explanationCards`: B二案、C、深掘り、常識力、必要な⑥と⑦を加えた学習カード187件
+- `relatedQuestionEvidence`: カードの`relatedPastQuestions[].choiceId`から参照できる平成28年度以降の過去問肢702件
 - `claudeReviews` / `claudeRuns`: 旧schema v2のAI候補20肢と、秘密情報を除いた全run概要（状態、時刻、model、`errorKind`のみ）
 - `similarityPairs`: 人が確認する類似候補588組
 
