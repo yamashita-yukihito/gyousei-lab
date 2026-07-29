@@ -56,6 +56,23 @@
       </ol>
     </article>
 
+    <article class="card">
+      <h2>学習カードの点検・編集・追加を頼む</h2>
+      <p class="meta">2026-07-29 · カード編集用</p>
+      <p>ChatGPTに学習カードを直してもらうときの指示文です。B・CがAの答えを割らないこと、装飾記法の色と役割、A・C・correctを変えると回答履歴がリセットされることなど、守ってほしいルールをまとめてあります。作業用のJSONはMac側で書き出して、この指示文と一緒に添付します。</p>
+      <div class="actions">
+        <a class="primary" href="chatgpt-card-editing.md" download>ダウンロード（.md）</a>
+        <a class="secondary" href="chatgpt-card-editing.md" target="_blank" rel="noopener">開いて中身を見る</a>
+      </div>
+      <ol class="steps">
+        <li>Mac側で作業用JSONを書き出す：<code>python3.12 authoring/tools/card_exchange.py export --subject 憲法などのsubjectId</code></li>
+        <li>この指示文と、書き出されたJSONの両方をChatGPTへ添付する。</li>
+        <li>返ってきたJSONをMacへ保存し、<code>card_exchange.py import ファイル</code> で検証する。</li>
+        <li>検証が通ったら <code>--apply</code> を付けて正本へ入れ、bundleを作り直して設置する。</li>
+      </ol>
+      <p class="note">作業用JSONには合格道場の過去問の肢が入ります。ここ（<code>static/docs/</code>）へは置かないでください。</p>
+    </article>
+
     <p class="note">依頼文の正本はこのディレクトリ（<code>static/docs/</code>）です。採用した判断は <code>AGENTS.md</code>・<code>HANDOFF.md</code>・<code>ARCHITECTURE.md</code> へ反映します。APIキーや個人情報は依頼文へ書きません。</p>
   </main>
 
