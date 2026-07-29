@@ -1,5 +1,5 @@
 #!/bin/bash
-# 非公開データを暗号化して Mac の外へ退避する。
+# 非公開データを Mac の外へ退避する。
 #
 #   scripts/backup-private-data.sh [出力先ディレクトリ] [--prune]
 #
@@ -10,12 +10,8 @@
 # Mac が壊れると戻せない。ここで守るのはその復元不能な部分である。
 #
 # 中身には合格道場から取得した過去問原文と provider 解説が含まれる。保存先は
-# ゲスト共有なので、必ず暗号化してから置く。パスフレーズは macOS の
-# キーチェーンから読む。あらかじめ次で登録しておくこと。
-#
-#   security add-generic-password -a "$USER" -s gyousei-lab-backup -w
-#
-# パスフレーズを失うと復元できない。別の場所へも控えておくこと。
+# LAN 内の Windows 共有であり、暗号化はしない方針（2026-07-29 に利用者が判断）。
+# ただし Web 公開領域や外部ストレージへは置かないこと。
 
 set -euo pipefail
 
@@ -37,27 +33,12 @@ if [ -z "$DEST" ]; then
     REQUIRE_MOUNT=1
 fi
 KEEP=7
-SERVICE="gyousei-lab-backup"
 STAMP="$(date +%Y%m%d-%H%M%S)"
 
 log() { printf '%s %s\n' "$(date '+%H:%M:%S')" "$1"; }
 die() { printf 'backup failed: %s\n' "$1" >&2; exit 1; }
 
-command -v openssl >/dev/null || die "openssl が見つからない"
 [ -d "$RUNTIME" ] || die "実行時データが見つからない: $RUNTIME"
-
-# 通常は macOS キーチェーンから読む。復元先の別マシンにはキーチェーン項目が
-# ないので、そのときだけ GYOUSEI_BACKUP_PASSPHRASE で渡せるようにしておく。
-# 常用しないこと（環境変数は他のプロセスから見える）。
-PASSPHRASE="$(security find-generic-password -s "$SERVICE" -w 2>/dev/null || true)"
-if [ -z "$PASSPHRASE" ]; then
-    PASSPHRASE="${GYOUSEI_BACKUP_PASSPHRASE:-}"
-fi
-if [ -z "$PASSPHRASE" ]; then
-    die "パスフレーズがない。キーチェーンへ登録する:
-  security add-generic-password -a \"\$USER\" -s $SERVICE -w
-（-w の値を書かなければ入力を求められる。控えを別の場所へ残すこと）"
-fi
 
 # Windows が落ちていると共有が外れる。そのまま mkdir すると、同じパスの
 # ローカルディレクトリへ書いてしまい「Mac外に控えがある」と誤認する。
@@ -95,10 +76,17 @@ dst = sqlite3.connect(target)
 src.backup(dst)
 dst.close()
 src.close()
-check = sqlite3.connect("file:" + target + "?mode=ro", uri=True)
+
+# 検査は書き込み可で開く。read-only で開くと WAL を畳めず、-wal と -shm が
+# アーカイブへ残ってしまう。復元時に「どれが正本か」を迷わせるので、
+# ここで 1 ファイルへまとめきる。本番DBではなくコピーに対する操作である。
+check = sqlite3.connect(target)
 result = check.execute("PRAGMA quick_check").fetchone()[0]
 rows = check.execute("SELECT COUNT(*) FROM card_attempts").fetchone()[0]
 marks = check.execute("SELECT COUNT(*) FROM card_marks").fetchone()[0]
+check.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+# server.py は起動時に自分で WAL へ戻すので、控え側は DELETE でよい。
+check.execute("PRAGMA journal_mode = DELETE")
 check.close()
 if result != "ok":
     raise SystemExit(f"quick_check が ok ではない: {result}")
@@ -139,12 +127,9 @@ cat > "$STAGE/RESTORE.md" <<EOF
 ## 展開
 
 \`\`\`bash
-openssl enc -d -aes-256-cbc -pbkdf2 -iter 300000 \\
-  -in gyousei-lab-$STAMP.tar.gz.enc -out gyousei-lab-$STAMP.tar.gz
+shasum -a 256 -c <(printf '%s  %s\\n' "\$(cat gyousei-lab-$STAMP.tar.gz.sha256)" gyousei-lab-$STAMP.tar.gz)
 tar xzf gyousei-lab-$STAMP.tar.gz
 \`\`\`
-
-パスフレーズは macOS キーチェーンの \`$SERVICE\`。
 
 ## 戻し方
 
@@ -156,24 +141,19 @@ tar xzf gyousei-lab-$STAMP.tar.gz
 6. bundle は canonical から作り直せる。手順は \`docs/SESSION_HANDOFF_20260728.md\`。
 EOF
 
-log "tar と暗号化"
-ARCHIVE="$WORK/gyousei-lab-$STAMP.tar.gz"
-tar czf "$ARCHIVE" -C "$WORK" "gyousei-lab-$STAMP"
-RAW_SIZE="$(du -h "$ARCHIVE" | cut -f1)"
-
-OUT="$DEST/gyousei-lab-$STAMP.tar.gz.enc"
-printf '%s' "$PASSPHRASE" | openssl enc -aes-256-cbc -pbkdf2 -iter 300000 \
-    -salt -in "$ARCHIVE" -out "$OUT" -pass stdin
+log "tar でまとめる"
+OUT="$DEST/gyousei-lab-$STAMP.tar.gz"
+tar czf "$OUT" -C "$WORK" "gyousei-lab-$STAMP"
 chmod 600 "$OUT" 2>/dev/null || true
 
 # 復元前に壊れていないか確かめられるよう、ハッシュを別ファイルへ残す
 shasum -a 256 "$OUT" | awk '{print $1}' > "$OUT.sha256"
 
-log "検証: 復号してtarを読めるか"
-printf '%s' "$PASSPHRASE" | openssl enc -d -aes-256-cbc -pbkdf2 -iter 300000 \
-    -in "$OUT" -pass stdin | tar tzf - > /dev/null || die "復号または展開に失敗した"
+# 書き込み先は共有越しなので、途中で切れていないかをここで確かめる。
+log "検証: 書き出したtarを読めるか"
+tar tzf "$OUT" > /dev/null || die "書き出したアーカイブを読めない"
 
-EXPIRED="$(ls -1t "$DEST"/gyousei-lab-*.tar.gz.enc 2>/dev/null | tail -n +$((KEEP + 1)) || true)"
+EXPIRED="$(ls -1t "$DEST"/gyousei-lab-*.tar.gz 2>/dev/null | tail -n +$((KEEP + 1)) || true)"
 if [ -n "$EXPIRED" ]; then
     COUNT="$(printf '%s\n' "$EXPIRED" | wc -l | tr -d ' ')"
     if [ "$PRUNE" -eq 1 ]; then
@@ -193,4 +173,4 @@ if [ -n "$EXPIRED" ]; then
     fi
 fi
 
-log "完了: $OUT （圧縮前 $RAW_SIZE / 暗号化後 $(du -h "$OUT" | cut -f1)）"
+log "完了: $OUT （$(du -h "$OUT" | cut -f1)）"

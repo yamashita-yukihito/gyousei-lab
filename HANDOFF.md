@@ -193,7 +193,7 @@ Mac移行時、リリース済みbundleとSQLiteは
 GitHubにあるのはソースだけである。**カード正本・頻出度監査・回答履歴はGitHubに入っていない**ため、
 Macが壊れると戻せない。Time Machineも未設定である。
 
-`scripts/backup-private-data.sh` が、その復元不能な部分だけを暗号化して
+`scripts/backup-private-data.sh` が、その復元不能な部分だけを
 Windows共有 `~/mnt/win-new-folder/gyousei-lab-backup/` へ退避する。
 
 対象:
@@ -212,14 +212,17 @@ Windows共有 `~/mnt/win-new-folder/gyousei-lab-backup/` へ退避する。
 
 守っている前提:
 
-- 保存先はゲスト共有なので、必ず `openssl enc -aes-256-cbc -pbkdf2 -iter 300000` で暗号化してから置く。
-  中身には合格道場の過去問原文とprovider解説が入っている。
-- パスフレーズはキーチェーンの `gyousei-lab-backup`。復元先の別マシンにはキーチェーン項目が
-  ないため、そのときだけ `GYOUSEI_BACKUP_PASSPHRASE` で渡せる。常用しない。
+- **暗号化はしない**（2026-07-29 に利用者が判断）。保存先はLAN内のWindows共有であり、
+  中身は見られて困るものではないという整理。ただし合格道場の過去問原文とprovider解説を
+  含むため、**Web公開領域や外部ストレージへは置かない**。
+- `production.sqlite3` は控え側で `wal_checkpoint(TRUNCATE)` と `journal_mode=DELETE` を
+  かけ、1ファイルにまとめる。`-wal`・`-shm` を独立した正本のように残さないため。
+  server.py は起動時に自分でWALへ戻す。
 - 共有が未マウントのときは**中止する**。同じパスのローカルディレクトリへ書くと、
   Mac内に控えがあるだけなのに「Mac外にある」と誤認するため。
 - 古い世代は既定では消さない。超過分を一覧表示するだけで、`--prune` を付けたときだけ削除する。
-- 書き出したあと、実際に復号して `tar tzf` が通るかまで確認する。`.sha256` を併置する。
+- 書き出したあと、実際に `tar tzf` が通るかまで確認する。共有越しの書き込みが途中で
+  切れていないかを見るため。`.sha256` を併置する。
 
 定期実行: `~/dev/yuki-services/deploy/macos/launchd/com.yuki.gyousei-lab-backup.plist`（毎日3:30）。
 
