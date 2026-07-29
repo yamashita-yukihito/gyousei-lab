@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260729-3";
+  const APP_VERSION = "20260729-4";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
