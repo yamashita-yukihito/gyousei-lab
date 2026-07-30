@@ -42,6 +42,14 @@ EXPLANATION_VARIANT_FIELDS = frozenset(
 # 外部URLがそのまま <img src> に載る。1枚のカードに図を詰め込むと解説が読めなくなる。
 CARD_FIGURE_SRC_PATTERN = re.compile(r"assets/card-figures/[A-Za-z0-9][A-Za-z0-9._-]*\.(?:png|svg|webp)")
 CARD_FIGURE_LIMIT = 2
+# 図をどの説明の直後に出すか。画面側の data-figure-slot と同じ並びにする。
+CARD_FIGURE_PLACEMENTS = (
+    "correction",
+    "normal",
+    "deepDiveBackground",
+    "deepDiveTrap",
+    "deepDiveExample",
+)
 DEFAULT_TARGET_YEARS = tuple(range(2016, 2026))
 QUESTION_SUBJECT_LABELS_BY_ID = CANONICAL_SUBJECT_LABELS
 TARGET_QUESTION_NUMBERS = {
@@ -614,12 +622,19 @@ def _project_card_figures(value: Any, context: str) -> list[dict[str, str]]:
             raise ProductionBundleError(
                 f"{figure_context}.src must match {CARD_FIGURE_SRC_PATTERN.pattern}"
             )
+        placement = figure.get("placement", "correction")
+        if placement not in CARD_FIGURE_PLACEMENTS:
+            raise ProductionBundleError(
+                f"{figure_context}.placement must be one of "
+                f"{', '.join(CARD_FIGURE_PLACEMENTS)}"
+            )
         projected.append(
             {
                 "src": src,
                 # altは読み上げと画像が出ないときの代替。空文字を素通りさせない。
                 "alt": _text(figure.get("alt"), f"{figure_context}.alt"),
                 "caption": _text(figure.get("caption"), f"{figure_context}.caption"),
+                "placement": placement,
             }
         )
     sources = [figure["src"] for figure in projected]

@@ -153,6 +153,31 @@ SQLiteに残ったまま現在の習得判定から外れていた。表現を�
 形を確かめる。1枚のカードに2枚まで。`alt`・`caption` は必須。ChatGPTが作った4枚のうち
 誤りのなかった「違法処分と当然無効の要件整理」を `gyo-act-defect-001` へ載せた。
 
+2026年7月31日に、**作り直してもらった解説図6枚をすべてカードへ載せた**。7月30日に差し戻した
+3点（7条の図の4B、自治体の図の矢印、弁明の図の項番号）はすべて直っていた。弁明の図は項番号ごと
+落とす形になっており、改正で動く数字を書かないという意味でこちらのほうが安全である。
+
+図を出す位置を選べるよう、`figures` に `placement` を足した。
+`correction`（既定）・`normal`・`deepDiveBackground`・`deepDiveTrap`・`deepDiveExample` の5つで、
+画面側は `data-figure-slot` で受ける。深掘りは3列の格子なので、図が入った枠だけ
+`grid-column: 1 / -1` で横いっぱいに広げて図が縮まないようにしている。
+
+| 画像 | カード | placement |
+|---|---|---|
+| `admin-law-formal-defect-article7.png` | `gyo-aps-formal-defect-001` | `correction` |
+| `admin-law-explanation-agent.png` | `gyo-aps-hearing-001` | `normal` |
+| `admin-law-explanation-procedure-comparison.png` | `gyo-aps-hearing-002` | `deepDiveTrap` |
+| `admin-law-local-government-scope.png` | `gyo-aps-scope-001` | `normal` |
+| `admin-law-invalid-act-nullity.png` | `gyo-act-defect-001` | `correction` |
+| `admin-law-hearing-procedure-exception.png` | `gyo-aps-hearing-exception-001` | `deepDiveBackground` |
+
+`admin-law-invalid-act-nullity.png` は前日の `act-defect-invalidity-20260730.png` の描き直しなので、
+古いほうは消した。**同じ図を複数のカードへ置かない**方針にした（⑦と同じ扱い。関連は⑥の
+`relatedCardId` で結ぶ）。副配置の提案は採っていない。
+
+`answerRevision` は6枚とも不変。PC幅1440とスマホ幅390の実ブラウザで、6枚それぞれが
+指定どおりの位置に1つだけ出ること、横スクロールが出ないことを確認した。
+
 ## 1. 現在の到達点
 
 MacBook上の本番URL:

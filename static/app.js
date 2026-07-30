@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260731-2";
+  const APP_VERSION = "20260731-3";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -1232,27 +1232,36 @@
   // 解説図は回答後にだけ出す。A・B・Cの並ぶ出題面へ図を出すと、読む前に答えが割れる。
   // srcはbundle側でも同じ形に限っているが、画面側でも確かめてから <img> に載せる。
   const CARD_FIGURE_SRC = /^assets\/card-figures\/[A-Za-z0-9][A-Za-z0-9._-]*\.(?:png|svg|webp)$/;
+  // 図をどの説明の直後に出すか。カード側の placement で選ぶ。既定は correction。
+  const CARD_FIGURE_SLOTS = ["correction", "normal", "deepDiveBackground", "deepDiveTrap", "deepDiveExample"];
 
   function renderStudyFigures(item) {
-    const figures = Array.isArray(item.figures) ? item.figures : [];
-    const nodes = figures
-      .filter((figure) => figure && CARD_FIGURE_SRC.test(String(figure.src || "")))
-      .map((figure) => {
-        const element = make("figure", { className: "study-figure" });
-        const link = make("a", { href: figure.src, target: "_blank", rel: "noopener noreferrer" });
-        link.appendChild(make("img", {
-          src: figure.src,
-          alt: figure.alt || "",
-          loading: "lazy",
-          decoding: "async"
-        }));
-        element.appendChild(link);
-        if (figure.caption) element.appendChild(make("figcaption", {}, figure.caption));
-        return element;
-      });
-    const container = $("study-figures");
-    container.replaceChildren(...nodes);
-    container.hidden = !nodes.length;
+    const figures = (Array.isArray(item.figures) ? item.figures : [])
+      .filter((figure) => figure && CARD_FIGURE_SRC.test(String(figure.src || "")));
+    CARD_FIGURE_SLOTS.forEach((slot) => {
+      const container = document.querySelector(`[data-figure-slot="${slot}"]`);
+      if (!container) return;
+      const nodes = figures
+        .filter((figure) => (CARD_FIGURE_SLOTS.includes(figure.placement) ? figure.placement : "correction") === slot)
+        .map((figure) => {
+          const element = make("figure", { className: "study-figure" });
+          const link = make("a", { href: figure.src, target: "_blank", rel: "noopener noreferrer" });
+          link.appendChild(make("img", {
+            src: figure.src,
+            alt: figure.alt || "",
+            loading: "lazy",
+            decoding: "async"
+          }));
+          element.appendChild(link);
+          if (figure.caption) element.appendChild(make("figcaption", {}, figure.caption));
+          return element;
+        });
+      container.replaceChildren(...nodes);
+      container.hidden = !nodes.length;
+      // 深掘りは3列の格子なので、図の入った枠だけ横いっぱいに広げて図を読める大きさにする
+      const cell = container.closest(".study-deep-dive section");
+      if (cell) cell.classList.toggle("has-figure", Boolean(nodes.length));
+    });
   }
 
   function renderStudyBasis(item) {

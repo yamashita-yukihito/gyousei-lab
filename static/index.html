@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#183a34">
   <title>行政書士 過去問ラボ</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23183a34'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='39' fill='white'%3E%E8%A1%8C%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=20260731-2">
+  <link rel="stylesheet" href="styles.css?v=20260731-3">
 </head>
 <body>
   <a class="skip-link" href="#main-content">本文へ移動</a>
@@ -131,7 +131,7 @@
             <p id="study-feedback" class="study-feedback" aria-live="polite" aria-atomic="true"></p>
             <div class="study-answer-comparison"><div><span>あなたが選んだ答え</span><strong id="study-selected-answer"></strong></div><div><span>この文章の正しい判定</span><strong id="study-correct-answer"></strong></div></div>
             <div class="study-correction"><span>正しい形で覚えると</span><p id="study-correction-text"></p></div>
-            <div id="study-figures" class="study-figures" hidden></div>
+            <div class="study-figures" data-figure-slot="correction" hidden></div>
             <div class="study-accuracy-grid"><div id="study-question-accuracy-card"><span>この問題の正答率</span><b id="study-mastery-status" hidden>習得済み</b><strong id="study-question-accuracy">—</strong><small id="study-question-accuracy-detail"></small></div><div><span>学習カード全体の正答率</span><strong id="study-overall-accuracy">—</strong><small id="study-overall-accuracy-detail"></small></div></div>
             <p class="study-memory"><span>一言で覚える</span><strong id="study-memory-point"></strong></p>
             <div class="study-mark-row">
@@ -155,8 +155,8 @@
             </div>
           </div>
 
-          <section class="study-explanation-block"><h3>① 普通の解説</h3><p id="study-normal-explanation"></p></section>
-          <section class="study-deep-dive"><h3>② 深掘り解説</h3><div><section><h4>制度の背景・理由</h4><p id="study-deep-background"></p></section><section><h4>試験のひっかけ</h4><p id="study-deep-trap"></p></section><section><h4>具体的な場面</h4><p id="study-deep-example"></p></section></div></section>
+          <section class="study-explanation-block"><h3>① 普通の解説</h3><p id="study-normal-explanation"></p><div class="study-figures" data-figure-slot="normal" hidden></div></section>
+          <section class="study-deep-dive"><h3>② 深掘り解説</h3><div><section><h4>制度の背景・理由</h4><p id="study-deep-background"></p><div class="study-figures" data-figure-slot="deepDiveBackground" hidden></div></section><section><h4>試験のひっかけ</h4><p id="study-deep-trap"></p><div class="study-figures" data-figure-slot="deepDiveTrap" hidden></div></section><section><h4>具体的な場面</h4><p id="study-deep-example"></p><div class="study-figures" data-figure-slot="deepDiveExample" hidden></div></section></div></section>
           <section class="study-explanation-block study-basis"><h3>③ 根拠・確認時点</h3><p id="study-law-date"></p><ul id="study-basis-list"></ul></section>
           <section class="study-explanation-block study-common-sense"><h3>④ 常識力</h3><p id="study-common-sense"></p></section>
           <section id="study-related-section" class="study-explanation-block study-related"><div class="related-heading"><h3>⑤ 実際の肢・本番での聞かれ方</h3><strong id="study-related-count"></strong></div><p class="study-related-note">平成28年度以降の実際の肢を、同じルールだけでなく、逆の言い方・例外・条件・比較も含めて表示します。組合せ問題から採った肢にはその印を付けています。頻出回数には表示していない平成27年度以前や記述式も問題単位で含むため、ここの表示件数とは一致しないことがあります。</p><div id="study-related-list"></div></section>
@@ -418,6 +418,6 @@
 
   <footer><p>本人専用・行政書士学習環境　回答履歴と類似判定はサーバー保存</p></footer>
   <noscript>この画面の利用にはJavaScriptが必要です。</noscript>
-  <script src="app.js?v=20260731-2"></script>
+  <script src="app.js?v=20260731-3"></script>
 </body>
 </html>
