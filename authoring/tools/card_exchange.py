@@ -81,13 +81,6 @@ VARIANT_FIELDS = ("a", "b", "bCasual", "bCasualStyle", "c")
 FIGURE_DIR = Path(__file__).resolve().parents[2] / "static" / "assets" / "card-figures"
 FIGURE_SRC = re.compile(r"assets/card-figures/[A-Za-z0-9][A-Za-z0-9._-]*\.(?:png|svg|webp)")
 FIGURE_LIMIT = 2
-FIGURE_PLACEMENTS = (
-    "correction",
-    "normal",
-    "deepDiveBackground",
-    "deepDiveTrap",
-    "deepDiveExample",
-)
 
 # 新しいカードを作るときだけ必要な項目。既存カードでは触らせない。
 NEW_CARD_FIELDS = ("id", "subjectId", "category", "clusterId", "sourceRefs", "relatedPastQuestions")
@@ -321,12 +314,6 @@ def validate_card(
                     problems.append(f"{card_id}: ⑧figures には {key} が必要です")
                 elif MARKUP.search(str(figure.get(key))):
                     problems.append(f"{card_id}: ⑧figures の {key} に装飾記法は使えません")
-            placement = figure.get("placement", "correction")
-            if placement not in FIGURE_PLACEMENTS:
-                problems.append(
-                    f"{card_id}: ⑧figures の placement {placement!r} は "
-                    f"{'/'.join(FIGURE_PLACEMENTS)} のどれかです"
-                )
 
     if is_new:
         for field in NEW_CARD_FIELDS:

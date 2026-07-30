@@ -157,26 +157,27 @@ SQLiteに残ったまま現在の習得判定から外れていた。表現を�
 3点（7条の図の4B、自治体の図の矢印、弁明の図の項番号）はすべて直っていた。弁明の図は項番号ごと
 落とす形になっており、改正で動く数字を書かないという意味でこちらのほうが安全である。
 
-図を出す位置を選べるよう、`figures` に `placement` を足した。
-`correction`（既定）・`normal`・`deepDiveBackground`・`deepDiveTrap`・`deepDiveExample` の5つで、
-画面側は `data-figure-slot` で受ける。深掘りは3列の格子なので、図が入った枠だけ
-`grid-column: 1 / -1` で横いっぱいに広げて図が縮まないようにしている。
+**図を出す位置は「正しい形で覚えると」（`correction`）の直後で固定**である。
+同日、いったんは `figures` に `placement` を足して位置を選べるようにしたが、
+深掘りは3列の格子なので、そこへ図を入れると1枠だけ横に伸びて右側が空き、
+レイアウトが崩れた。利用者の指摘を受けて `placement` ごと撤回した。**位置を増やさない。**
 
-| 画像 | カード | placement |
-|---|---|---|
-| `admin-law-formal-defect-article7.png` | `gyo-aps-formal-defect-001` | `correction` |
-| `admin-law-explanation-agent.png` | `gyo-aps-hearing-001` | `normal` |
-| `admin-law-explanation-procedure-comparison.png` | `gyo-aps-hearing-002` | `deepDiveTrap` |
-| `admin-law-local-government-scope.png` | `gyo-aps-scope-001` | `normal` |
-| `admin-law-invalid-act-nullity.png` | `gyo-act-defect-001` | `correction` |
-| `admin-law-hearing-procedure-exception.png` | `gyo-aps-hearing-exception-001` | `deepDiveBackground` |
+| 画像 | カード |
+|---|---|
+| `admin-law-formal-defect-article7.png` | `gyo-aps-formal-defect-001` |
+| `admin-law-explanation-agent.png` | `gyo-aps-hearing-001` |
+| `admin-law-explanation-procedure-comparison.png` | `gyo-aps-hearing-002` |
+| `admin-law-local-government-scope.png` | `gyo-aps-scope-001` |
+| `admin-law-invalid-act-nullity.png` | `gyo-act-defect-001` |
+| `admin-law-hearing-procedure-exception.png` | `gyo-aps-hearing-exception-001` |
 
 `admin-law-invalid-act-nullity.png` は前日の `act-defect-invalidity-20260730.png` の描き直しなので、
 古いほうは消した。**同じ図を複数のカードへ置かない**方針にした（⑦と同じ扱い。関連は⑥の
 `relatedCardId` で結ぶ）。副配置の提案は採っていない。
 
-`answerRevision` は6枚とも不変。PC幅1440とスマホ幅390の実ブラウザで、6枚それぞれが
-指定どおりの位置に1つだけ出ること、横スクロールが出ないことを確認した。
+`answerRevision` は6枚とも不変。PC幅1440とスマホ幅390の実ブラウザで、6枚とも
+`correction` の直後に1つだけ出ること、深掘りの3列が均等（329/329/329・300/300/300）に
+戻っていること、横スクロールが出ないことを確認した。
 
 ## 1. 現在の到達点
 

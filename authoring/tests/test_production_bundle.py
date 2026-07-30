@@ -796,23 +796,13 @@ class ProductionBundleTests(unittest.TestCase):
         accepted = explanation_cards()
         accepted["items"][0]["figures"] = [figure]
         bundle = self.build(explanation_cards=accepted)
-        # placement を書かなければ correction の直後に出る
-        self.assertEqual(
-            [{**figure, "placement": "correction"}],
-            bundle["explanationCards"][0]["figures"],
-        )
+        self.assertEqual([figure], bundle["explanationCards"][0]["figures"])
 
-        placed = explanation_cards()
-        placed["items"][0]["figures"] = [dict(figure, placement="deepDiveTrap")]
-        bundle = self.build(explanation_cards=placed)
-        self.assertEqual(
-            "deepDiveTrap", bundle["explanationCards"][0]["figures"][0]["placement"]
-        )
-
-        unknown_placement = explanation_cards()
-        unknown_placement["items"][0]["figures"] = [dict(figure, placement="topOfCard")]
-        with self.assertRaisesRegex(ProductionBundleError, "placement must be one of"):
-            self.build(explanation_cards=unknown_placement)
+        # 出す位置はcorrectionの直後で固定。カード側で選ばせない。
+        extra_key = explanation_cards()
+        extra_key["items"][0]["figures"] = [dict(figure, placement="deepDiveTrap")]
+        bundle = self.build(explanation_cards=extra_key)
+        self.assertNotIn("placement", bundle["explanationCards"][0]["figures"][0])
 
         for bad_src in (
             "../../../etc/passwd",

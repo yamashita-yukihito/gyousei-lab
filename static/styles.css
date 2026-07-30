@@ -565,8 +565,6 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .study-correction p { margin: 4px 0 0; white-space: pre-wrap; }
 /* 解説図。縦長の図なので、画面幅より高さで頭打ちにしてスクロール量を抑える */
 .study-figures { display: grid; gap: 12px; margin-top: 12px; }
-/* 深掘りは3列。図の入った枠だけ横いっぱいにして、縮みすぎないようにする */
-.study-deep-dive section.has-figure { grid-column: 1 / -1; }
 .study-figure { margin: 0; }
 .study-figure a { display: block; }
 .study-figure img { display: block; width: 100%; max-width: 560px; height: auto; margin: 0 auto; border: 1px solid var(--line); border-radius: 11px; background: #fff; }

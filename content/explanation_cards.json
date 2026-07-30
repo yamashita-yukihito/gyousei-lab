@@ -333,8 +333,7 @@
         {
           "src": "assets/card-figures/admin-law-explanation-agent.png",
           "alt": "行政手続法31条が16条を準用するため、弁明の機会の付与でも代理人を選任でき、本人が入院中でも弁明書の作成などを任せられることを示した図",
-          "caption": "31条が16条を準用するので、弁明でも代理人を選べる",
-          "placement": "normal"
+          "caption": "31条が16条を準用するので、弁明でも代理人を選べる"
         }
       ]
     },
@@ -451,8 +450,7 @@
         {
           "src": "assets/card-figures/admin-law-explanation-procedure-comparison.png",
           "alt": "聴聞と弁明の機会の付与について、代理人の選任と自分の証拠書類等の提出はどちらも認められるが、文書等の閲覧は弁明では認められないことを比べた表",
-          "caption": "弁明は人は連れてこられるが、資料棚までは開かない",
-          "placement": "deepDiveTrap"
+          "caption": "弁明は人は連れてこられるが、資料棚までは開かない"
         }
       ]
     },
@@ -558,8 +556,7 @@
         {
           "src": "assets/card-figures/admin-law-local-government-scope.png",
           "alt": "自治体の行為をまず処分・届出か行政指導かで分け、処分・届出だけ根拠が国の法律か条例・規則かを見る判定順と、行政指導は根拠を問わず適用除外になることを示した図",
-          "caption": "まず種類、次に根拠。行政指導は根拠を見ない",
-          "placement": "normal"
+          "caption": "まず種類、次に根拠。行政指導は根拠を見ない"
         }
       ]
     },
@@ -674,8 +671,7 @@
         {
           "src": "assets/card-figures/admin-law-hearing-procedure-exception.png",
           "alt": "資格喪失の事実が客観的資料で直接証明されることと、その場合の不利益処分を法律上必ずすることとされていることの二つがそろって初めて、聴聞や弁明を含む意見陳述手続を省略できることを示した図",
-          "caption": "客観資料で直接証明＋法定必須処分 → 意見陳述手続なし",
-          "placement": "deepDiveBackground"
+          "caption": "客観資料で直接証明＋法定必須処分 → 意見陳述手続なし"
         }
       ]
     },
@@ -769,8 +765,7 @@
         {
           "src": "assets/card-figures/admin-law-invalid-act-nullity.png",
           "alt": "違法でも取り消されるまでは有効な処分と、重大かつ明白な瑕疵により初めから無効な処分を左右に並べ、明白性は処分当初の外形で判断することを示した図",
-          "caption": "取消し得べき処分と当然無効の分かれ目",
-          "placement": "correction"
+          "caption": "取消し得べき処分と当然無効の分かれ目"
         }
       ]
     },
@@ -1523,8 +1518,7 @@
         {
           "src": "assets/card-figures/admin-law-formal-defect-article7.png",
           "alt": "申請が到達したら遅滞なく審査を開始し、形式上の要件に適合しなければ補正を求めるか許認可等を拒否するかを行政庁が選ぶ流れと、審査請求書の記載不備には原則として補正命令が義務づけられることを並べた図",
-          "caption": "禁じられているのは放置。補正は拒否の前提ではない",
-          "placement": "correction"
+          "caption": "禁じられているのは放置。補正は拒否の前提ではない"
         }
       ]
     },
