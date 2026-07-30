@@ -149,10 +149,8 @@ a { color: var(--green); text-underline-offset: 3px; }
 .status-strip p { margin: 0; color: var(--muted); line-height: 1.55; }
 .status-dot { width: 9px; height: 9px; border-radius: 50%; background: #42a579; box-shadow: 0 0 0 4px #dff2e8; }
 
+/* 2026-07-31に追尾（sticky）をやめた。カードを読んでいる間ずっと上に居座って邪魔になる */
 .app-tabs {
-  position: sticky;
-  z-index: 20;
-  top: 0;
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   gap: 6px;
@@ -160,7 +158,6 @@ a { color: var(--green); text-underline-offset: 3px; }
   border: 1px solid var(--line);
   border-radius: 13px;
   background: rgba(237,242,238,.94);
-  backdrop-filter: blur(12px);
 }
 .tab-button {
   display: grid;
@@ -383,7 +380,8 @@ button:disabled { opacity: .55; cursor: wait; }
 .run-card span, .run-card small { color: var(--muted); font-size: 11px; }
 .run-card.rate-limited { border-color: #e0ca92; background: #fffaf0; }
 .split-layout { display: grid; grid-template-columns: 310px minmax(0, 1fr); gap: 13px; align-items: start; }
-.split-layout > aside { position: sticky; top: 82px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,254,250,.88); }
+/* topの82pxはタブが追尾していた頃にその高さを避けるための値だった */
+.split-layout > aside { position: sticky; top: 16px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,254,250,.88); }
 .record-list { display: grid; gap: 6px; max-height: 620px; margin-top: 9px; overflow-y: auto; }
 .record-button { display: grid; gap: 2px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; text-align: left; cursor: pointer; }
 .record-button:hover, .record-button.active { border-color: var(--green); background: var(--green-soft); }

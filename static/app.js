@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260730-2";
+  const APP_VERSION = "20260731-1";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -914,6 +914,21 @@
     if (searching && !cards.length) {
       $("study-empty-title").textContent = "この言葉に合うカードがありません";
       $("study-empty-message").textContent = "語を減らすか、科目・分野を「すべて」に戻すと見つかることがあります。カードIDでも探せます。";
+    } else if (searching && cards.length && !weakness) {
+      // 検索は当たっているのに出題されない場合。「見つからない」と誤解しないよう、
+      // 何枚が卒業・絶対覚えたで外れているのかを名前を挙げて伝える。
+      const certain = cards.filter(isStudyCertain);
+      const graduated = cards.filter((item) => isStudyGraduated(item) && !isStudyCertain(item));
+      const hidden = [...certain, ...graduated];
+      const names = hidden.slice(0, 3).map(studyCardId).join("・");
+      const reason = certain.length && graduated.length ? "「絶対覚えた」と習得済み"
+        : certain.length ? "「絶対覚えた」" : "習得済み";
+      $("study-empty-title").textContent = hidden.length
+        ? "見つかりましたが、いまの出題範囲から外れています"
+        : "この条件では出題できるカードがありません";
+      $("study-empty-message").textContent = hidden.length
+        ? `${cards.length}枚が検索に一致しましたが、${reason}なので出題されません（${names}${hidden.length > 3 ? " ほか" : ""}）。出題範囲を「全問題を出す」にすると解けます。「卒業済みだけ」からは1枚ずつ解除できます。`
+        : "出題範囲を「全問題を出す」に変えるか、科目・分野を「すべて」に戻してください。";
     } else if (isRapidStudyView()) {
       $("study-empty-title").textContent = "高速○×に出せる問題がありません";
       $("study-empty-message").textContent = "この条件では未習得の問題が残っていません。出題範囲を「全問題を出す」に変えるか、科目・分野を広げてください。";
