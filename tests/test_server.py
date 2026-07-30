@@ -866,7 +866,9 @@ class ProductionApiTest(unittest.TestCase):
             ),
         )
 
-    def test_card_progress_uses_only_current_answer_revision(self) -> None:
+    def test_card_progress_counts_every_attempt_of_the_same_card_id(self) -> None:
+        # 2026-07-30に方針を変えた。A・C・正解・法令基準日を直しても、
+        # 同じカードIDなら過去の回答をそのまま数える。
         server.add_card_attempt(self.card_attempt_payload())
 
         b_only = fixture_bundle()
@@ -877,17 +879,20 @@ class ProductionApiTest(unittest.TestCase):
         with server.connect() as connection:
             progress = server.card_progress_statistics(connection, snapshot, deck)
         self.assertEqual(progress["overall"]["attempts"], 1)
-        self.assertEqual(progress["stats"]["staleRevisionAttempts"], 0)
 
         answer_change = copy.deepcopy(b_only)
+        answer_change["explanationCards"][0]["variants"]["a"] += "（変更）"
         answer_change["explanationCards"][0]["variants"]["c"] += "（変更）"
+        answer_change["explanationCards"][0]["correct"] = not answer_change[
+            "explanationCards"
+        ][0]["correct"]
         self.write_bundle(answer_change)
         snapshot = server.CATALOG.load()
         deck = server.default_study_deck(snapshot)
         with server.connect() as connection:
             progress = server.card_progress_statistics(connection, snapshot, deck)
-        self.assertEqual(progress["overall"]["attempts"], 0)
-        self.assertEqual(progress["stats"]["staleRevisionAttempts"], 1)
+        self.assertEqual(progress["overall"]["attempts"], 1)
+        self.assertEqual(progress["byCard"]["card-1"]["attempts"], 1)
         self.assertEqual(len(server.export_data()["cardAttempts"]), 1)
 
     def test_card_attempts_compute_result_and_idempotency(self) -> None:
@@ -1018,7 +1023,7 @@ class ProductionApiTest(unittest.TestCase):
         self.assertEqual(attempts, 3)
         self.assertEqual(len(server.export_data()["cardMarks"]), 3)
 
-    def test_marks_from_an_older_card_revision_are_not_carried_over(self) -> None:
+    def test_marks_are_carried_over_after_a_card_revision(self) -> None:
         server.add_card_mark(self.card_mark_payload())
         server.add_card_attempt(self.card_attempt_payload())
         server.add_card_mark(
@@ -1035,9 +1040,9 @@ class ProductionApiTest(unittest.TestCase):
             before = server.card_progress_statistics(connection, snapshot, deck)
         self.assertTrue(before["byCard"]["card-1"]["certain"])
         self.assertEqual(before["byCard"]["card-1"]["confidenceCounts"]["sure"], 1)
-        self.assertEqual(before["stats"]["staleRevisionMarks"], 0)
 
-        # A を直して回答revisionを変えると、旧版に付けた印は現在の判定へ持ち越さない
+        # 2026-07-30に方針を変えた。A を直して回答revisionが変わっても、
+        # 同じカードIDなら「絶対覚えた」と自信度をそのまま引き継ぐ。
         revised = fixture_bundle()
         revised["explanationCards"][0]["variants"]["a"] += " ただし例外がある"
         self.write_bundle(revised)
@@ -1046,11 +1051,8 @@ class ProductionApiTest(unittest.TestCase):
         with server.connect() as connection:
             after = server.card_progress_statistics(connection, changed, changed_deck)
         item = after["byCard"]["card-1"]
-        self.assertFalse(item["certain"])
-        self.assertFalse(item["graduated"])
-        self.assertEqual(item["confidenceCounts"]["sure"], 0)
-        self.assertEqual(item["staleMarks"], 2)
-        self.assertEqual(after["stats"]["staleRevisionMarks"], 2)
+        self.assertTrue(item["certain"])
+        self.assertEqual(item["confidenceCounts"]["sure"], 1)
         # 印そのものは消さない。追記型なので行は残る。
         with server.connect() as connection:
             stored = connection.execute("SELECT COUNT(*) FROM card_marks").fetchone()[0]
@@ -1076,7 +1078,6 @@ class ProductionApiTest(unittest.TestCase):
             )
         # リセットは版に依存しない区切りなので、改訂後も効き続ける
         self.assertEqual(after["byCard"]["card-1"]["resetCount"], 1)
-        self.assertEqual(after["stats"]["staleRevisionMarks"], 0)
 
     def test_confidence_is_recorded_per_answer_without_changing_selection(self) -> None:
         server.add_card_attempt(self.card_attempt_payload())
@@ -1295,11 +1296,13 @@ class ProductionApiTest(unittest.TestCase):
         self.assertEqual(context.exception.status, HTTPStatus.BAD_REQUEST)
         self.assertIn("not in the study deck", context.exception.message)
 
-        wrong_revision = self.card_attempt_payload()
-        wrong_revision["answerRevision"] = "b" * 64
-        with self.assertRaises(server.ApiError) as context:
-            server.add_card_attempt(wrong_revision)
-        self.assertEqual(context.exception.status, HTTPStatus.CONFLICT)
+        # 2026-07-30に方針を変えた。カードを直したあとに届いた回答も受け取る。
+        # 画面が出していた版はそのまま記録し、集計では見ない。
+        older_revision = self.card_attempt_payload(event_id="card-event-older")
+        older_revision["answerRevision"] = "b" * 64
+        recorded, inserted, _, _ = server.add_card_attempt(older_revision)
+        self.assertTrue(inserted)
+        self.assertEqual(recorded["answerRevision"], "b" * 64)
 
         invalid_revision = self.card_attempt_payload()
         invalid_revision["answerRevision"] = None

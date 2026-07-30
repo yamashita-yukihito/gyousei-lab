@@ -51,10 +51,10 @@
 
 1. **公開URL経由の回答が403で弾かれていた。** Mac側nginxが `proxy_set_header X-Forwarded-Proto $scheme;` で上流の `https` を `http` へ上書きするため、APIのOrigin照合が `https://kuruma-matome.com` と `http://kuruma-matome.com` を比べて失敗していた。`$http_x_forwarded_proto` を渡す形に変更。LAN直アクセスでは上流ヘッダが無く、nginxは空値のヘッダを送らないので `server.py` 側の既定値 `http` が使われる。
 2. **行政書士法の2026年改正を反映。** 令和7年法律第65号（2026年1月1日施行）で条番号が繰り下がり（業務1条の2→1条の3、不服申立ての代理1条の3→1条の4）、代理できる範囲が「行政書士が**作成した**書類」から「行政書士が**作成することができる**書類」へ拡大された。`gk-gyosei-law-specified-appeal-001` は旧法のままだったので、改正点そのものを問う形へ作り替えた（回答0件のためA変更可）。
-3. **旧版の「絶対覚えた」「自信度」が改訂後も効いていた。** `card_marks.answer_revision` を現行revisionと照合し、不一致なら現在の判定へ数えないようにした。印そのものは追記型なので消さず、`staleMarks` / `stats.staleRevisionMarks` として件数を返す。リセットは版に依存しない区切りなので従来どおり効き続ける。
+3. **旧版の「絶対覚えた」「自信度」が改訂後も効いていた。** `card_marks.answer_revision` を現行revisionと照合し、不一致なら現在の判定へ数えないようにした。**この3番は2026-07-30に取り消した**（利用者の判断で、履歴はカードIDだけで引き継ぐ方針にした。下の記録を参照）。
 4. **弱点ビューが「絶対覚えた」を除外していなかった。** `getFilteredStudyCards` の弱点分岐へ `!isStudyCertain(item)` を追加。
 5. **`weakness_analysis.py` がschema 3固定で手動実行に失敗していた。** `SUPPORTED_DATABASE_SCHEMA_VERSIONS = (3, 4)` へ変更。
-6. **未送信回答を改訂後カードへ誤加算していた。** `applyCardAttempt` で `answerRevision` が現行と違う回答は数えないようにし、サーバーが409を返したときは出題プールを組み直すようにした。409のときの画面文言も専用のものへ変えた。
+6. **未送信回答を改訂後カードへ誤加算していた。** `applyCardAttempt` で `answerRevision` が現行と違う回答は数えないようにし、サーバーが409を返したときは出題プールを組み直すようにした。**この6番も2026-07-30に取り消した**（同上）。
 7. 内容誤り3件を修正。個人情報保護法156〜159条にない「公表」の記述を削除、社会保障カードのB2へ65歳以上の障害認定という例外を追加、一般法・特別法カードの「明示した立法が必要」という断定を緩和、法人設立の⑦から「羈束・裁量」の言い切りを削除。
 
 **未着手だった3件は同日中にすべて解消した**（⑤の`currentLawAsOf`、release guardの科目別比較、行政法・民法以外の科目全体を覆う頻出度の独立再監査。下の記録を参照）。Bの定型句は全体精査で除去し、件数ドキュメントも更新した。Mac外バックアップは2026-07-29にWindows共有へ作成済みで、今後は定期バックアップの成否を確認する。
@@ -124,6 +124,34 @@ A・C・`correct`は変えていないので**6枚すべて`answerRevision`は�
 
 差し戻し内容は `static/docs/chatgpt-brushup-review-20260730.md`（docs一覧からLAN経由で取得可）。
 判断の記録は非公開編集領域の `review/decisions/chatgpt-brushup-20260730.md`。
+
+同日さらに、**回答履歴をカードIDだけで引き継ぐ方針へ変えた**（利用者の判断）。
+それまでは `answerRevision`（A・C・正解・法令基準日のSHA-256）が変わると、過去の回答は
+SQLiteに残ったまま現在の習得判定から外れていた。表現を直すたびに正答率と卒業回数が
+0に戻るため、外部AIにカードを磨いてもらうほど履歴を失う状態だった。
+
+- `card_progress_statistics` の回答ループと印ループから版の照合を外した。
+- `weakness_analysis.py` も同じ（`analyzerVersion` を `card-attempts-v2` へ）。
+  `staleRevisionAttemptsIgnored` と `stale_revision_ignored` を廃止し、
+  `summary.currentRevisionAttempts` を `summary.countedAttempts` へ改名した。
+- 回答POSTの409（`card answer has changed; reload before answering`）も外した。
+  カードを直したあとに届いた回答を捨てなくなる。記録するのは**画面が実際に出していた版**
+  （クライアントが送った値）で、集計では見ない。
+- 画面側の `applyCardAttempt` の版チェックも外した。
+- `stats.staleRevisionAttempts` / `stats.staleRevisionMarks` / `byCard[].staleMarks` は
+  常に0になるため削除した。
+
+方針変更にあたり、**○×が入れ替わった場合も過去の正解をそのまま数える**ことになる点は
+利用者へ伝えたうえでの判断である。代わりに、**論点そのものが別物になる書き換えでは同じ
+カードIDを使い回さず、新しいカードIDにする**ことを `AGENTS.md` §4 と ChatGPT向け指示文へ
+明記した。過去の回答（71件）は1件も失われず、E2Eで A・C・正解・法令基準日を同時に
+書き換えても履歴が残ることを確認した。
+
+同日さらに、**解説図をカードへ載せられるようにした**（`figures`＝⑧）。「図で整理タブだけ」
+という制限を外し、回答後の解説の `correction` 直後に出す。出題面へは出さない。
+画像は `static/assets/card-figures/` の下だけを許し、bundleのprojectionと画面側の両方で
+形を確かめる。1枚のカードに2枚まで。`alt`・`caption` は必須。ChatGPTが作った4枚のうち
+誤りのなかった「違法処分と当然無効の要件整理」を `gyo-act-defect-001` へ載せた。
 
 ## 1. 現在の到達点
 
@@ -429,9 +457,9 @@ Windows共有 `~/mnt/win-new-folder/gyousei-lab-backup/` へ退避する。
 - `/api/card-attempts`
 - `/api/similarity-decisions`
 
-回答イベントにはクライアント生成IDがあり、同じ送信の再試行を二重加算しない。学習カードは問題文・正解のrevisionを使い、カード内容が変わった時に古い判定を現在の正答率へ誤って混ぜない設計である。
+回答イベントにはクライアント生成IDがあり、同じ送信の再試行を二重加算しない。学習カードの履歴はカードIDだけで引き継ぐ。
 
-Bだけの表現変更は回答revisionを変えない。A、C、正解などを変えるとrevisionが変わり、旧回答は履歴として残るが現在の習得判定から外れる。
+**A・B・C・正解・法令基準日のどれを直しても、同じカードIDなら履歴をそのまま数える**（2026-07-30に変更）。`answerRevision`は「どの版に対する回答か」の記録として残るが、集計では見ない。論点そのものが別物になるなら、同じIDを使い回さず新しいカードIDにする。
 
 ブラウザには通信失敗時だけ未送信キューを置く。集計の正本はSQLiteである。localStorageを全回答履歴の正本へ戻さない。
 
@@ -474,8 +502,7 @@ PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/python3.12 weakness_analysis.py
 - 習得復帰: 直近3回正解かつ`correct - incorrect >= 3`
 - 時間減衰: 使わない
 
-stale revisionは履歴として残したまま現在判定から除外し、
-`stale_revision_ignored`と件数をsnapshotへ記録する。
+回答はカードIDだけで数える（analyzerVersion `card-attempts-v2`）。
 
 ### 7.2 苦手studyView
 

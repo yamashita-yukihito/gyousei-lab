@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260730-1";
+  const APP_VERSION = "20260730-2";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -1530,10 +1530,8 @@
   function applyCardAttempt(progress, attempt) {
     const item = state.studyById.get(attempt.cardId);
     if (!item) return;
-    // 未送信のまま残った回答は、答えた時点のカードの版に対するものである。
-    // その後にA・C・正解が直っていたら、現在の正解で採点し直すと誤った習得判定になる。
-    // サーバーは同じ理由で409を返すので、画面側でも数に入れない。
-    if (attempt.answerRevision && attempt.answerRevision !== studyAnswerRevision(item)) return;
+    // 2026-07-30に方針を変えた。回答はカードIDだけで数える。答えたあとに
+    // A・B・C・正解を直しても、未送信のまま残った回答をそのまま履歴へ入れる。
     const entry = progress[attempt.cardId] || cleanCardProgress({});
     if (attempt.selectedAnswer === Boolean(item.correct)) {
       entry.correct += 1;
@@ -1687,13 +1685,11 @@
           quarantineCardAttempt(attempt, "API " + error.status);
           rebuildCardProgress();
           renderStudyProgressDisplays();
-          // 409はカードが改訂されて版が変わった場合に返る。出題プールを組み直して、
-          // 古い版の回答で習得済みになったままの状態を残さない。
+          // カードを直したあとに届いた回答も、サーバーはカードIDで受け取るようになった。
+          // ここへ来るのは形式不正など本当に送れない場合だけ。
           refreshStudyPool();
           $("study-save-status").className = "save-status error";
-          $("study-save-status").textContent = error.status === 409
-            ? "この問題は答えたあとに改訂されました。古い回答は履歴として端末内へ残し、現在の判定には数えません。"
-            : "この回答はサーバーに送れませんでした。再送を止め、端末内の要確認データへ移しました。";
+          $("study-save-status").textContent = "この回答はサーバーに送れませんでした。再送を止め、端末内の要確認データへ移しました。";
           continue;
         }
         state.cardStorageMode = "pending";

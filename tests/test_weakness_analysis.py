@@ -72,7 +72,7 @@ def add_results(
 
 
 class WeaknessAnalysisTests(unittest.TestCase):
-    def test_classifies_current_revision_attempts_in_database_order(self) -> None:
+    def test_classifies_all_attempts_of_the_card_in_database_order(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "state.sqlite3"
             connection = create_database(path)
@@ -84,7 +84,7 @@ class WeaknessAnalysisTests(unittest.TestCase):
                 card("weak-window"),
                 card("recovering"),
                 card("mastered"),
-                card("stale"),
+                card("older-revision"),
             ]
             add_results(connection, "learning", [True, True])
             add_results(connection, "watch", [False])
@@ -108,8 +108,9 @@ class WeaknessAnalysisTests(unittest.TestCase):
                 "mastered",
                 [False, False, True, True, True, True, True],
             )
+            # 2026-07-30に方針を変えた。古い版に対する回答も同じカードとして数える。
             add_results(
-                connection, "stale", [False], revision="b" * 64
+                connection, "older-revision", [False], revision="b" * 64
             )
 
             snapshot = weakness_analysis.build_weakness_snapshot(
@@ -143,18 +144,17 @@ class WeaknessAnalysisTests(unittest.TestCase):
         )
         self.assertEqual("recovering", by_id["recovering"]["status"])
         self.assertEqual("mastered", by_id["mastered"]["status"])
-        self.assertEqual("unlearned", by_id["stale"]["status"])
+        self.assertEqual("watch", by_id["older-revision"]["status"])
         self.assertEqual(
-            ["stale_revision_ignored"], by_id["stale"]["reasonCodes"]
+            ["single_error_watch"], by_id["older-revision"]["reasonCodes"]
         )
         self.assertEqual(
             "2026-07-26T01:00:00Z",
             by_id["weak-consecutive"]["lastAnsweredAt"],
         )
-        self.assertEqual(1, snapshot["summary"]["staleRevisionAttemptsIgnored"])
-        self.assertEqual(3, snapshot["summary"]["targetCount"])
+        self.assertEqual(4, snapshot["summary"]["targetCount"])
         self.assertEqual(
-            ["weak-consecutive", "weak-window", "watch"],
+            ["weak-consecutive", "weak-window", "older-revision", "watch"],
             [target["cardId"] for target in snapshot["targets"]],
         )
         self.assertEqual(

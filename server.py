@@ -115,7 +115,7 @@ INVENTORY_EXCLUSION_REASONS = {
     "withdrawn_question_requires_question_level_review",
 }
 WEAKNESS_SCHEMA_VERSION = "gyousei-weakness-snapshot@1"
-WEAKNESS_ANALYZER_VERSION = "card-attempts-v1"
+WEAKNESS_ANALYZER_VERSION = "card-attempts-v2"
 WEAKNESS_STATUSES = (
     "unlearned",
     "learning",
@@ -1467,8 +1467,6 @@ def card_progress_statistics(
             "graduated": False,
             "confidenceCounts": {name: 0 for name in CARD_MARK_CONFIDENCE},
             "lastConfidence": None,
-            # 改訂前の版に付けられ、現在の判定へ数えなかった印の件数
-            "staleMarks": 0,
         }
         for card in eligible_cards
     }
@@ -1515,16 +1513,9 @@ def card_progress_statistics(
         item = by_card.get(mark["card_id"]) if mark["card_id"] else None
         if item is None:
             continue
-        # 「絶対覚えた」と自信度は、押した時点のカードの版に対する判断である。
-        # A・C・正解を直して版が変わったら、その判断は新しい問題文には引き継がない。
-        # リセットは版に依存しない区切りなので answer_revision を持たず、ここを通らない。
-        current_revision = current_revisions.get(mark["card_id"])
-        stored_revision = mark["answer_revision"]
-        if current_revision is None or not isinstance(stored_revision, str):
-            continue
-        if not hmac.compare_digest(stored_revision, current_revision):
-            item["staleMarks"] += 1
-            continue
+        # 2026-07-30に方針を変えた。印はカードIDだけで引き継ぐ。
+        # 押した時点の版は answer_revision として残すが、集計では見ない。
+        # リセットは版に依存しない区切りで、answer_revision を持たない。
         if mark["action"] in {"certain", "uncertain"}:
             item["certain"] = mark["action"] == "certain"
             item["certainAt"] = mark["marked_at_client"] if item["certain"] else None
@@ -1543,12 +1534,12 @@ def card_progress_statistics(
     current_correct = 0
     current_incorrect = 0
     for row in rows:
-        current_revision = current_revisions.get(row["card_id"])
-        if current_revision is None:
+        # 2026-07-30に方針を変えた。回答はカードIDだけで数える。A・B・C・正解・
+        # 法令基準日を直しても、同じカードなら過去の回答と卒業回数を引き継ぐ。
+        # answer_revision は「どの版に対する回答か」の記録として残すが、集計では見ない。
+        if row["card_id"] not in by_card:
             continue
         relevant_all_time += 1
-        if not hmac.compare_digest(row["answer_revision"], current_revision):
-            continue
         item = by_card[row["card_id"]]
         current_attempts += 1
         item["attempts"] += 1
@@ -1627,7 +1618,6 @@ def card_progress_statistics(
         "stats": {
             "allTimeAttempts": len(rows),
             "deckAllTimeAttempts": relevant_all_time,
-            "staleRevisionAttempts": relevant_all_time - current_attempts,
             "masteredCards": sum(1 for item in by_card.values() if item["mastered"]),
             "certainCards": sum(1 for item in by_card.values() if item["certain"]),
             "graduatedCards": sum(1 for item in by_card.values() if item["graduated"]),
@@ -1637,7 +1627,6 @@ def card_progress_statistics(
             "confidenceMarks": sum(
                 sum(item["confidenceCounts"].values()) for item in by_card.values()
             ),
-            "staleRevisionMarks": sum(item["staleMarks"] for item in by_card.values()),
             "masteryScore": MASTERY_SCORE,
         },
     }
@@ -1828,9 +1817,9 @@ def _weakness_public_projection(
         raw_summary.get("cardCount"),
         "summary.cardCount",
     )
-    current_attempts = _weakness_int(
-        raw_summary.get("currentRevisionAttempts"),
-        "summary.currentRevisionAttempts",
+    counted_attempts = _weakness_int(
+        raw_summary.get("countedAttempts"),
+        "summary.countedAttempts",
     )
     correct = _weakness_int(
         raw_summary.get("correct"),
@@ -1845,7 +1834,7 @@ def _weakness_public_projection(
         or sum(status_counts.values()) != card_count
         or target_count
         != sum(status_counts[status] for status in WEAKNESS_TARGET_STATUSES)
-        or correct + incorrect != current_attempts
+        or correct + incorrect != counted_attempts
     ):
         raise ValueError("inconsistent weakness summary")
 
@@ -1881,7 +1870,7 @@ def _weakness_public_projection(
         "summary": {
             "cardCount": card_count,
             "targetCount": target_count,
-            "currentRevisionAttempts": current_attempts,
+            "countedAttempts": counted_attempts,
             "correct": correct,
             "incorrect": incorrect,
             "accuracy": _weakness_accuracy(
@@ -1982,17 +1971,15 @@ def add_card_attempt(payload: dict) -> tuple[dict, bool, BundleSnapshot, dict | 
     if deck is not None and card_id not in deck["cardIds"]:
         raise ApiError(HTTPStatus.BAD_REQUEST, "cardId is not in the study deck")
 
+    # 2026-07-30まではここで、送られてきた版が現在の版と違えば409を返し、
+    # カードを直した後に届いた回答を捨てていた。履歴はカードIDだけで引き継ぐ方針に
+    # したので、受け取って記録する。記録するのは画面が実際に出していた版であり、
+    # 「どの版に対する回答か」を後から追うための情報として持つ。集計では見ない。
     supplied_revision = payload.get("answerRevision")
-    expected_revision = card_answer_revision(card, snapshot, deck)
     if not isinstance(supplied_revision, str) or not ANSWER_REVISION_PATTERN.fullmatch(
         supplied_revision
     ):
         raise ApiError(HTTPStatus.BAD_REQUEST, "invalid answerRevision")
-    if not hmac.compare_digest(supplied_revision, expected_revision):
-        raise ApiError(
-            HTTPStatus.CONFLICT,
-            "card answer has changed; reload before answering",
-        )
 
     selected_answer = payload.get("selectedAnswer")
     if type(selected_answer) is not bool:
@@ -2065,7 +2052,7 @@ def add_card_attempt(payload: dict) -> tuple[dict, bool, BundleSnapshot, dict | 
         "sessionId": session_id,
         "studyDeckId": study_deck_id,
         "cardId": card_id,
-        "answerRevision": expected_revision,
+        "answerRevision": supplied_revision,
         "selectedAnswer": selected_answer,
         "correctAnswer": correct_answer,
         "isCorrect": is_correct,
@@ -2113,7 +2100,7 @@ def add_card_attempt(payload: dict) -> tuple[dict, bool, BundleSnapshot, dict | 
                 session_id,
                 study_deck_id,
                 card_id,
-                expected_revision,
+                supplied_revision,
                 int(selected_answer),
                 int(correct_answer),
                 int(is_correct),

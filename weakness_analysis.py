@@ -25,7 +25,7 @@ DEFAULT_SNAPSHOT_DIR = DATA_DIR / "analytics" / "snapshots"
 DEFAULT_LATEST_PATH = DATA_DIR / "weakness-latest.json"
 
 SCHEMA_VERSION = "gyousei-weakness-snapshot@1"
-ANALYZER_VERSION = "card-attempts-v1"
+ANALYZER_VERSION = "card-attempts-v2"
 # 3はcard_marksを入れる前の版。どちらでも card_attempts の構造は同じなので読める。
 SUPPORTED_DATABASE_SCHEMA_VERSIONS = (3, 4)
 RECENT_WINDOW_SIZE = 5
@@ -267,7 +267,7 @@ def build_weakness_snapshot(
     if not eligible <= known:
         raise WeaknessAnalysisError("eligible cards must be known bundle cards")
     state = {
-        card_id: {"current": [], "stale": 0}
+        card_id: {"current": []}
         for card_id in card_ids
     }
     rows = connection.execute(
@@ -290,9 +290,8 @@ def build_weakness_snapshot(
             else:
                 unknown_card += 1
             continue
-        if str(row["answer_revision"]) != current_revisions[card_id]:
-            state[card_id]["stale"] += 1
-            continue
+        # 2026-07-30に方針を変えた。回答はカードIDだけで数える。
+        # answer_revision は記録として残すが、弱点分析でも見ない。
         if row["is_correct"] not in (0, 1):
             raise WeaknessAnalysisError(
                 f"card attempt {row['id']} has invalid is_correct"
@@ -318,9 +317,6 @@ def build_weakness_snapshot(
         recent_incorrect = len(recent) - recent_correct
         correct_streak, incorrect_streak = _streaks(results)
         status, reason_codes = classify_results(results)
-        stale_count = int(state[card_id]["stale"])
-        if stale_count:
-            reason_codes = [*reason_codes, "stale_revision_ignored"]
         response_values = [
             int(attempt["responseMs"])
             for attempt in attempts
@@ -371,17 +367,12 @@ def build_weakness_snapshot(
                         else None
                     ),
                 },
-                "staleRevisionAttemptsIgnored": stale_count,
             }
         )
 
     status_counts = Counter(card["status"] for card in analyzed_cards)
     total_correct = sum(card["correct"] for card in analyzed_cards)
     total_incorrect = sum(card["incorrect"] for card in analyzed_cards)
-    stale_revision_count = sum(
-        card["staleRevisionAttemptsIgnored"]
-        for card in analyzed_cards
-    )
     targets = [
         target
         for card in analyzed_cards
@@ -408,7 +399,7 @@ def build_weakness_snapshot(
         "policy": {
             "attemptSource": "card_attempts",
             "answerAttemptsIncluded": False,
-            "revisionScope": "current_answer_revision_only",
+            "revisionScope": "all_attempts_of_the_card_id",
             "attemptOrder": "database_id_ascending",
             "recentWindowSize": RECENT_WINDOW_SIZE,
             "wallClockDecay": False,
@@ -431,12 +422,11 @@ def build_weakness_snapshot(
                 for status in STATUSES
             },
             "targetCount": len(targets),
-            "currentRevisionAttempts": total_correct + total_incorrect,
+            "countedAttempts": total_correct + total_incorrect,
             "correct": total_correct,
             "incorrect": total_incorrect,
             "accuracy": _accuracy(total_correct, total_incorrect),
             "allCardAttempts": len(rows),
-            "staleRevisionAttemptsIgnored": stale_revision_count,
             "outsideDeckAttemptsIgnored": outside_deck,
             "unknownCardAttemptsIgnored": unknown_card,
         },

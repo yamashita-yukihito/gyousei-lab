@@ -303,7 +303,7 @@ flowchart LR
 - `answer_attempts`、`card_attempts`、`card_marks`、`similarity_decisions` は追記型。
 - client生成 `eventId` で再送を冪等にする。
 - A・C・正解などに基づく `answerRevision` で、改訂前回答を現行習得判定へ混ぜない。
-- Bだけの表現変更ではrevisionを変えない。
+- Bだけの表現変更ではrevisionを変えない。revisionは記録用で、履歴の集計はカードIDだけで行う（2026-07-30に変更）。
 
 ### 6.1 卒業・絶対覚えた・自信度
 
@@ -339,13 +339,13 @@ weakness-latest.json
 
 - `generatedAt`, `analyzerVersion`, `bundleRevision`, `maxAttemptId`
 - 科目・topic・subtopic別のカード数、回答数、正解、不正解、正答率
-- current revisionだけの直近5回答、連続正誤、最終回答、所要時間
+- そのカードIDの直近5回答、連続正誤、最終回答、所要時間
 - `targets[]`: cardId、priority、status、reasonCodes、根拠数値
-- stale revision、deck外、未知カードを除外した件数
+- deck外、未知カードを除外した件数
 
 MVPの判定:
 
-- `unlearned`: current revisionの回答0回
+- `unlearned`: そのカードの回答0回
 - `learning`: 誤答がなく、習得条件にはまだ達していない
 - `watch`: 誤答が1回だけ、または最新誤答だが苦手条件未満
 - `weak`: 誤答が2回以上あり、直近2回が連続誤答、または直近5回中
@@ -378,7 +378,7 @@ MVPの判定:
 - `weakness`: 「苦手」「要観察」を優先度順に出す。`recovering`は直近2回連続正解の
   分析状態として残すが、反復対象から外す。通常学習と同じcard ID、renderer、
   `/api/card-attempts`、回答履歴を使う。
-- 各カードにcurrent revisionの過去の正解回数・不正解回数を表示する。
+- 各カードに過去の正解回数・不正解回数を表示する。
 
 今後追加する `studyView`:
 
@@ -502,7 +502,7 @@ fail closedを保ったままrelease manifest由来へ移すことである。
 - 完了: API filter/page、タブ遅延読込
 - 完了: SQLite backup/quick_checkとruntime権限の確認
 - 完了: PC幅・スマホ幅の実Chrome確認（苦手`studyView`追加前）
-- 完了: current revisionの`card_attempts`だけを使う弱点分析snapshot MVP
+- 完了: `card_attempts`を使う弱点分析snapshot MVP
 - 完了: 同じカードID・回答履歴を使う苦手`studyView`
 - 完了: release manifestで厳密検証した直近10年・全6科目569問の本番掲載
 - 完了: 回復中カードの苦手ビュー除外と、カード内の正解・不正解回数表示
