@@ -26,6 +26,7 @@
 
 - ソース: `~/dev/yuki-services/apps/gyousei-lab/`
 - 静的UI: `static/`
+- 学習カードの正本: `content/explanation_cards.json`（Git管理。2026-07-30に非公開領域から移した）
 - API: `server.py`
 - テスト: `tests/`
 - 問題生成コード: `authoring/`
@@ -39,6 +40,7 @@
 - nginxは `static/` を直接配信し、`/services/gyousei-lab/api/` と `/health` だけをAPIへ転送する。
 
 ソース、実行時データ、ログを混在させない。問題バンドル、SQLite、WAL、ログ、キャッシュをソース側へコピーしない。
+例外は**学習カードの正本 `content/explanation_cards.json` だけ**である。これは手で頻繁に書き換える著作物で、変更履歴と差分レビューがそのまま価値になるため、2026-07-30にGit管理へ移した。取得スナップショット、⑤の出典、頻出度監査、SQLiteは従来どおり非公開編集データ配下が正本で、ソース側へ持ち込まない。`content/` はnginxの配信対象外（配信されるのは `static/` だけ）なので、Webへは出ない。
 
 ## 4. 絶対に守る互換性
 
@@ -69,7 +71,7 @@
 
 ## 6. 問題・バンドルを変更する時
 
-- 問題生成コードは`authoring/`、取得スナップショット・抽出結果・編集正本・監査データは非公開編集データ配下を正本とする。
+- 問題生成コードは`authoring/`、取得スナップショット・抽出結果・⑤の出典・監査データは非公開編集データ配下を正本とする。学習カードの正本だけは `content/explanation_cards.json`（Git管理）である。`gyousei-production-bundle` の `--explanation-cards` の既定はこのパスで、環境変数 `GYOUSEI_CARD_SOURCE` で上書きできる。既定を非公開領域へ戻さない。
 - 合格道場の平成18〜令和7年度・全分野1,139問は、非公開編集データの`all_subjects/`にある。直近10年569問は解説558問を含み、旧10年570問は問題と当時の答えだけで解説はない。`all_subjects/README.md`と各期間の`reports/validation.json`を先に確認する。
 - `all_subjects/`は次科目の編集資料であり、現行の行政法bundleへ自動投入しない。科目別に正本ルールへ昇格させ、B二案・C・深掘り・常識力は独自に作る。
 - 全分野候補を作る時、没問・正解なし・組合せ・個数・多肢・記述を正解番号だけで自動○×化しない。`gyousei-dataset-inventory` のsafe候補数と除外理由を確認する。

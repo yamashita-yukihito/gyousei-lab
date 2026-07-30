@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.12
 """学習カードを外部AI（ChatGPTなど）へ渡し、編集結果を取り込むための入出力。
 
-正本 `canonical/explanation_cards.json` を直接渡すと、大きすぎるうえに、
+正本 `content/explanation_cards.json` を直接渡すと、大きすぎるうえに、
 編集してはいけない項目（頻出度監査の数字、⑤の参照、review履歴）まで書き換えられてしまう。
 そこで、
 
@@ -48,7 +48,13 @@ DATA_ROOT = Path(
         os.path.expanduser("~/.local/share/yuki-services/gyousei-lab/authoring"),
     )
 )
-CANONICAL = DATA_ROOT / "canonical" / "explanation_cards.json"
+# 学習カードの正本はGitリポジトリ側。⑤の肢原文は取得元データなので非公開領域に残す。
+CANONICAL = Path(
+    os.environ.get(
+        "GYOUSEI_CARD_SOURCE",
+        Path(__file__).resolve().parents[2] / "content" / "explanation_cards.json",
+    )
+)
 EVIDENCE = DATA_ROOT / "canonical" / "related_question_source.json"
 EXCHANGE = DATA_ROOT / "exchange"
 
@@ -400,8 +406,21 @@ def command_import(args: argparse.Namespace) -> int:
         print("正本はまだ変えていません。反映するときは --apply を付けて実行してください。")
         return 0
 
+    # 正本はGit管理下にある。未commitの変更があると、取り込みで上書きされて戻せなくなる。
+    dirty = os.popen(
+        f'git -C "{CANONICAL.parent}" status --porcelain -- "{CANONICAL.name}" 2>/dev/null'
+    ).read().strip()
+    if dirty and not args.force:
+        print()
+        print(f"error: {CANONICAL.name} に未commitの変更があります。")
+        print("       先に git commit するか、--force を付けてください。")
+        return 1
+
+    # 正本はGit管理下なので、履歴はcommitが持つ。退避はリポジトリを汚さないよう外へ置く。
     stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-    backup = CANONICAL.with_name(f"explanation_cards.pre-exchange-{stamp}.json")
+    backup_dir = DATA_ROOT / "backups"
+    backup_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
+    backup = backup_dir / f"explanation_cards.pre-exchange-{stamp}.json"
     shutil.copy2(CANONICAL, backup)
 
     index = {c["id"]: i for i, c in enumerate(document["items"])}
@@ -463,6 +482,11 @@ def main() -> int:
     importer = sub.add_parser("import", help="編集済みJSONを検証し、正本へ差し戻す")
     importer.add_argument("file", help="編集済みJSONのパス")
     importer.add_argument("--apply", action="store_true", help="検証を通ったら正本を書き換える")
+    importer.add_argument(
+        "--force",
+        action="store_true",
+        help="正本に未commitの変更があっても上書きする",
+    )
     importer.set_defaults(func=command_import)
 
     args = parser.parse_args()

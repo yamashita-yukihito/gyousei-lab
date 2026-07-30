@@ -152,7 +152,7 @@ install -m 0600 \
 ```bash
 export GYOUSEI_DATA_ROOT="$HOME/.local/share/yuki-services/gyousei-lab/authoring"
 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m gyousei_pipeline.learning_index \
-  --cards "$GYOUSEI_DATA_ROOT/canonical/explanation_cards.json" \
+  --cards "$(cd .. && pwd)/content/explanation_cards.json" \
   --review-candidates "$GYOUSEI_DATA_ROOT/curation/review_candidates.json" \
   --output "$GYOUSEI_DATA_ROOT/curation/learning_index.json"
 ```

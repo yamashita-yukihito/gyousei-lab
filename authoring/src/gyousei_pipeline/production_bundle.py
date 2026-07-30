@@ -1894,6 +1894,20 @@ def _assert_private_output(path: Path) -> None:
         ) from error
 
 
+def card_source_path() -> Path:
+    """学習カードの正本を返す。
+
+    カードは手で頻繁に書き換える著作物なので、取得スナップショットや監査データと違って
+    Gitリポジトリ側（`content/explanation_cards.json`）を正本にしている。
+    以前は非公開編集データ配下にあり、変更のたびに `.pre-*.json` を手で作っていた。
+    """
+    override = os.environ.get("GYOUSEI_CARD_SOURCE")
+    if override:
+        return Path(override)
+    # .../gyousei-lab/authoring/src/gyousei_pipeline/production_bundle.py → .../gyousei-lab
+    return Path(__file__).resolve().parents[3] / "content" / "explanation_cards.json"
+
+
 def _parser() -> argparse.ArgumentParser:
     root = data_root()
     canonical_root = Path(
@@ -1919,7 +1933,11 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--explanation-cards",
         type=Path,
-        default=canonical_root / "explanation_cards.json",
+        default=card_source_path(),
+        help=(
+            "学習カードの正本。既定はリポジトリの content/explanation_cards.json "
+            "（環境変数 GYOUSEI_CARD_SOURCE で上書きできる）"
+        ),
     )
     parser.add_argument(
         "--related-question-source",

@@ -6,8 +6,9 @@
 # 既定では古い世代を消さない。超過分を一覧表示するだけなので、消してよいと
 # 判断したときに --prune を付けて実行する。
 #
-# GitHub にはソースしか入っていないため、カード正本・頻出度監査・回答履歴は
-# Mac が壊れると戻せない。ここで守るのはその復元不能な部分である。
+# 学習カードの正本は 2026-07-30 に Git リポジトリ（content/）へ移したので GitHub にもある。
+# それ以外の頻出度監査・⑤の出典・回答履歴は Mac が壊れると戻せない。
+# ここで守るのはその復元不能な部分で、カード正本も一緒に入れて単体で復元できるようにする。
 #
 # 中身には合格道場から取得した過去問原文と provider 解説が含まれる。保存先は
 # LAN 内の Windows 共有であり、暗号化はしない方針（2026-07-29 に利用者が判断）。
@@ -16,6 +17,8 @@
 set -euo pipefail
 
 RUNTIME="$HOME/.local/share/yuki-services/gyousei-lab"
+# このスクリプトは <repo>/scripts/ にある。カード正本は <repo>/content/ にある。
+SOURCE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DEST=""
 PRUNE=0
 for arg in "$@"; do
@@ -94,10 +97,10 @@ print(f"  quick_check=ok card_attempts={rows} card_marks={marks}")
 PY
 
 log "復元不能なデータを集める"
-# canonical: カード正本と⑤の出典。手で書いたもので再生成できない。
+# canonical: ⑤の出典。手で正誤を確かめたもので再生成できない。
 # curation:  頻出度監査と類似候補の判断。人の判断が入っている。
 # all_subjects: 合格道場からの取得結果。再取得は可能だが、提供が終われば戻せない。
-# builds/ と backups/ は canonical と SQLite から作り直せるので入れない。
+# builds/ と backups/ は正本と SQLite から作り直せるので入れない。
 for path in \
     "authoring/canonical" \
     "authoring/curation" \
@@ -110,6 +113,17 @@ do
         cp -R "$RUNTIME/$path" "$STAGE/$path"
     fi
 done
+
+# 学習カードの正本はGitリポジトリ側にある（2026-07-30に移動）。GitHubにも push しているが、
+# この控えだけで復元できる状態を保つため、ここでも一緒に取る。
+CARD_SOURCE="${GYOUSEI_CARD_SOURCE:-$SOURCE/content/explanation_cards.json}"
+if [ -f "$CARD_SOURCE" ]; then
+    mkdir -p "$STAGE/content"
+    cp "$CARD_SOURCE" "$STAGE/content/explanation_cards.json"
+else
+    printf 'カード正本が見つかりません: %s\n' "$CARD_SOURCE" >&2
+    exit 1
+fi
 for file in "gyousei-production.json" "all-subject-inventory.json" "weakness-latest.json"; do
     [ -f "$RUNTIME/$file" ] && cp "$RUNTIME/$file" "$STAGE/$file"
 done
@@ -138,7 +152,12 @@ tar xzf gyousei-lab-$STAMP.tar.gz
 3. 権限を \`0600\` にする。
 4. \`PRAGMA quick_check\` を実行する。
 5. アプリのソースは GitHub の \`yamashita-yukihito/gyousei-lab\` から取る。
-6. bundle は canonical から作り直せる。手順は \`docs/SESSION_HANDOFF_20260728.md\`。
+6. 学習カードの正本 \`content/explanation_cards.json\` はソース側にある。
+   GitHub から取ったものが最新なら、この控えの \`content/\` は使わなくてよい。
+   GitHub が使えないときは、この控えの \`content/explanation_cards.json\` を
+   ソースの同じ場所へ置く。
+7. bundle は \`content/explanation_cards.json\` と \`authoring/\` から作り直せる。
+   手順は \`docs/SESSION_HANDOFF_20260728.md\`。
 EOF
 
 log "tar でまとめる"
