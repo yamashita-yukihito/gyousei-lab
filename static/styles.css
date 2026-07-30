@@ -578,10 +578,12 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .study-explanation-block, .study-deep-dive { margin-top: 14px; padding: 18px; border: 1px solid var(--line); border-radius: 11px; background: #fff; }
 .study-explanation-block h3, .study-deep-dive > h3 { margin: 0 0 8px; color: var(--deep); font-size: 18px; }
 .study-explanation-block p, .study-deep-dive p { margin: 0; white-space: pre-wrap; }
-.study-deep-dive > div { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
-.study-deep-dive section { padding: 12px; border-radius: 8px; background: #f5f8f5; }
-.study-deep-dive h4 { margin: 0 0 5px; font-size: 13px; }
-.study-deep-dive p { font-size: 13px; }
+/* 2026-07-31に3列をやめて縦積みにした。背景・ひっかけ・場面は分量が大きく違ううえ
+   （背景は63枚が300字超・最大891字）、3列にすると幅330pxへ13pxの本文を詰め込む形になり、
+   いちばん読ませたい部分がいちばん読みにくかった。①普通の解説・④常識力と同じ組み方にそろえる。 */
+.study-deep-dive > div { display: grid; gap: 11px; }
+.study-deep-dive section { padding: 15px 17px; border-radius: 9px; background: #f5f8f5; }
+.study-deep-dive h4 { margin: 0 0 6px; color: var(--green); font-size: 14px; letter-spacing: .02em; }
 .study-basis { border-color: #cbd9e4; background: #f6fbff; }
 .study-basis > p { margin-bottom: 8px; color: var(--muted); font-size: 12px; }
 .study-basis ul { margin: 0; padding-left: 1.25em; }
@@ -689,7 +691,7 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
   .study-variant { padding: 14px; }
   .study-answer-buttons { gap: 7px; }
   .study-answer-buttons button { min-height: 62px; padding: 7px; }
-  .study-answer-comparison, .study-accuracy-grid, .study-deep-dive > div { grid-template-columns: 1fr; }
+  .study-answer-comparison, .study-accuracy-grid { grid-template-columns: 1fr; }
   .study-memory { grid-template-columns: 1fr; gap: 3px; }
   .study-related-item footer a { width: 100%; margin-left: 0; }
 }
