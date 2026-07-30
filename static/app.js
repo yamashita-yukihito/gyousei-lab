@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260731-1";
+  const APP_VERSION = "20260731-2";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -456,7 +456,7 @@
         action: certain ? "uncertain" : "certain",
         cardId: studyCardId(item),
         statusNode: $("study-certain-status"),
-        message: certain ? "「絶対覚えた」を解除しました。" : "「絶対覚えた」に入れました。どの出題範囲でも出なくなります。"
+        message: certain ? "「絶対覚えた」を解除しました。" : "「絶対覚えた」に入れました。おまかせでは出なくなります（「全問題を出す」には出ます）。"
       });
     });
     $("study-reset-button").addEventListener("click", () => {
@@ -620,7 +620,7 @@
       ? "苦手・要観察では、現行版カードの回答から要観察・苦手だけを表示します。2回連続で正解して「回復中」になった問題は、このビューから外れます。"
       : rapid
         ? "高速○×では、Aの本試験文だけを見て即答します。1問10秒が目安です。迷ったらBを開いてかまいませんが、時間は計り続けます。習得済みの判定は通常ビューと同じです。"
-        : "おまかせでは、正解が不正解より3回多くなった問題を「習得済み」として出題から外します。全問題モードならいつでも復習できます。回答後に「絶対覚えた」を押した問題は、どの出題範囲でも出しません。解除は「卒業済みだけ」の一覧からできます。";
+        : "おまかせでは、正解が不正解より3回多くなった「習得済み」と、自分で押した「絶対覚えた」を出題から外します。「全問題を出す」にすれば、そのどちらも含めて全部出ます。習得済みと絶対覚えたの解除は「卒業済みだけ」の一覧からできます。";
     renderStudyViewSummary();
   }
 
@@ -837,8 +837,9 @@
       return state.rapidQueue.map((id) => state.studyById.get(id)).filter(Boolean);
     }
     if (isWeaknessStudyView()) {
-      // 「絶対覚えた」はどの出題範囲でも出さない。弱点ビューはプールを自前で
-      // 組み立てるので、ここでも同じ除外をかける。
+      // 弱点ビューは「まだ手当てが要るもの」を出す画面なので、自分で
+      // 「絶対覚えた」を押したものはここでは出さない。全部見たいときは
+      // 通常ビューの「全問題を出す」を使う。
       return cards
         .filter((item) => state.weaknessTargets.has(studyCardId(item)) && !isStudyCertain(item))
         .sort((left, right) => {
@@ -891,7 +892,7 @@
         "卒業済み " + target + "問（習得済み " + mastered + "・絶対覚えた " + certain + "）";
     } else if (scope === "all") {
       $("study-scope-summary").textContent =
-        "出題対象 " + target + "問 / 絶対覚えた " + certain + "問は常に除外 / 全" + cards.length + "問";
+        "出題対象 " + target + "問（習得済み " + mastered + "・絶対覚えた " + certain + " も含む）";
     } else {
       $("study-scope-summary").textContent =
         "出題対象 " + target + "問 / 習得済み " + mastered + "・絶対覚えた " + certain + " / 全" + cards.length + "問";
@@ -1027,7 +1028,7 @@
   function renderStudyMarkControls(item) {
     const progress = getCardProgress(studyCardId(item));
     const certainButton = $("study-certain-button");
-    certainButton.textContent = progress.certain ? "「絶対覚えた」を解除する" : "絶対覚えた（もう出さない）";
+    certainButton.textContent = progress.certain ? "「絶対覚えた」を解除する" : "絶対覚えた（おまかせから外す）";
     certainButton.classList.toggle("is-certain", progress.certain);
     $("study-reset-button").hidden = !progress.mastered && !progress.resetCount;
     const history = [];
@@ -1619,7 +1620,9 @@
   function studyScopePool(cards) {
     const scope = $("study-scope").value;
     if (scope === "graduated") return cards.filter(isStudyGraduated);
-    if (scope === "all") return cards.filter((item) => !isStudyCertain(item));
+    // 2026-07-31に変更。「全問題を出す」は文字どおり全部出す。
+    // 習得済みも「絶対覚えた」も外さない。外したいときは「おまかせ」を使う。
+    if (scope === "all") return cards;
     return cards.filter((item) => !isStudyGraduated(item));
   }
 
