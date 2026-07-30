@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260729-7";
+  const APP_VERSION = "20260730-1";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -1194,6 +1194,7 @@
     $("study-selected-answer").textContent = studyTruthLabel(selected);
     $("study-correct-answer").textContent = studyTruthLabel(Boolean(item.correct));
     setRichText($("study-correction-text"), item.correction || "");
+    renderStudyFigures(item);
     setRichText($("study-memory-point"), item.memoryPoint || item.variants && item.variants.c || "");
     const explanations = item.explanations || {};
     const deep = explanations.deepDive || {};
@@ -1210,6 +1211,32 @@
     renderStudyComparisonTable(item);
     $("study-answer-panel").hidden = false;
     requestAnimationFrame(() => $("study-answer-summary").focus({ preventScroll: true }));
+  }
+
+  // 解説図は回答後にだけ出す。A・B・Cの並ぶ出題面へ図を出すと、読む前に答えが割れる。
+  // srcはbundle側でも同じ形に限っているが、画面側でも確かめてから <img> に載せる。
+  const CARD_FIGURE_SRC = /^assets\/card-figures\/[A-Za-z0-9][A-Za-z0-9._-]*\.(?:png|svg|webp)$/;
+
+  function renderStudyFigures(item) {
+    const figures = Array.isArray(item.figures) ? item.figures : [];
+    const nodes = figures
+      .filter((figure) => figure && CARD_FIGURE_SRC.test(String(figure.src || "")))
+      .map((figure) => {
+        const element = make("figure", { className: "study-figure" });
+        const link = make("a", { href: figure.src, target: "_blank", rel: "noopener noreferrer" });
+        link.appendChild(make("img", {
+          src: figure.src,
+          alt: figure.alt || "",
+          loading: "lazy",
+          decoding: "async"
+        }));
+        element.appendChild(link);
+        if (figure.caption) element.appendChild(make("figcaption", {}, figure.caption));
+        return element;
+      });
+    const container = $("study-figures");
+    container.replaceChildren(...nodes);
+    container.hidden = !nodes.length;
   }
 
   function renderStudyBasis(item) {

@@ -785,6 +785,52 @@ class ProductionBundleTests(unittest.TestCase):
         bundle = self.build(explanation_cards=no_table)
         self.assertNotIn("comparisonTable", bundle["explanationCards"][0])
 
+    def test_card_figures_only_allow_static_card_figure_paths(self) -> None:
+        # ⑧解説図。srcがそのまま <img src> になるので、置き場所を1か所へ縛る。
+        figure = {
+            "src": "assets/card-figures/example-20260730.png",
+            "alt": "取消し得べき処分と当然無効を並べた図",
+            "caption": "無効の分かれ目",
+        }
+
+        accepted = explanation_cards()
+        accepted["items"][0]["figures"] = [figure]
+        bundle = self.build(explanation_cards=accepted)
+        self.assertEqual([figure], bundle["explanationCards"][0]["figures"])
+
+        for bad_src in (
+            "../../../etc/passwd",
+            "https://example.test/figure.png",
+            "assets/diagrams/zentai_map.png",
+            "assets/card-figures/figure.svg.js",
+            "assets/card-figures/../secret.png",
+        ):
+            escaping = explanation_cards()
+            escaping["items"][0]["figures"] = [dict(figure, src=bad_src)]
+            with self.assertRaisesRegex(ProductionBundleError, "src must match"):
+                self.build(explanation_cards=escaping)
+
+        missing_alt = explanation_cards()
+        missing_alt["items"][0]["figures"] = [dict(figure, alt="")]
+        with self.assertRaisesRegex(ProductionBundleError, "alt must be"):
+            self.build(explanation_cards=missing_alt)
+
+        too_many = explanation_cards()
+        too_many["items"][0]["figures"] = [
+            dict(figure, src=f"assets/card-figures/f{index}.png") for index in range(3)
+        ]
+        with self.assertRaisesRegex(ProductionBundleError, "at most 2 figures"):
+            self.build(explanation_cards=too_many)
+
+        repeated = explanation_cards()
+        repeated["items"][0]["figures"] = [figure, dict(figure)]
+        with self.assertRaisesRegex(ProductionBundleError, "must not repeat a src"):
+            self.build(explanation_cards=repeated)
+
+        no_figures = explanation_cards()
+        bundle = self.build(explanation_cards=no_figures)
+        self.assertNotIn("figures", bundle["explanationCards"][0])
+
     def test_source_question_links_fail_closed_and_stay_deduplicated(self) -> None:
         missing_provider_url = related_question_source()
         del missing_provider_url["records"][0]["providerUrl"]

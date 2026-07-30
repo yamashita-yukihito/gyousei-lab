@@ -73,8 +73,14 @@ EDITABLE_FIELDS = (
     "evidenceHighlights",
     "crossFieldComparisons",
     "comparisonTable",
+    "figures",
 )
 VARIANT_FIELDS = ("a", "b", "bCasual", "bCasualStyle", "c")
+
+# ⑧解説図。外部AIは画像ファイルを置けないので、すでにあるものを参照する形だけを許す。
+FIGURE_DIR = Path(__file__).resolve().parents[2] / "static" / "assets" / "card-figures"
+FIGURE_SRC = re.compile(r"assets/card-figures/[A-Za-z0-9][A-Za-z0-9._-]*\.(?:png|svg|webp)")
+FIGURE_LIMIT = 2
 
 # 新しいカードを作るときだけ必要な項目。既存カードでは触らせない。
 NEW_CARD_FIELDS = ("id", "subjectId", "category", "clusterId", "sourceRefs", "relatedPastQuestions")
@@ -285,6 +291,29 @@ def validate_card(
         target = comparison.get("relatedCardId")
         if target and target not in known_ids:
             problems.append(f"{card_id}: ⑥のrelatedCardId {target} が存在しません")
+
+    figures = card.get("figures")
+    if figures is not None:
+        if not isinstance(figures, list):
+            problems.append(f"{card_id}: ⑧figures は配列にしてください")
+            figures = []
+        if len(figures) > FIGURE_LIMIT:
+            problems.append(f"{card_id}: ⑧figures は{FIGURE_LIMIT}枚までです")
+        for figure in figures:
+            if not isinstance(figure, dict):
+                problems.append(f"{card_id}: ⑧figures の要素はオブジェクトにしてください")
+                continue
+            src = str(figure.get("src") or "")
+            if not FIGURE_SRC.fullmatch(src):
+                problems.append(f"{card_id}: ⑧figures の src {src!r} は assets/card-figures/ の下だけです")
+            elif not (FIGURE_DIR / Path(src).name).is_file():
+                # 画像そのものはMac側で置く。存在しないパスを指すと、画面に壊れた画像が出る。
+                problems.append(f"{card_id}: ⑧figures の画像 {src} がまだ置かれていません")
+            for key in ("alt", "caption"):
+                if not str(figure.get(key) or "").strip():
+                    problems.append(f"{card_id}: ⑧figures には {key} が必要です")
+                elif MARKUP.search(str(figure.get(key))):
+                    problems.append(f"{card_id}: ⑧figures の {key} に装飾記法は使えません")
 
     if is_new:
         for field in NEW_CARD_FIELDS:

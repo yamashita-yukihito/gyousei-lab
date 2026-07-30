@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import sys
 import tempfile
 from collections import Counter, defaultdict
@@ -37,6 +38,10 @@ STUDY_DECK_VISIBILITY = "private"
 EXPLANATION_VARIANT_FIELDS = frozenset(
     {"a", "b", "bCasual", "bCasualStyle", "c"}
 )
+# 解説図は static/assets/card-figures/ の下だけに置く。ここを緩めると、内部パスや
+# 外部URLがそのまま <img src> に載る。1枚のカードに図を詰め込むと解説が読めなくなる。
+CARD_FIGURE_SRC_PATTERN = re.compile(r"assets/card-figures/[A-Za-z0-9][A-Za-z0-9._-]*\.(?:png|svg|webp)")
+CARD_FIGURE_LIMIT = 2
 DEFAULT_TARGET_YEARS = tuple(range(2016, 2026))
 QUESTION_SUBJECT_LABELS_BY_ID = CANONICAL_SUBJECT_LABELS
 TARGET_QUESTION_NUMBERS = {
@@ -592,6 +597,37 @@ def _project_comparison_table(value: Any, context: str) -> dict[str, Any]:
     }
 
 
+def _project_card_figures(value: Any, context: str) -> list[dict[str, str]]:
+    # ⑧ 解説図。回答後の解説の中に出す。`src` は static/ の下の相対パスだけを許し、
+    # 内部パスや外部URLがそのまま <img src> になることを防ぐ。
+    figures = _array(value, context)
+    if len(figures) > CARD_FIGURE_LIMIT:
+        raise ProductionBundleError(
+            f"{context} must hold at most {CARD_FIGURE_LIMIT} figures"
+        )
+    projected: list[dict[str, str]] = []
+    for figure_index, figure_value in enumerate(figures):
+        figure_context = f"{context}[{figure_index}]"
+        figure = _object(figure_value, figure_context)
+        src = _text(figure.get("src"), f"{figure_context}.src")
+        if not CARD_FIGURE_SRC_PATTERN.fullmatch(src):
+            raise ProductionBundleError(
+                f"{figure_context}.src must match {CARD_FIGURE_SRC_PATTERN.pattern}"
+            )
+        projected.append(
+            {
+                "src": src,
+                # altは読み上げと画像が出ないときの代替。空文字を素通りさせない。
+                "alt": _text(figure.get("alt"), f"{figure_context}.alt"),
+                "caption": _text(figure.get("caption"), f"{figure_context}.caption"),
+            }
+        )
+    sources = [figure["src"] for figure in projected]
+    if len(sources) != len(set(sources)):
+        raise ProductionBundleError(f"{context} must not repeat a src")
+    return projected
+
+
 def _project_explanation_card(value: Any, index: int) -> dict[str, Any]:
     context = f"explanationCards[{index}]"
     card = _object(value, context)
@@ -742,6 +778,10 @@ def _project_explanation_card(value: Any, index: int) -> dict[str, Any]:
     if "comparisonTable" in card:
         projected["comparisonTable"] = _project_comparison_table(
             card["comparisonTable"], f"{context}.comparisonTable"
+        )
+    if "figures" in card:
+        projected["figures"] = _project_card_figures(
+            card["figures"], f"{context}.figures"
         )
     if "evidenceHighlights" in card:
         # ⑤の肢は原文を書き換えられないため、画面側で目立たせる語だけを渡す

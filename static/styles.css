@@ -565,6 +565,12 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .study-correction { margin-top: 11px; padding: 12px 14px; border-left: 4px solid #6a9e82; background: rgba(255,255,255,.63); }
 .study-correction > span { color: var(--muted); font-size: 11px; font-weight: 800; }
 .study-correction p { margin: 4px 0 0; white-space: pre-wrap; }
+/* 解説図。縦長の図なので、画面幅より高さで頭打ちにしてスクロール量を抑える */
+.study-figures { display: grid; gap: 12px; margin-top: 12px; }
+.study-figure { margin: 0; }
+.study-figure a { display: block; }
+.study-figure img { display: block; width: 100%; max-width: 560px; height: auto; margin: 0 auto; border: 1px solid var(--line); border-radius: 11px; background: #fff; }
+.study-figure figcaption { margin-top: 6px; color: var(--muted); font-size: 12px; text-align: center; }
 .study-accuracy-grid { margin-top: 11px; }
 .study-accuracy-grid strong { color: var(--deep); font-size: 24px; }
 .study-accuracy-grid b { justify-self: start; padding: 2px 7px; border-radius: 999px; background: var(--green); color: #fff; font-size: 10px; }
