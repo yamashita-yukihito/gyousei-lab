@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>○×クイズ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .question {
+            margin: 20px 0 20px 40px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+        .answer-true {
+            background-color: #add8e6;
+        }
+        .answer-false {
+            background-color: #7d7d7d;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>○×クイズ</h1>
+    <div id="quiz-container"></div>
+    <script>
+        // 問題リスト
+        const questions = [
+            { id: 11, category: "処分性_規範定立行為", text: "保育所を廃止する条例の制定", answer: "○" },
+            { id: 17, category: "処分性_中間的行為", text: "都市計画法による地区計画", answer: "×" },
+            { id: 19, category: "処分性_事実行為", text: "病院開設中止勧告", answer: "○" },
+            { id: 28, category: "原告適格",         text: "保安林指定解除の取り消しを求める周辺住人", answer: "○" },
+            { id: 47, category: "狭義の訴えの利益", text: "保安林指定の解除処分", answer: "×" },
+            { id: 45, category: "狭義の訴えの利益", text: "工事が完了した場合の建築確認", answer: "×" },
+            { id: 47, category: "狭義の訴えの利益", text: "保安林指定の解除処分", answer: "×" },
+            { id: 48, category: "狭義の訴えの利益", text: "保育所排除条例の制定_(保育の実施期間がすべて満了)", answer: "×" },         
+            { id: 60, category: "原告適格_", text: "病院開設_周辺の医師", answer: "×" },
+            { id: 63, category: "狭義の訴えの利益_", text: "メーデー経過後の皇居外苑_申請にかかる使用期日を経過", answer: "×" }
+        ];
+
+        // localStorageから正解・不正解回数を取得
+        function getCounts(id) {
+            const correctCount = parseInt(localStorage.getItem(`AAAcorrect_${id}`) || '0', 10);
+            const incorrectCount = parseInt(localStorage.getItem(`AAAincorrect_${id}`) || '0', 10);
+            return { correctCount, incorrectCount };
+        }
+
+        // 回数の更新
+        function updateCounts(id, isCorrect) {
+            const key = isCorrect ? `AAAcorrect_${id}` : `AAAincorrect_${id}`;
+            const count = parseInt(localStorage.getItem(key) || '0', 10) + 1;
+            localStorage.setItem(key, count);
+        }
+
+// 加重ランダムで問題を取得
+function getWeightedRandomQuestion() {
+    const weightedQuestions = [];
+    questions.forEach(question => {
+        const { correctCount, incorrectCount } = getCounts(question.id);
+        
+        // 正解数が不正解数より3回以上多い場合は出題リストから除外
+        if (correctCount - incorrectCount >= 3) {
+            return; // この問題をスキップ
+        }
+        
+        const weight = Math.max(1, incorrectCount - correctCount + 3);
+        for (let i = 0; i < weight; i++) {
+            weightedQuestions.push(question);
+        }
+    });
+    return weightedQuestions[Math.floor(Math.random() * weightedQuestions.length)];
+}
+
+        // クイズ表示
+        function showQuestion() {
+            const question = getWeightedRandomQuestion();
+            const { correctCount, incorrectCount } = getCounts(question.id);
+            const container = document.getElementById("quiz-container");
+            const questionDiv = document.createElement("div");
+            questionDiv.classList.add("question");
+            questionDiv.innerHTML = `
+                <strong>[${question.category}] ${question.text}</strong> - 
+                <small>正解: ${correctCount}回 / 不正解: ${incorrectCount}回</small><br>
+                <button onclick="checkAnswer(${question.id}, '${question.answer}', '○', this)">○</button>
+                <button onclick="checkAnswer(${question.id}, '${question.answer}', '×', this)">×</button>
+                <p class="result"></p>
+            `;
+            container.appendChild(questionDiv);
+        }
+
+        // 回答チェック
+        function checkAnswer(id, correctAnswer, userAnswer, button) {
+            const result = button.parentElement.querySelector(".result");
+            const questionDiv = button.parentElement;
+            const isCorrect = userAnswer === correctAnswer;
+            result.textContent = `あなたの答え: ${userAnswer} - ${isCorrect ? "正解！" : "不正解"}`;
+            result.style.color = isCorrect ? "blue" : "red";
+            updateCounts(id, isCorrect);
+
+            if (correctAnswer === "○") {
+                questionDiv.classList.add("answer-true");
+            } else {
+                questionDiv.classList.add("answer-false");
+            }
+
+            // 次の問題を表示
+            showQuestion();
+        }
+
+        // 初回の問題表示
+        showQuestion();
+    </script>
+</body>
+</html>
