@@ -240,7 +240,13 @@
         "gk-comm-secrecy-scope-001",
         "gk-comm-interception-warrant-001",
         "gk-juki-foreign-resident-001",
-        "gk-local-tax-corporate-001"
+        "gk-local-tax-corporate-001",
+        "gyo-litigation-no-filing-period-001",
+        "gyo-litigation-provisional-injunction-public-001",
+        "gyo-litigation-provisional-injunction-application-001",
+        "gyo-enforcement-order-fine-001",
+        "gyo-litigation-legal-dispute-001",
+        "min-tort-structure-owner-001"
       ]
     }
   ],
@@ -16989,6 +16995,421 @@
         "事務所または事業所",
         "法人",
         "市町村内に住所"
+      ]
+    },
+    {
+      "id": "gyo-litigation-no-filing-period-001",
+      "subjectId": "administrative-law",
+      "category": "行政法",
+      "topic": "行政事件訴訟法",
+      "subtopic": "義務付け訴訟・差止訴訟に出訴期間はない",
+      "clusterId": "administrative-litigation-period",
+      "variants": {
+        "a": "差止めの訴えは、処分または裁決がされようとしていることを知った日から6ヵ月を経過したときは提起することができないが、正当な理由があるときはこの限りではない。",
+        "b": "処分がされそうなので、事前に止めてほしいと**差止めの訴え**を起こす場面です。\n\nこの訴えにも、__されようとしていることを知った日から6ヵ月__という期限があり、==過ぎると提起できなくなります==。",
+        "bCasual": "**差止めの訴え** → __知った日から6ヵ月__の==出訴期間がある==。",
+        "bCasualStyle": "条件と結論だけ見る",
+        "c": "**差止めの訴え** → __6ヵ月__の==出訴期間がある=="
+      },
+      "correct": false,
+      "correction": "誤り。@@行政事件訴訟法14条@@の出訴期間は、**取消訴訟**（と裁決取消訴訟）についての定めです。**義務付けの訴え**と**差止めの訴え**には、!!出訴期間の定めがありません!!。これから処分がされる場面や、まだ処分がされていない場面なので、==起算点になる処分が無い==からです。",
+      "memoryPoint": "出訴期間があるのは**取消訴訟**。**義務付け**・**差止め**・**無効等確認**には==ない==。",
+      "explanations": {
+        "normal": "@@行政事件訴訟法14条@@は、__処分を知った日から6ヵ月__・__処分の日から1年__という出訴期間を**取消訴訟**について定めています。@@38条@@はこれを義務付けの訴えや差止めの訴えへ==準用していません==。**無効等確認の訴え**にも出訴期間はありません。",
+        "deepDive": {
+          "background": "出訴期間は、__すでにされた処分__をいつまでも争わせないための仕組みです。**差止め**や**義務付け**は==これからの処分==を対象にするので、数える起点がありません。",
+          "trap": "!!「訴訟なら6ヵ月」!!と機械的に当てはめさせる肢です。__取消訴訟か、それ以外か__で分けます。",
+          "example": "**差止めの訴え**は、処分がされる前であればいつでも起こせます。ただし、__処分がされてしまうと差止めの利益が無くなる__ので、実際には急ぐ必要があります。"
+        },
+        "commonSense": "まだ起きていないことを止めたいのに「起きてから6ヵ月」と言われても、数えようがありません。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政事件訴訟法14条・38条（2026年4月1日基準）",
+          "url": "https://laws.e-gov.go.jp/law/337AC0000000139?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1468",
+          "choiceNumber": "5",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1468:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1468:choice:4",
+          "relation": "same_rule"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "provider-backed",
+        "humanReview": "goukakudojyo-explanation-primary"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 3,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "記述式で問われた論点を択一の肢から再構成"
+      },
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "差止めの訴え",
+        "義務付けの訴え",
+        "6ヵ月",
+        "正当な理由",
+        "提起することができない"
+      ]
+    },
+    {
+      "id": "gyo-litigation-provisional-injunction-public-001",
+      "subjectId": "administrative-law",
+      "category": "行政法",
+      "topic": "行政事件訴訟法",
+      "subtopic": "仮の差止めと公共の福祉",
+      "clusterId": "administrative-provisional-relief",
+      "variants": {
+        "a": "仮の差止めについては、公共の福祉に重大な影響を及ぼすおそれがあるときは、裁判所は、これを命ずる決定をすることができない。",
+        "b": "処分がされてしまう前に、裁判所へ**仮の差止め**を求める場面です。\n\n条件がそろっていても、その仮の差止めが__公共の福祉に重大な影響を及ぼすおそれ__があるときは、裁判所は==これを命じることができません==。",
+        "bCasual": "**仮の差止め**＋__公共の福祉に重大な影響を及ぼすおそれ__\n\n→ 裁判所は==命じられない==。",
+        "bCasualStyle": "条件と結論だけ見る",
+        "c": "**仮の差止め** → __公共の福祉に重大な影響__があれば==命じられない=="
+      },
+      "correct": true,
+      "correction": "正しい。@@行政事件訴訟法37条の5第3項@@は、**仮の差止め**（および仮の義務付け）について、__公共の福祉に重大な影響を及ぼすおそれがあるとき__は==することができないと定めています==。積極要件がそろっても、この**消極要件**に当たれば認められません。",
+      "memoryPoint": "**仮の差止め**は、__公共の福祉に重大な影響__があると==できない==（消極要件）。",
+      "explanations": {
+        "normal": "**仮の差止め**の要件は、@@行政事件訴訟法37条の5第2項@@の積極要件（__償うことのできない損害を避けるため緊急の必要__＋__本案について理由があるとみえる__）と、@@同条3項@@の消極要件（__公共の福祉に重大な影響を及ぼすおそれ__）の==2段構えです==。",
+        "deepDive": {
+          "background": "仮の救済は、__本案の判決を待たずに行政を止める__強い処分です。だから、==社会全体への影響が大きすぎるとき==は認めない歯止めを置いています。",
+          "trap": "積極要件だけを覚えていると、!!要件を満たせば必ず認められる!!と誤ります。__公共の福祉__という消極要件を忘れないことです。",
+          "example": "広く使われている施設の操業を止める仮の差止めは、__公共の福祉への影響__が理由で認められないことがあります。"
+        },
+        "commonSense": "一人の困りごとを助けるために、社会全体が大きく困るなら、そこで止める、という考え方です。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政事件訴訟法37条の5（2026年4月1日基準）",
+          "url": "https://laws.e-gov.go.jp/law/337AC0000000139?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1289",
+          "choiceNumber": "5",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1289:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1289:choice:3",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1289:choice:4",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "provider-backed",
+        "humanReview": "goukakudojyo-explanation-primary"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "記述式で問われた論点を択一の肢から再構成"
+      },
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "仮の差止め",
+        "公共の福祉に重大な影響",
+        "重大な損害",
+        "他に適当な方法"
+      ]
+    },
+    {
+      "id": "gyo-litigation-provisional-injunction-application-001",
+      "subjectId": "administrative-law",
+      "category": "行政法",
+      "topic": "行政事件訴訟法",
+      "subtopic": "仮の差止めは職権ではできない",
+      "clusterId": "administrative-provisional-relief",
+      "variants": {
+        "a": "仮の差止めは、処分がされることにより重大な損害を生ずるおそれがあり、かつ、その損害を避けるため他に適当な方法がないときに限り、申立てにより、または職権で裁判所がこれを命ずる。",
+        "b": "**仮の差止め**が認められる場面の話です。\n\n__重大な損害を生ずるおそれ__があり、__他に適当な方法がない__ときは、%%当事者の申立て%%がなくても、裁判所が==職権で命じることができます==。",
+        "bCasual": "**仮の差止め** → %%申立て%%だけでなく==職権でもできる==。",
+        "bCasualStyle": "条件と結論だけ見る",
+        "c": "**仮の差止め** → __裁判所の職権__でも==命じられる=="
+      },
+      "correct": false,
+      "correction": "誤り。**仮の差止め**は@@行政事件訴訟法37条の5第2項@@により!!申立てによってのみ!!できます。裁判所が==職権で命じることはできません==。要件も__償うことのできない損害を避けるため緊急の必要__であって、「重大な損害」「他に適当な方法がない」ではありません。",
+      "memoryPoint": "**仮の差止め**は__申立て__が要る。==職権では動かない==。損害は__償うことのできない__。",
+      "explanations": {
+        "normal": "**仮の差止め**は、%%差止めの訴えを提起した者%%の__申立て__を受けて、裁判所が決定で命じるものです@@（行政事件訴訟法37条の5第2項）@@。積極要件は__償うことのできない損害を避けるため緊急の必要があること__で、==「重大な損害」より重い基準==です。",
+        "deepDive": {
+          "background": "仮の救済は、本案の判決を待たずに行政を止めます。だから、__困っている本人が求めたとき__だけ動く仕組みにしています。",
+          "trap": "この肢は2つを同時に入れ替えてきます。!!職権でもできる!!という点と、!!重大な損害・他に適当な方法がない!!という要件です。正しくは__申立てのみ__・__償うことのできない損害__です。",
+          "example": "差止めの訴えを起こしたうえで、あわせて**仮の差止め**を申し立てます。裁判所が自分から言い出すことは==ありません==。"
+        },
+        "commonSense": "この論点は、==仮の救済は申立てがないと動かない==でそのまま覚えます。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政事件訴訟法37条の5（2026年4月1日基準）",
+          "url": "https://laws.e-gov.go.jp/law/337AC0000000139?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1289",
+          "choiceNumber": "3",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1289:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1289:choice:5",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "provider-backed",
+        "humanReview": "goukakudojyo-explanation-primary"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "記述式で問われた論点を択一の肢から再構成"
+      },
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "仮の差止め",
+        "重大な損害",
+        "他に適当な方法",
+        "申立て",
+        "職権"
+      ]
+    },
+    {
+      "id": "gyo-enforcement-order-fine-001",
+      "subjectId": "administrative-law",
+      "category": "行政法",
+      "topic": "行政総論",
+      "subtopic": "行政上の秩序罰を科す手続",
+      "clusterId": "administrative-enforcement",
+      "variants": {
+        "a": "行政上の秩序罰とは、行政上の秩序に障害を与える危険がある義務違反に対して科される罰であるが、刑法上の罰ではないので、国の法律違反に対する秩序罰については、非訟事件手続法の定めるところにより、所定の裁判所によって科される。",
+        "b": "届出を怠ったときなどに科される**過料**の話です。\n\nこれは__行政上の秩序罰__であって刑罰ではないので、国の法律に違反した場合は、__非訟事件手続法__にしたがって%%裁判所%%が==科します==。",
+        "bCasual": "__国の法律違反__の**秩序罰** → __非訟事件手続法__ → %%裁判所%%が==科す==。",
+        "bCasualStyle": "条件と結論だけ見る",
+        "c": "国の法律違反の**秩序罰** → %%裁判所%%が__非訟事件手続法__で==科す=="
+      },
+      "correct": true,
+      "correction": "正しい。**行政上の秩序罰**（過料）は刑罰ではないため、__刑事訴訟法__ではなく__非訟事件手続法__によって%%裁判所%%が==科します==。!!条例・規則違反の過料は違います!!。この場合は@@地方自治法255条の3@@により、%%地方公共団体の長%%が==科します==。",
+      "memoryPoint": "**秩序罰**（過料）＝__国の法律__違反は%%裁判所%%、__条例・規則__違反は%%長%%。",
+      "explanations": {
+        "normal": "**行政罰**は、刑罰である**行政刑罰**と、刑罰でない**行政上の秩序罰**（過料）に分かれます。秩序罰のうち、__国の法律__に違反するものは__非訟事件手続法__により%%裁判所%%が科し、__条例・規則__に違反するものは@@地方自治法255条の3@@により%%地方公共団体の長%%が==科します==。",
+        "deepDive": {
+          "background": "**過料**は前科が付かない__軽い制裁__なので、刑事裁判の手続に載せません。そのぶん==科す主体と手続が別建て==になっています。",
+          "trap": "!!「罰なのだから刑事手続」!!と考えさせます。また、__国の法律__か__条例__かで科す人が変わる点が、記述式でも問われました@@（平成28年問44）@@。",
+          "example": "地方公共団体の条例で「届出を怠った者は5万円以下の過料」と定めた場合、その過料は%%市町村長%%などが==科します==。"
+        },
+        "commonSense": "重い刑罰は裁判所、軽い秩序違反の過料は担当する役所の長、と役割を分けています。"
+      },
+      "legalBasis": [
+        {
+          "label": "地方自治法14条3項・255条の3（2026年4月1日基準）",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000067?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1398",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1398:choice:4",
+          "relation": "same_rule"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "provider-backed",
+        "humanReview": "goukakudojyo-explanation-primary"
+      },
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "記述式で問われた論点を択一の肢から再構成"
+      },
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "秩序罰",
+        "非訟事件手続法",
+        "刑法上の罰",
+        "所定の裁判所"
+      ]
+    },
+    {
+      "id": "gyo-litigation-legal-dispute-001",
+      "subjectId": "administrative-law",
+      "category": "行政法",
+      "topic": "行政事件訴訟法",
+      "subtopic": "法律上の争訟にあたるか",
+      "clusterId": "administrative-litigation-scope",
+      "variants": {
+        "a": "条例に基づき地方公共団体の長が建物の建築工事計画通知書についてした公開決定に対して、国が当該建物の所有者として有する固有の利益が侵害されることを理由としてその取消しを求める訴えは、法律上の争訟には当たらない。",
+        "b": "%%地方公共団体の長%%が、条例に基づいて建物の書類を公開すると決めた場面です。\n\nその建物の%%所有者である国%%が、__自分の財産についての利益が侵される__として公開決定の取消しを求めても、それは**法律上の争訟**に==当たりません==。",
+        "bCasual": "%%国%%が__建物の所有者としての固有の利益__を理由に取消しを求める\n\n→ **法律上の争訟**に==当たらない==。",
+        "bCasualStyle": "条件と結論だけ見る",
+        "c": "%%国%%の__所有者としての固有の利益__ → **法律上の争訟**に==当たらない=="
+      },
+      "correct": false,
+      "correction": "誤り。@@最判平13.7.13@@は、%%国%%が__建物の所有者として有する固有の利益__の侵害を理由に公開決定の取消しを求める訴えを、**法律上の争訟**に==当たるとしました==。!!当たらないのは、国や地方公共団体が「行政権の主体」として提起した訴訟のほう!!です@@（最判平14.7.9・宝塚市パチンコ条例事件）@@。",
+      "memoryPoint": "%%国・自治体%%が__財産権者として__争えば**法律上の争訟**。__行政権の主体として__なら==当たらない==。",
+      "explanations": {
+        "normal": "**法律上の争訟**は、__当事者間の具体的な権利義務の存否__に関する紛争で、__法律の適用により終局的に解決できる__ものをいいます@@（裁判所法3条1項）@@。%%国や地方公共団体%%が当事者でも、__私人と同じ財産権者の立場__で争うなら当たり、__行政権の主体として義務の履行を求める__のであれば==当たりません==。",
+        "deepDive": {
+          "background": "裁判所は__権利義務の争い__を裁く場所です。行政が==自分の権限を通すため==に裁判所を使うのは、その役割の外だと整理されています。",
+          "trap": "!!「国が当事者なら法律上の争訟ではない」!!と一般化させる肢です。見るのは__どの立場で争っているか__で、__財産権者__か__行政権の主体__かが分かれ目です。",
+          "example": "市が条例違反の建築工事の中止を求めて訴えた場合は、**行政権の主体**としての訴えなので==却下されます==@@（宝塚市パチンコ条例事件）@@。これが記述式でも問われました@@（平成29年問44）@@。"
+        },
+        "commonSense": "自分の土地や建物の話なら誰でも裁判できます。役所が権限を通すために使うのは別の話です。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政事件訴訟法（2026年4月1日基準）",
+          "url": "https://laws.e-gov.go.jp/law/337AC0000000139?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1475",
+          "choiceNumber": "5",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1475:choice:5",
+          "relation": "same_rule"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "provider-backed",
+        "humanReview": "goukakudojyo-explanation-primary"
+      },
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "記述式で問われた論点を択一の肢から再構成"
+      },
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "法律上の争訟",
+        "固有の利益",
+        "公開決定",
+        "取消しを求める訴え"
+      ]
+    },
+    {
+      "id": "min-tort-structure-owner-001",
+      "subjectId": "civil-law",
+      "category": "民法",
+      "topic": "債権各論",
+      "subtopic": "土地の工作物責任と所有者の無過失責任",
+      "clusterId": "tort-structure-liability",
+      "variants": {
+        "a": "宅地の崖地部分に設けられたコンクリートの擁壁の設置または保存による瑕疵が前所有者の所有していた際に生じていた場合に、現所有者が当該擁壁には瑕疵がないと過失なく信じて当該宅地を買い受けて占有していたとしても、現所有者は土地の工作物責任を負う。",
+        "b": "買った宅地の擁壁に、__前の所有者のときからあった欠陥__が残っていた場面です。\n\n%%現在の所有者%%が「欠陥はない」と__過失なく信じていた__としても、その人は**土地の工作物責任**を==負います==。",
+        "bCasual": "__前所有者のときから瑕疵__＋%%現所有者%%が__過失なく信じていた__\n\n→ %%現所有者%%が**工作物責任**を==負う==。",
+        "bCasualStyle": "条件と結論だけ見る",
+        "c": "前所有者からの瑕疵＋%%現所有者%%は無過失 → **工作物責任**を==負う=="
+      },
+      "correct": true,
+      "correction": "正しい。@@民法717条1項@@は、まず%%占有者%%が責任を負い、%%占有者%%が__損害の発生を防ぐのに必要な注意をした__ときは%%所有者%%が責任を負うとしています。この%%所有者%%の責任は!!無過失責任!!で、__瑕疵がいつ生じたか__も__自分が知っていたか__も==関係ありません==。",
+      "memoryPoint": "**工作物責任**は%%占有者%%が先。%%所有者%%は==無過失でも逃げられない==。",
+      "explanations": {
+        "normal": "@@民法717条1項@@の**土地の工作物責任**は、__占有者が第一次__、__所有者が第二次__の二段構えです。%%占有者%%は必要な注意をしたことを示せば免れますが、%%所有者%%にはその抜け道がなく、==無過失責任==を負います。",
+        "deepDive": {
+          "background": "工作物から人が傷つくのは、__その物を支配して利益を得ている人__の側の問題です。だから、==最後は所有者が引き受ける==形にして被害者を確実に救います。",
+          "trap": "!!「知らなかったのだから責任はない」!!と考えさせます。免責があるのは%%占有者%%だけで、%%所有者%%には==ありません==。記述式でも占有者と所有者の順番が問われました@@（令和3年問46）@@。",
+          "example": "買った土地の擁壁が前の所有者の時代から傷んでいて崩れた場合、%%買主%%は知らなくても==責任を負います==。"
+        },
+        "commonSense": "危ない物を持っている以上、いつからそうだったかに関係なく持ち主が責任を持つ、という考え方です。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法717条（2026年4月1日基準）",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1424",
+          "choiceNumber": "3",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1424:choice:3",
+          "relation": "same_rule"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "provider-backed",
+        "humanReview": "goukakudojyo-explanation-primary"
+      },
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "記述式で問われた論点を択一の肢から再構成"
+      },
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "土地の工作物責任",
+        "設置または保存",
+        "瑕疵",
+        "現所有者",
+        "過失なく信じて"
       ]
     }
   ]
