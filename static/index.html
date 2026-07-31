@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#183a34">
   <title>行政書士 過去問ラボ</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23183a34'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='39' fill='white'%3E%E8%A1%8C%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=20260731-5">
+  <link rel="stylesheet" href="styles.css?v=20260731-7">
 </head>
 <body>
   <a class="skip-link" href="#main-content">本文へ移動</a>
@@ -151,6 +151,15 @@
                   <button id="study-reset-button" type="button" class="secondary-button" hidden>習得をリセット</button>
                 </div>
                 <small id="study-certain-status" class="study-mark-status"></small>
+              </div>
+              <div class="study-mark-group">
+                <span>このカードを直す</span>
+                <div class="study-mark-buttons">
+                  <button type="button" class="secondary-button" data-card-tool="edit">編集</button>
+                  <button type="button" class="secondary-button" data-card-tool="export">書き出し</button>
+                  <button type="button" class="secondary-button" data-card-tool="import">取り込み</button>
+                </div>
+                <small class="study-mark-status">書き出したJSONを外部AIへ渡し、直したものを取り込めます。</small>
               </div>
             </div>
           </div>
@@ -304,6 +313,7 @@
         <div class="card-topline"><div id="editorial-badges" class="badges"></div><span id="editorial-position" class="position"></span></div>
         <h3 id="editorial-subtopic"></h3>
         <p class="card-id-line"><span>カードID</span><code id="editorial-card-id"></code><span id="editorial-source-links" class="source-links" hidden></span></p>
+        <div class="card-tool-row"><button type="button" class="secondary-button" data-card-tool="edit">編集</button><button type="button" class="secondary-button" data-card-tool="export">書き出し</button><button type="button" class="secondary-button" data-card-tool="import">取り込み</button><small>書き出したJSONを外部AIへ渡し、直したものを取り込めます。</small></div>
         <section class="variant a"><h4><span>A</span> 標準問題文</h4><p id="editorial-a"></p></section>
         <section class="variant b"><h4><span>B</span> やさしい言い換え</h4><div><small>現在の言い換え</small><p id="editorial-b"></p></div><hr><div><small id="editorial-b-style">もうひとつの言い方</small><p id="editorial-b-casual"></p></div></section>
         <section class="variant c"><h4><span>C</span> 短い読み替え</h4><p id="editorial-c"></p></section>
@@ -416,8 +426,39 @@
     </section>
   </main>
 
+  <dialog id="card-editor" class="card-dialog" aria-labelledby="card-editor-title">
+    <form method="dialog" class="card-dialog-head">
+      <div><h2 id="card-editor-title">カードを編集</h2><p id="card-editor-subtitle"></p></div>
+      <button class="secondary-button" value="cancel">閉じる</button>
+    </form>
+    <p class="card-dialog-note">保存すると正本を書き換え、bundleを作り直して画面へ反映します。<strong>回答履歴はカードIDで引き継ぐので消えません。</strong>論点そのものを別物にするときは、このカードを直さず新しいカードを作ってください。</p>
+    <p class="card-dialog-note markup-help">装飾記法：<code>%%だれ%%</code> <code>__条件・期間__</code> <code>**用語**</code> <code>==結論==</code> <code>!!判定の分かれ目!!</code> <code>@@根拠@@</code>／<strong>Aに <code>!!</code> は使えません。</strong></p>
+    <div id="card-editor-fields" class="card-dialog-body"></div>
+    <div id="card-editor-problems" class="card-dialog-problems" hidden></div>
+    <div class="card-dialog-actions">
+      <button id="card-editor-save" type="button" class="primary-button">保存して反映する</button>
+      <button id="card-editor-download" type="button" class="secondary-button">この内容を書き出す</button>
+      <button id="card-editor-revert" type="button" class="secondary-button">編集前に戻す</button>
+      <small id="card-editor-status" class="card-dialog-status"></small>
+    </div>
+  </dialog>
+
+  <dialog id="card-import" class="card-dialog" aria-labelledby="card-import-title">
+    <form method="dialog" class="card-dialog-head">
+      <div><h2 id="card-import-title">取り込む内容の確認</h2><p id="card-import-subtitle"></p></div>
+      <button class="secondary-button" value="cancel">やめる</button>
+    </form>
+    <div id="card-import-body" class="card-dialog-body"></div>
+    <div class="card-dialog-actions">
+      <button id="card-import-continue" type="button" class="primary-button">この内容で編集画面へ</button>
+      <small class="card-dialog-status">ここではまだ保存しません。次の編集画面で確認してから保存します。</small>
+    </div>
+  </dialog>
+
+  <input id="card-import-file" type="file" accept="application/json,.json" hidden>
+
   <footer><p>本人専用・行政書士学習環境　回答履歴と類似判定はサーバー保存</p></footer>
   <noscript>この画面の利用にはJavaScriptが必要です。</noscript>
-  <script src="app.js?v=20260731-5"></script>
+  <script src="app.js?v=20260731-7"></script>
 </body>
 </html>

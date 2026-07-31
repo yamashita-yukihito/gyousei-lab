@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260731-5";
+  const APP_VERSION = "20260731-7";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -69,7 +69,14 @@
     saving: false,
     loadedTabs: new Set(["study", "cards", "diagrams", "about"]),
     tabLoadPromises: new Map(),
-    similarityLoaded: false
+    similarityLoaded: false,
+    editorCardId: null,
+    editorOriginal: null,
+    editorFigureChoices: [],
+    importTargetId: null,
+    importCardId: null,
+    importEditable: null,
+    studyLastSelected: null
   };
 
   const $ = (id) => document.getElementById(id);
@@ -78,6 +85,7 @@
 
   async function init() {
     bindTabs();
+    bindCardTools();
     bindStudyEvents();
     bindQuizEvents();
     bindWrittenEvents();
@@ -1182,6 +1190,7 @@
     };
 
     state.studyAnswered = true;
+    state.studyLastSelected = selected;
     state.studyLastAttemptId = attemptId;
     stopStudyTimer();
     flashStudyResult(isCorrect);
@@ -1761,6 +1770,403 @@
   }
 
   function studyCardId(item) { return String(item && (item.cardId || item.id) || ""); }
+
+  // ---- カードの編集・書き出し・取り込み ------------------------------------
+  // 保存はAPIが正本を書き換えてbundleを作り直す。検証はサーバー側（card_edit.py）が
+  // 正本なので、ここでは形の整形だけを行い、通らなかった理由はそのまま画面へ出す。
+
+  // 1行のテキスト / 複数行のテキスト / JSONで編集する項目、の3種類に分ける
+  const EDITOR_TEXT = [
+    ["topic", "分野（topic）", "line"],
+    ["subtopic", "論点（subtopic）", "line"],
+    ["variants.a", "A 標準問題文（過去問の肢の原文。!! は使えません）", "area"],
+    ["variants.b", "B1 やさしい言い換え", "area"],
+    ["variants.bCasual", "B2 もうひとつの言い方", "area"],
+    ["variants.bCasualStyle", "B2の型（用語からほどく／条件を並べる など）", "line"],
+    ["variants.c", "C 短い読み替え", "area"],
+    ["correction", "正しい形で覚えると（条文番号付きで）", "area"],
+    ["memoryPoint", "一言で覚える", "area"],
+    ["explanations.normal", "① 普通の解説", "area"],
+    ["explanations.deepDive.background", "② 制度の背景・理由", "area"],
+    ["explanations.deepDive.trap", "② 試験のひっかけ", "area"],
+    ["explanations.deepDive.example", "② 具体的な場面", "area"],
+    ["explanations.commonSense", "④ 常識力", "area"]
+  ];
+  const EDITOR_JSON = [
+    ["legalBasis", "③ 根拠資料（[{\"label\":\"…\",\"url\":\"https://…\"}]）"],
+    ["crossFieldComparisons", "⑥ 似た制度・他分野との違い"],
+    ["comparisonTable", "⑦ 法律ごとの結論くらべ（2〜4行）"],
+    ["figures", "⑧ 解説図（src は assets/card-figures/ の下だけ）"]
+  ];
+
+  function dig(source, path) {
+    return path.split(".").reduce((value, key) => (value == null ? undefined : value[key]), source);
+  }
+
+  function plant(target, path, value) {
+    const keys = path.split(".");
+    let cursor = target;
+    keys.slice(0, -1).forEach((key) => {
+      if (typeof cursor[key] !== "object" || cursor[key] === null) cursor[key] = {};
+      cursor = cursor[key];
+    });
+    cursor[keys[keys.length - 1]] = value;
+  }
+
+  function currentToolCard() {
+    const panel = document.querySelector(".tab-panel:not([hidden])");
+    if (panel && panel.dataset.panel === "cards") return state.cards[state.cardIndex] || null;
+    return state.studyCurrent || null;
+  }
+
+  function bindCardTools() {
+    document.querySelectorAll("[data-card-tool]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const card = currentToolCard();
+        if (!card) return;
+        const action = button.dataset.cardTool;
+        if (action === "edit") openCardEditor(studyCardId(card));
+        else if (action === "export") exportCardJson(card);
+        else startCardImport(studyCardId(card));
+      });
+    });
+    $("card-editor-save").addEventListener("click", saveCardEditor);
+    $("card-editor-download").addEventListener("click", () => downloadJson(
+      buildExchangeJson(state.editorCardId, collectEditorValues()),
+      "card-" + state.editorCardId + "-edited.json"
+    ));
+    $("card-editor-revert").addEventListener("click", () => {
+      if (state.editorOriginal) { fillEditorFields(state.editorOriginal); growEditorTextareas(); }
+      setEditorStatus("編集前の内容に戻しました。まだ保存していません。", "");
+    });
+    $("card-import-file").addEventListener("change", handleImportFile);
+    $("card-import-continue").addEventListener("click", () => {
+      $("card-import").close();
+      openCardEditor(state.importCardId, state.importEditable);
+    });
+  }
+
+  // ---- 書き出し ----
+  function cardReadonlyBlock(card) {
+    const refs = (card.relatedPastQuestions || []).map((ref) => {
+      const evidence = state.evidenceById.get(ref.choiceId) || {};
+      return {
+        choiceId: ref.choiceId,
+        relation: ref.relation,
+        eraYear: evidence.eraYear,
+        questionNumber: evidence.questionNumber,
+        choiceLabel: evidence.choiceLabel,
+        text: evidence.statementText || evidence.officialOriginalText
+      };
+    });
+    return {
+      subjectId: card.subjectId,
+      category: card.category,
+      clusterId: card.clusterId,
+      frequency: card.frequency,
+      sourceRefs: card.sourceRefs,
+      relatedPastQuestions: refs
+    };
+  }
+
+  function buildExchangeJson(cardId, editable, readonly) {
+    return {
+      schemaVersion: "gyousei-card-exchange@1",
+      exportedAt: new Date().toISOString(),
+      examLawAsOf: state.overview.bundle && state.overview.bundle.legalAsOf || "2026-04-01",
+      cards: [readonly ? { id: cardId, editable, readonly } : { id: cardId, editable }]
+    };
+  }
+
+  function downloadJson(payload, filename) {
+    const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2) + "\n"], { type: "application/json" }));
+    const anchor = make("a", { href: url, download: filename });
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+  }
+
+  async function exportCardJson(card) {
+    const cardId = studyCardId(card);
+    try {
+      // 画面のカードはbundleの投影なので、書き出しは正本そのものを取りに行く
+      const source = await fetchJson(API + "/card-source?cardId=" + encodeURIComponent(cardId));
+      downloadJson(
+        buildExchangeJson(cardId, source.editable, cardReadonlyBlock(card)),
+        "card-" + cardId + ".json"
+      );
+    } catch (error) {
+      window.alert("書き出せませんでした: " + (error && error.message || error));
+    }
+  }
+
+  // ---- 取り込み ----
+  function startCardImport(cardId) {
+    state.importTargetId = cardId;
+    const input = $("card-import-file");
+    input.value = "";
+    input.click();
+  }
+
+  function readImportedEditable(document_) {
+    if (!document_ || typeof document_ !== "object") return null;
+    if (Array.isArray(document_.cards)) {
+      const entry = document_.cards.find((c) => studyCardId(c) === state.importTargetId) || document_.cards[0];
+      return entry ? { id: studyCardId(entry) || state.importTargetId, editable: entry.editable || entry } : null;
+    }
+    if (document_.editable) return { id: document_.id || state.importTargetId, editable: document_.editable };
+    return { id: document_.id || state.importTargetId, editable: document_ };
+  }
+
+  async function handleImportFile(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+    let parsed;
+    try {
+      parsed = JSON.parse(await file.text());
+    } catch (error) {
+      window.alert("JSONとして読めませんでした: " + (error && error.message || error));
+      return;
+    }
+    const incoming = readImportedEditable(parsed);
+    if (!incoming || !incoming.editable || typeof incoming.editable !== "object") {
+      window.alert("カードの中身（editable）が見つかりませんでした。");
+      return;
+    }
+    const known = EDITOR_TEXT.map(([path]) => path.split(".")[0]).concat(EDITOR_JSON.map(([key]) => key), ["correct"]);
+    const editable = {};
+    Object.entries(incoming.editable).forEach(([key, value]) => { if (known.includes(key)) editable[key] = value; });
+    if (!Object.keys(editable).length) {
+      window.alert("編集できる項目が入っていませんでした。");
+      return;
+    }
+    try {
+      const source = await fetchJson(API + "/card-source?cardId=" + encodeURIComponent(state.importTargetId));
+      state.importCardId = state.importTargetId;
+      state.importEditable = Object.assign({}, source.editable, editable);
+      renderImportConfirmation(incoming.id, source.editable, editable, file.name);
+      $("card-import").showModal();
+    } catch (error) {
+      window.alert("取り込めませんでした: " + (error && error.message || error));
+    }
+  }
+
+  function excerpt(value) {
+    const text = typeof value === "string" ? value : JSON.stringify(value);
+    return text === undefined ? "（なし）" : (text.length > 220 ? text.slice(0, 220) + "…" : text);
+  }
+
+  function renderImportConfirmation(incomingId, current, incoming, filename) {
+    const idMismatch = incomingId && incomingId !== state.importTargetId;
+    $("card-import-subtitle").textContent =
+      filename + " から " + state.importTargetId + " へ取り込みます。";
+    const nodes = [];
+    if (idMismatch) {
+      nodes.push(make("p", { className: "card-dialog-warn" },
+        "ファイルのカードIDは " + incomingId + " ですが、いま開いているのは " + state.importTargetId + " です。取り込むと " + state.importTargetId + " が書き換わります。"));
+    }
+    // variants や explanations は入れ子なので、葉まで下りて比べる。
+    // まるごとJSONで出すと、どこが変わったのか読み取れない。
+    const changed = [];
+    const walk = (path, before, after) => {
+      const plain = (v) => v && typeof v === "object" && !Array.isArray(v);
+      if (plain(before) || plain(after)) {
+        const keys = new Set([...Object.keys(before || {}), ...Object.keys(after || {})]);
+        keys.forEach((key) => walk(path ? path + "." + key : key, (before || {})[key], (after || {})[key]));
+        return;
+      }
+      if (JSON.stringify(before) !== JSON.stringify(after)) changed.push({ path, before, after });
+    };
+    Object.keys(incoming).forEach((key) => walk(key, current[key], incoming[key]));
+    nodes.push(make("p", { className: "card-dialog-note" },
+      changed.length ? changed.length + "か所が変わります。" : "現在の内容と同じです。変わるところはありません。"));
+    changed.forEach((entry) => {
+      const block = make("section", { className: "import-diff" });
+      block.appendChild(make("h3", {}, entry.path));
+      block.appendChild(make("p", { className: "import-before" }, "今: " + excerpt(entry.before)));
+      block.appendChild(make("p", { className: "import-after" }, "取り込む内容: " + excerpt(entry.after)));
+      nodes.push(block);
+    });
+    $("card-import-body").replaceChildren(...nodes);
+  }
+
+  // ---- 編集フォーム ----
+  async function openCardEditor(cardId, prefilled) {
+    try {
+      const source = await fetchJson(API + "/card-source?cardId=" + encodeURIComponent(cardId));
+      state.editorCardId = cardId;
+      state.editorOriginal = source.editable;
+      state.editorFigureChoices = source.figureChoices || [];
+      buildEditorFields();
+      fillEditorFields(prefilled || source.editable);
+      $("card-editor-subtitle").textContent =
+        cardId + (prefilled ? "（取り込んだ内容を入れてあります。確認して保存してください）" : "");
+      setEditorStatus(prefilled ? "取り込んだ内容です。まだ保存していません。" : "", "");
+      showEditorProblems([]);
+      $("card-editor").showModal();
+      growEditorTextareas();
+    } catch (error) {
+      window.alert("編集画面を開けませんでした: " + (error && error.message || error));
+    }
+  }
+
+  function buildEditorFields() {
+    const nodes = [];
+    const correct = make("label", { className: "editor-field" });
+    correct.appendChild(make("span", {}, "この文章の正しい判定"));
+    const select = make("select", { id: "editor-correct" });
+    select.appendChild(make("option", { value: "true" }, "○ 合っている"));
+    select.appendChild(make("option", { value: "false" }, "× 間違っている"));
+    correct.appendChild(select);
+    nodes.push(correct);
+
+    EDITOR_TEXT.forEach(([path, label, kind]) => {
+      const field = make("label", { className: "editor-field" });
+      field.appendChild(make("span", {}, label));
+      const control = kind === "line"
+        ? make("input", { type: "text", dataset: { editorPath: path } })
+        : make("textarea", { rows: 4, dataset: { editorPath: path } });
+      if (kind !== "line") control.addEventListener("input", () => growTextarea(control));
+      field.appendChild(control);
+      nodes.push(field);
+    });
+
+    const highlights = make("label", { className: "editor-field" });
+    highlights.appendChild(make("span", {}, "⑤で色を付ける語（1行に1語。過去問の肢に出てくる言葉だけ）"));
+    highlights.appendChild(make("textarea", { rows: 4, id: "editor-highlights" }));
+    nodes.push(highlights);
+
+    EDITOR_JSON.forEach(([key, label]) => {
+      const field = make("label", { className: "editor-field" });
+      const caption = make("span", {}, label);
+      if (key === "figures" && state.editorFigureChoices.length) {
+        caption.appendChild(make("small", { className: "editor-hint" },
+          "使える画像: " + state.editorFigureChoices.map((s) => s.split("/").pop()).join(" / ")));
+      }
+      field.appendChild(caption);
+      field.appendChild(make("textarea", { rows: 5, className: "editor-json", dataset: { editorJson: key } }));
+      nodes.push(field);
+    });
+    $("card-editor-fields").replaceChildren(...nodes);
+  }
+
+  function fillEditorFields(editable) {
+    $("editor-correct").value = editable.correct === false ? "false" : "true";
+    EDITOR_TEXT.forEach(([path]) => {
+      const input = document.querySelector(`[data-editor-path="${path}"]`);
+      if (input) input.value = dig(editable, path) || "";
+    });
+    $("editor-highlights").value = (editable.evidenceHighlights || []).join("\n");
+    EDITOR_JSON.forEach(([key]) => {
+      const area = document.querySelector(`[data-editor-json="${key}"]`);
+      if (!area) return;
+      const value = editable[key];
+      area.value = value === undefined ? "" : JSON.stringify(value, null, 2);
+    });
+  }
+
+  function growEditorTextareas() {
+    // ダイアログを開く前は高さを測れないので、表示してから実行する
+    document.querySelectorAll("#card-editor textarea").forEach(growTextarea);
+  }
+
+  function growTextarea(area) {
+    area.style.height = "auto";
+    area.style.height = Math.min(460, Math.max(76, area.scrollHeight + 4)) + "px";
+  }
+
+  function collectEditorValues() {
+    const editable = { correct: $("editor-correct").value === "true" };
+    EDITOR_TEXT.forEach(([path]) => {
+      const input = document.querySelector(`[data-editor-path="${path}"]`);
+      if (input) plant(editable, path, input.value);
+    });
+    const highlights = $("editor-highlights").value.split("\n").map((s) => s.trim()).filter(Boolean);
+    editable.evidenceHighlights = highlights;
+    EDITOR_JSON.forEach(([key]) => {
+      const area = document.querySelector(`[data-editor-json="${key}"]`);
+      if (!area) return;
+      const raw = area.value.trim();
+      if (!raw) { editable[key] = key === "comparisonTable" ? undefined : []; return; }
+      editable[key] = JSON.parse(raw);
+    });
+    if (editable.comparisonTable === undefined) delete editable.comparisonTable;
+    return editable;
+  }
+
+  function showEditorProblems(problems) {
+    const box = $("card-editor-problems");
+    box.replaceChildren(...problems.map((text) => make("p", {}, text)));
+    box.hidden = !problems.length;
+  }
+
+  function setEditorStatus(text, className) {
+    const status = $("card-editor-status");
+    status.textContent = text;
+    status.className = "card-dialog-status " + (className || "");
+  }
+
+  async function saveCardEditor() {
+    let editable;
+    try {
+      editable = collectEditorValues();
+    } catch (error) {
+      showEditorProblems(["JSONの欄が読めません: " + (error && error.message || error)]);
+      return;
+    }
+    showEditorProblems([]);
+    setEditorStatus("保存してbundleを作り直しています…", "saving");
+    $("card-editor-save").disabled = true;
+    try {
+      const result = await postJson(API + "/card-source", { cardId: state.editorCardId, editable });
+      if (result.unchanged) {
+        setEditorStatus("変わっていないので、そのままにしました。", "");
+        return;
+      }
+      applySavedCard(result.card);
+      state.editorOriginal = editable;
+      setEditorStatus("保存しました。画面に反映済みです。", "saved");
+    } catch (error) {
+      showEditorProblems(String(error && error.message || error).split("; "));
+      setEditorStatus("保存していません。上の指摘を直してください。", "error");
+    } finally {
+      $("card-editor-save").disabled = false;
+    }
+  }
+
+  function applySavedCard(card) {
+    if (!card) return;
+    const cardId = studyCardId(card);
+    const replace = (list) => {
+      const index = list.findIndex((item) => studyCardId(item) === cardId);
+      if (index >= 0) list[index] = card;
+    };
+    replace(state.studyDecks);
+    replace(state.cards);
+    state.studyById.set(cardId, card);
+    state.studySearchIndex.delete(cardId);
+    if (state.studyCurrent && studyCardId(state.studyCurrent) === cardId) {
+      state.studyCurrent = card;
+      if (state.studyAnswered) {
+        // renderStudyCard は回答前の状態へ戻してしまうので、回答済みのときは
+        // 出題面の文だけ差し替えて、解説側は同じ判定のまま描き直す。
+        const variants = card.variants || {};
+        setRichText($("study-variant-a"), variants.a || "");
+        setRichText($("study-variant-b"), variants.b || "");
+        setRichText($("study-variant-b-casual"), variants.bCasual || variants.b || "");
+        $("study-variant-b-style").textContent = variants.bCasualStyle || "やわらかくほどく";
+        setRichText($("study-variant-c"), variants.c || "");
+        $("study-subtopic").textContent = card.subtopic || "";
+        const selected = state.studyLastSelected;
+        renderStudyAnswer(card, selected, selected === Boolean(card.correct));
+      } else {
+        renderStudyCard();
+      }
+    }
+    if (state.cards[state.cardIndex] && studyCardId(state.cards[state.cardIndex]) === cardId) renderCard();
+  }
+
   function studyAnswerRevision(item) { return item && (item.answerRevision || item.revision) || "1"; }
   function studyTruthLabel(value) { return value ? "○ 合っている" : "× 間違っている"; }
 

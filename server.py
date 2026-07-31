@@ -772,6 +772,155 @@ class BundleCatalog:
 
 CATALOG = BundleCatalog(BUNDLE_PATH)
 
+# ---- 画面からのカード編集 -------------------------------------------------
+# 正本を書き換えてから bundle を作り直し、その場で差し替える。検証ルールは
+# card_edit.py が正本で、authoring/tools/card_exchange.py と同じものを通す。
+# bundle生成側の収録減チェック（--compare-to）もそのまま働く。
+CARD_EDIT_FIELDS = (
+    "topic",
+    "subtopic",
+    "correct",
+    "variants",
+    "correction",
+    "memoryPoint",
+    "explanations",
+    "legalBasis",
+    "evidenceHighlights",
+    "crossFieldComparisons",
+    "comparisonTable",
+    "figures",
+)
+CARD_EDIT_LOCK = threading.Lock()
+AUTHORING_SRC = Path(__file__).resolve().parent / "authoring" / "src"
+
+
+def _card_edit_modules():
+    """編集を実際に使うときだけ読み込む。起動時に authoring 側の有無へ依存させない。"""
+    import sys
+
+    if str(AUTHORING_SRC) not in sys.path:
+        sys.path.insert(0, str(AUTHORING_SRC))
+    if str(Path(__file__).resolve().parent) not in sys.path:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import card_edit
+    from gyousei_pipeline import production_bundle
+
+    return card_edit, production_bundle
+
+
+def _rebuild_bundle_in_place() -> str:
+    """正本から bundle を作り直し、稼働中のものと差し替えて revision を返す。"""
+    import io
+    import contextlib
+
+    _, production_bundle = _card_edit_modules()
+    # 出力先は生成側が非公開のbuild rootへ限っている。既定のreleasesへ書かせ、
+    # 手作業のときと同じように、そこから稼働中のbundleへ写す。
+    # 件数のfail closed検証は、稼働中のbundleと同じ数を要求する。この口はカードの
+    # 中身を直すだけで、増減はしないため。既定値（55など）のままでは必ず落ちる。
+    summary = CATALOG.load().bundle.get("summary") or {}
+    argv = ["--compare-to", str(BUNDLE_PATH)]
+    for option, key in (
+        ("--expected-card-count", "explanationCardCount"),
+        ("--expected-evidence-count", "relatedQuestionEvidenceCount"),
+        ("--expected-similarity-count", "similarityPairCount"),
+    ):
+        value = summary.get(key)
+        if not isinstance(value, int):
+            raise ApiError(
+                HTTPStatus.INTERNAL_SERVER_ERROR,
+                f"published bundle has no {key}; rebuild by hand first",
+            )
+        argv += [option, str(value)]
+    stderr = io.StringIO()
+    with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(stderr):
+        code = production_bundle.main(argv)
+    if code != 0:
+        raise ApiError(
+            HTTPStatus.BAD_REQUEST,
+            "bundle rebuild failed: " + (stderr.getvalue().strip() or "unknown"),
+        )
+    released = production_bundle.data_root() / "builds" / "releases" / "gyousei-production.json"
+    staging = BUNDLE_PATH.with_name(".gyousei-production.install.json")
+    try:
+        staging.write_bytes(released.read_bytes())
+        os.chmod(staging, 0o600)
+        os.replace(staging, BUNDLE_PATH)
+    finally:
+        staging.unlink(missing_ok=True)
+    return CATALOG.load().revision
+
+
+def save_card_edit(payload: dict) -> dict:
+    card_id = payload.get("cardId")
+    if not valid_id(card_id):
+        raise ApiError(HTTPStatus.BAD_REQUEST, "invalid cardId")
+    editable = payload.get("editable")
+    if not isinstance(editable, dict):
+        raise ApiError(HTTPStatus.BAD_REQUEST, "editable must be an object")
+    unknown = sorted(set(editable) - set(CARD_EDIT_FIELDS))
+    if unknown:
+        raise ApiError(
+            HTTPStatus.BAD_REQUEST, "editable has unknown fields: " + ", ".join(unknown)
+        )
+
+    card_edit, _ = _card_edit_modules()
+    with CARD_EDIT_LOCK:
+        document = card_edit.load_canonical()
+        index = next(
+            (i for i, item in enumerate(document["items"]) if item["id"] == card_id),
+            None,
+        )
+        if index is None:
+            raise ApiError(HTTPStatus.NOT_FOUND, "unknown cardId")
+
+        merged = card_edit.merge_editable(document["items"][index], editable)
+        problems: list[str] = []
+        card_edit.validate_card(
+            merged,
+            known_ids={item["id"] for item in document["items"]},
+            known_choice_ids=set(),
+            is_new=False,
+            problems=problems,
+        )
+        if problems:
+            raise ApiError(HTTPStatus.BAD_REQUEST, "; ".join(problems))
+
+        before = document["items"][index]
+        if json.dumps(before, ensure_ascii=False, sort_keys=True) == json.dumps(
+            merged, ensure_ascii=False, sort_keys=True
+        ):
+            snapshot = CATALOG.load()
+            return {
+                "saved": False,
+                "unchanged": True,
+                "cardId": card_id,
+                "bundle": snapshot.metadata(),
+            }
+
+        # 作り直しに失敗したら正本ごと元へ戻す。画面に出ない内容が正本に残らないようにする。
+        rollback = json.loads(json.dumps(document, ensure_ascii=False))
+        document["items"][index] = merged
+        card_edit.write_canonical(document)
+        try:
+            revision = _rebuild_bundle_in_place()
+        except BaseException:
+            card_edit.write_canonical(rollback)
+            CATALOG.load()
+            raise
+
+    snapshot = CATALOG.load()
+    return {
+        "saved": True,
+        "unchanged": False,
+        "cardId": card_id,
+        "revision": revision,
+        "card": card_for_response(
+            snapshot.cards[card_id], snapshot, default_study_deck(snapshot)
+        ),
+        "bundle": snapshot.metadata(),
+    }
+
 
 def default_study_deck(snapshot: BundleSnapshot) -> dict | None:
     if not snapshot.study_decks:
@@ -2873,6 +3022,31 @@ class ProductionHandler(BaseHTTPRequestHandler):
                 result["serverTime"] = utc_now()
                 self.send_json(result)
                 return
+            if parsed.path == "/api/card-source":
+                # 編集フォームは、bundleの投影ではなく正本そのものを読む。
+                card_id = _single_query(query, "cardId")
+                if not valid_id(card_id):
+                    raise ApiError(HTTPStatus.BAD_REQUEST, "invalid cardId")
+                card_edit, _ = _card_edit_modules()
+                document = card_edit.load_canonical()
+                card = next(
+                    (i for i in document["items"] if i["id"] == card_id), None
+                )
+                if card is None:
+                    raise ApiError(HTTPStatus.NOT_FOUND, "unknown cardId")
+                self.send_json(
+                    {
+                        "cardId": card_id,
+                        "editable": card_edit.editable_of(card),
+                        "figureChoices": sorted(
+                            "assets/card-figures/" + p.name
+                            for p in card_edit.FIGURE_DIR.glob("*")
+                            if p.is_file() and not p.name.startswith(".")
+                        ),
+                        "bundle": CATALOG.load().metadata(),
+                    }
+                )
+                return
             if parsed.path == "/api/card-progress":
                 snapshot = CATALOG.load()
                 study_deck_id = _single_query(query, "studyDeckId")
@@ -2991,6 +3165,9 @@ class ProductionHandler(BaseHTTPRequestHandler):
                     },
                     HTTPStatus.CREATED if inserted else HTTPStatus.OK,
                 )
+                return
+            if path == "/api/card-source":
+                self.send_json(save_card_edit(payload))
                 return
             if path == "/api/card-marks":
                 mark, inserted, snapshot, deck = add_card_mark(payload)

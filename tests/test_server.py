@@ -1627,3 +1627,143 @@ class ProductionApiTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def explanation_card_document() -> dict:
+    """正本 content/explanation_cards.json と同じ形の、最小の1枚。"""
+    return {
+        "schemaVersion": "0.4-prototype",
+        "meta": {"examLawAsOf": "2026-04-01", "targetExam": "令和8年度行政書士試験"},
+        "studyDecks": [{"id": "deck-1", "lawAsOf": "2026-04-01", "cardIds": ["card-1"]}],
+        "items": [
+            {
+                "id": "card-1",
+                "subjectId": "administrative-law",
+                "category": "行政法",
+                "topic": "行政手続法",
+                "subtopic": "理由提示",
+                "correct": True,
+                "variants": {
+                    "a": "行政庁は理由を示す。",
+                    "b": "行政から理由を教えてもらえます。",
+                    "bCasual": "「理由提示」は、なぜそうなったかを教えることです。",
+                    "bCasualStyle": "用語からほどく",
+                    "c": "処分 → 理由提示",
+                },
+                "correction": "@@行政手続法14条@@は理由を示すよう求めています。",
+                "memoryPoint": "処分には理由を付ける。",
+                "explanations": {
+                    "normal": "法律が理由提示を求めています。",
+                    "deepDive": {
+                        "background": "判断の確認に必要です。",
+                        "trap": "例外と混同しません。",
+                        "example": "申請を断られた場面です。",
+                    },
+                    "commonSense": "理由の分からない拒否では困ります。",
+                },
+                "legalBasis": [
+                    {"label": "行政手続法14条", "url": "https://laws.e-gov.go.jp/law/405AC0000000088"}
+                ],
+            }
+        ],
+    }
+
+
+class CardEditTest(unittest.TestCase):
+    """画面からのカード編集。bundleの作り直しへ進む前に止まる経路だけを見る。
+
+    作り直しそのものは全科目の取得データを必要とするので、ここでは検証しない。
+    正本を書き換えてよいかの判断が、`card_edit.py` の1か所に集まっていることを確かめる。
+    """
+
+    def setUp(self) -> None:
+        self.temp_directory = tempfile.TemporaryDirectory()
+        root = Path(self.temp_directory.name)
+        self.canonical_path = root / "explanation_cards.json"
+        self.document = explanation_card_document()
+        self.canonical_path.write_text(
+            json.dumps(self.document, ensure_ascii=False), encoding="utf-8"
+        )
+
+        import card_edit
+
+        self.card_edit = card_edit
+        self.original_canonical = card_edit.CANONICAL_PATH
+        card_edit.CANONICAL_PATH = self.canonical_path
+
+        self.bundle_path = root / "bundle.json"
+        self.bundle_path.write_text(
+            json.dumps(fixture_bundle(), ensure_ascii=False), encoding="utf-8"
+        )
+        self.original_catalog = server.CATALOG
+        server.CATALOG = server.BundleCatalog(self.bundle_path)
+
+    def tearDown(self) -> None:
+        self.card_edit.CANONICAL_PATH = self.original_canonical
+        server.CATALOG = self.original_catalog
+        self.temp_directory.cleanup()
+
+    def stored(self) -> dict:
+        return json.loads(self.canonical_path.read_text(encoding="utf-8"))
+
+    def test_rejects_unknown_card_and_unknown_fields(self) -> None:
+        with self.assertRaises(server.ApiError) as context:
+            server.save_card_edit({"cardId": "missing-card", "editable": {}})
+        self.assertEqual(context.exception.status, HTTPStatus.NOT_FOUND)
+
+        with self.assertRaises(server.ApiError) as context:
+            server.save_card_edit({"cardId": "card-1", "editable": {"frequency": {}}})
+        self.assertEqual(context.exception.status, HTTPStatus.BAD_REQUEST)
+        self.assertIn("frequency", context.exception.message)
+
+        with self.assertRaises(server.ApiError) as context:
+            server.save_card_edit({"cardId": "card-1", "editable": "not-an-object"})
+        self.assertEqual(context.exception.status, HTTPStatus.BAD_REQUEST)
+
+    def test_rejects_edits_that_break_the_card_rules(self) -> None:
+        # Aに赤は使えない。card_exchange.py と同じ判定がここでも働く。
+        with self.assertRaises(server.ApiError) as context:
+            server.save_card_edit(
+                {
+                    "cardId": "card-1",
+                    "editable": {
+                        "variants": dict(
+                            self.document["items"][0]["variants"],
+                            a="行政庁は!!理由!!を示す。",
+                        )
+                    },
+                }
+            )
+        self.assertIn("赤", context.exception.message)
+
+        with self.assertRaises(server.ApiError) as context:
+            server.save_card_edit({"cardId": "card-1", "editable": {"memoryPoint": " "}})
+        self.assertIn("memoryPoint", context.exception.message)
+
+        # どちらも正本へは書かない
+        self.assertEqual(self.document, self.stored())
+
+    def test_unchanged_edit_does_not_touch_the_canonical(self) -> None:
+        before = self.canonical_path.read_bytes()
+        result = server.save_card_edit(
+            {"cardId": "card-1", "editable": {"topic": self.document["items"][0]["topic"]}}
+        )
+        self.assertTrue(result["unchanged"])
+        self.assertFalse(result["saved"])
+        self.assertEqual(before, self.canonical_path.read_bytes())
+
+    def test_failed_rebuild_puts_the_canonical_back(self) -> None:
+        # 作り直しが失敗したら、画面に出ない内容が正本へ残ってはいけない。
+        original = server._rebuild_bundle_in_place
+        server._rebuild_bundle_in_place = lambda: (_ for _ in ()).throw(
+            server.ApiError(HTTPStatus.BAD_REQUEST, "bundle rebuild failed: test")
+        )
+        try:
+            with self.assertRaises(server.ApiError) as context:
+                server.save_card_edit(
+                    {"cardId": "card-1", "editable": {"memoryPoint": "書き換えた要点。"}}
+                )
+            self.assertIn("bundle rebuild failed", context.exception.message)
+        finally:
+            server._rebuild_bundle_in_place = original
+        self.assertEqual(self.document, self.stored())
