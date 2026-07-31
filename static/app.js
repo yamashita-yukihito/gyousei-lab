@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260731-8";
+  const APP_VERSION = "20260731-9";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -1813,13 +1813,6 @@
     cursor[keys[keys.length - 1]] = value;
   }
 
-  function isUnansweredStudyCard(card) {
-    const panel = document.querySelector(".tab-panel:not([hidden])");
-    if (!panel || panel.dataset.panel !== "study") return false;
-    return !state.studyAnswered && state.studyCurrent
-      && studyCardId(state.studyCurrent) === studyCardId(card);
-  }
-
   function currentToolCard() {
     const panel = document.querySelector(".tab-panel:not([hidden])");
     if (panel && panel.dataset.panel === "cards") return state.cards[state.cardIndex] || null;
@@ -1832,10 +1825,6 @@
         const card = currentToolCard();
         if (!card) return;
         const action = button.dataset.cardTool;
-        // 解く前でも押せる位置に置いてあるが、編集画面には正解と解説が出る。
-        // ○×学習でまだ答えていないときだけ、開く前に一度確かめる。
-        if (action !== "export" && isUnansweredStudyCard(card)
-          && !window.confirm("まだ答えていません。編集画面には正解と解説が出ます。開きますか？")) return;
         if (action === "edit") openCardEditor(studyCardId(card));
         else if (action === "export") exportCardJson(card);
         else startCardImport(studyCardId(card));
