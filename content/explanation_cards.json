@@ -233,7 +233,14 @@
         "min-general-prescription-life-body-five-years-001",
         "com-inc-restricted-share-approval-body-001",
         "com-inc-audit-supervisory-committee-structure-001",
-        "com-inc-shareholders-resolution-illegal-content-001"
+        "com-inc-shareholders-resolution-illegal-content-001",
+        "gk-kobunsho-duties-001",
+        "gk-kobunsho-no-penalty-001",
+        "gk-joho-kokai-affairs-001",
+        "gk-comm-secrecy-scope-001",
+        "gk-comm-interception-warrant-001",
+        "gk-juki-foreign-resident-001",
+        "gk-local-tax-corporate-001"
       ]
     }
   ],
@@ -16476,6 +16483,513 @@
         "basis": "株主総会決議の内容の法令違反と無効・取消しの区別を直接問う問題だけを集計"
       },
       "crossFieldComparisons": []
+    },
+    {
+      "id": "gk-kobunsho-duties-001",
+      "subjectId": "general-knowledge",
+      "category": "基礎知識",
+      "topic": "諸法令",
+      "subtopic": "公文書管理法の文書作成義務と管理規則",
+      "clusterId": "public-records-management",
+      "variants": {
+        "a": "公文書管理法には、行政機関の職員の文書作成義務を定める規定が置かれている。",
+        "b": "役所がどんな判断をしたのかを、後から検証できるようにするための法律です。\n\n**公文書管理法**は、%%行政機関の職員%%に対して、経緯を後から確かめられるよう__文書を作る義務__を==定めています==。",
+        "bCasual": "**公文書管理法** → %%職員%%の__文書作成義務__の規定が==ある==。",
+        "bCasualStyle": "条件と結論だけ見る",
+        "c": "**公文書管理法** → %%職員%%の__文書作成義務__の規定が==ある=="
+      },
+      "correct": true,
+      "correction": "正しい。@@公文書管理法4条@@は、%%行政機関の職員%%に対し、意思決定に至る過程や事務・事業の実績を__後から検証できるように__、文書を作成しなければならないと==定めています==。",
+      "memoryPoint": "**公文書管理法**＝__作成義務__・__管理規則__・__廃棄には内閣総理大臣の同意__。",
+      "explanations": {
+        "normal": "@@公文書管理法4条@@は、%%行政機関の職員%%に__文書の作成義務__を課しています。あわせて、@@10条@@が__行政文書管理規則__を定める義務を、@@8条2項@@が保存期間の満了した文書を廃棄する際の__内閣総理大臣の同意__を定めています。",
+        "deepDive": {
+          "background": "口頭で決めて記録を残さないと、__後から誰も検証できません__。そこで==作る・保つ・勝手に捨てない==の3点を法律で縛っています。",
+          "trap": "この法律は「__公開__」ではなく「__管理__」の法律です。開示請求は情報公開法の話で、!!二つを混ぜない!!ことです。",
+          "example": "政策の決定過程を記した文書を残さなかった場合、@@4条@@の作成義務が問題になります。"
+        },
+        "commonSense": "後から「そんな話は聞いていない」とならないよう、__記録を残す__決まりだと考えます。"
+      },
+      "legalBasis": [
+        {
+          "label": "公文書管理法4条・8条2項・10条（2026年4月1日基準）",
+          "url": "https://laws.e-gov.go.jp/law/421AC0000000066?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1267",
+          "choiceNumber": "1",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1267:choice:1",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1267:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1267:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1267:choice:5",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "provider-backed",
+        "humanReview": "goukakudojyo-explanation-primary"
+      },
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "同一・逆向き・条件・例外・比較を問題単位で集計"
+      },
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "公文書管理法",
+        "文書作成義務",
+        "行政文書管理規則",
+        "内閣総理大臣",
+        "行政文書ファイル"
+      ]
+    },
+    {
+      "id": "gk-kobunsho-no-penalty-001",
+      "subjectId": "general-knowledge",
+      "category": "基礎知識",
+      "topic": "諸法令",
+      "subtopic": "公文書管理法に罰則はない",
+      "clusterId": "public-records-management",
+      "variants": {
+        "a": "公文書管理法は、行政機関の職員が行政文書ファイル等を違法に廃棄した場合の罰則について定めている。",
+        "b": "%%行政機関の職員%%が、行政文書のファイルを__違法に捨ててしまった__場面です。\n\nこの職員は、**公文書管理法**の__罰則__によって==処罰されます==。",
+        "bCasual": "__行政文書ファイル等を違法に廃棄__ → **公文書管理法**の==罰則で処罰される==。",
+        "bCasualStyle": "条件と結論だけ見る",
+        "c": "行政文書の違法な廃棄 → **公文書管理法**の==罰則がある=="
+      },
+      "correct": false,
+      "correction": "誤り。**公文書管理法**には、行政文書を違法に廃棄した職員を処罰する!!罰則の規定はありません!!。同法は、__作成義務__@@（4条）@@、__行政文書管理規則__@@（10条）@@、__廃棄には内閣総理大臣の同意__@@（8条2項）@@といった==手続で縛る作り==になっています。",
+      "memoryPoint": "**公文書管理法**に==罰則はない==。縛るのは__手続__のほう。",
+      "explanations": {
+        "normal": "**公文書管理法**は、文書の__作成・整理・保存・廃棄__の手続を定める法律で、違反した職員への==罰則は置いていません==。廃棄については、@@8条2項@@が__内閣総理大臣の同意__を要求する形で歯止めをかけています。",
+        "deepDive": {
+          "background": "この法律は__手続で縛る__作りです。罰則ではなく、==同意を得ないと捨てられない==という仕組みで守っています。",
+          "trap": "!!「大事な法律だから罰則もあるはず」!!と考えさせる肢です。作成義務・管理規則・廃棄の同意は__ある__、罰則は__ない__、と分けて覚えます。",
+          "example": "保存期間が満了した文書を捨てるときは、__内閣総理大臣に協議して同意を得ます__。捨ててしまった職員が同法で処罰されるわけではありません。"
+        },
+        "commonSense": "この論点は、==公文書管理法に罰則なし==でそのまま覚えます。"
+      },
+      "legalBasis": [
+        {
+          "label": "公文書管理法4条・8条2項・10条（2026年4月1日基準）",
+          "url": "https://laws.e-gov.go.jp/law/421AC0000000066?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1267",
+          "choiceNumber": "5",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1267:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1267:choice:4",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1267:choice:1",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "provider-backed",
+        "humanReview": "goukakudojyo-explanation-primary"
+      },
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "同一・逆向き・条件・例外・比較を問題単位で集計"
+      },
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "公文書管理法",
+        "罰則",
+        "違法に廃棄",
+        "行政文書ファイル",
+        "内閣総理大臣"
+      ]
+    },
+    {
+      "id": "gk-joho-kokai-affairs-001",
+      "subjectId": "general-knowledge",
+      "category": "基礎知識",
+      "topic": "諸法令",
+      "subtopic": "情報公開法の不開示情報（事務・事業情報）",
+      "clusterId": "information-disclosure",
+      "variants": {
+        "a": "国の行政機関の長は、国に対する開示請求に係る文書に、国・地方公共団体等の事務または事業に関する情報が含まれており、監査・検査など当該事務事業の性質上、公開によりその適正な遂行に支障を及ぼすおそれがあるときには、その開示を拒否することができる。",
+        "b": "国に対して文書の開示を求めたところ、その文書に__監査や検査のやり方__が書かれていた場面です。\n\n公開すると、その監査や検査が__うまく回らなくなるおそれ__があるときは、%%行政機関の長%%はその開示を==拒むことができます==。",
+        "bCasual": "__事務・事業に関する情報__＋__適正な遂行に支障を及ぼすおそれ__\n\n→ %%行政機関の長%%は==開示を拒否できる==。",
+        "bCasualStyle": "条件と結論だけ見る",
+        "c": "__事務事業情報__で__適正な遂行に支障__ → ==不開示にできる=="
+      },
+      "correct": true,
+      "correction": "正しい。@@情報公開法5条6号@@は、国・地方公共団体等の__事務または事業に関する情報__で、公開すると__その適正な遂行に支障を及ぼすおそれ__があるものを==不開示情報としています==。監査・検査・取締り・試験などが例に挙がっています。",
+      "memoryPoint": "**情報公開法**の不開示情報に、__事務事業情報__が==ある==。監査・検査が典型。",
+      "explanations": {
+        "normal": "@@情報公開法5条@@は、__個人情報__・__法人情報__・__国の安全__・__公共の安全__・__審議検討情報__・__事務事業情報__を不開示情報としています。このうち@@6号@@の**事務事業情報**は、監査や検査のように__中身が分かると仕事にならなくなるもの__を守るためのものです。",
+        "deepDive": {
+          "background": "全部公開すると、__抜き打ちの監査__や__試験問題__が成り立ちません。そこで==仕事が回らなくなるおそれ==を不開示の理由に入れています。",
+          "trap": "!!「行政の情報は原則公開だから、何でも開示される」!!と考えさせます。原則公開ですが、@@5条@@に__6つの不開示情報__が並んでいます。",
+          "example": "監査の着眼点を書いた文書を公開すると、監査対象が==先回りできてしまいます==。"
+        },
+        "commonSense": "手の内が全部見えると成り立たない仕事があります。そこは伏せてよい、という決まりです。"
+      },
+      "legalBasis": [
+        {
+          "label": "情報公開法5条6号（2026年4月1日基準）",
+          "url": "https://laws.e-gov.go.jp/law/411AC0000000042?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1327",
+          "choiceNumber": "5",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1327:choice:5",
+          "relation": "same_rule"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "provider-backed",
+        "humanReview": "goukakudojyo-explanation-primary"
+      },
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 0,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "同一・逆向き・条件・例外・比較を問題単位で集計"
+      },
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "開示請求",
+        "事務または事業に関する情報",
+        "適正な遂行に支障",
+        "開示を拒否",
+        "監査・検査"
+      ]
+    },
+    {
+      "id": "gk-comm-secrecy-scope-001",
+      "subjectId": "general-knowledge",
+      "category": "基礎知識",
+      "topic": "情報通信・情報セキュリティ",
+      "subtopic": "通信の秘密に含まれる範囲",
+      "clusterId": "communication-secrecy",
+      "variants": {
+        "a": "通信の秘密には、通信の内容のみならず、通信当事者の氏名・住所、通信日時、通信回数も含まれる。",
+        "b": "**通信の秘密**が、どこまでを守るのかという話です。\n\n守られるのは、メールや通話の__中身__だけではありません。__誰と誰が__・__いつ__・__何回__やりとりしたかも==含まれます==。",
+        "bCasual": "**通信の秘密** → __内容__＋__当事者の氏名・住所__＋__通信日時__＋__通信回数__\n\n→ どれも==含まれる==。",
+        "bCasualStyle": "条件と結論だけ見る",
+        "c": "**通信の秘密** → 内容だけでなく__当事者・日時・回数__も==含む=="
+      },
+      "correct": true,
+      "correction": "正しい。**通信の秘密**@@（憲法21条2項・電気通信事業法4条）@@は、通信の__内容__だけでなく、__通信当事者の氏名・住所__、__通信日時__、__通信回数__といった__通信の存在そのもの__も==守ります==。",
+      "memoryPoint": "**通信の秘密**は__中身__だけでなく、__誰と・いつ・何回__も守る。",
+      "explanations": {
+        "normal": "**通信の秘密**は@@憲法21条2項@@が保障し、@@電気通信事業法4条@@が具体化しています。対象は通信の内容に限られず、__通信当事者__・__日時__・__回数__など==通信があったという事実そのもの==にも及びます。",
+        "deepDive": {
+          "background": "__誰といつ連絡したか__が分かるだけで、交友関係や行動が見えてしまいます。だから中身に限らず==通信の外側の情報==まで守ります。",
+          "trap": "!!「秘密なのは中身だけ」!!と考えさせる肢が出ます。__通信の存在や相手方__まで含む、が正しい形です。",
+          "example": "通話の録音がなくても、__いつ・誰に・何回かけたか__の記録は通信の秘密に当たります。"
+        },
+        "commonSense": "中身を聞かれなくても、誰といつ話したかが漏れれば十分に困ります。"
+      },
+      "legalBasis": [
+        {
+          "label": "電気通信事業法4条（2026年4月1日基準）",
+          "url": "https://laws.e-gov.go.jp/law/359AC0000000086?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1445",
+          "choiceNumber": "オ",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1445:choice:オ",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1445:choice:イ",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1445:choice:ウ",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "provider-backed",
+        "humanReview": "goukakudojyo-explanation-primary"
+      },
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 1,
+        "yearCount": 1,
+        "recentOccurrences": 0,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "同一・逆向き・条件・例外・比較を問題単位で集計"
+      },
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "通信の秘密",
+        "通信当事者",
+        "通信日時",
+        "通信回数",
+        "電気通信事業者"
+      ]
+    },
+    {
+      "id": "gk-comm-interception-warrant-001",
+      "subjectId": "general-knowledge",
+      "category": "基礎知識",
+      "topic": "情報通信・情報セキュリティ",
+      "subtopic": "通信傍受には裁判官の令状が必要",
+      "clusterId": "communication-secrecy",
+      "variants": {
+        "a": "通信傍受法によれば、薬物関連、銃器関連、集団密航関連など特定の犯罪に限り、捜査機関が裁判所の令状なしに通信の傍受をすることが認められる。",
+        "b": "薬物や銃器の事件など、__限られた重い犯罪__の捜査で、捜査機関が通信を傍受する場面です。\n\n対象の犯罪が限られている以上、捜査機関は__裁判所の令状なし__で傍受を==行うことができます==。",
+        "bCasual": "__薬物・銃器・集団密航など特定の犯罪__に限る\n\n→ 捜査機関は__令状なし__で通信傍受が==できる==。",
+        "bCasualStyle": "条件と結論だけ見る",
+        "c": "特定の犯罪に限る → __令状なし__の通信傍受が==できる=="
+      },
+      "correct": false,
+      "correction": "誤り。**通信傍受法**による傍受には、対象犯罪が限られていることに加えて、__裁判官が発する傍受令状__が==必要です==。!!犯罪の種類が限られていることと、令状が要らないことは別の話!!です。",
+      "memoryPoint": "**通信傍受**＝__対象犯罪が限定__＋__裁判官の令状__。令状は==省けない==。",
+      "explanations": {
+        "normal": "**通信傍受法**は、薬物・銃器・集団密航・組織的殺人などに対象を絞ったうえで、__裁判官の発する傍受令状__を受けて傍受を行う仕組みです。@@憲法35条@@の令状主義がここでも==働きます==。",
+        "deepDive": {
+          "background": "通信の秘密を破る強い処分なので、__対象を絞る__だけでは足りず、==裁判官のチェック==を通します。",
+          "trap": "!!「対象犯罪が限定されているから令状は不要」!!という言い回しが誤りです。__限定__と__令状__は、どちらも必要な条件です。",
+          "example": "薬物事件の捜査でも、傍受の前に__裁判官の傍受令状__を得ます。"
+        },
+        "commonSense": "この論点は、==通信傍受には令状が要る==でそのまま覚えます。"
+      },
+      "legalBasis": [
+        {
+          "label": "電気通信事業法4条・憲法35条（2026年4月1日基準）",
+          "url": "https://laws.e-gov.go.jp/law/359AC0000000086?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1445",
+          "choiceNumber": "ウ",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1445:choice:ウ",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1445:choice:オ",
+          "relation": "same_topic"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "provider-backed",
+        "humanReview": "goukakudojyo-explanation-primary"
+      },
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 1,
+        "yearCount": 1,
+        "recentOccurrences": 0,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "同一・逆向き・条件・例外・比較を問題単位で集計"
+      },
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "通信傍受",
+        "令状",
+        "捜査機関",
+        "薬物関連",
+        "銃器関連"
+      ]
+    },
+    {
+      "id": "gk-juki-foreign-resident-001",
+      "subjectId": "general-knowledge",
+      "category": "基礎知識",
+      "topic": "諸法令",
+      "subtopic": "外国人と住民基本台帳制度",
+      "clusterId": "resident-registry",
+      "variants": {
+        "a": "日本国籍を有しない外国人は、当該市町村の区域内に住所を有し、かつ、一定の要件に該当するときには、住民基本台帳制度の適用対象になる。",
+        "b": "日本国籍を持たない%%外国人%%が、その市町村に住んでいる場面です。\n\n住所があり、__在留資格などの一定の要件__を満たすときは、その人も**住民基本台帳**の==対象になります==。",
+        "bCasual": "%%外国人%%＋__区域内に住所__＋__一定の要件__\n\n→ **住民基本台帳制度**の==適用対象==。",
+        "bCasualStyle": "条件と結論だけ見る",
+        "c": "%%外国人%%＋住所＋一定の要件 → **住民基本台帳**の==対象になる=="
+      },
+      "correct": true,
+      "correction": "正しい。@@住民基本台帳法30条の45@@により、__中長期在留者__や__特別永住者__などの%%外国人住民%%も、市町村の区域内に住所を有するときは**住民基本台帳**に==記録されます==。!!平成24年から外国人登録制度が廃止され、住民票へ一本化されました!!。",
+      "memoryPoint": "%%外国人%%も__住所__＋__一定の要件__で**住民基本台帳**の==対象==。",
+      "explanations": {
+        "normal": "かつて外国人は**外国人登録制度**で別に管理されていましたが、平成24年にこれが廃止され、__中長期在留者・特別永住者__などは%%日本人と同じ住民基本台帳%%へ==記録される==ようになりました@@（住民基本台帳法30条の45）@@。",
+        "deepDive": {
+          "background": "__同じ市町村に住んでいる人__を一つの台帳で把握するほうが、住民サービスも選挙人名簿も==回しやすくなります==。",
+          "trap": "!!「住民基本台帳は日本人だけ」!!という古い理解が誤りです。在留資格による__要件はある__が、対象からは外れません。",
+          "example": "中長期在留者として市内に住む外国人には、__住民票が作られます__。"
+        },
+        "commonSense": "同じ町に住んで同じサービスを使うなら、同じ台帳に載せるほうが自然です。"
+      },
+      "legalBasis": [
+        {
+          "label": "住民基本台帳法30条の45（2026年4月1日基準）",
+          "url": "https://laws.e-gov.go.jp/law/342AC0000000081?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1382",
+          "choiceNumber": "イ",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1382:choice:イ",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1382:choice:エ",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "provider-backed",
+        "humanReview": "goukakudojyo-explanation-primary"
+      },
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 1,
+        "yearCount": 1,
+        "recentOccurrences": 0,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "同一・逆向き・条件・例外・比較を問題単位で集計"
+      },
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "住民基本台帳",
+        "外国人",
+        "住所",
+        "市町村"
+      ]
+    },
+    {
+      "id": "gk-local-tax-corporate-001",
+      "subjectId": "general-knowledge",
+      "category": "基礎知識",
+      "topic": "諸法令",
+      "subtopic": "住民税を納めるのは個人だけではない",
+      "clusterId": "resident-registry",
+      "variants": {
+        "a": "市町村内に住所を有する個人だけでなく、当該市町村内に事務所または事業所を有する法人も、住民税を納税する義務を負う。",
+        "b": "**住民税**を誰が納めるのか、という話です。\n\nその市町村に住んでいる%%個人%%だけではありません。区域内に__事務所や事業所__を持つ%%法人%%も、==住民税を納める義務を負います==。",
+        "bCasual": "%%個人%%＝__住所__がある\n%%法人%%＝__事務所・事業所__がある\n\n→ どちらも**住民税**の==納税義務あり==。",
+        "bCasualStyle": "条件と結論だけ見る",
+        "c": "住所のある%%個人%%＋事務所のある%%法人%% → どちらも==住民税を納める=="
+      },
+      "correct": true,
+      "correction": "正しい。**市町村民税**は、市町村内に__住所を有する個人__だけでなく、__事務所または事業所を有する法人__にも課されます@@（地方税法294条1項）@@。%%法人%%の分は**法人住民税**と呼ばれます。",
+      "memoryPoint": "**住民税**は%%個人%%だけでなく、__事務所・事業所__のある%%法人%%も納める。",
+      "explanations": {
+        "normal": "@@地方税法294条1項@@は、市町村民税の納税義務者として、__市町村内に住所を有する個人__と__市町村内に事務所・事業所を有する法人__などを==挙げています==。前者が個人住民税、後者が法人住民税です。",
+        "deepDive": {
+          "background": "%%法人%%もその市町村の道路や消防を使います。だから==そこに拠点がある法人__も負担する仕組みです。",
+          "trap": "!!「住民税だから住んでいる個人だけ」!!と考えさせます。%%法人%%は__事務所・事業所__があるかで見ます。",
+          "example": "他県に本社のある会社でも、市内に営業所があれば__法人住民税__を納めます。"
+        },
+        "commonSense": "その町の道路や消防を使っているなら、会社も応分に負担する、という考え方です。"
+      },
+      "legalBasis": [
+        {
+          "label": "地方税法294条1項（2026年4月1日基準）",
+          "url": "https://laws.e-gov.go.jp/law/325AC0000000226?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1382",
+          "choiceNumber": "オ",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1382:choice:オ",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1382:choice:イ",
+          "relation": "same_topic"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "provider-backed",
+        "humanReview": "goukakudojyo-explanation-primary"
+      },
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 1,
+        "yearCount": 1,
+        "recentOccurrences": 0,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "同一・逆向き・条件・例外・比較を問題単位で集計"
+      },
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "住民税",
+        "事務所または事業所",
+        "法人",
+        "市町村内に住所"
+      ]
     }
   ]
 }
