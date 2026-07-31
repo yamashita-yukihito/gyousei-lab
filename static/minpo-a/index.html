@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>民法・固定配役ドリル（A案）</title>
+<link rel="stylesheet" href="styles.css?v=20260731-a1">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ</a>
+
+<header class="head">
+  <div class="head-inner">
+    <div>
+      <p class="head-kicker">gyousei-lab / 民法</p>
+      <h1>固定配役ドリル<span class="head-plan">A案</span></h1>
+    </div>
+    <a class="head-back" href="../">学習アプリへ戻る</a>
+  </div>
+  <p class="head-lead">
+    民法の事例問題は、毎回ちがうA・B・Cの設定を読み解くところから始まる。
+    ここでは登場人物の役割を固定し、関係図を最初から出しておく。
+    設定の把握に時間を使わず、法律の中身だけを考える。
+  </p>
+</header>
+
+<main id="main">
+  <section class="panel cast-panel">
+    <div class="panel-head">
+      <h2>配役表</h2>
+      <button type="button" id="cast-toggle" class="ghost" aria-expanded="true">たたむ</button>
+    </div>
+    <div id="cast-body">
+      <ul class="cast-list" id="cast-list"></ul>
+      <p class="cast-note" id="cast-note"></p>
+    </div>
+  </section>
+
+  <section class="panel filter-panel">
+    <div class="filter-row">
+      <label>分野
+        <select id="filter-topic"><option value="">すべて</option></select>
+      </label>
+      <label>出題
+        <select id="filter-status">
+          <option value="all">すべて</option>
+          <option value="unanswered">未回答だけ</option>
+          <option value="wrong">まちがえたものだけ</option>
+        </select>
+      </label>
+      <button type="button" id="shuffle" class="ghost">順番を入れ替える</button>
+      <button type="button" id="reset" class="ghost danger">記録を消す</button>
+    </div>
+    <p class="filter-status" id="progress"></p>
+  </section>
+
+  <section class="panel problem-panel" id="problem-panel" aria-live="polite">
+    <p class="loading" id="loading">読み込み中…</p>
+
+    <article class="problem" id="problem" hidden>
+      <div class="problem-head">
+        <span class="badge" id="p-topic"></span>
+        <span class="badge sub" id="p-subtopic"></span>
+        <span class="p-index" id="p-index"></span>
+      </div>
+
+      <figure class="diagram">
+        <figcaption>関係図</figcaption>
+        <div class="diagram-box" id="p-diagram"></div>
+        <p class="diagram-hint">図は横にスクロールできます。</p>
+      </figure>
+
+      <div class="setup" id="p-setup"></div>
+
+      <p class="question" id="p-question"></p>
+
+      <div class="answer-row" id="answer-row">
+        <button type="button" class="ans ans-o" data-value="true">○ 正しい</button>
+        <button type="button" class="ans ans-x" data-value="false">× 誤り</button>
+      </div>
+
+      <div class="result" id="p-result" hidden>
+        <p class="verdict" id="p-verdict"></p>
+        <p class="correction" id="p-correction"></p>
+        <p class="point" id="p-point"></p>
+        <p class="linked" id="p-linked" hidden></p>
+      </div>
+
+      <div class="nav-row">
+        <button type="button" id="prev" class="ghost">← 前の問題</button>
+        <button type="button" id="next" class="primary">次の問題 →</button>
+      </div>
+    </article>
+
+    <p class="empty" id="empty" hidden>この条件に当てはまる問題がありません。</p>
+  </section>
+
+  <section class="panel score-panel">
+    <h2>成績</h2>
+    <ul class="score-list" id="score-list"></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>この記録はこの端末のブラウザにだけ保存される。学習アプリの回答履歴とは別。</p>
+</footer>
+
+<script src="app.js?v=20260731-a1"></script>
+</body>
+</html>
