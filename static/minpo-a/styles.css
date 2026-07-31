@@ -134,6 +134,22 @@ button:disabled { opacity: .4; cursor: default; }
 .diagram-box svg { display: block; width: 100%; height: auto; }
 .diagram-hint { display: none; margin: 4px 0 0; font-size: 11.5px; color: var(--muted); }
 
+.answer-diagram { margin: 12px 0 0; }
+.answer-diagram figcaption { color: var(--green); }
+.answer-diagram .diagram-box { background: #f4faf6; border-color: #bcd9c8; }
+
+/* 場面画像。関係図が「だれとだれ」を、こちらが「物がどう動いたか」を受け持つ。 */
+.scene { margin: 0 0 14px; }
+.result .scene { margin: 12px 0 0; }
+.scene img {
+  display: block; width: 100%; max-width: 620px; height: auto;
+  border: 1px solid var(--line); border-radius: 12px; background: #fff;
+}
+.scene figcaption {
+  margin-top: 6px; font-size: 12.5px; line-height: 1.8; color: var(--muted);
+  max-width: 620px;
+}
+
 .setup {
   background: var(--green-soft); border-radius: 10px;
   padding: 12px 14px; font-size: 14.5px; line-height: 1.9;

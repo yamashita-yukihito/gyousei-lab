@@ -292,6 +292,40 @@ function renderDiagram(diagram) {
   return svg;
 }
 
+// 問題文の上に出す関係図には答えを書かない。答えを入れた図は回答後に別で出す。
+// 座標は上の図をそのまま使い、枠のラベルだけ差し替える。ずれる余地を残さない。
+function answerDiagramOf(problem) {
+  const patch = problem.answerDiagram;
+  if (!patch || !patch.edges) return null;
+  const labels = patch.nodeLabels || {};
+  return {
+    nodes: problem.diagram.nodes.map((n) => (n.id in labels ? { ...n, label: labels[n.id] } : n)),
+    edges: patch.edges,
+  };
+}
+
+/* -------------------------------------------------------------- 場面画像 */
+
+// 画像は assets/ の下だけ。問題データが別の場所を指していたら描かない。
+const SCENE_SRC = /^assets\/[A-Za-z0-9][A-Za-z0-9._-]*\.(?:png|svg|webp)$/;
+
+function renderScene(slot, image) {
+  const box = document.getElementById(`p-scene-${slot}`);
+  box.textContent = '';
+  if (!image || image.placement !== slot || !SCENE_SRC.test(image.src || '')) {
+    box.hidden = true;
+    return;
+  }
+  const img = document.createElement('img');
+  img.src = image.src;
+  img.alt = image.alt || '';
+  img.loading = 'lazy';
+  const caption = document.createElement('figcaption');
+  caption.textContent = image.caption || '';
+  box.append(img, caption);
+  box.hidden = false;
+}
+
 /* ---------------------------------------------------------------- 配役表 */
 
 function renderCast() {
@@ -392,6 +426,8 @@ function render() {
   dia.textContent = '';
   dia.appendChild(renderDiagram(problem.diagram));
 
+  renderScene('setup', problem.image);
+
   const setup = document.getElementById('p-setup');
   setup.textContent = '';
   for (const line of problem.setup.split('\n')) {
@@ -410,6 +446,19 @@ function render() {
   }
 
   const result = document.getElementById('p-result');
+  renderScene('explanation', rec ? problem.image : null);
+
+  const answerFigure = document.getElementById('p-answer-diagram');
+  const answered = answerDiagramOf(problem);
+  const answerBox = document.getElementById('p-answer-diagram-box');
+  answerBox.textContent = '';
+  if (rec && answered) {
+    answerBox.appendChild(renderDiagram(answered));
+    answerFigure.hidden = false;
+  } else {
+    answerFigure.hidden = true;
+  }
+
   if (!rec) {
     result.hidden = true;
   } else {

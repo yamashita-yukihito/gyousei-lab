@@ -118,6 +118,37 @@
             "style": "bold"
           }
         ]
+      },
+      "answerDiagram": {
+        "nodeLabels": {
+          "g": "背信的悪意者。177条の第三者から外れる"
+        },
+        "edges": [
+          {
+            "from": "s",
+            "to": "n",
+            "label": "売買①",
+            "style": "solid"
+          },
+          {
+            "from": "s",
+            "to": "g",
+            "label": "売買②",
+            "style": "solid"
+          },
+          {
+            "from": "g",
+            "to": "land",
+            "label": "登記",
+            "style": "thin"
+          },
+          {
+            "from": "n",
+            "to": "g",
+            "label": "登記がなくても所有権を主張できる",
+            "style": "bold"
+          }
+        ]
       }
     },
     {
@@ -197,6 +228,43 @@
             "style": "thin"
           }
         ]
+      },
+      "answerDiagram": {
+        "nodeLabels": {
+          "n": "借りたのは建物。土地の第三者にあたらない"
+        },
+        "edges": [
+          {
+            "from": "s",
+            "to": "g",
+            "label": "仮装譲渡（通謀虚偽表示）",
+            "style": "dashed"
+          },
+          {
+            "from": "g",
+            "to": "bldg",
+            "label": "建てた",
+            "style": "solid"
+          },
+          {
+            "from": "g",
+            "to": "n",
+            "label": "賃貸",
+            "style": "solid"
+          },
+          {
+            "from": "land",
+            "to": "bldg",
+            "label": "この上に",
+            "style": "thin"
+          },
+          {
+            "from": "s",
+            "to": "n",
+            "label": "無効を主張できる",
+            "style": "bold"
+          }
+        ]
       }
     },
     {
@@ -260,6 +328,34 @@
             "from": "s",
             "to": "g",
             "label": "相続（役割が移る）",
+            "style": "bold"
+          }
+        ]
+      },
+      "answerDiagram": {
+        "edges": [
+          {
+            "from": "s",
+            "to": "land",
+            "label": "所有",
+            "style": "thin"
+          },
+          {
+            "from": "g",
+            "to": "n",
+            "label": "代理権なしで売買",
+            "style": "dashed"
+          },
+          {
+            "from": "s",
+            "to": "g",
+            "label": "相続",
+            "style": "bold"
+          },
+          {
+            "from": "g",
+            "to": "n",
+            "label": "追認拒絶できない",
             "style": "bold"
           }
         ]
@@ -329,6 +425,34 @@
             "style": "solid"
           }
         ]
+      },
+      "answerDiagram": {
+        "edges": [
+          {
+            "from": "s",
+            "to": "d",
+            "label": "夫婦",
+            "style": "thin"
+          },
+          {
+            "from": "s",
+            "to": "n",
+            "label": "売買契約",
+            "style": "solid"
+          },
+          {
+            "from": "n",
+            "to": "thing",
+            "label": "引渡し",
+            "style": "thin"
+          },
+          {
+            "from": "d",
+            "to": "n",
+            "label": "110条の趣旨を類推。正当な理由があれば夫も責任",
+            "style": "bold"
+          }
+        ]
       }
     },
     {
@@ -368,6 +492,22 @@
             "y": 1
           }
         ],
+        "edges": [
+          {
+            "from": "s",
+            "to": "n",
+            "label": "契約（50万円はスネ夫へ）",
+            "style": "solid"
+          },
+          {
+            "from": "su",
+            "to": "n",
+            "label": "50万円を請求できる？",
+            "style": "bold"
+          }
+        ]
+      },
+      "answerDiagram": {
         "edges": [
           {
             "from": "s",
@@ -432,7 +572,29 @@
           {
             "from": "n",
             "to": "land",
-            "label": "建物を建てたい＝変更",
+            "label": "建物を建てたい",
+            "style": "bold"
+          },
+          {
+            "from": "s",
+            "to": "land",
+            "label": "",
+            "style": "thin"
+          },
+          {
+            "from": "su",
+            "to": "land",
+            "label": "",
+            "style": "thin"
+          }
+        ]
+      },
+      "answerDiagram": {
+        "edges": [
+          {
+            "from": "n",
+            "to": "land",
+            "label": "著しい変更 → 全員の同意（251条1項）",
             "style": "bold"
           },
           {
@@ -509,7 +671,35 @@
           {
             "from": "d",
             "to": "money",
-            "label": "払渡し前に差押え",
+            "label": "物上代位",
+            "style": "bold"
+          }
+        ]
+      },
+      "image": {
+        "src": "assets/minpo-a-007-subrogation.png",
+        "alt": "建物、焼け落ちた建物、お金の入った封筒が左から順に並び、2番目と3番目をつなぐ矢印に鎖と錠前が描かれている。",
+        "caption": "建物が焼けて保険金に姿を変える。錠前の位置が差押えの期限で、封筒がしずかへ渡ってからでは間に合わない。",
+        "placement": "explanation"
+      },
+      "answerDiagram": {
+        "edges": [
+          {
+            "from": "d",
+            "to": "bldg",
+            "label": "抵当権",
+            "style": "solid"
+          },
+          {
+            "from": "bldg",
+            "to": "money",
+            "label": "焼失 → 保険金へ",
+            "style": "dashed"
+          },
+          {
+            "from": "d",
+            "to": "money",
+            "label": "払渡し前に差押え（304条1項ただし書）",
             "style": "bold"
           }
         ]
@@ -592,6 +782,43 @@
             "style": "dashed"
           }
         ]
+      },
+      "image": {
+        "src": "assets/minpo-a-008-statutory-superficies.png",
+        "alt": "左は土地と建物が別の色で塗られ、右は同じ色で塗られている。左から右へ矢印が引かれている。",
+        "caption": "抵当権を設定した時点（左）は土地と建物が別の持ち主。あとで同じ持ち主になった（右）。見るのは左の時点。",
+        "placement": "setup"
+      },
+      "answerDiagram": {
+        "nodeLabels": {
+          "d": "抵当権者。別人所有を前提に土地を評価した"
+        },
+        "edges": [
+          {
+            "from": "s",
+            "to": "land",
+            "label": "所有",
+            "style": "thin"
+          },
+          {
+            "from": "g",
+            "to": "bldg",
+            "label": "所有（設定時）",
+            "style": "thin"
+          },
+          {
+            "from": "d",
+            "to": "land",
+            "label": "設定時は別人所有 → 法定地上権は成立しない",
+            "style": "bold"
+          },
+          {
+            "from": "g",
+            "to": "s",
+            "label": "のちに建物を売却",
+            "style": "dashed"
+          }
+        ]
       }
     },
     {
@@ -654,7 +881,29 @@
           {
             "from": "s",
             "to": "su",
-            "label": "613条の直接請求",
+            "label": "賃料を直接請求できる？",
+            "style": "bold"
+          }
+        ]
+      },
+      "answerDiagram": {
+        "edges": [
+          {
+            "from": "s",
+            "to": "n",
+            "label": "賃貸借",
+            "style": "solid"
+          },
+          {
+            "from": "n",
+            "to": "su",
+            "label": "転貸（承諾あり）",
+            "style": "solid"
+          },
+          {
+            "from": "s",
+            "to": "su",
+            "label": "613条1項の直接請求。低いほうの額まで",
             "style": "bold"
           }
         ]
@@ -720,7 +969,29 @@
           {
             "from": "n",
             "to": "su",
-            "label": "しずかの登記請求権を代位行使",
+            "label": "自分名義にしたい",
+            "style": "bold"
+          }
+        ]
+      },
+      "answerDiagram": {
+        "edges": [
+          {
+            "from": "su",
+            "to": "s",
+            "label": "売買①",
+            "style": "solid"
+          },
+          {
+            "from": "s",
+            "to": "n",
+            "label": "売買②",
+            "style": "solid"
+          },
+          {
+            "from": "n",
+            "to": "su",
+            "label": "登記請求権を代位行使（423条の7・無資力不要）",
             "style": "bold"
           }
         ]
@@ -742,7 +1013,7 @@
             "id": "s",
             "kind": "person",
             "cast": "shizuka",
-            "label": "所有者（無過失でも責任）",
+            "label": "土地の所有者",
             "x": 0,
             "y": 0
           },
@@ -750,8 +1021,8 @@
             "id": "n",
             "kind": "person",
             "cast": "nobita",
-            "label": "占有者（注意を尽くした→免責）",
-            "x": 1,
+            "label": "借りて住んでいる人（点検を欠かさなかった）",
+            "x": 2,
             "y": 0
           },
           {
@@ -766,10 +1037,36 @@
             "kind": "person",
             "cast": "gian",
             "label": "被害者",
-            "x": 2,
-            "y": 1
+            "x": 1,
+            "y": 2
           }
         ],
+        "edges": [
+          {
+            "from": "s",
+            "to": "wall",
+            "label": "所有",
+            "style": "thin"
+          },
+          {
+            "from": "n",
+            "to": "wall",
+            "label": "占有",
+            "style": "thin"
+          },
+          {
+            "from": "wall",
+            "to": "g",
+            "label": "崩れてけが",
+            "style": "dashed"
+          }
+        ]
+      },
+      "answerDiagram": {
+        "nodeLabels": {
+          "s": "所有者。無過失でも責任を免れない",
+          "n": "占有者。必要な注意をしたので免れる"
+        },
         "edges": [
           {
             "from": "s",
@@ -791,8 +1088,14 @@
           },
           {
             "from": "g",
+            "to": "n",
+            "label": "①まず占有者",
+            "style": "dashed"
+          },
+          {
+            "from": "g",
             "to": "s",
-            "label": "①占有者→②所有者",
+            "label": "②次に所有者",
             "style": "bold"
           }
         ]
@@ -857,7 +1160,35 @@
           {
             "from": "s",
             "to": "n",
-            "label": "求償は相当な限度まで",
+            "label": "求償",
+            "style": "bold"
+          }
+        ]
+      },
+      "answerDiagram": {
+        "edges": [
+          {
+            "from": "s",
+            "to": "n",
+            "label": "雇用",
+            "style": "thin"
+          },
+          {
+            "from": "n",
+            "to": "g",
+            "label": "仕事中の加害",
+            "style": "dashed"
+          },
+          {
+            "from": "s",
+            "to": "g",
+            "label": "全額を賠償",
+            "style": "solid"
+          },
+          {
+            "from": "s",
+            "to": "n",
+            "label": "求償は信義則上相当な限度まで",
             "style": "bold"
           }
         ]
@@ -904,19 +1235,41 @@
           {
             "from": "d",
             "to": "n",
-            "label": "免除（相対効）",
+            "label": "免除",
             "style": "dashed"
           },
           {
             "from": "d",
             "to": "su",
-            "label": "600万円全額を請求できる",
+            "label": "600万円の連帯債務",
+            "style": "solid"
+          },
+          {
+            "from": "su",
+            "to": "n",
+            "label": "負担部分 各300万円",
+            "style": "thin"
+          }
+        ]
+      },
+      "answerDiagram": {
+        "edges": [
+          {
+            "from": "d",
+            "to": "n",
+            "label": "免除（相対効・441条）",
+            "style": "dashed"
+          },
+          {
+            "from": "d",
+            "to": "su",
+            "label": "なお600万円全額を請求できる",
             "style": "bold"
           },
           {
             "from": "su",
             "to": "n",
-            "label": "払った後に求償",
+            "label": "払った後に負担部分を求償",
             "style": "thin"
           }
         ]
@@ -982,7 +1335,35 @@
           {
             "from": "s",
             "to": "goods",
-            "label": "先取特権はまだ行使できる",
+            "label": "代金がまだ払われていない",
+            "style": "bold"
+          }
+        ]
+      },
+      "image": {
+        "src": "assets/minpo-a-014-constructive-delivery.png",
+        "alt": "上段は機械が台車で別の倉庫へ運ばれている。下段は機械が元の倉庫に置かれたままで、机の上に書類が1枚ある。",
+        "caption": "上が現実の引渡し。下が占有改定で、物は動かず書類だけが増える。この問題は下の場面。",
+        "placement": "setup"
+      },
+      "answerDiagram": {
+        "edges": [
+          {
+            "from": "s",
+            "to": "n",
+            "label": "売買（代金未払い）",
+            "style": "solid"
+          },
+          {
+            "from": "n",
+            "to": "su",
+            "label": "譲渡担保・占有改定",
+            "style": "dashed"
+          },
+          {
+            "from": "s",
+            "to": "goods",
+            "label": "占有改定は333条の引渡しでない → 先取特権を行使できる",
             "style": "bold"
           }
         ]
@@ -1036,6 +1417,22 @@
           {
             "from": "s",
             "to": "su",
+            "label": "売買",
+            "style": "bold"
+          },
+          {
+            "from": "n",
+            "to": "s",
+            "label": "敷金を預けていた",
+            "style": "dashed"
+          }
+        ]
+      },
+      "answerDiagram": {
+        "edges": [
+          {
+            "from": "s",
+            "to": "su",
             "label": "売買 → 賃貸人の地位も移る",
             "style": "bold"
           },
@@ -1048,7 +1445,7 @@
           {
             "from": "n",
             "to": "su",
-            "label": "敷金返還はこちらへ",
+            "label": "敷金返還債務も承継（605条の2第4項）",
             "style": "bold"
           }
         ]
@@ -1109,6 +1506,28 @@
             "to": "n",
             "label": "保佐",
             "style": "thin"
+          }
+        ]
+      },
+      "answerDiagram": {
+        "edges": [
+          {
+            "from": "n",
+            "to": "s",
+            "label": "同意なしで契約",
+            "style": "dashed"
+          },
+          {
+            "from": "d",
+            "to": "n",
+            "label": "保佐",
+            "style": "thin"
+          },
+          {
+            "from": "s",
+            "to": "n",
+            "label": "本人への催告 → 通知がなければ取消しとみなす（20条4項）",
+            "style": "bold"
           }
         ]
       }

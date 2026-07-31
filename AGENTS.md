@@ -91,6 +91,8 @@
 この範囲は**理解ではなく暗記**で通す。対象の一覧は `static/tools/quiz3.html` の `questions` 配列で、
 LANから `http://192.168.10.102:8080/services/gyousei-lab/tools/quiz3.html` で開ける
 （このアプリとは別の、○×だけを反復する単独ページ。回答回数はブラウザのlocalStorageに持つ）。
+入口は `static/architecture.html` の「engineに載せない、独立した2ページ」に置いた。
+利用者の指示でタブへは並べない。
 
 この範囲のカードでは、次のようにする。
 
@@ -125,8 +127,17 @@ LANから `http://192.168.10.102:8080/services/gyousei-lab/minpo-a/` で開け�
   学習カードの回答履歴と混ぜない。
 - 関係図はSVGを毎回生成する。座標 `x`・`y` は問題ごとに手で置く。
   線のラベルは枠と他のラベルを避ける位置へ自動で逃げるので、**枠が重ならない座標にすれば足りる**。
+- **図は2枚を出し分ける。** 問題文の上に出す `diagram` には**事案に書いてあることだけ**を描く。
+  ここへ法律効果や結論を書くと、回答ボタンより上にあるので○×が割れる。
+  結論を入れた図は `answerDiagram` に置き、**回答後に「答えを入れた関係図」として別に出す**。
+  `answerDiagram` は `edges` を全部書き直し、枠のラベルだけ `nodeLabels` で差し替える。
+  **座標は `diagram.nodes` のものを必ず使い回す**ので、2枚がずれることはない。
+- **画像も同じ考え方で置く。** `image.placement` が `setup` なら回答前、`explanation` なら回答後。
+  事案そのものを描いた絵は `setup`、ルールや結論が絵に入っているものは `explanation` にする
+  （物上代位の「払渡し前に差押え」は錠前の位置が答えなので `explanation`）。
+  画像は `static/minpo-a/assets/` の下だけに置き、`alt` と `caption` を必ず書く。
 - **画像は「物がどう動いたか」を見せる必要がある問題だけ。** 人物の関係はSVGで足りる。
-  依頼文は `static/docs/minpo-a-image-request.md`。
+  依頼文は `static/docs/minpo-a-image-request.md`。現在は法定地上権・物上代位・占有改定の3枚。
 - B案（`static/minpo-b/`）は別AIが作る。A案のファイルをB案から読ませない。
 
 詳細なカード作成・頻出度ルールは `HANDOFF.md` の「問題追加の正本ルール」を参照する。

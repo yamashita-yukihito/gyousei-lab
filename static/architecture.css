@@ -144,3 +144,7 @@ footer { padding: 24px; background: var(--deep); color: #c5d9d0; font-size: 11px
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; }
 }
+
+/* 独立ページへのリンク。囲みの中の見出しがリンクになる */
+.view-grid strong a { color: var(--green); text-decoration: none; border-bottom: 1px solid currentColor; }
+.view-grid strong a:hover { color: var(--deep); }
