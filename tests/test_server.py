@@ -5,6 +5,7 @@ import http.client
 import importlib.util
 import json
 import os
+import re
 import sqlite3
 import sys
 import tempfile
@@ -1767,3 +1768,46 @@ class CardEditTest(unittest.TestCase):
         finally:
             server._rebuild_bundle_in_place = original
         self.assertEqual(self.document, self.stored())
+
+
+class SharedRuleDriftTest(unittest.TestCase):
+    """同じルールを別々に書いている箇所が、ずれていないことを確かめる。
+
+    ⑧解説図の src は、bundle生成（最後の砦）・card_edit（取り込み前の検証）・
+    画面（<img>へ載せる前）の3か所で確かめている。生成側は単体で動くべきなので
+    import では束ねず、代わりにここでずれを検出する。
+    """
+
+    def test_figure_source_rule_matches_everywhere(self) -> None:
+        import sys
+
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "authoring" / "src"))
+        import card_edit
+        from gyousei_pipeline import production_bundle
+
+        self.assertEqual(
+            card_edit.FIGURE_SRC.pattern,
+            production_bundle.CARD_FIGURE_SRC_PATTERN.pattern,
+        )
+        self.assertEqual(card_edit.FIGURE_LIMIT, production_bundle.CARD_FIGURE_LIMIT)
+
+        app_js = (Path(__file__).resolve().parents[1] / "static" / "app.js").read_text(
+            encoding="utf-8"
+        )
+        match = re.search(r"const CARD_FIGURE_SRC = /\^(.+)\$/;", app_js)
+        self.assertIsNotNone(match, "app.js に CARD_FIGURE_SRC が見つからない")
+        self.assertEqual(
+            match.group(1).replace("\\/", "/"), card_edit.FIGURE_SRC.pattern
+        )
+
+    def test_card_exchange_uses_the_shared_rules(self) -> None:
+        # 取り込みツールが自前の検証を持ち直していないこと
+        source = (
+            Path(__file__).resolve().parents[1]
+            / "authoring"
+            / "tools"
+            / "card_exchange.py"
+        ).read_text(encoding="utf-8")
+        self.assertIn("from card_edit import", source)
+        for owned_by_card_edit in ("def validate_card(", "def check_markup(", "MARKUP = re.compile"):
+            self.assertNotIn(owned_by_card_edit, source)

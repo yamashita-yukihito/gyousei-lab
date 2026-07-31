@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260731-9";
+  const APP_VERSION = "20260731-10";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -635,11 +635,6 @@
   function rapidSetSize() {
     const value = Number($("study-set-size").value);
     return Number.isFinite(value) && value > 0 ? value : 0;
-  }
-
-  function startRapidSet() {
-    state.rapidLog = [];
-    $("rapid-summary").hidden = true;
   }
 
   // 高速○×の1問ごとの経過時間。0.1秒ごとに書き換える

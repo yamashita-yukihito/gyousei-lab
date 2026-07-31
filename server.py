@@ -776,20 +776,6 @@ CATALOG = BundleCatalog(BUNDLE_PATH)
 # 正本を書き換えてから bundle を作り直し、その場で差し替える。検証ルールは
 # card_edit.py が正本で、authoring/tools/card_exchange.py と同じものを通す。
 # bundle生成側の収録減チェック（--compare-to）もそのまま働く。
-CARD_EDIT_FIELDS = (
-    "topic",
-    "subtopic",
-    "correct",
-    "variants",
-    "correction",
-    "memoryPoint",
-    "explanations",
-    "legalBasis",
-    "evidenceHighlights",
-    "crossFieldComparisons",
-    "comparisonTable",
-    "figures",
-)
 CARD_EDIT_LOCK = threading.Lock()
 AUTHORING_SRC = Path(__file__).resolve().parent / "authoring" / "src"
 
@@ -858,13 +844,14 @@ def save_card_edit(payload: dict) -> dict:
     editable = payload.get("editable")
     if not isinstance(editable, dict):
         raise ApiError(HTTPStatus.BAD_REQUEST, "editable must be an object")
-    unknown = sorted(set(editable) - set(CARD_EDIT_FIELDS))
+    card_edit, _ = _card_edit_modules()
+    # 編集してよい項目の一覧も card_edit.py が正本。ここで持ち直さない。
+    unknown = sorted(set(editable) - set(card_edit.EDITABLE_FIELDS))
     if unknown:
         raise ApiError(
             HTTPStatus.BAD_REQUEST, "editable has unknown fields: " + ", ".join(unknown)
         )
 
-    card_edit, _ = _card_edit_modules()
     with CARD_EDIT_LOCK:
         document = card_edit.load_canonical()
         index = next(
