@@ -1,4 +1,5 @@
 import json
+import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -69,3 +70,33 @@ def test_javascript_has_separate_read_and_answer_paths():
     assert 'answerCurrent' in js
     assert "state.mode === 'exam'" in js
     assert "fetch('cases.json'" in js
+
+
+class MinpoCUnittestBridge(unittest.TestCase):
+    """Run the existing contract checks under the project's unittest command."""
+
+    def test_files_exist(self):
+        test_minpo_c_files_exist()
+
+    def test_schema_and_unique_ids(self):
+        test_case_schema_and_unique_ids()
+
+    def test_answer_and_label_balance(self):
+        test_answer_and_label_balance()
+
+    def test_local_runtime_files(self):
+        test_html_references_only_local_runtime_files()
+
+    def test_read_and_answer_paths(self):
+        test_javascript_has_separate_read_and_answer_paths()
+
+    def test_agent_term_is_not_used_for_the_unauthorized_agent(self):
+        source = (MINPO_C / 'cases.json').read_text(encoding='utf-8')
+        self.assertNotIn('代理権なし／本人はそのことを知っている', source)
+        self.assertNotIn('代理権なし／本人も無権限だと気付いていない', source)
+        self.assertIn('代理権なし／ジャイアン自身は知っている', source)
+        self.assertIn('代理権なし／ジャイアン自身も気付いていない', source)
+
+
+if __name__ == '__main__':
+    unittest.main()

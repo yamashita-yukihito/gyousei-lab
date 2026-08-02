@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#183a34">
   <title>行政書士 過去問ラボ</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23183a34'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='39' fill='white'%3E%E8%A1%8C%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=20260731-10">
+  <link rel="stylesheet" href="styles.css?v=20260802-3">
 </head>
 <body>
   <a class="skip-link" href="#main-content">本文へ移動</a>
@@ -72,11 +72,11 @@
         <label><span>出題範囲</span><select id="study-scope"><option value="review">おまかせ（習得済みを除く）</option><option value="all">全問題を出す</option><option value="graduated">卒業済みだけ</option></select><small id="study-scope-summary">出題対象を計算中…</small></label>
         <div class="study-history"><span>この問題の履歴</span><strong id="study-history-label">正解 0 / 不正解 0</strong><small id="study-storage-status" class="study-storage saving" aria-live="polite">保存先を確認中…</small></div>
       </div>
-      <p id="study-mode-note" class="study-mastery-note">おまかせでは、正解が不正解より3回多くなった「習得済み」と、自分で押した「絶対覚えた」を出題から外します。「全問題を出す」にすれば、そのどちらも含めて全部出ます。習得済みと絶対覚えたの解除は「卒業済みだけ」の一覧からできます。</p>
+      <p id="study-mode-note" class="study-mastery-note">おまかせでは、正解が不正解より3回多くなった「習得済み」と、自分で押した「絶対覚えた」を出題から外します。「全問題を出す」にすれば、そのどちらも含めて全部出ます。解除は「卒業済みだけ」の一覧からできます。</p>
 
       <section id="study-graduated" class="content-card study-graduated" hidden>
         <div class="related-heading"><h3>卒業済みの一覧</h3><strong id="study-graduated-count"></strong></div>
-        <p class="study-related-note">「習得済み」は正解が不正解より3回多くなると自動で付き、リセットすれば出題に戻ります。「絶対覚えた」は自分で押したものだけで、全リセットの対象外です。どちらもここから1枚ずつ解除できます。解除しなくても、出題範囲を「全問題を出す」にすれば解けます。過去の回答と卒業した回数は、解除しても残ります。</p>
+        <p class="study-related-note">「習得済み」は正解が不正解より3回多くなると自動で付き、リセットすればおまかせへ戻ります。「絶対覚えた」は自分で押したものだけで、全リセットの対象外です。どちらもここから1枚ずつ解除できます。解除しなくても、「全問題を出す」と「卒業済みだけ」ではどちらも出題されます。過去の回答と卒業した回数は、解除しても残ります。</p>
         <div class="study-graduated-actions"><button id="study-reset-all" class="secondary-button" type="button">習得済みを全部リセット</button><small id="study-graduated-status" class="study-mark-status"></small></div>
         <div id="study-graduated-list"></div>
       </section>
@@ -452,6 +452,6 @@
 
   <footer><p>本人専用・行政書士学習環境　回答履歴と類似判定はサーバー保存</p></footer>
   <noscript>この画面の利用にはJavaScriptが必要です。</noscript>
-  <script src="app.js?v=20260731-10"></script>
+  <script src="app.js?v=20260802-3"></script>
 </body>
 </html>

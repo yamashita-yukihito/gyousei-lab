@@ -11,3 +11,6 @@ __pycache__/
 *.sqlite3-*
 all-subject-inventory.json
 gyousei-production.json
+
+# 別AIから受け取った配布ZIP。中身は static/ とtests/ へ展開済みなので追跡しない
+*.zip

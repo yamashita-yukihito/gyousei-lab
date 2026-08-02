@@ -11,6 +11,7 @@
  */
 
 const STORE_KEY = 'minpoB:v1';
+const DATA_VERSION = '20260802-b1';
 
 const state = {
   data: null,
@@ -50,7 +51,7 @@ function clearRecords() {
 
 async function init() {
   try {
-    const res = await fetch('problems.json');
+    const res = await fetch(`problems.json?v=${DATA_VERSION}`, { cache: 'no-store' });
     if (!res.ok) throw new Error('Failed to load');
     state.data = await res.json();
   } catch (err) {

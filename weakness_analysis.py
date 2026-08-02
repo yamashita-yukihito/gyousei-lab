@@ -126,7 +126,7 @@ def _streaks(results: Sequence[bool]) -> tuple[int, int]:
 
 
 def classify_results(results: Sequence[bool]) -> tuple[str, list[str]]:
-    """Classify current-revision results ordered by database ID."""
+    """Classify all results for one card ID, ordered by database ID."""
 
     if not results:
         return "unlearned", []
@@ -266,10 +266,7 @@ def build_weakness_snapshot(
     known = set(known_card_ids or eligible)
     if not eligible <= known:
         raise WeaknessAnalysisError("eligible cards must be known bundle cards")
-    state = {
-        card_id: {"current": []}
-        for card_id in card_ids
-    }
+    state = {card_id: {"attempts": []} for card_id in card_ids}
     rows = connection.execute(
         """
         SELECT
@@ -296,7 +293,7 @@ def build_weakness_snapshot(
             raise WeaknessAnalysisError(
                 f"card attempt {row['id']} has invalid is_correct"
             )
-        state[card_id]["current"].append(
+        state[card_id]["attempts"].append(
             {
                 "id": int(row["id"]),
                 "isCorrect": bool(row["is_correct"]),
@@ -308,7 +305,7 @@ def build_weakness_snapshot(
     analyzed_cards: list[dict[str, Any]] = []
     for metadata in sorted(normalized_cards, key=lambda item: item["cardId"]):
         card_id = metadata["cardId"]
-        attempts = state[card_id]["current"]
+        attempts = state[card_id]["attempts"]
         results = [attempt["isCorrect"] for attempt in attempts]
         correct = sum(results)
         incorrect = len(results) - correct

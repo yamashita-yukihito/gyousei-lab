@@ -68,8 +68,8 @@ class BundleExpectations:
     question_subject_counts: tuple[tuple[str, int], ...] | None = None
     question_format_counts: tuple[tuple[str, int], ...] | None = None
     study_deck_count: int = 1
-    explanation_card_count: int = 55
-    related_question_evidence_count: int = 211
+    explanation_card_count: int = 200
+    related_question_evidence_count: int = 717
     claude_review_count: int = 20
     claude_run_count: int = 6
     similarity_pair_count: int = 588
@@ -1901,15 +1901,16 @@ def _assert_no_release_regression(
         return
     try:
         previous = json.loads(previous_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        # 比較先が読めないだけで公開を止めない。減っていないことは確認できないので黙らない。
-        print(
-            f"warning: 前回の公開bundleを読めないため収録減の確認を省きました: {previous_path.name}",
-            file=sys.stderr,
-        )
-        return
+    except (OSError, json.JSONDecodeError) as error:
+        raise ProductionBundleError(
+            "前回の公開bundleを読めないため、収録減を確認できません: "
+            f"{previous_path}"
+        ) from error
     if not isinstance(previous, Mapping):
-        return
+        raise ProductionBundleError(
+            "前回の公開bundleがJSON objectではないため、収録減を確認できません: "
+            f"{previous_path}"
+        )
     losses = release_regression_report(bundle, previous)
     if not losses:
         return

@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#183a34">
   <title>全体構成図 | 行政書士 過去問ラボ</title>
-  <link rel="stylesheet" href="architecture.css?v=20260802-1">
+  <link rel="stylesheet" href="architecture.css?v=20260802-2">
 </head>
 <body>
   <a class="skip-link" href="#main-content">本文へ移動</a>
   <header class="architecture-hero">
     <div class="hero-inner">
-      <nav><a href="index.html">← 過去問ラボへ戻る</a><span>構成図 2026-07-29版</span></nav>
+      <nav><a href="index.html">← 過去問ラボへ戻る</a><span>構成図 2026-08-02版</span></nav>
       <p class="eyebrow">LIVING ARCHITECTURE</p>
       <h1>3か月かけて育てる<br>行政書士の学習環境</h1>
       <p class="lead">問題を解くたびに履歴がたまり、その履歴から苦手教材を作り、また解く。過去問も○×カードも全6科目がそろいました。ここからは、解いた履歴をもとに中身を厚くしていきます。</p>
@@ -49,13 +49,13 @@
           <b aria-hidden="true">→</b>
           <article><span>2</span><strong>サーバーへ保存</strong><small>正誤・問題・時刻・所要時間</small></article>
           <b aria-hidden="true">→</b>
-          <article><span>3</span><strong>集計してAI分析</strong><small>現行カードの直近5回答・連続正誤</small></article>
+          <article><span>3</span><strong>集計してAI分析</strong><small>同じカードIDの直近5回答・連続正誤</small></article>
           <b aria-hidden="true">→</b>
           <article><span>4</span><strong>弱点教材を更新</strong><small>不得意ページ・比較解説</small></article>
         </div>
         <p class="return-arrow">↖　更新した教材を、また解く　↙</p>
-        <p>出題から外す仕組みは2層あります。「習得済み」は正解が不正解より3回多くなると自動で付き、おまかせからだけ外れます。「絶対覚えた」は自分で押したときだけ付き、どの出題範囲でも出しません。全リセットの対象は習得済みだけで、絶対覚えたは残ります。どちらも出題範囲「卒業済みだけ」の一覧から1枚ずつ解除できます。リセットしても解除しても、過去の回答と卒業した回数は消えません。回答ごとの手ごたえも記録しますが、これは後で分析するためのもので、出題には影響しません。</p>
-        <p>弱点分析は学習カードの現行版への回答だけを使います。1回の誤答だけでは苦手と決めず、「要観察」「苦手」「回復中」「習得復帰」を根拠付きで分けます。「回復中」は直近2回連続正解なので苦手ビューから外し、回答保存後に分析も自動更新します。</p>
+        <p>出題から外す仕組みは2層あります。「習得済み」は正解が不正解より3回多くなると自動で付き、「絶対覚えた」は自分で押したときだけ付きます。どちらも普段の「おまかせ」と「苦手・要観察」から外れますが、「全問題を出す」と「卒業済みだけ」には含めます。「絶対覚えた」は全リセットの対象外です。解除しても、過去の回答と卒業した回数は消えません。回答ごとの手ごたえも記録しますが、これは後で分析するためのもので、出題には影響しません。</p>
+        <p>弱点分析は同じカードIDの全回答を使い、教材を直した前後も履歴を引き継ぎます。1回の誤答だけでは苦手と決めず、「要観察」「苦手」「回復中」「習得復帰」を根拠付きで分けます。「回復中」は直近2回連続正解なので苦手ビューから外し、回答保存後に分析も自動更新します。</p>
       </div>
     </section>
 
@@ -77,7 +77,7 @@
           <article><strong>全分野頻出</strong><span>横断演習</span></article>
           <article><strong>苦手・要観察</strong><span>実装済み・回答履歴から自動抽出</span></article>
           <article><strong>分野横断</strong><span>行政法と民法などを比較</span></article>
-          <article><strong>全問題</strong><span>習得済みも含める</span></article>
+          <article><strong>全問題</strong><span>習得済み・絶対覚えたを含む</span></article>
         </div>
       </div>
     </section>
@@ -152,9 +152,9 @@
       </div>
       <ol class="roadmap">
         <li><span>今〜8月初旬</span><strong>多科目化と弱点学習の土台</strong><p>全6科目569問、弱点snapshot、「苦手・要観察」ビューまで完了。</p></li>
-        <li class="current"><span>8月</span><strong>全6科目を解きながら磨く</strong><p>行政法65・民法30・基礎知識32・憲法24・商法24・基礎法学12の全187論点を掲載済みです。回答時の自信度の記録と、卒業（習得済み・絶対覚えた）も実装済みです。</p></li>
-        <li><span>9月</span><strong>本番形式への転用確認</strong><p>習得した○×論点を未見の五肢択一・多肢選択・記述で解き、170〜179点の下振れ要因を集計する。</p></li>
-        <li><span>10月前半</span><strong>憲法・商法等を重点追加</strong><p>出題実績と本人の誤答を優先し、週1〜2回の小さな教材更新を続ける。</p></li>
+        <li class="current"><span>8月</span><strong>9月から学習を回す機能を作る</strong><p>全6科目200カードを掲載済みです。カードの大量追加より、「今日の学習」、初見問題の保留、90分の試験セッション、記述式の再回答を優先します。</p></li>
+        <li><span>9月</span><strong>200カードを一巡し、出力する</strong><p>間隔を空けて復習し、五肢択一・多肢選択・記述を毎週混ぜます。90分の半模試で初見得点と誤答理由を貯めます。</p></li>
+        <li><span>10月前半</span><strong>3時間の本試験へ合わせる</strong><p>180分・60問を中心にし、最低点、足切り、記述抜き得点、時間超過を分けて確認します。</p></li>
         <li><span>試験前3週</span><strong>復習へ集中</strong><p>新規大量追加を止め、混合演習・記述・苦手回復を中心にする。</p></li>
       </ol>
     </section>
@@ -166,7 +166,7 @@
     </section>
   </main>
 
-  <footer>本人専用・行政書士 過去問ラボ　構成図 2026-07-29</footer>
-  <script src="architecture.js?v=20260802-1"></script>
+  <footer>本人専用・行政書士 過去問ラボ　構成図 2026-08-02</footer>
+  <script src="architecture.js?v=20260802-2"></script>
 </body>
 </html>

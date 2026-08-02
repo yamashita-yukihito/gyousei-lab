@@ -1064,6 +1064,13 @@ class ProductionBundleTests(unittest.TestCase):
             _assert_no_release_regression(
                 shrunk, Path(directory) / "missing.json", False
             )
+            # 比較先が存在するのに検証できない場合はfail closedにする
+            previous_path.write_text("{broken", encoding="utf-8")
+            with self.assertRaisesRegex(ProductionBundleError, "収録減を確認できません"):
+                _assert_no_release_regression(shrunk, previous_path, False)
+            previous_path.write_text("[]", encoding="utf-8")
+            with self.assertRaisesRegex(ProductionBundleError, "JSON objectではない"):
+                _assert_no_release_regression(shrunk, previous_path, True)
         self.assertEqual([], release_regression_report(published, published))
 
     def test_release_refuses_to_drop_cards_of_one_subject(self) -> None:

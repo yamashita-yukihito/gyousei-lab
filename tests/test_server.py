@@ -11,6 +11,7 @@ import sys
 import tempfile
 import threading
 import unittest
+from unittest import mock
 from http import HTTPStatus
 from http.server import ThreadingHTTPServer
 from pathlib import Path
@@ -405,6 +406,24 @@ class ProductionApiTest(unittest.TestCase):
         stale = server.CATALOG.load()
         self.assertEqual(stale.revision, second.revision)
         self.assertTrue(server.CATALOG.status()["stale"])
+
+    def test_macos_internal_paths_are_not_public(self) -> None:
+        projected = server.public_projection(
+            {
+                "userPathInTextField": "/Users/yuki/private/source.json",
+                "privatePathInTextField": "/private/var/tmp/source.json",
+                "safe": "公開してよい値",
+            }
+        )
+        self.assertEqual(projected, {"safe": "公開してよい値"})
+
+        for path in (
+            "/Users/yuki/private/inventory.json",
+            "/private/var/tmp/inventory.json",
+        ):
+            with self.subTest(path=path):
+                with self.assertRaisesRegex(ValueError, "internal path"):
+                    server._inventory_text(path)
 
     def test_missing_bundle_is_reported_without_internal_path(self) -> None:
         missing = server.BundleCatalog(self.root / "secret" / "missing.json")
@@ -1191,18 +1210,24 @@ class ProductionApiTest(unittest.TestCase):
         )
 
     def test_individual_reset_only_clears_that_card(self) -> None:
-        for index in range(3):
-            server.add_card_attempt(
-                self.card_attempt_payload(event_id=f"a-{index}", card_id="card-1")
+        # 実時計が同一ミリ秒を返しても、回答→リセット→回答の追記順を保つ。
+        with mock.patch.object(
+            server, "utc_now", return_value="2026-07-18T12:00:00.000Z"
+        ):
+            for index in range(3):
+                server.add_card_attempt(
+                    self.card_attempt_payload(event_id=f"a-{index}", card_id="card-1")
+                )
+            snapshot = server.CATALOG.load()
+            deck = server.default_study_deck(snapshot)
+            server.add_card_mark(
+                self.card_mark_payload(
+                    event_id="reset-1", action="reset", card_id="card-1"
+                )
             )
-        snapshot = server.CATALOG.load()
-        deck = server.default_study_deck(snapshot)
-        server.add_card_mark(
-            self.card_mark_payload(event_id="reset-1", action="reset", card_id="card-1")
-        )
-        server.add_card_attempt(
-            self.card_attempt_payload(event_id="a-after", card_id="card-1")
-        )
+            server.add_card_attempt(
+                self.card_attempt_payload(event_id="a-after", card_id="card-1")
+            )
         with server.connect() as connection:
             progress = server.card_progress_statistics(connection, snapshot, deck)
         item = progress["byCard"]["card-1"]

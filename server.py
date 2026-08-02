@@ -12,7 +12,7 @@ import re
 import sqlite3
 import threading
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -140,6 +140,26 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
 
 
+def next_card_event_time(connection: sqlite3.Connection) -> str:
+    """回答と印の追記順が、同一ミリ秒でも逆転しない時刻を返す。"""
+    latest = connection.execute(
+        """
+        SELECT MAX(created_at_server)
+        FROM (
+            SELECT created_at_server FROM card_attempts
+            UNION ALL
+            SELECT created_at_server FROM card_marks
+        )
+        """
+    ).fetchone()[0]
+    candidate = datetime.fromisoformat(utc_now().replace("Z", "+00:00"))
+    if latest is not None:
+        latest_time = datetime.fromisoformat(latest.replace("Z", "+00:00"))
+        if candidate <= latest_time:
+            candidate = latest_time + timedelta(milliseconds=1)
+    return candidate.isoformat(timespec="milliseconds").replace("+00:00", "Z")
+
+
 def valid_id(value: object) -> bool:
     return isinstance(value, str) and bool(ID_PATTERN.fullmatch(value))
 
@@ -229,7 +249,9 @@ def _looks_like_internal_path(value: str) -> bool:
     return lowered.startswith(
         (
             "/home/",
+            "/users/",
             "/root/",
+            "/private/",
             "/var/",
             "/tmp/",
             "/etc/",
@@ -2204,7 +2226,6 @@ def add_card_attempt(payload: dict) -> tuple[dict, bool, BundleSnapshot, dict | 
     payload_digest = hashlib.sha256(
         canonical_json(normalized, "card attempt", MAX_BODY_BYTES).encode("utf-8")
     ).hexdigest()
-    now = utc_now()
 
     with WRITE_LOCK, connect() as connection:
         connection.execute("BEGIN IMMEDIATE")
@@ -2220,6 +2241,8 @@ def add_card_attempt(payload: dict) -> tuple[dict, bool, BundleSnapshot, dict | 
                 )
             connection.commit()
             return _card_attempt_from_row(existing), False, snapshot, deck
+
+        now = next_card_event_time(connection)
 
         connection.execute(
             """
@@ -2356,8 +2379,6 @@ def add_card_mark(payload: dict) -> tuple[dict, bool, BundleSnapshot, dict | Non
     payload_digest = hashlib.sha256(
         canonical_json(normalized, "card mark", MAX_BODY_BYTES).encode("utf-8")
     ).hexdigest()
-    now = utc_now()
-
     with WRITE_LOCK, connect() as connection:
         connection.execute("BEGIN IMMEDIATE")
         existing = connection.execute(
@@ -2391,6 +2412,7 @@ def add_card_mark(payload: dict) -> tuple[dict, bool, BundleSnapshot, dict | Non
                 raise ApiError(
                     HTTPStatus.CONFLICT, "this answer already has a confidence mark"
                 )
+        now = next_card_event_time(connection)
         connection.execute(
             """
             INSERT INTO card_marks (

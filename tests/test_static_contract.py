@@ -52,6 +52,26 @@ class StaticUiContractTest(unittest.TestCase):
         self.assertIn("state.weaknessTargets.has(studyCardId(item))", source)
         self.assertEqual(source.count('postJson(API + "/card-attempts"'), 1)
 
+    def test_all_scope_intentionally_includes_certain_cards(self) -> None:
+        source = (ROOT / "static" / "app.js").read_text(encoding="utf-8")
+        start = source.index("  function studyScopePool(cards)")
+        end = source.index("  function queueCardAttempt", start)
+        scope_pool = source[start:end]
+
+        self.assertIn(
+            'if (scope === "graduated") return cards.filter(isStudyGraduated);',
+            scope_pool,
+        )
+        self.assertIn(
+            'if (scope === "all") return cards;',
+            scope_pool,
+        )
+        self.assertIn(
+            "return cards.filter((item) => !isStudyGraduated(item));",
+            scope_pool,
+        )
+        self.assertNotIn('scope === "all") return cards.filter', scope_pool)
+
 
 if __name__ == "__main__":
     unittest.main()
