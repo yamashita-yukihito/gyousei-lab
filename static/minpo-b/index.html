@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>民法・固定配役ドリル（B案）</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <a href="../" class="back-link">← 学習アプリへ戻る</a>
+  <h1>固定配役ドリル<span class="plan-label">B案</span></h1>
+  <p class="header-lead">1つの場面を読んだら、その場面について複数の○×を連続で解く。</p>
+</header>
+
+<main id="main">
+  <!-- 場面一覧 -->
+  <section id="scene-list-view">
+    <div id="cast-section" class="cast-section">
+      <button type="button" id="cast-toggle" class="cast-toggle">配役表を見る</button>
+      <div id="cast-content" class="cast-content hidden"></div>
+    </div>
+    <div class="list-controls">
+      <button type="button" id="clear-data-btn" class="danger-btn">記録を消す</button>
+    </div>
+    <div id="scene-cards" class="scene-cards"></div>
+  </section>
+
+  <!-- 場面詳細（ハッシュで切り替え） -->
+  <section id="scene-view" class="hidden"></section>
+</main>
+
+<footer>
+  <p>この記録はこの端末のブラウザにだけ保存される。学習アプリの回答履歴とは別。</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

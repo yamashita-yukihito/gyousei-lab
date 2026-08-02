@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#183a34">
+<title>民法・連続事例ドリル（C案）</title>
+<link rel="stylesheet" href="styles.css?v=20260801-c1">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ</a>
+
+<header class="head">
+  <div class="head-inner">
+    <div>
+      <p class="head-kicker">gyousei-lab / 民法</p>
+      <h1>連続事例ドリル<span class="head-plan">C案</span></h1>
+    </div>
+    <a class="head-back" href="../">学習アプリへ戻る</a>
+  </div>
+  <p class="head-lead">
+    同じ事例を使い回し、前問から変わった事実だけを見る。
+    最初は答えと解説を読み、3周目あたりから自分で解く。
+    1問ごとに頭をリセットせず、結論を変えるポイントを覚える。
+  </p>
+</header>
+
+<main id="main">
+  <section class="panel mode-panel" aria-labelledby="mode-title">
+    <div class="panel-head wrap-head">
+      <div>
+        <p class="kicker">LEARNING MODE</p>
+        <h2 id="mode-title">学習モード</h2>
+      </div>
+      <p class="as-of" id="as-of">法令基準日を読込中…</p>
+    </div>
+    <div class="mode-tabs" role="radiogroup" aria-label="学習モード">
+      <button type="button" class="mode-button" data-mode="read" role="radio" aria-checked="true">
+        <strong>読む</strong><span>答えと解説を最初から表示</span>
+      </button>
+      <button type="button" class="mode-button" data-mode="solve" role="radio" aria-checked="false">
+        <strong>解く</strong><span>差分を見て○×を選ぶ</span>
+      </button>
+      <button type="button" class="mode-button" data-mode="exam" role="radio" aria-checked="false">
+        <strong>本番変換</strong><span>A・B・C表記、差分ラベルなし</span>
+      </button>
+    </div>
+    <p class="mode-note" id="mode-note"></p>
+  </section>
+
+  <section id="home-view" aria-labelledby="chapters-title">
+    <div class="section-title">
+      <div>
+        <p class="kicker">CASE SERIES</p>
+        <h2 id="chapters-title">連続事例を選ぶ</h2>
+      </div>
+      <button type="button" id="reset-all" class="ghost danger">C案の記録を消す</button>
+    </div>
+    <div class="chapter-grid" id="chapter-grid">
+      <p class="loading">読み込み中…</p>
+    </div>
+  </section>
+
+  <section id="study-view" hidden>
+    <div class="study-topbar">
+      <button type="button" id="back-home" class="ghost">← 章一覧へ</button>
+      <p id="chapter-progress" class="chapter-progress"></p>
+    </div>
+
+    <section class="panel chapter-head-panel">
+      <p class="chapter-number" id="chapter-number"></p>
+      <h2 id="chapter-title"></h2>
+      <p class="chapter-lead" id="chapter-lead"></p>
+      <div class="goal-box"><strong>この章の狙い</strong><span id="chapter-goal"></span></div>
+    </section>
+
+    <details class="panel case-panel" id="case-details" open>
+      <summary>
+        <span><small>COMMON CASE</small>共通事例と関係図</span>
+        <span class="summary-hint">開閉</span>
+      </summary>
+      <div class="case-body">
+        <div class="cast-strip" id="cast-strip"></div>
+        <div class="common-case" id="common-case"></div>
+        <figure class="diagram">
+          <figcaption>今回の事実関係</figcaption>
+          <div class="diagram-box" id="case-diagram"></div>
+          <p class="diagram-hint">図は横にスクロールできます。</p>
+        </figure>
+      </div>
+    </details>
+
+    <section class="panel question-panel" id="question-panel" aria-live="polite">
+      <div class="question-head">
+        <div class="question-badges">
+          <span class="badge topic" id="q-topic"></span>
+          <span class="badge kind" id="q-kind"></span>
+        </div>
+        <span class="q-index" id="q-index"></span>
+      </div>
+
+      <div class="delta-card" id="delta-card">
+        <p class="delta-title" id="delta-title"></p>
+        <div class="delta-grid">
+          <div><small>前</small><p id="delta-before"></p></div>
+          <div class="delta-arrow" aria-hidden="true">→</div>
+          <div><small>今回</small><p id="delta-after"></p></div>
+        </div>
+        <p class="delta-unchanged" id="delta-unchanged"></p>
+      </div>
+
+      <p class="question-text" id="question-text"></p>
+
+      <div class="answer-row" id="answer-row">
+        <button type="button" class="ans ans-o" data-value="true">○ 正しい</button>
+        <button type="button" class="ans ans-x" data-value="false">× 誤り</button>
+      </div>
+      <section class="result" id="result" hidden>
+        <div class="verdict-row">
+          <p class="verdict" id="verdict"></p>
+          <button type="button" id="retry-question" class="ghost retry" hidden>この問題だけ解き直す</button>
+        </div>
+        <p class="result-summary" id="result-summary"></p>
+
+        <div class="logic-flow" aria-label="結論の流れ">
+          <div><small>決定的な事実</small><strong id="logic-fact"></strong></div>
+          <span aria-hidden="true">→</span>
+          <div><small>適用ルール</small><strong id="logic-rule"></strong></div>
+          <span aria-hidden="true">→</span>
+          <div><small>結論</small><strong id="logic-conclusion"></strong></div>
+        </div>
+
+        <div class="connection-box">
+          <h3>前問とのつながり</h3>
+          <p id="connection"></p>
+          <p class="changed"><strong>結論を左右した点：</strong><span id="changed-fact"></span></p>
+        </div>
+
+        <div class="reason-grid">
+          <article><h3>誰を、なぜ守る？</h3><p id="protect"></p></article>
+          <article><h3>反対の結論だと何が困る？</h3><p id="reverse-problem"></p></article>
+        </div>
+
+        <details class="deep-details">
+          <summary>詳しく理解する</summary>
+          <div class="deep-grid">
+            <article><h3>正確なルール</h3><p id="legal-rule"></p></article>
+            <article><h3>条文を忘れたときの考え方</h3><p id="intuition"></p></article>
+            <article><h3>ひっかけ箇所</h3><p id="trap"></p></article>
+          </div>
+          <div class="legal-basis" id="legal-basis"></div>
+        </details>
+
+        <p class="minimum" id="minimum"></p>
+        <p class="next-preview" id="next-preview"></p>
+      </section>
+
+      <button type="button" id="read-next" class="primary read-next" hidden>理解した・次へ</button>
+
+      <div class="nav-row">
+        <button type="button" id="prev-question" class="ghost">← 前の問題</button>
+        <button type="button" id="next-question" class="primary">次の問題 →</button>
+      </div>
+    </section>
+  </section>
+
+  <section id="summary-view" hidden>
+    <div class="study-topbar">
+      <button type="button" id="summary-home" class="ghost">← 章一覧へ</button>
+    </div>
+    <section class="panel summary-panel">
+      <p class="kicker">CHAPTER COMPLETE</p>
+      <h2 id="summary-title"></h2>
+      <p id="summary-result" class="summary-result"></p>
+      <div class="table-wrap">
+        <table>
+          <caption id="summary-caption"></caption>
+          <thead id="summary-thead"></thead>
+          <tbody id="summary-tbody"></tbody>
+        </table>
+      </div>
+      <p id="summary-note" class="summary-note"></p>
+      <div class="summary-actions">
+        <button type="button" id="repeat-chapter" class="primary">このモードでもう1周</button>
+        <button type="button" id="switch-solve" class="ghost">解くモードへ切り替える</button>
+      </div>
+    </section>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>記録はこの端末のlocalStorage（<code>minpoC:v1</code>）だけに保存され、通常の学習カード履歴とは混ざりません。</p>
+</footer>
+
+<script src="app.js?v=20260801-c1"></script>
+</body>
+</html>
