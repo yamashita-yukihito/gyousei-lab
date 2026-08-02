@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260802-3";
+  const APP_VERSION = "20260802-4";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -98,6 +98,7 @@
     });
 
     try {
+      let studyReady = false;
       const cardRequest = fetchAllCardPages()
         .then((payload) => ({ payload, error: null }))
         .catch((error) => ({ payload: {}, error }));
@@ -118,6 +119,7 @@
       renderSummary();
       try {
         await setupStudy(cardResult.error);
+        studyReady = true;
       } catch (cardSetupError) {
         $("study-loading").hidden = true;
         $("study-error").hidden = false;
@@ -130,8 +132,11 @@
       renderAbout();
       $("global-loading").hidden = true;
       const requestedTab = location.hash.slice(1);
+      // cardIdの指定はタブ指定より優先し、必ず○×学習の対象カードを開く。
+      const openedRequestedCard = studyReady && openRequestedStudyCard(location.search);
       if (
-        requestedTab
+        !openedRequestedCard
+        && requestedTab
         && requestedTab !== "study"
         && document.querySelector('[data-tab="' + CSS.escape(requestedTab) + '"]')
       ) {
@@ -1387,6 +1392,22 @@
     renderStudyScopeSummary();
     renderStudyCard();
     scrollToPanelCard($("study-card"));
+  }
+
+  // 独立教材から既存カードへ戻るための公開deep link。
+  // URLの値をselectorやHTMLへ渡さず、読込済みカードIDとの完全一致だけを許可する。
+  function requestedStudyCardId(search) {
+    const cardId = new URLSearchParams(search || "").get("cardId");
+    if (!cardId || cardId.length > 128 || !state.studyById.has(cardId)) return null;
+    return cardId;
+  }
+
+  function openRequestedStudyCard(search) {
+    const cardId = requestedStudyCardId(search);
+    if (!cardId) return false;
+    activateTab("study");
+    requestAnimationFrame(() => openRelatedStudyCard(cardId));
+    return true;
   }
 
   function renderStudyAccuracy() {

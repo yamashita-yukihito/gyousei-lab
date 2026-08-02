@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import json
 import re
+import subprocess
 import unittest
 from pathlib import Path
 
@@ -71,6 +73,41 @@ class StaticUiContractTest(unittest.TestCase):
             scope_pool,
         )
         self.assertNotIn('scope === "all") return cards.filter', scope_pool)
+
+    def test_card_id_deep_link_accepts_only_an_existing_card(self) -> None:
+        source = (ROOT / "static" / "app.js").read_text(encoding="utf-8")
+        cards = json.loads(
+            (ROOT / "content" / "explanation_cards.json").read_text(encoding="utf-8")
+        )["items"]
+        existing_id = cards[0]["id"]
+        missing_id = "card-that-does-not-exist"
+        self.assertNotIn(missing_id, {card["id"] for card in cards})
+
+        start = source.index("  function requestedStudyCardId(search)")
+        end = source.index("\n  function openRequestedStudyCard", start)
+        helper = source[start:end]
+        script = f"""
+const state = {{ studyById: new Map([[{json.dumps(existing_id)}, {{}}]]) }};
+{helper}
+const checks = [
+  requestedStudyCardId("?cardId=" + encodeURIComponent({json.dumps(existing_id)})) === {json.dumps(existing_id)},
+  requestedStudyCardId("?cardId=" + encodeURIComponent({json.dumps(missing_id)})) === null,
+  requestedStudyCardId("?cardId=" + "a".repeat(129)) === null,
+  requestedStudyCardId("") === null,
+];
+if (!checks.every(Boolean)) process.exit(1);
+"""
+        completed = subprocess.run(
+            ["/opt/homebrew/bin/node", "-e", script],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertIn(
+            "studyReady && openRequestedStudyCard(location.search)",
+            source,
+        )
 
 
 if __name__ == "__main__":

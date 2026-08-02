@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>民法・法律家の常識ドリル D案</title>
+  <link rel="stylesheet" href="styles.css?v=20260802-7">
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へ移動</a>
+  <header class="head">
+    <div class="head-inner">
+      <div>
+        <p class="kicker">GYOUSEI LAB / CIVIL LAW D</p>
+        <h1>民法・法律家の常識ドリル <span>D案</span></h1>
+      </div>
+      <a class="back-link" href="../">行政書士過去問ラボへ戻る</a>
+    </div>
+    <p class="head-lead">最初の2周は答えから読み、3周目から解く。前問から変わった<strong>1事実</strong>と、誰をなぜ守るかをつないで覚えます。</p>
+  </header>
+
+  <main id="main">
+    <section class="panel mode-panel" aria-labelledby="mode-title">
+      <div class="panel-head">
+        <div>
+          <p class="kicker dark">LEARNING MODE</p>
+          <h2 id="mode-title">今の周回方法</h2>
+        </div>
+        <p id="as-of" class="as-of">法令基準日を読込中</p>
+      </div>
+      <div class="mode-tabs" role="radiogroup" aria-label="学習モード">
+        <button class="mode-button" type="button" role="radio" data-mode="read" aria-checked="true">
+          <strong>答えから読む</strong><span>1・2周目。8問を縦に並べ、答えと救済理由まで一気に読む</span>
+        </button>
+        <button class="mode-button" type="button" role="radio" data-mode="solve" aria-checked="false">
+          <strong>普通に解く</strong><span>3周目以降。素直／ひっかけと差分を見て○×する</span>
+        </button>
+        <button class="mode-button" type="button" role="radio" data-mode="exam" aria-checked="false">
+          <strong>本番変換</strong><span>仕上げ。人物をA・B・Cへ戻し、ラベルと差分を隠す</span>
+        </button>
+      </div>
+      <p id="mode-note" class="mode-note"></p>
+      <p id="storage-warning" class="storage-warning" hidden>このブラウザでは進捗を保存できません。画面を閉じる前にブラウザの保存制限を確認してください。</p>
+    </section>
+
+    <section id="home-view" aria-labelledby="chapters-title">
+      <div class="section-title">
+        <div><p class="kicker dark">CHAPTERS</p><h2 id="chapters-title">連続事例を選ぶ</h2></div>
+        <button id="reset-all" class="ghost danger" type="button">D案の記録を消す</button>
+      </div>
+      <div id="chapter-grid" class="chapter-grid"><p class="loading">問題データを読み込んでいます…</p></div>
+    </section>
+
+    <section id="study-view" hidden>
+      <div class="study-topbar">
+        <button class="ghost" type="button" data-action="home">← 章一覧</button>
+        <p id="chapter-progress" class="chapter-progress"></p>
+      </div>
+
+      <section class="panel chapter-panel">
+        <p id="chapter-number" class="chapter-number"></p>
+        <h2 id="chapter-title"></h2>
+        <p id="chapter-lead" class="chapter-lead"></p>
+        <div class="goal-box"><strong>この章で作る法律家の常識</strong><span id="chapter-goal"></span></div>
+        <details class="case-details" open>
+          <summary>共通事例と固定配役 <span>ここだけ先に1回読む</span></summary>
+          <div class="case-body">
+            <div id="cast-strip" class="cast-strip"></div>
+            <p id="base-scenario" class="base-scenario"></p>
+          </div>
+        </details>
+      </section>
+
+      <div id="read-list" class="read-list"></div>
+      <div id="single-card"></div>
+
+      <section id="read-finish" class="panel read-finish" hidden>
+        <h2>この章を読み終えた</h2>
+        <p>暗記できていなくて大丈夫です。違う1事実で、守る人と結論がどう動くかだけ眺めてください。</p>
+        <button id="complete-read" class="primary" type="button">読んだ周回を1回記録する</button>
+      </section>
+    </section>
+
+    <section id="summary-view" class="panel summary-panel" hidden>
+      <p class="kicker dark">CHAPTER SUMMARY</p>
+      <h2 id="summary-title"></h2>
+      <p id="summary-result" class="summary-result"></p>
+      <div class="table-wrap">
+        <table>
+          <caption id="summary-caption"></caption>
+          <thead id="summary-thead"></thead>
+          <tbody id="summary-tbody"></tbody>
+        </table>
+      </div>
+      <p id="summary-note" class="summary-note"></p>
+      <div class="summary-actions">
+        <button id="repeat-chapter" class="primary" type="button">同じモードでもう1周</button>
+        <button id="switch-solve" class="ghost" type="button">普通に解くへ進む</button>
+        <button class="ghost" type="button" data-action="home">章一覧へ</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>記録はこのブラウザの <code>minpoD:v1</code> だけに保存します。本番SQLiteと通常カードの回答履歴は変更しません。</p>
+  </footer>
+  <script src="app.js?v=20260802-7" defer></script>
+</body>
+</html>

@@ -786,7 +786,7 @@ safe ○×候補へ分解せず、問題単位reviewへ残す。全分野の件�
 
 - このディレクトリはprivate Gitリポジトリ `yamashita-yukihito/gyousei-lab` で管理する。親の `yuki-services` はGitリポジトリではない。
 - タブ補足と本番掲載件数はAPI集計から動的表示する。行政法の現件数を固定値へ戻さない。
-- `static/app.js` の版は `20260802-3`。UI資産を変更する時はHTMLのクエリ版と一緒に更新する。
+- `static/app.js` の版は `20260802-4`。UI資産を変更する時はHTMLのクエリ版と一緒に更新する。
 - カードの`review.currentLawStatus`は原則`provider-backed`系だが、`min-property-co-ownership-claims-001`だけは取得元解説が未収録の原問があるため`provider-partial`（公式正解からの機械確定で補完済み）。
 - UI初回はoverview、cards、learning-analysisを読み、questions、Claude監査、similaritiesはタブ単位で遅延読込する。
 - rawのunderscore科目IDは変えず、`authoring/src/gyousei_pipeline/subjects.py`を公開canonical変換の正本にする。
@@ -798,10 +798,10 @@ safe ○×候補へ分解せず、問題単位reviewへ残す。全分野の件�
 次の優先順位:
 
 1. 間隔を空けた「今日の学習」キュー。
-2. 初見holdoutと、90分・30問から始める本試験セッション。
+2. 90分・30問から始める本試験セッション。初見holdoutは作らない。
 3. 記述式の必須要素・答案履歴・再回答、過去問誤答からカードへ戻る導線。
 4. 誤答理由タグと、データが貯まった後の自信度dashboard。
-5. A/B/C民法ドリルを実際に比較し、D案を決める。
+5. 民法D案を答えから2周読み、3周目から解いて、必要な章だけ追加・修正する。
 
 済み: カード×原問監査schemaの`card-frequency-audit@3`一般化と、民法25論点の追加（2026-07-27）。
 

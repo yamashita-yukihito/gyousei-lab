@@ -1,0 +1,3210 @@
+{
+  "schemaVersion": "minpo-d@1",
+  "asOf": "2026-04-01",
+  "title": "民法・法律家の常識ドリル D案",
+  "description": "最初の2周は答えと理由を読み、3周目から解く連続事例教材",
+  "cast": [
+    {
+      "id": "nobita",
+      "name": "のび太",
+      "emoji": "🟡",
+      "color": "#b57a00",
+      "role": "守られる側・事情を知らない側"
+    },
+    {
+      "id": "shizuka",
+      "name": "しずか",
+      "emoji": "🟣",
+      "color": "#8a4f90",
+      "role": "本人・所有者・普通の当事者"
+    },
+    {
+      "id": "gian",
+      "name": "ジャイアン",
+      "emoji": "🔴",
+      "color": "#b6443c",
+      "role": "無権限・約束違反・強引な側"
+    },
+    {
+      "id": "suneo",
+      "name": "スネ夫",
+      "emoji": "🔵",
+      "color": "#3472a3",
+      "role": "後から取引へ入る側"
+    },
+    {
+      "id": "dekisugi",
+      "name": "出木杉",
+      "emoji": "🟢",
+      "color": "#37815e",
+      "role": "確認を尽くす側・転得者"
+    },
+    {
+      "id": "doraemon",
+      "name": "ドラえもん",
+      "emoji": "⚪",
+      "color": "#287db3",
+      "role": "お金を貸した側・権利者"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "unauthorized-agency",
+      "number": 1,
+      "topic": "総則・代理",
+      "title": "無権代理――相手方の知識で、使える救済がどう変わるか",
+      "lead": "同じ無権代理でも、催告・取消し・無権代理人の責任は、相手方が知っていたか、確認を怠ったかで別々に動きます。",
+      "goal": "権限のない人の約束を本人へ押し付けず、だまされた相手方には状況に応じた出口を残す。",
+      "remedyGuide": "本人は追認を拒絶できます。相手方には、確答を求める催告、善意なら追認前の取消し、要件を満たせば無権代理人への履行・損害賠償請求という別々の出口があります。",
+      "baseScenario": "しずかのカメラについて、代理権のないジャイアンが『しずかの代理人だ』と言って、のび太と売買契約をしました。のび太は契約時、ジャイアンに代理権がないと知りませんでした。しずかはまだ追認していません。",
+      "castIds": [
+        "shizuka",
+        "gian",
+        "nobita"
+      ],
+      "diagram": {
+        "nodes": [
+          {
+            "id": "shizuka",
+            "castId": "shizuka",
+            "label": "カメラの所有者／本人",
+            "x": 0,
+            "y": 0
+          },
+          {
+            "id": "gian",
+            "castId": "gian",
+            "label": "代理権なし",
+            "x": 1,
+            "y": 1
+          },
+          {
+            "id": "nobita",
+            "castId": "nobita",
+            "label": "契約の相手方",
+            "x": 2,
+            "y": 0
+          },
+          {
+            "id": "camera",
+            "kind": "thing",
+            "label": "カメラ",
+            "x": 1,
+            "y": 2
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "minpo-d-ua-001",
+          "topic": "本人への効果",
+          "kind": "straight",
+          "delta": {
+            "before": "章の共通事例",
+            "now": "しずかは追認していない",
+            "same": "ジャイアンに代理権がないこと"
+          },
+          "currentScenario": "しずかは契約を追認していません。のび太が無権限を知っていたかは、この問いでは結論に影響しません。",
+          "statement": "この売買契約は、しずかが追認しない限り、しずかに対して効力を生じない。",
+          "answer": true,
+          "diagram": {
+            "edges": [
+              {
+                "from": "shizuka",
+                "to": "gian",
+                "label": "代理権を与えていない",
+                "style": "dashed"
+              },
+              {
+                "from": "gian",
+                "to": "nobita",
+                "label": "代理人と称して売買",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "camera",
+                "label": "所有",
+                "style": "thin"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "nobita",
+              "to": "shizuka",
+              "label": "追認前は本人に効力なし",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "○。無権代理の契約は、本人が追認するまでは本人を拘束しません。",
+            "fact": "代理権なし・追認なし",
+            "rule": "民法113条1項",
+            "conclusion": "しずかには未確定",
+            "protectWho": "しずか（本人）",
+            "why": "頼んでもいない人の契約で、自分の財産を勝手に処分されないためです。",
+            "ifOpposite": "名乗った者がいるだけで本人が拘束され、財産管理を自分で決められなくなります。",
+            "legalSense": "まず『その人に約束を作る権限があったか』を見る。権限がなければ、本人の選択を先に守る。",
+            "minimum": "無権代理＋追認なし＝本人に効力なし",
+            "next": "本人へ返事を求めたのに黙っていたら、どう扱うか。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法113条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-ua-002",
+          "topic": "相手方の催告",
+          "kind": "trap",
+          "delta": {
+            "before": "しずかへ返事を求めていない",
+            "now": "相当期間を定めて催告したが、しずかは無回答",
+            "same": "追認を明示していないこと"
+          },
+          "currentScenario": "のび太は、しずかへ相当期間である7日を定め、『7日以内に追認するか答えてください』と催告しました。しずかは期間内に答えませんでした。",
+          "statement": "しずかが期間内に答えなかったので、契約を追認したものとみなされる。",
+          "answer": false,
+          "diagram": {
+            "edges": [
+              {
+                "from": "gian",
+                "to": "nobita",
+                "label": "無権代理で売買",
+                "style": "solid"
+              },
+              {
+                "from": "nobita",
+                "to": "shizuka",
+                "label": "7日以内に返答を催告",
+                "style": "dashed"
+              },
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "無回答",
+                "style": "thin"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "shizuka",
+              "to": "nobita",
+              "label": "追認拒絶とみなす",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。期間内に確答しないと、追認ではなく追認拒絶とみなされます。",
+            "fact": "適法な催告＋無回答",
+            "rule": "民法114条",
+            "conclusion": "追認拒絶扱い",
+            "protectWho": "返事を待つのび太",
+            "why": "いつまでも契約が宙に浮くと、代金や代替品の準備を決められないからです。",
+            "ifOpposite": "沈黙だけで財産を失う本人にも酷で、無権代理人と組んだ押し売りにも使われます。",
+            "legalSense": "沈黙へ重い効果を与えるなら、本人の財産を奪う方向ではなく、未確定状態を終わらせる方向にする。",
+            "minimum": "催告へ無回答＝追認拒絶",
+            "next": "本人がはっきり追認したら、いつから効くか。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法114条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-ua-003",
+          "topic": "追認の遡及効",
+          "kind": "trap",
+          "delta": {
+            "before": "しずかは無回答",
+            "now": "しずかが明示的に追認",
+            "same": "契約時には代理権がなかったこと"
+          },
+          "currentScenario": "しずかは後日、のび太へ『その売買契約を認めます』と伝えました。第三者の権利は発生していません。",
+          "statement": "追認した契約は、追認の通知が届いた時からだけ効力を生じ、契約時にはさかのぼらない。",
+          "answer": false,
+          "diagram": {
+            "edges": [
+              {
+                "from": "gian",
+                "to": "nobita",
+                "label": "先に無権代理で売買",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "後から追認",
+                "style": "bold"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "shizuka",
+              "to": "nobita",
+              "label": "原則、契約時へさかのぼる",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "×。別段の意思表示がなければ、追認は契約時へさかのぼります。",
+            "fact": "本人の追認＋第三者なし",
+            "rule": "民法116条",
+            "conclusion": "契約時から有効扱い",
+            "protectWho": "追認を信じて履行する双方",
+            "why": "後から有効にするなら、契約が途中から突然生まれた扱いより、当初の約束を完成させるほうが関係を整理しやすいからです。",
+            "ifOpposite": "契約から追認までの履行や果実を、別の法律関係として一つずつ処理する必要が生じます。",
+            "legalSense": "追認は新しい契約ではなく、欠けていた本人の承認を後から補うもの。",
+            "minimum": "追認＝原則として契約時へ遡及（第三者を害せない）",
+            "next": "追認前なら、善意の相手方は自分から抜けられるか。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法116条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-ua-004",
+          "topic": "相手方の取消権",
+          "kind": "straight",
+          "delta": {
+            "before": "しずかが追認した",
+            "now": "しずかがまだ追認していない状態へ戻す",
+            "same": "ジャイアンに代理権がなく、のび太はそれを知らなかったこと"
+          },
+          "currentScenario": "しずかが追認する前です。のび太は契約時、ジャイアンに代理権がないと知りませんでした。",
+          "statement": "のび太は、しずかが追認する前なら、この契約を取り消すことができる。",
+          "answer": true,
+          "diagram": {
+            "nodeLabels": {
+              "nobita": "無権限を知らない相手方"
+            },
+            "edges": [
+              {
+                "from": "gian",
+                "to": "nobita",
+                "label": "無権代理で売買",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "まだ追認なし",
+                "style": "thin"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "nobita",
+              "to": "gian",
+              "label": "追認前なら取消し可",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。善意の相手方は、本人が追認するまで契約を取り消せます。",
+            "fact": "相手方は善意＋追認前",
+            "rule": "民法115条",
+            "conclusion": "のび太は取消し可",
+            "protectWho": "権限があると信じたのび太",
+            "why": "本人が決めるまで一方的に待たされるのではなく、誤って入った契約から離れる出口が必要だからです。",
+            "ifOpposite": "事情を知らない相手方だけが、本人の都合でいつまでも拘束されます。",
+            "legalSense": "本人を勝手な契約から守る代わりに、善意の相手方にも撤退手段を与えて釣り合わせる。",
+            "minimum": "善意の相手方＋追認前＝取消し可",
+            "next": "相手方が最初から無権限を知っていたら。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法115条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-ua-005",
+          "topic": "悪意の相手方",
+          "kind": "straight",
+          "delta": {
+            "before": "のび太は無権限を知らなかった",
+            "now": "契約時から無権限を知っていた",
+            "same": "追認前であること"
+          },
+          "currentScenario": "のび太は契約時から、ジャイアンに代理権がないと知っていました。しずかはまだ追認していません。",
+          "statement": "のび太は追認前なので、無権限を知っていても契約を取り消すことができる。",
+          "answer": false,
+          "diagram": {
+            "nodeLabels": {
+              "nobita": "無権限を知って契約"
+            },
+            "edges": [
+              {
+                "from": "gian",
+                "to": "nobita",
+                "label": "無権代理で売買",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "追認前",
+                "style": "thin"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "nobita",
+              "to": "gian",
+              "label": "取消し不可",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。無権限を知って契約した相手方には、115条の取消権がありません。",
+            "fact": "相手方が悪意",
+            "rule": "民法115条ただし書",
+            "conclusion": "のび太は取消し不可",
+            "protectWho": "判断を保留するしずか",
+            "why": "危険を承知で契約した人まで、都合が悪くなった時だけ自由に逃がす必要は薄いからです。",
+            "ifOpposite": "相手方が『上がれば追認待ち、下がれば取消し』という一方的な賭けをできます。",
+            "legalSense": "事情を知って引き受けた危険は、原則として自分で負う。",
+            "minimum": "悪意の相手方＝取消し不可",
+            "next": "取消しは無理でも、本人へ回答を迫ることまでできないのか。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法115条ただし書",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-ua-006",
+          "topic": "悪意と催告権",
+          "kind": "trap",
+          "delta": {
+            "before": "悪意だから取消しできない",
+            "now": "同じ悪意のまま、本人へ確答を催告",
+            "same": "のび太が無権限を知っていたこと"
+          },
+          "currentScenario": "無権限を知って契約したのび太が、しずかへ相当期間を定めて追認するか確答するよう催告しました。",
+          "statement": "のび太は悪意でも、しずかに対して追認するかどうかの確答を催告できる。",
+          "answer": true,
+          "diagram": {
+            "nodeLabels": {
+              "nobita": "無権限を知る相手方"
+            },
+            "edges": [
+              {
+                "from": "gian",
+                "to": "nobita",
+                "label": "無権代理で売買",
+                "style": "solid"
+              },
+              {
+                "from": "nobita",
+                "to": "shizuka",
+                "label": "追認するか催告",
+                "style": "bold"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "nobita",
+              "to": "shizuka",
+              "label": "悪意でも催告可",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。114条の催告権は、相手方の善意・悪意で制限されていません。",
+            "fact": "悪意の相手方が催告",
+            "rule": "民法114条",
+            "conclusion": "催告はできる",
+            "protectWho": "契約関係を確定したい双方",
+            "why": "取消しで逃げる保護と、宙に浮いた契約へ返事を求める整理手段は目的が違うからです。",
+            "ifOpposite": "悪意の相手方との契約だけ、本人も相手方も未確定状態を終わらせる定型手段を失います。",
+            "legalSense": "『悪意だから全部の権利を失う』と丸暗記せず、その制度が何のためかを分けて見る。",
+            "minimum": "悪意でも催告可／悪意だと取消し不可",
+            "next": "相手方に確認不足があると、無権代理人へ責任追及できるか。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法114条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-ua-007",
+          "topic": "無権代理人の責任",
+          "kind": "straight",
+          "delta": {
+            "transition": "reset",
+            "before": "悪意の相手方と催告権の小系列",
+            "now": "基準事例へ戻り、のび太は善意有過失、ジャイアンも無権限を知らない",
+            "same": "無権代理で本人が追認していないこと"
+          },
+          "currentScenario": "のび太は無権限を知りませんでしたが、確認すれば分かったのに確認しませんでした。ジャイアン自身も無権限だと気付いていませんでした。",
+          "statement": "のび太は、ジャイアンに対して117条の履行または損害賠償責任を追及できる。",
+          "answer": false,
+          "diagram": {
+            "nodeLabels": {
+              "nobita": "善意だが確認に過失",
+              "gian": "無権限を知らない"
+            },
+            "edges": [
+              {
+                "from": "gian",
+                "to": "nobita",
+                "label": "無権代理で売買",
+                "style": "solid"
+              },
+              {
+                "from": "nobita",
+                "to": "gian",
+                "label": "117条責任を請求",
+                "style": "dashed"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "nobita",
+              "to": "gian",
+              "label": "原則、責任追及不可",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。相手方が過失で無権限を知らず、無権代理人も無権限を知らなかった場合、117条責任は除外されます。",
+            "fact": "相手方に過失＋無権代理人は善意",
+            "rule": "民法117条2項2号本文",
+            "conclusion": "117条責任なし",
+            "protectWho": "無権限に気付かなかったジャイアン",
+            "why": "確認を怠った相手方の損失を、同じく事情を知らなかった代理人側へ全部移すのは公平でないからです。",
+            "ifOpposite": "確認できた側が調査せず契約し、知らなかった代理人だけへ損失を押し付けられます。",
+            "legalSense": "双方に落ち度があるなら、誰が危険を知っていたかまで見て責任を配る。",
+            "minimum": "相手方が善意有過失＋代理人も善意＝117条責任なし",
+            "next": "ジャイアンだけは無権限を知っていたら、結論が反転する。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法117条2項2号",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-ua-008",
+          "topic": "117条ただし書",
+          "kind": "trap",
+          "delta": {
+            "before": "ジャイアンも無権限を知らない",
+            "now": "ジャイアンは自分の無権限を知っていた",
+            "same": "のび太に確認不足の過失があること"
+          },
+          "currentScenario": "のび太には確認不足の過失があります。一方、ジャイアンは自分に代理権がないと知りながら代理人を名乗りました。",
+          "statement": "のび太に過失があっても、故意に無権代理をしたジャイアンには117条の責任を追及できる。",
+          "answer": true,
+          "diagram": {
+            "nodeLabels": {
+              "nobita": "善意だが確認に過失",
+              "gian": "無権限を知っていた"
+            },
+            "edges": [
+              {
+                "from": "gian",
+                "to": "nobita",
+                "label": "知りながら無権代理",
+                "style": "bold"
+              },
+              {
+                "from": "nobita",
+                "to": "gian",
+                "label": "117条責任を請求",
+                "style": "solid"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "gian",
+              "to": "nobita",
+              "label": "履行または損害賠償",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。無権代理人が無権限を知っていた場合は、相手方に過失があっても117条責任が残ります。",
+            "fact": "相手方に過失＋無権代理人は悪意",
+            "rule": "民法117条2項2号ただし書",
+            "conclusion": "ジャイアンに責任あり",
+            "protectWho": "のび太（不注意でも故意に欺かれた側）",
+            "why": "確認不足はあっても、無権限を知りながら信用を作った者の責任のほうが重いからです。",
+            "ifOpposite": "少しでも相手方に不注意があれば、故意の無権代理人が責任を免れ、詐称を誘発します。",
+            "legalSense": "過失と故意がぶつかる場面では、故意に危険を作った側へ重く負担させる。",
+            "minimum": "相手方に過失でも、代理人が悪意なら117条責任あり",
+            "next": "章末表で、催告・取消し・117条責任を別々に並べる。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法117条2項2号ただし書",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        }
+      ],
+      "summaryTable": {
+        "caption": "相手方の状態と使える手段",
+        "headers": [
+          "相手方の状態",
+          "本人への催告",
+          "追認前の取消し",
+          "無権代理人の117条責任"
+        ],
+        "rows": [
+          [
+            "善意・無過失",
+            "できる",
+            "できる",
+            "原則できる"
+          ],
+          [
+            "悪意",
+            "できる",
+            "できない",
+            "できない"
+          ],
+          [
+            "善意・有過失／代理人も善意",
+            "できる",
+            "できる",
+            "できない"
+          ],
+          [
+            "善意・有過失／代理人は悪意",
+            "できる",
+            "できる",
+            "できる"
+          ]
+        ],
+        "note": "『相手方が悪いと全部だめ』ではない。催告は未確定状態を終わらせ、取消しは善意の相手方を逃がし、117条は無権代理人へ損失を負わせる別制度です。"
+      }
+    },
+    {
+      "id": "good-faith-acquisition",
+      "number": 2,
+      "topic": "物権・即時取得",
+      "title": "即時取得――元の所有者と、信じて買った人の境界",
+      "lead": "動産取引を信頼した人を守る192条と、盗難・遺失の被害者を取り戻させる193・194条を一続きで見ます。",
+      "goal": "見た目を信じた取引を守りつつ、盗まれた人にも2年間の回復ルートを残す。",
+      "remedyGuide": "元所有者には盗品・遺失物の2年間の回復請求があります。物を失う買主は代価弁償で保護される場合があり、売主に契約責任を追及できる場合もあります。",
+      "baseScenario": "しずかがジャイアンへ預けた腕時計を、ジャイアンが自分の物だと偽ってのび太へ売りました。しずかは売却を認めていません。",
+      "castIds": [
+        "shizuka",
+        "gian",
+        "nobita"
+      ],
+      "diagram": {
+        "nodes": [
+          {
+            "id": "shizuka",
+            "castId": "shizuka",
+            "label": "腕時計の所有者",
+            "x": 0,
+            "y": 0
+          },
+          {
+            "id": "gian",
+            "castId": "gian",
+            "label": "腕時計を預かった人",
+            "x": 1,
+            "y": 1
+          },
+          {
+            "id": "nobita",
+            "castId": "nobita",
+            "label": "買主",
+            "x": 2,
+            "y": 0
+          },
+          {
+            "id": "watch",
+            "kind": "thing",
+            "label": "腕時計",
+            "x": 1,
+            "y": 2
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "minpo-d-gfa-001",
+          "topic": "192条の基本",
+          "kind": "straight",
+          "delta": {
+            "before": "章の共通事例",
+            "now": "のび太は善意無過失で現実の引渡しを受けた",
+            "same": "ジャイアンが本当の所有者でないこと"
+          },
+          "currentScenario": "のび太は所有者でないことを知らず、注意しても分かりませんでした。代金を払い、腕時計をその場で受け取りました。取引は平穏かつ公然です。",
+          "statement": "のび太は、即時取得により腕時計の所有権を取得する。",
+          "answer": true,
+          "diagram": {
+            "nodeLabels": {
+              "nobita": "善意・無過失の買主"
+            },
+            "edges": [
+              {
+                "from": "shizuka",
+                "to": "gian",
+                "label": "腕時計を預けた",
+                "style": "thin"
+              },
+              {
+                "from": "gian",
+                "to": "nobita",
+                "label": "売買＋現実の引渡し",
+                "style": "bold"
+              },
+              {
+                "from": "watch",
+                "to": "nobita",
+                "label": "占有が移る",
+                "style": "solid"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "watch",
+              "to": "nobita",
+              "label": "即時に所有権取得",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。取引で平穏・公然に占有を始めた善意無過失の買主は、動産を即時取得します。",
+            "fact": "取引＋平穏公然＋善意無過失＋現実の占有",
+            "rule": "民法192条",
+            "conclusion": "のび太が所有権取得",
+            "protectWho": "外観を信じたのび太",
+            "why": "動産には登記がなく、手元に持つ人を信じて毎回所有履歴まで調べるのは現実的でないからです。",
+            "ifOpposite": "中古品を買うたびに前所有者全員を調べなければ安全にならず、日常取引が止まります。",
+            "legalSense": "動産は『持っている人が権利者らしい』という外観を、落ち度なく信じた取引を守る。",
+            "minimum": "動産＋取引＋平穏公然＋善意無過失＋占有取得＝即時取得",
+            "next": "怪しい事情を見落としたら。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法192条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ],
+          "cardId": "min-property-good-faith-acquisition-001"
+        },
+        {
+          "id": "minpo-d-gfa-002",
+          "topic": "無過失",
+          "kind": "straight",
+          "delta": {
+            "before": "注意しても分からなかった",
+            "now": "刻印の違いに気付けたのに確認しなかった",
+            "same": "現実の引渡しを受けたこと"
+          },
+          "currentScenario": "腕時計の裏にしずかの氏名が刻まれ、保証書の名義も違いました。のび太は確認せず買い、その場で受け取りました。",
+          "statement": "のび太は腕時計を現実に受け取ったので、確認不足があっても即時取得する。",
+          "answer": false,
+          "diagram": {
+            "nodeLabels": {
+              "nobita": "名義違いを確認しない買主"
+            },
+            "edges": [
+              {
+                "from": "gian",
+                "to": "nobita",
+                "label": "売買＋現実の引渡し",
+                "style": "solid"
+              },
+              {
+                "from": "watch",
+                "to": "nobita",
+                "label": "しずか名義の刻印あり",
+                "style": "dashed"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "watch",
+              "to": "nobita",
+              "label": "無過失でなく即時取得なし",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。即時取得には善意だけでなく無過失も必要です。",
+            "fact": "怪しい外観＋確認不足",
+            "rule": "民法192条",
+            "conclusion": "即時取得しない",
+            "protectWho": "しずか（元の所有者）",
+            "why": "簡単に気付ける異常を無視した買主より、預けただけの所有者を守るほうが公平だからです。",
+            "ifOpposite": "明らかな盗品・横流し品でも、知らなかったと言えば買主が勝ちやすくなります。",
+            "legalSense": "取引の外観は守るが、赤信号を無視した人までは守らない。",
+            "minimum": "善意だけでは不足。無過失まで必要",
+            "next": "注意は尽くしたが、物を受け取らず売主の手元に置いたら。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法192条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-gfa-003",
+          "topic": "占有改定",
+          "kind": "trap",
+          "delta": {
+            "transition": "reset",
+            "before": "確認不足のため過失があった小系列",
+            "now": "基準事例へ戻り、善意無過失のまま引渡方法だけを占有改定へ変更",
+            "same": "有償取引で、ジャイアンが真の所有者でないこと"
+          },
+          "currentScenario": "のび太は善意無過失ですが、売買後もジャイアンが腕時計を借りて使うことにし、腕時計はジャイアンの手元に残りました。",
+          "statement": "占有改定でも占有は移るので、のび太は即時取得する。",
+          "answer": false,
+          "diagram": {
+            "nodeLabels": {
+              "nobita": "善意・無過失の買主",
+              "gian": "売却後も腕時計を保持"
+            },
+            "edges": [
+              {
+                "from": "gian",
+                "to": "nobita",
+                "label": "売買",
+                "style": "solid"
+              },
+              {
+                "from": "watch",
+                "to": "gian",
+                "label": "外から見える占有は変わらない",
+                "style": "dashed"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "watch",
+              "to": "nobita",
+              "label": "即時取得なし",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。判例上、占有改定だけでは即時取得は成立しません。",
+            "fact": "善意無過失だが占有改定のみ",
+            "rule": "民法192条の『占有を始めた』の判例法理",
+            "conclusion": "即時取得しない",
+            "protectWho": "外観を変えていないしずか",
+            "why": "物が売主の手元に残るなら、第三者から見た支配状態は何も変わらず、新買主を強く守る根拠が弱いからです。",
+            "ifOpposite": "紙の上で占有改定を繰り返すだけで、元の所有者が知らない間に権利を奪われます。",
+            "legalSense": "外観を信頼した人を守る制度なら、外観が実際に切り替わったかを見る。",
+            "minimum": "占有改定だけでは即時取得しない",
+            "next": "同じ善意無過失のまま、現実の引渡しへ戻す。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法192条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            },
+            {
+              "label": "最高裁昭和35年2月11日判決",
+              "url": "https://www.courts.go.jp/hanrei/53564/detail2/index.html"
+            }
+          ],
+          "cardId": "min-property-good-faith-acquisition-001"
+        },
+        {
+          "id": "minpo-d-gfa-004",
+          "topic": "現実の引渡し",
+          "kind": "straight",
+          "delta": {
+            "before": "腕時計はジャイアンの手元に残った",
+            "now": "のび太がその場で受け取った",
+            "same": "善意無過失で取引したこと"
+          },
+          "currentScenario": "のび太は善意無過失で代金を払い、今度は腕時計をその場で受け取り自宅へ持ち帰りました。",
+          "statement": "他の192条の要件も満たすため、のび太は即時取得する。",
+          "answer": true,
+          "diagram": {
+            "nodeLabels": {
+              "nobita": "善意・無過失の買主"
+            },
+            "edges": [
+              {
+                "from": "gian",
+                "to": "nobita",
+                "label": "売買",
+                "style": "solid"
+              },
+              {
+                "from": "watch",
+                "to": "nobita",
+                "label": "現実に引渡し",
+                "style": "bold"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "watch",
+              "to": "nobita",
+              "label": "即時取得",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。現実の引渡しで外観が切り替わり、他の要件も満たすため即時取得します。",
+            "fact": "善意無過失＋現実の引渡し",
+            "rule": "民法192条",
+            "conclusion": "のび太が所有権取得",
+            "protectWho": "占有の移転を信じたのび太",
+            "why": "前問と違い、物の支配が買主へ実際に移り、取引の外観も完成したからです。",
+            "ifOpposite": "十分に注意し物まで受け取った買主が、見えない所有関係のため常に失います。",
+            "legalSense": "前問との差は『紙の上だけか、物も動いたか』。物が動けば取引保護が強くなる。",
+            "minimum": "現実の引渡しなら占有取得を満たす",
+            "next": "物が預け物ではなく盗品だったら、元の所有者の回復権が加わる。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法192条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-gfa-005",
+          "topic": "盗品の回復",
+          "kind": "trap",
+          "delta": {
+            "before": "しずかが自分から預けた腕時計",
+            "now": "ジャイアンが1年前に盗んだ腕時計",
+            "same": "のび太は善意無過失で現実の引渡しを受けた"
+          },
+          "currentScenario": "腕時計は、しずかが預けた物ではなく、1年前にジャイアンに盗まれた物でした。のび太は善意無過失で現実に受け取りました。",
+          "statement": "のび太が192条の要件を満たす以上、しずかは腕時計の返還を請求できない。",
+          "answer": false,
+          "diagram": {
+            "nodeLabels": {
+              "gian": "1年前に腕時計を盗んだ",
+              "nobita": "善意・無過失の買主"
+            },
+            "edges": [
+              {
+                "from": "watch",
+                "to": "gian",
+                "label": "盗難",
+                "style": "dashed"
+              },
+              {
+                "from": "gian",
+                "to": "nobita",
+                "label": "売買＋現実の引渡し",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "返還を請求",
+                "style": "bold"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "nobita",
+              "to": "shizuka",
+              "label": "盗難から2年間は回復に応じる",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。盗品なら、被害者は盗難から2年間、占有者へ回復を請求できます。",
+            "fact": "盗品＋盗難から1年",
+            "rule": "民法193条",
+            "conclusion": "しずかは回復請求可",
+            "protectWho": "盗難被害者のしずか",
+            "why": "自分から物を預けた場合と違い、盗難は所有者が外観作りへ全く関与していないからです。",
+            "ifOpposite": "盗品を善意の人へ一度売るだけで、被害者の所有物が直ちに回復不能になります。",
+            "legalSense": "取引安全は守るが、全く落ち度なく奪われた所有者には期限付きの取り戻し口を残す。",
+            "minimum": "盗品・遺失物＝盗難・遺失から2年間は回復請求可",
+            "next": "2年を過ぎると、取引関係をいつまでも不安定にはしない。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法193条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-gfa-006",
+          "topic": "回復期間",
+          "kind": "straight",
+          "delta": {
+            "before": "盗難から1年",
+            "now": "盗難から2年を経過",
+            "same": "のび太は善意無過失で占有している"
+          },
+          "currentScenario": "盗まれた腕時計を善意無過失で現実に受け取っていたのび太に対し、盗難から2年を経過した後、しずかが返還を求めました。",
+          "statement": "しずかは193条による回復請求をすることができない。",
+          "answer": true,
+          "diagram": {
+            "nodeLabels": {
+              "gian": "2年前に盗んだ",
+              "nobita": "善意・無過失の占有者"
+            },
+            "edges": [
+              {
+                "from": "gian",
+                "to": "nobita",
+                "label": "盗品を売却",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "2年経過後に返還請求",
+                "style": "dashed"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "nobita",
+              "to": "shizuka",
+              "label": "193条の期間経過",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。193条の特別な回復請求は、盗難または遺失から2年間に限られます。",
+            "fact": "盗難から2年経過",
+            "rule": "民法193条",
+            "conclusion": "193条回復請求は不可",
+            "protectWho": "安定して占有するのび太",
+            "why": "いつまでも元所有者が取り戻せると、善意の買主とその後の取引が永久に不安定になるからです。",
+            "ifOpposite": "何十年後でも盗難の主張だけで現在の占有が覆り、動産取引が確定しません。",
+            "legalSense": "被害回復を認める一方、期限を置いて現在の生活関係も確定させる。",
+            "minimum": "193条の回復期間＝盗難・遺失から2年",
+            "next": "2年以内でも、買主が店で代金を払った場合は金銭調整が入る。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法193条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-gfa-007",
+          "topic": "代価弁償",
+          "kind": "trap",
+          "delta": {
+            "transition": "reset",
+            "before": "盗難から2年が経過した小系列",
+            "now": "基準事例へ戻り、盗難から1年・同種品を扱う時計店から購入",
+            "same": "のび太は善意無過失"
+          },
+          "currentScenario": "のび太は、盗品だと知らず注意しても分からないまま、同種品を販売する時計店で腕時計を代金30万円で買いました。盗難から1年で、しずかは代金を弁償せず返還だけを求めました。",
+          "statement": "盗難から2年以内なので、しずかは代金を弁償しなくても腕時計を回復できる。",
+          "answer": false,
+          "diagram": {
+            "hiddenNodes": [
+              "gian"
+            ],
+            "nodeLabels": {
+              "nobita": "30万円で買った善意の買主"
+            },
+            "extraNodes": [
+              {
+                "id": "shop",
+                "kind": "thing",
+                "label": "同種品を扱う時計店",
+                "x": 1,
+                "y": 1
+              }
+            ],
+            "edges": [
+              {
+                "from": "shop",
+                "to": "nobita",
+                "label": "店頭で30万円の売買",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "弁償せず返還請求",
+                "style": "dashed"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "shizuka",
+              "to": "nobita",
+              "label": "代価弁償なしでは回復不可",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。競売・公の市場・同種品を販売する商人から善意で買った場合、回復には支払った代価の弁償が必要です。",
+            "fact": "同種品商人から有償取得＋弁償なし",
+            "rule": "民法194条",
+            "conclusion": "そのままでは回復不可",
+            "protectWho": "正規の店で代金を払ったのび太",
+            "why": "通常の流通経路で買った人へ、物も代金も失わせる負担を集中させないためです。",
+            "ifOpposite": "消費者は店で普通に買っても、突然ただで商品を失います。",
+            "legalSense": "被害者に物を戻すとしても、信頼できる市場で払った買主の代金は穴埋めする。",
+            "minimum": "店・競売・公の市場で買った盗品＝回復には代価弁償",
+            "next": "しずかが代価を弁償すると結論が反転する。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法194条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-gfa-008",
+          "topic": "代価弁償後の回復",
+          "kind": "trap",
+          "delta": {
+            "before": "しずかは代価を弁償しない",
+            "now": "30万円を弁償すると申し出た",
+            "same": "同種品を扱う店から買い、盗難から2年以内"
+          },
+          "currentScenario": "のび太は、盗品だと知らず注意しても分からないまま、同種品を販売する時計店で腕時計を30万円で買いました。しずかは盗難から2年以内に、その30万円を弁償すると申し出て腕時計の回復を請求しました。",
+          "statement": "しずかは30万円を弁償して、腕時計を回復できる。",
+          "answer": true,
+          "diagram": {
+            "hiddenNodes": [
+              "gian"
+            ],
+            "nodeLabels": {
+              "nobita": "30万円で買った善意の買主"
+            },
+            "extraNodes": [
+              {
+                "id": "shop",
+                "kind": "thing",
+                "label": "同種品を扱う時計店",
+                "x": 1,
+                "y": 1
+              }
+            ],
+            "edges": [
+              {
+                "from": "shop",
+                "to": "nobita",
+                "label": "店頭で30万円の売買",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "30万円の弁償を申し出て回復請求",
+                "style": "bold"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "nobita",
+              "to": "shizuka",
+              "label": "弁償と引換えに回復",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。盗難から2年以内で代価を弁償するため、しずかは腕時計を回復できます。",
+            "fact": "2年以内＋代価全額の弁償",
+            "rule": "民法193条・194条",
+            "conclusion": "しずかが回復できる",
+            "protectWho": "しずかと、代金を払ったのび太の双方",
+            "why": "元所有者には物を戻し、善意の買主には支出を戻すことで、一方だけに損失を集中させないからです。",
+            "ifOpposite": "弁償しても回復できなければ、193条が認めた盗難被害者の回復ルートが店頭品だけ消えます。",
+            "legalSense": "両方に落ち度がないなら、物は元へ、金は買主へ戻して損失を調整する。",
+            "minimum": "2年以内＋代価弁償＝店頭購入の盗品も回復可",
+            "next": "章末表で、預け物・盗品・店頭購入を並べる。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法193条・194条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        }
+      ],
+      "summaryTable": {
+        "caption": "動産を誰に残すか",
+        "headers": [
+          "場面",
+          "買主の状態",
+          "元所有者の回復",
+          "理由"
+        ],
+        "rows": [
+          [
+            "預け物を横流し",
+            "善意無過失＋現実の占有",
+            "原則できない",
+            "外観を作った側と取引安全を調整"
+          ],
+          [
+            "占有改定だけ",
+            "善意無過失",
+            "所有権を失わない",
+            "外から見える占有が変わらない"
+          ],
+          [
+            "盗品・遺失物",
+            "善意無過失",
+            "2年間できる",
+            "所有者は外観作りへ関与していない"
+          ],
+          [
+            "店・競売・公の市場で購入",
+            "善意",
+            "2年以内＋代価弁償でできる",
+            "元所有者と通常取引の買主を両方調整"
+          ]
+        ],
+        "note": "即時取得は『買主が善意なら必ず勝つ』制度ではありません。元所有者が外観を作ったか、占有が実際に動いたか、盗品か、正規の市場で代金を払ったかを順に見ます。"
+      }
+    },
+    {
+      "id": "registration",
+      "number": 3,
+      "topic": "物権・不動産登記",
+      "title": "二重譲渡――登記で守る取引と、守らない裏切り",
+      "lead": "先に買った人と後から買った人のどちらが勝つかを、善意・単純悪意・背信的悪意・転得者・差押債権者まで一事実ずつ動かします。",
+      "goal": "公開された登記を信頼できる取引を作りつつ、他人を害するため制度を使う者までは守らない。",
+      "remedyGuide": "登記で土地を失う先買主も、約束を破った売主へ債務不履行解除・損害賠償などを検討できます。物権で負けても、契約上の救済まで消えるとは限りません。",
+      "baseScenario": "しずかが同じ甲土地を、先にのび太へ、後からスネ夫へ売りました。のび太はまだ所有権移転登記をしていません。",
+      "castIds": [
+        "shizuka",
+        "nobita",
+        "suneo",
+        "dekisugi",
+        "doraemon"
+      ],
+      "diagram": {
+        "nodes": [
+          {
+            "id": "shizuka",
+            "castId": "shizuka",
+            "label": "甲土地を二重に売った人",
+            "x": 1,
+            "y": 0
+          },
+          {
+            "id": "nobita",
+            "castId": "nobita",
+            "label": "先に買った／未登記",
+            "x": 0,
+            "y": 1
+          },
+          {
+            "id": "suneo",
+            "castId": "suneo",
+            "label": "後から買った人",
+            "x": 2,
+            "y": 1
+          },
+          {
+            "id": "dekisugi",
+            "castId": "dekisugi",
+            "label": "スネ夫からの転得者",
+            "x": 3,
+            "y": 0
+          },
+          {
+            "id": "doraemon",
+            "castId": "doraemon",
+            "label": "しずかの一般債権者",
+            "x": 3,
+            "y": 2
+          },
+          {
+            "id": "land",
+            "kind": "thing",
+            "label": "甲土地",
+            "x": 1,
+            "y": 2
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "minpo-d-reg-001",
+          "topic": "登記の先後",
+          "kind": "straight",
+          "delta": {
+            "before": "章の共通事例",
+            "now": "事情を知らないスネ夫が先に登記",
+            "same": "のび太の契約が先で、未登記であること"
+          },
+          "currentScenario": "スネ夫は先の売買を知らずに甲土地を買い、のび太より先に所有権移転登記をしました。",
+          "statement": "のび太は売買契約が先でも、登記を備えたスネ夫に甲土地の所有権を対抗できない。",
+          "answer": true,
+          "diagram": {
+            "hiddenNodes": [
+              "dekisugi",
+              "doraemon"
+            ],
+            "nodeLabels": {
+              "suneo": "後の買主／先に登記"
+            },
+            "edges": [
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "先に売買／未登記",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "suneo",
+                "label": "後に売買／登記済み",
+                "style": "bold"
+              },
+              {
+                "from": "land",
+                "to": "suneo",
+                "label": "登記",
+                "style": "bold"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "land",
+              "to": "suneo",
+              "label": "対抗関係ではスネ夫が優先",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。二重譲渡の買主同士は、原則として契約の先後ではなく登記の先後で決まります。",
+            "fact": "のび太未登記／スネ夫登記済み",
+            "rule": "民法177条",
+            "conclusion": "のび太は対抗できない",
+            "protectWho": "登記を確認し公示を完成したスネ夫",
+            "why": "外から見えない契約日だけで決めると、第三者は安全に土地を取引できないからです。",
+            "ifOpposite": "登記簿を確認しても、秘密の古い契約が出ればいつでも土地を失います。",
+            "legalSense": "不動産では『誰が先に約束したか』より『誰が権利を公示したか』で取引を安定させる。",
+            "minimum": "二重譲渡＝原則、先に登記した者が優先",
+            "next": "後の買主が先の売買を知っていただけなら。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法177条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ],
+          "cardId": "min-property-registration-bad-faith-001"
+        },
+        {
+          "id": "minpo-d-reg-002",
+          "topic": "単純悪意者",
+          "kind": "trap",
+          "delta": {
+            "before": "スネ夫は先の売買を知らない",
+            "now": "先の売買を知っていたが、妨害目的はない",
+            "same": "スネ夫が先に登記したこと"
+          },
+          "currentScenario": "スネ夫は、しずかが先にのび太へ売った事実を知っていました。ただし、のび太を害する目的や著しく不当な介入はなく、先に登記しました。",
+          "statement": "スネ夫が先の売買を知っていたというだけで、のび太は登記なしに所有権を対抗できる。",
+          "answer": false,
+          "diagram": {
+            "hiddenNodes": [
+              "dekisugi",
+              "doraemon"
+            ],
+            "nodeLabels": {
+              "suneo": "先の売買を知る／登記済み"
+            },
+            "edges": [
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "先に売買／未登記",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "suneo",
+                "label": "知って後から購入",
+                "style": "dashed"
+              },
+              {
+                "from": "land",
+                "to": "suneo",
+                "label": "先に登記",
+                "style": "bold"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "land",
+              "to": "suneo",
+              "label": "単純悪意でも登記で優先",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。先の売買を知る単純悪意だけでは、177条の第三者から外れません。",
+            "fact": "単純悪意＋登記済み",
+            "rule": "民法177条・判例法理",
+            "conclusion": "スネ夫が優先",
+            "protectWho": "登記制度を使って権利を公示したスネ夫",
+            "why": "知っていたかという内心だけで登記の効力を変えると、証明が不安定になり、公示制度が働かないからです。",
+            "ifOpposite": "取引のたびに『知っていたはずだ』という争いになり、登記を見ても決着しません。",
+            "legalSense": "悪意という語だけで排除しない。制度利用が信義に反するほどかを見る。",
+            "minimum": "単純悪意者も177条の第三者",
+            "next": "知っていただけでなく、のび太を害する目的で買ったら。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法177条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            },
+            {
+              "label": "最高裁昭和33年4月17日判決",
+              "url": "https://www.courts.go.jp/hanrei/69758/detail2/index.html"
+            }
+          ],
+          "cardId": "min-property-registration-bad-faith-001"
+        },
+        {
+          "id": "minpo-d-reg-003",
+          "topic": "背信的悪意者",
+          "kind": "straight",
+          "delta": {
+            "before": "知っていたが妨害目的なし",
+            "now": "のび太を困らせる目的で安く買い、登記を横取り",
+            "same": "先の売買を知っていたこと"
+          },
+          "currentScenario": "スネ夫は、のび太を困らせて高値で買い戻させる目的で、しずかから著しく安く買い、先に登記しました。",
+          "statement": "スネ夫は背信的悪意者として177条の第三者に当たらず、のび太は登記なしに所有権を対抗できる。",
+          "answer": true,
+          "diagram": {
+            "hiddenNodes": [
+              "dekisugi",
+              "doraemon"
+            ],
+            "nodeLabels": {
+              "suneo": "妨害目的で登記を横取り"
+            },
+            "edges": [
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "先に売買／未登記",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "suneo",
+                "label": "害する目的で安く購入",
+                "style": "dashed"
+              },
+              {
+                "from": "land",
+                "to": "suneo",
+                "label": "先に登記",
+                "style": "bold"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "land",
+              "to": "nobita",
+              "label": "スネ夫には未登記でも対抗可",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。信義に反して登記欠缺を主張する背信的悪意者は、177条の第三者から除かれます。",
+            "fact": "先行売買を利用した加害目的",
+            "rule": "民法177条の判例法理",
+            "conclusion": "のび太が対抗できる",
+            "protectWho": "登記制度を悪用されたのび太",
+            "why": "取引安全のための登記を、他人を害して利益を得る道具にする者まで守る理由がないからです。",
+            "ifOpposite": "登記の隙を狙う妨害ビジネスを法律が後押しします。",
+            "legalSense": "制度の目的に沿う利用は守り、制度を武器にした信義違反は守らない。",
+            "minimum": "背信的悪意者は177条の第三者でない",
+            "next": "そのスネ夫から事情を知らない人が買ったら。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法177条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            },
+            {
+              "label": "最高裁昭和43年8月2日判決",
+              "url": "https://www.courts.go.jp/hanrei/54084/detail2/index.html"
+            }
+          ],
+          "cardId": "min-property-registration-bad-faith-001"
+        },
+        {
+          "id": "minpo-d-reg-004",
+          "topic": "背信的悪意者からの転得者",
+          "kind": "trap",
+          "delta": {
+            "before": "相手は背信的悪意者のスネ夫",
+            "now": "スネ夫から事情を知らない出木杉が買って登記",
+            "same": "のび太は未登記"
+          },
+          "currentScenario": "背信的悪意者のスネ夫から、事情を知らない出木杉が甲土地を買い、所有権移転登記をしました。出木杉自身に信義違反はありません。",
+          "statement": "スネ夫が背信的悪意者だった以上、のび太は出木杉にも必ず登記なしで対抗できる。",
+          "answer": false,
+          "diagram": {
+            "hiddenNodes": [
+              "doraemon"
+            ],
+            "nodeLabels": {
+              "suneo": "背信的悪意者",
+              "dekisugi": "事情を知らず取得／登記済み"
+            },
+            "edges": [
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "先に売買／未登記",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "suneo",
+                "label": "後の売買",
+                "style": "dashed"
+              },
+              {
+                "from": "suneo",
+                "to": "dekisugi",
+                "label": "転売＋登記",
+                "style": "bold"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "land",
+              "to": "dekisugi",
+              "label": "出木杉は独自に第三者となる",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。転得者は前主と別に判断し、出木杉自身が背信的悪意者でなければ、登記を備えて対抗できます。",
+            "fact": "前主は背信的悪意／転得者は信義違反なし＋登記",
+            "rule": "民法177条の判例法理",
+            "conclusion": "出木杉が対抗できる",
+            "protectWho": "事情を知らず登記した出木杉",
+            "why": "前の所有者の悪質さを、その後の善良な取引者へ永久に引き継がせないためです。",
+            "ifOpposite": "一度でも悪質な人が権利関係に入ると、その後どれだけ注意して買っても土地が流通不能になります。",
+            "legalSense": "人の悪質さは権利に染み付くとは限らない。現在の相手自身が保護に値するかを見る。",
+            "minimum": "背信的悪意者からの転得者は、転得者自身で判断",
+            "next": "転得者自身も妨害に加わっていたら。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法177条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            },
+            {
+              "label": "最高裁平成8年10月29日判決",
+              "url": "https://www.courts.go.jp/hanrei/52520/detail2/index.html"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-reg-005",
+          "topic": "転得者自身の背信性",
+          "kind": "straight",
+          "delta": {
+            "before": "出木杉は事情を知らない",
+            "now": "のび太を害する計画へ加わって取得",
+            "same": "出木杉が登記したこと"
+          },
+          "currentScenario": "出木杉も、のび太へ高値で買い戻させる計画を知って加わり、スネ夫から甲土地を買って登記しました。",
+          "statement": "出木杉自身も背信的悪意者なら、のび太は出木杉に登記なしで対抗できる。",
+          "answer": true,
+          "diagram": {
+            "hiddenNodes": [
+              "doraemon"
+            ],
+            "nodeLabels": {
+              "suneo": "妨害計画の中心",
+              "dekisugi": "妨害計画へ参加／登記済み"
+            },
+            "edges": [
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "先に売買／未登記",
+                "style": "solid"
+              },
+              {
+                "from": "suneo",
+                "to": "dekisugi",
+                "label": "計画を共有して転売",
+                "style": "dashed"
+              },
+              {
+                "from": "land",
+                "to": "dekisugi",
+                "label": "登記",
+                "style": "bold"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "land",
+              "to": "nobita",
+              "label": "出木杉にも対抗可",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。転得者自身が背信的悪意者なら、177条の第三者として保護されません。",
+            "fact": "転得者自身も加害目的に参加",
+            "rule": "民法177条の判例法理",
+            "conclusion": "のび太が対抗できる",
+            "protectWho": "共同で妨害されたのび太",
+            "why": "前主ではなく出木杉自身も、登記制度を害する目的で使っているからです。",
+            "ifOpposite": "名義を仲間へ移すだけで背信的悪意者の排除を簡単に迂回できます。",
+            "legalSense": "形式上の名義ではなく、その人自身の行動が制度目的に反するかを見る。",
+            "minimum": "転得者自身も背信的悪意なら第三者でない",
+            "next": "売買の相手ではなく、売主の債権者が差し押さえたら。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法177条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            },
+            {
+              "label": "最高裁平成8年10月29日判決",
+              "url": "https://www.courts.go.jp/hanrei/52520/detail2/index.html"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-reg-006",
+          "topic": "差押債権者",
+          "kind": "trap",
+          "delta": {
+            "transition": "reset",
+            "before": "後の買主・転得者との争いの小系列",
+            "now": "基準事例へ戻り、しずかの債権者ドラえもんが甲土地を差し押さえ、差押え登記",
+            "same": "のび太が未登記であること"
+          },
+          "currentScenario": "この問いでは、しずかは甲土地をスネ夫へ二重譲渡していません。しずかへ貸金債権を持つドラえもんが、しずか名義のままの甲土地を差し押さえ、差押え登記をしました。のび太はまだ未登記です。",
+          "statement": "のび太は、差押え登記をしたドラえもんに、甲土地の所有権を対抗できない。",
+          "answer": true,
+          "diagram": {
+            "hiddenNodes": [
+              "suneo",
+              "dekisugi"
+            ],
+            "nodeLabels": {
+              "doraemon": "一般債権者／差押え登記済み"
+            },
+            "edges": [
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "売買／未登記",
+                "style": "solid"
+              },
+              {
+                "from": "doraemon",
+                "to": "land",
+                "label": "差押え＋登記",
+                "style": "bold"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "land",
+              "to": "doraemon",
+              "label": "未登記取得者に優先",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。差押債権者は177条の第三者に当たり、未登記の買主は所有権を対抗できません。",
+            "fact": "買主未登記＋差押え登記",
+            "rule": "民法177条・判例法理",
+            "conclusion": "ドラえもんが優先",
+            "protectWho": "公示された名義を基に執行したドラえもん",
+            "why": "債権者も登記簿を信頼して財産へ執行するので、秘密の譲渡で後から排除されない保護が必要だからです。",
+            "ifOpposite": "債務者と第三者が古い売買を主張するだけで、差押えを簡単に外せます。",
+            "legalSense": "『第三者』は買主だけでない。登記欠缺を主張する正当な利害を得たかを見る。",
+            "minimum": "差押債権者は177条の第三者",
+            "next": "まだ差押えをしていない一般債権者なら。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法177条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            },
+            {
+              "label": "最高裁昭和31年4月24日判決",
+              "url": "https://www.courts.go.jp/hanrei/57535/detail2/index.html"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-reg-007",
+          "topic": "一般債権者",
+          "kind": "straight",
+          "delta": {
+            "before": "ドラえもんが差押え登記をした",
+            "now": "貸金債権があるだけで、差押えも仮差押えもない",
+            "same": "甲土地がしずか名義のまま"
+          },
+          "currentScenario": "この問いでも、しずかは甲土地をスネ夫へ二重譲渡していません。ドラえもんはしずかへの貸金債権を持つだけで、甲土地の差押えも仮差押えもしていません。",
+          "statement": "のび太は、単なる一般債権者のドラえもんにも、登記がなければ甲土地の所有権を対抗できない。",
+          "answer": false,
+          "diagram": {
+            "hiddenNodes": [
+              "suneo",
+              "dekisugi"
+            ],
+            "nodeLabels": {
+              "doraemon": "一般債権者／差押えなし"
+            },
+            "edges": [
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "売買／未登記",
+                "style": "solid"
+              },
+              {
+                "from": "doraemon",
+                "to": "shizuka",
+                "label": "貸金債権だけ",
+                "style": "thin"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "land",
+              "to": "nobita",
+              "label": "単なる債権者には対抗可",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。差押え等で土地に具体的な利害を取得していない一般債権者は、177条の第三者ではありません。",
+            "fact": "一般債権だけ＋執行なし",
+            "rule": "民法177条の判例法理",
+            "conclusion": "のび太は対抗できる",
+            "protectWho": "既に土地を買ったのび太",
+            "why": "貸金債権があるだけでは、特定の甲土地へ排他的な権利や執行上の地位を得ていないからです。",
+            "ifOpposite": "売主の債権者全員が常に未登記買主より強くなり、177条の第三者が無限定に広がります。",
+            "legalSense": "利害があるだけでなく、その不動産について登記欠缺を主張する正当な地位を得たかを見る。",
+            "minimum": "単なる一般債権者は第三者でない／差押えで第三者になる",
+            "next": "最後に、のび太自身が先に登記した場合を確認する。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法177条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-reg-008",
+          "topic": "先行買主の登記",
+          "kind": "trap",
+          "delta": {
+            "transition": "reset",
+            "before": "債権者との争いの小系列",
+            "now": "基準の二重譲渡へ戻り、スネ夫より先にのび太が所有権移転登記",
+            "same": "しずかが同じ土地を二重に売ったこと"
+          },
+          "currentScenario": "しずかは二重に売りましたが、今度はのび太がスネ夫より先に所有権移転登記をしました。スネ夫は未登記です。",
+          "statement": "スネ夫への売買が後で新しい契約なので、未登記のスネ夫が登記済みののび太に優先する。",
+          "answer": false,
+          "diagram": {
+            "hiddenNodes": [
+              "dekisugi",
+              "doraemon"
+            ],
+            "nodeLabels": {
+              "nobita": "先の買主／先に登記",
+              "suneo": "後の買主／未登記"
+            },
+            "edges": [
+              {
+                "from": "shizuka",
+                "to": "nobita",
+                "label": "先に売買／登記済み",
+                "style": "bold"
+              },
+              {
+                "from": "shizuka",
+                "to": "suneo",
+                "label": "後に売買／未登記",
+                "style": "solid"
+              },
+              {
+                "from": "land",
+                "to": "nobita",
+                "label": "先に登記",
+                "style": "bold"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "land",
+              "to": "nobita",
+              "label": "登記済みののび太が優先",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。契約が新しいかではなく登記の先後で決まり、先に登記したのび太が優先します。",
+            "fact": "のび太が先に登記／スネ夫未登記",
+            "rule": "民法177条",
+            "conclusion": "のび太が優先",
+            "protectWho": "先に権利を公示したのび太",
+            "why": "登記という共通の見える基準を使えば、契約の秘密の前後を争わずに決着できるからです。",
+            "ifOpposite": "後から契約するだけで登記済みの所有権を奪え、登記制度が無意味になります。",
+            "legalSense": "二重譲渡では『後の契約が上書き』ではない。公示の完成を基準にする。",
+            "minimum": "契約日でなく登記の先後",
+            "next": "章末表で、単純悪意・背信的悪意・差押えを並べる。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法177条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        }
+      ],
+      "summaryTable": {
+        "caption": "未登記の買主が対抗できる相手・できない相手",
+        "headers": [
+          "相手",
+          "相手の公示・事情",
+          "未登記で対抗",
+          "見分け方"
+        ],
+        "rows": [
+          [
+            "通常の後買主・単純悪意者",
+            "先に登記",
+            "できない",
+            "内心より登記を基準にする"
+          ],
+          [
+            "背信的悪意者",
+            "登記ありでも信義違反",
+            "できる",
+            "制度を害する目的まである"
+          ],
+          [
+            "背信的悪意者からの転得者",
+            "転得者自身は信義違反なし＋登記",
+            "できない",
+            "転得者自身で判断する"
+          ],
+          [
+            "差押債権者",
+            "差押え登記あり",
+            "できない",
+            "土地について執行上の地位を得た"
+          ],
+          [
+            "単なる一般債権者",
+            "差押え等なし",
+            "できる",
+            "特定土地への対抗利益がまだない"
+          ]
+        ],
+        "note": "登記は取引の共通言語です。ただし、登記を他人への加害道具にする背信的悪意者は保護せず、その悪質さは転得者へ自動では引き継ぎません。"
+      }
+    },
+    {
+      "id": "statutory-superficies",
+      "number": 4,
+      "topic": "担保物権・抵当権",
+      "title": "法定地上権――競売で建物を壊させないための4要件",
+      "lead": "建物がいつ存在したか、土地と建物の所有者、抵当権の対象、所有者が分かれた原因を一つずつ変えます。",
+      "goal": "土地と建物を別不動産として競売しても、担保価値を見込めた範囲で建物の存立を守る。",
+      "remedyGuide": "法定地上権が成立しなくても、賃借権・地上権など契約上の土地利用権が別にないかを確認します。任意取引なら売買時に利用権を設定し、競売なら物件明細書で権利関係を確かめます。",
+      "baseScenario": "しずかが甲土地とその上の乙建物を所有しています。しずかはドラえもんから借金をし、甲土地へ抵当権を設定しました。",
+      "castIds": [
+        "shizuka",
+        "doraemon",
+        "nobita",
+        "suneo"
+      ],
+      "diagram": {
+        "nodes": [
+          {
+            "id": "shizuka",
+            "castId": "shizuka",
+            "label": "土地・建物の所有者",
+            "x": 0,
+            "y": 0
+          },
+          {
+            "id": "doraemon",
+            "castId": "doraemon",
+            "label": "抵当権者",
+            "x": 2,
+            "y": 0
+          },
+          {
+            "id": "nobita",
+            "castId": "nobita",
+            "label": "競売後の建物所有者",
+            "x": 0,
+            "y": 2
+          },
+          {
+            "id": "suneo",
+            "castId": "suneo",
+            "label": "競売後の土地所有者",
+            "x": 2,
+            "y": 2
+          },
+          {
+            "id": "building",
+            "kind": "thing",
+            "label": "乙建物",
+            "x": 0,
+            "y": 1
+          },
+          {
+            "id": "land",
+            "kind": "thing",
+            "label": "甲土地",
+            "x": 1,
+            "y": 1
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "minpo-d-sup-001",
+          "topic": "基本4要件",
+          "kind": "straight",
+          "delta": {
+            "before": "章の共通事例",
+            "now": "抵当権設定時に建物が存在し、実行で土地と建物の所有者が分離",
+            "same": "設定時は土地・建物ともにしずか所有"
+          },
+          "currentScenario": "抵当権設定時、乙建物は既に存在し、土地と建物はしずかの所有でした。土地抵当権の実行により、土地をスネ夫が買い、建物はしずか側に残りました。",
+          "statement": "乙建物のため、甲土地に法定地上権が成立する。",
+          "answer": true,
+          "diagram": {
+            "hiddenNodes": [
+              "nobita"
+            ],
+            "nodeLabels": {
+              "suneo": "土地の買受人"
+            },
+            "edges": [
+              {
+                "from": "doraemon",
+                "to": "land",
+                "label": "土地抵当権を実行",
+                "style": "bold"
+              },
+              {
+                "from": "land",
+                "to": "suneo",
+                "label": "競売で取得",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "building",
+                "label": "建物はしずかに残る",
+                "style": "thin"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "building",
+              "to": "land",
+              "label": "法定地上権が成立",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。設定時に土地・建物が同一所有で建物が存在し、抵当権実行により別所有となったため成立します。",
+            "fact": "設定時に建物あり・同一所有＋抵当権実行で分離",
+            "rule": "民法388条",
+            "conclusion": "法定地上権成立",
+            "protectWho": "乙建物の所有者と建物の社会的価値",
+            "why": "同じ所有者は自分の土地に自分のための地上権を設定できず、競売だけで建物が土地利用権を失うと建物が無価値になるからです。",
+            "ifOpposite": "土地だけの競売で、存在を前提に評価されていた建物を突然取り壊すことになります。",
+            "legalSense": "抵当権者が設定時に見えていた土地・建物関係を基準に、競売後の不合理を補う。",
+            "minimum": "設定時に建物＋同一所有＋土地か建物に抵当権＋実行で分離",
+            "next": "抵当権設定時が更地だったら。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法388条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            },
+            {
+              "label": "裁判所BIT・法定地上権",
+              "url": "https://www.bit.courts.go.jp/words/ha-ho/ho02.html"
+            }
+          ],
+          "cardId": "min-security-statutory-superficies-same-owner-001"
+        },
+        {
+          "id": "minpo-d-sup-002",
+          "topic": "設定後の建築",
+          "kind": "straight",
+          "delta": {
+            "before": "抵当権設定時に乙建物が存在",
+            "now": "設定時は更地で、その後に乙建物を建築",
+            "same": "土地は一貫してしずか所有"
+          },
+          "currentScenario": "甲土地へ抵当権を設定した時は更地でした。しずかは設定後に乙建物を建て、その後、土地抵当権が実行されました。",
+          "statement": "設定後に建てた乙建物にも、当然に法定地上権が成立する。",
+          "answer": false,
+          "diagram": {
+            "nodeLabels": {
+              "building": "抵当権設定後に建築"
+            },
+            "edges": [
+              {
+                "from": "doraemon",
+                "to": "land",
+                "label": "更地へ抵当権設定",
+                "style": "bold"
+              },
+              {
+                "from": "shizuka",
+                "to": "building",
+                "label": "その後に建築",
+                "style": "dashed"
+              },
+              {
+                "from": "land",
+                "to": "suneo",
+                "label": "競売",
+                "style": "solid"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "building",
+              "to": "land",
+              "label": "法定地上権なし",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。土地抵当権の設定時に建物が存在しないため、法定地上権は成立しません。",
+            "fact": "設定時は更地",
+            "rule": "民法388条",
+            "conclusion": "法定地上権なし",
+            "protectWho": "更地価値を担保に取ったドラえもんと競売買受人",
+            "why": "抵当権者は更地としての価値を見て融資したので、後から建てた建物の地上権で担保価値を下げられないためです。",
+            "ifOpposite": "設定後に建物を建てるだけで、債務者が一方的に土地の競売価値を下げられます。",
+            "legalSense": "誰を救うかは『抵当権設定時に何が見えていたか』で決める。",
+            "minimum": "設定時に更地＝法定地上権なし",
+            "next": "建物はあったが、土地と建物の持ち主が別だったら。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法388条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ],
+          "cardId": "min-security-statutory-superficies-same-owner-001"
+        },
+        {
+          "id": "minpo-d-sup-003",
+          "topic": "設定時の同一所有",
+          "kind": "trap",
+          "delta": {
+            "transition": "reset",
+            "before": "設定時が更地の小系列",
+            "now": "建物がある基準へ戻り、設定時から土地はしずか、建物はのび太所有",
+            "same": "土地へ抵当権を設定したこと"
+          },
+          "currentScenario": "抵当権設定時、甲土地はしずか所有、乙建物はのび太所有で、既に持ち主が別でした。その後、土地抵当権が実行されました。",
+          "statement": "設定時に乙建物が存在していたので、所有者が別でも388条の法定地上権が成立する。",
+          "answer": false,
+          "diagram": {
+            "nodeLabels": {
+              "shizuka": "設定時から土地だけ所有",
+              "nobita": "設定時から建物所有"
+            },
+            "edges": [
+              {
+                "from": "shizuka",
+                "to": "land",
+                "label": "土地所有",
+                "style": "solid"
+              },
+              {
+                "from": "nobita",
+                "to": "building",
+                "label": "建物所有",
+                "style": "solid"
+              },
+              {
+                "from": "doraemon",
+                "to": "land",
+                "label": "土地抵当権",
+                "style": "bold"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "building",
+              "to": "land",
+              "label": "388条の法定地上権なし",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。抵当権設定時に土地と建物が同一所有者へ属していないため、388条の要件を欠きます。",
+            "fact": "設定時から土地・建物が別所有",
+            "rule": "民法388条",
+            "conclusion": "法定地上権なし",
+            "protectWho": "設定時の既存権利関係を信頼した抵当権者",
+            "why": "別所有なら、建物所有者は本来、賃借権や地上権など既存の土地利用権を用意すべきだからです。",
+            "ifOpposite": "設定時に存在しなかった土地負担を、競売をきっかけに新しく作ることになります。",
+            "legalSense": "法律が補うのは『同一所有ゆえ利用権を作れなかった穴』だけ。もともと別所有なら自分で権利を整える。",
+            "minimum": "設定時に土地・建物が別所有＝388条不成立",
+            "next": "抵当権の対象を土地から建物へ変える。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法388条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-sup-004",
+          "topic": "建物抵当権",
+          "kind": "straight",
+          "delta": {
+            "transition": "reset",
+            "before": "設定時に別所有の小系列",
+            "now": "同一所有の基準へ戻り、抵当権の対象を建物へ変更",
+            "same": "設定時に建物が存在したこと"
+          },
+          "currentScenario": "抵当権設定時、甲土地と乙建物はしずか所有でした。今度は乙建物だけに抵当権を設定し、その実行で建物をのび太が買いました。",
+          "statement": "土地ではなく建物だけの抵当権でも、要件を満たせば法定地上権が成立する。",
+          "answer": true,
+          "diagram": {
+            "nodeLabels": {
+              "nobita": "建物の買受人",
+              "suneo": "非表示"
+            },
+            "hiddenNodes": [
+              "suneo"
+            ],
+            "edges": [
+              {
+                "from": "doraemon",
+                "to": "building",
+                "label": "建物抵当権を実行",
+                "style": "bold"
+              },
+              {
+                "from": "building",
+                "to": "nobita",
+                "label": "競売で取得",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "land",
+                "label": "土地はしずかに残る",
+                "style": "thin"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "building",
+              "to": "land",
+              "label": "法定地上権が成立",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。388条は土地または建物に設定された抵当権を対象とします。",
+            "fact": "同一所有＋建物抵当権の実行で分離",
+            "rule": "民法388条",
+            "conclusion": "法定地上権成立",
+            "protectWho": "競売で乙建物を取得したのび太",
+            "why": "建物だけ競売されても、その建物が土地を使えなければ競売目的物の価値が失われる点は同じだからです。",
+            "ifOpposite": "建物抵当権の競売では、買受人が直ちに建物を収去するしかなくなります。",
+            "legalSense": "条文の目的が建物の存立なら、土地抵当だけでなく建物抵当も同じ穴を補う。",
+            "minimum": "抵当権は土地・建物のどちらでもよい",
+            "next": "土地と建物の両方に抵当権があったら。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法388条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-sup-005",
+          "topic": "土地建物の共同抵当",
+          "kind": "trap",
+          "delta": {
+            "before": "建物だけに抵当権",
+            "now": "土地と既存建物の両方に抵当権",
+            "same": "設定時は同一所有で、実行により所有者が分かれる"
+          },
+          "currentScenario": "抵当権設定時、甲土地と乙建物はしずか所有でした。土地と建物の両方へ抵当権が設定され、実行の結果、土地をスネ夫、建物をのび太が取得しました。",
+          "statement": "土地と建物の両方が抵当権の対象でも、実行で所有者が分かれれば法定地上権は成立する。",
+          "answer": true,
+          "diagram": {
+            "nodeLabels": {
+              "nobita": "建物の買受人",
+              "suneo": "土地の買受人"
+            },
+            "edges": [
+              {
+                "from": "doraemon",
+                "to": "land",
+                "label": "抵当権",
+                "style": "bold"
+              },
+              {
+                "from": "doraemon",
+                "to": "building",
+                "label": "抵当権",
+                "style": "bold"
+              },
+              {
+                "from": "land",
+                "to": "suneo",
+                "label": "競売",
+                "style": "solid"
+              },
+              {
+                "from": "building",
+                "to": "nobita",
+                "label": "競売",
+                "style": "solid"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "building",
+              "to": "land",
+              "label": "法定地上権が成立",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。既存の土地・建物が同一所有で、抵当権実行により別所有となる基本要件を満たします。",
+            "fact": "設定時に既存建物・同一所有＋共同抵当＋実行で分離",
+            "rule": "民法388条",
+            "conclusion": "法定地上権成立",
+            "protectWho": "建物買受人と、建物込みの競売価値",
+            "why": "両方に抵当権があっても、別々の買受人になった時に建物の土地利用権が必要なことは変わらないからです。",
+            "ifOpposite": "競売が別々に成立しただけで建物が使えず、建物の売却価値が崩れます。",
+            "legalSense": "『両方に抵当権なら不成立』と形だけで決めず、設定時の外観と実行後の分離を見る。",
+            "minimum": "土地・建物の両方が抵当目的でも基本要件で判断",
+            "next": "所有者が分かれた原因が競売でなく任意売買なら。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法388条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            },
+            {
+              "label": "最高裁昭和37年9月4日判決",
+              "url": "https://www.courts.go.jp/hanrei/53038/detail2/index.html"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-sup-006",
+          "topic": "抵当権実行以外の分離",
+          "kind": "straight",
+          "delta": {
+            "transition": "reset",
+            "before": "抵当権実行で所有者が分離する小系列",
+            "now": "基準の同一所有から、抵当権実行ではなく土地だけを任意売却",
+            "same": "分離前は土地・建物ともにしずか所有"
+          },
+          "currentScenario": "抵当権の実行はありません。しずかが甲土地だけを任意にスネ夫へ売り、乙建物はしずかの所有に残しました。",
+          "statement": "土地と建物の所有者が分かれたので、388条により当然に法定地上権が成立する。",
+          "answer": false,
+          "diagram": {
+            "nodeLabels": {
+              "suneo": "土地の任意買主",
+              "nobita": "非表示"
+            },
+            "hiddenNodes": [
+              "nobita"
+            ],
+            "edges": [
+              {
+                "from": "shizuka",
+                "to": "suneo",
+                "label": "土地だけを任意売買",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "building",
+                "label": "建物は残す",
+                "style": "thin"
+              },
+              {
+                "from": "land",
+                "to": "suneo",
+                "label": "取得",
+                "style": "solid"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "building",
+              "to": "land",
+              "label": "388条は適用されない",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。388条は抵当権の実行により所有者が分かれた場合の制度で、任意売買だけでは適用されません。",
+            "fact": "抵当権実行なし・任意売買で分離",
+            "rule": "民法388条",
+            "conclusion": "388条の法定地上権なし",
+            "protectWho": "条件を交渉できる売主・買主",
+            "why": "任意売買なら、建物のための賃借権や地上権を契約で同時に用意できるからです。",
+            "ifOpposite": "当事者が自由に条件を決められる売買にも、法律が一律の地上権を勝手に加えます。",
+            "legalSense": "自分で備えられない競売の穴は法律が補う。自分で設計できる任意取引は契約で処理する。",
+            "minimum": "388条は抵当権実行による分離が必要",
+            "next": "建物が未登記でも、設定時に実在していたら。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法388条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-sup-007",
+          "topic": "未登記建物",
+          "kind": "trap",
+          "delta": {
+            "transition": "reset",
+            "before": "任意売買で分離する小系列",
+            "now": "抵当権実行の基準へ戻り、乙建物だけを未登記へ変更",
+            "same": "設定時に実在・同一所有で、実行により分離"
+          },
+          "currentScenario": "乙建物は未登記ですが、土地抵当権の設定時に現実に存在し、土地・建物ともにしずか所有でした。その実行で所有者が分かれました。",
+          "statement": "乙建物が未登記でも、法定地上権は成立し得る。",
+          "answer": true,
+          "diagram": {
+            "nodeLabels": {
+              "building": "設定時から実在／未登記",
+              "suneo": "土地の買受人"
+            },
+            "edges": [
+              {
+                "from": "doraemon",
+                "to": "land",
+                "label": "土地抵当権を実行",
+                "style": "bold"
+              },
+              {
+                "from": "shizuka",
+                "to": "building",
+                "label": "設定時から所有",
+                "style": "solid"
+              },
+              {
+                "from": "land",
+                "to": "suneo",
+                "label": "競売",
+                "style": "solid"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "building",
+              "to": "land",
+              "label": "未登記でも成立し得る",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。388条は建物登記を成立要件としておらず、設定時に建物が実在して同一所有なら成立し得ます。",
+            "fact": "設定時に建物が実在・同一所有／建物は未登記",
+            "rule": "民法388条",
+            "conclusion": "法定地上権成立",
+            "protectWho": "現実に存在する乙建物の所有者",
+            "why": "抵当権者は現地の建物を把握でき、登記の有無だけで建物を無価値にする必要はないからです。",
+            "ifOpposite": "実在が明白でも建物登記の一事だけで、競売後に収去を強いられます。",
+            "legalSense": "要件に書かれていない登記を足さず、担保設定時に見えた実体を重視する。",
+            "minimum": "建物登記は法定地上権の要件ではない",
+            "next": "成立するのは抵当権設定時か、実行で所有者が分かれた時か。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法388条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            },
+            {
+              "label": "最高裁昭和48年9月18日判決",
+              "url": "https://www.courts.go.jp/hanrei/52024/detail2/index.html"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-sup-008",
+          "topic": "成立時期",
+          "kind": "trap",
+          "delta": {
+            "before": "抵当権が実行され所有者が分離",
+            "now": "抵当権を設定しただけで、まだ実行も分離もない",
+            "same": "設定時に建物があり、土地・建物が同一所有"
+          },
+          "currentScenario": "しずかは甲土地へ抵当権を設定しただけで、まだ抵当権は実行されておらず、土地と建物はどちらもしずか所有のままです。",
+          "statement": "抵当権を設定した時点で、乙建物のための法定地上権が既に成立する。",
+          "answer": false,
+          "diagram": {
+            "hiddenNodes": [
+              "nobita",
+              "suneo"
+            ],
+            "nodeLabels": {
+              "shizuka": "土地・建物を所有したまま"
+            },
+            "edges": [
+              {
+                "from": "doraemon",
+                "to": "land",
+                "label": "抵当権を設定しただけ",
+                "style": "bold"
+              },
+              {
+                "from": "shizuka",
+                "to": "building",
+                "label": "所有",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "land",
+                "label": "所有",
+                "style": "solid"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "building",
+              "to": "land",
+              "label": "まだ法定地上権は成立しない",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。法定地上権は、抵当権の実行により土地と建物の所有者が異なるに至った時に成立します。",
+            "fact": "抵当権設定のみ・所有者分離なし",
+            "rule": "民法388条",
+            "conclusion": "まだ成立しない",
+            "protectWho": "現在の単一所有関係と担保評価",
+            "why": "同じ人が土地と建物を持つ間は、自分の建物のため自分の土地へ独立の利用権を作る必要がないからです。",
+            "ifOpposite": "設定しただけで不要な地上権が生まれ、処分や担保評価を複雑にします。",
+            "legalSense": "将来必要になる可能性と、権利が今成立したことを分ける。",
+            "minimum": "成立時＝抵当権実行で所有者が分離した時",
+            "next": "章末表で『設定時』と『実行時』の要件を分ける。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法388条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        }
+      ],
+      "summaryTable": {
+        "caption": "法定地上権の要件チェック",
+        "headers": [
+          "確認時点",
+          "見る事実",
+          "必要か",
+          "理由"
+        ],
+        "rows": [
+          [
+            "抵当権設定時",
+            "土地上に建物が実在",
+            "必要",
+            "更地担保の価値を後から下げない"
+          ],
+          [
+            "抵当権設定時",
+            "土地・建物が同一所有",
+            "必要",
+            "自己利用権を作れなかった穴だけ補う"
+          ],
+          [
+            "抵当権設定時",
+            "建物の登記",
+            "不要",
+            "388条は実在を基準にし、登記を要件にしない"
+          ],
+          [
+            "抵当権実行時",
+            "土地か建物の抵当権が実行",
+            "必要",
+            "任意売買なら契約で利用権を用意できる"
+          ],
+          [
+            "抵当権実行時",
+            "土地・建物が別所有になる",
+            "必要",
+            "分離して初めて土地利用権が必要になる"
+          ]
+        ],
+        "note": "合言葉は『設定時に建物・同一所有、実行時に分離』。条文は土地抵当と建物抵当の両方を含み、成立は設定時ではなく分離時です。"
+      }
+    },
+    {
+      "id": "inheritance",
+      "number": 5,
+      "topic": "相続",
+      "title": "相続――家族の最低保障と、遺言自由の両立",
+      "lead": "配偶者と子2人の同じ家族から、放棄・先死亡・相続欠格・遺言・遺留分を一つずつ変えます。",
+      "goal": "亡くなった人の意思を尊重しながら、近親者の最低限と家系の連続を、必要な範囲だけ守る。",
+      "remedyGuide": "相続放棄は家庭裁判所、遺産の分け方は協議・調停、遺留分侵害は金銭請求というように、困り事ごとに入口が違います。戸籍・遺言・財産と債務・期間を早めに確認します。",
+      "baseScenario": "のび太の父が死亡し、4000万円の遺産を残しました。配偶者はしずか、子はのび太とスネ夫の2人です。遺言がない場合から始めます。",
+      "castIds": [
+        "shizuka",
+        "nobita",
+        "suneo",
+        "dekisugi",
+        "doraemon",
+        "gian"
+      ],
+      "diagram": {
+        "nodes": [
+          {
+            "id": "father",
+            "kind": "thing",
+            "label": "のび太の父／被相続人",
+            "x": 1,
+            "y": 0
+          },
+          {
+            "id": "estate",
+            "kind": "thing",
+            "label": "遺産4000万円",
+            "x": 1,
+            "y": 1
+          },
+          {
+            "id": "shizuka",
+            "castId": "shizuka",
+            "label": "配偶者",
+            "x": 0,
+            "y": 2
+          },
+          {
+            "id": "nobita",
+            "castId": "nobita",
+            "label": "子",
+            "x": 1,
+            "y": 2
+          },
+          {
+            "id": "suneo",
+            "castId": "suneo",
+            "label": "もう1人の子",
+            "x": 2,
+            "y": 2
+          },
+          {
+            "id": "dekisugi",
+            "castId": "dekisugi",
+            "label": "スネ夫の子／孫",
+            "x": 3,
+            "y": 2
+          },
+          {
+            "id": "doraemon",
+            "castId": "doraemon",
+            "label": "遺言で財産を受ける人",
+            "x": 3,
+            "y": 0
+          },
+          {
+            "id": "gian",
+            "castId": "gian",
+            "label": "被相続人の兄弟",
+            "x": 0,
+            "y": 0
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "minpo-d-inh-001",
+          "topic": "法定相続分",
+          "kind": "straight",
+          "delta": {
+            "before": "章の共通事例",
+            "now": "遺言なし・配偶者1人と子2人",
+            "same": "遺産4000万円"
+          },
+          "currentScenario": "遺言はありません。相続人は配偶者しずか、子ののび太、子のスネ夫です。",
+          "statement": "のび太の法定相続分は、遺産の4分の1である。",
+          "answer": true,
+          "diagram": {
+            "hiddenNodes": [
+              "dekisugi",
+              "doraemon",
+              "gian"
+            ],
+            "edges": [
+              {
+                "from": "father",
+                "to": "estate",
+                "label": "死亡で相続開始",
+                "style": "solid"
+              },
+              {
+                "from": "shizuka",
+                "to": "father",
+                "label": "配偶者",
+                "style": "thin"
+              },
+              {
+                "from": "nobita",
+                "to": "father",
+                "label": "子",
+                "style": "thin"
+              },
+              {
+                "from": "suneo",
+                "to": "father",
+                "label": "子",
+                "style": "thin"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "estate",
+              "to": "nobita",
+              "label": "法定相続分1/4＝1000万円相当",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。配偶者が2分の1、子全体が2分の1で、子2人は均等に各4分の1です。",
+            "fact": "配偶者＋子2人・遺言なし",
+            "rule": "民法900条1号・4号",
+            "conclusion": "のび太は4分の1",
+            "protectWho": "生活共同体の配偶者と、次世代の子",
+            "why": "配偶者の生活継続と、子への世代承継を半分ずつ基準にし、同順位の子は平等に扱うためです。",
+            "ifOpposite": "同じ立場の子の取り分が理由なく変わり、家族内の基準が予測できません。",
+            "legalSense": "まず相続人の組合せを決め、グループの割合を出してから、同順位の人数で割る。",
+            "minimum": "配偶者＋子＝1/2対1/2、子2人なら各1/4",
+            "remedy": "分割内容で争いがあれば遺産分割協議・調停で具体的な取得方法を決めます。",
+            "next": "子の1人が相続放棄したら、最初から相続人でなかった扱いになる。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法900条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-inh-002",
+          "topic": "相続放棄",
+          "kind": "trap",
+          "delta": {
+            "before": "子はのび太とスネ夫の2人",
+            "now": "スネ夫が家庭裁判所で相続放棄",
+            "same": "配偶者しずかとのび太がいること"
+          },
+          "currentScenario": "相続開始後、スネ夫は家庭裁判所で相続放棄をしました。スネ夫には子の出木杉がいます。しずかとのび太は相続します。",
+          "statement": "スネ夫が放棄しても、のび太の法定相続分は4分の1のままである。",
+          "answer": false,
+          "diagram": {
+            "hiddenNodes": [
+              "doraemon",
+              "gian"
+            ],
+            "nodeLabels": {
+              "suneo": "家庭裁判所で相続放棄",
+              "dekisugi": "スネ夫の子"
+            },
+            "edges": [
+              {
+                "from": "shizuka",
+                "to": "father",
+                "label": "配偶者",
+                "style": "thin"
+              },
+              {
+                "from": "nobita",
+                "to": "father",
+                "label": "子",
+                "style": "thin"
+              },
+              {
+                "from": "suneo",
+                "to": "estate",
+                "label": "家庭裁判所で相続放棄",
+                "style": "dashed"
+              },
+              {
+                "from": "suneo",
+                "to": "dekisugi",
+                "label": "親子",
+                "style": "thin"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "estate",
+              "to": "nobita",
+              "label": "法定相続分は1/2",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。放棄した者は初めから相続人でなかったとみなされ、子はのび太1人なので2分の1です。",
+            "fact": "共同相続人の1人が放棄",
+            "rule": "民法939条・900条",
+            "conclusion": "のび太は2分の1",
+            "protectWho": "放棄を選んだスネ夫と残る相続人",
+            "why": "借金を含む相続から完全に離れる制度なので、権利だけ残す中途半端な扱いにしないためです。",
+            "ifOpposite": "放棄者の持分が宙に浮き、誰が取得し債務を負うか確定しません。",
+            "legalSense": "放棄は持分を他人へ譲るのでなく、最初から相続人の列から外れる操作。人数を数え直す。",
+            "minimum": "相続放棄＝初めから相続人でなかった扱い",
+            "remedy": "放棄は原則3か月以内に家庭裁判所へ申述します。財産を処分すると単純承認扱いになる危険があります。",
+            "next": "放棄でなく、相続開始前に死亡して子を残していたら代襲が起きる。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法939条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            },
+            {
+              "label": "民法900条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-inh-003",
+          "topic": "先死亡と代襲",
+          "kind": "straight",
+          "delta": {
+            "before": "スネ夫が相続開始後に放棄",
+            "now": "スネ夫が相続開始前に死亡し、子の出木杉がいる",
+            "same": "しずかとのび太も相続人"
+          },
+          "currentScenario": "スネ夫は父の相続開始前に死亡しており、スネ夫の子である出木杉がいます。しずかとのび太も存命です。",
+          "statement": "出木杉がスネ夫を代襲し、のび太と出木杉はそれぞれ遺産の4分の1を相続する。",
+          "answer": true,
+          "diagram": {
+            "hiddenNodes": [
+              "doraemon",
+              "gian"
+            ],
+            "nodeLabels": {
+              "suneo": "相続開始前に死亡",
+              "dekisugi": "スネ夫の子"
+            },
+            "edges": [
+              {
+                "from": "suneo",
+                "to": "dekisugi",
+                "label": "親子",
+                "style": "thin"
+              },
+              {
+                "from": "shizuka",
+                "to": "father",
+                "label": "配偶者",
+                "style": "thin"
+              },
+              {
+                "from": "nobita",
+                "to": "father",
+                "label": "子",
+                "style": "thin"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "estate",
+              "to": "dekisugi",
+              "label": "代襲してスネ夫の枝1/4を承継",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。子が相続開始前に死亡していれば、その子が代襲し、親の枝の取り分を受けます。",
+            "fact": "被相続人の子が先死亡＋その子がいる",
+            "rule": "民法887条2項",
+            "conclusion": "出木杉が4分の1を代襲",
+            "protectWho": "先に親を亡くした出木杉の家系",
+            "why": "死亡の順番が偶然逆だっただけで、スネ夫の家系全体を相続から外さないためです。",
+            "ifOpposite": "親が祖父より1日早く亡くれただけで、孫の枝が全部失われます。",
+            "legalSense": "代襲は相続人を増やすのでなく、欠けた一つの枝を子孫が埋める。枝の割合は増えない。",
+            "minimum": "子の先死亡・欠格・廃除→その子が代襲",
+            "remedy": "代襲者は自分が相続人であることを戸籍で示し、遺産分割へ参加できます。",
+            "next": "同じスネ夫でも、先死亡でなく相続放棄なら代襲しない。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法887条2項",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-inh-004",
+          "topic": "放棄と代襲",
+          "kind": "trap",
+          "delta": {
+            "before": "スネ夫が相続開始前に死亡",
+            "now": "スネ夫は生存しているが相続放棄",
+            "same": "スネ夫の子・出木杉がいること"
+          },
+          "currentScenario": "スネ夫は相続開始時に生存していましたが、相続放棄をしました。スネ夫の子である出木杉がいます。",
+          "statement": "出木杉は、放棄したスネ夫を代襲して相続人となる。",
+          "answer": false,
+          "diagram": {
+            "hiddenNodes": [
+              "doraemon",
+              "gian"
+            ],
+            "nodeLabels": {
+              "suneo": "生存／相続放棄",
+              "dekisugi": "スネ夫の子"
+            },
+            "edges": [
+              {
+                "from": "suneo",
+                "to": "estate",
+                "label": "放棄",
+                "style": "dashed"
+              },
+              {
+                "from": "suneo",
+                "to": "dekisugi",
+                "label": "親子",
+                "style": "thin"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "estate",
+              "to": "dekisugi",
+              "label": "代襲しない",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。相続放棄は代襲原因ではないため、放棄者の子は代襲しません。",
+            "fact": "親が相続放棄",
+            "rule": "民法887条2項・939条",
+            "conclusion": "出木杉は代襲しない",
+            "protectWho": "放棄を家族単位でなく本人の選択にとどめる相続関係",
+            "why": "放棄者は初めから相続人でない扱いであり、その人に来た相続権を子へ流す制度ではないからです。",
+            "ifOpposite": "借金を避けるため親が放棄しても、同じ地位が自動で子へ移り、家族全体の整理ができません。",
+            "legalSense": "先死亡は枝を守る。放棄はその人を最初から数えない。似た不在でも原因を区別する。",
+            "minimum": "相続放棄は代襲原因でない",
+            "remedy": "相続放棄では出木杉への代襲は起きません。相続債務は次順位の直系尊属・兄弟姉妹へ移り得るため、家族全体で相続順位を確認します。",
+            "next": "放棄でなく、相続欠格で権利を失ったら代襲する。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法887条2項",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            },
+            {
+              "label": "民法939条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-inh-005",
+          "topic": "相続欠格と代襲",
+          "kind": "trap",
+          "delta": {
+            "before": "スネ夫が自分で相続放棄",
+            "now": "スネ夫が相続欠格で相続権を失った",
+            "same": "スネ夫の子・出木杉がいること"
+          },
+          "currentScenario": "スネ夫は民法891条の相続欠格事由により相続権を失いました。スネ夫の子である出木杉がいます。",
+          "statement": "出木杉は、相続欠格となったスネ夫を代襲して相続人となる。",
+          "answer": true,
+          "diagram": {
+            "hiddenNodes": [
+              "doraemon",
+              "gian"
+            ],
+            "nodeLabels": {
+              "suneo": "相続欠格",
+              "dekisugi": "スネ夫の子"
+            },
+            "edges": [
+              {
+                "from": "suneo",
+                "to": "estate",
+                "label": "欠格で相続権喪失",
+                "style": "dashed"
+              },
+              {
+                "from": "suneo",
+                "to": "dekisugi",
+                "label": "親子",
+                "style": "thin"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "estate",
+              "to": "dekisugi",
+              "label": "スネ夫の枝を代襲",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。相続欠格は887条2項が明示する代襲原因です。",
+            "fact": "親が相続欠格＋その子がいる",
+            "rule": "民法887条2項・891条",
+            "conclusion": "出木杉が代襲",
+            "protectWho": "欠格行為をしていない出木杉",
+            "why": "親本人への制裁を、何もしていない子へ連座させないためです。",
+            "ifOpposite": "親の不正のため、無関係な子まで祖父の相続から永久に排除されます。",
+            "legalSense": "制裁は行為者本人へ。家系保護は別に残す。",
+            "minimum": "欠格・廃除は代襲原因／放棄は代襲原因でない",
+            "remedy": "出木杉は欠格者を経由せず、自分の代襲相続権に基づき遺産分割へ参加します。",
+            "next": "法定相続から、全財産を第三者へ与える遺言へ切り替える。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法887条2項",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            },
+            {
+              "label": "民法891条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-inh-006",
+          "topic": "遺言と遺留分",
+          "kind": "straight",
+          "delta": {
+            "transition": "reset",
+            "before": "放棄・先死亡・欠格の小系列",
+            "now": "全員存命の基準へ戻り、全財産をドラえもんへ遺贈する方式に不備のない遺言を追加",
+            "same": "配偶者しずかと子2人、遺産4000万円"
+          },
+          "currentScenario": "のび太の父は、4000万円の全財産をドラえもんへ遺贈する方式に不備のない遺言を残しました。しずか、のび太、スネ夫が存命です。",
+          "statement": "家族の遺留分を侵害するため、この遺言は当然に全部無効となる。",
+          "answer": false,
+          "diagram": {
+            "hiddenNodes": [
+              "dekisugi",
+              "gian"
+            ],
+            "nodeLabels": {
+              "doraemon": "全財産の受遺者"
+            },
+            "edges": [
+              {
+                "from": "father",
+                "to": "doraemon",
+                "label": "全財産を遺贈する遺言",
+                "style": "bold"
+              },
+              {
+                "from": "estate",
+                "to": "doraemon",
+                "label": "4000万円",
+                "style": "solid"
+              },
+              {
+                "from": "nobita",
+                "to": "doraemon",
+                "label": "遺留分侵害",
+                "style": "dashed"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "father",
+              "to": "doraemon",
+              "label": "遺言は当然無効ではない",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。遺留分を侵害しても遺言は当然無効にならず、侵害された者が金銭請求をします。",
+            "fact": "有効な全部遺贈＋遺留分侵害",
+            "rule": "民法1042条・1046条",
+            "conclusion": "遺言は有効のまま",
+            "protectWho": "遺言者の意思と、遺留分権利者の双方",
+            "why": "本人の最終意思をできるだけ実現しつつ、家族には最低限を金銭で戻す制度だからです。",
+            "ifOpposite": "わずかな侵害でも遺言全部が崩れ、誰へ何を残したいかという本人の意思が失われます。",
+            "legalSense": "権利侵害を見ても、行為全体を壊す必要があるか、金銭で調整できるかを考える。",
+            "minimum": "遺留分侵害＝遺言無効ではない",
+            "remedy": "侵害された相続人は受遺者・受贈者へ遺留分侵害額の金銭請求を検討します。",
+            "next": "のび太個人の遺留分を金額で計算する。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法1042条・1046条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-inh-007",
+          "topic": "遺留分侵害額請求",
+          "kind": "trap",
+          "delta": {
+            "before": "遺言が当然無効かを見る",
+            "now": "のび太1人の遺留分額を計算",
+            "same": "配偶者＋子2人、遺産4000万円、全財産をドラえもんへ遺贈"
+          },
+          "currentScenario": "被相続人は、全財産をドラえもんへ遺贈する方式上有効な遺言を残し、のび太の取得額は0円です。遺留分算定の基礎財産は4000万円で、債務や他の贈与はありません。相続人は配偶者しずかと子ののび太・スネ夫で、請求期間はまだ過ぎていません。",
+          "statement": "のび太は、ドラえもんに対して500万円の遺留分侵害額を金銭で請求できる。",
+          "answer": true,
+          "diagram": {
+            "hiddenNodes": [
+              "dekisugi",
+              "gian"
+            ],
+            "nodeLabels": {
+              "nobita": "子／遺留分を請求",
+              "doraemon": "全財産4000万円の受遺者"
+            },
+            "edges": [
+              {
+                "from": "estate",
+                "to": "doraemon",
+                "label": "遺言で4000万円",
+                "style": "solid"
+              },
+              {
+                "from": "nobita",
+                "to": "doraemon",
+                "label": "遺留分侵害額を請求",
+                "style": "bold"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "doraemon",
+              "to": "nobita",
+              "label": "500万円を金銭で支払う",
+              "style": "answer-yes"
+            }
+          ],
+          "explanation": {
+            "summary": "○。総体的遺留分2分の1×のび太の法定相続分4分の1で個別遺留分は8分の1、4000万円の8分の1は500万円です。",
+            "fact": "配偶者＋子2人／基礎財産4000万円",
+            "rule": "民法1042条・1046条",
+            "conclusion": "500万円の金銭請求",
+            "protectWho": "のび太の最低限の相続利益",
+            "why": "遺言自由を残しつつ、近親者が完全に排除されることを金銭で緩和するためです。",
+            "ifOpposite": "遺産の現物を当然に共有へ戻すと、受遺者との共有関係が生まれ処分が難しくなります。",
+            "legalSense": "現在の遺留分は『物を取り戻す』より『金銭で穴を埋める』。遺言を残して清算する。",
+            "minimum": "個別遺留分＝総体的遺留分1/2×法定相続分",
+            "remedy": "請求は意思表示で行い、期間制限があるため、侵害を知った時点で証拠を残して早く動きます。",
+            "next": "兄弟姉妹だけが相続人なら、遺留分そのものがない。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法1042条・1046条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        },
+        {
+          "id": "minpo-d-inh-008",
+          "topic": "兄弟姉妹と遺留分",
+          "kind": "trap",
+          "delta": {
+            "transition": "reset",
+            "before": "配偶者・子がいる遺留分の小系列",
+            "now": "配偶者・子・直系尊属がおらず、兄弟のジャイアンだけの事例へ切替",
+            "same": "全財産をドラえもんへ遺贈する有効な遺言"
+          },
+          "currentScenario": "被相続人には配偶者、子、直系尊属がおらず、兄弟のジャイアンだけがいます。全財産をドラえもんへ遺贈する有効な遺言があります。",
+          "statement": "兄弟のジャイアンも法定相続人になり得るので、ドラえもんへ遺留分侵害額を請求できる。",
+          "answer": false,
+          "diagram": {
+            "hiddenNodes": [
+              "shizuka",
+              "nobita",
+              "suneo",
+              "dekisugi"
+            ],
+            "nodeLabels": {
+              "gian": "被相続人の兄弟",
+              "doraemon": "全財産の受遺者"
+            },
+            "edges": [
+              {
+                "from": "father",
+                "to": "doraemon",
+                "label": "全財産を遺贈",
+                "style": "bold"
+              },
+              {
+                "from": "gian",
+                "to": "doraemon",
+                "label": "遺留分を請求？",
+                "style": "dashed"
+              }
+            ]
+          },
+          "answerEdges": [
+            {
+              "from": "doraemon",
+              "to": "gian",
+              "label": "兄弟姉妹に遺留分なし",
+              "style": "answer-no"
+            }
+          ],
+          "explanation": {
+            "summary": "×。兄弟姉妹は法定相続人になり得ますが、遺留分権利者から明文で除外されています。",
+            "fact": "相続人候補が兄弟だけ",
+            "rule": "民法1042条",
+            "conclusion": "ジャイアンに遺留分なし",
+            "protectWho": "被相続人の遺言自由",
+            "why": "配偶者・子・直系尊属より生活上の結び付きが一般に弱い兄弟姉妹については、最低保障より本人の処分意思を優先するからです。",
+            "ifOpposite": "関係が疎遠な兄弟にも必ず最低取り分が残り、第三者へ全財産を残す自由が狭くなります。",
+            "legalSense": "『法定相続人になれる』と『遺留分がある』は別の質問。保護の強さを一段ずつ見る。",
+            "minimum": "兄弟姉妹に遺留分はない",
+            "remedy": "遺留分はありませんが、遺言の方式違反・意思能力・偽造など別の無効原因があれば、その点は別に争えます。",
+            "next": "章末表で、放棄・先死亡・欠格・遺留分を原因別に整理する。"
+          },
+          "legalBasis": [
+            {
+              "label": "民法1042条",
+              "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+            }
+          ]
+        }
+      ],
+      "summaryTable": {
+        "caption": "相続から外れる原因と、その子・最低保障",
+        "headers": [
+          "出来事",
+          "本人の扱い",
+          "その子の代襲",
+          "残る保護"
+        ],
+        "rows": [
+          [
+            "相続放棄",
+            "初めから相続人でない",
+            "しない",
+            "債務を含む相続から離脱"
+          ],
+          [
+            "相続開始前の死亡",
+            "相続人になれない",
+            "する",
+            "その家系の枝を維持"
+          ],
+          [
+            "相続欠格・廃除",
+            "相続権を失う",
+            "する",
+            "制裁を子へ連座させない"
+          ],
+          [
+            "遺留分侵害の遺言",
+            "遺言は当然無効でない",
+            "―",
+            "配偶者・子・直系尊属は金銭請求"
+          ],
+          [
+            "兄弟姉妹だけ",
+            "法定相続人にはなり得る",
+            "一定範囲であり",
+            "遺留分はない"
+          ]
+        ],
+        "note": "相続では『相続人か』『代襲するか』『遺留分があるか』を混ぜません。放棄と欠格は本人が外れる点は同じでも、子の代襲が正反対です。"
+      }
+    }
+  ]
+}
