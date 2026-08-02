@@ -771,7 +771,8 @@
               "label": "民法192条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-property-good-faith-acquisition-001"
         },
         {
           "id": "minpo-d-gfa-003",
@@ -894,7 +895,8 @@
               "label": "民法192条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-property-good-faith-acquisition-001"
         },
         {
           "id": "minpo-d-gfa-005",
@@ -1547,7 +1549,8 @@
               "label": "最高裁平成8年10月29日判決",
               "url": "https://www.courts.go.jp/hanrei/52520/detail2/index.html"
             }
-          ]
+          ],
+          "cardId": "min-property-registration-bad-faith-001"
         },
         {
           "id": "minpo-d-reg-005",
@@ -1619,7 +1622,8 @@
               "label": "最高裁平成8年10月29日判決",
               "url": "https://www.courts.go.jp/hanrei/52520/detail2/index.html"
             }
-          ]
+          ],
+          "cardId": "min-property-registration-bad-faith-001"
         },
         {
           "id": "minpo-d-reg-006",
@@ -1686,7 +1690,8 @@
               "label": "最高裁昭和31年4月24日判決",
               "url": "https://www.courts.go.jp/hanrei/57535/detail2/index.html"
             }
-          ]
+          ],
+          "cardId": "min-property-registration-bad-faith-001"
         },
         {
           "id": "minpo-d-reg-007",
@@ -1748,7 +1753,8 @@
               "label": "民法177条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-property-registration-bad-faith-001"
         },
         {
           "id": "minpo-d-reg-008",
@@ -1818,7 +1824,8 @@
               "label": "民法177条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-property-registration-bad-faith-001"
         }
       ],
       "summaryTable": {
@@ -2127,7 +2134,8 @@
               "label": "民法388条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-security-statutory-superficies-same-owner-001"
         },
         {
           "id": "minpo-d-sup-004",
@@ -2196,7 +2204,8 @@
               "label": "民法388条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-security-statutory-superficies-same-owner-001"
         },
         {
           "id": "minpo-d-sup-005",
@@ -2271,7 +2280,8 @@
               "label": "最高裁昭和37年9月4日判決",
               "url": "https://www.courts.go.jp/hanrei/53038/detail2/index.html"
             }
-          ]
+          ],
+          "cardId": "min-security-statutory-superficies-same-owner-001"
         },
         {
           "id": "minpo-d-sup-006",
@@ -2340,7 +2350,8 @@
               "label": "民法388条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-security-statutory-superficies-same-owner-001"
         },
         {
           "id": "minpo-d-sup-007",
@@ -2410,7 +2421,8 @@
               "label": "最高裁昭和48年9月18日判決",
               "url": "https://www.courts.go.jp/hanrei/52024/detail2/index.html"
             }
-          ]
+          ],
+          "cardId": "min-security-statutory-superficies-same-owner-001"
         },
         {
           "id": "minpo-d-sup-008",
@@ -2478,7 +2490,8 @@
               "label": "民法388条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-security-statutory-superficies-same-owner-001"
         }
       ],
       "summaryTable": {

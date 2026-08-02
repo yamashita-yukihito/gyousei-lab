@@ -117,8 +117,11 @@ class MinpoDTest(unittest.TestCase):
     def test_read_solve_exam_paths_and_safe_card_link_are_present(self) -> None:
         html = (MINPO_D / "index.html").read_text(encoding="utf-8")
         js = (MINPO_D / "app.js").read_text(encoding="utf-8")
-        self.assertIn("styles.css?v=20260802-7", html)
-        self.assertIn("app.js?v=20260802-7", html)
+        # 版番号そのものを固定すると、キャッシュを更新するたびにテストが落ちる。
+        # 見たいのは「CSSとJSの版がそろっていること」なので、そちらを確かめる。
+        versions = re.findall(r'(?:styles\.css|app\.js)\?v=([0-9A-Za-z-]+)', html)
+        self.assertEqual(len(versions), 2, "styles.cssとapp.jsの両方に版番号が要る")
+        self.assertEqual(versions[0], versions[1], "CSSとJSの版番号がそろっていない")
         self.assertIn("minpoD:v1", html)
         self.assertIn("const STORE_KEY = 'minpoD:v1'", js)
         self.assertIn("chapter.questions.forEach", js)

@@ -519,6 +519,38 @@ function clipPoint(box, target) {
   return { x: box.cx + dx * scale, y: box.cy + dy * scale };
 }
 
+function boxesOverlap(a, b, margin = 3) {
+  return a.x < b.x + b.w - margin && b.x < a.x + a.w - margin
+    && a.y < b.y + b.h - margin && b.y < a.y + a.h - margin;
+}
+
+// 線のラベルを中点へ固定で置くと、隣の枠や別のラベルに重なる。枠は後から上に描くので、
+// 重なったラベルは枠の下へ隠れて読めなくなる。線に沿った位置と、線と直角方向のずらし幅を
+// 順に試し、何にもぶつからない場所を選ぶ。A案（static/minpo-a/app.js）と同じやり方。
+function placeEdgeLabel(start, end, width, height, occupied) {
+  const dx = end.x - start.x;
+  const dy = end.y - start.y;
+  const len = Math.hypot(dx, dy) || 1;
+  const nx = -dy / len;
+  const ny = dx / len;
+  let fallback = null;
+  // 判定する矩形を6px膨らませて margin 0 で見る。これで置けた場所は必ず3px以上あく。
+  const gap = 6;
+  for (const t of [0.5, 0.4, 0.6, 0.3, 0.7, 0.22, 0.78, 0.15, 0.85]) {
+    for (const step of [0, -1, 1, -2, 2, -3, 3, -4, 4, -5, 5]) {
+      const x = start.x + dx * t + nx * step * 24;
+      const y = start.y + dy * t + ny * step * 24;
+      if (!fallback) fallback = { x, y };
+      const rect = {
+        x: x - width / 2 - gap / 2, y: y - height / 2 - gap / 2,
+        w: width + gap, h: height + gap,
+      };
+      if (!occupied.some((other) => boxesOverlap(rect, other, 0))) return { x, y };
+    }
+  }
+  return fallback;
+}
+
 function renderDiagramFigure(chapter, question, answerDiagram) {
   const figure = el('figure', 'diagram');
   figure.appendChild(el('figcaption', '', answerDiagram ? '答えを入れた関係図（回答後）' : '今回の事実だけを描いた関係図'));
@@ -576,6 +608,18 @@ function renderDiagram(chapter, question, answerDiagram) {
   });
   svg.appendChild(defs);
 
+  // ラベルを置くときに避けるもの。人物と物の枠から始めて、置いたラベルを足していく。
+  const occupied = [];
+  boxes.forEach((item) => {
+    occupied.push({
+      x: item.cx - item.width / 2, y: item.cy - item.height / 2,
+      w: item.width, h: item.height,
+    });
+  });
+  // ラベルは枠より後に描く。逃がしきれなかったときでも枠の下へ隠れないようにする。
+  const labelLayer = svgEl('g');
+  const labelBounds = [];
+
   const factEdges = question.diagram?.edges || [];
   const edges = answerDiagram ? [...factEdges, ...(question.answerEdges || [])] : factEdges;
   const styleMap = {
@@ -607,20 +651,22 @@ function renderDiagram(chapter, question, answerDiagram) {
 
     if (edge.label) {
       const lines = wrapText(aliasText(edge.label, chapter), 12);
-      const midX = (start.x + end.x) / 2;
-      const midY = (start.y + end.y) / 2 + ((index % 3) - 1) * 18;
       const width = Math.max(58, ...lines.map((line) => line.length * 12 + 14));
       const height = lines.length * 14 + 9;
-      svg.appendChild(svgEl('rect', { x: midX - width / 2, y: midY - height / 2, width, height, rx: 5, fill: '#fffef9', stroke: style.color, 'stroke-width': .8 }));
+      const spot = placeEdgeLabel(start, end, width, height, occupied);
+      occupied.push({ x: spot.x - width / 2, y: spot.y - height / 2, w: width, h: height });
+      labelLayer.appendChild(svgEl('rect', { class: 'edge-label-box', x: spot.x - width / 2, y: spot.y - height / 2, width, height, rx: 5, fill: '#fffef9', stroke: style.color, 'stroke-width': .8 }));
       lines.forEach((line, lineIndex) => {
-        svg.appendChild(svgEl('text', { x: midX, y: midY - height / 2 + 15 + lineIndex * 14, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 700, fill: style.color }, line));
+        labelLayer.appendChild(svgEl('text', { x: spot.x, y: spot.y - height / 2 + 15 + lineIndex * 14, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 700, fill: style.color }, line));
       });
+      labelBounds.push({ x: spot.x - width / 2, y: spot.y - height / 2, w: width, h: height });
     }
   });
 
   boxes.forEach((item) => {
     const color = state.mode === 'exam' ? '#68746f' : (item.cast?.color || '#68746f');
     svg.appendChild(svgEl('rect', {
+      class: 'node-box',
       x: item.cx - item.width / 2,
       y: item.cy - item.height / 2,
       width: item.width,
@@ -636,6 +682,21 @@ function renderDiagram(chapter, question, answerDiagram) {
       svg.appendChild(svgEl('text', { x: item.cx, y: item.cy - item.height / 2 + 40 + lineIndex * 15, 'text-anchor': 'middle', 'font-size': 11.5, fill: '#68746f' }, line));
     });
   });
+  svg.appendChild(labelLayer);
+
+  // 逃がしたラベルが外へはみ出すことがあるので、置いたものすべてを囲む範囲へviewBoxを広げる。
+  let minX = 0;
+  let minY = 0;
+  labelBounds.forEach((rect) => {
+    minX = Math.min(minX, rect.x - pad);
+    minY = Math.min(minY, rect.y - pad);
+    maxX = Math.max(maxX, rect.x + rect.w + pad);
+    maxY = Math.max(maxY, rect.y + rect.h + pad);
+  });
+  svg.setAttribute(
+    'viewBox',
+    `${Math.floor(minX)} ${Math.floor(minY)} ${Math.ceil(maxX - minX)} ${Math.ceil(maxY - minY)}`,
+  );
   return svg;
 }
 
