@@ -154,7 +154,8 @@
               "label": "民法113条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-general-unauthorized-agency-demand-001"
         },
         {
           "id": "minpo-d-ua-002",
@@ -215,7 +216,8 @@
               "label": "民法114条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-general-unauthorized-agency-demand-001"
         },
         {
           "id": "minpo-d-ua-003",
@@ -328,7 +330,8 @@
               "label": "民法115条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-general-unauthorized-agency-rescission-001"
         },
         {
           "id": "minpo-d-ua-005",
@@ -386,7 +389,8 @@
               "label": "民法115条ただし書",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-general-unauthorized-agency-rescission-001"
         },
         {
           "id": "minpo-d-ua-006",
@@ -444,7 +448,8 @@
               "label": "民法114条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-general-unauthorized-agency-demand-001"
         },
         {
           "id": "minpo-d-ua-007",
@@ -504,7 +509,8 @@
               "label": "民法117条2項2号",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-general-unauthorized-agency-liability-001"
         },
         {
           "id": "minpo-d-ua-008",
@@ -563,7 +569,8 @@
               "label": "民法117条2項2号ただし書",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-general-unauthorized-agency-liability-001"
         }
       ],
       "summaryTable": {
@@ -961,7 +968,8 @@
               "label": "民法193条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-property-stolen-goods-recovery-001"
         },
         {
           "id": "minpo-d-gfa-006",
@@ -1020,7 +1028,8 @@
               "label": "民法193条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-property-stolen-goods-recovery-001"
         },
         {
           "id": "minpo-d-gfa-007",
@@ -1091,7 +1100,8 @@
               "label": "民法194条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-property-stolen-goods-recovery-001"
         },
         {
           "id": "minpo-d-gfa-008",
@@ -1161,7 +1171,8 @@
               "label": "民法193条・194条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "cardId": "min-property-stolen-goods-recovery-001"
         }
       ],
       "summaryTable": {
