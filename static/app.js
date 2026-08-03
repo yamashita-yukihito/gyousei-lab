@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260803-1";
+  const APP_VERSION = "20260803-2";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -1027,6 +1027,11 @@
       // 公式PDFがある年度は、取得元と食い違っていないかを自分で確かめられるようにする
       if (safeUrl(ref.officialQuestionUrl)) {
         nodes.push(make("a", { href: ref.officialQuestionUrl, className: "source-link official", target: "_blank", rel: "noopener noreferrer" }, "公式PDF ↗"));
+      }
+      // 旧10年（平成18〜27年度）は取得元がURLを公開していない。リンクは出せないが、
+      // どの年度のどの肢から作ったかは分かるようにする
+      if (!safeUrl(ref.providerUrl) && !safeUrl(ref.officialQuestionUrl) && label) {
+        nodes.push(make("span", { className: "source-link archive" }, "元問題 " + label + "（現行法で再確認済み）"));
       }
     });
     node.replaceChildren(...nodes);

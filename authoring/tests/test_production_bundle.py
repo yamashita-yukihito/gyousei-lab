@@ -844,6 +844,19 @@ class ProductionBundleTests(unittest.TestCase):
         with self.assertRaisesRegex(ProductionBundleError, "providerUrl must be"):
             self.build(related_question_source=missing_provider_url)
 
+        # 旧10年（sourceEra が archive）だけはURLを省ける。取得元が公開していないため。
+        archive_record = related_question_source()
+        del archive_record["records"][0]["providerUrl"]
+        del archive_record["records"][0]["officialQuestionUrl"]
+        archive_record["records"][0]["sourceEra"] = "archive"
+        bundle = self.build(related_question_source=archive_record)
+        archive_ref = bundle["explanationCards"][0]["sourceRefs"][0]
+        self.assertNotIn("providerUrl", archive_ref)
+        self.assertNotIn("officialQuestionUrl", archive_ref)
+        self.assertEqual("archive", archive_ref["sourceEra"])
+        self.assertNotIn("sourceUrl", bundle["relatedQuestionEvidence"][0])
+        self.assertEqual("archive", bundle["relatedQuestionEvidence"][0]["sourceEra"])
+
         same_url = related_question_source()
         same_url["records"][0]["officialQuestionUrl"] = same_url["records"][0][
             "providerUrl"

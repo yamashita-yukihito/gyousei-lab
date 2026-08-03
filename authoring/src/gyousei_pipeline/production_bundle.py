@@ -1055,9 +1055,13 @@ def _project_related_question_evidence(
                 choice.get("verification"), f"{context}.verification"
             ),
         }
-        # 旧10年（平成18〜27年度）の肢は、取得元がURLを公開していないので出典リンクを出さない。
-        # 平成28年度以降の肢だけが officialQuestionUrl を持つ。
-        if record.get("officialQuestionUrl"):
+        # 旧10年（sourceEra が archive）の肢は、取得元がURLを公開していないので
+        # 出典リンクを出さない。それ以外の年度は今までどおりURLを必須にする。
+        if record.get("sourceEra") != "archive":
+            evidence["sourceUrl"] = _text(
+                record.get("officialQuestionUrl"), f"{context}.officialQuestionUrl"
+            )
+        elif record.get("officialQuestionUrl"):
             evidence["sourceUrl"] = _text(
                 record.get("officialQuestionUrl"), f"{context}.officialQuestionUrl"
             )
@@ -1138,15 +1142,27 @@ def _attach_source_question_links(
             ref["questionNumber"] = _integer(
                 record.get("questionNumber"), f"{context}.questionNumber"
             )
-            ref["providerUrl"] = _text(
-                record.get("providerUrl"), f"{context}.providerUrl"
-            )
-            official_url = _text(
-                record.get("officialQuestionUrl"), f"{context}.officialQuestionUrl"
-            )
-            # 合格道場由来のレコードは両者が同じURLなので、二重にリンクを出さない
-            if official_url != ref["providerUrl"]:
-                ref["officialQuestionUrl"] = official_url
+            # URLを省けるのは旧10年（sourceEra が archive）だけ。取得元がURLを
+            # 公開していないためで、それ以外の年度は今までどおりURLを必須にする。
+            era = record.get("sourceEra")
+            if era == "archive":
+                if record.get("providerUrl"):
+                    ref["providerUrl"] = _text(
+                        record.get("providerUrl"), f"{context}.providerUrl"
+                    )
+            else:
+                ref["providerUrl"] = _text(
+                    record.get("providerUrl"), f"{context}.providerUrl"
+                )
+            if record.get("officialQuestionUrl"):
+                official_url = _text(
+                    record.get("officialQuestionUrl"), f"{context}.officialQuestionUrl"
+                )
+                # 合格道場由来のレコードは両者が同じURLなので、二重にリンクを出さない
+                if official_url != ref.get("providerUrl"):
+                    ref["officialQuestionUrl"] = official_url
+            if record.get("sourceEra"):
+                ref["sourceEra"] = _text(record.get("sourceEra"), f"{context}.sourceEra")
 
 
 def _project_citation(value: Any, context: str) -> dict[str, str]:
