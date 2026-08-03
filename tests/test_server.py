@@ -1769,6 +1769,25 @@ class CardEditTest(unittest.TestCase):
         # どちらも正本へは書かない
         self.assertEqual(self.document, self.stored())
 
+    def test_rejects_broken_markup_in_the_explanations(self) -> None:
+        # ①②④も同じ記法で表示する。ここを見ていなかったため、閉じ忘れが画面へ出ていた。
+        broken = {
+            "normal": "行政庁は__理由==を示す。",
+            "deepDive": {"background": "==背景__。", "trap": "ひっかけ。", "example": "場面。"},
+            "commonSense": "常識。",
+        }
+        for field, payload in (
+            ("explanations.normal", broken),
+            (
+                "explanations.commonSense",
+                dict(self.document["items"][0]["explanations"], commonSense="**常識==。"),
+            ),
+        ):
+            with self.assertRaises(server.ApiError, msg=field) as context:
+                server.save_card_edit({"cardId": "card-1", "editable": {"explanations": payload}})
+            self.assertIn("閉じていない装飾記法", context.exception.message)
+        self.assertEqual(self.document, self.stored())
+
     def test_unchanged_edit_does_not_touch_the_canonical(self) -> None:
         before = self.canonical_path.read_bytes()
         result = server.save_card_edit(

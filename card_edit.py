@@ -135,6 +135,25 @@ def validate_card(
     check_markup(f"{card_id}.correction", card.get("correction", ""), problems, allow_red=True)
     check_markup(f"{card_id}.memoryPoint", card.get("memoryPoint", ""), problems, allow_red=True)
 
+    # ①普通の解説・②深掘り・④常識力も同じ記法で表示する。ここを見ていなかったため、
+    # 閉じ忘れ（`__…==`）が画面へそのまま出ていた。
+    check_markup(
+        f"{card_id}.explanations.normal", explanations.get("normal", ""), problems, allow_red=True
+    )
+    for field in ("background", "trap", "example"):
+        check_markup(
+            f"{card_id}.explanations.deepDive.{field}",
+            deep.get(field, ""),
+            problems,
+            allow_red=True,
+        )
+    check_markup(
+        f"{card_id}.explanations.commonSense",
+        explanations.get("commonSense", ""),
+        problems,
+        allow_red=True,
+    )
+
     for index, basis in enumerate(card.get("legalBasis") or []):
         if not isinstance(basis, dict):
             problems.append(f"{card_id}: legalBasis[{index}] はオブジェクトにしてください")
