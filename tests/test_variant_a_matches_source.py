@@ -103,3 +103,33 @@ class VariantAMatchesSourceTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class VariantToneTest(unittest.TestCase):
+    """B・Cを引用の型で書いていないことを見る。
+
+    AGENTS.md 5章の決まり。「この命題は〜と言っています」のように、Aを外から評する形にすると、
+    読み手はAの当否ではなく「そう書いてあるか」を確かめるだけになる。B・CはAと同じ結論を
+    **断定型**で書く。2026-08-03に、新規カードでこれを繰り返し破ったので機械で見張ることにした。
+    """
+
+    BANNED = (
+        "この命題は",
+        "この文は",
+        "この文では",
+        "この文章は",
+        "という命題",
+        "と言っています。",
+        "と言っている。",
+    )
+
+    def test_no_quoting_frame(self) -> None:
+        cards = json.loads(CARDS.read_text(encoding="utf-8"))["items"]
+        offenders = []
+        for card in cards:
+            for key in ("a", "b", "bCasual", "c"):
+                text = card["variants"].get(key) or ""
+                for phrase in self.BANNED:
+                    if phrase in text:
+                        offenders.append(f"{card['id']}.{key}: {phrase}")
+        self.assertEqual(offenders, [], "B・Cが引用の型になっている。断定型で書く")
