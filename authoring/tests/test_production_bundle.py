@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import inspect
 import hashlib
 import json
 import os
@@ -1133,3 +1134,21 @@ class ProductionBundleTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ArchiveEvidenceProjectionTest(unittest.TestCase):
+    """旧10年の肢は出典URLを持たず、現行法で再確認した印を持つ。
+
+    平成18〜27年度は取得元がURLも解説も出していないので、⑤へ出すのは肢の本文だけにする。
+    どちらの期間の肢かは sourceEra で画面へ渡し、読み手が裏取りの経路を区別できるようにする。
+    """
+
+    def test_archive_record_projects_without_source_url(self) -> None:
+        from gyousei_pipeline import production_bundle as module
+        source = inspect.getsource(module)
+        self.assertIn('if record.get("officialQuestionUrl"):', source)
+        self.assertIn('evidence["sourceUrl"]', source)
+        self.assertIn('if "sourceEra" in record:', source)
+        self.assertIn('evidence["sourceEra"]', source)
+        # sourceUrl を無条件で組み立てる旧実装へ戻っていないこと
+        self.assertNotIn('"sourceUrl": _text(', source)

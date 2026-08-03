@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260802-4";
+  const APP_VERSION = "20260803-1";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -1321,6 +1321,11 @@
       // 出題当時の文言と違うことが分かるようにする
       const amended = (ref.modified !== undefined ? ref.modified : evidence.modified) === true;
       if (amended) meta.appendChild(make("span", { className: "amended" }, "法改正に合わせた改題版"));
+      // 旧10年（平成18〜27年度）の肢は取得元の解説が無いので、現行法での正誤をe-Govで
+      // 確かめている。読み手が裏取りの経路を区別できるように印を出す
+      if ((ref.sourceEra || evidence.sourceEra) === "archive") {
+        meta.appendChild(make("span", { className: "rechecked" }, "現行法で再確認済み"));
+      }
       meta.appendChild(make("span", {}, relationLabel(ref.relation)));
       const url = ref.sourceUrl || evidence.sourceUrl;
       if (safeUrl(url)) meta.appendChild(make("a", { href: url, target: "_blank", rel: "noopener noreferrer" }, "出典を見る ↗"));

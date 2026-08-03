@@ -1045,9 +1045,6 @@ def _project_related_question_evidence(
             "currentLawAsOf": _text(
                 choice.get("currentLawAsOf"), f"{context}.currentLawAsOf"
             ),
-            "sourceUrl": _text(
-                record.get("officialQuestionUrl"), f"{context}.officialQuestionUrl"
-            ),
             "textVersion": _text(
                 choice.get("textVersion"), f"{context}.textVersion"
             ),
@@ -1058,6 +1055,18 @@ def _project_related_question_evidence(
                 choice.get("verification"), f"{context}.verification"
             ),
         }
+        # 旧10年（平成18〜27年度）の肢は、取得元がURLを公開していないので出典リンクを出さない。
+        # 平成28年度以降の肢だけが officialQuestionUrl を持つ。
+        if record.get("officialQuestionUrl"):
+            evidence["sourceUrl"] = _text(
+                record.get("officialQuestionUrl"), f"{context}.officialQuestionUrl"
+            )
+        # 旧10年の肢は取得元の解説が無く、現行法の正誤をe-Govで確かめている。
+        # 画面でその旨を出せるように、どちらの期間の肢かを渡す。
+        if "sourceEra" in record:
+            evidence["sourceEra"] = _text(
+                record.get("sourceEra"), f"{context}.sourceEra"
+            )
         if "questionFormat" in record:
             # 組合せ問題から採った肢は、画面でその印を出せるように形式を渡す
             evidence["questionFormat"] = _text(
