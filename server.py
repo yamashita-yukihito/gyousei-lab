@@ -2070,17 +2070,23 @@ def study_queue_response(query: dict[str, list[str]]) -> dict:
     deck = resolve_study_deck(snapshot, study_deck_id, require_if_ambiguous=True)
     cards = cards_for_study_deck(snapshot, deck)
 
-    limit = study_queue.DEFAULT_QUEUE_LIMIT
-    limit_text = _single_query(query, "limit")
-    if limit_text is not None:
-        if not limit_text.isdigit():
-            raise ApiError(HTTPStatus.BAD_REQUEST, "limit must be a positive integer")
-        limit = int(limit_text)
-        if not 1 <= limit <= study_queue.MAX_QUEUE_LIMIT:
+    def _count(name: str, fallback: int, *, low: int) -> int:
+        text = _single_query(query, name)
+        if text is None:
+            return fallback
+        if not text.isdigit():
+            raise ApiError(HTTPStatus.BAD_REQUEST, f"{name} must be an integer")
+        value = int(text)
+        if not low <= value <= study_queue.MAX_QUEUE_LIMIT:
             raise ApiError(
                 HTTPStatus.BAD_REQUEST,
-                f"limit must be between 1 and {study_queue.MAX_QUEUE_LIMIT}",
+                f"{name} must be between {low} and {study_queue.MAX_QUEUE_LIMIT}",
             )
+        return value
+
+    limit = _count("limit", study_queue.DEFAULT_QUEUE_LIMIT, low=1)
+    # はじめてのカードだけ別枠で絞れるようにする。0にすれば復習だけになる。
+    new_limit = _count("newLimit", study_queue.DEFAULT_NEW_LIMIT, low=0)
 
     retention = 0.9
     retention_text = _single_query(query, "desiredRetention")
@@ -2099,7 +2105,11 @@ def study_queue_response(query: dict[str, list[str]]) -> dict:
 
     with connect() as connection:
         result = study_queue.build_queue(
-            connection, cards, limit=limit, desired_retention=retention
+            connection,
+            cards,
+            limit=limit,
+            new_limit=new_limit,
+            desired_retention=retention,
         )
     # 画面がそのまま出題できるよう、公開projectionを通したカード本体も返す。
     by_id = {card["id"]: card for card in cards}

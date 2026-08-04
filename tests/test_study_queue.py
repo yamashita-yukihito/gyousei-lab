@@ -198,6 +198,74 @@ class StudyQueueTest(unittest.TestCase):
         second = self.states(["card-x"])["card-x"]["due"]
         self.assertEqual(first, second)
 
+    def test_new_cards_have_their_own_limit(self) -> None:
+        """復習は溜まるとこなすしかないが、はじめてのカードは自分で絞れる。"""
+        for index in range(4):
+            self.attempt(f"due-{index}", False, BASE)
+        cards = [{"id": f"due-{i}"} for i in range(4)] + [
+            {"id": f"new-{i}"} for i in range(10)
+        ]
+        queue = self.study_queue.build_queue(
+            self.connection, cards, limit=20, new_limit=3,
+            now=BASE + timedelta(days=1),
+        )
+        self.assertEqual(queue["counts"]["selectedDue"], 4)
+        self.assertEqual(queue["counts"]["selectedNew"], 3)
+        self.assertEqual(queue["counts"]["selected"], 7)
+
+        # 0にすれば復習だけになる。
+        queue = self.study_queue.build_queue(
+            self.connection, cards, limit=20, new_limit=0,
+            now=BASE + timedelta(days=1),
+        )
+        self.assertEqual(queue["counts"]["selectedNew"], 0)
+        self.assertEqual(queue["counts"]["selected"], 4)
+
+    def test_reviews_win_the_slots_when_the_total_limit_is_small(self) -> None:
+        for index in range(5):
+            self.attempt(f"due-{index}", False, BASE)
+        cards = [{"id": f"due-{i}"} for i in range(5)] + [{"id": "new-0"}]
+        queue = self.study_queue.build_queue(
+            self.connection, cards, limit=3, new_limit=6,
+            now=BASE + timedelta(days=1),
+        )
+        self.assertEqual(queue["counts"]["selectedDue"], 3)
+        self.assertEqual(queue["counts"]["selectedNew"], 0)
+
+    def test_intervals_never_run_past_the_exam_date(self) -> None:
+        """受験日を越える期日を作らない。越えると本番までに二度と出てこない。
+
+        確信ありで正解を重ねると、上限を切らない既定では
+        8日 → 66日 → 397日 → 1875日 と伸び、3回目以降は受験日のはるか先になる。
+        """
+        exam = datetime(2026, 11, 8, tzinfo=timezone.utc)
+        moment = BASE
+        rounds = 0
+        while moment < exam and rounds < 12:
+            event_id = self.attempt("card-easy", True, moment)
+            self.mark("card-easy", "confidence", moment, confidence="sure",
+                      attempt_event_id=event_id)
+            state = self.study_queue.review_states(
+                self.connection, ["card-easy"], now=moment
+            )["card-easy"]
+            due = self.study_queue._parse_moment(state["due"])
+            self.assertLessEqual(
+                due, exam,
+                f"受験日より後の期日が出た: {state['due']}（{rounds + 1}回目）",
+            )
+            moment = due
+            rounds += 1
+        self.assertGreaterEqual(rounds, 3, "受験日まで3回以上は戻ってくるはず")
+
+    def test_days_until_exam_shrinks_and_never_reaches_zero(self) -> None:
+        far = self.study_queue.days_until_exam(datetime(2026, 8, 5, tzinfo=timezone.utc))
+        near = self.study_queue.days_until_exam(datetime(2026, 11, 1, tzinfo=timezone.utc))
+        after = self.study_queue.days_until_exam(datetime(2026, 12, 1, tzinfo=timezone.utc))
+        self.assertEqual(far, 95)
+        self.assertEqual(near, 7)
+        self.assertEqual(after, self.study_queue.MIN_MAXIMUM_INTERVAL)
+        self.assertGreaterEqual(after, 1)
+
     def test_limit_bounds_the_queue(self) -> None:
         for index in range(5):
             self.attempt(f"card-{index}", False, BASE)

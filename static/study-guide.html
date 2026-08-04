@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#183a34">
   <title>今日の学習の使い方 | 行政書士 過去問ラボ</title>
-  <link rel="stylesheet" href="architecture.css?v=20260805-1">
+  <link rel="stylesheet" href="architecture.css?v=20260805-2">
   <style>
     .guide-steps { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; counter-reset: step; }
     .guide-steps li { display: grid; grid-template-columns: 34px 1fr; gap: 13px; align-items: start;
@@ -58,7 +58,7 @@
       <p class="lead">○×学習の<strong>出題範囲</strong>を「今日の学習（間隔反復）」に切り替えるだけです。あとは、正解した／間違えたと、そのときの手ごたえから、<strong>次にいつ出すか</strong>をサーバーが決めます。覚えたものは間隔が伸びて出てこなくなり、あやしいものだけが戻ってきます。</p>
       <div class="goal-strip">
         <div><span>受験日</span><strong>2026年11月8日</strong></div>
-        <div><span>1日の上限</span><strong>30枚</strong></div>
+        <div><span>1日の量</span><strong>自分で選ぶ</strong></div>
         <div><span>使う仕組み</span><strong>FSRS（py-fsrs）</strong></div>
       </div>
     </div>
@@ -104,12 +104,30 @@
         </li>
         <li>
           <div>
+            <strong>「1日の量」を選ぶ（初回だけ）</strong>
+            <small>軽め（15分）／ふつう（30分）／しっかり（60分）／復習だけ、から選びます。選んだ内容はこの端末に覚えさせるので、毎回選び直す必要はありません。<strong>絞れるのは「はじめて」の枚数だけです。</strong>期日が来た復習は、絞っても溜まるだけなので全部出ます。</small>
+          </div>
+        </li>
+        <li>
+          <div>
             <strong>出てきた順に解いて、答えたあと「手ごたえ」を押す</strong>
             <small>確信あり／たぶん／あてずっぽうの3つです。<strong>これが次にいつ出すかを決めます。</strong>押さなかった場合は「たぶん」と同じ扱いになります。</small>
           </div>
         </li>
       </ol>
       <p class="lead" style="color: var(--muted); max-width: 820px;">終わりの合図はありません。並んでいるカードを解き切れば、それが今日の分です。途中でやめても、残りは次に開いたときに出てきます。</p>
+      <div class="table-wrap" style="margin-top: 16px;">
+        <table class="rating-table">
+          <thead><tr><th>1日の量</th><th>はじめて</th><th>合計の上限</th><th>目安の時間</th></tr></thead>
+          <tbody>
+            <tr><td><strong>軽め</strong>（8月向け）</td><td>6枚</td><td>20枚</td><td>約15分</td></tr>
+            <tr><td>ふつう</td><td>12枚</td><td>40枚</td><td>約30分</td></tr>
+            <tr><td><strong>しっかり</strong>（9月以降向け）</td><td>25枚</td><td>80枚</td><td>約60分</td></tr>
+            <tr><td>復習だけ</td><td>0枚</td><td>60枚</td><td>期日が来た分だけ</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top: 12px; font-size: 14px; color: var(--muted);">時間の目安は、実際の回答記録（はじめて18秒・2回目以降8秒）に解説を読む時間を足して見積もったものです。</p>
     </section>
 
     <section class="section">
@@ -168,6 +186,10 @@
         <p>リセットは「ここより前を数えない」という区切りです。次にいつ出すかの計算もそこから始め直しますが、<strong>過去の回答そのものは消えません。</strong>正答率や卒業した回数はこれまでどおり残ります。</p>
       </div>
       <div class="note-card">
+        <h3>受験日より先の期日は作りません</h3>
+        <p>間隔の上限を<strong>受験日（2026年11月8日）までの残り日数</strong>にしてあります。これがないと、8月に「確信あり」で2回正解しただけで次が397日後になり、<strong>本番までに二度と出てこないカード</strong>ができてしまいます。上限があるので、どのカードも必ず試験前にもう一度戻ってきます。残り日数が減るほど上限も縮むので、直前期は自然に総ざらいになります。</p>
+      </div>
+      <div class="note-card">
         <h3>期日は保存していません。開くたびに計算しています</h3>
         <p>回答履歴だけを正本にして、そこから毎回組み立てています。だから、カードの文章を直しても、リセットを押しても、ずれた状態が残ることがありません。同じ履歴なら必ず同じ期日になります。</p>
       </div>
@@ -181,33 +203,34 @@
       </div>
       <div class="two-col">
         <div class="flow-card">
-          <h3>8月〜9月前半</h3>
+          <h3>8月（1日15分）</h3>
           <ul class="plain-list">
-            <li><strong>まず一巡させることを優先します。</strong>はじめてのカードは間違えて当然なので、点数を気にしません。</li>
-            <li>FP2級（8月末の実技・9月の学科）と重なる時期です。検索欄に <code>FP</code> と入れると、かぶり分野のカードだけを回せます（いまは21枚）。</li>
-            <li>この時期は「期日ぎれ」より「はじめて」のほうが多くなります。</li>
+            <li><strong>「軽め」にします。</strong>はじめて6枚＋復習で、15分に収まります。</li>
+            <li>この量だと8月中に一巡は終わりません。<strong>それでかまいません。</strong>9月から量を増やせば間に合います。</li>
+            <li>FP2級（8月末の実技・9月の学科）と重なる時期です。検索欄に <code>FP</code> と入れると、かぶり分野のカードだけを回せます（いまは21枚）。8月はここを優先しても構いません。</li>
           </ul>
         </div>
         <div class="flow-card">
-          <h3>9月後半〜10月</h3>
+          <h3>9月〜10月（1日2時間）</h3>
           <ul class="plain-list">
+            <li><strong>「しっかり」へ上げます。</strong>はじめて25枚なら、残りを10日ほどで一巡できます。</li>
             <li>一巡が終わると、<strong>今日出る枚数が自然に減っていきます。</strong>覚えたものの間隔が伸びるからです。</li>
-            <li>減った分の時間を、90分の試験セッションと記述式に回します。</li>
+            <li>減った分の時間を、90分の試験セッションと記述式に回します。2時間のうちカードに使うのは30〜60分で足りるようになります。</li>
             <li>「あてずっぽう」が残っているカードは伸びないので、そこが弱点そのものになります。</li>
           </ul>
         </div>
         <div class="flow-card">
           <h3>試験前3週</h3>
           <ul class="plain-list">
-            <li>新しいカードを足すのをやめ、キューに出るものだけを確実に潰します。</li>
-            <li>間隔が試験日を越えるカードが出てきます。それは覚えたものとして扱ってかまいません。</li>
+            <li>「復習だけ」に切り替え、新しいカードを止めます。</li>
+            <li>上限が残り日数まで縮むので、<strong>全カードが自然に総ざらいになります。</strong>自分で調整する必要はありません。</li>
           </ul>
         </div>
         <div class="flow-card">
           <h3>やらなくてよいこと</h3>
           <ul class="plain-list">
-            <li>期日を自分で調整する必要はありません。設定項目もありません。</li>
-            <li>1日30枚を必ず解き切る必要もありません。残りは翌日へ回ります。</li>
+            <li>期日を自分で調整する必要はありません。触るのは「1日の量」だけです。</li>
+            <li>出た枚数を必ず解き切る必要もありません。残りは翌日へ回ります。</li>
             <li><strong>過去問569問を周回する必要はありません。</strong>主役はカードで、過去問は聞かれ方を確かめるための参照用です。</li>
           </ul>
         </div>
@@ -240,9 +263,41 @@
       </div>
     </section>
 
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">WHY FSRS</p>
+        <h2>SM-2ではなくFSRSを使っている理由</h2>
+      </div>
+      <div class="two-col">
+        <div class="flow-card">
+          <h3>SM-2（1987年・Ankiの旧方式）</h3>
+          <ul class="plain-list">
+            <li>カードごとに「難易度係数」を持ち、<strong>次の間隔＝いまの間隔 × 係数</strong>で伸ばします。</li>
+            <li>係数は正解のたび少し上げ、不正解のたび下げるだけの単純な調整です。</li>
+            <li>間違えが続くと係数が下限に張りついて、<strong>間隔が伸びなくなったまま戻らない</strong>という詰まり方をします（ease hellと呼ばれます）。</li>
+            <li>掛け算の倍率は経験則で決めた固定値で、実際の記憶データに合わせたものではありません。</li>
+          </ul>
+        </div>
+        <div class="flow-card">
+          <h3>FSRS（2022年〜・いまのAnkiの標準）</h3>
+          <ul class="plain-list">
+            <li>カードごとに<strong>記憶の定着度・難しさ・思い出しやすさ</strong>の3つを持ち、「◯日後に思い出せる確率」を予測します。</li>
+            <li>その確率が<strong>90%まで落ちる日</strong>を次の期日にします。掛け算ではなく予測です。</li>
+            <li>予測式の係数は、実際のAnki利用者の膨大な復習記録に合わせて決められています。</li>
+            <li>同じ正答率を保つのに必要な復習回数が、SM-2より少なくて済むと報告されています。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note-card" style="margin-top: 14px;">
+        <h3>ただし、差はそれほど大きくありません</h3>
+        <p>どちらを使っても「間違えたものは早く、覚えたものは遅く」という骨格は同じです。<strong>実際の点数を決めるのは、algorithmではなく毎日続けたかどうかです。</strong>FSRSを選んだのは、Ankiの標準でもあり、外部ライブラリをそのまま使えて自前の計算を書かずに済むからで、これで大きく変わると期待しているわけではありません。</p>
+      </div>
+    </section>
+
     <section class="section update-note">
       <h2>仕組みの詳しいところ</h2>
-      <p>スケジューラは <code>py-fsrs</code>（FSRSの公式Python実装）で、独自の計算はしていません。状態は <code>card_attempts</code> と <code>card_marks</code> から毎回導出していて、保存用のテーブルは作っていません。設計の理由は <a href="architecture.html">全体構成図</a> と、リポジトリの <code>study_queue.py</code> の冒頭に書いてあります。</p>
+      <p>スケジューラは <code>py-fsrs</code>（FSRSの公式Python実装）で、独自の計算はしていません。パラメータはライブラリの既定値をそのまま使っています。自分の記録に合わせて調整する機能もありますが、目安として1000件ほどの回答が要るので、いまの回答数では合わせすぎになるだけです。必要になれば10月ごろに検討します。</p>
+      <p>状態は <code>card_attempts</code> と <code>card_marks</code> から毎回導出していて、保存用のテーブルは作っていません。設計の理由は <a href="architecture.html">全体構成図</a> と、リポジトリの <code>study_queue.py</code> の冒頭に書いてあります。</p>
     </section>
   </main>
 

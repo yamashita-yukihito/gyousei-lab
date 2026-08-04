@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260805-1";
+  const APP_VERSION = "20260805-2";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -467,11 +467,17 @@
       refreshStudyPool();
     });
     $("study-scope").addEventListener("change", () => {
+      $("study-pace-row").hidden = $("study-scope").value !== "today";
       if ($("study-scope").value === "today") {
         loadTodayQueue();
         return;
       }
       refreshStudyPool();
+    });
+    $("study-pace").value = todayPace();
+    $("study-pace").addEventListener("change", () => {
+      try { localStorage.setItem(TODAY_PACE_KEY, $("study-pace").value); } catch (_) {}
+      loadTodayQueue();
     });
     $("study-certain-button").addEventListener("click", () => {
       const item = state.studyCurrent;
@@ -916,9 +922,13 @@
       const next = state.todayQueueNextDueAt
         ? "／次の期日 " + new Date(state.todayQueueNextDueAt).toLocaleString("ja-JP", { dateStyle: "short", timeStyle: "short" })
         : "";
+      // 選んだ枚数と、残っている枚数を分けて出す。残りは翌日以降へ回る。
+      const restDue = Math.max(0, counts.due - (counts.selectedDue || 0));
+      const restNew = Math.max(0, counts.new - (counts.selectedNew || 0));
       $("study-scope-summary").textContent =
-        "今日 " + counts.selected + "枚（期日ぎれ " + counts.due + "・はじめて " + counts.new + "）"
-        + "／絶対覚えた " + counts.certain + "枚は除外" + next;
+        TODAY_PACE[todayPace()].label + "：今日 " + counts.selected + "枚"
+        + "（復習 " + (counts.selectedDue || 0) + "・はじめて " + (counts.selectedNew || 0) + "）"
+        + "／待ち 復習" + restDue + "・はじめて" + restNew + next;
       return;
     }
     const mastered = cards.filter(isStudyMastered).length;
@@ -1704,12 +1714,32 @@
     return order.map((id) => byId.get(id)).filter(Boolean);
   }
 
+  // 1日の量。実データ（はじめて約90秒・復習約25秒）から逆算した組み合わせ。
+  // 復習は溜まるとこなすしかないので、絞れるのは「はじめて」の枚数のほうである。
+  const TODAY_PACE = {
+    light: { newLimit: 6, limit: 20, label: "軽め（15分）" },
+    normal: { newLimit: 12, limit: 40, label: "ふつう（30分）" },
+    heavy: { newLimit: 25, limit: 80, label: "しっかり（60分）" },
+    reviewOnly: { newLimit: 0, limit: 60, label: "復習だけ" }
+  };
+  const TODAY_PACE_KEY = "gyousei-lab:todayPace";
+
+  function todayPace() {
+    const stored = (() => {
+      try { return localStorage.getItem(TODAY_PACE_KEY); } catch (_) { return null; }
+    })();
+    return TODAY_PACE[stored] ? stored : "light";
+  }
+
   async function loadTodayQueue() {
     if (state.todayQueueLoading) return;
     state.todayQueueLoading = true;
     $("study-scope-summary").textContent = "今日の学習を組み立てています…";
+    const pace = TODAY_PACE[todayPace()];
     try {
-      const data = await fetchJson("api/study-queue?limit=30");
+      const data = await fetchJson(
+        "api/study-queue?limit=" + pace.limit + "&newLimit=" + pace.newLimit
+      );
       state.todayQueue = Array.isArray(data.cardIds) ? data.cardIds : [];
       state.todayQueueCounts = data.counts || null;
       state.todayQueueNextDueAt = data.nextDueAt || null;

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#183a34">
   <title>行政書士 過去問ラボ</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23183a34'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='39' fill='white'%3E%E8%A1%8C%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=20260805-1">
+  <link rel="stylesheet" href="styles.css?v=20260805-2">
 </head>
 <body>
   <a class="skip-link" href="#main-content">本文へ移動</a>
@@ -71,7 +71,7 @@
         <label id="study-set-field" hidden><span>1セットの問題数</span><select id="study-set-size"><option value="10">10問</option><option value="20" selected>20問</option><option value="30">30問</option><option value="0">全部</option></select><small id="study-set-summary">1問10秒が目安です。</small></label>
         <label><span>出題順</span><select id="study-order"><option value="sequence">順番に見る</option><option value="weak">苦手を優先</option><option value="random">ランダム</option></select></label>
         <label><span>出題範囲</span><select id="study-scope"><option value="review">おまかせ（習得済みを除く）</option><option value="today">今日の学習（間隔反復）</option><option value="all">全問題を出す</option><option value="graduated">卒業済みだけ</option></select><small id="study-scope-summary">出題対象を計算中…</small></label>
-        <div class="study-history"><span>この問題の履歴</span><strong id="study-history-label">正解 0 / 不正解 0</strong><small id="study-storage-status" class="study-storage saving" aria-live="polite">保存先を確認中…</small></div>
+        <label id="study-pace-row" hidden><span>1日の量</span><select id="study-pace"><option value="light">軽め（15分・はじめて6枚）</option><option value="normal">ふつう（30分・はじめて12枚）</option><option value="heavy">しっかり（60分・はじめて25枚）</option><option value="reviewOnly">復習だけ（新しいカードを出さない）</option></select><small>復習は期日が来た分だけ出ます。絞れるのは「はじめて」の枚数です。</small></label><div class="study-history"><span>この問題の履歴</span><strong id="study-history-label">正解 0 / 不正解 0</strong><small id="study-storage-status" class="study-storage saving" aria-live="polite">保存先を確認中…</small></div>
       </div>
       <p id="study-mode-note" class="study-mastery-note">「今日の学習」は、正誤と回答ごとの手ごたえからpy-fsrsが次に解く日を決め、期日が来たものを古い順に最大30枚出します。足りない分ははじめてのカードで埋めます。「絶対覚えた」はここから外れますが、履歴も期日も消えません。おまかせでは、正解が不正解より3回多くなった「習得済み」と、自分で押した「絶対覚えた」を出題から外します。「全問題を出す」にすれば、そのどちらも含めて全部出ます。解除は「卒業済みだけ」の一覧からできます。</p>
 
@@ -453,6 +453,6 @@
 
   <footer><p>本人専用・行政書士学習環境　回答履歴と類似判定はサーバー保存</p></footer>
   <noscript>この画面の利用にはJavaScriptが必要です。</noscript>
-  <script src="app.js?v=20260805-1"></script>
+  <script src="app.js?v=20260805-2"></script>
 </body>
 </html>

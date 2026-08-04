@@ -41,7 +41,14 @@ import sqlite3
 from datetime import datetime, timedelta, timezone
 
 MAX_QUEUE_LIMIT = 200
-DEFAULT_QUEUE_LIMIT = 30
+DEFAULT_QUEUE_LIMIT = 20
+DEFAULT_NEW_LIMIT = 6
+
+# 令和8年度の受験日。ここより先へ期日を置いても意味がないので、間隔の上限にする。
+# 上限を切らないと、8月に確信ありで2回正解しただけで次が397日後になり、
+# 本番までに二度と出てこないカードができる（2026-08-05に確認して切った）。
+EXAM_DATE = "2026-11-08"
+MIN_MAXIMUM_INTERVAL = 1
 
 # 誤答→Again、正答は自信度で Hard / Good / Easy へ分ける。
 RATING_BY_CONFIDENCE = {"guess": 2, "likely": 3, "sure": 4}
@@ -49,6 +56,17 @@ RATING_CORRECT_DEFAULT = 3
 RATING_INCORRECT = 1
 
 _RATING_LABELS = {1: "again", 2: "hard", 3: "good", 4: "easy"}
+
+
+def days_until_exam(now: datetime, exam_date: str = EXAM_DATE) -> int:
+    """受験日までの残り日数。間隔の上限にそのまま使う。
+
+    残りが減るほど上限も縮むので、直前期はどのカードも短い間隔で戻ってくる。
+    受験日を過ぎたあとも1日を下回らせない（0を渡すとFSRSが期日を作れない）。
+    """
+    year, month, day = (int(part) for part in exam_date.split("-"))
+    exam = datetime(year, month, day, tzinfo=timezone.utc)
+    return max(MIN_MAXIMUM_INTERVAL, (exam - now).days)
 
 
 def _fsrs_modules():
@@ -115,16 +133,22 @@ def review_states(
     *,
     desired_retention: float = 0.9,
     now: datetime | None = None,
+    exam_date: str = EXAM_DATE,
 ) -> dict[str, dict]:
     """カードIDごとに、FSRSの状態と次回期日を計算して返す。
 
     回答が1件も無いカードは `state: "new"` になり、`due` は None のままにする。
     """
     Card, Rating, Scheduler = _fsrs_modules()
+    moment = now or datetime.now(timezone.utc)
     # enable_fuzzing を切って、同じ履歴なら必ず同じ期日になるようにする。
     # 期日を保存せず毎回計算し直すので、揺らぐと表示が回答のたびに変わってしまう。
-    scheduler = Scheduler(desired_retention=desired_retention, enable_fuzzing=False)
-    moment = now or datetime.now(timezone.utc)
+    # maximum_interval は受験日までの残り日数。本番を越える期日を作らせない。
+    scheduler = Scheduler(
+        desired_retention=desired_retention,
+        enable_fuzzing=False,
+        maximum_interval=days_until_exam(moment, exam_date),
+    )
 
     wanted = set(card_ids)
     marks = connection.execute("SELECT * FROM card_marks ORDER BY id").fetchall()
@@ -201,18 +225,25 @@ def build_queue(
     cards: list[dict],
     *,
     limit: int = DEFAULT_QUEUE_LIMIT,
+    new_limit: int = DEFAULT_NEW_LIMIT,
     desired_retention: float = 0.9,
     now: datetime | None = None,
+    exam_date: str = EXAM_DATE,
 ) -> dict:
     """今日出す順にカードを並べる。
 
     期限を過ぎたものを古い順に出し、足りない分を未回答のカードで埋める。
     「絶対覚えた」はどちらにも入れない（履歴は残したまま、出題からだけ外れる）。
+
+    **はじめてのカードには別枠の上限（`new_limit`）を置く。** 期日が来た復習は
+    こなさないと溜まる一方だが、はじめてのカードは自分で増やすものなので、
+    そこだけ絞れないと1日の分量を調整できない。復習が多い日は新規が自動的に減る。
     """
     moment = now or datetime.now(timezone.utc)
     order = [card["id"] for card in cards]
     states = review_states(
-        connection, order, desired_retention=desired_retention, now=moment
+        connection, order, desired_retention=desired_retention, now=moment,
+        exam_date=exam_date,
     )
     position = {card_id: index for index, card_id in enumerate(order)}
 
@@ -229,7 +260,12 @@ def build_queue(
     ]
     new_items.sort(key=lambda s: position[s["cardId"]])
 
-    selected = (due_items + new_items)[: max(0, limit)]
+    # 復習を先に確保し、残り枠のうち new_limit までを新規で埋める。
+    limit = max(0, limit)
+    chosen_due = due_items[:limit]
+    room = limit - len(chosen_due)
+    chosen_new = new_items[: min(room, max(0, new_limit))]
+    selected = chosen_due + chosen_new
     upcoming = sorted(
         (
             state
@@ -242,6 +278,9 @@ def build_queue(
         "generatedAt": moment.isoformat(),
         "desiredRetention": desired_retention,
         "limit": limit,
+        "newLimit": new_limit,
+        "examDate": exam_date,
+        "maximumIntervalDays": days_until_exam(moment, exam_date),
         "counts": {
             "eligible": len(order),
             "due": len(due_items),
@@ -249,6 +288,8 @@ def build_queue(
             "certain": sum(1 for s in states.values() if s["certain"]),
             "upcoming": len(upcoming),
             "selected": len(selected),
+            "selectedDue": len(chosen_due),
+            "selectedNew": len(chosen_new),
         },
         "nextDueAt": upcoming[0]["due"] if upcoming else None,
         "cardIds": [state["cardId"] for state in selected],
