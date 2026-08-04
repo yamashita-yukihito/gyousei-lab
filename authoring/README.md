@@ -245,7 +245,7 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m gyousei_pipeline.production_
   --questions-dir "$GYOUSEI_DATA_ROOT/all_subjects/current_2016_2025/extracted" \
   --reconciliation "$GYOUSEI_DATA_ROOT/all_subjects/current_2016_2025/reports/answer-reconciliation-production.json" \
   --question-manifest config/all_subjects_current_target.json \
-  --expected-card-count 238 --expected-evidence-count 800
+  --expected-card-count 240 --expected-evidence-count 807
 ```
 
 既定の出力は
