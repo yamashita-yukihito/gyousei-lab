@@ -43,6 +43,10 @@ EDITABLE_FIELDS = (
 )
 VARIANT_FIELDS = ("a", "b", "bCasual", "bCasualStyle", "c")
 
+# 暗記もの（数字・宛先・列挙・分類・義務か努力義務か・判例の結論）と、
+# 理解もの（趣旨や判断枠組みから導けるもの）の区別。2026-08-05に追加。
+LEARNING_TYPES = ("memorize", "understand")
+
 # 新しいカードを作るときだけ必要な項目。既存カードでは触らせない。
 NEW_CARD_FIELDS = (
     "id",
@@ -113,6 +117,12 @@ def validate_card(
             problems.append(f"{card_id}: {field} が空です")
     if not isinstance(card.get("correct"), bool):
         problems.append(f"{card_id}: correct は true / false のどちらかにしてください")
+    # 暗記もの／理解ものの区別。画面からは書き換えさせない（EDITABLE_FIELDSに入れない）。
+    # 分類は8月の学習範囲そのものなので、正本の差分として残す形にする。
+    if card.get("learningType") not in LEARNING_TYPES:
+        problems.append(
+            f"{card_id}: learningType は {' / '.join(LEARNING_TYPES)} のどちらかにしてください"
+        )
 
     explanations = card.get("explanations") or {}
     if (

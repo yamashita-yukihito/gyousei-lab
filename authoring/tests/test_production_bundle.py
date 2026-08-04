@@ -160,6 +160,7 @@ def explanation_cards() -> dict:
                 "topic": "行政手続法",
                 "subtopic": "理由提示",
                 "clusterId": "reason",
+                "learningType": "memorize",
                 "variants": {
                     "a": "行政庁は理由を示す。",
                     "b": "行政から理由を教えてもらえます。",
@@ -878,6 +879,7 @@ class ProductionBundleTests(unittest.TestCase):
                 "topic": "代理",
                 "subtopic": "代理権",
                 "clusterId": "civil-agency",
+                "learningType": "understand",
             }
         )
         civil_card["crossFieldComparisons"] = []

@@ -597,6 +597,23 @@ def _project_comparison_table(value: Any, context: str) -> dict[str, Any]:
     }
 
 
+LEARNING_TYPES = ("memorize", "understand")
+
+
+def _learning_type(value: Any, context: str) -> str:
+    """暗記もの／理解ものの区別。**既定値を置かず、必ず書かせる。**
+
+    黙って memorize へ倒すと、分類し忘れたカードが8月の学習範囲へ静かに混ざる。
+    分類は学習範囲そのものなので、抜けたらbundleを作らせない。
+    """
+    text = _text(value, f"{context}.learningType")
+    if text not in LEARNING_TYPES:
+        raise BundleError(
+            f"{context}.learningType must be one of {LEARNING_TYPES}: {text!r}"
+        )
+    return text
+
+
 def _project_card_figures(value: Any, context: str) -> list[dict[str, str]]:
     # ⑧ 解説図。回答後、`correction` の直後に出す。位置は固定で、カード側からは選べない。
     # `src` は static/ の下の相対パスだけを許し、内部パスや外部URLがそのまま
@@ -652,6 +669,10 @@ def _project_explanation_card(value: Any, index: int) -> dict[str, Any]:
         "topic": _text(card.get("topic"), f"{context}.topic"),
         "subtopic": _text(card.get("subtopic"), f"{context}.subtopic"),
         "clusterId": _text(card.get("clusterId"), f"{context}.clusterId"),
+        # 暗記もの／理解ものの区別。8月は暗記ものだけを回す使い方をするので、
+        # 画面で絞れるようにここへ通す。既定は memorize（分類漏れを理解ものに
+        # 落とすと、暗記ものの一覧から静かに消えるため）。
+        "learningType": _learning_type(card.get("learningType"), context),
         "variants": {
             "a": _text(variants.get("a"), f"{context}.variants.a"),
             "b": _text(variants.get("b"), f"{context}.variants.b"),

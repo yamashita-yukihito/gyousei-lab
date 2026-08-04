@@ -1690,6 +1690,7 @@ def explanation_card_document() -> dict:
                 "legalBasis": [
                     {"label": "行政手続法14条", "url": "https://laws.e-gov.go.jp/law/405AC0000000088"}
                 ],
+                "learningType": "memorize",
             }
         ],
     }

@@ -2055,6 +2055,11 @@ def _read_weakness_snapshot() -> tuple[dict | None, str | None]:
         return None, "invalid"
 
 
+def card_edit_module():
+    module, _ = _card_edit_modules()
+    return module
+
+
 def study_queue_response(query: dict[str, list[str]]) -> dict:
     """「今日の学習」キュー。py-fsrs が決めた期日で、今日出すカードを並べる。
 
@@ -2069,6 +2074,21 @@ def study_queue_response(query: dict[str, list[str]]) -> dict:
     )
     deck = resolve_study_deck(snapshot, study_deck_id, require_if_ambiguous=True)
     cards = cards_for_study_deck(snapshot, deck)
+
+    # 暗記もの／理解もので絞る。8月は暗記ものだけを回す使い方をするので、
+    # キューの側でも同じ範囲に揃えないと期日ぎれの枚数が合わなくなる。
+    learning_type = _single_query(query, "learningType")
+    if learning_type is not None:
+        if learning_type not in card_edit_module().LEARNING_TYPES:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST,
+                "learningType must be memorize or understand",
+            )
+        cards = [
+            card
+            for card in cards
+            if (card.get("learningType") or "memorize") == learning_type
+        ]
 
     def _count(name: str, fallback: int, *, low: int) -> int:
         text = _single_query(query, name)

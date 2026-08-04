@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260805-2";
+  const APP_VERSION = "20260805-3";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -466,6 +466,14 @@
       updateStudyViewControls();
       refreshStudyPool();
     });
+    $("study-kind").addEventListener("change", () => {
+      try { localStorage.setItem(STUDY_KIND_KEY, $("study-kind").value); } catch (_) {}
+      if ($("study-scope").value === "today") {
+        loadTodayQueue();
+        return;
+      }
+      refreshStudyPool();
+    });
     $("study-scope").addEventListener("change", () => {
       $("study-pace-row").hidden = $("study-scope").value !== "today";
       if ($("study-scope").value === "today") {
@@ -474,6 +482,10 @@
       }
       refreshStudyPool();
     });
+    try {
+      const storedKind = localStorage.getItem(STUDY_KIND_KEY);
+      if (storedKind) $("study-kind").value = storedKind;
+    } catch (_) {}
     $("study-pace").value = todayPace();
     $("study-pace").addEventListener("change", () => {
       try { localStorage.setItem(TODAY_PACE_KEY, $("study-pace").value); } catch (_) {}
@@ -766,10 +778,14 @@
   function getStudyTopicCards() {
     const subject = $("study-subject").value;
     const topic = $("study-topic").value;
+    const kind = $("study-kind").value;
     const words = studySearchWords();
     return state.studyDecks.filter((item) =>
       (subject === "all" || item.subjectId === subject) &&
       (topic === "all" || item.topic === topic) &&
+      // 覚えるしかないもの（数字・宛先・列挙・分類・判例の結論）と、
+      // 考えれば導けるものを分ける。8月は暗記ものだけを回す使い方をする。
+      (kind === "all" || (item.learningType || "memorize") === kind) &&
       matchesStudySearch(item, words)
     );
   }
@@ -1723,6 +1739,7 @@
     reviewOnly: { newLimit: 0, limit: 60, label: "復習だけ" }
   };
   const TODAY_PACE_KEY = "gyousei-lab:todayPace";
+  const STUDY_KIND_KEY = "gyousei-lab:studyKind";
 
   function todayPace() {
     const stored = (() => {
@@ -1737,8 +1754,10 @@
     $("study-scope-summary").textContent = "今日の学習を組み立てています…";
     const pace = TODAY_PACE[todayPace()];
     try {
+      const kind = $("study-kind").value;
       const data = await fetchJson(
         "api/study-queue?limit=" + pace.limit + "&newLimit=" + pace.newLimit
+        + (kind === "all" ? "" : "&learningType=" + encodeURIComponent(kind))
       );
       state.todayQueue = Array.isArray(data.cardIds) ? data.cardIds : [];
       state.todayQueueCounts = data.counts || null;

@@ -394,7 +394,8 @@
           "alt": "行政手続法31条が16条を準用するため、弁明の機会の付与でも代理人を選任でき、本人が入院中でも弁明書の作成などを任せられることを示した図",
           "caption": "31条が16条を準用するので、弁明でも代理人を選べる"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-hearing-002",
@@ -511,7 +512,8 @@
           "alt": "聴聞と弁明の機会の付与について、代理人の選任と自分の証拠書類等の提出はどちらも認められるが、文書等の閲覧は弁明では認められないことを比べた表",
           "caption": "弁明は人は連れてこられるが、資料棚までは開かない"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-scope-001",
@@ -617,7 +619,8 @@
           "alt": "自治体の行為をまず処分・届出か行政指導かで分け、処分・届出だけ根拠が国の法律か条例・規則かを見る判定順と、行政指導は根拠を問わず適用除外になることを示した図",
           "caption": "まず種類、次に根拠。行政指導は根拠を見ない"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-hearing-exception-001",
@@ -732,7 +735,8 @@
           "alt": "資格喪失の事実が客観的資料で直接証明されることと、その場合の不利益処分を法律上必ずすることとされていることの二つがそろって初めて、聴聞や弁明を含む意見陳述手続を省略できることを示した図",
           "caption": "客観資料で直接証明＋法定必須処分 → 意見陳述手続なし"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-act-defect-001",
@@ -835,7 +839,8 @@
           "alt": "違法でも取り消されるまでは有効な処分と、重大かつ明白な瑕疵により初めから無効な処分を左右に並べ、明白性は処分当初の外形で判断することを示した図",
           "caption": "取消し得べき処分と当然無効の分かれ目"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-act-withdrawal-001",
@@ -942,7 +947,8 @@
           }
         ],
         "memoryCue": "分かれ目は瑕疵がいつあったかである。最初からおかしければさかのぼって消し、後から事情が変わったのなら、それまでの効力は認めて先だけ止める。撤回できるのは原則として処分庁だけで、上級行政庁は撤回できない点も取消しとの違いである。法令が「取消し」という語を使っていても、中身が撤回であることは珍しくない。"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gyo-written-r7-decision-defect-001",
@@ -1058,7 +1064,8 @@
         "裁決取消訴訟",
         "原処分",
         "審査請求"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-noncorporate-group-001",
@@ -1146,7 +1153,8 @@
         "財団",
         "代表者",
         "管理人"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-local-residents-audit-001",
@@ -1253,7 +1261,8 @@
         "住民監査請求",
         "監査委員",
         "連署"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-written-h30-duty-inaction-001",
@@ -1362,7 +1371,8 @@
         "不作為の違法確認",
         "併合",
         "相当の期間"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-standard-period-001",
@@ -1462,7 +1472,8 @@
         "努める",
         "公にして",
         "審査基準"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-formal-defect-001",
@@ -1588,7 +1599,8 @@
           "alt": "申請が到達したら遅滞なく審査を開始し、形式上の要件に適合しなければ補正を求めるか許認可等を拒否するかを行政庁が選ぶ流れと、審査請求書の記載不備には原則として補正命令が義務づけられることを並べた図",
           "caption": "禁じられているのは放置。補正は拒否の前提ではない"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-progress-info-001",
@@ -1678,7 +1690,8 @@
         "見通し",
         "求めに応じ",
         "努める"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-local-designated-manager-001",
@@ -1793,7 +1806,8 @@
         "公の施設",
         "条例",
         "規則"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-local-involvement-law-001",
@@ -1891,7 +1905,8 @@
         "自治事務",
         "関与",
         "政令"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-refusal-hearing-001",
@@ -1995,7 +2010,8 @@
         "弁明の機会",
         "聴聞",
         "理由の提示"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-inaction-applicant-001",
@@ -2111,7 +2127,8 @@
         "申請をした者",
         "法律上の利益",
         "相当の期間"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-local-autonomous-affairs-001",
@@ -2198,7 +2215,8 @@
         "自治事務",
         "法定受託事務",
         "地方公共団体が処理する事務"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-inaction-scope-001",
@@ -2321,7 +2339,8 @@
           }
         ],
         "memoryCue": "行政手続法は「早く処理するよう努めなさい」と行政へ促すだけの法律で、動かない行政を打つ武器は持たせていない。武器を持たせたのは行審法と行訴法で、しかも行訴法では違法だと確認するだけでは足りず、処分を出させるには義務付け訴訟を重ねて起こす必要がある。"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-hearing-file-access-001",
@@ -2417,7 +2436,8 @@
         "当事者",
         "参加人",
         "終結"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-guidance-stop-001",
@@ -2526,7 +2546,8 @@
         "法律に置かれている",
         "申し出",
         "是正を求める"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-reinvestigation-choice-001",
@@ -2630,7 +2651,8 @@
         "処分庁",
         "決定",
         "選択"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-inaction-no-reinvestigation-001",
@@ -2721,7 +2743,8 @@
         "審査請求",
         "相当の期間",
         "申請"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-reinvestigation-stay-001",
@@ -2800,7 +2823,8 @@
         "処分庁",
         "職権",
         "申立て"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-inaction-examiner-001",
@@ -2879,7 +2903,8 @@
         "審査庁",
         "審理手続",
         "裁決"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-examiner-affiliation-001",
@@ -2996,7 +3021,8 @@
           }
         ],
         "memoryCue": "行手法の主宰者は行政庁が指名する職員その他政令で定める者、行審法の審理員は原則として審査庁所属職員です。どちらにも除斥事由があり、取消訴訟は行政組織の外にいる裁判官が審理します。"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-examiner-stay-opinion-001",
@@ -3088,7 +3114,8 @@
         "意見書",
         "審査庁",
         "速やかに"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-nursery-ordinance-001",
@@ -3161,7 +3188,8 @@
         "行政処分",
         "現に入所中の児童",
         "処分と実質的に同視"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-land-readjustment-plan-001",
@@ -3233,7 +3261,8 @@
         "抗告訴訟",
         "行政処分",
         "法的地位"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-zoning-001",
@@ -3305,7 +3334,8 @@
         "一般的抽象的",
         "抗告訴訟",
         "行政処分"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-local-audit-one-resident-001",
@@ -3401,7 +3431,8 @@
         "事務監査請求",
         "監査委員",
         "住民訴訟"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-refusal-reason-001",
@@ -3520,7 +3551,8 @@
           }
         ],
         "memoryCue": "いずれも「なぜその結論になったのかを名あて人に分からせる」ためのもので、行政の判断を慎重にさせる働きと、争うための材料を渡す働きを兼ねている。行手法8条だけは明白な場合の例外があり、14条には緊急時の後出しがあるが、行審法50条の裁決書には例外がない。争いの最終判断を書く文書だからである。"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-guidance-guideline-001",
@@ -3603,7 +3635,8 @@
         "公表",
         "同一の行政目的",
         "複数の者"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-enforcement-ordinance-substitution-001",
@@ -3684,7 +3717,8 @@
         "代替的作為義務",
         "履行の確保",
         "義務者"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-litigation-defendant-001",
@@ -3800,7 +3834,8 @@
           }
         ],
         "memoryCue": "行政内部の手続では行政庁そのものを相手にするが、裁判所へ持ち込むと相手は国や公共団体という法人格を持つ主体へ変わる。訴訟は権利義務の主体どうしで争うものだからである。平成16年改正までは取消訴訟も行政庁が被告だったので、古い教材は要注意。"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-review-criteria-001",
@@ -3885,7 +3920,8 @@
         "公に",
         "処分基準",
         "許認可等"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-disposition-standard-001",
@@ -3974,7 +4010,8 @@
         "不利益処分",
         "公に",
         "審査基準"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-guidance-writing-001",
@@ -4053,7 +4090,8 @@
         "口頭",
         "責任者",
         "交付"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-notification-arrival-001",
@@ -4137,7 +4175,8 @@
         "形式上の要件",
         "受理",
         "提出先"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-review-period-001",
@@ -4242,7 +4281,8 @@
           }
         ],
         "memoryCue": "行政への不服申立ては3か月、裁判所への訴えは6か月と、裁判のほうが長い。書面を出すだけの手続より、訴訟のほうが準備に手間がかかるからである。「あった日から1年」はどれも共通で、知らないまま何年も争えるようにはしていない。起算点も違い、行審法は「翌日から起算して」、行訴法は「日から」と書く。"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-no-adverse-change-001",
@@ -4312,7 +4352,8 @@
         "変更",
         "裁決",
         "審査請求人"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-oral-opinion-001",
@@ -4399,7 +4440,8 @@
         "参加人",
         "審理員",
         "補佐人"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-review-board-consultation-001",
@@ -4499,7 +4541,8 @@
         "諮問",
         "審理員意見書",
         "審査庁"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-review-prerequisite-001",
@@ -4597,7 +4640,8 @@
           }
         ],
         "memoryCue": "原則は自由選択で、行政に一度見直させることを強制しない。強制するのは、大量の不服が見込まれて裁判所が持たない分野など、法律が特に定めた場合だけである。住民訴訟は住民が自治体の財務を正す特別な仕組みなので、まず監査委員に見せるという段階が必ず入る。"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-filing-period-001",
@@ -4685,7 +4729,8 @@
         "6か月",
         "1年",
         "正当な理由"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-standing-001",
@@ -4760,7 +4805,8 @@
         "定期航空運送事業免許",
         "周辺住民",
         "騒音"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-stay-001",
@@ -4864,7 +4910,8 @@
           }
         ],
         "memoryCue": "行政の中の見直し（行審法）は、自分が出した処分だから自分の判断でも止められる。裁判所（行訴法）は当事者が申し立てた範囲でしか動かないので、職権では止めない"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-invalidity-subsidiarity-001",
@@ -4948,7 +4995,8 @@
         "補充性",
         "現在の法律関係に関する訴え",
         "法律上の利益"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-cancel-judgment-effects-001",
@@ -5018,7 +5066,8 @@
         "第三者",
         "関係行政庁",
         "拘束"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-state-comp-public-official-liability-001",
@@ -5126,7 +5175,8 @@
           }
         ],
         "memoryCue": "使用者責任は被用者本人の責任が残るのに、国賠法では公務員個人が表に出ない。公務員が個人責任を恐れて萎縮すると、必要な行政活動まで止まってしまうからである。そのかわり、故意や重過失があった場合には国が本人へ求償する。免責規定の有無も違い、国賠法1条には715条ただし書のような免責がない。"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-state-comp-public-facility-001",
@@ -5232,7 +5282,8 @@
           }
         ],
         "memoryCue": "民法717条は占有者に一度逃げ道を用意してから所有者へ回すが、国賠法2条にはその段階がない。公の営造物は誰もが避けようなく使うもので、被害者の側に選ぶ余地がないからである。なお国賠法2条の「営造物」は建物などに限らず、動産（公用車、拳銃）や自然公物（河川、海岸）も含む点が717条の「土地の工作物」と違う。"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gyo-state-comp-no-prior-cancel-001",
@@ -5306,7 +5357,8 @@
         "取消判決",
         "無効確認",
         "あらかじめ"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-local-statutory-entrusted-ordinance-001",
@@ -5390,7 +5442,8 @@
         "自治事務",
         "条例を制定",
         "法令に違反しない"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-local-ordinance-penalty-001",
@@ -5478,7 +5531,8 @@
         "過料",
         "法律の委任",
         "科料"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-local-ordinance-direct-request-001",
@@ -5563,7 +5617,8 @@
         "分担金",
         "手数料",
         "50分の1"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-general-prescription-invoker-001",
@@ -5696,7 +5751,8 @@
           }
         ],
         "memoryCue": "民事の期限は年単位、行政処分を争う期限は月単位と、桁が違う。行政処分は多数の人の法律関係の土台になるので、いつまでも覆せると社会が落ち着かないからである。国家賠償請求は行政の話でありながら、国賠法4条により民法724条が使われるので3年・20年になる。ここが取り違えやすい。"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "min-general-unauthorized-agency-succession-001",
@@ -5774,7 +5830,8 @@
         "追認を拒絶",
         "信義則",
         "相続"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-general-capacity-demand-001",
@@ -5864,7 +5921,8 @@
         "追認",
         "みなす",
         "確答"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-general-capacity-fraud-001",
@@ -5940,7 +5998,8 @@
         "制限行為能力者",
         "取り消すことができない",
         "誤信"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-general-false-representation-third-party-001",
@@ -6033,7 +6092,8 @@
         "仮装",
         "賃借人",
         "対抗"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-property-good-faith-acquisition-001",
@@ -6121,7 +6181,8 @@
         "現実の引渡し",
         "指図による占有移転",
         "無過失"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-property-registration-bad-faith-001",
@@ -6196,7 +6257,8 @@
         "信義に反する",
         "第三者",
         "二重に譲渡"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-property-prescription-registration-001",
@@ -6290,7 +6352,8 @@
         "時効完成後",
         "時効取得者",
         "援用"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-property-co-ownership-claims-001",
@@ -6379,7 +6442,8 @@
         "明渡し",
         "持分の割合",
         "損害賠償"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-security-subrogation-attachment-001",
@@ -6468,7 +6532,8 @@
         "差押え",
         "抵当権者",
         "賃料"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-security-collective-movables-001",
@@ -6547,7 +6612,8 @@
         "占有改定",
         "対抗要件",
         "集合物"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-security-revolving-mortgage-001",
@@ -6626,7 +6692,8 @@
         "被担保債権の範囲",
         "後順位抵当権者",
         "極度額"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-obligation-joint-liability-effects-001",
@@ -6720,7 +6787,8 @@
         "負担部分",
         "絶対的効力",
         "求償"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-obligation-setoff-attachment-001",
@@ -6803,7 +6871,8 @@
         "相殺",
         "差押え前の原因",
         "対抗"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-obligation-guarantee-prescription-001",
@@ -6878,7 +6947,8 @@
         "時効の完成猶予",
         "更新",
         "付従性"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-obligation-creditor-subrogation-001",
@@ -6957,7 +7027,8 @@
         "取立て",
         "処分",
         "債権者代位権"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-obligation-assignment-restriction-001",
@@ -7032,7 +7103,8 @@
         "悪意",
         "重大な過失",
         "履行を拒む"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-contract-termination-minor-breach-001",
@@ -7107,7 +7179,8 @@
         "軽微",
         "社会通念",
         "解除"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-contract-lessor-transfer-deposit-001",
@@ -7194,7 +7267,8 @@
         "譲受人",
         "対抗要件",
         "承継"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-contract-nonconformity-remedy-001",
@@ -7292,7 +7366,8 @@
         "催告",
         "相当の期間",
         "契約の内容に適合しない"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-tort-employer-liability-recourse-001",
@@ -7377,7 +7452,8 @@
         "求償",
         "事業の執行",
         "信義則"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-family-adoption-types-001",
@@ -7461,7 +7537,8 @@
         "実父母",
         "親族関係",
         "家庭裁判所"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-family-divorce-property-001",
@@ -7563,7 +7640,8 @@
         "精神的苦痛",
         "損害賠償",
         "慰謝するに足りない"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-deposit-division-001",
@@ -7642,7 +7720,8 @@
         "可分債権",
         "当然に分割",
         "共同相続人"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-holograph-will-001",
@@ -7713,7 +7792,8 @@
         "自書",
         "毎葉",
         "押印"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-gyosei-law-qualification-001",
@@ -7788,7 +7868,8 @@
         "通算して2年以上",
         "行政書士となる資格",
         "公務員"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-gyosei-law-disqualification-001",
@@ -7859,7 +7940,8 @@
         "破産手続開始の決定",
         "懲戒免職",
         "3年"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-gyosei-law-fee-display-001",
@@ -7924,7 +8006,8 @@
         "事務所の見やすい場所",
         "報酬の額",
         "掲示"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-gyosei-law-specified-appeal-001",
@@ -7999,7 +8082,8 @@
         "審査請求",
         "代理",
         "特定行政書士"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-gyosei-law-discipline-001",
@@ -8074,7 +8158,8 @@
         "戒告",
         "解散処分",
         "業務の停止"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-gyosei-law-registration-erasure-001",
@@ -8139,7 +8224,8 @@
         "登録を抹消",
         "業務を禁止",
         "日本行政書士会連合会"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-identifier-code-001",
@@ -8232,7 +8318,8 @@
         "クレジットカード番号",
         "個人番号",
         "指紋データ"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-improper-use-001",
@@ -8301,7 +8388,8 @@
         "違法または不当な行為を助長",
         "誘発するおそれ",
         "利用目的を変更"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gk-pip-third-party-exception-001",
@@ -8380,7 +8468,8 @@
         "本人の同意",
         "委託",
         "公衆衛生"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-provision-record-001",
@@ -8455,7 +8544,8 @@
         "第三者提供",
         "記録しなければならない",
         "提供した年月日"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-leak-report-001",
@@ -8520,7 +8610,8 @@
         "漏えい等",
         "個人の権利利益を害するおそれが大きい",
         "個人情報保護委員会への報告"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-academic-exception-001",
@@ -8585,7 +8676,8 @@
         "学術研究機関",
         "学術研究目的",
         "適用されない"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-public-private-001",
@@ -8660,7 +8752,8 @@
         "まったく同一",
         "地方公共団体",
         "国の行政機関"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gk-pip-commission-power-001",
@@ -8746,7 +8839,8 @@
         "監視を行わない",
         "共管",
         "報告または資料の提出"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-commission-scope-001",
@@ -8824,7 +8918,8 @@
         "個人番号カード",
         "交付",
         "認定個人情報保護団体"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-local-government-001",
@@ -8894,7 +8989,8 @@
         "個人情報保護条例",
         "内閣総理大臣",
         "指揮監督権限"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-mosaic-approach-001",
@@ -8959,7 +9055,8 @@
         "モザイク・アプローチ",
         "不開示情報",
         "他の情報と組み合わせる"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gk-juki-record-items-001",
@@ -9041,7 +9138,8 @@
         "続柄",
         "住民票",
         "記載事項"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-koseki-birth-notification-001",
@@ -9124,7 +9222,8 @@
         "3箇月",
         "出生証明書",
         "常用平易"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -9217,7 +9316,8 @@
           "memoryCue": "商法が先に来る理由は「特別法だから」。一般法が後から変わっても特別法は消えない",
           "relatedCardId": "leg-general-special-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -9290,7 +9390,8 @@
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -9358,7 +9459,8 @@
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -9427,7 +9529,8 @@
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -9538,7 +9641,8 @@
           "memoryCue": "504条は「名前を出したか」、無権代理は「権限があったか」",
           "relatedCardId": "min-general-unauthorized-agency-succession-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "商法・会社法",
@@ -9612,7 +9716,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -9716,7 +9821,8 @@
           "memoryCue": "入口は商法511条、中身は民法438条以下",
           "relatedCardId": "min-obligation-joint-liability-effects-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "商法・会社法",
@@ -9800,7 +9906,8 @@
           "memoryCue": "頼まれていない仕事に報酬が付くのは商人のときだけ",
           "relatedCardId": "min-contract-negotiorum-gestio-useful-expenses-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "商法・会社法",
@@ -9893,7 +10000,8 @@
           "memoryCue": "民法は登記という帳簿、商法は看板という外観",
           "relatedCardId": "min-property-registration-bad-faith-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "商法・会社法",
@@ -9975,7 +10083,8 @@
         "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -10046,7 +10155,8 @@
         "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -10121,7 +10231,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -10203,7 +10314,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "商法・会社法",
@@ -10293,7 +10405,8 @@
         "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -10396,7 +10509,8 @@
         "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "憲法",
@@ -10478,7 +10592,8 @@
         "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -10559,7 +10674,8 @@
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -10652,7 +10768,8 @@
           "memoryCue": "守ってもらうのは憲法、動かしてもらうのは法律",
           "relatedCardId": "gk-pip-public-private-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -10734,7 +10851,8 @@
         "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -10816,7 +10934,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -10909,7 +11028,8 @@
           "memoryCue": "任意加入の会社は政治献金できるが、強制加入の団体はできない",
           "relatedCardId": "leg-corporation-type-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -10975,7 +11095,8 @@
         "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11068,7 +11189,8 @@
           "memoryCue": "制度そのものの是非は憲法、運用の手順は行政手続法",
           "relatedCardId": "gyo-aps-review-criteria-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11161,7 +11283,8 @@
           "memoryCue": "規制できるかは憲法29条、どこまで罰せるかは地方自治法14条3項",
           "relatedCardId": "gyo-local-ordinance-penalty-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11243,7 +11366,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11325,7 +11449,8 @@
         "archiveOccurrences": 4,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11407,7 +11532,8 @@
         "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "憲法",
@@ -11489,7 +11615,8 @@
         "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11571,7 +11698,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "憲法",
@@ -11653,7 +11781,8 @@
         "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "憲法",
@@ -11746,7 +11875,8 @@
           "memoryCue": "争訟性が無いのか、争訟性はあるが審査しないのか",
           "relatedCardId": "gyo-litigation-legal-dispute-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11839,7 +11969,8 @@
           "memoryCue": "82条の外へ出た手続だけが、法律で非公開にできる",
           "relatedCardId": "leg-procedure-principle-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11921,7 +12052,8 @@
         "archiveOccurrences": 4,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "憲法",
@@ -12014,7 +12146,8 @@
           "memoryCue": "憲法31条は「場合による」、行政手続法は「どの場合にどちらか」を条文で決めた",
           "relatedCardId": "gyo-aps-refusal-hearing-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -12100,7 +12233,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "基礎法学",
@@ -12178,7 +12312,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "基礎法学40問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎法学",
@@ -12267,7 +12402,8 @@
           "memoryCue": "抽象論は基礎法学、条文の形は商法1条2項。商慣習が民法より先という上乗せも忘れない",
           "relatedCardId": "com-gen-application-order-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "基礎法学",
@@ -12349,7 +12485,8 @@
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "基礎法学40問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "基礎法学",
@@ -12426,7 +12563,8 @@
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "基礎法学40問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "基礎法学",
@@ -12515,7 +12653,8 @@
           "memoryCue": "審級は裁判所の中の順番、前置は裁判所へ入る前の順番",
           "relatedCardId": "gyo-litigation-review-prerequisite-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "基礎法学",
@@ -12593,7 +12732,8 @@
         "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "基礎法学40問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎法学",
@@ -12675,7 +12815,8 @@
         "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "基礎法学40問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎法学",
@@ -12757,7 +12898,8 @@
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "基礎法学40問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎法学",
@@ -12850,7 +12992,8 @@
           "memoryCue": "非訟だから非公開ではなく、82条の射程外だから法律で非公開にできる",
           "relatedCardId": "con-court-open-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "基礎法学",
@@ -12973,7 +13116,8 @@
           "memoryCue": "定款はどこも作る。違うのは、その後に役所が何回出てくるか",
           "relatedCardId": "com-inc-articles-required-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13054,7 +13198,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13135,7 +13280,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13216,7 +13362,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13305,7 +13452,8 @@
           "memoryCue": "日本は開示・訂正・利用停止の3つ。持ち出しと自動判断への異議はGDPR固有",
           "relatedCardId": "gk-pip-public-private-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13386,7 +13534,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13468,7 +13617,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13561,7 +13711,8 @@
           "memoryCue": "直接請求は議会を動かす、住民投票は意思を示す。どちらも最終判断は代表者",
           "relatedCardId": "gyo-local-ordinance-direct-request-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13644,7 +13795,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13726,7 +13878,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13819,7 +13972,8 @@
           "memoryCue": "14条は理由のない区別を禁じる。合理的配慮は不利をならす合理的な調整",
           "relatedCardId": "con-eq-framework-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13901,7 +14055,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13983,7 +14138,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -14076,7 +14232,8 @@
           "memoryCue": "人権は及ぶ。ただし、そこにいられるかは別の判断",
           "relatedCardId": "con-hr-holder-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "con-rel-purpose-effect-001",
@@ -14152,7 +14309,8 @@
         "援助",
         "助長",
         "玉串料"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-litigation-interest-after-effect-001",
@@ -14246,7 +14404,8 @@
         "違反点数",
         "期間が終了",
         "公文書"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-substantive-party-action-001",
@@ -14334,7 +14493,8 @@
         "確認",
         "給付",
         "損失補償"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-provisional-mandate-main-action-001",
@@ -14419,7 +14579,8 @@
         "単独",
         "償うことのできない損害",
         "緊急"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -14502,7 +14663,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -14578,7 +14740,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -14645,7 +14808,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -14720,7 +14884,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -14799,7 +14964,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -14875,7 +15041,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "memorize"
     },
     {
       "id": "con-gen-substantive-meaning-001",
@@ -14951,7 +15118,8 @@
         "憲法典",
         "硬性憲法",
         "軟性憲法"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "con-gen-rigid-constitution-001",
@@ -15022,7 +15190,8 @@
         "改正手続",
         "総議員",
         "国民投票"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "con-gen-respect-duty-001",
@@ -15098,7 +15267,8 @@
         "摂政",
         "国務大臣",
         "最高法規"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "leg-law-form-structure-001",
@@ -15182,7 +15352,8 @@
         "見出し",
         "削除",
         "従属"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "leg-law-enforcement-date-001",
@@ -15267,7 +15438,8 @@
         "20日",
         "施行期日",
         "有効期間"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-discretion-judicial-review-001",
@@ -15360,7 +15532,8 @@
         "社会通念",
         "逸脱",
         "濫用"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-legislation-delegation-limit-001",
@@ -15458,7 +15631,8 @@
         "政令",
         "省令",
         "無効"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-aps-public-comment-draft-001",
@@ -15552,7 +15726,8 @@
         "関連する資料",
         "公示",
         "一般の意見"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-loss-compensation-project-restriction-value-001",
@@ -15649,7 +15824,8 @@
         "相当な価格",
         "裁決時",
         "収用"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-enforcement-immediate-compulsion-001",
@@ -15747,7 +15923,8 @@
         "義務の不履行",
         "非常",
         "危険切迫"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-aia-guidance-omission-001",
@@ -15841,7 +16018,8 @@
         "処分庁",
         "送付",
         "みなされる"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-state-comp-public-power-scope-001",
@@ -15934,7 +16112,8 @@
         "情報提供",
         "非権力的行政作用",
         "職務"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "民法",
@@ -16018,7 +16197,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "動産売買先取特権の追及力・物上代位・第三取得者を直接扱う問題を集計"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "understand"
     },
     {
       "category": "民法",
@@ -16112,7 +16292,8 @@
           "memoryCue": "事務管理は費用だけ。商人なら報酬も請求できる。",
           "relatedCardId": "com-act-reward-custody-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "民法",
@@ -16196,7 +16377,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "承諾転貸・無断転貸と賃貸人に対する転借人の義務を直接扱う問題を集計"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "understand"
     },
     {
       "category": "民法",
@@ -16263,7 +16445,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "法定地上権の成立要件を直接扱う問題を集計"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "understand"
     },
     {
       "category": "民法",
@@ -16351,7 +16534,8 @@
           "explanation": "不法行為の消滅時効は、期間の経過で損害賠償請求権そのものが消えます。援用が要り、完成猶予や更新もあります。取消訴訟の出訴期間は、処分を訴訟で争える期間の制限で、過ぎると訴えが不適法になりますが、処分の効力を別の形で争える場合は残ります。同じ期間制限でも、消えるものが違います。",
           "memoryCue": "時効は権利が消える。出訴期間は訴える道が閉じる"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -16443,7 +16627,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "譲渡制限株式の承認機関を直接問う問題だけを集計"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -16541,7 +16726,8 @@
           "memoryCue": "監査等委員会＝取締役・過半数／監査役会＝監査役・半数以上＋常勤",
           "relatedCardId": "com-inc-auditor-board-structure-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -16631,7 +16817,8 @@
           "memoryCue": "内容が法令違反なら無効確認でいつでも。手続の瑕疵なら取消しの訴えで3か月",
           "relatedCardId": "min-general-capacity-fraud-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gk-kobunsho-duties-001",
@@ -16710,7 +16897,8 @@
         "行政文書管理規則",
         "内閣総理大臣",
         "行政文書ファイル"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-kobunsho-no-penalty-001",
@@ -16785,7 +16973,8 @@
         "違法に廃棄",
         "行政文書ファイル",
         "内閣総理大臣"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-joho-kokai-affairs-001",
@@ -16852,7 +17041,8 @@
         "適正な遂行に支障",
         "開示を拒否",
         "監査・検査"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-comm-secrecy-scope-001",
@@ -16927,7 +17117,8 @@
         "通信日時",
         "通信回数",
         "電気通信事業者"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gk-comm-interception-warrant-001",
@@ -16998,7 +17189,8 @@
         "捜査機関",
         "薬物関連",
         "銃器関連"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-juki-foreign-resident-001",
@@ -17068,7 +17260,8 @@
         "外国人",
         "住所",
         "市町村"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-local-tax-corporate-001",
@@ -17138,7 +17331,8 @@
         "事務所または事業所",
         "法人",
         "市町村内に住所"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-litigation-no-filing-period-001",
@@ -17209,7 +17403,8 @@
         "6ヵ月",
         "正当な理由",
         "提起することができない"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-provisional-injunction-public-001",
@@ -17283,7 +17478,8 @@
         "公共の福祉に重大な影響",
         "重大な損害",
         "他に適当な方法"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-provisional-injunction-application-001",
@@ -17354,7 +17550,8 @@
         "他に適当な方法",
         "申立て",
         "職権"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-enforcement-order-fine-001",
@@ -17420,7 +17617,8 @@
         "非訟事件手続法",
         "刑法上の罰",
         "所定の裁判所"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-legal-dispute-001",
@@ -17496,7 +17694,8 @@
         "固有の利益",
         "公開決定",
         "取消しを求める訴え"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-tort-structure-owner-001",
@@ -17573,7 +17772,8 @@
         "瑕疵",
         "現所有者",
         "過失なく信じて"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-general-unauthorized-agency-demand-001",
@@ -17643,7 +17843,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-general-unauthorized-agency-rescission-001",
@@ -17712,7 +17913,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-general-unauthorized-agency-liability-001",
@@ -17782,7 +17984,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "min-property-stolen-goods-recovery-001",
@@ -17852,7 +18055,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "min-inheritance-joint-will-001",
@@ -17921,7 +18125,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-will-revocation-001",
@@ -17991,7 +18196,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-ward-will-001",
@@ -18061,7 +18267,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-legatee-predecease-001",
@@ -18130,7 +18337,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-contract-loan-for-use-rescission-001",
@@ -18196,7 +18404,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-general-voluntary-guardianship-001",
@@ -18266,7 +18475,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-statutory-share-001",
@@ -18331,7 +18541,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "archive-choice-rechecked-against-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-substitution-cause-001",
@@ -18409,7 +18620,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "archive-choice-rechecked-against-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-renunciation-effect-001",
@@ -18483,7 +18695,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "archive-choice-rechecked-against-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "min-contract-leased-land-act-scope-001",
@@ -18556,7 +18769,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "archive-choice-rechecked-against-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gyo-act-school-discipline-review-001",
@@ -18641,7 +18855,8 @@
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
       },
-      "figures": []
+      "figures": [],
+      "learningType": "understand"
     },
     {
       "id": "gyo-aps-adverse-reason-timing-001",
@@ -18711,7 +18926,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-act-good-faith-tax-001",
@@ -18781,7 +18997,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gyo-act-public-private-law-001",
@@ -18855,7 +19072,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gyo-litigation-objective-suits-001",
@@ -18924,7 +19142,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-local-water-supply-refusal-001",
@@ -19006,7 +19225,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gyo-local-reconsideration-001",
@@ -19080,7 +19300,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-act-minister-authority-001",
@@ -19158,7 +19379,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-act-administrative-contract-001",
@@ -19231,7 +19453,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "min-property-removal-claim-registrant-001",
@@ -19305,7 +19528,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "min-general-disappearance-declaration-001",
@@ -19379,7 +19603,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-tort-medical-standard-001",
@@ -19452,7 +19677,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "min-tort-defamation-honor-001",
@@ -19521,7 +19747,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "con-academic-freedom-001",
@@ -19604,7 +19831,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "con-supreme-law-private-act-001",
@@ -19673,7 +19901,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "com-inc-accounting-advisor-001",
@@ -19760,7 +19989,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "com-inc-shareholder-minority-rights-001",
@@ -19834,7 +20064,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "com-act-silent-partnership-001",
@@ -19906,7 +20137,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gk-joho-kokai-requester-001",
@@ -19979,7 +20211,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gk-joho-kokai-personal-identification-001",
@@ -20067,7 +20300,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gyo-local-resident-suit-neglect-001",
@@ -20140,7 +20374,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-local-special-ward-001",
@@ -20214,7 +20449,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-legislation-circular-nature-001",
@@ -20297,7 +20533,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gyo-state-comp-fire-liability-001",
@@ -20366,7 +20603,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-security-retention-lien-001",
@@ -20439,7 +20677,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "min-family-acknowledgement-effect-001",
@@ -20516,7 +20755,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "con-gen-private-effect-001",
@@ -20603,7 +20843,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "archive-question-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "com-gen-manager-authority-001",
@@ -20680,7 +20921,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "archive-question-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gk-pip-exemption-types-001",
@@ -20766,7 +21008,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "archive-question-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-security-pledge-001",
@@ -20842,7 +21085,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-security-mortgage-interference-001",
@@ -20908,7 +21152,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "min-obligation-joint-notice-001",
@@ -20977,7 +21222,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     }
   ]
 }
