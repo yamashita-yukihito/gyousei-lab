@@ -2055,6 +2055,64 @@ def _read_weakness_snapshot() -> tuple[dict | None, str | None]:
         return None, "invalid"
 
 
+def study_queue_response(query: dict[str, list[str]]) -> dict:
+    """「今日の学習」キュー。py-fsrs が決めた期日で、今日出すカードを並べる。
+
+    状態は `card_attempts` と `card_marks` から毎回導出する。専用テーブルを作らず、
+    `production.sqlite3` のschemaも変えない。理由は `study_queue.py` の冒頭に書いた。
+    """
+    import study_queue
+
+    snapshot = CATALOG.load()
+    study_deck_id = _single_query(query, "studyDeckId") or _single_query(
+        query, "deckId"
+    )
+    deck = resolve_study_deck(snapshot, study_deck_id, require_if_ambiguous=True)
+    cards = cards_for_study_deck(snapshot, deck)
+
+    limit = study_queue.DEFAULT_QUEUE_LIMIT
+    limit_text = _single_query(query, "limit")
+    if limit_text is not None:
+        if not limit_text.isdigit():
+            raise ApiError(HTTPStatus.BAD_REQUEST, "limit must be a positive integer")
+        limit = int(limit_text)
+        if not 1 <= limit <= study_queue.MAX_QUEUE_LIMIT:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST,
+                f"limit must be between 1 and {study_queue.MAX_QUEUE_LIMIT}",
+            )
+
+    retention = 0.9
+    retention_text = _single_query(query, "desiredRetention")
+    if retention_text is not None:
+        try:
+            retention = float(retention_text)
+        except ValueError as error:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST, "desiredRetention must be a number"
+            ) from error
+        if not 0.7 <= retention <= 0.97:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST,
+                "desiredRetention must be between 0.7 and 0.97",
+            )
+
+    with connect() as connection:
+        result = study_queue.build_queue(
+            connection, cards, limit=limit, desired_retention=retention
+        )
+    # 画面がそのまま出題できるよう、公開projectionを通したカード本体も返す。
+    by_id = {card["id"]: card for card in cards}
+    result["cards"] = [
+        card_for_response(by_id[card_id], snapshot, deck)
+        for card_id in result["cardIds"]
+        if card_id in by_id
+    ]
+    result["studyDeck"] = dict(deck) if deck is not None else None
+    result["bundle"] = snapshot.metadata()
+    return result
+
+
 def learning_analysis() -> dict:
     snapshot = CATALOG.load()
     deck = default_study_deck(snapshot)
@@ -3081,6 +3139,9 @@ class ProductionHandler(BaseHTTPRequestHandler):
                     result = card_progress_statistics(connection, snapshot, deck)
                 result["bundle"] = snapshot.metadata()
                 self.send_json(result)
+                return
+            if parsed.path == "/api/study-queue":
+                self.send_json(study_queue_response(query))
                 return
             if parsed.path == "/api/learning-analysis":
                 self.send_json(learning_analysis())

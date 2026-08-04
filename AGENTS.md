@@ -312,6 +312,23 @@ diff -u \
   /tmp/gyousei-lab.png
 ```
 
+### 7.1 「今日の学習」キューとAnki書き出し（2026-08-05に追加）
+
+- **FSRSの状態を保存するテーブルを作らない。** `study_queue.py` が `card_attempts` と `card_marks` から
+  毎回導出する。`production.sqlite3` のschemaは変えていない。導出値を別に持つと正本と写しがずれ、
+  リセットの区切りが増えるたびに計算し直しが要るためである。**保存する形へ戻さない。**
+- **`fsrs` は `pip install --user --break-system-packages` で入れてある**
+  （`~/Library/Python/3.12/lib/python/site-packages`）。Homebrewのツリーは触っていないので、
+  launchd plistも変えていない。venvへ移すならplistの `ProgramArguments` を直し、
+  リポジトリ側とインストール済みの両方を同期する。
+- **`enable_fuzzing` を切る。** 期日を保存せず毎回計算するので、揺らぐと表示が回答のたびに変わる。
+- **○×から4段階への対応で、回答ごとの自信度を使う。** 誤答→Again、正答＋guess→Hard、
+  正答＋likely→Good、正答＋sure→Easy、正答＋記録なし→Good。自信度を**出題対象の判定**へ
+  効かせない決まりは維持したまま、**次にいつ出すか**にだけ効かせている。ここを混同しない。
+- **Ankiへはタブ区切りテキストで出す。** apkgにしない（内部形式でAnkiの版に弱い）。
+  表はA・B1・B2・C、裏が正誤と解説。**表に答えを出さない。** 装飾記法は外して渡す。
+  `tests/test_anki_export.py` が、表に答えが混ざらないことと記法が残らないことを見ている。
+
 ## 8. SQLiteを扱う時
 
 - 稼働中DBを単純な `cp` でバックアップしない。SQLite backup APIまたは `.backup` を使う。

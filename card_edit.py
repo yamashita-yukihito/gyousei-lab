@@ -77,6 +77,13 @@ def check_markup(label: str, text: str, problems: list[str], *, allow_red: bool)
             problems.append(f"{label}: 閉じていない装飾記法 {mark} が残っています")
     if MARKUP.search(strip_markup(text)):
         problems.append(f"{label}: 装飾の入れ子があります")
+    # 記法を外した文字列に記号が残っていないかも見る。`__…==。__` のように、
+    # 閉じた枠の中へ開きっぱなしの記号が入っていると上の2つを素通りしてしまい、
+    # 画面とAnki書き出しの両方に `==` がそのまま出ていた（2026-08-05に追加）。
+    stripped = strip_markup(text)
+    for mark in MARKS:
+        if mark in stripped:
+            problems.append(f"{label}: 記法を外しても {mark} が残ります")
     if not allow_red and any(
         m.group(0).startswith("!!") for m in MARKUP.finditer(text or "")
     ):

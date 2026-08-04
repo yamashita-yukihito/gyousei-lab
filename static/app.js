@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260803-2";
+  const APP_VERSION = "20260805-1";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -12,6 +12,12 @@
   const CARD_FAILED_PREFIX = "gyousei_production_card_failed_v1:";
 
   const state = {
+    // 「今日の学習」（py-fsrs）。期日はサーバー側で毎回導出するので端末には持たない。
+    todayQueue: [],
+    todayQueueCounts: null,
+    todayQueueNextDueAt: null,
+    todayQueueError: null,
+    todayQueueLoading: false,
     overview: {},
     dataInventory: {},
     questions: [],
@@ -460,7 +466,13 @@
       updateStudyViewControls();
       refreshStudyPool();
     });
-    $("study-scope").addEventListener("change", refreshStudyPool);
+    $("study-scope").addEventListener("change", () => {
+      if ($("study-scope").value === "today") {
+        loadTodayQueue();
+        return;
+      }
+      refreshStudyPool();
+    });
     $("study-certain-button").addEventListener("click", () => {
       const item = state.studyCurrent;
       if (!item) return;
@@ -891,6 +903,24 @@
       return;
     }
     const scope = $("study-scope").value;
+    if (scope === "today") {
+      if (state.todayQueueError) {
+        $("study-scope-summary").textContent = "今日の学習を取得できませんでした（" + state.todayQueueError + "）";
+        return;
+      }
+      const counts = state.todayQueueCounts;
+      if (!counts) {
+        $("study-scope-summary").textContent = "今日の学習を組み立てています…";
+        return;
+      }
+      const next = state.todayQueueNextDueAt
+        ? "／次の期日 " + new Date(state.todayQueueNextDueAt).toLocaleString("ja-JP", { dateStyle: "short", timeStyle: "short" })
+        : "";
+      $("study-scope-summary").textContent =
+        "今日 " + counts.selected + "枚（期日ぎれ " + counts.due + "・はじめて " + counts.new + "）"
+        + "／絶対覚えた " + counts.certain + "枚は除外" + next;
+      return;
+    }
     const mastered = cards.filter(isStudyMastered).length;
     const certain = cards.filter(isStudyCertain).length;
     const graduated = cards.filter(isStudyGraduated).length;
@@ -1660,7 +1690,38 @@
     // 利用者の明示仕様: 「全問題」は文字どおり全カード。名称から誤解して、
     // 「絶対覚えた」をここで除外しない。普段の周回から外すのはreview側だけ。
     if (scope === "all") return cards;
+    if (scope === "today") return todayQueuePool(cards);
     return cards.filter((item) => !isStudyGraduated(item));
+  }
+
+  // 「今日の学習」はサーバー側の py-fsrs が決めた順で出す。
+  // 期日が来たものを古い順に、足りない分を未回答のカードで埋めた並びが降ってくる。
+  // 取得前は空にしておき、届いたら refreshStudyPool でこの順に差し替える。
+  function todayQueuePool(cards) {
+    const order = state.todayQueue;
+    if (!order || !order.length) return [];
+    const byId = new Map(cards.map((item) => [studyCardId(item), item]));
+    return order.map((id) => byId.get(id)).filter(Boolean);
+  }
+
+  async function loadTodayQueue() {
+    if (state.todayQueueLoading) return;
+    state.todayQueueLoading = true;
+    $("study-scope-summary").textContent = "今日の学習を組み立てています…";
+    try {
+      const data = await fetchJson("api/study-queue?limit=30");
+      state.todayQueue = Array.isArray(data.cardIds) ? data.cardIds : [];
+      state.todayQueueCounts = data.counts || null;
+      state.todayQueueNextDueAt = data.nextDueAt || null;
+      state.todayQueueError = null;
+    } catch (error) {
+      state.todayQueue = [];
+      state.todayQueueCounts = null;
+      state.todayQueueError = error && error.message ? error.message : "取得できませんでした";
+    } finally {
+      state.todayQueueLoading = false;
+      refreshStudyPool();
+    }
   }
 
   function queueCardAttempt(attempt) {
