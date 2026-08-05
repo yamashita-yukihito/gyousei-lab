@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260805-6";
+  const APP_VERSION = "20260805-7";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -950,10 +950,16 @@
       // 選んだ枚数と、残っている枚数を分けて出す。残りは翌日以降へ回る。
       const restDue = Math.max(0, counts.due - (counts.selectedDue || 0));
       const restNew = Math.max(0, counts.new - (counts.selectedNew || 0));
+      const due = counts.selectedDue || 0;
+      const fresh = counts.selectedNew || 0;
+      // 期日ぎれが新規より多い日は、溜まっていた復習を片づける日だと伝える。
+      const why = due > fresh
+        ? "／期日ぎれが溜まっています。片づければ翌日から減ります"
+        : "";
       $("study-scope-summary").textContent =
         TODAY_PACE[todayPace()].label + "：今日 " + counts.selected + "枚"
-        + "（復習 " + (counts.selectedDue || 0) + "・はじめて " + (counts.selectedNew || 0) + "）"
-        + "／待ち 復習" + restDue + "・はじめて" + restNew + next;
+        + "（期日の復習 " + due + " ＋ はじめて " + fresh + "）"
+        + "／待ち 復習" + restDue + "・はじめて" + restNew + next + why;
       return;
     }
     const mastered = cards.filter(isStudyMastered).length;
@@ -1059,7 +1065,14 @@
     renderStudyMarkControls(item);
     state.studyLastAttemptId = null;
     renderStudyFrequency(item);
-    $("study-position").textContent = (state.studyFiltered.indexOf(item) + 1) + " / " + state.studyFiltered.length;
+    // 「今日の学習」は、期日ぎれの復習と、はじめてのカードの合計になる。
+    // 分母だけ出すと「はじめて6枚」を選んだのに19と出て理由が分からない。
+    const counts = state.todayQueueCounts;
+    const breakdown = $("study-scope").value === "today" && counts
+      ? "（復習" + (counts.selectedDue || 0) + "・はじめて" + (counts.selectedNew || 0) + "）"
+      : "";
+    $("study-position").textContent =
+      (state.studyFiltered.indexOf(item) + 1) + " / " + state.studyFiltered.length + breakdown;
     setRichText($("study-variant-a"), variants.a || "");
     setRichText($("study-variant-b"), variants.b || "");
     setRichText($("study-variant-b-casual"), variants.bCasual || variants.b || "");
@@ -1780,6 +1793,8 @@
     heavy: { newLimit: 25, limit: 80, label: "しっかり（60分）" },
     reviewOnly: { newLimit: 0, limit: 60, label: "復習だけ" }
   };
+  // 期日ぎれが溜まっている日は、はじめての枚数より合計がずっと多くなる。
+  // その理由を出さないと「軽めを選んだのに19枚出た」としか見えない。
   const TODAY_PACE_KEY = "gyousei-lab:todayPace";
   const STUDY_KIND_KEY = "gyousei-lab:studyKind";
 
