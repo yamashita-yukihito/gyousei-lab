@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260805-10";
+  const APP_VERSION = "20260805-11";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -476,11 +476,17 @@
     $("study-search").addEventListener("search", onSearchChanged);
     $("study-clear-search").addEventListener("click", () => {
       $("study-search").value = "";
-      refreshStudyPool();
+      // 値をプログラムから変えても input / search は発火しない。
+      // 同じ処理へ通さないと、検索語付きで組んだキューがそのまま残る。
+      onSearchChanged();
       $("study-search").focus();
     });
     $("study-view").addEventListener("change", () => {
       updateStudyViewControls();
+      if ($("study-scope").value === "today") {
+        loadTodayQueue();
+        return;
+      }
       refreshStudyPool();
     });
     ["study-subject", "study-topic"].forEach((id) => {

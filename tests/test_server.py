@@ -1881,6 +1881,109 @@ class TodayQueueRequestOrderTest(unittest.TestCase):
         self.assertIn("token === state.todayQueueToken", self.source)
 
 
+class CardMarksMigrationTest(unittest.TestCase):
+    """`card_marks` を作り直したあとも、追記型を守るトリガと索引が残ることを見る。
+
+    テーブルを作り直すと、そのテーブルに付いていた索引とトリガも一緒に消える。
+    schemaを作る**前**に移行を走らせることで、後続の CREATE ... IF NOT EXISTS に
+    作り直させている。順番が入れ替わると、UPDATE / DELETE が通るようになる。
+    """
+
+    OLD_DDL = """
+        CREATE TABLE card_marks (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            event_id TEXT NOT NULL UNIQUE,
+            session_id TEXT NOT NULL,
+            study_deck_id TEXT,
+            card_id TEXT,
+            answer_revision TEXT,
+            attempt_event_id TEXT,
+            action TEXT NOT NULL
+                CHECK (action IN ('certain', 'uncertain', 'reset', 'confidence')),
+            scope TEXT NOT NULL CHECK (scope IN ('card', 'deck')),
+            confidence TEXT
+                CHECK (confidence IS NULL OR confidence IN ('sure', 'likely', 'guess')),
+            marked_at_client TEXT NOT NULL,
+            app_version TEXT,
+            payload_digest TEXT NOT NULL,
+            created_at_server TEXT NOT NULL
+        );
+    """
+
+    def setUp(self) -> None:
+        self.temp = tempfile.TemporaryDirectory()
+        self.db_path = Path(self.temp.name) / "old.sqlite3"
+        connection = sqlite3.connect(self.db_path)
+        connection.executescript(self.OLD_DDL)
+        connection.execute(
+            "INSERT INTO card_marks (event_id, session_id, card_id, attempt_event_id,"
+            " action, scope, confidence, marked_at_client, payload_digest,"
+            " created_at_server) VALUES"
+            " ('m1','s1','card-1','a1','confidence','card','sure','t','d','t')"
+        )
+        connection.commit()
+        connection.close()
+        # 他のテストと同じく DB_PATH を差し替える（モジュールは読み直さない）
+        self.original_database_path = server.DB_PATH
+        server.DB_PATH = self.db_path
+        self.server = server
+
+    def tearDown(self) -> None:
+        server.DB_PATH = self.original_database_path
+        self.temp.cleanup()
+
+    def test_one_start_migrates_and_keeps_append_only(self) -> None:
+        self.server.init_database()          # 起動1回だけで完結すること
+        connection = sqlite3.connect(self.db_path)
+        triggers = {
+            row[0]
+            for row in connection.execute(
+                "SELECT name FROM sqlite_master"
+                " WHERE tbl_name='card_marks' AND type='trigger'"
+            )
+        }
+        self.assertIn("card_marks_no_update", triggers)
+        self.assertIn("card_marks_no_delete", triggers)
+        indexes = {
+            row[0]
+            for row in connection.execute(
+                "SELECT name FROM sqlite_master"
+                " WHERE tbl_name='card_marks' AND type='index'"
+            )
+        }
+        self.assertIn("idx_card_marks_attempt", indexes)
+        # 既存の行は運ばれ、新しい値も書ける。
+        self.assertEqual(
+            connection.execute("SELECT COUNT(*) FROM card_marks").fetchone()[0], 1
+        )
+        sql = connection.execute(
+            "SELECT sql FROM sqlite_master WHERE name='card_marks'"
+        ).fetchone()[0]
+        self.assertIn("'again'", sql)
+        self.assertIn("'sure'", sql)
+        # 追記型が効いている。
+        with self.assertRaises(sqlite3.IntegrityError):
+            connection.execute("UPDATE card_marks SET confidence='easy'")
+        with self.assertRaises(sqlite3.IntegrityError):
+            connection.execute("DELETE FROM card_marks")
+        connection.close()
+
+    def test_second_start_changes_nothing(self) -> None:
+        self.server.init_database()
+        self.server.init_database()
+        connection = sqlite3.connect(self.db_path)
+        self.assertEqual(
+            connection.execute("SELECT COUNT(*) FROM card_marks").fetchone()[0], 1
+        )
+        self.assertEqual(
+            connection.execute(
+                "SELECT COUNT(*) FROM sqlite_master WHERE name='card_marks_old'"
+            ).fetchone()[0],
+            0,
+        )
+        connection.close()
+
+
 class StudySearchParityTest(unittest.TestCase):
     """キューの検索が、画面の検索と同じ範囲・同じ正規化になっていることを見る。
 

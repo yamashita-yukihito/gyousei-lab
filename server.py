@@ -1127,6 +1127,11 @@ def _migrate_card_marks_confidence(connection: sqlite3.Connection) -> bool:
 
     作り直しは1回だけで、2回目以降は制約を見て何もしない。失敗したときは
     トランザクションごと巻き戻るので、元のテーブルが残る。
+
+    **テーブルを作り直すと、そのテーブルに付いていた索引とトリガも一緒に消える。**
+    ここでは作り直さず、`init_database()` がこの関数を schema を作る前に呼ぶことで、
+    後続の `CREATE INDEX / TRIGGER IF NOT EXISTS` に作り直させている。
+    順番を入れ替えると、追記型を守るトリガが外れたままになる。
     """
     row = connection.execute(
         "SELECT sql FROM sqlite_master WHERE type='table' AND name='card_marks'"
@@ -1165,6 +1170,11 @@ def init_database() -> None:
             )
         connection.execute("PRAGMA journal_mode = WAL")
         connection.execute("PRAGMA synchronous = NORMAL")
+        # **schemaを作る前に走らせる。** テーブルを作り直すと、そのテーブルに付いていた
+        # 索引とトリガも一緒に消える。あとで走らせると、下の CREATE INDEX/TRIGGER
+        # IF NOT EXISTS は「既にある」と見なされたあとなので作り直されず、
+        # card_marks の追記型を守るトリガが外れたままになる（2026-08-05に指摘されて修正）。
+        migrated_card_marks = _migrate_card_marks_confidence(connection)
         connection.executescript(
             """
             CREATE TABLE IF NOT EXISTS answer_attempts (
@@ -1331,9 +1341,22 @@ def init_database() -> None:
 
             """
         )
-        # CHECK制約はALTERで変えられないので、必要なときだけ作り直して移し替える。
-        # 上の CREATE TABLE IF NOT EXISTS は既存テーブルには効かないため、ここで行う。
-        if _migrate_card_marks_confidence(connection):
+        if migrated_card_marks:
+            # 作り直したあと、追記型を守るトリガが本当に戻っているかを確かめる。
+            # 上のschemaで作られるはずだが、ここが外れると回答の履歴を書き換えられてしまう。
+            guards = {
+                row[0]
+                for row in connection.execute(
+                    "SELECT name FROM sqlite_master"
+                    " WHERE tbl_name = 'card_marks' AND type = 'trigger'"
+                )
+            }
+            missing = {"card_marks_no_update", "card_marks_no_delete"} - guards
+            if missing:
+                raise RuntimeError(
+                    "card_marks の移行後に追記型のトリガが戻っていない: "
+                    + ", ".join(sorted(missing))
+                )
             check = connection.execute("PRAGMA quick_check").fetchone()[0]
             if check != "ok":
                 raise RuntimeError(f"card_marks の移行後に quick_check が失敗: {check}")
