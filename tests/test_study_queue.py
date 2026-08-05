@@ -108,14 +108,23 @@ class StudyQueueTest(unittest.TestCase):
         )
 
     def test_rating_mapping_uses_confidence(self) -> None:
+        """FSRSの4段階のうち、Again だけが「思い出せなかった」。
+
+        2026-08-05に guess→Hard と sure→Easy をやめた。Hard は成功側の評価なので、
+        ○×のまぐれ当たりを入れると間隔が桁で伸びる。Easy は「即答できた」ときだけ。
+        """
         self.assertEqual(self.study_queue.rating_for(False, "sure"), 1)
-        self.assertEqual(self.study_queue.rating_for(True, "guess"), 2)
+        self.assertEqual(self.study_queue.rating_for(True, "guess"), 1)
         self.assertEqual(self.study_queue.rating_for(True, "likely"), 3)
-        self.assertEqual(self.study_queue.rating_for(True, "sure"), 4)
+        self.assertEqual(self.study_queue.rating_for(True, "sure"), 3)
         self.assertEqual(self.study_queue.rating_for(True, None), 3)
+        # いまは Hard(2) と Easy(4) を使っていない。使うなら「どれだけ苦労したか」を
+        # 4段階で選ばせる形にしてからにする。
+        self.assertNotIn(2, self.study_queue.RATING_BY_CONFIDENCE.values())
+        self.assertNotIn(4, self.study_queue.RATING_BY_CONFIDENCE.values())
 
     def test_confidence_changes_the_next_due_date(self) -> None:
-        """同じ「正解」でも、手ごたえが無ければ早く戻ってくる。"""
+        """同じ「正解」でも、当てずっぽうなら誤答と同じ扱いで早く戻ってくる。"""
         sure = self.attempt("card-sure", True, BASE)
         self.mark("card-sure", "confidence", BASE, confidence="sure",
                   attempt_event_id=sure)
@@ -125,10 +134,12 @@ class StudyQueueTest(unittest.TestCase):
         self.attempt("card-wrong", False, BASE)
 
         states = self.states(["card-sure", "card-guess", "card-wrong"])
-        self.assertEqual(states["card-sure"]["lastRating"], "easy")
-        self.assertEqual(states["card-guess"]["lastRating"], "hard")
+        self.assertEqual(states["card-sure"]["lastRating"], "good")
+        self.assertEqual(states["card-guess"]["lastRating"], "again")
         self.assertEqual(states["card-wrong"]["lastRating"], "again")
-        self.assertLess(states["card-wrong"]["due"], states["card-guess"]["due"])
+        # 当てずっぽうの正解は、誤答と同じ期日になる。
+        self.assertEqual(states["card-guess"]["due"], states["card-wrong"]["due"])
+        # 思い出せた側は、それより先になる。
         self.assertLess(states["card-guess"]["due"], states["card-sure"]["due"])
 
     def test_certain_cards_leave_the_queue_but_keep_their_history(self) -> None:
@@ -238,7 +249,9 @@ class StudyQueueTest(unittest.TestCase):
         確信ありで正解を重ねると、上限を切らない既定では
         8日 → 66日 → 397日 → 1875日 と伸び、3回目以降は受験日のはるか先になる。
         """
-        exam = datetime(2026, 11, 8, tzinfo=timezone.utc)
+        # 受験日は EXAM_AT（試験終了時刻）で持っている。ここに定数を書き写すと、
+        # 本体を変えたときにテストだけ古くなる。
+        exam = self.study_queue.EXAM_AT.astimezone(timezone.utc)
         moment = BASE
         rounds = 0
         while moment < exam and rounds < 12:
@@ -379,6 +392,55 @@ class StudyQueueTest(unittest.TestCase):
         first = self.states(["card-stable"], days=1)["card-stable"]["due"]
         later = self.states(["card-stable"], days=40)["card-stable"]["due"]
         self.assertEqual(first, later)
+
+    def test_lucky_guess_counts_as_a_lapse_not_a_hard_success(self) -> None:
+        """まぐれ当たりは Again。Hard（＝思い出せた）にしない。
+
+        FSRSは Again だけが「思い出せなかった」で、Hard・Good・Easy はどれも成功である。
+        ○×は2択なので、当てずっぽうの正解を Hard にすると
+        「苦労したが思い出せた」と誤認され、間隔が桁で伸びる。
+        """
+        self.assertEqual(self.study_queue.rating_for(True, "guess"), 1)
+        self.assertEqual(self.study_queue.rating_for(True, "likely"), 3)
+        # 「確信あり」も Easy にしない。Easy は「ほぼ努力せず即答」のときだけ。
+        self.assertEqual(self.study_queue.rating_for(True, "sure"), 3)
+        self.assertEqual(self.study_queue.rating_for(True, None), 3)
+        self.assertEqual(self.study_queue.rating_for(False, "sure"), 1)
+
+    def test_guess_and_wrong_answers_reach_the_same_schedule(self) -> None:
+        wrong = self.attempt("card-wrong", False, BASE)
+        guess = self.attempt("card-guess", True, BASE)
+        self.mark("card-guess", "confidence", BASE, confidence="guess",
+                  attempt_event_id=guess)
+        states = self.states(["card-wrong", "card-guess"])
+        self.assertEqual(states["card-wrong"]["lastRating"], "again")
+        self.assertEqual(states["card-guess"]["lastRating"], "again")
+        self.assertEqual(states["card-wrong"]["due"], states["card-guess"]["due"])
+
+    def test_rapid_mode_answers_do_not_move_the_schedule(self) -> None:
+        """高速○×は履歴には残すが、次にいつ出すかは動かさない。"""
+        self.connection.execute(
+            """
+            INSERT INTO card_attempts (
+                event_id, session_id, study_deck_id, card_id, answer_revision,
+                selected_answer, correct_answer, is_correct, mode,
+                answered_at_client, payload_digest, created_at_server
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
+            """,
+            (
+                "rapid-1", "s1", "d1", "card-rapid", "rev", 1, 1, 1, "rapid",
+                BASE.isoformat(), "digest", BASE.isoformat(),
+            ),
+        )
+        self.connection.commit()
+        state = self.states(["card-rapid"])["card-rapid"]
+        self.assertEqual(state["state"], "new")
+        self.assertIsNone(state["due"])
+        # 行そのものは残っている（正答率の集計には効き続ける）。
+        rows = self.connection.execute(
+            "SELECT COUNT(*) FROM card_attempts WHERE card_id = ?", ("card-rapid",)
+        ).fetchone()
+        self.assertEqual(rows[0], 1)
 
     def test_scheduler_version_is_pinned(self) -> None:
         version = self.study_queue.fsrs_version()

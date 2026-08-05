@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#183a34">
   <title>今日の学習の使い方 | 行政書士 過去問ラボ</title>
-  <link rel="stylesheet" href="architecture.css?v=20260805-7">
+  <link rel="stylesheet" href="architecture.css?v=20260805-8">
   <style>
     .guide-steps { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; counter-reset: step; }
     .guide-steps li { display: grid; grid-template-columns: 34px 1fr; gap: 13px; align-items: start;
@@ -193,24 +193,24 @@
           <tbody>
             <tr>
               <td>間違えた</td><td>—</td><td><span class="pill again">Again</span></td>
-              <td><strong>1分後</strong>。つまり、その日のうちにもう一度出ます。伸びません。</td>
+              <td><strong>1分後</strong>。つまり、その日のうちにもう一度出ます。</td>
             </tr>
             <tr>
-              <td>正解した</td><td>あてずっぽう</td><td><span class="pill hard">Hard</span></td>
-              <td><strong>5分後のまま伸びません。</strong>理由が言えていないので、覚えたとは数えない扱いです。</td>
+              <td>正解した</td><td>あてずっぽう</td><td><span class="pill again">Again</span></td>
+              <td><strong>間違えたときと同じ扱い</strong>です。○×は2択なので、理由が言えていない正解は「思い出せた」に数えません。</td>
             </tr>
             <tr>
-              <td>正解した</td><td>たぶん<br>（押さなかった場合も同じ）</td><td><span class="pill good">Good</span></td>
-              <td>10分 → 2日 → 11日 → 46日 → 163日</td>
-            </tr>
-            <tr>
-              <td>正解した</td><td>確信あり</td><td><span class="pill easy">Easy</span></td>
-              <td>8日 → 66日 → 397日 → 5年</td>
+              <td>正解した</td><td>たぶん<br>確信あり<br>（押さなかった場合も同じ）</td><td><span class="pill good">Good</span></td>
+              <td>10分 → 2日 → 11日 → 46日 → 163日（目安。実際は前回からの間隔や過去の評価で変わります）</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p style="margin-top: 14px; font-size: 14px; color: var(--muted);">実際は「間違えた → 次は確信ありで正解」のように混ざるので、その場合は 1分 → 1日 → 5日 → 34日 → 217日 のように伸びていきます。上の表は、同じ評価がずっと続いたときの目安です。</p>
+      <p style="margin-top: 14px; font-size: 14px; color: var(--muted);">上の日数は<strong>固定の階段ではなく目安</strong>です。実際は、そのカードの覚えにくさ、前回からの間隔、過去の評価によって変わります。最初の「1分」「10分」は記憶モデルの計算ではなく、学習の初期段階として決まっている刻みです。</p>
+      <div class="note-card" style="margin-top: 14px;">
+        <h3>2026年8月5日に、当てずっぽうの扱いを直しました</h3>
+        <p>それまでは「正解＋あてずっぽう」を<strong>Hard（＝苦労したが思い出せた）</strong>として記録していました。ところがFSRSでは<strong>Hardも「思い出せた」側</strong>なので、まぐれ当たりを重ねると間隔が伸びてしまいます。実際に測ると、本来2日後に戻るべきカードが<strong>93日後</strong>になっていました。いまは間違えたときと同じ <strong>Again</strong> にしています。<br>「確信あり」を Easy にするのもやめました。Easy は「ほぼ努力せず即答できた」ときの評価で、長く考えた末の確信とは違うためです。</p>
+      </div>
     </section>
 
     <section class="section">
@@ -219,8 +219,12 @@
         <h2>先に知っておくとよいこと</h2>
       </div>
       <div class="note-card">
-        <h3>「あてずっぽう」を押すと、そのカードは伸びません</h3>
-        <p>これは不具合ではなく、そういう設計です。当たってはいるが理由が言えていないカードを、覚えたことにして遠ざけないためです。逆に言うと、<strong>あてずっぽうを押し続けたカードは永遠に出続けます。</strong>理由が言えるようになった回で「たぶん」か「確信あり」を押せば、そこから間隔が伸びはじめます。</p>
+        <h3>「あてずっぽう」は、間違えたのと同じ扱いです</h3>
+        <p>○×は2択なので、理由が言えないまま当たっても「覚えている」ことにはなりません。<strong>間違えたときと同じ Again として記録し、すぐまた出します。</strong>理由が言えるようになった回で「たぶん」か「確信あり」を押せば、そこから間隔が伸びはじめます。</p>
+      </div>
+      <div class="note-card">
+        <h3>高速○×は、次にいつ出すかを動かしません</h3>
+        <p>高速○×は時間を測って同じ日に何度も回す練習です。ここでの回答まで期日に効かせると、短時間の反復だけで間隔が伸びてしまいます。<strong>正答率の記録には残りますが、「今日の学習」の期日は動きません。</strong></p>
       </div>
       <div class="note-card">
         <h3>間違えたカードは、その日のうちにまた出ます</h3>

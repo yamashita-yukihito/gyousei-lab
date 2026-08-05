@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260805-7";
+  const APP_VERSION = "20260805-8";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -457,8 +457,17 @@
       refreshStudyPool();
     });
     $("study-topic").addEventListener("change", refreshStudyPool);
-    $("study-search").addEventListener("input", refreshStudyPool);
-    $("study-search").addEventListener("search", refreshStudyPool);
+    // 検索は打つたびに絞り込みが変わる。「今日の学習」のときは、
+    // 打ち終わるのを待たずにキューも組み直さないと、前の語で作った並びと交差してしまう。
+    const onSearchChanged = () => {
+      if ($("study-scope").value === "today") {
+        scheduleTodayQueueReload();
+        return;
+      }
+      refreshStudyPool();
+    };
+    $("study-search").addEventListener("input", onSearchChanged);
+    $("study-search").addEventListener("search", onSearchChanged);
     $("study-clear-search").addEventListener("click", () => {
       $("study-search").value = "";
       refreshStudyPool();
@@ -468,7 +477,7 @@
       updateStudyViewControls();
       refreshStudyPool();
     });
-    ["study-subject", "study-topic", "study-search"].forEach((id) => {
+    ["study-subject", "study-topic"].forEach((id) => {
       $(id).addEventListener("change", () => {
         if ($("study-scope").value === "today") loadTodayQueue();
       });
@@ -1276,7 +1285,11 @@
     const isCorrect = selected === Boolean(item.correct);
     const answeredAt = new Date().toISOString();
     const attemptId = "card-attempt-" + uuid();
-    const studyMode = isWeaknessStudyView() ? "weakness" : $("study-scope").value;
+    // 高速○×はFSRSの期日を動かさないので、あとで見分けられるよう mode に残す。
+    // これまでは scope の値（review など）が入っていて区別できなかった。
+    const studyMode = isRapidStudyView()
+      ? "rapid"
+      : isWeaknessStudyView() ? "weakness" : $("study-scope").value;
     const responseMs = state.studyStartedAt === null
       ? null
       : Math.max(0, Math.min(86400000, Math.round(performance.now() - state.studyStartedAt)));
@@ -1782,7 +1795,12 @@
     const order = state.todayQueue;
     if (!order || !order.length) return [];
     const byId = new Map(cards.map((item) => [studyCardId(item), item]));
-    return order.map((id) => byId.get(id)).filter(Boolean);
+    // キューはサーバーで組んだ時点のもの。そのあと「絶対覚えた」を押しても
+    // 取り直していないので、ここで今の状態を見て外す。外さないと、
+    // 1枚しか残っていないときに次を押しても同じカードが出続ける。
+    return order
+      .map((id) => byId.get(id))
+      .filter((item) => item && !isStudyCertain(item));
   }
 
   // 1日の量。実データ（はじめて約90秒・復習約25秒）から逆算した組み合わせ。
@@ -1803,6 +1821,16 @@
       try { return localStorage.getItem(TODAY_PACE_KEY); } catch (_) { return null; }
     })();
     return TODAY_PACE[stored] ? stored : "light";
+  }
+
+  // 1文字ごとにサーバーを叩かないよう、打ち終わりを待ってからまとめて取り直す。
+  let todayQueueReloadTimer = null;
+  function scheduleTodayQueueReload() {
+    if (todayQueueReloadTimer) clearTimeout(todayQueueReloadTimer);
+    todayQueueReloadTimer = setTimeout(() => {
+      todayQueueReloadTimer = null;
+      loadTodayQueue();
+    }, 350);
   }
 
   async function loadTodayQueue() {

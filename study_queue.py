@@ -32,21 +32,33 @@ FSRSは前回からの経過時間で状態を更新するため、逆転する�
 決めない。`now` で決めると、新しい回答が1件も無いのに日が進むだけで過去の期日が動いてしまい、
 昨日見た期日と今日見た期日が変わる。最後に `EXAM_AT` でも切って二重に保証する。
 
-## ○×から4段階の評価への対応
+## ○×から評価への対応
 
-FSRSは Again / Hard / Good / Easy の4段階を受け取る。このラボのカードは○×なので、
-**回答ごとの自信度**（`card_marks` の `confidence`）を組み合わせて4段階へ広げる。
+FSRSは Again / Hard / Good / Easy の4段階を受け取る。**Again だけが「思い出せなかった」で、
+Hard・Good・Easy はどれも「思い出せた」**である。ここを取り違えると、間隔が桁で狂う。
 
 | 正誤 | 自信度 | FSRSの評価 |
 |---|---|---|
 | 誤答 | 問わない | Again |
-| 正答 | あてずっぽう（guess） | Hard |
+| 正答 | あてずっぽう（guess） | **Again** |
 | 正答 | たぶん（likely） | Good |
-| 正答 | 確信あり（sure） | Easy |
+| 正答 | 確信あり（sure） | **Good** |
 | 正答 | 記録なし | Good |
 
-自信度は出題対象の判定には効かせない決まりだが、**次にいつ出すか**へ効かせるのは
-その決まりに反しない。手ごたえが無いまま当たった問題を早めに戻す、という使い方である。
+**2026-08-05に、`guess`→Hard と `sure`→Easy をやめた。** 外部レビューの指摘を実測で確かめた結果、
+
+- `Good×3 → Hard → Good` は次が**93日後**（stability 92.8）
+- `Good×3 → Again → Good` は次が**2日後**（stability 1.57）
+
+となり、○×のまぐれ当たりを Hard にすると、本来2日で戻るべきカードが93日後になっていた。
+○×は2択なので、当てずっぽうの正解は「思い出せた」ではない。Again が正しい。
+
+`sure`→Easy もやめた。Easy は「ほぼ努力せず即答できた」ときの評価で、「確信がある」とは違う。
+長く考えた末の確信まで Easy にすると間隔が伸びすぎる（同じ条件で 278日 vs Good の 163日）。
+
+いまは Hard と Easy を使っていない。使うには「どれだけ苦労して思い出したか」を4段階で
+選ばせる必要があり、`card_marks.confidence` のCHECK制約（sure/likely/guess）を広げる
+schema変更を伴う。利用者の判断待ちとして保留している。
 
 ## 「絶対覚えた」との関係
 
@@ -73,10 +85,15 @@ MIN_MAXIMUM_INTERVAL = 1
 # 版を固定し、違う版が入っていたら気づけるようにする（requirements-runtime.txt と対で管理）。
 SUPPORTED_FSRS = ("6.",)
 
-# 誤答→Again、正答は自信度で Hard / Good / Easy へ分ける。
-RATING_BY_CONFIDENCE = {"guess": 2, "likely": 3, "sure": 4}
+# 誤答は Again。正答でも「あてずっぽう」は思い出せていないので Again にする。
+# ○×は2択なので、当てずっぽうの正解を「思い出せた」側（Hard）へ入れてはいけない。
+RATING_BY_CONFIDENCE = {"guess": 1, "likely": 3, "sure": 3}
 RATING_CORRECT_DEFAULT = 3
 RATING_INCORRECT = 1
+
+# FSRSの期日を動かさないモード。高速○×は時間を測って同じ日に何度も回す練習なので、
+# ここで期日を動かすと、短時間の反復だけで間隔が伸びてしまう（2026-08-05のレビュー指摘）。
+MODES_OUTSIDE_SCHEDULE = ("rapid",)
 
 _RATING_LABELS = {1: "again", 2: "hard", 3: "good", 4: "easy"}
 
@@ -244,6 +261,9 @@ def review_states(
                 state="new", due=None, stability=None, difficulty=None,
                 reviews=0, lastReviewedAt=None, lastRating=None,
             )
+            continue
+        if row["mode"] in MODES_OUTSIDE_SCHEDULE:
+            # 高速○×の回答は履歴には残すが、次にいつ出すかは動かさない。
             continue
         # スケジュールの計算にはサーバー時刻を使う。端末の時計は信用しない。
         reviewed_at = _parse_moment(row["created_at_server"])
