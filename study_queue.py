@@ -13,6 +13,25 @@ FSRSの状態（stability・difficulty・次回期日）は、`card_attempts` �
 
 したがって `production.sqlite3` のschemaは変更しない。
 
+## 時刻はサーバー側のものを使う
+
+**FSRSへ渡す時刻は `created_at_server` にする。** `answered_at_client` は端末の時計なので、
+時計がずれた端末やオフライン保留のぶんが混ざると、DBの並び（`id` 順）と時刻の並びが逆転する。
+FSRSは前回からの経過時間で状態を更新するため、逆転すると負の経過が短期復習として扱われ、
+誤った stability・difficulty・due を**例外も出さずに**作ってしまう。
+
+`answered_at_client` は画面表示と所要時間の分析に使い、スケジュールの計算には使わない
+（2026-08-05のレビュー指摘で変更）。
+
+## 受験日より後へ期日を置かない
+
+`EXAM_AT`（受験日の試験終了時刻）を越える期日を作らない。切らないと、8月に確信ありで
+2回正解しただけで次が397日後になり、本番までに二度と出てこないカードができる。
+
+上限は**その回答の時点**から受験日までの残り日数で決める。`now`（画面を開いた時刻）では
+決めない。`now` で決めると、新しい回答が1件も無いのに日が進むだけで過去の期日が動いてしまい、
+昨日見た期日と今日見た期日が変わる。最後に `EXAM_AT` でも切って二重に保証する。
+
 ## ○×から4段階の評価への対応
 
 FSRSは Again / Hard / Good / Easy の4段階を受け取る。このラボのカードは○×なので、
@@ -44,11 +63,15 @@ MAX_QUEUE_LIMIT = 200
 DEFAULT_QUEUE_LIMIT = 20
 DEFAULT_NEW_LIMIT = 6
 
-# 令和8年度の受験日。ここより先へ期日を置いても意味がないので、間隔の上限にする。
-# 上限を切らないと、8月に確信ありで2回正解しただけで次が397日後になり、
-# 本番までに二度と出てこないカードができる（2026-08-05に確認して切った）。
-EXAM_DATE = "2026-11-08"
+# 令和8年度の受験日。試験は13時〜16時（法令等・基礎知識あわせて180分）なので、
+# 終了時刻を越える期日には意味がない。日付だけでUTCの0時にすると日本時間の9時になり、
+# 試験前日の夜に答えたぶんが試験時刻より後へ落ちることがあった（2026-08-05に修正）。
+EXAM_AT = datetime(2026, 11, 8, 16, 0, tzinfo=timezone(timedelta(hours=9)))
 MIN_MAXIMUM_INTERVAL = 1
+
+# 期日を保存せず毎回計算し直すので、ライブラリの版が変わると同じ履歴から別の期日が出る。
+# 版を固定し、違う版が入っていたら気づけるようにする（requirements-runtime.txt と対で管理）。
+SUPPORTED_FSRS = ("6.",)
 
 # 誤答→Again、正答は自信度で Hard / Good / Easy へ分ける。
 RATING_BY_CONFIDENCE = {"guess": 2, "likely": 3, "sure": 4}
@@ -58,20 +81,34 @@ RATING_INCORRECT = 1
 _RATING_LABELS = {1: "again", 2: "hard", 3: "good", 4: "easy"}
 
 
-def days_until_exam(now: datetime, exam_date: str = EXAM_DATE) -> int:
+class SchedulerVersionError(RuntimeError):
+    """入っている py-fsrs が想定外の版のときに投げる。"""
+
+
+def days_until_exam(now: datetime, exam_at: datetime = EXAM_AT) -> int:
     """受験日までの残り日数。間隔の上限にそのまま使う。
 
     残りが減るほど上限も縮むので、直前期はどのカードも短い間隔で戻ってくる。
     受験日を過ぎたあとも1日を下回らせない（0を渡すとFSRSが期日を作れない）。
     """
-    year, month, day = (int(part) for part in exam_date.split("-"))
-    exam = datetime(year, month, day, tzinfo=timezone.utc)
-    return max(MIN_MAXIMUM_INTERVAL, (exam - now).days)
+    return max(MIN_MAXIMUM_INTERVAL, (exam_at - now).days)
+
+
+def fsrs_version() -> str:
+    from importlib.metadata import version
+
+    return version("fsrs")
 
 
 def _fsrs_modules():
     from fsrs import Card, Rating, Scheduler
 
+    installed = fsrs_version()
+    if not installed.startswith(SUPPORTED_FSRS):
+        raise SchedulerVersionError(
+            f"py-fsrs {installed} は想定外です（対応: {', '.join(SUPPORTED_FSRS)}x）。"
+            " 期日は保存せず毎回計算するので、版が変わると同じ履歴から別の期日が出ます。"
+        )
     return Card, Rating, Scheduler
 
 
@@ -88,14 +125,23 @@ def _parse_moment(value: object) -> datetime | None:
     return moment.astimezone(timezone.utc)
 
 
-def _reset_points(marks: list[sqlite3.Row]) -> tuple[list[str], dict[str, list[str]]]:
-    """全リセットと個別リセットを、`card_progress_statistics` と同じ形で取り出す。"""
+def _reset_points(
+    marks: list[sqlite3.Row], study_deck_id: str | None
+) -> tuple[list[str], dict[str, list[str]]]:
+    """全リセットと個別リセットを、`card_progress_statistics` と同じ形で取り出す。
+
+    **デッキ単位のリセットは、同じデッキのものだけを見る。** いまは1デッキしか無いので
+    表には出ないが、`card_marks` は `study_deck_id` を持っているので、デッキが増えた
+    ときに他のデッキのリセットが効いてしまう（2026-08-05のレビュー指摘で修正）。
+    """
     deck_points: list[str] = []
     card_points: dict[str, list[str]] = {}
     for mark in marks:
         if mark["action"] != "reset":
             continue
         if mark["scope"] == "deck":
+            if study_deck_id is not None and mark["study_deck_id"] != study_deck_id:
+                continue
             deck_points.append(mark["created_at_server"])
         elif mark["card_id"]:
             card_points.setdefault(mark["card_id"], []).append(mark["created_at_server"])
@@ -133,7 +179,8 @@ def review_states(
     *,
     desired_retention: float = 0.9,
     now: datetime | None = None,
-    exam_date: str = EXAM_DATE,
+    exam_at: datetime = EXAM_AT,
+    study_deck_id: str | None = None,
 ) -> dict[str, dict]:
     """カードIDごとに、FSRSの状態と次回期日を計算して返す。
 
@@ -141,18 +188,25 @@ def review_states(
     """
     Card, Rating, Scheduler = _fsrs_modules()
     moment = now or datetime.now(timezone.utc)
+
     # enable_fuzzing を切って、同じ履歴なら必ず同じ期日になるようにする。
     # 期日を保存せず毎回計算し直すので、揺らぐと表示が回答のたびに変わってしまう。
-    # maximum_interval は受験日までの残り日数。本番を越える期日を作らせない。
-    scheduler = Scheduler(
-        desired_retention=desired_retention,
-        enable_fuzzing=False,
-        maximum_interval=days_until_exam(moment, exam_date),
-    )
+    # maximum_interval は「その回答の時点から受験日まで」の残り日数にする。
+    schedulers: dict[int, object] = {}
+
+    def scheduler_for(reviewed_at: datetime):
+        cap = days_until_exam(reviewed_at, exam_at)
+        if cap not in schedulers:
+            schedulers[cap] = Scheduler(
+                desired_retention=desired_retention,
+                enable_fuzzing=False,
+                maximum_interval=cap,
+            )
+        return schedulers[cap]
 
     wanted = set(card_ids)
     marks = connection.execute("SELECT * FROM card_marks ORDER BY id").fetchall()
-    deck_points, card_points = _reset_points(marks)
+    deck_points, card_points = _reset_points(marks, study_deck_id)
     confidence = _confidence_by_attempt(marks)
     certain = _certain_cards(marks)
 
@@ -172,7 +226,9 @@ def review_states(
     }
     fsrs_cards: dict[str, object] = {}
 
-    rows = connection.execute("SELECT * FROM card_attempts ORDER BY id").fetchall()
+    rows = connection.execute(
+        "SELECT * FROM card_attempts ORDER BY created_at_server, id"
+    ).fetchall()
     for row in rows:
         card_id = row["card_id"]
         if card_id not in wanted:
@@ -189,26 +245,30 @@ def review_states(
                 reviews=0, lastReviewedAt=None, lastRating=None,
             )
             continue
-        reviewed_at = _parse_moment(row["answered_at_client"]) or _parse_moment(
-            row["created_at_server"]
-        )
+        # スケジュールの計算にはサーバー時刻を使う。端末の時計は信用しない。
+        reviewed_at = _parse_moment(row["created_at_server"])
         if reviewed_at is None:
             continue
         rating_value = rating_for(
             bool(row["is_correct"]), confidence.get(row["event_id"])
         )
         card = fsrs_cards.get(card_id) or Card()
-        card, _log = scheduler.review_card(
+        card, _log = scheduler_for(reviewed_at).review_card(
             card, Rating(rating_value), review_datetime=reviewed_at
         )
         fsrs_cards[card_id] = card
         item = states[card_id]
         item["state"] = "review"
-        item["due"] = card.due.astimezone(timezone.utc).isoformat()
+        # 最後の砦。learning step のような日未満の間隔は maximum_interval を通らないので、
+        # 受験日そのもので必ず切る。
+        due = min(card.due.astimezone(timezone.utc), exam_at.astimezone(timezone.utc))
+        item["due"] = due.isoformat()
         item["stability"] = round(card.stability, 4) if card.stability else None
         item["difficulty"] = round(card.difficulty, 4) if card.difficulty else None
         item["reviews"] += 1
         item["lastReviewedAt"] = reviewed_at.isoformat()
+        # 画面と分析のために、端末が申告した回答時刻も残す（計算には使わない）。
+        item["answeredAtClient"] = row["answered_at_client"]
         item["lastRating"] = _RATING_LABELS[rating_value]
 
     for item in states.values():
@@ -228,7 +288,8 @@ def build_queue(
     new_limit: int = DEFAULT_NEW_LIMIT,
     desired_retention: float = 0.9,
     now: datetime | None = None,
-    exam_date: str = EXAM_DATE,
+    exam_at: datetime = EXAM_AT,
+    study_deck_id: str | None = None,
 ) -> dict:
     """今日出す順にカードを並べる。
 
@@ -238,12 +299,16 @@ def build_queue(
     **はじめてのカードには別枠の上限（`new_limit`）を置く。** 期日が来た復習は
     こなさないと溜まる一方だが、はじめてのカードは自分で増やすものなので、
     そこだけ絞れないと1日の分量を調整できない。復習が多い日は新規が自動的に減る。
+
+    `cards` には**画面の絞り込みを通したあとのカード**を渡す。科目や分野で絞っている
+    のに全カードからキューを作ると、その日の枠を他の科目に使ってしまい、選んだ科目に
+    期日ぎれがあるのに空に見える（2026-08-05のレビュー指摘）。
     """
     moment = now or datetime.now(timezone.utc)
     order = [card["id"] for card in cards]
     states = review_states(
         connection, order, desired_retention=desired_retention, now=moment,
-        exam_date=exam_date,
+        exam_at=exam_at, study_deck_id=study_deck_id,
     )
     position = {card_id: index for index, card_id in enumerate(order)}
 
@@ -279,8 +344,9 @@ def build_queue(
         "desiredRetention": desired_retention,
         "limit": limit,
         "newLimit": new_limit,
-        "examDate": exam_date,
-        "maximumIntervalDays": days_until_exam(moment, exam_date),
+        "examAt": exam_at.astimezone(timezone.utc).isoformat(),
+        "maximumIntervalDays": days_until_exam(moment, exam_at),
+        "schedulerVersion": fsrs_version(),
         "counts": {
             "eligible": len(order),
             "due": len(due_items),

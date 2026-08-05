@@ -33,7 +33,9 @@ Ankiの版が変わると壊れやすいからである。テキストなら中�
 from __future__ import annotations
 
 import argparse
+import html
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -53,10 +55,31 @@ HEADER = [
 ]
 
 
+# 改行と列区切りを壊す文字。行内へ入るとTSVの列がずれる。
+_CONTROL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+
+
+def _tsv_cell(text: str) -> str:
+    """TSVの1セルとして安全な形にする。**全6列をこれに通す。**
+
+    タブ・改行・制御文字が1つでも残ると、その行から先の列がまるごとずれる。
+    表と裏だけでなく、タグ・カードID・頻出度・出典も通す。
+    """
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    text = text.replace("\t", " ").replace("\n", " ")
+    return _CONTROL.sub("", text).strip()
+
+
 def _clean(value: object) -> str:
-    """装飾記法を外し、タブと改行をAnkiが読める形へ直す。"""
+    """装飾記法を外し、HTMLとして解釈されない形にする。
+
+    ヘッダで `#html:true` を宣言しているので、本文に `<` `>` `&` が入ると
+    タグとして解釈されてしまう。**教材の本文は必ずエスケープし**、
+    段落の区切りに使う `<br>` だけをこちらで足す。
+    """
     text = strip_markup(value if isinstance(value, str) else "")
-    return text.replace("\t", " ").replace("\r\n", "\n").strip()
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    return html.escape(text, quote=False).strip()
 
 
 def _paragraphs(*chunks: str) -> str:
@@ -146,12 +169,12 @@ def rows_for(cards: list[dict], evidence: dict[str, dict]) -> list[list[str]]:
     for card in cards:
         rows.append(
             [
-                front_of(card),
-                back_of(card),
-                _tags(card),
-                str(card.get("id") or ""),
-                str((card.get("frequency") or {}).get("label") or ""),
-                _sources(card, evidence),
+                _tsv_cell(front_of(card)),
+                _tsv_cell(back_of(card)),
+                _tsv_cell(_tags(card)),
+                _tsv_cell(str(card.get("id") or "")),
+                _tsv_cell(str((card.get("frequency") or {}).get("label") or "")),
+                _tsv_cell(_sources(card, evidence)),
             ]
         )
     return rows

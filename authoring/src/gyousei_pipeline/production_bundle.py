@@ -1159,6 +1159,10 @@ def _attach_source_question_links(
                     f"card sourceRef refers to missing related-source record: {raw_id}"
                 )
             context = f"relatedSource.records[{raw_id}]"
+            # 取得元の内部IDは照合に使うだけで、公開カードへ残さない。
+            # `goukakudojyo_archive:...` のようなarchive内部IDがブラウザへ出ていた
+            # （AGENTS.md 4節で禁止。2026-08-05のレビュー指摘で削除）。
+            ref.pop("rawId", None)
             ref["eraYear"] = _text(record.get("eraYear"), f"{context}.eraYear")
             ref["questionNumber"] = _integer(
                 record.get("questionNumber"), f"{context}.questionNumber"

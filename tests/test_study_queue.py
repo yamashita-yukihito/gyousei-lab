@@ -266,6 +266,127 @@ class StudyQueueTest(unittest.TestCase):
         self.assertEqual(after, self.study_queue.MIN_MAXIMUM_INTERVAL)
         self.assertGreaterEqual(after, 1)
 
+    def test_schedule_uses_server_time_not_client_time(self) -> None:
+        """端末の時計がずれても、期日の計算が壊れない。
+
+        `answered_at_client` は端末が申告した時刻なので、時計のずれや
+        オフライン保留で保存順と逆転しうる。FSRSは前回からの経過で状態を作るため、
+        逆転すると誤った期日を例外も出さずに作ってしまう。
+        """
+        # 1件目: 端末が「1年後」を申告している（時計が進んだ端末）
+        self.connection.execute(
+            """
+            INSERT INTO card_attempts (
+                event_id, session_id, study_deck_id, card_id, answer_revision,
+                selected_answer, correct_answer, is_correct, mode,
+                answered_at_client, payload_digest, created_at_server
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
+            """,
+            (
+                "e1", "s1", "d1", "card-skew", "rev", 1, 1, 1, "auto",
+                (BASE + timedelta(days=365)).isoformat(), "digest", BASE.isoformat(),
+            ),
+        )
+        # 2件目: 時計を直したあと。保存順は後ろだが、端末時刻は前になる。
+        self.connection.execute(
+            """
+            INSERT INTO card_attempts (
+                event_id, session_id, study_deck_id, card_id, answer_revision,
+                selected_answer, correct_answer, is_correct, mode,
+                answered_at_client, payload_digest, created_at_server
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
+            """,
+            (
+                "e2", "s1", "d1", "card-skew", "rev", 1, 1, 1, "auto",
+                BASE.isoformat(), "digest",
+                (BASE + timedelta(hours=1)).isoformat(),
+            ),
+        )
+        self.connection.commit()
+        state = self.states(["card-skew"])["card-skew"]
+        self.assertEqual(state["reviews"], 2)
+        # サーバー時刻で並べているので、最後の回答は2件目（BASE+1時間）になる。
+        self.assertEqual(
+            state["lastReviewedAt"], (BASE + timedelta(hours=1)).isoformat()
+        )
+        # 端末の申告値は残すが、計算には使わない。
+        self.assertEqual(state["answeredAtClient"], BASE.isoformat())
+        # 期日が1年後の申告に引きずられていない。
+        self.assertLess(state["due"], (BASE + timedelta(days=200)).isoformat())
+
+    def test_deck_reset_does_not_cross_decks(self) -> None:
+        """デッキ単位のリセットは、同じデッキのものだけを見る。"""
+        self.attempt("card-a", True, BASE)
+        self.connection.execute(
+            """
+            INSERT INTO card_marks (
+                event_id, session_id, study_deck_id, card_id, attempt_event_id,
+                action, scope, confidence, marked_at_client, payload_digest,
+                created_at_server
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?)
+            """,
+            (
+                "m-other", "s1", "other-deck", None, None, "reset", "deck", None,
+                (BASE + timedelta(minutes=5)).isoformat(), "digest",
+                (BASE + timedelta(minutes=5)).isoformat(),
+            ),
+        )
+        self.connection.commit()
+        # 別デッキのリセットなので、d1 のカードは new へ戻らない。
+        states = self.study_queue.review_states(
+            self.connection, ["card-a"], now=BASE + timedelta(days=3),
+            study_deck_id="d1",
+        )
+        self.assertEqual(states["card-a"]["state"], "review")
+        # 同じデッキを指定すれば効く。
+        states = self.study_queue.review_states(
+            self.connection, ["card-a"], now=BASE + timedelta(days=3),
+            study_deck_id="other-deck",
+        )
+        self.assertEqual(states["card-a"]["state"], "new")
+
+    def test_due_never_passes_the_exam_moment_even_just_before(self) -> None:
+        """試験直前に答えたぶんが、試験の後ろへ落ちない。
+
+        maximum_interval は日単位なので、残り1日のときに夜遅く答えると
+        24時間後＝試験の後ろになりうる。最後に EXAM_AT で切っている。
+        """
+        exam = self.study_queue.EXAM_AT
+        just_before = exam - timedelta(hours=6)
+        for rating_correct, confidence in (
+            (False, None), (True, "guess"), (True, "likely"), (True, "sure"),
+        ):
+            card_id = f"card-{rating_correct}-{confidence}"
+            event_id = self.attempt(card_id, rating_correct, just_before)
+            if confidence:
+                self.mark(card_id, "confidence", just_before,
+                          confidence=confidence, attempt_event_id=event_id)
+            state = self.study_queue.review_states(
+                self.connection, [card_id], now=just_before
+            )[card_id]
+            self.assertLessEqual(
+                state["due"], exam.astimezone(timezone.utc).isoformat(),
+                f"{card_id} の期日が試験時刻より後: {state['due']}",
+            )
+
+    def test_schedule_does_not_drift_as_days_pass(self) -> None:
+        """新しい回答が無いのに、日が進むだけで過去の期日が動かない。
+
+        上限を「画面を開いた時刻」から数えると、replay全体が組み直されて
+        昨日見た期日と今日見た期日が変わってしまう。回答時点から数えている。
+        """
+        self.attempt("card-stable", True, BASE)
+        first = self.states(["card-stable"], days=1)["card-stable"]["due"]
+        later = self.states(["card-stable"], days=40)["card-stable"]["due"]
+        self.assertEqual(first, later)
+
+    def test_scheduler_version_is_pinned(self) -> None:
+        version = self.study_queue.fsrs_version()
+        self.assertTrue(
+            version.startswith(self.study_queue.SUPPORTED_FSRS),
+            f"想定外の py-fsrs {version}。requirements-runtime.txt と揃えてください",
+        )
+
     def test_limit_bounds_the_queue(self) -> None:
         for index in range(5):
             self.attempt(f"card-{index}", False, BASE)

@@ -2069,9 +2069,13 @@ def study_queue_response(query: dict[str, list[str]]) -> dict:
     import study_queue
 
     snapshot = CATALOG.load()
-    study_deck_id = _single_query(query, "studyDeckId") or _single_query(
-        query, "deckId"
-    )
+    study_deck_id = _single_query(query, "studyDeckId")
+    deck_id = _single_query(query, "deckId")
+    if study_deck_id is not None and deck_id is not None and study_deck_id != deck_id:
+        # /api/card-progress と同じく、食い違う指定は黙って片方を採らない。
+        raise ApiError(HTTPStatus.BAD_REQUEST, "conflicting study deck identifiers")
+    if study_deck_id is None:
+        study_deck_id = deck_id
     deck = resolve_study_deck(snapshot, study_deck_id, require_if_ambiguous=True)
     cards = cards_for_study_deck(snapshot, deck)
 
@@ -2084,25 +2088,48 @@ def study_queue_response(query: dict[str, list[str]]) -> dict:
                 HTTPStatus.BAD_REQUEST,
                 "learningType must be memorize or understand",
             )
-        cards = [
-            card
+        # 既定へ倒さない。分類の無いカードは古いbundleの可能性があるので、
+        # 黙って「暗記もの」へ混ぜず、そこで止める（2026-08-05のレビュー指摘）。
+        unclassified = [
+            card["id"]
             for card in cards
-            if (card.get("learningType") or "memorize") == learning_type
+            if card.get("learningType") not in card_edit_module().LEARNING_TYPES
         ]
+        if unclassified:
+            raise ApiError(
+                HTTPStatus.CONFLICT,
+                "learningType のないカードがあります（bundleを作り直してください）: "
+                + ", ".join(sorted(unclassified)[:5]),
+            )
+        cards = [card for card in cards if card["learningType"] == learning_type]
 
     def _count(name: str, fallback: int, *, low: int) -> int:
         text = _single_query(query, name)
         if text is None:
             return fallback
-        if not text.isdigit():
-            raise ApiError(HTTPStatus.BAD_REQUEST, f"{name} must be an integer")
-        value = int(text)
+        # str.isdigit() は "²" のようなUnicode数字でもTrueになるが int() は落ちる。
+        # 判定を挟まず、変換そのものを例外で受ける（2026-08-05のレビュー指摘）。
+        try:
+            value = int(text)
+        except (TypeError, ValueError) as error:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST, f"{name} must be an integer"
+            ) from error
         if not low <= value <= study_queue.MAX_QUEUE_LIMIT:
             raise ApiError(
                 HTTPStatus.BAD_REQUEST,
                 f"{name} must be between {low} and {study_queue.MAX_QUEUE_LIMIT}",
             )
         return value
+
+    # 画面が科目・分野で絞っているなら、キューも同じ範囲で組む。全カードから
+    # 組むと、その日の枠を他の科目に使ってしまい、選んだ科目が空に見える。
+    subject_id = _single_query(query, "subjectId")
+    if subject_id is not None:
+        cards = [card for card in cards if card.get("subjectId") == subject_id]
+    topic = _single_query(query, "topic")
+    if topic is not None:
+        cards = [card for card in cards if card.get("topic") == topic]
 
     limit = _count("limit", study_queue.DEFAULT_QUEUE_LIMIT, low=1)
     # はじめてのカードだけ別枠で絞れるようにする。0にすれば復習だけになる。
@@ -2130,6 +2157,7 @@ def study_queue_response(query: dict[str, list[str]]) -> dict:
             limit=limit,
             new_limit=new_limit,
             desired_retention=retention,
+            study_deck_id=(deck or {}).get("id"),
         )
     # 画面がそのまま出題できるよう、公開projectionを通したカード本体も返す。
     by_id = {card["id"]: card for card in cards}

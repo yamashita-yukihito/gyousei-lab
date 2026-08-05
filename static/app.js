@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260805-3";
+  const APP_VERSION = "20260805-4";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -466,6 +466,11 @@
       updateStudyViewControls();
       refreshStudyPool();
     });
+    ["study-subject", "study-topic"].forEach((id) => {
+      $(id).addEventListener("change", () => {
+        if ($("study-scope").value === "today") loadTodayQueue();
+      });
+    });
     $("study-kind").addEventListener("change", () => {
       try { localStorage.setItem(STUDY_KIND_KEY, $("study-kind").value); } catch (_) {}
       if ($("study-scope").value === "today") {
@@ -785,7 +790,8 @@
       (topic === "all" || item.topic === topic) &&
       // 覚えるしかないもの（数字・宛先・列挙・分類・判例の結論）と、
       // 考えれば導けるものを分ける。8月は暗記ものだけを回す使い方をする。
-      (kind === "all" || (item.learningType || "memorize") === kind) &&
+      // 既定へ倒さない。分類の無いカードは古いbundleなので、暗記ものへ混ぜない。
+      (kind === "all" || item.learningType === kind) &&
       matchesStudySearch(item, words)
     );
   }
@@ -1754,11 +1760,16 @@
     $("study-scope-summary").textContent = "今日の学習を組み立てています…";
     const pace = TODAY_PACE[todayPace()];
     try {
+      // 画面の絞り込みをそのままキューへ渡す。渡さないと、サーバーは全カードから
+      // その日の枠を配ってしまい、選んだ科目に期日ぎれがあるのに空に見える。
       const kind = $("study-kind").value;
-      const data = await fetchJson(
-        "api/study-queue?limit=" + pace.limit + "&newLimit=" + pace.newLimit
-        + (kind === "all" ? "" : "&learningType=" + encodeURIComponent(kind))
-      );
+      const subject = $("study-subject").value;
+      const topic = $("study-topic").value;
+      const params = ["limit=" + pace.limit, "newLimit=" + pace.newLimit];
+      if (kind !== "all") params.push("learningType=" + encodeURIComponent(kind));
+      if (subject !== "all") params.push("subjectId=" + encodeURIComponent(subject));
+      if (topic !== "all") params.push("topic=" + encodeURIComponent(topic));
+      const data = await fetchJson("api/study-queue?" + params.join("&"));
       state.todayQueue = Array.isArray(data.cardIds) ? data.cardIds : [];
       state.todayQueueCounts = data.counts || null;
       state.todayQueueNextDueAt = data.nextDueAt || null;

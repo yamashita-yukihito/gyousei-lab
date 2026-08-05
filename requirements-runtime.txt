@@ -1,0 +1,10 @@
+# server.py が動くのに要る外部パッケージ。標準ライブラリだけで動く設計だが、
+# 「今日の学習」キューだけは py-fsrs を使う。
+#
+# **版を固定する。** 期日を保存せず毎回計算し直すので、版が変わると同じ履歴から
+# 別の期日が出る。study_queue.SUPPORTED_FSRS と対で管理し、上げるときは
+# 代表的な履歴で期日が変わらないことを確かめてから上げる。
+#
+# 入れ方（Homebrew の Python はPEP 668で外部管理なので --user へ入れる）:
+#   python3.12 -m pip install --user --break-system-packages -r requirements-runtime.txt
+fsrs==6.3.1

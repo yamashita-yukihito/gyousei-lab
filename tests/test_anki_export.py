@@ -99,6 +99,42 @@ class AnkiExportTest(unittest.TestCase):
         self.assertEqual(self.row[4], "頻出")
         self.assertEqual(self.row[5], "令和7年問11肢3")
 
+    def test_html_special_characters_are_escaped(self) -> None:
+        """#html:true を宣言しているので、本文の < > & はタグとして解釈される。"""
+        card = sample_card()
+        card["variants"]["a"] = "条文は<b>太字</b>、A & B、5<10 とする。"
+        card["correction"] = "正しくは <script>alert(1)</script> です。"
+        row = anki_export.rows_for([card], EVIDENCE)[0]
+        self.assertIn("&lt;b&gt;", row[0])
+        self.assertNotIn("<b>", row[0])
+        self.assertIn("&amp;", row[0])
+        self.assertIn("5&lt;10", row[0])
+        self.assertIn("&lt;script&gt;", row[1])
+        self.assertNotIn("<script>", row[1])
+        # 段落の区切りに使う <br> だけは、こちらが足したものとして残る。
+        self.assertIn("<br>", row[0])
+
+    def test_every_column_is_sanitized_not_only_the_body(self) -> None:
+        """タグ・カードID・頻出度・出典にタブや改行が入っても列がずれない。"""
+        card = sample_card()
+        card["topic"] = "行政\t法"
+        card["frequency"] = {"label": "頻出\n出題"}
+        card["id"] = "t\r1"
+        row = anki_export.rows_for([card], EVIDENCE)[0]
+        self.assertEqual(len(row), 6)
+        for column in row:
+            self.assertNotIn("\t", column)
+            self.assertNotIn("\n", column)
+            self.assertNotIn("\r", column)
+        self.assertEqual(row[4], "頻出 出題")
+
+    def test_control_characters_are_removed(self) -> None:
+        card = sample_card()
+        card["variants"]["c"] = "制御\x00文字\x1f入り"
+        row = anki_export.rows_for([card], EVIDENCE)[0]
+        self.assertNotIn("\x00", row[0])
+        self.assertNotIn("\x1f", row[0])
+
     def test_render_starts_with_the_anki_header(self) -> None:
         text = anki_export.render([self.card], EVIDENCE)
         lines = text.splitlines()
