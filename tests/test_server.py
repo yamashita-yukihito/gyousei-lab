@@ -1852,6 +1852,74 @@ class PublicProjectionRawIdTest(unittest.TestCase):
         self.assertIn("keep-me", json.dumps(projected, ensure_ascii=False))
 
 
+class StudySearchParityTest(unittest.TestCase):
+    """キューの検索が、画面の検索と同じ範囲・同じ正規化になっていることを見る。
+
+    ずれると、画面には出ているのに「今日の学習」が空になる。実際、サーバー側が
+    素の部分一致だったため、小文字の `fp` と全角の `ＦＰ` が0枚になっていた。
+    """
+
+    def test_normalization_matches_the_client(self) -> None:
+        # 画面側: String(v).normalize("NFKC").toLowerCase().replace(/\s+/g, "")
+        self.assertEqual(server._normalize_search("FP"), "fp")
+        self.assertEqual(server._normalize_search("ＦＰ"), "fp")
+        self.assertEqual(server._normalize_search("Ｆ Ｐ"), "fp")
+        self.assertEqual(server._normalize_search("　審査 請求　"), "審査請求")
+        self.assertEqual(server._normalize_search(None), "")
+
+    def test_haystack_covers_the_same_fields_as_the_client(self) -> None:
+        card = {
+            "id": "gyo-x-001",
+            "category": "行政法",
+            "topic": "行政手続法",
+            "subtopic": "聴聞",
+            "variants": {"a": "%%行政庁%%はAAA", "b": "BBB", "bCasual": "CCC", "c": "DDD"},
+            "correction": "EEE",
+            "memoryPoint": "FFF",
+            "explanations": {
+                "normal": "GGG",
+                "deepDive": {"background": "HHH", "trap": "III", "example": "JJJ"},
+                "commonSense": "KKK",
+            },
+            "frequency": {"label": "頻出"},
+            "crossFieldComparisons": [
+                {"title": "LLL", "explanation": "MMM", "memoryCue": "NNN"}
+            ],
+            "comparisonTable": {
+                "title": "OOO", "memoryCue": "PPP",
+                "rows": [{"label": "QQQ", "article": "RRR", "rule": "SSS", "conclusion": "TTT"}],
+            },
+            "relatedPastQuestions": [{"choiceId": "src:1"}],
+        }
+        evidence = {"src:1": {"choiceId": "src:1", "statementText": "UUU", "eraYear": "令和7年"}}
+        haystack = server._search_haystack(card, evidence)
+        for token in "AAA BBB CCC DDD EEE FFF GGG HHH III JJJ KKK LLL MMM NNN OOO PPP QQQ RRR SSS TTT UUU".split():
+            self.assertIn(token.lower(), haystack, f"{token} が検索対象から漏れている")
+        self.assertIn("gyo-x-001", haystack)
+        self.assertIn("行政手続法", haystack)
+        self.assertIn("頻出", haystack)
+        self.assertIn("令和7年", haystack)
+        # 装飾記法は外してから照合する（画面も stripMarkup してから正規化している）
+        self.assertNotIn("%%", haystack)
+        self.assertIn("行政庁", haystack)
+
+    def test_client_and_server_search_field_lists_stay_in_sync(self) -> None:
+        """画面の studySearchHaystack が見ている項目を、サーバーも見ているか。"""
+        app_js = (SERVICE_ROOT / "static" / "app.js").read_text(encoding="utf-8")
+        start = app_js.index("function studySearchHaystack")
+        client = app_js[start : app_js.index("function matchesStudySearch")]
+        server_source = (SERVICE_ROOT / "server.py").read_text(encoding="utf-8")
+        start = server_source.index("def _search_haystack")
+        server_side = server_source[start : start + 2400]
+        for field in (
+            "bCasual", "correction", "memoryPoint", "commonSense",
+            "crossFieldComparisons", "comparisonTable", "relatedPastQuestions",
+            "statementText", "eraYear",
+        ):
+            self.assertIn(field, client, f"画面側に {field} が無い（テストの前提が古い）")
+            self.assertIn(field, server_side, f"サーバー側に {field} が無い")
+
+
 class SharedRuleDriftTest(unittest.TestCase):
     """同じルールを別々に書いている箇所が、ずれていないことを確かめる。
 

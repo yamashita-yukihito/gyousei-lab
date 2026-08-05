@@ -9,6 +9,7 @@ import json
 import math
 import os
 import re
+import unicodedata
 import sqlite3
 import threading
 from dataclasses import dataclass
@@ -2059,6 +2060,53 @@ def _read_weakness_snapshot() -> tuple[dict | None, str | None]:
         return None, "invalid"
 
 
+def _normalize_search(value: object) -> str:
+    """検索語の正規化。**画面の `normalizeText()` と同じにする。**
+
+    画面は NFKC 正規化 → 小文字化 → 空白除去 で照合している。サーバーが素の
+    部分一致で絞ると、小文字の `fp` や全角の `ＦＰ` が画面では当たるのに
+    キューでは0枚になる（2026-08-05の再レビュー指摘）。
+    `tests/test_server.py` の SharedRuleDriftTest が、画面側とずれていないか見ている。
+    """
+    text = unicodedata.normalize("NFKC", str(value or "")).lower()
+    return re.sub(r"\s+", "", text)
+
+
+def _search_haystack(card: dict, evidence: dict[str, dict]) -> str:
+    """検索の対象にする文字列。**画面の `studySearchHaystack()` と同じ範囲にする。**
+
+    カードID・分類・A/B/C・解説・⑥・⑦に加えて、⑤の肢の本文と年度まで含める。
+    ここを狭めると、⑤の言い回しで探したときに画面とキューの結果が食い違う。
+    """
+    card_edit, _ = _card_edit_modules()
+    variants = card.get("variants") or {}
+    explanations = card.get("explanations") or {}
+    deep = explanations.get("deepDive") or {}
+    parts: list[object] = [
+        card.get("id"), card.get("category"), card.get("topic"), card.get("subtopic"),
+        variants.get("a"), variants.get("b"), variants.get("bCasual"), variants.get("c"),
+        card.get("correction"), card.get("memoryPoint"),
+        explanations.get("normal"), deep.get("background"), deep.get("trap"),
+        deep.get("example"), explanations.get("commonSense"),
+        (card.get("frequency") or {}).get("label"),
+    ]
+    for comparison in card.get("crossFieldComparisons") or []:
+        parts += [comparison.get("title"), comparison.get("explanation"),
+                  comparison.get("memoryCue")]
+    table = card.get("comparisonTable")
+    if isinstance(table, dict):
+        parts += [table.get("title"), table.get("memoryCue")]
+        for row in table.get("rows") or []:
+            parts += [row.get("label"), row.get("article"), row.get("rule"),
+                      row.get("conclusion")]
+    for ref in card.get("relatedPastQuestions") or []:
+        item = evidence.get(ref.get("choiceId", ""))
+        if item:
+            parts += [item.get("statementText"), item.get("eraYear")]
+    joined = " ".join(str(p) for p in parts if p)
+    return _normalize_search(card_edit.strip_markup(joined))
+
+
 def card_edit_module():
     module, _ = _card_edit_modules()
     return module
@@ -2138,12 +2186,18 @@ def study_queue_response(query: dict[str, list[str]]) -> dict:
     # カードでその日の枠を使ってしまう（2026-08-05の再レビュー指摘）。
     search = _single_query(query, "search")
     if search:
-        words = [w for w in search.split() if w]
+        words = [_normalize_search(word) for word in search.split()]
+        words = [word for word in words if word]
         if words:
+            evidence = {
+                item["choiceId"]: item
+                for item in _list_section(snapshot.bundle, "relatedQuestionEvidence")
+                if isinstance(item, dict) and isinstance(item.get("choiceId"), str)
+            }
             cards = [
                 card
                 for card in cards
-                if all(w in json.dumps(card, ensure_ascii=False) for w in words)
+                if all(word in _search_haystack(card, evidence) for word in words)
             ]
 
     limit = _count("limit", study_queue.DEFAULT_QUEUE_LIMIT, low=1)

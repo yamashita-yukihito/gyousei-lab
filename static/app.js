@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260805-5";
+  const APP_VERSION = "20260805-6";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -1046,6 +1046,9 @@
     state.studyStartedAt = performance.now();
     $("study-answer-panel").hidden = true;
     $("study-reveal").disabled = false;
+    // 高速○×では出さない。次へ進む位置を回答数で数えているので、
+    // 記録しない「答えを見る」を混ぜると同じカードから動かなくなる。
+    $("study-reveal-row").hidden = isRapidStudyView();
     $("study-cross-field").hidden = true;
     $("study-save-status").textContent = "";
     $("study-save-status").className = "save-status";
@@ -1235,7 +1238,9 @@
   // **回答として記録しない。** card_attempts へ入れると正答率と間隔反復の期日が動き、
   // 「読んだだけ」が「正解した」ことになってしまう。
   function revealStudyCard() {
-    if (state.studyAnswered || !state.studyCurrent) return;
+    // 高速○×は時間を測って解く画面で、セットの正答率をまとめて出す。
+    // 覗く操作はその意味を壊すうえ、次へ進む位置を回答数で数えているので出さない。
+    if (isRapidStudyView() || state.studyAnswered || !state.studyCurrent) return;
     const item = state.studyCurrent;
     state.studyAnswered = true;
     state.studyRevealedOnly = true;
