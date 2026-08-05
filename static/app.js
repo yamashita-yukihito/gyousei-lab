@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260805-9";
+  const APP_VERSION = "20260805-10";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -18,6 +18,8 @@
     todayQueueNextDueAt: null,
     todayQueueError: null,
     todayQueueLoading: false,
+    // 「今日の学習」の取得の通し番号。いちばん新しい応答だけを採るために使う。
+    todayQueueToken: 0,
     // 「答えを見る」で開いた回。回答として記録しない。
     studyRevealedOnly: false,
     // 直前の回答が正解だったか。誤答のときは4評価を出さない（自動でAgain）。
@@ -1910,7 +1912,11 @@
   }
 
   async function loadTodayQueue() {
-    if (state.todayQueueLoading) return;
+    // 取得中の要求があっても、あとから来た要求を捨てない。捨てると、先に投げた
+    // 「すべて」の応答が返ってきたときに、あとで選んだ科目のキューが古いIDで
+    // 上書きされ、その科目に期日ぎれがあるのに空に見える。
+    // 代わりに通し番号を持ち、**いちばん新しい要求の応答だけを採る**。
+    const token = ++state.todayQueueToken;
     state.todayQueueLoading = true;
     $("study-scope-summary").textContent = "今日の学習を組み立てています…";
     const pace = TODAY_PACE[todayPace()];
@@ -1927,17 +1933,21 @@
       const search = String($("study-search").value || "").trim();
       if (search) params.push("search=" + encodeURIComponent(search));
       const data = await fetchJson("api/study-queue?" + params.join("&"));
+      if (token !== state.todayQueueToken) return;   // もっと新しい要求が出ている
       state.todayQueue = Array.isArray(data.cardIds) ? data.cardIds : [];
       state.todayQueueCounts = data.counts || null;
       state.todayQueueNextDueAt = data.nextDueAt || null;
       state.todayQueueError = null;
     } catch (error) {
+      if (token !== state.todayQueueToken) return;
       state.todayQueue = [];
       state.todayQueueCounts = null;
       state.todayQueueError = error && error.message ? error.message : "取得できませんでした";
     } finally {
-      state.todayQueueLoading = false;
-      refreshStudyPool();
+      if (token === state.todayQueueToken) {
+        state.todayQueueLoading = false;
+        refreshStudyPool();
+      }
     }
   }
 

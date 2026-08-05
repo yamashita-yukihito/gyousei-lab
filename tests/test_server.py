@@ -1852,6 +1852,35 @@ class PublicProjectionRawIdTest(unittest.TestCase):
         self.assertIn("keep-me", json.dumps(projected, ensure_ascii=False))
 
 
+class TodayQueueRequestOrderTest(unittest.TestCase):
+    """「今日の学習」の取得が、あとから来た要求を捨てないことを見る。
+
+    取得中の要求を単なる排他で弾くと、先に投げた「すべて」の応答が返ってきたときに、
+    あとで選んだ科目のキューが古いIDで上書きされる。通し番号を持ち、
+    いちばん新しい要求の応答だけを採る形にしてある。
+    """
+
+    def setUp(self) -> None:
+        self.app_js = (SERVICE_ROOT / "static" / "app.js").read_text(encoding="utf-8")
+        start = self.app_js.index("async function loadTodayQueue")
+        self.source = self.app_js[start : start + 2200]
+
+    def test_does_not_drop_later_requests(self) -> None:
+        self.assertNotIn(
+            "if (state.todayQueueLoading) return;", self.source,
+            "取得中というだけであとの要求を捨てている（古い応答で上書きされる）",
+        )
+
+    def test_uses_a_request_token(self) -> None:
+        self.assertIn("++state.todayQueueToken", self.source)
+        # 応答を採る前に、いちばん新しい要求かどうかを見ている。
+        self.assertGreaterEqual(
+            self.source.count("token !== state.todayQueueToken"), 2,
+            "成功と失敗の両方で、古い応答を捨てる確認が要る",
+        )
+        self.assertIn("token === state.todayQueueToken", self.source)
+
+
 class StudySearchParityTest(unittest.TestCase):
     """キューの検索が、画面の検索と同じ範囲・同じ正規化になっていることを見る。
 
