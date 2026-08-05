@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260805-4";
+  const APP_VERSION = "20260805-5";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -18,6 +18,8 @@
     todayQueueNextDueAt: null,
     todayQueueError: null,
     todayQueueLoading: false,
+    // 「答えを見る」で開いた回。回答として記録しない。
+    studyRevealedOnly: false,
     overview: {},
     dataInventory: {},
     questions: [],
@@ -466,11 +468,12 @@
       updateStudyViewControls();
       refreshStudyPool();
     });
-    ["study-subject", "study-topic"].forEach((id) => {
+    ["study-subject", "study-topic", "study-search"].forEach((id) => {
       $(id).addEventListener("change", () => {
         if ($("study-scope").value === "today") loadTodayQueue();
       });
     });
+    $("study-reveal").addEventListener("click", revealStudyCard);
     $("study-kind").addEventListener("change", () => {
       try { localStorage.setItem(STUDY_KIND_KEY, $("study-kind").value); } catch (_) {}
       if ($("study-scope").value === "today") {
@@ -1038,9 +1041,11 @@
 
     const variants = item.variants || {};
     state.studyAnswered = false;
+    state.studyRevealedOnly = false;
     state.studyShownAt = new Date().toISOString();
     state.studyStartedAt = performance.now();
     $("study-answer-panel").hidden = true;
+    $("study-reveal").disabled = false;
     $("study-cross-field").hidden = true;
     $("study-save-status").textContent = "";
     $("study-save-status").className = "save-status";
@@ -1226,6 +1231,26 @@
       : "解答時間はまだ記録されていません";
   }
 
+  // カードの中身を確かめたいだけのときに、回答せず解説だけを開く。
+  // **回答として記録しない。** card_attempts へ入れると正答率と間隔反復の期日が動き、
+  // 「読んだだけ」が「正解した」ことになってしまう。
+  function revealStudyCard() {
+    if (state.studyAnswered || !state.studyCurrent) return;
+    const item = state.studyCurrent;
+    state.studyAnswered = true;
+    state.studyRevealedOnly = true;
+    state.studyLastSelected = null;
+    state.studyLastAttemptId = null;
+    stopStudyTimer();
+    document.querySelectorAll("[data-study-answer]").forEach((choice) => {
+      choice.disabled = true;
+      if ((choice.dataset.studyAnswer === "true") === Boolean(item.correct)) {
+        choice.classList.add("correct-answer");
+      }
+    });
+    renderStudyAnswer(item, null, null);
+  }
+
   function answerStudyCard(button) {
     if (state.studyAnswered || !state.studyCurrent) return;
     const item = state.studyCurrent;
@@ -1282,8 +1307,13 @@
   }
 
   function renderStudyAnswer(item, selected, isCorrect) {
-    $("study-feedback").textContent = isCorrect ? "正解です！" : "今回は不正解です";
-    $("study-selected-answer").textContent = studyTruthLabel(selected);
+    // selected が null のときは「答えを見る」で開いた場合。回答していないので、
+    // 正解・不正解の判定文も、選んだ答えも出さない。正答率にも入らない。
+    const revealedOnly = selected === null;
+    $("study-feedback").textContent = revealedOnly
+      ? "答えを見ました（この回は記録していません）"
+      : isCorrect ? "正解です！" : "今回は不正解です";
+    $("study-selected-answer").textContent = revealedOnly ? "—（回答なし）" : studyTruthLabel(selected);
     $("study-correct-answer").textContent = studyTruthLabel(Boolean(item.correct));
     setRichText($("study-correction-text"), item.correction || "");
     renderStudyFigures(item);
@@ -1295,7 +1325,8 @@
     setRichText($("study-deep-trap"), deep.trap || "");
     setRichText($("study-deep-example"), deep.example || "");
     setRichText($("study-common-sense"), explanations.commonSense || "");
-    $("study-answer-summary").classList.toggle("incorrect-result", !isCorrect);
+    $("study-answer-summary").classList.toggle("incorrect-result", !revealedOnly && !isCorrect);
+    $("study-answer-summary").classList.toggle("revealed-only", revealedOnly);
     renderStudyAccuracy();
     renderStudyBasis(item);
     renderStudyRelated(item);
@@ -1769,6 +1800,8 @@
       if (kind !== "all") params.push("learningType=" + encodeURIComponent(kind));
       if (subject !== "all") params.push("subjectId=" + encodeURIComponent(subject));
       if (topic !== "all") params.push("topic=" + encodeURIComponent(topic));
+      const search = String($("study-search").value || "").trim();
+      if (search) params.push("search=" + encodeURIComponent(search));
       const data = await fetchJson("api/study-queue?" + params.join("&"));
       state.todayQueue = Array.isArray(data.cardIds) ? data.cardIds : [];
       state.todayQueueCounts = data.counts || null;

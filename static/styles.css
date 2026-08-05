@@ -1051,3 +1051,10 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
   .card-dialog-note { margin-inline: 14px; }
   .card-dialog-problems { margin-inline: 14px; }
 }
+
+/* 「答えを見る」。回答せずに解説だけ開くための入口。 */
+.study-reveal-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 10px 0 0; }
+.study-reveal-row small { color: #63706b; font-size: 12px; }
+.study-answer-summary.revealed-only { border-color: #c9d7e2; background: #f6fafd; }
+.study-answer-summary.revealed-only .study-feedback { color: #37627f; }
+@media (max-width: 640px) { .study-reveal-row { flex-direction: column; align-items: stretch; } }

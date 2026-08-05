@@ -269,6 +269,10 @@ def _unsafe_public_key(key: str, ancestors: tuple[str, ...]) -> bool:
         return False
     if key.startswith("_") or normalized.startswith("internal"):
         return True
+    # 取得元の内部ID。bundle生成でも落としているが、作り直す前の古いbundleが
+    # 載っていると projection を素通りしてしまう（2026-08-05の再レビュー指摘）。
+    if normalized == "rawid" and "sourcerefs" in normalized_ancestors:
+        return True
     if normalized in {
         "snapshotid",
         "bodysha256",
@@ -2081,25 +2085,25 @@ def study_queue_response(query: dict[str, list[str]]) -> dict:
 
     # 暗記もの／理解もので絞る。8月は暗記ものだけを回す使い方をするので、
     # キューの側でも同じ範囲に揃えないと期日ぎれの枚数が合わなくなる。
+    # 分類の無いカードは古いbundleの可能性があるので、黙って「暗記もの」へ混ぜず止める。
+    # **絞り込みの指定と無関係に確かめる。** 「すべて」を選んだときや learningType を
+    # 省いたときにも未分類が混ざるため（2026-08-05の再レビュー指摘）。
+    known_types = card_edit_module().LEARNING_TYPES
+    unclassified = [
+        card["id"] for card in cards if card.get("learningType") not in known_types
+    ]
+    if unclassified:
+        raise ApiError(
+            HTTPStatus.CONFLICT,
+            "learningType のないカードがあります（bundleを作り直してください）: "
+            + ", ".join(sorted(unclassified)[:5]),
+        )
     learning_type = _single_query(query, "learningType")
     if learning_type is not None:
-        if learning_type not in card_edit_module().LEARNING_TYPES:
+        if learning_type not in known_types:
             raise ApiError(
                 HTTPStatus.BAD_REQUEST,
                 "learningType must be memorize or understand",
-            )
-        # 既定へ倒さない。分類の無いカードは古いbundleの可能性があるので、
-        # 黙って「暗記もの」へ混ぜず、そこで止める（2026-08-05のレビュー指摘）。
-        unclassified = [
-            card["id"]
-            for card in cards
-            if card.get("learningType") not in card_edit_module().LEARNING_TYPES
-        ]
-        if unclassified:
-            raise ApiError(
-                HTTPStatus.CONFLICT,
-                "learningType のないカードがあります（bundleを作り直してください）: "
-                + ", ".join(sorted(unclassified)[:5]),
             )
         cards = [card for card in cards if card["learningType"] == learning_type]
 
@@ -2130,6 +2134,17 @@ def study_queue_response(query: dict[str, list[str]]) -> dict:
     topic = _single_query(query, "topic")
     if topic is not None:
         cards = [card for card in cards if card.get("topic") == topic]
+    # 検索語で絞っているときも同じ母集団から組む。渡さないと、検索に当たらない
+    # カードでその日の枠を使ってしまう（2026-08-05の再レビュー指摘）。
+    search = _single_query(query, "search")
+    if search:
+        words = [w for w in search.split() if w]
+        if words:
+            cards = [
+                card
+                for card in cards
+                if all(w in json.dumps(card, ensure_ascii=False) for w in words)
+            ]
 
     limit = _count("limit", study_queue.DEFAULT_QUEUE_LIMIT, low=1)
     # はじめてのカードだけ別枠で絞れるようにする。0にすれば復習だけになる。

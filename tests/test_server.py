@@ -1815,6 +1815,43 @@ class CardEditTest(unittest.TestCase):
         self.assertEqual(self.document, self.stored())
 
 
+class PublicProjectionRawIdTest(unittest.TestCase):
+    """取得元の内部IDを公開projectionでも落とす。
+
+    bundle生成でも落としているが、作り直す前の古いbundleが載っていると
+    projection を素通りしてしまう（2026-08-05の再レビュー指摘）。
+    """
+
+    def test_source_ref_raw_id_never_reaches_the_browser(self) -> None:
+        payload = {
+            "explanationCards": [
+                {
+                    "id": "card-1",
+                    "sourceRefs": [
+                        {
+                            "rawId": "goukakudojyo_archive:553",
+                            "eraYear": "平成18年",
+                            "questionNumber": 3,
+                            "choiceNumber": 5,
+                        }
+                    ],
+                }
+            ]
+        }
+        projected = server.public_projection(payload)
+        text = json.dumps(projected, ensure_ascii=False)
+        self.assertNotIn("goukakudojyo_archive", text)
+        self.assertNotIn("rawId", text)
+        # 表示に要るものは残る。
+        self.assertIn("平成18年", text)
+        self.assertIn("questionNumber", text)
+
+    def test_raw_id_outside_source_refs_is_untouched(self) -> None:
+        """名前が同じでも、⑤の出典以外の rawId まで消さない。"""
+        projected = server.public_projection({"other": [{"rawId": "keep-me"}]})
+        self.assertIn("keep-me", json.dumps(projected, ensure_ascii=False))
+
+
 class SharedRuleDriftTest(unittest.TestCase):
     """同じルールを別々に書いている箇所が、ずれていないことを確かめる。
 
