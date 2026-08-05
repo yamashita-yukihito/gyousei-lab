@@ -1050,7 +1050,7 @@ class ProductionApiTest(unittest.TestCase):
             self.card_mark_payload(
                 event_id="mark-confidence",
                 action="confidence",
-                confidence="sure",
+                confidence="easy",
                 attempt_event_id="card-event-1",
             )
         )
@@ -1059,7 +1059,7 @@ class ProductionApiTest(unittest.TestCase):
         with server.connect() as connection:
             before = server.card_progress_statistics(connection, snapshot, deck)
         self.assertTrue(before["byCard"]["card-1"]["certain"])
-        self.assertEqual(before["byCard"]["card-1"]["confidenceCounts"]["sure"], 1)
+        self.assertEqual(before["byCard"]["card-1"]["confidenceCounts"]["easy"], 1)
 
         # 2026-07-30に方針を変えた。A を直して回答revisionが変わっても、
         # 同じカードIDなら「絶対覚えた」と自信度をそのまま引き継ぐ。
@@ -1072,7 +1072,7 @@ class ProductionApiTest(unittest.TestCase):
             after = server.card_progress_statistics(connection, changed, changed_deck)
         item = after["byCard"]["card-1"]
         self.assertTrue(item["certain"])
-        self.assertEqual(item["confidenceCounts"]["sure"], 1)
+        self.assertEqual(item["confidenceCounts"]["easy"], 1)
         # 印そのものは消さない。追記型なので行は残る。
         with server.connect() as connection:
             stored = connection.execute("SELECT COUNT(*) FROM card_marks").fetchone()[0]
@@ -1105,17 +1105,17 @@ class ProductionApiTest(unittest.TestCase):
             self.card_mark_payload(
                 event_id="mark-confidence",
                 action="confidence",
-                confidence="guess",
+                confidence="again",
                 attempt_event_id="card-event-1",
             )
         )
         self.assertTrue(inserted)
-        self.assertEqual(mark["confidence"], "guess")
+        self.assertEqual(mark["confidence"], "again")
         with server.connect() as connection:
             progress = server.card_progress_statistics(connection, snapshot, deck)
         item = progress["byCard"]["card-1"]
-        self.assertEqual(item["confidenceCounts"]["guess"], 1)
-        self.assertEqual(item["lastConfidence"], "guess")
+        self.assertEqual(item["confidenceCounts"]["again"], 1)
+        self.assertEqual(item["lastConfidence"], "again")
         # 自信度は出題対象の判定には効かない
         self.assertFalse(item["mastered"])
         self.assertEqual(item["correct"], 1)
@@ -1125,7 +1125,7 @@ class ProductionApiTest(unittest.TestCase):
                 self.card_mark_payload(
                     event_id="mark-confidence-2",
                     action="confidence",
-                    confidence="sure",
+                    confidence="easy",
                     attempt_event_id="card-event-1",
                 )
             )
@@ -1147,14 +1147,14 @@ class ProductionApiTest(unittest.TestCase):
                 HTTPStatus.BAD_REQUEST,
             ),
             (
-                self.card_mark_payload(event_id="m4", confidence="sure"),
+                self.card_mark_payload(event_id="m4", confidence="easy"),
                 HTTPStatus.BAD_REQUEST,
             ),
             (
                 self.card_mark_payload(
                     event_id="m5",
                     action="confidence",
-                    confidence="sure",
+                    confidence="easy",
                     attempt_event_id="missing-attempt",
                 ),
                 HTTPStatus.BAD_REQUEST,

@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260805-8";
+  const APP_VERSION = "20260805-9";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -20,6 +20,10 @@
     todayQueueLoading: false,
     // 「答えを見る」で開いた回。回答として記録しない。
     studyRevealedOnly: false,
+    // 直前の回答が正解だったか。誤答のときは4評価を出さない（自動でAgain）。
+    studyLastCorrect: null,
+    // 各評価を選んだときの次回間隔（サーバーが返す目安）。
+    todayQueueStates: null,
     overview: {},
     dataInventory: {},
     questions: [],
@@ -541,15 +545,18 @@
     });
     $("study-confidence-buttons").addEventListener("click", (event) => {
       const button = event.target.closest("[data-study-confidence]");
-      if (!button || !state.studyLastAttemptId || !state.studyCurrent) return;
-      sendCardMark({
-        action: "confidence",
-        cardId: studyCardId(state.studyCurrent),
-        confidence: button.dataset.studyConfidence,
-        attemptEventId: state.studyLastAttemptId,
-        statusNode: $("study-confidence-status"),
-        message: "手ごたえを記録しました。出題には影響しません。"
-      });
+      if (!button) return;
+      chooseStudyRating(button.dataset.studyConfidence);
+    });
+    // キーボードの 1〜4。反復を速く進めるため。
+    document.addEventListener("keydown", (event) => {
+      if (!isStudyPanelActive() || event.metaKey || event.ctrlKey || event.altKey) return;
+      const target = event.target;
+      if (target && /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)) return;
+      const rating = { "1": "again", "2": "hard", "3": "good", "4": "easy" }[event.key];
+      if (!rating) return;
+      event.preventDefault();
+      chooseStudyRating(rating);
     });
     $("study-graduated-list").addEventListener("click", (event) => {
       const button = event.target.closest("[data-graduated-action]");
@@ -1314,6 +1321,7 @@
 
     state.studyAnswered = true;
     state.studyLastSelected = selected;
+    state.studyLastCorrect = isCorrect;
     state.studyLastAttemptId = attemptId;
     stopStudyTimer();
     flashStudyResult(isCorrect);
@@ -1358,6 +1366,22 @@
     setRichText($("study-common-sense"), explanations.commonSense || "");
     $("study-answer-summary").classList.toggle("incorrect-result", !revealedOnly && !isCorrect);
     $("study-answer-summary").classList.toggle("revealed-only", revealedOnly);
+    // 誤答は自動で Again。選ばせると「間違えたのに Hard」ができてしまう。
+    // 「答えを見る」だけの回も、回答していないので評価を出さない。
+    const askRating = !revealedOnly && isCorrect === true;
+    $("study-rating-group").classList.toggle("for-wrong-answer", !askRating);
+    $("study-rating-question").textContent = askRating
+      ? "どのくらい思い出せましたか？"
+      : revealedOnly
+        ? "この回は記録していません"
+        : "思い出せなかった扱い（Again）で記録しました";
+    $("study-confidence-status").textContent = askRating
+      ? "キーボードの 1〜4 でも選べます。選ばなければ「普通にわかった」として扱います。"
+      : "";
+    document.querySelectorAll("[data-study-confidence]").forEach((node) => {
+      node.setAttribute("aria-pressed", "false");
+    });
+    if (askRating) renderStudyRatingIntervals(item);
     renderStudyAccuracy();
     renderStudyBasis(item);
     renderStudyRelated(item);
@@ -1732,6 +1756,58 @@
 
   // 卒業・絶対覚えた・自信度は本人が押した瞬間の一度きりの記録なので、回答のように
   // 端末へ溜めて再送しない。送れなかったときは、その場で失敗として見せる。
+  // FSRSの4評価。**Again だけが「思い出せなかった」**で、Hard・Good・Easy はどれも
+  // 思い出せた側である。「自信の強さ」ではなく「どれだけ苦労して思い出したか」を選ぶ。
+  const STUDY_RATINGS = ["again", "hard", "good", "easy"];
+  const STUDY_RATING_LABELS = {
+    again: "わからなかった", hard: "かなり迷った",
+    good: "普通にわかった", easy: "即答できた"
+  };
+
+  function isStudyPanelActive() {
+    return $("panel-study") && !$("panel-study").hidden
+      && state.studyAnswered && !state.studyRevealedOnly
+      && !$("study-answer-panel").hidden;
+  }
+
+  function chooseStudyRating(rating) {
+    if (!STUDY_RATINGS.includes(rating)) return;
+    if (!state.studyLastAttemptId || !state.studyCurrent) return;
+    // 誤答はサーバー側で Again として扱う。選び直させない。
+    if (state.studyLastCorrect === false) return;
+    document.querySelectorAll("[data-study-confidence]").forEach((node) => {
+      node.setAttribute("aria-pressed", String(node.dataset.studyConfidence === rating));
+    });
+    sendCardMark({
+      action: "confidence",
+      cardId: studyCardId(state.studyCurrent),
+      confidence: rating,
+      attemptEventId: state.studyLastAttemptId,
+      statusNode: $("study-confidence-status"),
+      message: "「" + STUDY_RATING_LABELS[rating] + "」で記録しました。次に出る日が決まります。"
+    });
+  }
+
+  // 各ボタンに、その評価を選んだときの次回間隔を出す。
+  function renderStudyRatingIntervals(item) {
+    const cardId = studyCardId(item);
+    document.querySelectorAll("[data-rating-interval]").forEach((node) => {
+      node.textContent = "";
+    });
+    fetchJson("api/rating-preview?cardId=" + encodeURIComponent(cardId))
+      .then((data) => {
+        // 取得中に次のカードへ進んでいたら書かない。
+        if (!state.studyCurrent || studyCardId(state.studyCurrent) !== cardId) return;
+        const intervals = data.intervals || {};
+        document.querySelectorAll("[data-rating-interval]").forEach((node) => {
+          node.textContent = intervals[node.dataset.ratingInterval] || "";
+        });
+      })
+      .catch(() => {
+        // 目安が出なくても評価は選べる。落とさない。
+      });
+  }
+
   async function sendCardMark(options) {
     const status = options.statusNode;
     if (status) { status.textContent = "保存中…"; status.className = "study-mark-status saving"; }

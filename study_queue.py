@@ -85,9 +85,14 @@ MIN_MAXIMUM_INTERVAL = 1
 # 版を固定し、違う版が入っていたら気づけるようにする（requirements-runtime.txt と対で管理）。
 SUPPORTED_FSRS = ("6.",)
 
-# 誤答は Again。正答でも「あてずっぽう」は思い出せていないので Again にする。
-# ○×は2択なので、当てずっぽうの正解を「思い出せた」側（Hard）へ入れてはいけない。
-RATING_BY_CONFIDENCE = {"guess": 1, "likely": 3, "sure": 3}
+# 回答ごとの自己申告からFSRSの評価へ。
+# again/hard/good/easy が現在の値で、そのまま4段階に対応する。
+# sure/likely/guess は2026-08-05より前の記録。当てずっぽうの正解は Again へ寄せる
+# （○×は2択なので、理由が言えない正解は「思い出せた」ではない）。
+RATING_BY_CONFIDENCE = {
+    "again": 1, "hard": 2, "good": 3, "easy": 4,
+    "guess": 1, "likely": 3, "sure": 3,
+}
 RATING_CORRECT_DEFAULT = 3
 RATING_INCORRECT = 1
 
@@ -203,6 +208,28 @@ def review_states(
 
     回答が1件も無いカードは `state: "new"` になり、`due` は None のままにする。
     """
+    states, _cards = _replay(
+        connection, card_ids, desired_retention=desired_retention, now=now,
+        exam_at=exam_at, study_deck_id=study_deck_id,
+    )
+    return states
+
+
+def _replay(
+    connection: sqlite3.Connection,
+    card_ids: list[str],
+    *,
+    desired_retention: float = 0.9,
+    now: datetime | None = None,
+    exam_at: datetime = EXAM_AT,
+    study_deck_id: str | None = None,
+) -> tuple[dict[str, dict], dict[str, object]]:
+    """履歴を再生して、表示用の状態とFSRSのカード実体の両方を返す。
+
+    カード実体を返すのは、評価ごとの次回間隔を出すときに使うため。
+    stability と difficulty だけから作り直すと、learning / relearning のような
+    段階の情報が落ちて、実際に選んだときと違う日が出る。
+    """
     Card, Rating, Scheduler = _fsrs_modules()
     moment = now or datetime.now(timezone.utc)
 
@@ -297,7 +324,58 @@ def review_states(
             round((moment - due).total_seconds() / 86400, 2) if due else None
         )
         item["dueNow"] = bool(due and due <= moment)
-    return states
+    return states, fsrs_cards
+
+
+def rating_previews(
+    connection: sqlite3.Connection,
+    card_id: str,
+    *,
+    desired_retention: float = 0.9,
+    now: datetime | None = None,
+    exam_at: datetime = EXAM_AT,
+    study_deck_id: str | None = None,
+) -> dict[str, str]:
+    """そのカードで各評価を選んだときの次回間隔を、人が読む形で返す。
+
+    ボタンに出すためのもの。**選ぶ前に「どれを選ぶと次はいつか」が見えるほうが、
+    評価の意味を取り違えにくい。**
+    """
+    import copy
+
+    Card, Rating, Scheduler = _fsrs_modules()
+    moment = now or datetime.now(timezone.utc)
+    _states, cards = _replay(
+        connection, [card_id], desired_retention=desired_retention, now=moment,
+        exam_at=exam_at, study_deck_id=study_deck_id,
+    )
+    current = cards.get(card_id)
+
+    scheduler = Scheduler(
+        desired_retention=desired_retention,
+        enable_fuzzing=False,
+        maximum_interval=days_until_exam(moment, exam_at),
+    )
+    out: dict[str, str] = {}
+    for label, value in (("again", 1), ("hard", 2), ("good", 3), ("easy", 4)):
+        # 履歴から作った実体をそのまま複製して1手進める。段階（learning / review /
+        # relearning）もそのまま持つので、実際に選んだときと同じ日が出る。
+        card = copy.deepcopy(current) if current is not None else Card()
+        moved, _log = scheduler.review_card(card, Rating(value), review_datetime=moment)
+        gap = min(moved.due, exam_at.astimezone(timezone.utc)) - moment
+        minutes = max(1, round(gap.total_seconds() / 60))
+        days = gap.total_seconds() / 86400
+        if minutes < 60:
+            out[label] = f"{minutes}分"
+        elif days < 1:
+            out[label] = f"{round(minutes / 60)}時間"
+        elif days < 3:
+            # 1〜3日のあたりで整数へ丸めると、hard・good・easy が全部「1日」になり
+            # ボタンを出す意味が消える。ここだけ小数第1位まで出す。
+            out[label] = f"{days:.1f}日"
+        else:
+            out[label] = f"{round(days)}日"
+    return out
 
 
 def build_queue(

@@ -118,10 +118,13 @@ class StudyQueueTest(unittest.TestCase):
         self.assertEqual(self.study_queue.rating_for(True, "likely"), 3)
         self.assertEqual(self.study_queue.rating_for(True, "sure"), 3)
         self.assertEqual(self.study_queue.rating_for(True, None), 3)
-        # いまは Hard(2) と Easy(4) を使っていない。使うなら「どれだけ苦労したか」を
-        # 4段階で選ばせる形にしてからにする。
-        self.assertNotIn(2, self.study_queue.RATING_BY_CONFIDENCE.values())
-        self.assertNotIn(4, self.study_queue.RATING_BY_CONFIDENCE.values())
+        # 2026-08-05に4評価を直接選ばせる形にした。again/hard/good/easy が現在の値。
+        self.assertEqual(self.study_queue.rating_for(True, "again"), 1)
+        self.assertEqual(self.study_queue.rating_for(True, "hard"), 2)
+        self.assertEqual(self.study_queue.rating_for(True, "good"), 3)
+        self.assertEqual(self.study_queue.rating_for(True, "easy"), 4)
+        # 誤答は自己申告に関係なく Again。画面でも誤答には評価を選ばせない。
+        self.assertEqual(self.study_queue.rating_for(False, "easy"), 1)
 
     def test_confidence_changes_the_next_due_date(self) -> None:
         """同じ「正解」でも、当てずっぽうなら誤答と同じ扱いで早く戻ってくる。"""
@@ -441,6 +444,18 @@ class StudyQueueTest(unittest.TestCase):
             "SELECT COUNT(*) FROM card_attempts WHERE card_id = ?", ("card-rapid",)
         ).fetchone()
         self.assertEqual(rows[0], 1)
+
+    def test_rating_previews_show_each_choice(self) -> None:
+        """ボタンへ出す「この評価を選ぶと次はいつか」。選ぶ前に見えるようにする。"""
+        preview = self.study_queue.rating_previews(
+            self.connection, "card-new", now=BASE
+        )
+        self.assertEqual(sorted(preview), ["again", "easy", "good", "hard"])
+        for label, text in preview.items():
+            self.assertTrue(text, f"{label} の目安が空")
+        # 評価が上がるほど先になる。
+        self.assertEqual(preview["again"], "1分")
+        self.assertIn("日", preview["easy"])
 
     def test_scheduler_version_is_pinned(self) -> None:
         version = self.study_queue.fsrs_version()

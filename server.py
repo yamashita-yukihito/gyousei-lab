@@ -75,7 +75,13 @@ DATABASE_SCHEMA_VERSION = 4
 # 卒業判定のしきい値。static/app.js の MASTERY_SCORE と同じ値でなければならない。
 MASTERY_SCORE = 3
 CARD_MARK_ACTIONS = ("certain", "uncertain", "reset", "confidence")
-CARD_MARK_CONFIDENCE = ("sure", "likely", "guess")
+# 回答ごとの自己申告。2026-08-05にFSRSの4段階へ作り替えた。
+# **again / hard / good / easy が現在の値**で、意味は「どれだけ苦労して思い出したか」。
+# sure / likely / guess は2026-08-05より前の記録で、読むためだけに残している。
+# 新しく書けるのは CARD_MARK_RATINGS だけ。
+CARD_MARK_RATINGS = ("again", "hard", "good", "easy")
+CARD_MARK_LEGACY_CONFIDENCE = ("sure", "likely", "guess")
+CARD_MARK_CONFIDENCE = CARD_MARK_RATINGS + CARD_MARK_LEGACY_CONFIDENCE
 SIMILARITY_DECISIONS = {"merge", "related", "reject", "defer"}
 RELATION_TYPES = {"opposite_claim", "exception", "contrast", "same_topic"}
 MERGE_RELATION_TYPE = "same_proposition"
@@ -1065,6 +1071,89 @@ def connect() -> sqlite3.Connection:
     return connection
 
 
+# `card_marks` の定義。init_database と、CHECK制約を広げる移行の両方で使う。
+# 二重に書くと、片方だけ直したときに作り直しで制約が戻ってしまう。
+CARD_MARKS_DDL = """
+CREATE TABLE IF NOT EXISTS card_marks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_id TEXT NOT NULL UNIQUE,
+    session_id TEXT NOT NULL,
+    study_deck_id TEXT,
+    card_id TEXT,
+    answer_revision TEXT,
+    attempt_event_id TEXT,
+    action TEXT NOT NULL
+        CHECK (action IN ('certain', 'uncertain', 'reset', 'confidence')),
+    scope TEXT NOT NULL CHECK (scope IN ('card', 'deck')),
+    -- again/hard/good/easy が現在の値。sure/likely/guess は
+    -- 2026-08-05より前の記録で、読むためだけに残している。
+    confidence TEXT
+        CHECK (
+            confidence IS NULL
+            OR confidence IN (
+                'again', 'hard', 'good', 'easy',
+                'sure', 'likely', 'guess'
+            )
+        ),
+    marked_at_client TEXT NOT NULL,
+    app_version TEXT,
+    payload_digest TEXT NOT NULL,
+    created_at_server TEXT NOT NULL,
+    CHECK (
+        (scope = 'deck' AND action = 'reset' AND card_id IS NULL)
+        OR (scope = 'card' AND card_id IS NOT NULL)
+    ),
+    CHECK (
+        (
+            action = 'confidence'
+            AND confidence IS NOT NULL
+            AND attempt_event_id IS NOT NULL
+        )
+        OR (
+            action <> 'confidence'
+            AND confidence IS NULL
+            AND attempt_event_id IS NULL
+        )
+    )
+);
+"""
+
+
+def _migrate_card_marks_confidence(connection: sqlite3.Connection) -> bool:
+    """`card_marks.confidence` のCHECK制約へFSRSの4段階を足す。
+
+    SQLiteはCHECK制約をALTERで変えられないので、テーブルを作り直して移し替える。
+    **既存の行はそのまま運ぶ**（sure/likely/guess も引き続き読める値として残す）。
+
+    作り直しは1回だけで、2回目以降は制約を見て何もしない。失敗したときは
+    トランザクションごと巻き戻るので、元のテーブルが残る。
+    """
+    row = connection.execute(
+        "SELECT sql FROM sqlite_master WHERE type='table' AND name='card_marks'"
+    ).fetchone()
+    if row is None or "'again'" in (row[0] or ""):
+        return False
+
+    before = connection.execute("SELECT COUNT(*) FROM card_marks").fetchone()[0]
+    columns = [
+        info[1] for info in connection.execute("PRAGMA table_info(card_marks)")
+    ]
+    column_list = ", ".join(columns)
+    connection.execute("ALTER TABLE card_marks RENAME TO card_marks_old")
+    connection.executescript(CARD_MARKS_DDL)
+    connection.execute(
+        f"INSERT INTO card_marks ({column_list}) SELECT {column_list} FROM card_marks_old"
+    )
+    after = connection.execute("SELECT COUNT(*) FROM card_marks").fetchone()[0]
+    if after != before:
+        # 件数が合わなければ移し替えを完了させない。呼び出し側で巻き戻す。
+        raise RuntimeError(
+            f"card_marks の移行で件数が変わった: {before} -> {after}"
+        )
+    connection.execute("DROP TABLE card_marks_old")
+    return True
+
+
 def init_database() -> None:
     DB_PATH.parent.mkdir(parents=True, exist_ok=True, mode=0o750)
     with connect() as connection:
@@ -1139,43 +1228,7 @@ def init_database() -> None:
             -- 卒業・絶対覚えた・自信度。回答と同じく追記のみで、過去の事実を消さない。
             -- reset は「ここより前の回答を習得判定に使わない」という区切りを置くだけで、
             -- card_attempts の行はそのまま残る。
-            CREATE TABLE IF NOT EXISTS card_marks (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                event_id TEXT NOT NULL UNIQUE,
-                session_id TEXT NOT NULL,
-                study_deck_id TEXT,
-                card_id TEXT,
-                answer_revision TEXT,
-                attempt_event_id TEXT,
-                action TEXT NOT NULL
-                    CHECK (action IN ('certain', 'uncertain', 'reset', 'confidence')),
-                scope TEXT NOT NULL CHECK (scope IN ('card', 'deck')),
-                confidence TEXT
-                    CHECK (
-                        confidence IS NULL
-                        OR confidence IN ('sure', 'likely', 'guess')
-                    ),
-                marked_at_client TEXT NOT NULL,
-                app_version TEXT,
-                payload_digest TEXT NOT NULL,
-                created_at_server TEXT NOT NULL,
-                CHECK (
-                    (scope = 'deck' AND action = 'reset' AND card_id IS NULL)
-                    OR (scope = 'card' AND card_id IS NOT NULL)
-                ),
-                CHECK (
-                    (
-                        action = 'confidence'
-                        AND confidence IS NOT NULL
-                        AND attempt_event_id IS NOT NULL
-                    )
-                    OR (
-                        action <> 'confidence'
-                        AND confidence IS NULL
-                        AND attempt_event_id IS NULL
-                    )
-                )
-            );
+            """ + CARD_MARKS_DDL + """
 
             CREATE INDEX IF NOT EXISTS idx_card_marks_card_id
                 ON card_marks(card_id, id);
@@ -1278,6 +1331,12 @@ def init_database() -> None:
 
             """
         )
+        # CHECK制約はALTERで変えられないので、必要なときだけ作り直して移し替える。
+        # 上の CREATE TABLE IF NOT EXISTS は既存テーブルには効かないため、ここで行う。
+        if _migrate_card_marks_confidence(connection):
+            check = connection.execute("PRAGMA quick_check").fetchone()[0]
+            if check != "ok":
+                raise RuntimeError(f"card_marks の移行後に quick_check が失敗: {check}")
         connection.execute(f"PRAGMA user_version = {DATABASE_SCHEMA_VERSION}")
         expected_card_columns = {
             "id",
@@ -2240,6 +2299,26 @@ def study_queue_response(query: dict[str, list[str]]) -> dict:
     return result
 
 
+def rating_preview_response(query: dict[str, list[str]]) -> dict:
+    """1枚ぶんの「この評価を選ぶと次はいつか」を返す。評価ボタンへ出すためのもの。"""
+    import study_queue
+
+    card_id = _single_query(query, "cardId")
+    if not card_id or not valid_id(card_id):
+        raise ApiError(HTTPStatus.BAD_REQUEST, "cardId is required")
+    snapshot = CATALOG.load()
+    study_deck_id = _single_query(query, "studyDeckId")
+    deck = resolve_study_deck(snapshot, study_deck_id, require_if_ambiguous=True)
+    known = {card["id"] for card in cards_for_study_deck(snapshot, deck)}
+    if card_id not in known:
+        raise ApiError(HTTPStatus.NOT_FOUND, "unknown card")
+    with connect() as connection:
+        previews = study_queue.rating_previews(
+            connection, card_id, study_deck_id=(deck or {}).get("id")
+        )
+    return {"cardId": card_id, "intervals": previews, "bundle": snapshot.metadata()}
+
+
 def learning_analysis() -> dict:
     snapshot = CATALOG.load()
     deck = default_study_deck(snapshot)
@@ -2529,7 +2608,7 @@ def add_card_mark(payload: dict) -> tuple[dict, bool, BundleSnapshot, dict | Non
     attempt_event_id = payload.get("attemptEventId")
     confidence = payload.get("confidence")
     if action == "confidence":
-        if confidence not in CARD_MARK_CONFIDENCE:
+        if confidence not in CARD_MARK_RATINGS:
             raise ApiError(HTTPStatus.BAD_REQUEST, "invalid confidence")
         if not valid_id(attempt_event_id):
             raise ApiError(HTTPStatus.BAD_REQUEST, "invalid attemptEventId")
@@ -3269,6 +3348,9 @@ class ProductionHandler(BaseHTTPRequestHandler):
                 return
             if parsed.path == "/api/study-queue":
                 self.send_json(study_queue_response(query))
+                return
+            if parsed.path == "/api/rating-preview":
+                self.send_json(rating_preview_response(query))
                 return
             if parsed.path == "/api/learning-analysis":
                 self.send_json(learning_analysis())

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#183a34">
   <title>今日の学習の使い方 | 行政書士 過去問ラボ</title>
-  <link rel="stylesheet" href="architecture.css?v=20260805-8">
+  <link rel="stylesheet" href="architecture.css?v=20260805-9">
   <style>
     .guide-steps { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; counter-reset: step; }
     .guide-steps li { display: grid; grid-template-columns: 34px 1fr; gap: 13px; align-items: start;
@@ -116,8 +116,8 @@
         </li>
         <li>
           <div>
-            <strong>出てきた順に解いて、答えたあと「手ごたえ」を押す</strong>
-            <small>確信あり／たぶん／あてずっぽうの3つです。<strong>これが次にいつ出すかを決めます。</strong>押さなかった場合は「たぶん」と同じ扱いになります。</small>
+            <strong>出てきた順に解いて、正解したら「どのくらい思い出せたか」を押す</strong>
+            <small><strong>1 わからなかった／2 かなり迷った／3 普通にわかった／4 即答できた</strong>の4つです。キーボードの1〜4でも選べます。<strong>聞いているのは自信の強さではなく、思い出すのにどれだけ苦労したかです。</strong>各ボタンには「これを選ぶと次はいつか」が出ます。押さなければ「普通にわかった」として扱います。間違えたときは選ぶ必要はありません（自動で「わからなかった」になります）。</small>
           </div>
         </li>
       </ol>
@@ -192,16 +192,24 @@
           </thead>
           <tbody>
             <tr>
-              <td>間違えた</td><td>—</td><td><span class="pill again">Again</span></td>
-              <td><strong>1分後</strong>。つまり、その日のうちにもう一度出ます。</td>
+              <td>間違えた</td><td>—（自動）</td><td><span class="pill again">Again</span></td>
+              <td>その日のうちにもう一度出ます</td>
             </tr>
             <tr>
-              <td>正解した</td><td>あてずっぽう</td><td><span class="pill again">Again</span></td>
-              <td><strong>間違えたときと同じ扱い</strong>です。○×は2択なので、理由が言えていない正解は「思い出せた」に数えません。</td>
+              <td>正解した</td><td><b>1</b> わからなかった</td><td><span class="pill again">Again</span></td>
+              <td>当てずっぽう、消去法だけ、理由を説明できない。<strong>間違えたときと同じ扱い</strong>です</td>
             </tr>
             <tr>
-              <td>正解した</td><td>たぶん<br>確信あり<br>（押さなかった場合も同じ）</td><td><span class="pill good">Good</span></td>
-              <td>10分 → 2日 → 11日 → 46日 → 163日（目安。実際は前回からの間隔や過去の評価で変わります）</td>
+              <td>正解した</td><td><b>2</b> かなり迷った</td><td><span class="pill hard">Hard</span></td>
+              <td>苦労したが、最後は自分の記憶から思い出した</td>
+            </tr>
+            <tr>
+              <td>正解した</td><td><b>3</b> 普通にわかった<br>（押さなかった場合も同じ）</td><td><span class="pill good">Good</span></td>
+              <td>通常の正解。多少考えたが無理なく思い出した</td>
+            </tr>
+            <tr>
+              <td>正解した</td><td><b>4</b> 即答できた</td><td><span class="pill easy">Easy</span></td>
+              <td>見た瞬間に分かり、迷いもほぼなかった</td>
             </tr>
           </tbody>
         </table>
@@ -219,8 +227,8 @@
         <h2>先に知っておくとよいこと</h2>
       </div>
       <div class="note-card">
-        <h3>「あてずっぽう」は、間違えたのと同じ扱いです</h3>
-        <p>○×は2択なので、理由が言えないまま当たっても「覚えている」ことにはなりません。<strong>間違えたときと同じ Again として記録し、すぐまた出します。</strong>理由が言えるようになった回で「たぶん」か「確信あり」を押せば、そこから間隔が伸びはじめます。</p>
+        <h3>聞いているのは「自信」ではなく「苦労の度合い」です</h3>
+        <p>「確信あり」は、<strong>長く考えた末の確信</strong>と<strong>見た瞬間の確信</strong>の両方を含んでしまいます。前者は「かなり迷った」か「普通にわかった」で、<strong>「即答できた」は後者だけ</strong>です。<br>また「わからなかった」（当てずっぽう・消去法）は、○×が2択である以上、覚えていることになりません。<strong>間違えたときと同じ扱いにしてすぐまた出します。</strong></p>
       </div>
       <div class="note-card">
         <h3>高速○×は、次にいつ出すかを動かしません</h3>

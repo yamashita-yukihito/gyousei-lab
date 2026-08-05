@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#183a34">
   <title>行政書士 過去問ラボ</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23183a34'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='39' fill='white'%3E%E8%A1%8C%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=20260805-8">
+  <link rel="stylesheet" href="styles.css?v=20260805-9">
 </head>
 <body>
   <a class="skip-link" href="#main-content">本文へ移動</a>
@@ -139,14 +139,15 @@
             <div class="study-accuracy-grid"><div id="study-question-accuracy-card"><span>この問題の正答率</span><b id="study-mastery-status" hidden>習得済み</b><strong id="study-question-accuracy">—</strong><small id="study-question-accuracy-detail"></small></div><div><span>学習カード全体の正答率</span><strong id="study-overall-accuracy">—</strong><small id="study-overall-accuracy-detail"></small></div></div>
             <p class="study-memory"><span>一言で覚える</span><strong id="study-memory-point"></strong></p>
             <div class="study-mark-row">
-              <div class="study-mark-group">
-                <span>いまの手ごたえ</span>
-                <div id="study-confidence-buttons" class="study-mark-buttons">
-                  <button type="button" class="secondary-button" data-study-confidence="sure">確信あり</button>
-                  <button type="button" class="secondary-button" data-study-confidence="likely">たぶん</button>
-                  <button type="button" class="secondary-button" data-study-confidence="guess">あてずっぽう</button>
+              <div id="study-rating-group" class="study-mark-group study-rating-group">
+                <span id="study-rating-question">どのくらい思い出せましたか？</span>
+                <div id="study-confidence-buttons" class="study-mark-buttons study-rating-buttons">
+                  <button type="button" class="secondary-button rating-again" data-study-confidence="again"><b>1</b> わからなかった<em data-rating-interval="again"></em></button>
+                  <button type="button" class="secondary-button rating-hard" data-study-confidence="hard"><b>2</b> かなり迷った<em data-rating-interval="hard"></em></button>
+                  <button type="button" class="secondary-button rating-good" data-study-confidence="good"><b>3</b> 普通にわかった<em data-rating-interval="good"></em></button>
+                  <button type="button" class="secondary-button rating-easy" data-study-confidence="easy"><b>4</b> 即答できた<em data-rating-interval="easy"></em></button>
                 </div>
-                <small id="study-confidence-status" class="study-mark-status"></small>
+                <small id="study-confidence-status" class="study-mark-status">キーボードの <b>1</b>〜<b>4</b> でも選べます。選ばなければ「普通にわかった」として扱います。</small>
               </div>
               <div class="study-mark-group">
                 <span>この問題の扱い</span>
@@ -454,6 +455,6 @@
 
   <footer><p>本人専用・行政書士学習環境　回答履歴と類似判定はサーバー保存</p></footer>
   <noscript>この画面の利用にはJavaScriptが必要です。</noscript>
-  <script src="app.js?v=20260805-8"></script>
+  <script src="app.js?v=20260805-9"></script>
 </body>
 </html>
