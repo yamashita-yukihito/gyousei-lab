@@ -1050,7 +1050,7 @@ class ProductionApiTest(unittest.TestCase):
             self.card_mark_payload(
                 event_id="mark-confidence",
                 action="confidence",
-                confidence="sure",
+                confidence="easy",
                 attempt_event_id="card-event-1",
             )
         )
@@ -1059,7 +1059,7 @@ class ProductionApiTest(unittest.TestCase):
         with server.connect() as connection:
             before = server.card_progress_statistics(connection, snapshot, deck)
         self.assertTrue(before["byCard"]["card-1"]["certain"])
-        self.assertEqual(before["byCard"]["card-1"]["confidenceCounts"]["sure"], 1)
+        self.assertEqual(before["byCard"]["card-1"]["confidenceCounts"]["easy"], 1)
 
         # 2026-07-30に方針を変えた。A を直して回答revisionが変わっても、
         # 同じカードIDなら「絶対覚えた」と自信度をそのまま引き継ぐ。
@@ -1072,7 +1072,7 @@ class ProductionApiTest(unittest.TestCase):
             after = server.card_progress_statistics(connection, changed, changed_deck)
         item = after["byCard"]["card-1"]
         self.assertTrue(item["certain"])
-        self.assertEqual(item["confidenceCounts"]["sure"], 1)
+        self.assertEqual(item["confidenceCounts"]["easy"], 1)
         # 印そのものは消さない。追記型なので行は残る。
         with server.connect() as connection:
             stored = connection.execute("SELECT COUNT(*) FROM card_marks").fetchone()[0]
@@ -1105,17 +1105,17 @@ class ProductionApiTest(unittest.TestCase):
             self.card_mark_payload(
                 event_id="mark-confidence",
                 action="confidence",
-                confidence="guess",
+                confidence="again",
                 attempt_event_id="card-event-1",
             )
         )
         self.assertTrue(inserted)
-        self.assertEqual(mark["confidence"], "guess")
+        self.assertEqual(mark["confidence"], "again")
         with server.connect() as connection:
             progress = server.card_progress_statistics(connection, snapshot, deck)
         item = progress["byCard"]["card-1"]
-        self.assertEqual(item["confidenceCounts"]["guess"], 1)
-        self.assertEqual(item["lastConfidence"], "guess")
+        self.assertEqual(item["confidenceCounts"]["again"], 1)
+        self.assertEqual(item["lastConfidence"], "again")
         # 自信度は出題対象の判定には効かない
         self.assertFalse(item["mastered"])
         self.assertEqual(item["correct"], 1)
@@ -1125,7 +1125,7 @@ class ProductionApiTest(unittest.TestCase):
                 self.card_mark_payload(
                     event_id="mark-confidence-2",
                     action="confidence",
-                    confidence="sure",
+                    confidence="easy",
                     attempt_event_id="card-event-1",
                 )
             )
@@ -1147,14 +1147,14 @@ class ProductionApiTest(unittest.TestCase):
                 HTTPStatus.BAD_REQUEST,
             ),
             (
-                self.card_mark_payload(event_id="m4", confidence="sure"),
+                self.card_mark_payload(event_id="m4", confidence="easy"),
                 HTTPStatus.BAD_REQUEST,
             ),
             (
                 self.card_mark_payload(
                     event_id="m5",
                     action="confidence",
-                    confidence="sure",
+                    confidence="easy",
                     attempt_event_id="missing-attempt",
                 ),
                 HTTPStatus.BAD_REQUEST,
@@ -1690,6 +1690,7 @@ def explanation_card_document() -> dict:
                 "legalBasis": [
                     {"label": "行政手続法14条", "url": "https://laws.e-gov.go.jp/law/405AC0000000088"}
                 ],
+                "learningType": "memorize",
             }
         ],
     }
@@ -1769,6 +1770,25 @@ class CardEditTest(unittest.TestCase):
         # どちらも正本へは書かない
         self.assertEqual(self.document, self.stored())
 
+    def test_rejects_broken_markup_in_the_explanations(self) -> None:
+        # ①②④も同じ記法で表示する。ここを見ていなかったため、閉じ忘れが画面へ出ていた。
+        broken = {
+            "normal": "行政庁は__理由==を示す。",
+            "deepDive": {"background": "==背景__。", "trap": "ひっかけ。", "example": "場面。"},
+            "commonSense": "常識。",
+        }
+        for field, payload in (
+            ("explanations.normal", broken),
+            (
+                "explanations.commonSense",
+                dict(self.document["items"][0]["explanations"], commonSense="**常識==。"),
+            ),
+        ):
+            with self.assertRaises(server.ApiError, msg=field) as context:
+                server.save_card_edit({"cardId": "card-1", "editable": {"explanations": payload}})
+            self.assertIn("閉じていない装飾記法", context.exception.message)
+        self.assertEqual(self.document, self.stored())
+
     def test_unchanged_edit_does_not_touch_the_canonical(self) -> None:
         before = self.canonical_path.read_bytes()
         result = server.save_card_edit(
@@ -1793,6 +1813,243 @@ class CardEditTest(unittest.TestCase):
         finally:
             server._rebuild_bundle_in_place = original
         self.assertEqual(self.document, self.stored())
+
+
+class PublicProjectionRawIdTest(unittest.TestCase):
+    """取得元の内部IDを公開projectionでも落とす。
+
+    bundle生成でも落としているが、作り直す前の古いbundleが載っていると
+    projection を素通りしてしまう（2026-08-05の再レビュー指摘）。
+    """
+
+    def test_source_ref_raw_id_never_reaches_the_browser(self) -> None:
+        payload = {
+            "explanationCards": [
+                {
+                    "id": "card-1",
+                    "sourceRefs": [
+                        {
+                            "rawId": "goukakudojyo_archive:553",
+                            "eraYear": "平成18年",
+                            "questionNumber": 3,
+                            "choiceNumber": 5,
+                        }
+                    ],
+                }
+            ]
+        }
+        projected = server.public_projection(payload)
+        text = json.dumps(projected, ensure_ascii=False)
+        self.assertNotIn("goukakudojyo_archive", text)
+        self.assertNotIn("rawId", text)
+        # 表示に要るものは残る。
+        self.assertIn("平成18年", text)
+        self.assertIn("questionNumber", text)
+
+    def test_raw_id_outside_source_refs_is_untouched(self) -> None:
+        """名前が同じでも、⑤の出典以外の rawId まで消さない。"""
+        projected = server.public_projection({"other": [{"rawId": "keep-me"}]})
+        self.assertIn("keep-me", json.dumps(projected, ensure_ascii=False))
+
+
+class TodayQueueRequestOrderTest(unittest.TestCase):
+    """「今日の学習」の取得が、あとから来た要求を捨てないことを見る。
+
+    取得中の要求を単なる排他で弾くと、先に投げた「すべて」の応答が返ってきたときに、
+    あとで選んだ科目のキューが古いIDで上書きされる。通し番号を持ち、
+    いちばん新しい要求の応答だけを採る形にしてある。
+    """
+
+    def setUp(self) -> None:
+        self.app_js = (SERVICE_ROOT / "static" / "app.js").read_text(encoding="utf-8")
+        start = self.app_js.index("async function loadTodayQueue")
+        self.source = self.app_js[start : start + 2200]
+
+    def test_does_not_drop_later_requests(self) -> None:
+        self.assertNotIn(
+            "if (state.todayQueueLoading) return;", self.source,
+            "取得中というだけであとの要求を捨てている（古い応答で上書きされる）",
+        )
+
+    def test_uses_a_request_token(self) -> None:
+        self.assertIn("++state.todayQueueToken", self.source)
+        # 応答を採る前に、いちばん新しい要求かどうかを見ている。
+        self.assertGreaterEqual(
+            self.source.count("token !== state.todayQueueToken"), 2,
+            "成功と失敗の両方で、古い応答を捨てる確認が要る",
+        )
+        self.assertIn("token === state.todayQueueToken", self.source)
+
+
+class CardMarksMigrationTest(unittest.TestCase):
+    """`card_marks` を作り直したあとも、追記型を守るトリガと索引が残ることを見る。
+
+    テーブルを作り直すと、そのテーブルに付いていた索引とトリガも一緒に消える。
+    schemaを作る**前**に移行を走らせることで、後続の CREATE ... IF NOT EXISTS に
+    作り直させている。順番が入れ替わると、UPDATE / DELETE が通るようになる。
+    """
+
+    OLD_DDL = """
+        CREATE TABLE card_marks (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            event_id TEXT NOT NULL UNIQUE,
+            session_id TEXT NOT NULL,
+            study_deck_id TEXT,
+            card_id TEXT,
+            answer_revision TEXT,
+            attempt_event_id TEXT,
+            action TEXT NOT NULL
+                CHECK (action IN ('certain', 'uncertain', 'reset', 'confidence')),
+            scope TEXT NOT NULL CHECK (scope IN ('card', 'deck')),
+            confidence TEXT
+                CHECK (confidence IS NULL OR confidence IN ('sure', 'likely', 'guess')),
+            marked_at_client TEXT NOT NULL,
+            app_version TEXT,
+            payload_digest TEXT NOT NULL,
+            created_at_server TEXT NOT NULL
+        );
+    """
+
+    def setUp(self) -> None:
+        self.temp = tempfile.TemporaryDirectory()
+        self.db_path = Path(self.temp.name) / "old.sqlite3"
+        connection = sqlite3.connect(self.db_path)
+        connection.executescript(self.OLD_DDL)
+        connection.execute(
+            "INSERT INTO card_marks (event_id, session_id, card_id, attempt_event_id,"
+            " action, scope, confidence, marked_at_client, payload_digest,"
+            " created_at_server) VALUES"
+            " ('m1','s1','card-1','a1','confidence','card','sure','t','d','t')"
+        )
+        connection.commit()
+        connection.close()
+        # 他のテストと同じく DB_PATH を差し替える（モジュールは読み直さない）
+        self.original_database_path = server.DB_PATH
+        server.DB_PATH = self.db_path
+        self.server = server
+
+    def tearDown(self) -> None:
+        server.DB_PATH = self.original_database_path
+        self.temp.cleanup()
+
+    def test_one_start_migrates_and_keeps_append_only(self) -> None:
+        self.server.init_database()          # 起動1回だけで完結すること
+        connection = sqlite3.connect(self.db_path)
+        triggers = {
+            row[0]
+            for row in connection.execute(
+                "SELECT name FROM sqlite_master"
+                " WHERE tbl_name='card_marks' AND type='trigger'"
+            )
+        }
+        self.assertIn("card_marks_no_update", triggers)
+        self.assertIn("card_marks_no_delete", triggers)
+        indexes = {
+            row[0]
+            for row in connection.execute(
+                "SELECT name FROM sqlite_master"
+                " WHERE tbl_name='card_marks' AND type='index'"
+            )
+        }
+        self.assertIn("idx_card_marks_attempt", indexes)
+        # 既存の行は運ばれ、新しい値も書ける。
+        self.assertEqual(
+            connection.execute("SELECT COUNT(*) FROM card_marks").fetchone()[0], 1
+        )
+        sql = connection.execute(
+            "SELECT sql FROM sqlite_master WHERE name='card_marks'"
+        ).fetchone()[0]
+        self.assertIn("'again'", sql)
+        self.assertIn("'sure'", sql)
+        # 追記型が効いている。
+        with self.assertRaises(sqlite3.IntegrityError):
+            connection.execute("UPDATE card_marks SET confidence='easy'")
+        with self.assertRaises(sqlite3.IntegrityError):
+            connection.execute("DELETE FROM card_marks")
+        connection.close()
+
+    def test_second_start_changes_nothing(self) -> None:
+        self.server.init_database()
+        self.server.init_database()
+        connection = sqlite3.connect(self.db_path)
+        self.assertEqual(
+            connection.execute("SELECT COUNT(*) FROM card_marks").fetchone()[0], 1
+        )
+        self.assertEqual(
+            connection.execute(
+                "SELECT COUNT(*) FROM sqlite_master WHERE name='card_marks_old'"
+            ).fetchone()[0],
+            0,
+        )
+        connection.close()
+
+
+class StudySearchParityTest(unittest.TestCase):
+    """キューの検索が、画面の検索と同じ範囲・同じ正規化になっていることを見る。
+
+    ずれると、画面には出ているのに「今日の学習」が空になる。実際、サーバー側が
+    素の部分一致だったため、小文字の `fp` と全角の `ＦＰ` が0枚になっていた。
+    """
+
+    def test_normalization_matches_the_client(self) -> None:
+        # 画面側: String(v).normalize("NFKC").toLowerCase().replace(/\s+/g, "")
+        self.assertEqual(server._normalize_search("FP"), "fp")
+        self.assertEqual(server._normalize_search("ＦＰ"), "fp")
+        self.assertEqual(server._normalize_search("Ｆ Ｐ"), "fp")
+        self.assertEqual(server._normalize_search("　審査 請求　"), "審査請求")
+        self.assertEqual(server._normalize_search(None), "")
+
+    def test_haystack_covers_the_same_fields_as_the_client(self) -> None:
+        card = {
+            "id": "gyo-x-001",
+            "category": "行政法",
+            "topic": "行政手続法",
+            "subtopic": "聴聞",
+            "variants": {"a": "%%行政庁%%はAAA", "b": "BBB", "bCasual": "CCC", "c": "DDD"},
+            "correction": "EEE",
+            "memoryPoint": "FFF",
+            "explanations": {
+                "normal": "GGG",
+                "deepDive": {"background": "HHH", "trap": "III", "example": "JJJ"},
+                "commonSense": "KKK",
+            },
+            "frequency": {"label": "頻出"},
+            "crossFieldComparisons": [
+                {"title": "LLL", "explanation": "MMM", "memoryCue": "NNN"}
+            ],
+            "comparisonTable": {
+                "title": "OOO", "memoryCue": "PPP",
+                "rows": [{"label": "QQQ", "article": "RRR", "rule": "SSS", "conclusion": "TTT"}],
+            },
+            "relatedPastQuestions": [{"choiceId": "src:1"}],
+        }
+        evidence = {"src:1": {"choiceId": "src:1", "statementText": "UUU", "eraYear": "令和7年"}}
+        haystack = server._search_haystack(card, evidence)
+        for token in "AAA BBB CCC DDD EEE FFF GGG HHH III JJJ KKK LLL MMM NNN OOO PPP QQQ RRR SSS TTT UUU".split():
+            self.assertIn(token.lower(), haystack, f"{token} が検索対象から漏れている")
+        self.assertIn("gyo-x-001", haystack)
+        self.assertIn("行政手続法", haystack)
+        self.assertIn("頻出", haystack)
+        self.assertIn("令和7年", haystack)
+        # 装飾記法は外してから照合する（画面も stripMarkup してから正規化している）
+        self.assertNotIn("%%", haystack)
+        self.assertIn("行政庁", haystack)
+
+    def test_client_and_server_search_field_lists_stay_in_sync(self) -> None:
+        """画面の studySearchHaystack が見ている項目を、サーバーも見ているか。"""
+        app_js = (SERVICE_ROOT / "static" / "app.js").read_text(encoding="utf-8")
+        start = app_js.index("function studySearchHaystack")
+        client = app_js[start : app_js.index("function matchesStudySearch")]
+        server_source = (SERVICE_ROOT / "server.py").read_text(encoding="utf-8")
+        start = server_source.index("def _search_haystack")
+        server_side = server_source[start : start + 2400]
+        for field in (
+            "bCasual", "correction", "memoryPoint", "commonSense",
+            "crossFieldComparisons", "comparisonTable", "relatedPastQuestions",
+            "statementText", "eraYear",
+        ):
+            self.assertIn(field, client, f"画面側に {field} が無い（テストの前提が古い）")
+            self.assertIn(field, server_side, f"サーバー側に {field} が無い")
 
 
 class SharedRuleDriftTest(unittest.TestCase):

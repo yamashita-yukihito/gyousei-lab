@@ -9,6 +9,7 @@ import json
 import math
 import os
 import re
+import unicodedata
 import sqlite3
 import threading
 from dataclasses import dataclass
@@ -74,7 +75,13 @@ DATABASE_SCHEMA_VERSION = 4
 # 卒業判定のしきい値。static/app.js の MASTERY_SCORE と同じ値でなければならない。
 MASTERY_SCORE = 3
 CARD_MARK_ACTIONS = ("certain", "uncertain", "reset", "confidence")
-CARD_MARK_CONFIDENCE = ("sure", "likely", "guess")
+# 回答ごとの自己申告。2026-08-05にFSRSの4段階へ作り替えた。
+# **again / hard / good / easy が現在の値**で、意味は「どれだけ苦労して思い出したか」。
+# sure / likely / guess は2026-08-05より前の記録で、読むためだけに残している。
+# 新しく書けるのは CARD_MARK_RATINGS だけ。
+CARD_MARK_RATINGS = ("again", "hard", "good", "easy")
+CARD_MARK_LEGACY_CONFIDENCE = ("sure", "likely", "guess")
+CARD_MARK_CONFIDENCE = CARD_MARK_RATINGS + CARD_MARK_LEGACY_CONFIDENCE
 SIMILARITY_DECISIONS = {"merge", "related", "reject", "defer"}
 RELATION_TYPES = {"opposite_claim", "exception", "contrast", "same_topic"}
 MERGE_RELATION_TYPE = "same_proposition"
@@ -268,6 +275,10 @@ def _unsafe_public_key(key: str, ancestors: tuple[str, ...]) -> bool:
     if normalized == "providerexplanationcaptured":
         return False
     if key.startswith("_") or normalized.startswith("internal"):
+        return True
+    # 取得元の内部ID。bundle生成でも落としているが、作り直す前の古いbundleが
+    # 載っていると projection を素通りしてしまう（2026-08-05の再レビュー指摘）。
+    if normalized == "rawid" and "sourcerefs" in normalized_ancestors:
         return True
     if normalized in {
         "snapshotid",
@@ -1060,6 +1071,94 @@ def connect() -> sqlite3.Connection:
     return connection
 
 
+# `card_marks` の定義。init_database と、CHECK制約を広げる移行の両方で使う。
+# 二重に書くと、片方だけ直したときに作り直しで制約が戻ってしまう。
+CARD_MARKS_DDL = """
+CREATE TABLE IF NOT EXISTS card_marks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_id TEXT NOT NULL UNIQUE,
+    session_id TEXT NOT NULL,
+    study_deck_id TEXT,
+    card_id TEXT,
+    answer_revision TEXT,
+    attempt_event_id TEXT,
+    action TEXT NOT NULL
+        CHECK (action IN ('certain', 'uncertain', 'reset', 'confidence')),
+    scope TEXT NOT NULL CHECK (scope IN ('card', 'deck')),
+    -- again/hard/good/easy が現在の値。sure/likely/guess は
+    -- 2026-08-05より前の記録で、読むためだけに残している。
+    confidence TEXT
+        CHECK (
+            confidence IS NULL
+            OR confidence IN (
+                'again', 'hard', 'good', 'easy',
+                'sure', 'likely', 'guess'
+            )
+        ),
+    marked_at_client TEXT NOT NULL,
+    app_version TEXT,
+    payload_digest TEXT NOT NULL,
+    created_at_server TEXT NOT NULL,
+    CHECK (
+        (scope = 'deck' AND action = 'reset' AND card_id IS NULL)
+        OR (scope = 'card' AND card_id IS NOT NULL)
+    ),
+    CHECK (
+        (
+            action = 'confidence'
+            AND confidence IS NOT NULL
+            AND attempt_event_id IS NOT NULL
+        )
+        OR (
+            action <> 'confidence'
+            AND confidence IS NULL
+            AND attempt_event_id IS NULL
+        )
+    )
+);
+"""
+
+
+def _migrate_card_marks_confidence(connection: sqlite3.Connection) -> bool:
+    """`card_marks.confidence` のCHECK制約へFSRSの4段階を足す。
+
+    SQLiteはCHECK制約をALTERで変えられないので、テーブルを作り直して移し替える。
+    **既存の行はそのまま運ぶ**（sure/likely/guess も引き続き読める値として残す）。
+
+    作り直しは1回だけで、2回目以降は制約を見て何もしない。失敗したときは
+    トランザクションごと巻き戻るので、元のテーブルが残る。
+
+    **テーブルを作り直すと、そのテーブルに付いていた索引とトリガも一緒に消える。**
+    ここでは作り直さず、`init_database()` がこの関数を schema を作る前に呼ぶことで、
+    後続の `CREATE INDEX / TRIGGER IF NOT EXISTS` に作り直させている。
+    順番を入れ替えると、追記型を守るトリガが外れたままになる。
+    """
+    row = connection.execute(
+        "SELECT sql FROM sqlite_master WHERE type='table' AND name='card_marks'"
+    ).fetchone()
+    if row is None or "'again'" in (row[0] or ""):
+        return False
+
+    before = connection.execute("SELECT COUNT(*) FROM card_marks").fetchone()[0]
+    columns = [
+        info[1] for info in connection.execute("PRAGMA table_info(card_marks)")
+    ]
+    column_list = ", ".join(columns)
+    connection.execute("ALTER TABLE card_marks RENAME TO card_marks_old")
+    connection.executescript(CARD_MARKS_DDL)
+    connection.execute(
+        f"INSERT INTO card_marks ({column_list}) SELECT {column_list} FROM card_marks_old"
+    )
+    after = connection.execute("SELECT COUNT(*) FROM card_marks").fetchone()[0]
+    if after != before:
+        # 件数が合わなければ移し替えを完了させない。呼び出し側で巻き戻す。
+        raise RuntimeError(
+            f"card_marks の移行で件数が変わった: {before} -> {after}"
+        )
+    connection.execute("DROP TABLE card_marks_old")
+    return True
+
+
 def init_database() -> None:
     DB_PATH.parent.mkdir(parents=True, exist_ok=True, mode=0o750)
     with connect() as connection:
@@ -1071,6 +1170,11 @@ def init_database() -> None:
             )
         connection.execute("PRAGMA journal_mode = WAL")
         connection.execute("PRAGMA synchronous = NORMAL")
+        # **schemaを作る前に走らせる。** テーブルを作り直すと、そのテーブルに付いていた
+        # 索引とトリガも一緒に消える。あとで走らせると、下の CREATE INDEX/TRIGGER
+        # IF NOT EXISTS は「既にある」と見なされたあとなので作り直されず、
+        # card_marks の追記型を守るトリガが外れたままになる（2026-08-05に指摘されて修正）。
+        migrated_card_marks = _migrate_card_marks_confidence(connection)
         connection.executescript(
             """
             CREATE TABLE IF NOT EXISTS answer_attempts (
@@ -1134,43 +1238,7 @@ def init_database() -> None:
             -- 卒業・絶対覚えた・自信度。回答と同じく追記のみで、過去の事実を消さない。
             -- reset は「ここより前の回答を習得判定に使わない」という区切りを置くだけで、
             -- card_attempts の行はそのまま残る。
-            CREATE TABLE IF NOT EXISTS card_marks (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                event_id TEXT NOT NULL UNIQUE,
-                session_id TEXT NOT NULL,
-                study_deck_id TEXT,
-                card_id TEXT,
-                answer_revision TEXT,
-                attempt_event_id TEXT,
-                action TEXT NOT NULL
-                    CHECK (action IN ('certain', 'uncertain', 'reset', 'confidence')),
-                scope TEXT NOT NULL CHECK (scope IN ('card', 'deck')),
-                confidence TEXT
-                    CHECK (
-                        confidence IS NULL
-                        OR confidence IN ('sure', 'likely', 'guess')
-                    ),
-                marked_at_client TEXT NOT NULL,
-                app_version TEXT,
-                payload_digest TEXT NOT NULL,
-                created_at_server TEXT NOT NULL,
-                CHECK (
-                    (scope = 'deck' AND action = 'reset' AND card_id IS NULL)
-                    OR (scope = 'card' AND card_id IS NOT NULL)
-                ),
-                CHECK (
-                    (
-                        action = 'confidence'
-                        AND confidence IS NOT NULL
-                        AND attempt_event_id IS NOT NULL
-                    )
-                    OR (
-                        action <> 'confidence'
-                        AND confidence IS NULL
-                        AND attempt_event_id IS NULL
-                    )
-                )
-            );
+            """ + CARD_MARKS_DDL + """
 
             CREATE INDEX IF NOT EXISTS idx_card_marks_card_id
                 ON card_marks(card_id, id);
@@ -1273,6 +1341,25 @@ def init_database() -> None:
 
             """
         )
+        if migrated_card_marks:
+            # 作り直したあと、追記型を守るトリガが本当に戻っているかを確かめる。
+            # 上のschemaで作られるはずだが、ここが外れると回答の履歴を書き換えられてしまう。
+            guards = {
+                row[0]
+                for row in connection.execute(
+                    "SELECT name FROM sqlite_master"
+                    " WHERE tbl_name = 'card_marks' AND type = 'trigger'"
+                )
+            }
+            missing = {"card_marks_no_update", "card_marks_no_delete"} - guards
+            if missing:
+                raise RuntimeError(
+                    "card_marks の移行後に追記型のトリガが戻っていない: "
+                    + ", ".join(sorted(missing))
+                )
+            check = connection.execute("PRAGMA quick_check").fetchone()[0]
+            if check != "ok":
+                raise RuntimeError(f"card_marks の移行後に quick_check が失敗: {check}")
         connection.execute(f"PRAGMA user_version = {DATABASE_SCHEMA_VERSION}")
         expected_card_columns = {
             "id",
@@ -2055,6 +2142,206 @@ def _read_weakness_snapshot() -> tuple[dict | None, str | None]:
         return None, "invalid"
 
 
+def _normalize_search(value: object) -> str:
+    """検索語の正規化。**画面の `normalizeText()` と同じにする。**
+
+    画面は NFKC 正規化 → 小文字化 → 空白除去 で照合している。サーバーが素の
+    部分一致で絞ると、小文字の `fp` や全角の `ＦＰ` が画面では当たるのに
+    キューでは0枚になる（2026-08-05の再レビュー指摘）。
+    `tests/test_server.py` の SharedRuleDriftTest が、画面側とずれていないか見ている。
+    """
+    text = unicodedata.normalize("NFKC", str(value or "")).lower()
+    return re.sub(r"\s+", "", text)
+
+
+def _search_haystack(card: dict, evidence: dict[str, dict]) -> str:
+    """検索の対象にする文字列。**画面の `studySearchHaystack()` と同じ範囲にする。**
+
+    カードID・分類・A/B/C・解説・⑥・⑦に加えて、⑤の肢の本文と年度まで含める。
+    ここを狭めると、⑤の言い回しで探したときに画面とキューの結果が食い違う。
+    """
+    card_edit, _ = _card_edit_modules()
+    variants = card.get("variants") or {}
+    explanations = card.get("explanations") or {}
+    deep = explanations.get("deepDive") or {}
+    parts: list[object] = [
+        card.get("id"), card.get("category"), card.get("topic"), card.get("subtopic"),
+        variants.get("a"), variants.get("b"), variants.get("bCasual"), variants.get("c"),
+        card.get("correction"), card.get("memoryPoint"),
+        explanations.get("normal"), deep.get("background"), deep.get("trap"),
+        deep.get("example"), explanations.get("commonSense"),
+        (card.get("frequency") or {}).get("label"),
+    ]
+    for comparison in card.get("crossFieldComparisons") or []:
+        parts += [comparison.get("title"), comparison.get("explanation"),
+                  comparison.get("memoryCue")]
+    table = card.get("comparisonTable")
+    if isinstance(table, dict):
+        parts += [table.get("title"), table.get("memoryCue")]
+        for row in table.get("rows") or []:
+            parts += [row.get("label"), row.get("article"), row.get("rule"),
+                      row.get("conclusion")]
+    for ref in card.get("relatedPastQuestions") or []:
+        item = evidence.get(ref.get("choiceId", ""))
+        if item:
+            parts += [item.get("statementText"), item.get("eraYear")]
+    joined = " ".join(str(p) for p in parts if p)
+    return _normalize_search(card_edit.strip_markup(joined))
+
+
+def card_edit_module():
+    module, _ = _card_edit_modules()
+    return module
+
+
+def study_queue_response(query: dict[str, list[str]]) -> dict:
+    """「今日の学習」キュー。py-fsrs が決めた期日で、今日出すカードを並べる。
+
+    状態は `card_attempts` と `card_marks` から毎回導出する。専用テーブルを作らず、
+    `production.sqlite3` のschemaも変えない。理由は `study_queue.py` の冒頭に書いた。
+    """
+    import study_queue
+
+    snapshot = CATALOG.load()
+    study_deck_id = _single_query(query, "studyDeckId")
+    deck_id = _single_query(query, "deckId")
+    if study_deck_id is not None and deck_id is not None and study_deck_id != deck_id:
+        # /api/card-progress と同じく、食い違う指定は黙って片方を採らない。
+        raise ApiError(HTTPStatus.BAD_REQUEST, "conflicting study deck identifiers")
+    if study_deck_id is None:
+        study_deck_id = deck_id
+    deck = resolve_study_deck(snapshot, study_deck_id, require_if_ambiguous=True)
+    cards = cards_for_study_deck(snapshot, deck)
+
+    # 暗記もの／理解もので絞る。8月は暗記ものだけを回す使い方をするので、
+    # キューの側でも同じ範囲に揃えないと期日ぎれの枚数が合わなくなる。
+    # 分類の無いカードは古いbundleの可能性があるので、黙って「暗記もの」へ混ぜず止める。
+    # **絞り込みの指定と無関係に確かめる。** 「すべて」を選んだときや learningType を
+    # 省いたときにも未分類が混ざるため（2026-08-05の再レビュー指摘）。
+    known_types = card_edit_module().LEARNING_TYPES
+    unclassified = [
+        card["id"] for card in cards if card.get("learningType") not in known_types
+    ]
+    if unclassified:
+        raise ApiError(
+            HTTPStatus.CONFLICT,
+            "learningType のないカードがあります（bundleを作り直してください）: "
+            + ", ".join(sorted(unclassified)[:5]),
+        )
+    learning_type = _single_query(query, "learningType")
+    if learning_type is not None:
+        if learning_type not in known_types:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST,
+                "learningType must be memorize or understand",
+            )
+        cards = [card for card in cards if card["learningType"] == learning_type]
+
+    def _count(name: str, fallback: int, *, low: int) -> int:
+        text = _single_query(query, name)
+        if text is None:
+            return fallback
+        # str.isdigit() は "²" のようなUnicode数字でもTrueになるが int() は落ちる。
+        # 判定を挟まず、変換そのものを例外で受ける（2026-08-05のレビュー指摘）。
+        try:
+            value = int(text)
+        except (TypeError, ValueError) as error:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST, f"{name} must be an integer"
+            ) from error
+        if not low <= value <= study_queue.MAX_QUEUE_LIMIT:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST,
+                f"{name} must be between {low} and {study_queue.MAX_QUEUE_LIMIT}",
+            )
+        return value
+
+    # 画面が科目・分野で絞っているなら、キューも同じ範囲で組む。全カードから
+    # 組むと、その日の枠を他の科目に使ってしまい、選んだ科目が空に見える。
+    subject_id = _single_query(query, "subjectId")
+    if subject_id is not None:
+        cards = [card for card in cards if card.get("subjectId") == subject_id]
+    topic = _single_query(query, "topic")
+    if topic is not None:
+        cards = [card for card in cards if card.get("topic") == topic]
+    # 検索語で絞っているときも同じ母集団から組む。渡さないと、検索に当たらない
+    # カードでその日の枠を使ってしまう（2026-08-05の再レビュー指摘）。
+    search = _single_query(query, "search")
+    if search:
+        words = [_normalize_search(word) for word in search.split()]
+        words = [word for word in words if word]
+        if words:
+            evidence = {
+                item["choiceId"]: item
+                for item in _list_section(snapshot.bundle, "relatedQuestionEvidence")
+                if isinstance(item, dict) and isinstance(item.get("choiceId"), str)
+            }
+            cards = [
+                card
+                for card in cards
+                if all(word in _search_haystack(card, evidence) for word in words)
+            ]
+
+    limit = _count("limit", study_queue.DEFAULT_QUEUE_LIMIT, low=1)
+    # はじめてのカードだけ別枠で絞れるようにする。0にすれば復習だけになる。
+    new_limit = _count("newLimit", study_queue.DEFAULT_NEW_LIMIT, low=0)
+
+    retention = 0.9
+    retention_text = _single_query(query, "desiredRetention")
+    if retention_text is not None:
+        try:
+            retention = float(retention_text)
+        except ValueError as error:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST, "desiredRetention must be a number"
+            ) from error
+        if not 0.7 <= retention <= 0.97:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST,
+                "desiredRetention must be between 0.7 and 0.97",
+            )
+
+    with connect() as connection:
+        result = study_queue.build_queue(
+            connection,
+            cards,
+            limit=limit,
+            new_limit=new_limit,
+            desired_retention=retention,
+            study_deck_id=(deck or {}).get("id"),
+        )
+    # 画面がそのまま出題できるよう、公開projectionを通したカード本体も返す。
+    by_id = {card["id"]: card for card in cards}
+    result["cards"] = [
+        card_for_response(by_id[card_id], snapshot, deck)
+        for card_id in result["cardIds"]
+        if card_id in by_id
+    ]
+    result["studyDeck"] = dict(deck) if deck is not None else None
+    result["bundle"] = snapshot.metadata()
+    return result
+
+
+def rating_preview_response(query: dict[str, list[str]]) -> dict:
+    """1枚ぶんの「この評価を選ぶと次はいつか」を返す。評価ボタンへ出すためのもの。"""
+    import study_queue
+
+    card_id = _single_query(query, "cardId")
+    if not card_id or not valid_id(card_id):
+        raise ApiError(HTTPStatus.BAD_REQUEST, "cardId is required")
+    snapshot = CATALOG.load()
+    study_deck_id = _single_query(query, "studyDeckId")
+    deck = resolve_study_deck(snapshot, study_deck_id, require_if_ambiguous=True)
+    known = {card["id"] for card in cards_for_study_deck(snapshot, deck)}
+    if card_id not in known:
+        raise ApiError(HTTPStatus.NOT_FOUND, "unknown card")
+    with connect() as connection:
+        previews = study_queue.rating_previews(
+            connection, card_id, study_deck_id=(deck or {}).get("id")
+        )
+    return {"cardId": card_id, "intervals": previews, "bundle": snapshot.metadata()}
+
+
 def learning_analysis() -> dict:
     snapshot = CATALOG.load()
     deck = default_study_deck(snapshot)
@@ -2344,7 +2631,7 @@ def add_card_mark(payload: dict) -> tuple[dict, bool, BundleSnapshot, dict | Non
     attempt_event_id = payload.get("attemptEventId")
     confidence = payload.get("confidence")
     if action == "confidence":
-        if confidence not in CARD_MARK_CONFIDENCE:
+        if confidence not in CARD_MARK_RATINGS:
             raise ApiError(HTTPStatus.BAD_REQUEST, "invalid confidence")
         if not valid_id(attempt_event_id):
             raise ApiError(HTTPStatus.BAD_REQUEST, "invalid attemptEventId")
@@ -3081,6 +3368,12 @@ class ProductionHandler(BaseHTTPRequestHandler):
                     result = card_progress_statistics(connection, snapshot, deck)
                 result["bundle"] = snapshot.metadata()
                 self.send_json(result)
+                return
+            if parsed.path == "/api/study-queue":
+                self.send_json(study_queue_response(query))
+                return
+            if parsed.path == "/api/rating-preview":
+                self.send_json(rating_preview_response(query))
                 return
             if parsed.path == "/api/learning-analysis":
                 self.send_json(learning_analysis())

@@ -269,7 +269,30 @@
         "gyo-local-water-supply-refusal-001",
         "gyo-local-reconsideration-001",
         "gyo-act-minister-authority-001",
-        "gyo-act-administrative-contract-001"
+        "gyo-act-administrative-contract-001",
+        "min-property-removal-claim-registrant-001",
+        "min-general-disappearance-declaration-001",
+        "min-tort-medical-standard-001",
+        "min-tort-defamation-honor-001",
+        "con-academic-freedom-001",
+        "con-supreme-law-private-act-001",
+        "com-inc-accounting-advisor-001",
+        "com-inc-shareholder-minority-rights-001",
+        "com-act-silent-partnership-001",
+        "gk-joho-kokai-requester-001",
+        "gk-joho-kokai-personal-identification-001",
+        "gyo-local-resident-suit-neglect-001",
+        "gyo-local-special-ward-001",
+        "gyo-legislation-circular-nature-001",
+        "gyo-state-comp-fire-liability-001",
+        "min-security-retention-lien-001",
+        "min-family-acknowledgement-effect-001",
+        "con-gen-private-effect-001",
+        "com-gen-manager-authority-001",
+        "gk-pip-exemption-types-001",
+        "min-security-pledge-001",
+        "min-security-mortgage-interference-001",
+        "min-obligation-joint-notice-001"
       ]
     }
   ],
@@ -371,7 +394,8 @@
           "alt": "行政手続法31条が16条を準用するため、弁明の機会の付与でも代理人を選任でき、本人が入院中でも弁明書の作成などを任せられることを示した図",
           "caption": "31条が16条を準用するので、弁明でも代理人を選べる"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-hearing-002",
@@ -488,7 +512,8 @@
           "alt": "聴聞と弁明の機会の付与について、代理人の選任と自分の証拠書類等の提出はどちらも認められるが、文書等の閲覧は弁明では認められないことを比べた表",
           "caption": "弁明は人は連れてこられるが、資料棚までは開かない"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-scope-001",
@@ -594,7 +619,8 @@
           "alt": "自治体の行為をまず処分・届出か行政指導かで分け、処分・届出だけ根拠が国の法律か条例・規則かを見る判定順と、行政指導は根拠を問わず適用除外になることを示した図",
           "caption": "まず種類、次に根拠。行政指導は根拠を見ない"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-hearing-exception-001",
@@ -709,7 +735,8 @@
           "alt": "資格喪失の事実が客観的資料で直接証明されることと、その場合の不利益処分を法律上必ずすることとされていることの二つがそろって初めて、聴聞や弁明を含む意見陳述手続を省略できることを示した図",
           "caption": "客観資料で直接証明＋法定必須処分 → 意見陳述手続なし"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-act-defect-001",
@@ -812,7 +839,8 @@
           "alt": "違法でも取り消されるまでは有効な処分と、重大かつ明白な瑕疵により初めから無効な処分を左右に並べ、明白性は処分当初の外形で判断することを示した図",
           "caption": "取消し得べき処分と当然無効の分かれ目"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-act-withdrawal-001",
@@ -919,7 +947,8 @@
           }
         ],
         "memoryCue": "分かれ目は瑕疵がいつあったかである。最初からおかしければさかのぼって消し、後から事情が変わったのなら、それまでの効力は認めて先だけ止める。撤回できるのは原則として処分庁だけで、上級行政庁は撤回できない点も取消しとの違いである。法令が「取消し」という語を使っていても、中身が撤回であることは珍しくない。"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gyo-written-r7-decision-defect-001",
@@ -1035,7 +1064,8 @@
         "裁決取消訴訟",
         "原処分",
         "審査請求"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-noncorporate-group-001",
@@ -1123,7 +1153,8 @@
         "財団",
         "代表者",
         "管理人"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-local-residents-audit-001",
@@ -1230,7 +1261,8 @@
         "住民監査請求",
         "監査委員",
         "連署"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-written-h30-duty-inaction-001",
@@ -1339,7 +1371,8 @@
         "不作為の違法確認",
         "併合",
         "相当の期間"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-standard-period-001",
@@ -1439,7 +1472,8 @@
         "努める",
         "公にして",
         "審査基準"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-formal-defect-001",
@@ -1565,7 +1599,8 @@
           "alt": "申請が到達したら遅滞なく審査を開始し、形式上の要件に適合しなければ補正を求めるか許認可等を拒否するかを行政庁が選ぶ流れと、審査請求書の記載不備には原則として補正命令が義務づけられることを並べた図",
           "caption": "禁じられているのは放置。補正は拒否の前提ではない"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-progress-info-001",
@@ -1655,7 +1690,8 @@
         "見通し",
         "求めに応じ",
         "努める"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-local-designated-manager-001",
@@ -1770,7 +1806,8 @@
         "公の施設",
         "条例",
         "規則"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-local-involvement-law-001",
@@ -1868,7 +1905,8 @@
         "自治事務",
         "関与",
         "政令"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-refusal-hearing-001",
@@ -1972,7 +2010,8 @@
         "弁明の機会",
         "聴聞",
         "理由の提示"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-inaction-applicant-001",
@@ -2088,7 +2127,8 @@
         "申請をした者",
         "法律上の利益",
         "相当の期間"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-local-autonomous-affairs-001",
@@ -2175,7 +2215,8 @@
         "自治事務",
         "法定受託事務",
         "地方公共団体が処理する事務"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-inaction-scope-001",
@@ -2298,7 +2339,8 @@
           }
         ],
         "memoryCue": "行政手続法は「早く処理するよう努めなさい」と行政へ促すだけの法律で、動かない行政を打つ武器は持たせていない。武器を持たせたのは行審法と行訴法で、しかも行訴法では違法だと確認するだけでは足りず、処分を出させるには義務付け訴訟を重ねて起こす必要がある。"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-hearing-file-access-001",
@@ -2394,7 +2436,8 @@
         "当事者",
         "参加人",
         "終結"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-guidance-stop-001",
@@ -2503,7 +2546,8 @@
         "法律に置かれている",
         "申し出",
         "是正を求める"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-reinvestigation-choice-001",
@@ -2607,7 +2651,8 @@
         "処分庁",
         "決定",
         "選択"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-inaction-no-reinvestigation-001",
@@ -2698,7 +2743,8 @@
         "審査請求",
         "相当の期間",
         "申請"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-reinvestigation-stay-001",
@@ -2777,7 +2823,8 @@
         "処分庁",
         "職権",
         "申立て"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-inaction-examiner-001",
@@ -2856,7 +2903,8 @@
         "審査庁",
         "審理手続",
         "裁決"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-examiner-affiliation-001",
@@ -2973,7 +3021,8 @@
           }
         ],
         "memoryCue": "行手法の主宰者は行政庁が指名する職員その他政令で定める者、行審法の審理員は原則として審査庁所属職員です。どちらにも除斥事由があり、取消訴訟は行政組織の外にいる裁判官が審理します。"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-examiner-stay-opinion-001",
@@ -3065,7 +3114,8 @@
         "意見書",
         "審査庁",
         "速やかに"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-nursery-ordinance-001",
@@ -3138,7 +3188,8 @@
         "行政処分",
         "現に入所中の児童",
         "処分と実質的に同視"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-land-readjustment-plan-001",
@@ -3210,7 +3261,8 @@
         "抗告訴訟",
         "行政処分",
         "法的地位"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-zoning-001",
@@ -3282,7 +3334,8 @@
         "一般的抽象的",
         "抗告訴訟",
         "行政処分"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-local-audit-one-resident-001",
@@ -3378,7 +3431,8 @@
         "事務監査請求",
         "監査委員",
         "住民訴訟"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-refusal-reason-001",
@@ -3497,7 +3551,8 @@
           }
         ],
         "memoryCue": "いずれも「なぜその結論になったのかを名あて人に分からせる」ためのもので、行政の判断を慎重にさせる働きと、争うための材料を渡す働きを兼ねている。行手法8条だけは明白な場合の例外があり、14条には緊急時の後出しがあるが、行審法50条の裁決書には例外がない。争いの最終判断を書く文書だからである。"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-guidance-guideline-001",
@@ -3580,7 +3635,8 @@
         "公表",
         "同一の行政目的",
         "複数の者"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-enforcement-ordinance-substitution-001",
@@ -3661,7 +3717,8 @@
         "代替的作為義務",
         "履行の確保",
         "義務者"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-litigation-defendant-001",
@@ -3777,7 +3834,8 @@
           }
         ],
         "memoryCue": "行政内部の手続では行政庁そのものを相手にするが、裁判所へ持ち込むと相手は国や公共団体という法人格を持つ主体へ変わる。訴訟は権利義務の主体どうしで争うものだからである。平成16年改正までは取消訴訟も行政庁が被告だったので、古い教材は要注意。"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-review-criteria-001",
@@ -3862,7 +3920,8 @@
         "公に",
         "処分基準",
         "許認可等"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-disposition-standard-001",
@@ -3951,7 +4010,8 @@
         "不利益処分",
         "公に",
         "審査基準"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-guidance-writing-001",
@@ -4030,7 +4090,8 @@
         "口頭",
         "責任者",
         "交付"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aps-notification-arrival-001",
@@ -4114,7 +4175,8 @@
         "形式上の要件",
         "受理",
         "提出先"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-review-period-001",
@@ -4219,7 +4281,8 @@
           }
         ],
         "memoryCue": "行政への不服申立ては3か月、裁判所への訴えは6か月と、裁判のほうが長い。書面を出すだけの手続より、訴訟のほうが準備に手間がかかるからである。「あった日から1年」はどれも共通で、知らないまま何年も争えるようにはしていない。起算点も違い、行審法は「翌日から起算して」、行訴法は「日から」と書く。"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-no-adverse-change-001",
@@ -4289,7 +4352,8 @@
         "変更",
         "裁決",
         "審査請求人"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-oral-opinion-001",
@@ -4376,7 +4440,8 @@
         "参加人",
         "審理員",
         "補佐人"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-aia-review-board-consultation-001",
@@ -4476,7 +4541,8 @@
         "諮問",
         "審理員意見書",
         "審査庁"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-review-prerequisite-001",
@@ -4574,7 +4640,8 @@
           }
         ],
         "memoryCue": "原則は自由選択で、行政に一度見直させることを強制しない。強制するのは、大量の不服が見込まれて裁判所が持たない分野など、法律が特に定めた場合だけである。住民訴訟は住民が自治体の財務を正す特別な仕組みなので、まず監査委員に見せるという段階が必ず入る。"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-filing-period-001",
@@ -4662,7 +4729,8 @@
         "6か月",
         "1年",
         "正当な理由"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-standing-001",
@@ -4737,7 +4805,8 @@
         "定期航空運送事業免許",
         "周辺住民",
         "騒音"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-stay-001",
@@ -4841,7 +4910,8 @@
           }
         ],
         "memoryCue": "行政の中の見直し（行審法）は、自分が出した処分だから自分の判断でも止められる。裁判所（行訴法）は当事者が申し立てた範囲でしか動かないので、職権では止めない"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-invalidity-subsidiarity-001",
@@ -4925,7 +4995,8 @@
         "補充性",
         "現在の法律関係に関する訴え",
         "法律上の利益"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-cancel-judgment-effects-001",
@@ -4995,7 +5066,8 @@
         "第三者",
         "関係行政庁",
         "拘束"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-state-comp-public-official-liability-001",
@@ -5103,7 +5175,8 @@
           }
         ],
         "memoryCue": "使用者責任は被用者本人の責任が残るのに、国賠法では公務員個人が表に出ない。公務員が個人責任を恐れて萎縮すると、必要な行政活動まで止まってしまうからである。そのかわり、故意や重過失があった場合には国が本人へ求償する。免責規定の有無も違い、国賠法1条には715条ただし書のような免責がない。"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-state-comp-public-facility-001",
@@ -5209,7 +5282,8 @@
           }
         ],
         "memoryCue": "民法717条は占有者に一度逃げ道を用意してから所有者へ回すが、国賠法2条にはその段階がない。公の営造物は誰もが避けようなく使うもので、被害者の側に選ぶ余地がないからである。なお国賠法2条の「営造物」は建物などに限らず、動産（公用車、拳銃）や自然公物（河川、海岸）も含む点が717条の「土地の工作物」と違う。"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gyo-state-comp-no-prior-cancel-001",
@@ -5283,7 +5357,8 @@
         "取消判決",
         "無効確認",
         "あらかじめ"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-local-statutory-entrusted-ordinance-001",
@@ -5367,7 +5442,8 @@
         "自治事務",
         "条例を制定",
         "法令に違反しない"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-local-ordinance-penalty-001",
@@ -5455,7 +5531,8 @@
         "過料",
         "法律の委任",
         "科料"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-local-ordinance-direct-request-001",
@@ -5540,7 +5617,8 @@
         "分担金",
         "手数料",
         "50分の1"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-general-prescription-invoker-001",
@@ -5673,7 +5751,8 @@
           }
         ],
         "memoryCue": "民事の期限は年単位、行政処分を争う期限は月単位と、桁が違う。行政処分は多数の人の法律関係の土台になるので、いつまでも覆せると社会が落ち着かないからである。国家賠償請求は行政の話でありながら、国賠法4条により民法724条が使われるので3年・20年になる。ここが取り違えやすい。"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "min-general-unauthorized-agency-succession-001",
@@ -5751,7 +5830,8 @@
         "追認を拒絶",
         "信義則",
         "相続"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-general-capacity-demand-001",
@@ -5841,7 +5921,8 @@
         "追認",
         "みなす",
         "確答"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-general-capacity-fraud-001",
@@ -5917,7 +5998,8 @@
         "制限行為能力者",
         "取り消すことができない",
         "誤信"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-general-false-representation-third-party-001",
@@ -6010,7 +6092,8 @@
         "仮装",
         "賃借人",
         "対抗"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-property-good-faith-acquisition-001",
@@ -6098,7 +6181,8 @@
         "現実の引渡し",
         "指図による占有移転",
         "無過失"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-property-registration-bad-faith-001",
@@ -6173,7 +6257,8 @@
         "信義に反する",
         "第三者",
         "二重に譲渡"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-property-prescription-registration-001",
@@ -6267,7 +6352,8 @@
         "時効完成後",
         "時効取得者",
         "援用"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-property-co-ownership-claims-001",
@@ -6356,7 +6442,8 @@
         "明渡し",
         "持分の割合",
         "損害賠償"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-security-subrogation-attachment-001",
@@ -6445,7 +6532,8 @@
         "差押え",
         "抵当権者",
         "賃料"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-security-collective-movables-001",
@@ -6524,7 +6612,8 @@
         "占有改定",
         "対抗要件",
         "集合物"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-security-revolving-mortgage-001",
@@ -6603,7 +6692,8 @@
         "被担保債権の範囲",
         "後順位抵当権者",
         "極度額"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-obligation-joint-liability-effects-001",
@@ -6697,7 +6787,8 @@
         "負担部分",
         "絶対的効力",
         "求償"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-obligation-setoff-attachment-001",
@@ -6780,7 +6871,8 @@
         "相殺",
         "差押え前の原因",
         "対抗"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-obligation-guarantee-prescription-001",
@@ -6855,7 +6947,8 @@
         "時効の完成猶予",
         "更新",
         "付従性"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-obligation-creditor-subrogation-001",
@@ -6934,7 +7027,8 @@
         "取立て",
         "処分",
         "債権者代位権"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-obligation-assignment-restriction-001",
@@ -7009,7 +7103,8 @@
         "悪意",
         "重大な過失",
         "履行を拒む"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-contract-termination-minor-breach-001",
@@ -7084,7 +7179,8 @@
         "軽微",
         "社会通念",
         "解除"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-contract-lessor-transfer-deposit-001",
@@ -7171,7 +7267,8 @@
         "譲受人",
         "対抗要件",
         "承継"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-contract-nonconformity-remedy-001",
@@ -7269,7 +7366,8 @@
         "催告",
         "相当の期間",
         "契約の内容に適合しない"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-tort-employer-liability-recourse-001",
@@ -7354,7 +7452,8 @@
         "求償",
         "事業の執行",
         "信義則"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-family-adoption-types-001",
@@ -7438,7 +7537,8 @@
         "実父母",
         "親族関係",
         "家庭裁判所"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-family-divorce-property-001",
@@ -7540,7 +7640,8 @@
         "精神的苦痛",
         "損害賠償",
         "慰謝するに足りない"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-deposit-division-001",
@@ -7619,7 +7720,8 @@
         "可分債権",
         "当然に分割",
         "共同相続人"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-holograph-will-001",
@@ -7690,7 +7792,8 @@
         "自書",
         "毎葉",
         "押印"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-gyosei-law-qualification-001",
@@ -7765,7 +7868,8 @@
         "通算して2年以上",
         "行政書士となる資格",
         "公務員"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-gyosei-law-disqualification-001",
@@ -7836,7 +7940,8 @@
         "破産手続開始の決定",
         "懲戒免職",
         "3年"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-gyosei-law-fee-display-001",
@@ -7901,7 +8006,8 @@
         "事務所の見やすい場所",
         "報酬の額",
         "掲示"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-gyosei-law-specified-appeal-001",
@@ -7976,7 +8082,8 @@
         "審査請求",
         "代理",
         "特定行政書士"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-gyosei-law-discipline-001",
@@ -8051,7 +8158,8 @@
         "戒告",
         "解散処分",
         "業務の停止"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-gyosei-law-registration-erasure-001",
@@ -8116,7 +8224,8 @@
         "登録を抹消",
         "業務を禁止",
         "日本行政書士会連合会"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-identifier-code-001",
@@ -8209,7 +8318,8 @@
         "クレジットカード番号",
         "個人番号",
         "指紋データ"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-improper-use-001",
@@ -8278,7 +8388,8 @@
         "違法または不当な行為を助長",
         "誘発するおそれ",
         "利用目的を変更"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gk-pip-third-party-exception-001",
@@ -8357,7 +8468,8 @@
         "本人の同意",
         "委託",
         "公衆衛生"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-provision-record-001",
@@ -8432,7 +8544,8 @@
         "第三者提供",
         "記録しなければならない",
         "提供した年月日"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-leak-report-001",
@@ -8497,7 +8610,8 @@
         "漏えい等",
         "個人の権利利益を害するおそれが大きい",
         "個人情報保護委員会への報告"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-academic-exception-001",
@@ -8562,7 +8676,8 @@
         "学術研究機関",
         "学術研究目的",
         "適用されない"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-public-private-001",
@@ -8637,7 +8752,8 @@
         "まったく同一",
         "地方公共団体",
         "国の行政機関"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gk-pip-commission-power-001",
@@ -8723,7 +8839,8 @@
         "監視を行わない",
         "共管",
         "報告または資料の提出"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-commission-scope-001",
@@ -8801,7 +8918,8 @@
         "個人番号カード",
         "交付",
         "認定個人情報保護団体"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-local-government-001",
@@ -8871,7 +8989,8 @@
         "個人情報保護条例",
         "内閣総理大臣",
         "指揮監督権限"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-mosaic-approach-001",
@@ -8936,7 +9055,8 @@
         "モザイク・アプローチ",
         "不開示情報",
         "他の情報と組み合わせる"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gk-juki-record-items-001",
@@ -9018,7 +9138,8 @@
         "続柄",
         "住民票",
         "記載事項"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-koseki-birth-notification-001",
@@ -9101,7 +9222,8 @@
         "3箇月",
         "出生証明書",
         "常用平易"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -9194,7 +9316,8 @@
           "memoryCue": "商法が先に来る理由は「特別法だから」。一般法が後から変わっても特別法は消えない",
           "relatedCardId": "leg-general-special-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -9267,7 +9390,8 @@
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -9335,7 +9459,8 @@
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -9404,7 +9529,8 @@
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -9515,7 +9641,8 @@
           "memoryCue": "504条は「名前を出したか」、無権代理は「権限があったか」",
           "relatedCardId": "min-general-unauthorized-agency-succession-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "商法・会社法",
@@ -9589,7 +9716,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -9693,7 +9821,8 @@
           "memoryCue": "入口は商法511条、中身は民法438条以下",
           "relatedCardId": "min-obligation-joint-liability-effects-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "商法・会社法",
@@ -9777,7 +9906,8 @@
           "memoryCue": "頼まれていない仕事に報酬が付くのは商人のときだけ",
           "relatedCardId": "min-contract-negotiorum-gestio-useful-expenses-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "商法・会社法",
@@ -9870,7 +10000,8 @@
           "memoryCue": "民法は登記という帳簿、商法は看板という外観",
           "relatedCardId": "min-property-registration-bad-faith-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "商法・会社法",
@@ -9952,7 +10083,8 @@
         "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -10023,7 +10155,8 @@
         "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -10098,7 +10231,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -10180,7 +10314,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "商法・会社法",
@@ -10270,7 +10405,8 @@
         "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -10373,7 +10509,8 @@
         "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "憲法",
@@ -10455,7 +10592,8 @@
         "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -10536,7 +10674,8 @@
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -10629,7 +10768,8 @@
           "memoryCue": "守ってもらうのは憲法、動かしてもらうのは法律",
           "relatedCardId": "gk-pip-public-private-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -10711,7 +10851,8 @@
         "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -10793,7 +10934,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -10886,7 +11028,8 @@
           "memoryCue": "任意加入の会社は政治献金できるが、強制加入の団体はできない",
           "relatedCardId": "leg-corporation-type-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -10952,7 +11095,8 @@
         "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11045,7 +11189,8 @@
           "memoryCue": "制度そのものの是非は憲法、運用の手順は行政手続法",
           "relatedCardId": "gyo-aps-review-criteria-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11138,7 +11283,8 @@
           "memoryCue": "規制できるかは憲法29条、どこまで罰せるかは地方自治法14条3項",
           "relatedCardId": "gyo-local-ordinance-penalty-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11220,7 +11366,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11302,7 +11449,8 @@
         "archiveOccurrences": 4,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11384,7 +11532,8 @@
         "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "憲法",
@@ -11466,7 +11615,8 @@
         "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11548,7 +11698,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "憲法",
@@ -11630,7 +11781,8 @@
         "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "憲法",
@@ -11723,7 +11875,8 @@
           "memoryCue": "争訟性が無いのか、争訟性はあるが審査しないのか",
           "relatedCardId": "gyo-litigation-legal-dispute-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11816,7 +11969,8 @@
           "memoryCue": "82条の外へ出た手続だけが、法律で非公開にできる",
           "relatedCardId": "leg-procedure-principle-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -11898,7 +12052,8 @@
         "archiveOccurrences": 4,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "憲法",
@@ -11991,7 +12146,8 @@
           "memoryCue": "憲法31条は「場合による」、行政手続法は「どの場合にどちらか」を条文で決めた",
           "relatedCardId": "gyo-aps-refusal-hearing-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "憲法",
@@ -12077,7 +12233,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "基礎法学",
@@ -12155,7 +12312,8 @@
         "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "基礎法学40問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎法学",
@@ -12244,7 +12402,8 @@
           "memoryCue": "抽象論は基礎法学、条文の形は商法1条2項。商慣習が民法より先という上乗せも忘れない",
           "relatedCardId": "com-gen-application-order-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "基礎法学",
@@ -12326,7 +12485,8 @@
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "基礎法学40問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "基礎法学",
@@ -12403,7 +12563,8 @@
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "基礎法学40問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "category": "基礎法学",
@@ -12492,7 +12653,8 @@
           "memoryCue": "審級は裁判所の中の順番、前置は裁判所へ入る前の順番",
           "relatedCardId": "gyo-litigation-review-prerequisite-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "基礎法学",
@@ -12570,7 +12732,8 @@
         "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "基礎法学40問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎法学",
@@ -12652,7 +12815,8 @@
         "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "基礎法学40問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎法学",
@@ -12734,7 +12898,8 @@
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "基礎法学40問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎法学",
@@ -12827,7 +12992,8 @@
           "memoryCue": "非訟だから非公開ではなく、82条の射程外だから法律で非公開にできる",
           "relatedCardId": "con-court-open-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "基礎法学",
@@ -12950,7 +13116,8 @@
           "memoryCue": "定款はどこも作る。違うのは、その後に役所が何回出てくるか",
           "relatedCardId": "com-inc-articles-required-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13031,7 +13198,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13112,7 +13280,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13193,7 +13362,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13282,7 +13452,8 @@
           "memoryCue": "日本は開示・訂正・利用停止の3つ。持ち出しと自動判断への異議はGDPR固有",
           "relatedCardId": "gk-pip-public-private-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13363,7 +13534,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13445,7 +13617,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13538,7 +13711,8 @@
           "memoryCue": "直接請求は議会を動かす、住民投票は意思を示す。どちらも最終判断は代表者",
           "relatedCardId": "gyo-local-ordinance-direct-request-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13621,7 +13795,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13703,7 +13878,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13796,7 +13972,8 @@
           "memoryCue": "14条は理由のない区別を禁じる。合理的配慮は不利をならす合理的な調整",
           "relatedCardId": "con-eq-framework-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13878,7 +14055,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -13960,7 +14138,8 @@
         "archiveOccurrences": 0,
         "scope": "平成28年度〜令和7年度",
         "basis": "基礎知識110問を1問ずつ突き合わせて集計（令和3年改正で行政機関個人情報保護法が廃止・一元化され、諸法令枠は令和6年度の新設のため、旧10年は集計対象にしない）"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "category": "基礎知識",
@@ -14053,7 +14232,8 @@
           "memoryCue": "人権は及ぶ。ただし、そこにいられるかは別の判断",
           "relatedCardId": "con-hr-holder-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "con-rel-purpose-effect-001",
@@ -14129,7 +14309,8 @@
         "援助",
         "助長",
         "玉串料"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-litigation-interest-after-effect-001",
@@ -14223,7 +14404,8 @@
         "違反点数",
         "期間が終了",
         "公文書"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-substantive-party-action-001",
@@ -14311,7 +14493,8 @@
         "確認",
         "給付",
         "損失補償"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-provisional-mandate-main-action-001",
@@ -14396,7 +14579,8 @@
         "単独",
         "償うことのできない損害",
         "緊急"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -14479,7 +14663,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -14555,7 +14740,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -14622,7 +14808,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -14697,7 +14884,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -14776,7 +14964,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -14852,7 +15041,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "memorize"
     },
     {
       "id": "con-gen-substantive-meaning-001",
@@ -14928,7 +15118,8 @@
         "憲法典",
         "硬性憲法",
         "軟性憲法"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "con-gen-rigid-constitution-001",
@@ -14999,7 +15190,8 @@
         "改正手続",
         "総議員",
         "国民投票"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "con-gen-respect-duty-001",
@@ -15075,7 +15267,8 @@
         "摂政",
         "国務大臣",
         "最高法規"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "leg-law-form-structure-001",
@@ -15159,7 +15352,8 @@
         "見出し",
         "削除",
         "従属"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "leg-law-enforcement-date-001",
@@ -15244,7 +15438,8 @@
         "20日",
         "施行期日",
         "有効期間"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-discretion-judicial-review-001",
@@ -15337,7 +15532,8 @@
         "社会通念",
         "逸脱",
         "濫用"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-legislation-delegation-limit-001",
@@ -15435,7 +15631,8 @@
         "政令",
         "省令",
         "無効"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-aps-public-comment-draft-001",
@@ -15529,7 +15726,8 @@
         "関連する資料",
         "公示",
         "一般の意見"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-loss-compensation-project-restriction-value-001",
@@ -15626,7 +15824,8 @@
         "相当な価格",
         "裁決時",
         "収用"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-enforcement-immediate-compulsion-001",
@@ -15724,7 +15923,8 @@
         "義務の不履行",
         "非常",
         "危険切迫"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-aia-guidance-omission-001",
@@ -15818,7 +16018,8 @@
         "処分庁",
         "送付",
         "みなされる"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-state-comp-public-power-scope-001",
@@ -15911,7 +16112,8 @@
         "情報提供",
         "非権力的行政作用",
         "職務"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "民法",
@@ -15995,7 +16197,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "動産売買先取特権の追及力・物上代位・第三取得者を直接扱う問題を集計"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "understand"
     },
     {
       "category": "民法",
@@ -16089,7 +16292,8 @@
           "memoryCue": "事務管理は費用だけ。商人なら報酬も請求できる。",
           "relatedCardId": "com-act-reward-custody-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "category": "民法",
@@ -16173,7 +16377,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "承諾転貸・無断転貸と賃貸人に対する転借人の義務を直接扱う問題を集計"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "understand"
     },
     {
       "category": "民法",
@@ -16240,7 +16445,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "法定地上権の成立要件を直接扱う問題を集計"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "understand"
     },
     {
       "category": "民法",
@@ -16328,7 +16534,8 @@
           "explanation": "不法行為の消滅時効は、期間の経過で損害賠償請求権そのものが消えます。援用が要り、完成猶予や更新もあります。取消訴訟の出訴期間は、処分を訴訟で争える期間の制限で、過ぎると訴えが不適法になりますが、処分の効力を別の形で争える場合は残ります。同じ期間制限でも、消えるものが違います。",
           "memoryCue": "時効は権利が消える。出訴期間は訴える道が閉じる"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -16420,7 +16627,8 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "譲渡制限株式の承認機関を直接問う問題だけを集計"
       },
-      "crossFieldComparisons": []
+      "crossFieldComparisons": [],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -16518,7 +16726,8 @@
           "memoryCue": "監査等委員会＝取締役・過半数／監査役会＝監査役・半数以上＋常勤",
           "relatedCardId": "com-inc-auditor-board-structure-001"
         }
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -16608,7 +16817,8 @@
           "memoryCue": "内容が法令違反なら無効確認でいつでも。手続の瑕疵なら取消しの訴えで3か月",
           "relatedCardId": "min-general-capacity-fraud-001"
         }
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gk-kobunsho-duties-001",
@@ -16687,7 +16897,8 @@
         "行政文書管理規則",
         "内閣総理大臣",
         "行政文書ファイル"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-kobunsho-no-penalty-001",
@@ -16762,7 +16973,8 @@
         "違法に廃棄",
         "行政文書ファイル",
         "内閣総理大臣"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-joho-kokai-affairs-001",
@@ -16829,7 +17041,8 @@
         "適正な遂行に支障",
         "開示を拒否",
         "監査・検査"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-comm-secrecy-scope-001",
@@ -16904,7 +17117,8 @@
         "通信日時",
         "通信回数",
         "電気通信事業者"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gk-comm-interception-warrant-001",
@@ -16975,7 +17189,8 @@
         "捜査機関",
         "薬物関連",
         "銃器関連"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-juki-foreign-resident-001",
@@ -17045,7 +17260,8 @@
         "外国人",
         "住所",
         "市町村"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gk-local-tax-corporate-001",
@@ -17067,7 +17283,7 @@
       "explanations": {
         "normal": "@@地方税法294条1項@@は、市町村民税の納税義務者として、__市町村内に住所を有する個人__と__市町村内に事務所・事業所を有する法人__などを==挙げています==。前者が個人住民税、後者が法人住民税です。",
         "deepDive": {
-          "background": "%%法人%%もその市町村の道路や消防を使います。だから==そこに拠点がある法人__も負担する仕組みです。",
+          "background": "%%法人%%もその市町村の道路や消防を使います。だから==そこに拠点がある法人も負担する仕組み==です。",
           "trap": "!!「住民税だから住んでいる個人だけ」!!と考えさせます。%%法人%%は__事務所・事業所__があるかで見ます。",
           "example": "他県に本社のある会社でも、市内に営業所があれば__法人住民税__を納めます。"
         },
@@ -17115,7 +17331,8 @@
         "事務所または事業所",
         "法人",
         "市町村内に住所"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "gyo-litigation-no-filing-period-001",
@@ -17186,7 +17403,8 @@
         "6ヵ月",
         "正当な理由",
         "提起することができない"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-provisional-injunction-public-001",
@@ -17260,7 +17478,8 @@
         "公共の福祉に重大な影響",
         "重大な損害",
         "他に適当な方法"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-provisional-injunction-application-001",
@@ -17331,7 +17550,8 @@
         "他に適当な方法",
         "申立て",
         "職権"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-enforcement-order-fine-001",
@@ -17397,7 +17617,8 @@
         "非訟事件手続法",
         "刑法上の罰",
         "所定の裁判所"
-      ]
+      ],
+      "learningType": "memorize"
     },
     {
       "id": "gyo-litigation-legal-dispute-001",
@@ -17473,7 +17694,8 @@
         "固有の利益",
         "公開決定",
         "取消しを求める訴え"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-tort-structure-owner-001",
@@ -17550,7 +17772,8 @@
         "瑕疵",
         "現所有者",
         "過失なく信じて"
-      ]
+      ],
+      "learningType": "understand"
     },
     {
       "id": "min-general-unauthorized-agency-demand-001",
@@ -17620,7 +17843,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-general-unauthorized-agency-rescission-001",
@@ -17689,7 +17913,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-general-unauthorized-agency-liability-001",
@@ -17759,7 +17984,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "min-property-stolen-goods-recovery-001",
@@ -17829,7 +18055,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "min-inheritance-joint-will-001",
@@ -17898,7 +18125,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-will-revocation-001",
@@ -17968,7 +18196,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-ward-will-001",
@@ -18038,7 +18267,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-legatee-predecease-001",
@@ -18107,7 +18337,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-contract-loan-for-use-rescission-001",
@@ -18173,7 +18404,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-general-voluntary-guardianship-001",
@@ -18243,7 +18475,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-statutory-share-001",
@@ -18308,7 +18541,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "archive-choice-rechecked-against-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-substitution-cause-001",
@@ -18386,7 +18620,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "archive-choice-rechecked-against-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "min-inheritance-renunciation-effect-001",
@@ -18460,7 +18695,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "archive-choice-rechecked-against-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "min-contract-leased-land-act-scope-001",
@@ -18533,7 +18769,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "archive-choice-rechecked-against-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gyo-act-school-discipline-review-001",
@@ -18618,7 +18855,8 @@
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
       },
-      "figures": []
+      "figures": [],
+      "learningType": "understand"
     },
     {
       "id": "gyo-aps-adverse-reason-timing-001",
@@ -18642,7 +18880,7 @@
           "trap": "!!後から示す義務まで消す!!のが定番です。14条1項ただし書だけを読むと理由が要らなくなるように見えますが、==2項が残っています==。もう一つは!!8条と14条の混同!!で、申請拒否@@（8条）@@には差し迫った必要の例外が==ありません==。判例の側では、__根拠規定を示すだけで足りるか__が繰り返し問われ、旅券法の発給拒否@@（最大判昭60.1.22）@@も一級建築士免許取消し@@（最判平23.6.7）@@も、==根拠規定だけでは足りない==としています。",
           "example": "@@令和3年問12肢3@@では、この文がそのまま**妥当なもの**として出ました。同じ問題の肢5は、旅券法の発給拒否について__根拠規定を示すだけで足りる__と書いて誤りにしています。@@平成29年問12@@でも処分理由の提示が正面から問われました。"
         },
-        "commonSense": "危険を今すぐ止めなければならないときに、__理由書を書き終えるまで待て==とは言えません。だからといって理由を永久に伏せてよいわけでもない。==急ぐときは先に止めて、あとで説明する==、という順番だと考えれば自然です。"
+        "commonSense": "危険を今すぐ止めなければならないときに、__理由書を書き終えるまで待て__とは言えません。だからといって理由を永久に伏せてよいわけでもない。==急ぐときは先に止めて、あとで説明する==、という順番だと考えれば自然です。"
       },
       "legalBasis": [
         {
@@ -18688,7 +18926,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-act-good-faith-tax-001",
@@ -18758,7 +18997,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gyo-act-public-private-law-001",
@@ -18832,7 +19072,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gyo-litigation-objective-suits-001",
@@ -18901,7 +19142,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-local-water-supply-refusal-001",
@@ -18983,7 +19225,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
     },
     {
       "id": "gyo-local-reconsideration-001",
@@ -19001,7 +19244,7 @@
       "correction": "そのとおりです。長は、議会の議決について__異議があるとき__は、その議決の日から10日以内に理由を示して**再議**に付すことが==できます==@@（地方自治法176条1項）@@。これは__一般的拒否権__で、法令違反であることは要りません。これに対し、議決が__権限を超え、または法令・会議規則に違反する__と認めるときは、再議に付さ==なければなりません==@@（同条4項）@@。",
       "memoryPoint": "**異議があれば**再議に付せる（できる）。__法令違反__なら再議に付す（==しなければならない==）。",
       "explanations": {
-        "normal": "長は、議会の議決について__異議があるとき__は、10日以内に理由を示して**再議**に付すことができます@@（地方自治法176条1項）@@。再議の結果、同じ議決がされればそれで確定しますが、__条例の制定改廃または予算__に関するものは、__出席議員の3分の2以上__の同意が要ります@@（同条3項）@@。議決が__権限を超え、または法令・会議規則に違反する__と認めるときは、再議に付すことが==義務__です@@（同条4項）@@。**不信任**の議決があったときは、長は通知を受けた日から10日以内に議会を解散でき、解散しないとき、または__解散後初めて招集された議会で再び不信任の議決__があったときに==その職を失います==@@（同法178条）@@。**専決処分**は、議会が成立しないとき、__特に緊急を要して招集する時間的余裕がないことが明らかなとき__などに認められ、次の会議で報告して承認を求めます@@（同法179条）@@。",
+        "normal": "長は、議会の議決について__異議があるとき__は、10日以内に理由を示して**再議**に付すことができます@@（地方自治法176条1項）@@。再議の結果、同じ議決がされればそれで確定しますが、__条例の制定改廃または予算__に関するものは、__出席議員の3分の2以上__の同意が要ります@@（同条3項）@@。議決が__権限を超え、または法令・会議規則に違反する__と認めるときは、再議に付すことが==義務==です@@（同条4項）@@。**不信任**の議決があったときは、長は通知を受けた日から10日以内に議会を解散でき、解散しないとき、または__解散後初めて招集された議会で再び不信任の議決__があったときに==その職を失います==@@（同法178条）@@。**専決処分**は、議会が成立しないとき、__特に緊急を要して招集する時間的余裕がないことが明らかなとき__などに認められ、次の会議で報告して承認を求めます@@（同法179条）@@。",
         "deepDive": {
           "background": "長と議会はどちらも住民が直接選ぶので、対等に近い関係に置かれています。そこで、議会が決めたことを長が一度差し戻せる**再議**と、議会が長を辞めさせられる**不信任**を両方用意して==釣り合わせています==。再議のうち__法令違反__の場合だけ義務にしているのは、違法な議決をそのまま通すわけにいかないからです。",
           "trap": "!!できる・しなければならないの入替え!!が定番です。@@令和3年問24肢イ@@は、法令違反の議決の再議を「長の裁量」と書いて誤りにしています。もう一つは!!失職の時期!!で、@@令和7年問23肢5@@のように「解散後初めて議会が招集された時に自動的に失職」と書く形があります。正しくは__再び不信任の議決があったとき__です。**専決処分**については、承認が得られなくても==処分の効力は失われません==（長が必要な措置を講じて報告する）。",
@@ -19057,7 +19300,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-act-minister-authority-001",
@@ -19135,7 +19379,8 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "memorize"
     },
     {
       "id": "gyo-act-administrative-contract-001",
@@ -19159,7 +19404,7 @@
           "trap": "!!手続違法＝契約無効!!と直結させるのが定番です。もう一つは!!公害防止協定の拘束力!!で、@@令和4年問9肢エ@@は「法律に根拠のない権利制限だから法的拘束力を有しない」と書いて誤りにしています。!!行政手続法に行政契約の定義がある!!という書き方も誤りです。同法が定めるのは処分・行政指導・届出・命令等の手続で、==行政契約は入っていません==。",
           "example": "@@令和4年問9肢オ@@では、この文が**妥当なもの**として出ました。@@令和2年問10肢2@@では、__指名競争入札・随意契約・せり売りは政令が定める場合に限られる__として**妥当な肢**になっています。同じ令和4年問9の肢ウは給水拒否の「正当の理由」で、行政契約の一場面として並べられています。"
         },
-        "commonSense": "%%役所%%の中の手続を守らなかったからといって、外の%%業者%%との約束まで全部なかったことにすると、==工事も支払いも宙に浮きます==。内側の落ち度は内側で正し、外との約束は__よほどのときだけ==壊す==__、と考えると座りがよくなります。"
+        "commonSense": "%%役所%%の中の手続を守らなかったからといって、外の%%業者%%との約束まで全部なかったことにすると、==工事も支払いも宙に浮きます==。内側の落ち度は内側で正し、外との約束は__よほどのときだけ壊す__、と考えると座りがよくなります。"
       },
       "legalBasis": [
         {
@@ -19208,7 +19453,1777 @@
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
-      }
+      },
+      "learningType": "understand"
+    },
+    {
+      "id": "min-property-removal-claim-registrant-001",
+      "topic": "物権",
+      "subtopic": "建物収去土地明渡しを求める相手方",
+      "clusterId": "civil-real-claim",
+      "variants": {
+        "a": "%%D%%が所有する丙土地の上に、%%E%%が__権原なく__丁建物を建設し、__自己所有名義で建物保存登記__を行った上でこれを%%F%%に譲渡したが、__建物所有権登記がE名義のまま__となっていた場合、Dは登記名義人であるEに対して丁建物の収去を==求めることができる==。",
+        "b": "%%地主%%の土地に、%%Eさん%%が勝手に建物を建てて自分名義で登記しました。そのあとEさんは建物を%%Fさん%%へ売りましたが、__登記はEさんの名前のまま__です。\n\n地主は、登記名義が残っている%%Eさん%%へ建物の収去を==求められます==。",
+        "bCasual": "**建物収去土地明渡し**は、土地の所有者が、自分の土地に建っている建物を「どけて出ていけ」と求めることです。\n\n建物を売った後でも、__自分の意思で登記名義を残している__人は、その相手として==扱われます==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "__登記名義を残している譲渡人__にも収去を==求められる=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。判例は、__他人の土地上の建物の所有権を取得した者が自らの意思に基づいて所有権の登記を経由した場合__には、建物を他へ譲渡してもなお__登記名義を保有する限り__、土地所有者に対して==建物収去・土地明渡しの義務を免れない==としています@@（最判平6.2.8）@@。",
+      "memoryPoint": "**自分の意思で登記名義を残した**譲渡人は、収去義務を==免れない==。",
+      "explanations": {
+        "normal": "土地所有者は、無権原で建てられた建物について**所有権に基づく妨害排除請求**として__建物収去・土地明渡し__を求めます。その相手方は原則として**建物の所有者**ですが、判例は、__自らの意思に基づいて所有権の登記を経由した者__は、建物を譲渡した後も__登記名義を保有する限り__==義務を免れない==としています@@（最判平6.2.8）@@。土地所有者からは、__誰が本当の所有者か__を外から知る手立てが無いからです。これに対し、**未登記のまま譲渡**した場合は、譲渡人は==所有者ではなくなる==ので義務を負いません@@（令和3年問29肢2）@@。",
+        "deepDive": {
+          "background": "%%土地所有者%%は、建物の中の売買を知る立場に==ありません==。登記を頼りに相手を選ぶほかないのに、「実はもう売った」と言われて空振りになるのでは、==権利の実現ができません==。そこで、__自分の意思で名義を残した__側に責任を残します。名義を残すことの利益を受けていた者が、その不利益も引き受ける、という筋です。",
+          "trap": "!!譲渡したら常に義務を免れる!!と書くのが定番です。分かれ目は__登記名義を自分の意思で残したか__で、未登記のまま譲渡した場合は==免れます==。もう一つは!!占有回収の訴えの内容!!で、@@平成29年問31肢3@@は「返還は請求できるが損害賠償はできない」と書いて誤りにしています。200条1項は__返還及び損害の賠償__の==両方==です。",
+          "example": "@@平成29年問31肢5@@では、この文がそのまま**妥当なもの**として出ました。@@令和3年問29肢1@@は同じ論点を__A・B・C__で書いた形で、「その登記がBの意思に基づいてされていたとき」と==条件を明示==しています。"
+        },
+        "commonSense": "%%地主%%から見れば、登記に名前が出ている人が持ち主です。裏で売買があったことまで調べろというのは無理な話なので、__名義を出したままにしていた側__が引き受ける、と考えると納得できます。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法198条〜200条・202条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1301",
+          "choiceNumber": "5",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1301:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1539:choice:1",
+          "relation": "wording_variant"
+        },
+        {
+          "choiceId": "goukakudojyo:1301:choice:3",
+          "relation": "same_topic"
+        }
+      ],
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 0,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "物権的請求権の相手方（登記名義を残した譲渡人）と占有訴権を直接扱う問題を集計"
+      },
+      "evidenceHighlights": [
+        "権原なく",
+        "自己所有名義で建物保存登記",
+        "E名義のまま",
+        "収去を求めることができる"
+      ],
+      "category": "民法",
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "understand"
+    },
+    {
+      "id": "min-general-disappearance-declaration-001",
+      "topic": "総則",
+      "subtopic": "失踪の宣告の効力と取消し",
+      "clusterId": "civil-capacity",
+      "variants": {
+        "a": "不在者の生死が__7年間__明らかでない場合において、%%利害関係人%%の請求により家庭裁判所が**失踪の宣告**をしたときは、失踪の宣告を受けた者は、__7年間の期間が満了した時__に、==死亡したものとみなされる==。",
+        "b": "%%家族%%が家を出たきり7年間、生きているか死んでいるかも分からないままです。%%残された家族%%が家庭裁判所へ申し立てると、**失踪の宣告**が出ます。\n\nその人は、__7年が過ぎた時点__で==亡くなったものとして扱われます==。",
+        "bCasual": "**失踪の宣告**は、生死不明の人を法律上「死亡した」ものとして扱い、相続や再婚を進められるようにする制度です。\n\n普通失踪では、__7年の期間が満了した時__に==死亡したものとみなされます==。",
+        "bCasualStyle": "時間の流れで追う",
+        "c": "普通失踪は__7年満了時__に==死亡とみなす=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。__不在者の生死が7年間明らかでないとき__は、家庭裁判所が利害関係人の請求により失踪の宣告をすることができ@@（民法30条1項）@@、宣告を受けた者は__その期間が満了した時__に==死亡したものとみなされます==@@（同法31条）@@。",
+      "memoryPoint": "普通失踪は**7年満了時**、危難失踪は**危難が去った時**に死亡とみなす。",
+      "explanations": {
+        "normal": "**普通失踪**は、不在者の生死が__7年間__明らかでないときに、利害関係人の請求により家庭裁判所が宣告し、__その期間が満了した時__に死亡したものとみなされます@@（民法30条1項・31条）@@。**危難失踪**（特別失踪）は、戦地・沈没船・その他の危難に遭遇した者の生死が__危難が去った後1年間__明らかでないときで、__危難が去った時__に死亡したものとみなされます@@（同法30条2項・31条）@@。__宣告の時ではない__点に注意します。\n\n取消しは、**本人または利害関係人**の請求により家庭裁判所が行い@@（同法32条1項前段）@@、__宣告後その取消し前に善意でした行為__の効力には==影響しません==@@（同項後段）@@。宣告によって財産を得た者は取消しで権利を失いますが、返還義務は__現に利益を受けている限度__==にとどまります==@@（同条2項ただし書）@@。",
+        "deepDive": {
+          "background": "生死不明のまま放っておくと、相続も再婚も進まず、%%残された家族%%の生活が==止まってしまいます==。そこで法律上いったん死亡として扱い、後で生きていたと分かれば取り消す、という二段構えにしています。取消しの効果をすべて遡らせると__その間に取引した人__が巻き込まれるので、==善意の行為は守ります==。",
+          "trap": "!!死亡とみなされる時期!!が定番です。危難失踪を「1年経過時」と書いたり、普通失踪を「宣告の時」と書いたりします。もう一つは!!返還の範囲!!で、@@令和6年問27肢4@@は「受けた利益の全部を返還」と書いて誤りにしています。正しくは==現に利益を受けている限度==です。!!取消しの請求権者!!も狙われ、@@同問肢3@@は「必ず本人の請求による」と書いて誤りにしています。==本人または利害関係人==です。",
+          "example": "@@令和6年問27肢1@@では、この文がそのまま**妥当なもの**として出ました。@@令和3年問28@@でも、行方不明者の財産管理と失踪の宣告が並べて問われています。"
+        },
+        "commonSense": "帰ってこない人をいつまでも生きている前提にすると、%%家族%%は相続も再婚も==できません==。かといって本当に生きていたら困るので、__いったん死亡として扱い、戻ってきたら取り消す__という形にしています。取り消しても、その間に善意で取引した人までは==巻き込みません==。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法30条・31条・32条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1717",
+          "choiceNumber": "1",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1717:choice:1",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1717:choice:4",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1717:choice:3",
+          "relation": "contrast"
+        }
+      ],
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 0,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "失踪の宣告の要件・死亡とみなされる時期・取消しの効果を直接扱う問題を集計"
+      },
+      "evidenceHighlights": [
+        "7年間",
+        "失踪の宣告",
+        "期間が満了した時",
+        "死亡したものとみなされる"
+      ],
+      "category": "民法",
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "memorize"
+    },
+    {
+      "id": "min-tort-medical-standard-001",
+      "topic": "債権",
+      "subtopic": "医療水準（医師の注意義務の基準）",
+      "clusterId": "civil-tort-negligence",
+      "variants": {
+        "a": "不法行為における**故意・過失**を認定するにあたり、医療過誤事件では__診療当時のいわゆる臨床医学の実践における医療水準__をもって、__どの医療機関であっても__==一律に判断される==。",
+        "b": "%%患者%%が医療ミスを訴えたとき、%%医師%%に落ち度があったかは「そのとき医療の現場で当たり前だった水準」で決めます。\n\nこの水準は、__大学病院でも町の診療所でも同じ一本の線__で、==どこでも一律に決まります==。",
+        "bCasual": "**医療水準**は、医師に落ち度があったかを測る物差しです。\n\nこの物差しは、__医療機関の性格や地域の医療環境に関わらず__、==全国どこでも同じ一つの高さ==で引かれます。",
+        "bCasualStyle": "用語からほどく",
+        "c": "医療水準は__どの医療機関でも__==一律=="
+      },
+      "correct": false,
+      "correction": "医療水準は、==医療機関ごとに異なります==。判例は、新規の治療法について__当該医療機関の性格、所在地域の医療環境の特性等の諸般の事情__を考慮して医療水準を決めるべきであり、!!すべての医療機関について診療契約に基づき要求される医療水準を一律に解するのは相当でない!!としています@@（最判平7.6.9・未熟児網膜症姫路日赤事件）@@。",
+      "memoryPoint": "医療水準は**医療機関ごとに違う**。==一律ではない==。",
+      "explanations": {
+        "normal": "医師の過失は、__診療当時のいわゆる臨床医学の実践における医療水準__を基準に判断されます@@（最判昭57.3.30・最判平7.6.9）@@。ただしこの水準は__全国一律ではなく__、**当該医療機関の性格、所在地域の医療環境の特性**などを考慮して定まります@@（最判平7.6.9）@@。大学病院と町の診療所へ同じ水準を求めるのは無理だからです。\n\nもう一つ、医療水準は**医療慣行と同じではありません**。判例は、医師が__医療慣行に従った医療行為を行ったからといって__、医療水準に従った注意義務を尽くしたと==直ちにいうことはできない==としています@@（最判平8.1.23）@@。現場でそうしているというだけでは、==免責されません==。",
+        "deepDive": {
+          "background": "医療は地域や施設によって設備も人員も違います。%%山あいの診療所%%へ%%大学病院%%と同じ検査を求めても==実現できません==。かといって施設ごとに際限なく甘くすると、患者が守られません。そこで、__その医療機関に期待できる水準__という相対的な線を引いています。逆に、慣行のほうは__現場が横並びで手を抜いている__こともあるので、==慣行に従っただけでは足りない==としています。",
+          "trap": "!!全国一律・絶対的な基準!!と書くのが定番です。@@令和3年問34肢5@@も@@令和2年問34肢1@@も、この形で誤りにしています。分かれ目は__医療機関の特性等を考慮するか__です。逆方向のひっかけとして!!医療慣行に従えば注意義務を尽くしたことになる!!もあります。医療水準と医療慣行は==別物==です。",
+          "example": "@@令和3年問34肢5@@では、この文がそのまま**妥当でないもの**として出ました。@@令和2年問34@@は一問まるごと医師の義務で、肢1が同じ「全国一律」の形、肢2が「医療慣行に従っても足りない」という正しい形で並んでいます。"
+        },
+        "commonSense": "%%町の診療所%%と%%大学病院%%へ同じ設備を求めるのは無理な話です。だから物差しは施設ごとに変わります。一方で「みんなそうしているから」は言い訳になりません。==横並びの手抜きは守ってくれない==、と考えると筋が通ります。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法709条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1544",
+          "choiceNumber": "5",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1544:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1484:choice:1",
+          "relation": "wording_variant"
+        },
+        {
+          "choiceId": "goukakudojyo:1484:choice:2",
+          "relation": "contrast"
+        }
+      ],
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 0,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "医療水準を医師の注意義務の基準として正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "臨床医学の実践における医療水準",
+        "どの医療機関であっても",
+        "一律に判断される"
+      ],
+      "category": "民法",
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "understand"
+    },
+    {
+      "id": "min-tort-defamation-honor-001",
+      "topic": "債権",
+      "subtopic": "名誉毀損の「名誉」と名誉感情",
+      "clusterId": "civil-tort-negligence",
+      "variants": {
+        "a": "不法行為の被侵害利益としての**名誉**とは、人の品性、徳行、名声、信用等の人格的価値について__社会から受ける客観的評価__であり、**名誉毀損**とは、この__客観的な社会的評価__を==低下させる行為==をいう。",
+        "b": "ここでいう%%名誉%%は、__まわりの人からその人がどう見られているか__という評価です。\n\n**名誉毀損**は、その==世間の評価を下げてしまう行為==を指します。",
+        "bCasual": "**名誉**には、世間からの評価（社会的評価）と、自分で自分をどう思うか（名誉感情）の2つの意味があります。\n\n不法行為で守られる名誉は、__前者の客観的な社会的評価__のほうで、**名誉毀損**は==それを低下させる行為==です。",
+        "bCasualStyle": "用語からほどく",
+        "c": "名誉＝__客観的な社会的評価__。==それを下げる==のが名誉毀損"
+      },
+      "correct": true,
+      "correction": "そのとおりです。判例は、民法723条にいう名誉とは__人がその品性、徳行、名声、信用等の人格的価値について社会から受ける客観的評価__であり、!!人が自己自身の人格的価値について有する主観的な評価、すなわち名誉感情は含まない!!としています@@（最判昭45.12.18）@@。",
+      "memoryPoint": "守られる名誉は**世間の評価**。==名誉感情は723条の対象外==。",
+      "explanations": {
+        "normal": "名誉毀損の「名誉」は、__社会から受ける客観的評価__（**社会的名誉**）です@@（最判昭45.12.18）@@。自分で自分をどう思うかという**名誉感情**は、==ここには含まれません==。\n\n民法723条は、名誉を毀損された者の請求により、裁判所が__損害賠償に代えて、または損害賠償とともに__、**名誉を回復するのに適当な処分**（謝罪広告など）を命じられると定めています。この**原状回復**は__名誉毀損に限った特則__で、==名誉感情の侵害には使えません==。\n\n名誉感情の侵害がまったく救済されないわけではなく、程度によっては**一般の不法行為**@@（709条・710条）@@として慰謝料の対象になりえます。分かれ目は、__723条の原状回復まで認められるか__です。",
+        "deepDive": {
+          "background": "世間からの評価が下がると、%%その人%%は仕事も取引も==失いかねません==。金銭だけでは戻らないので、謝罪広告のように__評価そのものを回復する手段__を用意しました。これに対し、内心の傷つきは人によって幅が大きく、__新聞広告で回復する__という性質のものではありません。だから原状回復の対象から外れています。",
+          "trap": "!!名誉感情の侵害でも名誉毀損が成立する!!と書くのが定番です。@@平成29年問34肢2@@は、これに「原状回復も認められる」まで足して誤りにしています。分かれ目は__客観的な社会的評価か、主観的な名誉感情か__です。!!法人には名誉毀損が成立しない!!も出ますが、法人にも社会的評価はあるので==成立します==。",
+          "example": "@@令和3年問34肢4@@では、この文がそのまま**妥当なもの**として出ました。@@平成29年問34肢2@@は、同じ論点を__名誉感情まで含める__形にして誤りにしています。"
+        },
+        "commonSense": "%%世間%%からの見られ方が落ちれば、仕事も付き合いも変わります。そこは法律で戻す価値があります。一方、自分が自分をどう思うかは、==新聞に謝罪広告を出しても戻るものではありません==。だから扱いを分けています。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法709条・710条・723条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1544",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1544:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1304:choice:2",
+          "relation": "contrast"
+        }
+      ],
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 0,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "名誉毀損の被侵害利益（客観的な社会的評価と名誉感情の区別）を直接扱う問題を集計。令和6年問34は没問のため数えない"
+      },
+      "evidenceHighlights": [
+        "社会から受ける客観的評価",
+        "客観的な社会的評価",
+        "低下させる行為"
+      ],
+      "category": "民法",
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "understand"
+    },
+    {
+      "id": "con-academic-freedom-001",
+      "topic": "精神的自由",
+      "subtopic": "学問の自由と大学の自治",
+      "clusterId": "con-mental-freedom",
+      "variants": {
+        "a": "判例によれば、%%学生%%の集会が、__実社会の政治的社会的活動にあたる行為__をする場合には、大学の有する特別の**学問の自由と自治**は==享有しない==。",
+        "b": "%%大学の学生%%が学内で開いた集会でも、中身が__世の中の政治運動そのもの__であれば、**大学の自治**という特別扱いは==受けられません==。\n\n大学の自治は、%%研究者%%が真理を探究するために置かれたものだからです。",
+        "bCasual": "**大学の自治**は、大学が権力に口を出されずに研究と教育を続けるための仕組みです。\n\nだから、__学生の集会が実社会の政治的社会的活動にあたる__ときは、その集会は大学の自治の傘の==外に出ます==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "__実社会の政治的社会的活動__なら大学の自治は==及ばない=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。判例は、大学の自治は__大学の教授その他の研究者__の学問の自由と自治のために認められるものであり、学生の集会が!!実社会の政治的社会的活動に当る行為をする場合!!には、==大学の有する特別の学問の自由と自治を享有しない==としています@@（最大判昭38.5.22・東大ポポロ事件）@@。",
+      "memoryPoint": "大学の自治の主役は**研究者**。学生は==その効果として==自由を受ける。",
+      "explanations": {
+        "normal": "憲法23条は「学問の自由は、これを保障する」とだけ定めています。判例は、この保障が__すべての国民__に及ぶとしたうえで、**大学が学術の中心として深く真理を探究する**ことにかんがみ、特に大学における自由を保障した趣旨だとしています@@（最大判昭38.5.22）@@。\n\nそこから**大学の自治**が導かれます。自治の中心は__研究者の人事__で、施設と学生の管理にもある程度及びます。学生が学問の自由を享有し施設を使えるのは、__研究者の学問の自由と自治の効果として__であって、学生固有の権利ではありません。したがって、学生の集会が__実社会の政治的社会的活動にあたる__ときは、その集会は==大学の自治の外==です。\n\n普通教育の教師にも一定の範囲で教授の自由は認められますが、__完全な教授の自由__は==認められません==@@（最大判昭51.5.21・旭川学テ事件）@@。",
+        "deepDive": {
+          "background": "戦前、%%国%%が大学の研究内容や人事へ踏み込んだ経験があります。研究が権力の意向で曲げられれば、真理の探究は==成り立ちません==。そこで、大学という場そのものを外から守る仕組みとして自治を認めました。守る対象は__研究__なので、%%学生%%はその場に居ることで恩恵を受ける立場になります。研究と関係のない政治活動まで傘に入れると、==自治の趣旨から離れます==。",
+          "trap": "!!学生が固有の自治権を持つ!!と書くのが定番です。学生の自由は__研究者の自由と自治の効果__として認められます@@（平成30年問4肢3）@@。もう一つは!!先端科学技術の研究は罰則で規制していない!!で、@@平成30年問4肢2@@がこの形で誤りにしています。クローン技術規制法など、==罰則付きの規制はあります==。!!大学に固有権としての自治権がある!!も@@平成18年問6肢4@@で出ています。通説は制度的保障と解しています。",
+          "example": "@@平成30年問4肢4@@では、この文がそのまま**妥当なもの**として出ました。@@令和元年問6肢4@@と@@令和6年問5肢2@@は、教科書検定が学問の自由に違反しないかを同じ23条の枠で問うています。"
+        },
+        "commonSense": "%%大学%%が守られているのは、%%研究者%%が誰にも遠慮せず真理を追えるようにするためです。その場所を借りている%%学生%%が、__研究とは関係のない政治集会__を開いたときまで==同じ傘に入れる理由はありません==。守る目的から考えると線が引けます。"
+      },
+      "legalBasis": [
+        {
+          "label": "憲法23条",
+          "url": "https://laws.e-gov.go.jp/law/321CONSTITUTION?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1334",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1334:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1334:choice:3",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1334:choice:2",
+          "relation": "contrast"
+        }
+      ],
+      "crossFieldComparisons": [
+        {
+          "id": "cross-01",
+          "comparedCategory": "憲法",
+          "comparedTopic": "普通教育における教授の自由",
+          "relatedCardId": "con-edu-content-001",
+          "title": "教授の自由は、大学と普通教育で幅が違う",
+          "explanation": "大学の教授には研究と教授の自由が広く認められますが、普通教育の教師には一定の範囲でしか認められません。児童生徒に十分な判断能力がなく、全国的に一定の水準を確保する要請もあるからです。どちらも23条の話なので、「教師にも教授の自由がある」だけを覚えると取り違えます。",
+          "memoryCue": "大学は広く、普通教育は限定。理由は判断能力と全国的な水準"
+        }
+      ],
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 5,
+        "yearCount": 5,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "学問の自由・大学の自治・教授の自由を肢で正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "実社会の政治的社会的活動",
+        "特別の学問の自由と自治",
+        "享有しない"
+      ],
+      "category": "憲法",
+      "subjectId": "constitutional-law",
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "understand"
+    },
+    {
+      "id": "con-supreme-law-private-act-001",
+      "topic": "総論",
+      "subtopic": "98条1項「国務に関するその他の行為」と私法上の行為",
+      "clusterId": "con-general",
+      "variants": {
+        "a": "**国**が__私人と対等の立場__で行った私法上の行為は、憲法98条1項にいう「国務に関するその他の行為」に==あたらない==。",
+        "b": "%%国%%が土地を買うときは、%%普通の買主%%と同じ立場で契約を結びます。\n\nこの売買は、__国が権力を使って決まりを作る行為ではない__ので、憲法98条1項が無効にする「国務に関するその他の行為」には==入りません==。",
+        "bCasual": "憲法98条1項は、__憲法に反する法律・命令・詔勅と「国務に関するその他の行為」__を無効にする決まりです。\n\nここでいう「その他の行為」は、__公権力を使って法規範を定立する国の行為__を指すので、国が私人と同じ立場で結んだ売買契約は==含まれません==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "国の__私法上の行為__は98条1項の対象==外=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。判例は、98条1項の「国務に関するその他の行為」とは__公権力を行使して法規範を定立する国の行為__を意味し、国の行為であっても!!私人と対等の立場で行う私法上の行為!!は==これに該当しない==としています@@（最判平元.6.20・百里基地訴訟）@@。",
+      "memoryPoint": "98条1項が縛るのは**法規範を定立する行為**。==私法上の行為は外==。",
+      "explanations": {
+        "normal": "憲法98条1項は、憲法が**国の最高法規**であり、__その条規に反する法律、命令、詔勅__および__国務に関するその他の行為__の全部または一部は効力を有しない、と定めています。\n\n判例は、この「国務に関するその他の行為」を、__法律・命令・詔勅と同一の性質を有する国の行為__、すなわち**公権力を行使して法規範を定立する国の行為**と読みます。行政処分や裁判は、個別的・具体的ながら法規範を定立するので==含まれます==。これに対し、国が__私人と対等の立場__で結んだ売買契約は法規範の定立を伴わないので==含まれません==@@（最判平元.6.20・百里基地訴訟）@@。\n\n同じ判決は、憲法9条は__優れて公法的な性格を有する規範__であって、私法的な価値秩序へは__民法90条などを通じてしか__入ってこないとも述べています。",
+        "deepDive": {
+          "background": "98条1項は、憲法に反するものを==直ちに無効にする==強い規定です。だから対象を広げすぎると、%%国%%が結んだ売買や請負まで後から効力を失いかねず、取引した%%相手方%%が==巻き込まれます==。そこで、権力の作用として__法規範を定立する行為__に絞りました。私法上の行為の是非は、民法90条など__私法の枠内__で判断すればよい、という切り分けです。",
+          "trap": "!!国の行為ならすべて98条1項の対象!!と書くのが定番です。@@平成30年問3肢1@@は、私法上の行為を「単なる私法上の行為とはいえず」として該当させる形で誤りにしています。分かれ目は__法規範の定立を伴うか__です。!!憲法9条が私法上の行為へ直接適用される!!も同じ判決の裏側で、==直接には適用されません==。",
+          "example": "@@平成30年問3@@は、この判決の一節の空欄へ入る文章を選ばせる形で出ました。@@平成27年問5@@は、同じ判決の論理をア〜オへ分けて並べ替えさせています。どちらも百里基地訴訟です。"
+        },
+        "commonSense": "%%国%%が土地を買うときは、%%普通の買い手%%と同じ立場に立っています。そこへ「憲法違反だから契約は無効」と持ち込めば、__売った側__が困ります。権力として決まりを作る場面と、買い物をする場面は==別に扱う==、と考えると自然です。"
+      },
+      "legalBasis": [
+        {
+          "label": "憲法98条1項",
+          "url": "https://laws.e-gov.go.jp/law/321CONSTITUTION?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1333",
+          "choiceNumber": "5",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1333:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1333:choice:1",
+          "relation": "contrast"
+        }
+      ],
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "百里基地訴訟の98条1項の解釈（私法上の行為の扱い）を正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "私人と対等の立場",
+        "国務に関するその他の行為",
+        "あたらない"
+      ],
+      "category": "憲法",
+      "subjectId": "constitutional-law",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "understand"
+    },
+    {
+      "id": "com-inc-accounting-advisor-001",
+      "topic": "会社法",
+      "subtopic": "会計参与と会計監査人の違い",
+      "clusterId": "com-organs",
+      "variants": {
+        "a": "**会計参与**は、%%取締役%%または%%執行役%%と__共同して__計算関係書類を==作成する==が、**会計監査人**は計算関係書類の==監査を行う==。",
+        "b": "%%会計参与%%は、__会社の中に入って一緒に決算書を作る__役です。\n\n%%会計監査人%%は、__できあがった決算書を外から点検する__役です。作る側と、==見る側==という違いです。",
+        "bCasual": "**会計参与**と**会計監査人**は名前が似ていますが、仕事が逆向きです。\n\n会計参与は__共同して作成する__側、会計監査人は__監査する__側です。",
+        "bCasualStyle": "用語からほどく",
+        "c": "会計参与は__作る__、会計監査人は==見る=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。**会計参与**は取締役（指名委員会等設置会社では執行役）と__共同して__計算書類等を作成し@@（会社法374条1項・6項）@@、**会計監査人**は計算書類等を==監査します==@@（同法396条1項）@@。",
+      "memoryPoint": "会計参与は**作る側**で「役員」。会計監査人は**見る側**で==「役員」ではない==。",
+      "explanations": {
+        "normal": "**会計参与**は、__取締役と共同して__計算書類等を作成する機関で、**公認会計士もしくは監査法人または税理士もしくは税理士法人**でなければなりません@@（会社法333条1項）@@。会社法上の**「役員」**（取締役・会計参与・監査役）に==含まれます==@@（同法329条1項）@@。\n\n**会計監査人**は、計算書類等を__監査する__機関で、**公認会計士または監査法人**でなければなりません@@（同法337条1項）@@。「役員」には==含まれず==、「役員等」として責任規定の対象になります@@（同法423条1項）@@。\n\n設置については、__大会社__（公開会社でないものを除く）は監査役会と会計監査人を@@（同法328条1項）@@、__公開会社でない大会社__は会計監査人を@@（同条2項）@@、__監査等委員会設置会社と指名委員会等設置会社__は会計監査人を@@（同法327条5項）@@置かなければなりません。これに対し**会計参与はどの会社形態でも任意設置**です。\n\n任期の扱いも違います。会計監査人は定時株主総会で__別段の決議がされなかったとき__は==再任されたものとみなされます==@@（同法338条2項）@@。会計参与にこの仕組みはありません。",
+        "deepDive": {
+          "background": "%%中小の会社%%では、経理に明るい人がいないまま決算書を作ることがあります。そこで、__作る段階から専門家を中に入れる__仕組みとして会計参与を置きました。だから会計参与は会社の==内側の役員==です。一方、会計監査人は__外から独立して点検する__ことに意味があるので、役員には入れていません。税理士が会計参与になれるのに会計監査人になれないのも、この違いから来ています。",
+          "trap": "!!会計参与には報告義務がない!!と書くのが定番です。@@令和5年問40肢5@@がこの形で誤りにしています。会計参与も、取締役の不正等を見つけたら__株主（監査役設置会社では監査役）__へ==報告しなければなりません==@@（375条1項）@@。!!会計参与も会計監査人も公認会計士でなければならない!!も出ます。会計参与は==税理士でもなれます==@@（333条1項）@@。",
+          "example": "@@令和5年問40肢4@@では、この文がそのまま**正しいもの**として出ました。@@令和4年問40@@は一問まるごと会計参与で、資格と選任機関を問うています。@@平成19年問38肢4@@と@@平成27年問40肢5@@でも肢として出ています。"
+        },
+        "commonSense": "%%料理%%にたとえると、会計参与は__厨房に入って一緒に作る人__、会計監査人は__できた皿を外から検分する人__です。一緒に作る人は店の一員（役員）ですが、==検分する人は外の立場==でないと意味がありません。"
+      },
+      "legalBasis": [
+        {
+          "label": "会社法329条・333条・337条・374条・396条",
+          "url": "https://laws.e-gov.go.jp/law/417AC0000000086?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1670",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1670:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1670:choice:5",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1670:choice:2",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1670:choice:3",
+          "relation": "same_topic"
+        }
+      ],
+      "crossFieldComparisons": [
+        {
+          "id": "cross-01",
+          "comparedCategory": "商法・会社法",
+          "comparedTopic": "監査役の選任決議と解任決議",
+          "relatedCardId": "com-inc-auditor-appointment-dismissal-001",
+          "title": "「役員」に入るかどうかで、選び方と辞めさせ方が変わる",
+          "explanation": "取締役・会計参与・監査役は会社法上の「役員」で、株主総会の決議で選任します。会計監査人は「役員」ではなく、定時株主総会で別段の決議がなければ再任されたものとみなされます。「役員等」（責任規定の対象）には会計監査人も入るので、そちらと混同しないでください。",
+          "memoryCue": "役員＝取締役・会計参与・監査役。役員等＝それに執行役と会計監査人を足したもの"
+        }
+      ],
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 4,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "会計参与の職務・資格・設置を肢で正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "共同して",
+        "計算関係書類を作成",
+        "監査を行う"
+      ],
+      "category": "商法・会社法",
+      "subjectId": "commercial-law",
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "understand"
+    },
+    {
+      "id": "com-inc-shareholder-minority-rights-001",
+      "topic": "会社法",
+      "subtopic": "株主総会の少数株主権と総会検査役",
+      "clusterId": "com-shareholders-meeting",
+      "variants": {
+        "a": "総株主の議決権の__100分の1以上__の議決権を__6ヵ月前から引き続き__有する%%株主%%は、株主総会に係る招集の手続および決議の方法を調査させるため、当該株主総会に先立ち、%%取締役%%に対し、**検査役**を==選任すべきことを請求することができる==。",
+        "b": "%%1％以上を半年持っている株主%%が、総会の呼び方や決め方をきちんと調べてほしいと考えました。\n\nこの株主は、総会の前に%%取締役%%へ申し出て、**検査役**を==付けてもらえます==。",
+        "bCasual": "**総会検査役**は、株主総会の招集手続と決議方法が適正かを調べる人です。\n\n__1%以上を6ヵ月前から持つ株主__は、総会に先立って%%取締役%%へその選任を==請求できます==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "検査役の選任は%%取締役%%へ==請求する=="
+      },
+      "correct": false,
+      "correction": "請求する先は==裁判所==です。株式会社または一定の議決権を有する株主は、招集の手続および決議の方法を調査させるため、株主総会に先立ち、!!裁判所に対し!!、検査役の選任の==申立てをすることができます==@@（会社法306条1項）@@。持株要件（1%以上）と6ヵ月の保有期間@@（公開会社の場合・同条2項）@@は、この肢のとおりです。",
+      "memoryPoint": "**総会検査役は裁判所へ申立て**。==取締役へ請求するのではない==。",
+      "explanations": {
+        "normal": "株主総会をめぐる少数株主権は、__誰に対して__行うかで分かれます。\n\n**株主総会の招集請求**は、__総株主の議決権の100分の3以上を6ヵ月前から__持つ株主が、**取締役に対し**、目的である事項と招集の理由を示して行います@@（会社法297条1項）@@。\n\n**株主提案権**のうち__議題提案権__は、取締役会設置会社では__100分の1以上または300個以上を6ヵ月前から__持つ株主が**取締役に対し**行い@@（同法303条2項）@@、__議案の要領の通知請求__は総会の日の__8週間前まで__に行います@@（同法305条1項）@@。総会の場で__議案を提出する__のは、持株数を問わずできます@@（同法304条）@@。\n\nこれに対し、**総会検査役の選任**だけは__裁判所に対する申立て__です@@（同法306条1項）@@。会社の外の第三者に調べさせる手続だからです。",
+        "deepDive": {
+          "background": "招集や提案は、%%会社%%の運営に加わる話なので、窓口は__会社の業務執行者である取締役__になります。ところが検査役は、%%会社%%のやり方そのものを==疑って調べる==ための人です。調べられる側へ「調べる人を選んでくれ」と頼む形にしては、==中立になりません==。だから裁判所が選ぶ仕組みにしました。__誰を疑う手続か__で窓口が変わります。",
+          "trap": "!!検査役の選任を取締役へ請求する!!と書くのが定番です。@@令和4年問39肢4@@がこの形で誤りにしています。もう一つは!!持株要件の数字!!で、招集請求は__3%__、議題提案は__1%または300個__です。@@令和元年問40肢2@@のように、__取締役会を設置していない会社__では株主提案に持株要件が==付きません==@@（303条1項）@@。",
+          "example": "@@令和4年問39肢4@@では、この文がそのまま**誤っているもの**として出ました。@@平成19年問38肢1@@は総会検査役、@@平成24年問38肢1@@は招集請求、@@令和元年問40肢2@@は非取締役会設置会社の株主提案です。"
+        },
+        "commonSense": "%%審判%%を呼ぶとき、__試合をしている側__に「審判を選んでくれ」と頼めば==公平になりません==。だから外の%%裁判所%%に選んでもらいます。一方、議題を足したい・総会を開いてほしいという話は__会社の運営そのもの__なので、%%取締役%%が窓口になります。"
+      },
+      "legalBasis": [
+        {
+          "label": "会社法297条・303条〜306条",
+          "url": "https://laws.e-gov.go.jp/law/417AC0000000086?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1609",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1609:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1609:choice:1",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1609:choice:2",
+          "relation": "same_topic"
+        }
+      ],
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 4,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "株主総会の招集請求・株主提案権・総会検査役の選任を肢で正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "100分の1以上",
+        "6ヵ月前から引き続き",
+        "取締役に対し",
+        "検査役"
+      ],
+      "category": "商法・会社法",
+      "subjectId": "commercial-law",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "memorize"
+    },
+    {
+      "id": "com-act-silent-partnership-001",
+      "topic": "商行為",
+      "subtopic": "匿名組合員の地位と対外的な責任",
+      "clusterId": "com-commercial-acts",
+      "variants": {
+        "a": "%%匿名組合員%%は、匿名組合契約に基づき%%営業者%%が負った債務について、当該匿名組合員が__匿名組合の当事者であることをその債務に係る債権者が知っていたとき__には、当該営業者と==連帯して弁済する責任を負う==。",
+        "b": "%%出資しただけの人%%が%%お店を営む人%%へお金を出しました。そのお店が%%取引先%%に代金を払えなくなりました。\n\n%%取引先%%が「出資者がいる」と__知っていた__なら、その出資者も%%お店の人%%と一緒に==払わなければなりません==。",
+        "bCasual": "**匿名組合**は、%%匿名組合員%%が%%営業者%%の営業のために出資し、そこから生まれる利益の分配を受ける契約です。\n\n営業者の債務について、__債権者が匿名組合員の存在を知っていた__ときは、匿名組合員も==連帯して責任を負います==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "債権者が__知っていた__なら匿名組合員も==連帯責任=="
+      },
+      "correct": false,
+      "correction": "債権者が知っていたかどうかは==関係ありません==。匿名組合員は、!!営業者の行為について、第三者に対して権利及び義務を有しない!!のが原則です@@（商法536条4項）@@。例外は、__自己の氏・氏名を営業者の商号中に用いること、または自己の商号を営業者の商号として使用することを許諾した__ときで、そのときだけ__その使用以後に生じた債務__について==連帯責任を負います==@@（同法537条）@@。",
+      "memoryPoint": "匿名組合員は**対外的に無責任**。==名前を貸したときだけ==連帯責任。",
+      "explanations": {
+        "normal": "**匿名組合契約**は、当事者の一方（**匿名組合員**）が相手方（**営業者**）の営業のために__出資__をし、その営業から生ずる__利益を分配__することを約する契約です@@（商法535条）@@。\n\n匿名組合員の出資は、__営業者の財産に属します__@@（同法536条1項）@@。出資できるのは__金銭その他の財産だけ__で、信用や労務は認められません@@（同条2項）@@。業務執行や代表も==できません==@@（同条3項）@@。そして、営業者の行為について__第三者に対して権利及び義務を有しません__@@（同条4項）@@。表に出ないから「匿名」なのです。\n\n例外は__名前を貸したとき__です。自己の氏名を営業者の商号中に用いること等を許諾すると、__その使用以後に生じた債務__について営業者と連帯して弁済する責任を負います@@（同法537条）@@。\n\nそのほか、出資が損失で減ったときは__てん補した後でなければ__利益の配当を請求できず@@（同法538条）@@、営業年度の終了時に業務および財産の状況を検査できます@@（同法539条）@@。契約は、__匿名組合員の破産手続開始の決定__などで終了します@@（同法541条）@@。",
+        "deepDive": {
+          "background": "%%出資者%%が表に出ずに資金だけ出せる形は、__名前を出したくない出資__の受け皿として使われてきました。表に出ない代わりに、%%取引先%%から取り立てられることも==ありません==。その代わり業務執行にも口を出せません。__責任を負わない代わりに口も出せない__、という釣り合いです。名前を貸せば、外から見て「この人も一緒にやっている」と見えてしまうので、そこだけ責任が==戻ってきます==。",
+          "trap": "!!債権者が知っていれば責任を負う!!と書くのが定番です。@@令和6年問36肢2@@がこの形で誤りにしています。分かれ目は__知っていたか__ではなく__名前を貸したか__です@@（537条）@@。もう一つは!!出資は組合の財産になる!!で、==営業者の財産に属します==@@（536条1項）@@。持分会社の社員とは違います。",
+          "example": "@@令和6年問36肢2@@では、この文がそのまま**誤っているもの**として出ました。@@平成20年問40肢3@@は同じ論点を__商号使用の許諾__という正しい形で書いています。"
+        },
+        "commonSense": "%%出資だけした人%%は、店の看板にも契約書にも出てきません。%%取引先%%は%%店主%%と取引したつもりでいます。だから取り立ての相手にもなりません。ただし__看板に自分の名前を載せた__なら、%%取引先%%はその人も一緒にやっていると見ます。==そこだけは責任を負います==。"
+      },
+      "legalBasis": [
+        {
+          "label": "商法535条〜541条",
+          "url": "https://laws.e-gov.go.jp/law/132AC0000000048?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1726",
+          "choiceNumber": "2",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1726:choice:2",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1726:choice:1",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1726:choice:5",
+          "relation": "same_topic"
+        }
+      ],
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "匿名組合員の地位・出資・対外的責任を正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "債権者が知っていたとき",
+        "連帯して弁済する責任を負う"
+      ],
+      "category": "商法・会社法",
+      "subjectId": "commercial-law",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "understand"
+    },
+    {
+      "id": "gk-joho-kokai-requester-001",
+      "topic": "諸法令",
+      "subtopic": "情報公開法の開示請求権者と目的規定",
+      "clusterId": "gk-information-law",
+      "variants": {
+        "a": "法は、__国民主権の理念__にのっとり、行政文書の開示を請求する権利につき定めることにより、政府の有するその諸活動を国民に説明する責務が全うされるようにすることを目的としていることから、%%外国に在住する外国人%%は、行政文書の開示を請求する権利を==有しない==。",
+        "b": "情報公開法は、__国民に説明する責務__を果たすための決まりです。そのため請求できるのは%%日本国民%%で、\n\n%%海外に住む外国人%%には、行政文書の開示を求める権利は==ありません==。",
+        "bCasual": "**開示請求権**は、行政文書を見せてほしいと求める権利です。\n\nこの法律は__国民への説明責任__を目的にしているので、%%外国に住む外国人%%は請求権を==持ちません==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "%%外国在住の外国人%%に開示請求権は==無い=="
+      },
+      "correct": false,
+      "correction": "請求できるのは==「何人も」==です。情報公開法3条は!!何人も、この法律の定めるところにより、行政機関の長に対し、当該行政機関の保有する行政文書の開示を請求することができる!!と定めており、__国籍・住所・年齢・法人か個人か__を==問いません==@@（情報公開法3条）@@。目的規定@@（同法1条）@@の書きぶりはこの肢のとおりですが、そこから請求権者を絞る解釈は出てきません。",
+      "memoryPoint": "開示請求できるのは**「何人も」**。==外国在住の外国人でも請求できる==。",
+      "explanations": {
+        "normal": "情報公開法1条は、__国民主権の理念__にのっとり、行政文書の開示を請求する権利等を定めて**政府の説明責務**が全うされるようにすることを目的としています。ここで注意したいのは、!!「知る権利」という文言は条文に無い!!ことです。立法時に議論はありましたが、==明文化されませんでした==。\n\n請求できるのは**「何人も」**です@@（同法3条）@@。__日本国民に限られず__、外国に在住する外国人でも、法人でも==請求できます==。目的が国民主権にあることと、請求権者を国民に絞ることは==別の話==です。\n\n地方公共団体は、この法律ではなく__それぞれの情報公開条例__によります。条例でも「何人も」とするところが多くなっています。\n\n開示請求と開示の実施には、__実費の範囲内__で政令の定める**手数料**がかかります@@（同法16条1項）@@。無料ではありません。",
+        "deepDive": {
+          "background": "行政文書は%%役所%%が==税金で作ったもの==です。誰が見たいと言ってきたかで出し分けると、__見せたくない相手には資格が無いと言う__余地を残してしまいます。それでは説明責任になりません。だから請求権者を絞らず「何人も」としました。目的規定が国民主権を掲げているのは、==制度の理由づけ==であって、==請求できる人の範囲==ではありません。",
+          "trap": "!!目的が国民主権だから請求できるのは国民だけ!!という筋で誤りにするのが定番です。@@令和7年問26肢3@@がこの形です。もう一つは!!目的規定に「知る権利」が掲げられている!!で、@@平成25年問54肢3@@がこの形で誤りにしています。==条文に「知る権利」の文言はありません==。!!開示請求は無料!!も出ます。==手数料がかかります==@@（16条1項）@@。",
+          "example": "@@令和7年問26肢3@@では、この文がそのまま**妥当でないもの**として出ました。@@平成25年問54肢4@@は、国も地方自治体も「何人も」としている点を正しい形で書いています。"
+        },
+        "commonSense": "%%役所%%が税金で作った書類を、__頼んできた人の顔を見て出し分ける__のはおかしな話です。だから「誰でも」と決めておきます。%%外国に住む人%%が請求してきても、==同じ扱い==になります。"
+      },
+      "legalBasis": [
+        {
+          "label": "情報公開法1条・3条・16条",
+          "url": "https://laws.e-gov.go.jp/law/411AC0000000042?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1776",
+          "choiceNumber": "3",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1776:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:184:choice:4",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:184:choice:3",
+          "relation": "same_topic"
+        }
+      ],
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "情報公開法の目的規定と開示請求権者を正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "国民主権の理念",
+        "外国に在住する外国人",
+        "有しない"
+      ],
+      "category": "基礎知識",
+      "subjectId": "general-knowledge",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "understand"
+    },
+    {
+      "id": "gk-joho-kokai-personal-identification-001",
+      "topic": "諸法令",
+      "subtopic": "不開示情報の「個人に関する情報」（個人識別型）",
+      "clusterId": "gk-information-law",
+      "variants": {
+        "a": "法は、個人に関する情報について、それが__一般に他人に知られたくないと望むことが正当であると認められる情報であるか否かにかかわりなく__、当該情報に含まれる氏名、生年月日その他の記述等により**特定の個人を識別することができるもの**を==不開示情報としている==。",
+        "b": "行政文書に%%誰か個人%%のことが書かれているとき、__その内容が知られて困るものかどうか__は問いません。\n\n名前や生年月日などから%%その人が誰か%%分かってしまうなら、それだけで==公開しない情報==になります。",
+        "bCasual": "**不開示情報**のうち「個人に関する情報」は、__誰のことか分かるかどうか__で決めています。\n\n秘密にしたい中身かどうかは==問いません==。氏名や生年月日から**特定の個人を識別できる**なら、それだけで不開示です。",
+        "bCasualStyle": "用語からほどく",
+        "c": "中身ではなく__個人を識別できるか__で==不開示を決める=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。情報公開法5条1号は、個人に関する情報のうち!!当該情報に含まれる氏名、生年月日その他の記述等により特定の個人を識別することができるもの!!を不開示情報としており、==秘匿の必要性は要件になっていません==（**個人識別型**）。あわせて、__特定の個人を識別することはできないが、公にすることにより、なお個人の権利利益を害するおそれがあるもの__も不開示です@@（情報公開法5条1号）@@。",
+      "memoryPoint": "**個人識別型**。==知られたくない中身かどうかは問わない==。",
+      "explanations": {
+        "normal": "「個人に関する情報」を不開示にする決め方には、__プライバシー型__と__個人識別型__があります。プライバシー型は**知られたくないと望むことが正当か**で決め、個人識別型は**誰のことか分かるか**で決めます。\n\n情報公開法5条1号は**個人識別型**を採りました。氏名、生年月日その他の記述等により__特定の個人を識別することができるもの__（他の情報と照合して識別できるものを含む）が不開示です。==中身が秘密かどうかは問いません==。あわせて、__識別はできないが公にすると個人の権利利益を害するおそれがあるもの__も不開示に==含めています==。\n\nただし、**事業を営む個人の当該事業に関する情報**は5条1号から==外れます==（別に2号で扱われます）。また、__法令の規定により公にされている情報__などはただし書で不開示から外れます。\n\n**部分開示**@@（同法6条1項）@@は、不開示部分を__容易に区分して除くことができるとき__に==その部分を除いて開示する==ものです。__新しい文書を作って渡す義務ではありません__。",
+        "deepDive": {
+          "background": "%%役所の担当者%%が、一件ごとに「これは知られて困る中身か」を==判断するのは無理です==。人によって答えが変わり、開示のばらつきも生まれます。そこで__誰のことか分かるか__という、外から確かめられる基準にしました。その代わり範囲が広くなりすぎるので、__公にされている情報__などをただし書で==戻しています==。",
+          "trap": "!!知られたくない情報だけが不開示!!と書くのが定番です。分かれ目は__識別できるか__で、==中身の秘密性ではありません==。もう一つは!!加工した新しい文書を作らせる!!で、@@令和7年問26肢1@@と@@肢5@@がこの形で誤りにしています。行政機関に==文書を作る義務はありません==@@（6条は「除いた部分につき開示」）@@。",
+          "example": "@@令和7年問26肢4@@では、この文がそのまま**妥当なもの**として出ました。@@平成25年問55肢1@@は、__識別できなくても権利利益を害するおそれがあれば不開示となりうる__という5条1号の後半を、正しい形で書いています。"
+        },
+        "commonSense": "%%窓口の人%%に「この中身は知られたら困るか」を毎回考えさせると、==人によって答えが変わります==。「名前が分かるかどうか」なら誰が見ても同じです。決まりは、__現場で同じ答えが出る形__にしておくほうが回ります。"
+      },
+      "legalBasis": [
+        {
+          "label": "情報公開法5条・6条",
+          "url": "https://laws.e-gov.go.jp/law/411AC0000000042?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1776",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1776:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:185:choice:1",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1776:choice:1",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1776:choice:5",
+          "relation": "contrast"
+        }
+      ],
+      "crossFieldComparisons": [
+        {
+          "id": "cross-01",
+          "comparedCategory": "基礎知識",
+          "comparedTopic": "個人識別符号にあたるもの・あたらないもの",
+          "relatedCardId": "gk-pip-identifier-code-001",
+          "title": "「個人を識別できる」の使いどころが2つある",
+          "explanation": "情報公開法5条1号は、不開示にするかどうかを個人識別型で決めます。個人情報保護法の「個人識別符号」は、それ単体で個人情報にあたるものを列挙した別の概念です。どちらも「識別」という言葉を使いますが、片方は不開示の線引き、もう片方は個人情報の入口です。",
+          "memoryCue": "情報公開法＝出すか出さないかの線。個人情報保護法＝そもそも個人情報かの線"
+        }
+      ],
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "情報公開法5条1号の個人に関する情報（個人識別型）を正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "知られたくないと望むことが正当",
+        "かかわりなく",
+        "特定の個人を識別することができるもの",
+        "不開示情報"
+      ],
+      "category": "基礎知識",
+      "subjectId": "general-knowledge",
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "understand"
+    },
+    {
+      "id": "gyo-local-resident-suit-neglect-001",
+      "topic": "地方自治法",
+      "subtopic": "住民監査請求・住民訴訟の対象（怠る事実）と請求できる者",
+      "clusterId": "gyo-local-residents",
+      "variants": {
+        "a": "違法に__公金の賦課や徴収を怠る事実__に関し、%%住民%%が**住民監査請求**をした場合において、それに対する監査委員の監査の結果または勧告に不服があるとき、当該住民は、地方自治法に定められた__出訴期間内__に**住民訴訟**を==提起することができる==。",
+        "b": "%%市%%が取るべき税金を取らずに放っておきました。%%そこに住む人%%が「きちんと取ってください」と監査を求めましたが、監査委員の答えに納得がいきません。\n\nこの住民は、決められた期間内に==住民訴訟を起こせます==。",
+        "bCasual": "**怠る事実**とは、__やるべき財務上のことをやっていない__状態です。公金の賦課・徴収や財産の管理を怠ることがこれにあたります。\n\n**住民監査請求**の対象は__行為だけでなく怠る事実も含み__、その結果に不服なら==住民訴訟へ進めます==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "__怠る事実__も対象。監査の結果に不服なら==住民訴訟へ=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。住民監査請求の対象には、違法・不当な財務会計上の**行為**に加えて、__違法・不当に公金の賦課若しくは徴収若しくは財産の管理を怠る事実__（**怠る事実**）が==含まれます==@@（地方自治法242条1項）@@。監査の結果・勧告等に不服があるときは、その怠る事実につき==住民訴訟を提起できます==@@（同法242条の2第1項）@@。",
+      "memoryPoint": "対象は**行為だけでなく怠る事実も**。請求できるのは==住民だけ==。",
+      "explanations": {
+        "normal": "**住民監査請求**@@（地方自治法242条1項）@@ができるのは__その普通地方公共団体の住民__です。住民であれば__1人でもよく__、国籍や選挙権の有無も問いません。逆に、財務会計行為と__法律上の利害関係があっても__、住民でなければ==できません==。この点が、選挙権者の50分の1以上の連署が要る**事務監査請求**@@（同法75条）@@と違います。\n\n対象は、違法・不当な__公金の支出、財産の取得・管理・処分、契約の締結・履行、債務等の負担__に加えて、**怠る事実**（公金の賦課・徴収、財産の管理を怠ること）も==含みます==。\n\n**住民訴訟**@@（同法242条の2第1項）@@は、__自分で住民監査請求をした住民__が、監査の結果・勧告・措置に不服があるときなどに提起します。==他の住民が済ませた監査請求では足りません==。\n\n住民訴訟は**住民たる地位に基づく客観訴訟**なので、__提起後に転出して住民でなくなれば__、訴えは==不適法になります==。",
+        "deepDive": {
+          "background": "%%役所%%が取るべきお金を取らないと、その分は==他の住民が負担します==。支出を止めるだけでは足りず、__入るべきものが入っていない__ところにも目を届かせる必要があります。だから対象へ**怠る事実**を入れました。一方、請求できる人を住民に限るのは、この制度が__その団体の財政を住民が自ら正す__ためのものだからです。外の人に開くと、財政と関係のない争いの道具に==なりかねません==。",
+          "trap": "!!住民でなくても利害関係があれば請求できる!!と書くのが定番です。@@令和4年問23肢4@@がこの形で誤りにしています。!!他の住民の監査請求で足りる!!@@（同問肢3）@@、!!転出しても訴訟は不適法にならない!!@@（同問肢1）@@も同じ問題で出ました。!!財務会計行為の時点で住民である必要がある!!@@（同問肢2）@@も誤りで、==監査請求の時点で住民であればよい==です。",
+          "example": "@@令和4年問23肢5@@では、この文がそのまま**妥当なもの**として出ました。@@平成19年問25@@は事務監査請求との違い、@@平成22年問24@@と@@平成27年問21@@は住民訴訟を提起できる者を問うています。"
+        },
+        "commonSense": "%%町内会%%のお金を、役員が集めるべき会費を集めずに放っておいたら、==会員は文句を言えるはずです==。ただし文句を言えるのは__その町内会の会員__であって、外の人ではありません。しかも、==自分で先に総会へ出しておく==必要があります。"
+      },
+      "legalBasis": [
+        {
+          "label": "地方自治法242条・242条の2",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000067?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1593",
+          "choiceNumber": "5",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1593:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1593:choice:4",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1593:choice:1",
+          "relation": "contrast"
+        }
+      ],
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 4,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 3,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "住民監査請求・住民訴訟の対象（怠る事実）と請求できる者を正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "公金の賦課や徴収を怠る事実",
+        "出訴期間内",
+        "提起することができる"
+      ],
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "memorize"
+    },
+    {
+      "id": "gyo-local-special-ward-001",
+      "topic": "地方自治法",
+      "subtopic": "特別区と指定都市の区の違い",
+      "clusterId": "gyo-local-organization",
+      "variants": {
+        "a": "**特別区**は、地方自治法上は、__都に設けられた区__をいうこととされているが、新たな法律の制定により、__廃止される関係市町村における住民投票などの手続__を経て、一定の要件を満たす__他の道府県__においても==設けることが可能となった==。",
+        "b": "**特別区**は、いまのところ%%東京都%%の23区のことです。\n\nその後にできた法律で、__住民投票などの手続__を踏めば、%%大阪府%%のような他の道府県にも==置けるようになりました==。",
+        "bCasual": "**特別区**は、地方自治法では「都の区」と定められています。\n\n別の法律（大都市地域特別区設置法）ができたことで、__関係市町村の住民投票__などを経れば、__他の道府県__でも==設置できます==。",
+        "bCasualStyle": "時間の流れで追う",
+        "c": "特別区は__都の区__。法律ができて==他の道府県でも置ける=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。地方自治法281条1項は__都の区は、これを特別区という__と定めています。そのうえで、**大都市地域特別区設置法**@@（平成24年法律第80号）@@により、__道府県__でも、__関係市町村の住民投票__などの手続を経て特別区を==設置できるようになりました==。",
+      "memoryPoint": "特別区は**特別地方公共団体**で法人格あり。==指定都市の区は法人格なし==。",
+      "explanations": {
+        "normal": "**特別区**は__都の区__をいい@@（地方自治法281条1項）@@、**特別地方公共団体**の一種です。==普通地方公共団体ではありません==。法人格を持ち、議会を置き、区長は公選で、条例制定権もあります。処理する事務は__原則として市町村と同じ__です@@（同条2項）@@。\n\nこれに対し、**指定都市に置かれる区**（行政区）は、市の内部の区画にすぎず==法人格がありません==。議会も公選の区長も条例制定権も==ありません==。ここが最大の違いです。\n\n大都市制度としては、__人口50万以上__の市から政令で指定される**指定都市**@@（同法252条の19第1項）@@、__人口20万以上__の市から指定される**中核市**@@（同法252条の22第1項）@@があります。数字を取り違えないようにします。",
+        "deepDive": {
+          "background": "%%大都市%%では、上下水道や交通のように__区をまたいで一体で扱ったほうがよい仕事__があります。だから特別区では、その部分を%%都%%が引き取ります@@（281条2項）@@。一方、指定都市の区は、%%市%%が大きくなりすぎた分の==窓口を分けただけ==なので、独立した団体にする必要がありません。__どこまで一体で扱うか__の違いが、法人格の有無になって表れています。",
+          "trap": "!!特別区は普通地方公共団体!!と書くのが定番です。@@平成30年問22肢1@@がこの形で誤りにしています。==特別地方公共団体==です。!!指定都市の区も法人格を持つ!!@@（同問肢2）@@も誤りです。人口要件の!!指定都市50万・中核市20万!!の取り違えも狙われます。",
+          "example": "@@平成30年問22肢4@@では、この文がそのまま**妥当なもの**として出ました。@@平成27年問22@@は特別区の空欄補充、@@平成22年問22@@は大都市制度を一問まるごと問うています。"
+        },
+        "commonSense": "%%東京の◯◯区%%には区長選挙があり、区議会があります。%%横浜市の◯◯区%%にはどちらも==ありません==。選挙があるかどうかで、__独立した団体か、市の中の区画か__が分かります。"
+      },
+      "legalBasis": [
+        {
+          "label": "地方自治法281条・252条の19・252条の22",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000067?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1352",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1352:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1352:choice:1",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1352:choice:2",
+          "relation": "contrast"
+        }
+      ],
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "特別区の性格と指定都市・中核市の大都市制度を正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "都に設けられた区",
+        "住民投票",
+        "他の道府県",
+        "設けることが可能となった"
+      ],
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "memorize"
+    },
+    {
+      "id": "gyo-legislation-circular-nature-001",
+      "topic": "行政総論",
+      "subtopic": "通達の法的性質と処分性",
+      "clusterId": "gyo-legislation",
+      "variants": {
+        "a": "**通達**の内容が、__法令の解釈や取扱いに関するもの__で、__国民の権利義務に重大なかかわりをもつようなもの__である場合には、当該通達に対して**取消訴訟**を==提起することができる==。",
+        "b": "%%上級の役所%%が%%下級の役所%%へ「この条文はこう読め」と指示を出しました。その中身が%%国民%%の権利義務に大きく響くものだったとします。\n\nこのとき%%国民%%は、その指示そのものを相手に==取消訴訟を起こせます==。",
+        "bCasual": "**通達**は、上級行政機関が下級行政機関へ出す__解釈や取扱いの指示__です。\n\nその内容が国民の権利義務に重くかかわるものなら、通達そのものを対象に==取消訴訟を提起できます==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "権利義務に重くかかわる通達なら==取消訴訟ができる=="
+      },
+      "correct": false,
+      "correction": "通達には**処分性が無く**、取消訴訟は==提起できません==。判例は、通達は!!原則として、法規の性質をもつものではなく、行政組織内部における命令にすぎない!!のであって、__国民は直接これに拘束されるものではない__とし、通達の取消しを求める訴えを==不適法としました==@@（最判昭43.12.24・墓地埋葬通達事件）@@。争うなら、通達に従って行われた__具体的な処分__を対象にします。",
+      "memoryPoint": "通達は**行政組織の内部**の命令。==国民を拘束せず、処分性も無い==。",
+      "explanations": {
+        "normal": "行政立法は、国民を拘束する**法規命令**（政令・省令など）と、行政組織の内部でだけ通用する**行政規則**（通達・訓令など）に分かれます。\n\n**通達**は行政規則です。上級行政機関が下級行政機関へ__法令の解釈や運用の指針__を示すもので、==裁判所も国民も、これに拘束されません==。だから通達それ自体は**抗告訴訟の対象となる処分ではありません**@@（最判昭43.12.24・墓地埋葬通達事件）@@。通達の内容に不満があっても、通達を直接たたくのではなく、__それに基づいて実際にされた処分__を争います。\n\n**政令**は、法律の規定を実施するために内閣が定めます@@（憲法73条6号）@@。__法律の委任がある場合__には、==罰則を設けることもできます==@@（同号ただし書）@@。\n\n**委任命令**が委任の範囲を逸脱していれば、その命令は__無効__です。行政行為の公定力の話と混ぜて「取り消されるまで有効」としないよう注意します。",
+        "deepDive": {
+          "background": "%%上級官庁%%が%%出先%%へ出す指示にまで裁判で争えるとすると、==役所の中の相談ごとが全部訴訟になります==。しかも、通達が出ただけでは%%国民%%はまだ何もされていません。実際に不利益が来るのは__通達に沿って処分がされたとき__です。そこを争わせれば足りるので、通達には処分性を認めていません。",
+          "trap": "!!権利義務に重大なかかわりをもつ通達には処分性がある!!と書くのが定番です。@@令和6年問9肢4@@がこの形です。分かれ目は__中身の重さではなく、内部の命令か外向きの行為か__です。!!委任の範囲を逸脱した委任命令も取り消すまで有効!!@@（同問肢3）@@も誤りで、==無効==です。!!政令に罰則は置けない!!も出ますが、==法律の委任があれば置けます==@@（同問肢2）@@。",
+          "example": "@@令和6年問9肢4@@では、この文がそのまま**妥当でないもの**として出ました。@@令和3年問25@@は墓地埋葬法13条の通達を素材にしています。@@平成22年問9@@は一問まるごと通達です。"
+        },
+        "commonSense": "%%会社の本社%%が%%支店%%へ出した社内通知に、%%お客さん%%が直接文句を言っても==始まりません==。困るのは、その通知どおりに%%支店%%が==実際に何かをしたとき==です。文句を言う相手は、そちらになります。"
+      },
+      "legalBasis": [
+        {
+          "label": "地方自治法・国家行政組織法14条2項ほか（通達）",
+          "url": "https://laws.e-gov.go.jp/law/323AC0000000120?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1699",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1699:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1699:choice:2",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1699:choice:3",
+          "relation": "contrast"
+        }
+      ],
+      "crossFieldComparisons": [
+        {
+          "id": "cross-01",
+          "comparedCategory": "行政法",
+          "comparedTopic": "委任命令が委任の範囲を超えた場合",
+          "relatedCardId": "gyo-legislation-delegation-limit-001",
+          "title": "同じ行政立法でも、法規命令と行政規則で争い方が違う",
+          "explanation": "政令・省令などの法規命令は国民を拘束するので、委任の範囲を超えていれば無効になり、それに基づく処分を争うときの理由になります。通達などの行政規則は内部の命令にすぎず、国民を拘束しないので、そもそも取消訴訟の対象になりません。「行政立法」とひとくくりにすると取り違えます。",
+          "memoryCue": "国民を拘束するか。するなら法規命令で無効の話、しないなら行政規則で処分性の話"
+        }
+      ],
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 4,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "通達の法的性質・処分性を正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "法令の解釈や取扱い",
+        "国民の権利義務に重大なかかわり",
+        "取消訴訟"
+      ],
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "understand"
+    },
+    {
+      "id": "gyo-state-comp-fire-liability-001",
+      "topic": "国家賠償法",
+      "subtopic": "失火責任法と国家賠償法4条",
+      "clusterId": "gyo-state-compensation",
+      "variants": {
+        "a": "国または公共団体の損害賠償の責任については、__民法の規定が補充的に適用される__とされており、**失火責任法**もここにいう民法に含まれるが、__消防署職員の消火活動が不十分なため残り火が再燃して火災が発生した事案__は、失火責任法にいう「失火」に該当せず、失火責任法の適用は==ない==。",
+        "b": "%%消防署%%が火を消し切らず、残り火から%%家%%がまた燃えました。\n\n**失火責任法**は「重い落ち度がなければ責任を負わない」という決まりですが、この消火のしくじりは「失火」ではないので、==この決まりは使えません==。",
+        "bCasual": "**失火責任法**は、失火者に__重大な過失__がなければ責任を負わせない法律です。\n\n国家賠償でもこの法律は使われますが、__消火活動の不備で再燃した場合__は「失火」にあたらないので==適用されません==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "消火の不備による再燃は「失火」==ではない=="
+      },
+      "correct": false,
+      "correction": "判例は、__消防署職員の消火活動が不十分で残り火が再燃した場合__も!!失火責任法にいう失火にあたる!!とし、==同法の適用を認めました==@@（最判昭53.7.17）@@。したがって、この事案で公務員の責任を問うには__重大な過失__が必要です。前半の「失火責任法も国家賠償法4条にいう民法に含まれる」という部分は、==そのとおり==です@@（国家賠償法4条）@@。",
+      "memoryPoint": "失火責任法は**国賠でも使う**。消火の不備による再燃も==「失火」にあたる==。",
+      "explanations": {
+        "normal": "国家賠償法4条は、__国又は公共団体の損害賠償の責任については、前三条の規定によるの外、民法の規定による__と定めています。判例は、この「民法」に**失火責任法**@@（失火ノ責任ニ関スル法律）@@も==含まれる==としました@@（最判昭53.7.17）@@。\n\n失火責任法は、失火者に__重大な過失__がなければ損害賠償責任を負わせない法律です。国家賠償法1条の責任は__故意または過失__で足りますが、失火の場面ではこれが**重過失**へ==引き上げられます==。\n\n同じ判例は、__消防署職員の消火活動が不十分で残り火が再燃した__事案についても、==失火責任法の適用を認めています==。「消火の失敗は失火ではない」と切り分けません。\n\nなお、国家賠償法3条1項は、__設置管理者と費用負担者が異なるとき__は==双方が責任を負う==としています。判例は「費用負担者」に、法律上の負担義務者のほか、__これと同等かこれに近い費用を負担し、実質的に事業を共同して執行していると認められる者__も含めています@@（令和7年問21肢4）@@。",
+        "deepDive": {
+          "background": "火事は%%一軒%%の不注意から%%町ひとつ%%に広がりかねません。軽い落ち度で全部を賠償させると、失火者が==立ち行かなくなります==。そこで責任を重過失の場合に絞りました。この考え方は__誰が失火したかで変わる理由がない__ので、%%国%%や%%公共団体%%にも当てはめます。消火のしくじりも、結局は__火を出した側の落ち度__と同じ問題なので、同じ枠で扱っています。",
+          "trap": "!!消火活動の不備は失火にあたらない!!と書くのが定番です。@@令和7年問21肢1@@がこの形で誤りにしています。逆に!!失火責任法は国家賠償には使えない!!も出ますが、==4条の「民法」に含まれます==。求償の場面と混ぜないことも大切で、国が公務員へ求償できるのは__故意または重大な過失__があるときです@@（国家賠償法1条2項）@@。",
+          "example": "@@令和7年問21肢1@@では、この文がそのまま**妥当でないもの**として出ました。@@令和3年問20@@は同じ消防署の残り火の判決文を素材にしています。@@平成24年問20@@でも失火責任法が注記付きで出ています。"
+        },
+        "commonSense": "火は燃え広がるので、%%うっかりした人%%に町ぐるみの損害を負わせると==誰も立ち直れません==。だから「よほどひどい落ち度のときだけ」にしています。%%消防署%%だけこの枠から外す理由も、==特にありません==。"
+      },
+      "legalBasis": [
+        {
+          "label": "国家賠償法1条〜4条",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000125?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1771",
+          "choiceNumber": "1",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1771:choice:1",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1771:choice:4",
+          "relation": "same_topic"
+        }
+      ],
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "国家賠償法4条と失火責任法の適用関係を正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "民法の規定が補充的に適用される",
+        "失火",
+        "適用はない"
+      ],
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "memorize"
+    },
+    {
+      "id": "min-security-retention-lien-001",
+      "topic": "物権",
+      "subtopic": "留置権の成立と占有が不法行為で始まった場合",
+      "clusterId": "civil-security",
+      "variants": {
+        "a": "%%建物賃借人%%が__賃料不払いにより賃貸借契約を解除された後__に当該建物につき**有益費**を支出した場合、%%賃貸人%%による建物明渡請求に対して、賃借人は、__有益費償還請求権を被担保債権として__当該建物を==留置することはできない==。",
+        "b": "%%借主%%が家賃を払わず、契約を==解除されました==。それでも居座ったまま、その建物へ__お金をかけて価値を上げる工事__をしました。\n\n%%大家%%から出ていけと言われたとき、%%借主%%は「工事代を返すまで出ない」とは==言えません==。",
+        "bCasual": "**留置権**は、__その物に関して生じた債権__を持つ人が、払ってもらうまでその物を手元に置ける権利です。\n\nただし、__占有が不法行為で始まった__ときは成立しません。解除後に居座って支出した有益費では、==留置できません==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "解除後に居座って支出した有益費では==留置できない=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。民法295条2項は、__占有が不法行為によって始まった場合__には留置権が==成立しない==と定めています。判例は、__賃貸借契約の解除後__に建物を占有し続けた者が有益費を支出した場合にも、!!同項を類推適用!!して==留置権の成立を否定しました==@@（最判昭46.7.16）@@。",
+      "memoryPoint": "**占有が不法行為で始まったら留置権なし**。==解除後の居座りも同じ扱い==。",
+      "explanations": {
+        "normal": "**留置権**は、__他人の物の占有者__が、__その物に関して生じた債権__を持つときに、弁済を受けるまでその物を留置できる権利です@@（民法295条1項本文）@@。債権が__弁済期にないとき__は==成立しません==@@（同項ただし書）@@。そして、__占有が不法行為によって始まった場合__には==適用されません==@@（同条2項）@@。\n\n判例は、賃貸借が解除された後も居座って有益費を支出した場合にも__2項を類推適用__し、留置権を==認めませんでした==@@（最判昭46.7.16）@@。占有を続ける権原がもう無いからです。\n\n留置中の義務も押さえます。留置権者は__善良な管理者の注意__をもって占有しなければならず@@（同法298条1項）@@、これは__自己の財産に対するのと同一の注意より重い__ものです。債務者の承諾なく__使用・賃貸・担保供与__はできませんが、__保存に必要な使用__は==できます==@@（同条2項）@@。違反しても留置権は当然には消滅せず、**債務者が消滅を請求できる**にとどまります@@（同条3項）@@。\n\n留置権は__占有を失うと消滅します__@@（同法302条本文）@@。抵当権のように==優先弁済を受ける効力はありません==。",
+        "deepDive": {
+          "background": "留置権は、__その物のために出したお金__と__その物__を結び付けて、「払うまで返さない」と言えるようにする仕組みです。%%修理屋%%が代金をもらうまで%%車%%を返さない、という場面が典型です。ところが、__そもそも置いていてはいけない人__が勝手にお金をかけた場合まで認めると、==居座りの口実になります==。だから入口を不法行為で始まった占有で切りました。",
+          "trap": "!!善管注意義務は自己の財産と同一の注意より軽い!!と書くのが定番です。@@令和3年問30肢1@@がこの形で誤りにしています。==より重い==注意です。!!承諾なく使用したら留置権は直ちに消滅する!!@@（同問肢2）@@も誤りで、==債務者の消滅請求が必要==です@@（298条3項）@@。!!留置権に優先弁済的効力がある!!も出ますが、==ありません==。",
+          "example": "@@令和3年問30肢3@@では、この文がそのまま**妥当なもの**として出ました。@@平成29年問33@@は、賃借人から修理を請け負った者の留置権を事案で問うています。@@平成27年問30@@は一問まるごと留置権です。"
+        },
+        "commonSense": "%%修理屋%%が「代金をもらうまで返しません」と言うのは分かります。しかし、__もう出ていくべき人__が勝手に手を入れて「工事代を払うまで出ない」と言い出したら、==いつまでも明け渡されません==。だから、置いていい立場かどうかを先に見ます。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法295条〜302条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1540",
+          "choiceNumber": "3",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1540:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1540:choice:1",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1540:choice:2",
+          "relation": "contrast"
+        }
+      ],
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "留置権の成立要件・留置権者の義務を正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "賃料不払いにより賃貸借契約を解除された後",
+        "有益費",
+        "留置することはできない"
+      ],
+      "category": "民法",
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "understand"
+    },
+    {
+      "id": "min-family-acknowledgement-effect-001",
+      "topic": "親族",
+      "subtopic": "認知の効力と取消しの禁止",
+      "clusterId": "civil-family",
+      "variants": {
+        "a": "**認知**は、__認知の時__からその効力を==生ずる==。",
+        "b": "%%父%%が、結婚していない相手との間に生まれた%%子%%を自分の子だと認めました。\n\n親子としての関係は、__認めた日__から==始まります==。",
+        "bCasual": "**認知**は、嫡出でない子について、__父または母が自分の子だと認める__ことです。\n\nその効力は、__認知をした時点__から==先へ向かって生じます==。",
+        "bCasualStyle": "時間の流れで追う",
+        "c": "認知の効力は__認知の時__から==生じる=="
+      },
+      "correct": false,
+      "correction": "認知は、!!出生の時にさかのぼって!!その効力を==生じます==@@（民法784条本文）@@。ただし、__第三者が既に取得した権利を害することはできません__@@（同条ただし書）@@。さかのぼるからこそ、__出生時からの扶養料__や__相続__の場面で意味を持ちます。",
+      "memoryPoint": "認知の効力は**出生の時にさかのぼる**。==認知の時からではない==。",
+      "explanations": {
+        "normal": "**認知**は、__嫡出でない子__について、その父または母が自分の子だと認めるものです@@（民法779条）@@。認知をするのに__法定代理人の同意は要りません__。父または母が未成年者や成年被後見人であってもです@@（同法780条）@@。\n\n承諾が要る場面が2つあります。**成年の子**を認知するには__その子の承諾__@@（同法782条）@@、**胎児**を認知するには__母の承諾__@@（同法783条1項）@@です。\n\n効力は__出生の時にさかのぼります__@@（同法784条本文）@@。ただし__第三者が既に取得した権利__は害せません@@（同条ただし書）@@。\n\n認知をした父または母は、その認知を__取り消すことができません__@@（同法785条）@@。また、子・その直系卑属・これらの法定代理人は**認知の訴え**を提起できますが、__父または母の死亡の日から3年を経過__すると==できません==@@（同法787条）@@。",
+        "deugDive": {},
+        "deepDive": {
+          "background": "認知が%%認めた日%%からしか効かないとすると、それまでの間%%子%%は==法律上の父がいない状態==になります。生まれた時点から父子だったことにすれば、生まれてからの__扶養料__も、__相続人としての地位__も筋が通ります。一方で、その間に%%他の相続人%%が受け取ってしまった財産まで全部ひっくり返すと==取引が壊れます==。だから、ただし書で第三者の既得の権利を守っています。",
+          "trap": "!!認知の時から効力が生じる!!と書くのが定番です。@@令和7年問35肢3@@がこの形で誤りにしています。ほかに!!認知には法定代理人の同意が必要!!と書くものがありますが、__同意は不要__です@@（780条）@@。!!胎児の認知は父が単独でできる!!も出ますが、==母の承諾が要ります==@@（783条1項）@@。!!一度した認知は取り消せる!!も誤りで、==取り消せません==@@（785条）@@。認知の訴えの__3年__という期間も数字で問われます@@（787条）@@。",
+          "example": "@@令和7年問35肢3@@では、この文がそのまま**誤っているもの**として出ました。@@平成22年問34@@は、A男とB女が出産したCとの関係という事案で嫡出推定と認知をまとめて問うています。"
+        },
+        "commonSense": "%%子%%からすれば、__生まれたときからその人の子だった__はずです。父が認めるのが遅れただけで、それまでの分が==無かったことになる==のは筋が通りません。だからさかのぼらせます。ただし、その間に受け取った人がいる財産までは==巻き戻しません==。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法779条〜787条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1785",
+          "choiceNumber": "3",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1785:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1785:choice:4",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1785:choice:1",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1785:choice:5",
+          "relation": "same_topic"
+        }
+      ],
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "認知の要件・効力・取消しの禁止を正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "認知の時",
+        "効力を生ずる"
+      ],
+      "category": "民法",
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "memorize"
+    },
+    {
+      "id": "con-gen-private-effect-001",
+      "category": "憲法",
+      "subjectId": "constitutional-law",
+      "topic": "総論",
+      "subtopic": "人権規定の私人間効力",
+      "clusterId": "con-general",
+      "variants": {
+        "a": "憲法19条、21条、23条等のいわゆる**自由権的基本権の保障規定**は、__国又は公共団体の統治行動__に対して個人の基本的な自由と平等を保障することを目的とした規定であって、__専ら国又は公共団体と個人との関係を規律するもの__であり、__私人相互間の関係__について当然に==適用ないし類推適用されるものでない==。",
+        "b": "憲法の自由権の規定は、%%国%%が%%個人%%を押さえつけないようにするための決まりです。\n\n%%会社%%と%%働く人%%のような__私人どうしの争い__へ、そのまま持ち込むことは==できません==。",
+        "bCasual": "**自由権的基本権**（思想・良心、表現、学問など）の規定は、__国や公共団体の行いを縛るためのもの__です。\n\nだから、__私人と私人の関係__には==当然には適用も類推適用もされません==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "自由権の規定は__国と個人__の関係。私人間へは==当然には及ばない=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。判例は、憲法の自由権的基本権の保障規定は__専ら国又は公共団体と個人との関係を規律するもの__であり、!!私人相互間の関係について当然に適用ないし類推適用されるものではない!!としたうえで、私人間の侵害は__民法1条・90条や不法行為の規定__を通じて調整すべきだとしました@@（最大判昭48.12.12・三菱樹脂事件）@@。これを**間接適用説**といいます。",
+      "memoryPoint": "憲法は**国対個人**の決まり。私人間へは==民法90条などを通して間接的に==。",
+      "explanations": {
+        "normal": "憲法の人権規定を私人間へどう及ぼすかについては、__直接適用説__（憲法をそのまま適用）、__無効力説__（一切及ばない）、__間接適用説__（私法の一般条項を通して及ぼす）があります。\n\n判例は**間接適用説**を採ります。自由権的基本権の規定は__国又は公共団体と個人との関係__を規律するもので、私人相互間へ==当然には適用も類推適用もされません==。私人間で自由や平等が侵されたときは、__民法1条・90条や不法行為の規定__によって調整します@@（最大判昭48.12.12・三菱樹脂事件）@@。\n\n同じ判決は、企業には**雇用の自由**があるので、__労働者の思想・信条を理由に雇入れを拒む__ことも==当然に違法とはいえない==としました。雇入れ後の不利益取扱いとは扱いが違います。\n\n**例外があります。** 憲法15条4項（投票の秘密）、18条（奴隷的拘束からの自由）、27条3項（児童酷使の禁止）、28条（労働基本権）は、__私人間へ直接適用される__と解されています。",
+        "deepDive": {
+          "background": "憲法は、%%国%%という圧倒的に強い相手から%%個人%%を守るために作られました。同じ物差しを%%私人どうし%%へそのまま当てると、今度は__相手方の自由__を==憲法の名で押しつぶすことになります==。契約するかしないかを決める自由も、それ自体が守られるべきものだからです。そこで、__行き過ぎを民法の一般条項で切る__という形にしました。",
+          "trap": "!!私人間にも憲法が直接適用される!!と書くのが定番です。@@平成18年問3肢1@@は「国民相互の法律関係に対して直接の意味を有する」という形、@@平成25年問4肢3@@は「14条1項の効力は労働関係に直接及ぶ」という形で誤りにしています。!!雇入れの拒否も当然に違法!!@@（同問肢5）@@も誤りで、==雇入れの段階では企業の自由が広く認められます==。",
+          "example": "@@平成18年問3肢5@@では、この文がそのまま**判例の述べるところ**として出ました。@@平成25年問4@@は同じ論点を私法上の法律関係という切り口で問うています。"
+        },
+        "commonSense": "%%国%%が「この考えを持つな」と言えば、逃げ場がありません。しかし%%会社%%が誰を雇うかを決めるのは、__会社の側の自由__でもあります。どちらの自由も残すために、==憲法をそのまま持ち込まず、民法で行き過ぎを切る==、という形にしています。"
+      },
+      "legalBasis": [
+        {
+          "label": "憲法19条・21条・23条",
+          "url": "https://laws.e-gov.go.jp/law/321CONSTITUTION?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:553",
+          "choiceNumber": "5",
+          "relationship": "archive-question-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:553:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:553:choice:1",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:134:choice:3",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:134:choice:5",
+          "relation": "same_topic"
+        }
+      ],
+      "crossFieldComparisons": [
+        {
+          "id": "cross-01",
+          "comparedCategory": "憲法",
+          "comparedTopic": "98条1項「国務に関するその他の行為」と私法上の行為",
+          "relatedCardId": "con-supreme-law-private-act-001",
+          "title": "「憲法が私法の場面へ届くか」を、2つの角度から見る",
+          "explanation": "私人間効力は、私人どうしの関係へ人権規定が及ぶかという話で、答えは間接適用です。98条1項の話は、国が私人と対等の立場で行った行為が最高法規の縛りを受けるかという話で、答えは受けない（法規範の定立を伴わないから）です。どちらも「憲法9条や人権規定を私法上の行為へ直接持ち込めるか」という同じ問いの裏表になっています。",
+          "memoryCue": "私人どうしなら民法90条を通す。国の私法上の行為なら98条1項の外"
+        }
+      ],
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 0,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "人権規定の私人間効力を正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "専ら国又は公共団体と個人との関係を規律するもの",
+        "私人相互間の関係",
+        "適用ないし類推適用されるものでない"
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "archive-question-plus-egov-2026-04-01"
+      },
+      "learningType": "understand"
+    },
+    {
+      "id": "com-gen-manager-authority-001",
+      "category": "商法・会社法",
+      "subjectId": "commercial-law",
+      "topic": "商法総則",
+      "subtopic": "支配人の権限と表見支配人",
+      "clusterId": "com-general",
+      "variants": {
+        "a": "**支配人**は、__商人の営業所の営業の主任者__として選任された者であり、__他の使用人を選任し、または解任する権限__を==有する==。",
+        "b": "%%支配人%%は、%%店主%%からその営業所を任された人です。\n\n任されている以上、__ほかの従業員を雇ったり辞めさせたりすること__も==自分の判断でできます==。",
+        "bCasual": "**支配人**は、商人に代わってその営業に関する__一切の裁判上・裁判外の行為__をできる人です。\n\nその権限には、__他の使用人の選任・解任__も==含まれます==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "支配人は__他の使用人の選任・解任__も==できる=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。支配人は、商人に代わってその営業に関する__一切の裁判上又は裁判外の行為__をする権限を有し@@（商法21条1項）@@、__他の使用人を選任し、又は解任することができます__@@（同条2項）@@。",
+      "memoryPoint": "支配人は**裁判上の行為までできる**。==表見支配人は裁判外だけ==。",
+      "explanations": {
+        "normal": "**支配人**は、商人が営業所において営業を行わせるために選任する使用人です@@（商法20条）@@。その権限は__包括的で定型的__であり、商人に代わってその営業に関する**一切の裁判上又は裁判外の行為**をすることができ@@（同法21条1項）@@、__他の使用人の選任・解任__もできます@@（同条2項）@@。\n\n商人がこの代理権へ制限を加えても、__善意の第三者__に対抗することは==できません==@@（同条3項）@@。裏を返すと、__悪意の第三者__には==対抗できます==。\n\n支配人には**競業避止義務**などがあり、商人の許可がなければ、__自ら営業を行うこと__、__自己または第三者のためにその商人の営業の部類に属する取引をすること__、__他の商人・会社の使用人となること__などが==できません==@@（同法23条1項）@@。逆に、__許可を受ければできます__。\n\n**表見支配人**@@（同法24条）@@は、営業の主任者であることを示す名称を付した使用人について、__当該営業所の営業に関し、一切の裁判外の行為__をする権限を有するものと**みなす**制度です。==裁判上の行為は含まれません==。相手方が悪意のときは適用されません。",
+        "deepDive": {
+          "background": "%%取引先%%は、%%支店長%%と話すたびに「この人はどこまで決められるのか」を==確かめていられません==。そこで、支配人の権限を法律で包括的に決めておき、内側の取り決めで狭めても__知らない相手には言えない__ことにしました。表見支配人のほうは、__名称を信じた相手__を守る仕組みなので、訴訟の追行まで任せる話ではありません。だから裁判外に限っています。",
+          "trap": "!!代理権の制限は悪意の第三者にも対抗できない!!と書くのが定番です。@@平成26年問36肢3@@がこの形で誤りにしています。==善意の第三者に対抗できない==＝悪意なら対抗できます@@（21条3項）@@。!!表見支配人は支配人とみなされる!!@@（同問肢5）@@も誤りで、==裁判外の行為の権限があるとみなされるだけ==です。!!許可を得ても他の商人の使用人になれない!!@@（同問肢4）@@も誤りで、==許可があればできます==@@（23条1項3号）@@。",
+          "example": "@@平成26年問36肢2@@では、この文がそのまま**正しいもの**として出ました。@@平成18年問36@@も一問まるごと商業使用人で、支配人の代理権の制限を問うています。"
+        },
+        "commonSense": "%%お店%%を任された人が、__アルバイトを雇うこともできない__のでは==店が回りません==。だから権限は広く決められています。一方、「支店長」という肩書だけの人に%%裁判%%まで任せるのは行き過ぎなので、そちらは==店先の取引だけ==にしています。"
+      },
+      "legalBasis": [
+        {
+          "label": "商法20条〜25条",
+          "url": "https://laws.e-gov.go.jp/law/132AC0000000048?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:105",
+          "choiceNumber": "2",
+          "relationship": "archive-question-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:105:choice:2",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:105:choice:3",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:105:choice:5",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:105:choice:4",
+          "relation": "contrast"
+        }
+      ],
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 0,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "支配人の権限・競業避止義務・表見支配人を正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "営業の主任者",
+        "他の使用人を選任し、または解任する権限",
+        "有する"
+      ],
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "archive-question-plus-egov-2026-04-01"
+      },
+      "learningType": "understand"
+    },
+    {
+      "id": "gk-pip-exemption-types-001",
+      "category": "基礎知識",
+      "subjectId": "general-knowledge",
+      "topic": "個人情報保護",
+      "subtopic": "個人情報保護法57条1項の適用除外（4類型）",
+      "clusterId": "gk-personal-information",
+      "variants": {
+        "a": "**報道機関**が__報道の用に供する目的__で個人情報を取り扱う場合には、個人情報取扱事業者の義務に関する__この章の規定__は==適用されない==。",
+        "b": "%%新聞社%%が取材で集めた個人の情報について、「本人の同意を取れ」「利用目的を通知しろ」と求められると、==取材そのものができなくなります==。\n\nだから、報道のために使う場面では==事業者の義務の決まりが外れます==。",
+        "bCasual": "**適用除外**は、個人情報取扱事業者の義務の章がまるごと外れる仕組みです。\n\n__報道機関が報道の用に供する目的__で個人情報を扱う場合が、その一つです。",
+        "bCasualStyle": "条件を並べる",
+        "c": "報道機関の__報道目的__なら義務の章は==適用されない=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。個人情報保護法57条1項は、__①報道機関（報道の用）__、__②著述を業として行う者（著述の用）__、__③宗教団体（宗教活動の用）__、__④政治団体（政治活動の用）__の4類型について、==この章の規定を適用しない==と定めています。",
+      "memoryPoint": "適用除外は**報道・著述・宗教・政治**の4つ。==学術研究機関は令和3年改正で外れた==。",
+      "explanations": {
+        "normal": "個人情報保護法57条1項は、次の4類型について__個人情報取扱事業者等の義務の章__を==適用しない==と定めています。\n\n__①放送機関・新聞社・通信社その他の報道機関__（報道を業として行う個人を含む）が**報道の用に供する目的**で扱う場合。__②著述を業として行う者__が**著述の用**。__③宗教団体__が**宗教活動**（付随する活動を含む）の用。__④政治団体__が**政治活動**（付随する活動を含む）の用。\n\nいずれも__憲法上の自由__（報道の自由、表現の自由、信教の自由、政治活動の自由）とぶつかる場面なので、義務の章ごと外しています。\n\n**学術研究機関は、令和3年改正でこの57条の枠から外れました。** いまは__利用目的による制限__@@（18条3項5号・6号）@@、__要配慮個人情報の取得__@@（20条2項5号・6号）@@、__第三者提供__@@（27条1項5号〜7号）@@といった個別の場面ごとの例外として==残っています==。「学術研究なら一律に義務が外れる」とは==言えません==。\n\n町内会・自治会は、どの類型にも==当たりません==。",
+        "deepDive": {
+          "background": "%%報道機関%%へ「本人の同意なく個人情報を集めるな」と求めれば、==取材はできません==。%%宗教団体%%の信者名簿や%%政治団体%%の党員名簿も同じで、行政が中身へ立ち入れる形にすると、__信教の自由や政治活動の自由__が==細ります==。そこで、これらは義務の章ごと外し、__自主的な取組み__に委ねました（57条3項は、これらの者に自ら講じた措置の公表を努力義務としています）。",
+          "trap": "!!学術研究機関は一律に適用除外!!と書くのが定番です。@@令和6年問57肢4@@がこの形で誤りにしています。令和3年改正で==場面ごとの例外へ変わりました==。!!町内会や自治会も適用除外!!@@（平成26年問57肢1）@@も誤りです。4類型を「報道・著述・宗教・政治」と==並びで覚えます==。",
+          "example": "@@平成26年問57@@は、適用除外として定められていないものを選ばせる形で、町内会を正解にしています。@@平成18年問56@@も憲法上の自由との関係から同じ適用除外を問うています。"
+        },
+        "commonSense": "%%新聞社%%に「記事にする前に相手の同意を取れ」と言えば、==報道は成り立ちません==。%%お寺%%の檀家名簿や%%政党%%の党員名簿へ役所が口を出すのも筋が違います。__憲法が守っている活動__とぶつかるところは、==まとめて外してある==と考えると覚えやすくなります。"
+      },
+      "legalBasis": [
+        {
+          "label": "個人情報保護法57条",
+          "url": "https://laws.e-gov.go.jp/law/415AC0000000057?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:126",
+          "choiceNumber": "1",
+          "relationship": "archive-question-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:126:choice:2",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:126:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:126:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:126:choice:1",
+          "relation": "contrast"
+        }
+      ],
+      "crossFieldComparisons": [
+        {
+          "id": "cross-01",
+          "comparedCategory": "基礎知識",
+          "comparedTopic": "学術研究機関の例外は一律の適用除外ではない",
+          "relatedCardId": "gk-pip-academic-exception-001",
+          "title": "適用除外の4類型と、学術研究の場面ごとの例外",
+          "explanation": "報道・著述・宗教・政治の4類型は、義務の章がまるごと外れます。学術研究機関は令和3年改正でこの枠から外れ、利用目的による制限、要配慮個人情報の取得、第三者提供という場面ごとの例外に変わりました。「学術研究も適用除外」と並べて覚えると、そこが分かれ目になります。",
+          "memoryCue": "章ごと外れるのは4類型。学術研究は場面ごとの例外"
+        }
+      ],
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "個人情報取扱事業者の義務の適用除外を正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "報道の用に供する目的",
+        "適用されない"
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "archive-question-plus-egov-2026-04-01"
+      },
+      "learningType": "memorize"
+    },
+    {
+      "id": "min-security-pledge-001",
+      "topic": "物権",
+      "subtopic": "質権（動産質・不動産質・権利質）",
+      "clusterId": "civil-security",
+      "variants": {
+        "a": "**不動産質権者**は、__設定者の承諾を得ることを要件として__、目的不動産の用法に従ってその==使用収益をすることができる==。",
+        "b": "%%お金を貸した人%%が、担保として%%借主%%の建物を預かりました。\n\nこの建物を使ったり貸したりして収益を上げるには、__借主の承諾をもらうこと__が==条件になります==。",
+        "bCasual": "**不動産質権**は、担保に取った不動産を__債権者が預かる__担保物権です。\n\nその不動産を使って収益を上げるには、==設定者の承諾が要ります==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "不動産質権者の使用収益には__設定者の承諾__が==要る=="
+      },
+      "correct": false,
+      "correction": "**承諾は要りません。** 民法356条は、!!不動産質権者は、質権の目的である不動産の用法に従い、その使用及び収益をすることができる!!と定めており、==設定者の承諾を要件としていません==。その代わり、不動産質権者は__管理の費用を負担し__@@（357条）@@、__被担保債権の利息を請求できません__@@（358条）@@。",
+      "memoryPoint": "不動産質権は**承諾なしで使用収益できる**。その代わり==利息を請求できない==。",
+      "explanations": {
+        "normal": "**質権**は、債権の担保として債務者または第三者から受け取った物を__占有し__、他の債権者に先立って弁済を受ける権利です@@（民法342条）@@。設定は__目的物を引き渡すことによって効力を生じます__@@（同法344条）@@。設定者に占有させる（占有改定）ことは==できません==@@（同法345条）@@。\n\n**動産質**は、__継続して質物を占有__しなければ第三者に対抗できず@@（同法352条）@@、占有を奪われたときは__占有回収の訴えによってのみ__回復できます@@（同法353条）@@。\n\n**不動産質**は、引渡しで効力を生じますが、第三者への対抗には__登記__が要ります@@（同法177条・361条）@@。質権者は__用法に従って使用収益でき__@@（同法356条）@@、その代わり__管理費用を負担し__@@（同法357条）@@、__利息を請求できません__@@（同法358条）@@。存続期間は__10年を超えられません__@@（同法360条）@@。\n\n**権利質**として、__債権などの財産権の上__にも設定できます@@（同法362条1項）@@。",
+        "deepDive": {
+          "background": "不動産質権者は、担保として建物や土地を__丸ごと預かって手元で使えます__。使って得た収益がそのまま手に入るのだから、%%債権者%%はそこで満足すべきで、==さらに利息まで取るのは取りすぎ==です。だから356条と358条が対になっています。承諾を条件にしていないのも、__占有を移す担保__という性質から来ています。",
+          "trap": "!!使用収益に設定者の承諾が要る!!と書くのが定番です。@@令和元年問31肢4@@がこの形で誤りにしています。!!不動産質は引渡しだけで第三者に対抗できる!!も出ますが、==登記が要ります==。!!質権は動産にしか設定できない!!も誤りで、==財産権にも設定できます==@@（362条）@@。留置権と違い、質権には==優先弁済的効力があります==。",
+          "example": "@@令和元年問31肢4@@では、この文がそのまま**妥当でないもの**として出ました。@@令和7年問30肢3@@は、先取特権と質権の優先関係という形で質権に触れています。"
+        },
+        "commonSense": "%%質屋%%に品物を預けると、%%質屋%%はそれを手元に置きます。不動産の質も同じ考え方で、__預かった側が使って稼げる__代わりに、==利息は取らない==という釣り合いになっています。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法342条〜362条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1421",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1421:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1421:choice:1",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1421:choice:2",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1421:choice:5",
+          "relation": "same_topic"
+        }
+      ],
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 0,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "質権の成立・対抗要件・使用収益・目的を正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "設定者の承諾を得ることを要件として",
+        "使用収益をすることができる"
+      ],
+      "category": "民法",
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "memorize"
+    },
+    {
+      "id": "min-security-mortgage-interference-001",
+      "topic": "物権",
+      "subtopic": "抵当権に基づく妨害排除請求",
+      "clusterId": "civil-security",
+      "variants": {
+        "a": "%%C%%のための賃借権の設定において%%B%%の抵当権の実行を__妨害する目的__が認められ、Cの占有により甲の交換価値の実現が妨げられてBの優先弁済権の行使が困難となるような状態がある場合、__Aにおいて抵当権に対する侵害が生じないように甲を適切に維持管理することが期待できるとき__であっても、Bは、Cに対して、抵当権に基づく妨害排除請求として__甲の直接自己への明渡し__を==求めることができる==。",
+        "b": "%%抵当権者%%の競売を邪魔する目的で、%%所有者%%が%%占有者%%へ建物を貸しました。\n\nこのとき、%%所有者%%がきちんと建物を管理できる状態であっても、%%抵当権者%%は%%占有者%%へ「__自分に明け渡せ__」と==言えます==。",
+        "bCasual": "**抵当権に基づく妨害排除請求**は、競売の邪魔をする占有者をどかすための請求です。\n\n__所有者が適切に維持管理できるとき__でも、抵当権者は==直接自分へ明け渡せと求められます==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "所有者が管理できるときでも__直接自己への明渡し__を==求められる=="
+      },
+      "correct": false,
+      "correction": "__所有者において適切な維持管理を期待できないとき__に限られます。判例は、抵当権者は占有者に対し抵当権に基づく妨害排除請求ができるとしたうえで、!!抵当不動産の所有者において抵当権に対する侵害が生じないように抵当不動産を適切に維持管理することが期待できない場合には!!、直接自己への明渡しを==求めることができる==としました@@（最判平17.3.10）@@。つまり、期待できるときは__直接自己への明渡しまでは求められません__。",
+      "memoryPoint": "妨害排除はできる。**直接自分へ明け渡せ**は==所有者に管理を期待できないときだけ==。",
+      "explanations": {
+        "normal": "抵当権は__占有を移さない__担保物権です@@（民法369条1項）@@。そのため、第三者が抵当不動産を占有していても、それだけでは抵当権の侵害になりません。\n\nしかし判例は、__占有により抵当不動産の交換価値の実現が妨げられ、抵当権者の優先弁済請求権の行使が困難となるような状態がある__ときは、**抵当権に基づく妨害排除請求**ができるとしました@@（最判平11.11.24）@@。抵当権設定登記後の賃借権であっても、__競売手続を妨害する目的__が認められれば同じです@@（最判平17.3.10）@@。\n\n問題はその中身です。__抵当不動産の所有者において適切な維持管理を期待できない場合__に限り、抵当権者は**直接自己への明渡し**を求められます@@（最判平17.3.10）@@。所有者がきちんと管理できるなら、==所有者へ明け渡させれば足ります==。\n\nなお、抵当権者は__抵当不動産の賃料__に物上代位できます@@（同法372条・304条）@@。",
+        "deepDive": {
+          "background": "抵当権は、%%所有者%%に使わせたまま担保だけ取る仕組みです。だから%%抵当権者%%は、本来__物を自分の手元に置く立場ではありません__。それでも競売を邪魔されて値が付かなくなるなら、担保の意味が消えます。そこで妨害排除は認めたうえで、__自分が持つのはやりすぎ__なので、%%所有者%%に任せられるならそちらへ返す、という順番にしました。",
+          "trap": "!!所有者に管理を期待できるときでも直接自己への明渡しを求められる!!と書くのが定番です。@@令和6年問30肢4@@がこの形で誤りにしています。逆に!!抵当権は占有を目的としないから妨害排除請求はできない!!@@（平成29年問31肢2）@@も誤りで、==交換価値の実現が妨げられていればできます==。",
+          "example": "@@令和6年問30肢4@@では、この文がそのまま**妥当でないもの**として出ました。@@平成29年問31肢2@@と@@令和3年問29肢4@@も、同じ論点を不法占有者・妨害目的の賃借人という形で問うています。"
+        },
+        "commonSense": "%%お金を貸した側%%は、建物を__自分で使いたいわけではありません__。競売でちゃんと値が付けばそれでよいのです。だから、じゃまな人をどかすのはよいけれど、自分が持つのは==持ち主に任せられないときだけ==、という順序になります。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法369条・372条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1720",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1720:choice:4",
+          "relation": "same_rule"
+        }
+      ],
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 0,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "抵当権に基づく妨害排除請求と直接自己への明渡しを正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "妨害する目的",
+        "適切に維持管理することが期待できるとき",
+        "直接自己への明渡し",
+        "求めることができる"
+      ],
+      "category": "民法",
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "understand"
+    },
+    {
+      "id": "min-obligation-joint-notice-001",
+      "topic": "債権",
+      "subtopic": "連帯債務者間の求償と事前・事後の通知",
+      "clusterId": "civil-obligation",
+      "variants": {
+        "a": "%%A%%が、%%C%%に400万円を弁済するのに先立ち、%%B%%に__事前の通知をしないで弁済__をし、共同の免責を得た場合において、Bは、Cに対して200万円の反対債権を有していたときは、__自己の負担部分の200万円__について、Aの求償に対して==相殺をもって対抗できる==。",
+        "b": "%%Aさん%%と%%Bさん%%が一緒に400万円を借りています。%%Aさん%%が%%Bさん%%へ何も言わずに全額返してしまいました。\n\n%%Bさん%%は%%貸主%%に200万円の貸しがあったので、%%Aさん%%から「半分返して」と言われても、__その200万円の分__は==相殺だと言い返せます==。",
+        "bCasual": "**事前の通知**を怠って弁済すると、他の連帯債務者は__債権者に対抗できた事由__をその弁済者へ==ぶつけられます==。\n\n相殺できたのに機会を奪われた場合、__自己の負担部分__について==相殺を対抗できます==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "事前通知を怠ると__自己の負担部分__まで==相殺で対抗できる=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。民法443条1項は、__他の連帯債務者があることを知りながら__、共同の免責を得ることを他の連帯債務者に__通知しないで弁済__した場合、他の連帯債務者は__債権者に対抗することができる事由__を!!その負担部分について!!その弁済者に対抗できると定めています。相殺を対抗したときは、その弁済者は__債権者に対し、相殺によって消滅すべきであった債務の履行__を==請求できます==@@（同項後段）@@。",
+      "memoryPoint": "**事前通知**を怠ると==負担部分の範囲で対抗される==。事後通知は二重弁済の話。",
+      "explanations": {
+        "normal": "連帯債務者の1人が弁済して共同の免責を得たときは、他の連帯債務者へ__負担部分に応じた求償__ができます@@（民法442条1項）@@。ただし通知の決まりがあります。\n\n**事前の通知**@@（同法443条1項）@@。__他の連帯債務者があることを知りながら__通知せずに弁済すると、他の連帯債務者は__債権者に対抗できた事由__を__その負担部分について__弁済者へ対抗できます。相殺を対抗したときは、弁済者は債権者へ__相殺で消えるはずだった債務の履行__を請求できます。\n\n**事後の通知**@@（同条2項）@@。弁済して免責を得た者が、__他の連帯債務者があることを知りながら__その旨を通知せず、そのために他の連帯債務者が__善意で__二重に弁済したときは、__後から弁済した者__は自己の弁済を有効であったとみなすことができます。\n\n**どちらも「他の連帯債務者があることを知りながら」が前提**です。また判例は、__第1の弁済者が事後の通知を怠り、第2の弁済者も事前の通知を怠った__ときは、==第2の弁済者は自己の弁済を有効とみなせない==としています@@（最判昭57.12.17）@@。",
+        "deepDive": {
+          "background": "連帯債務は%%債権者%%にとって取りやすい形ですが、%%債務者どうし%%は互いに何をしたか==見えていません。先に払った人が黙っていれば、==もう一人が二重に払ってしまいます。逆に、相手が相殺できる状態なのに黙って払ってしまうと、__その人の相殺の機会__を奪います。だから、==払う前と払った後の両方で知らせる==決まりにしました。",
+          "trap": "!!事前通知を怠っても求償は満額できる!!と書くのが定番です。分かれ目は__負担部分について対抗される__という点です。@@令和7年問32肢1@@は、!!第1の弁済者が事後通知を怠っていれば、事前通知を怠った第2の弁済者も自己の免責行為を有効とみなせる!!という形で誤りにしています。==どちらも怠っているなら、原則へ戻ります==@@（最判昭57.12.17）@@。",
+          "example": "@@令和7年問32肢2@@では、この文がそのまま**妥当なもの**として出ました。@@平成29年問32@@も、事前・事後の通知を怠った場合の求償を事案で問うています。"
+        },
+        "commonSense": "二人で借りたお金を、%%片方%%が黙って全部返してしまうと、%%もう片方%%は「先に言ってくれれば、こちらの貸しと差し引けたのに」となります。==言わなかった側が損をかぶる==、と考えると筋が通ります。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法442条・443条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1782",
+          "choiceNumber": "2",
+          "relationship": "provider-explanation-primary"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1782:choice:2",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1782:choice:1",
+          "relation": "contrast"
+        }
+      ],
+      "frequency": {
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 0,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "連帯債務者間の求償における事前・事後の通知を正面から問う問題を集計"
+      },
+      "evidenceHighlights": [
+        "事前の通知をしないで弁済",
+        "自己の負担部分",
+        "相殺をもって対抗できる"
+      ],
+      "category": "民法",
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
+      },
+      "learningType": "memorize"
     }
   ]
 }

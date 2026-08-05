@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260803-2";
+  const APP_VERSION = "20260805-11";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -12,6 +12,20 @@
   const CARD_FAILED_PREFIX = "gyousei_production_card_failed_v1:";
 
   const state = {
+    // 「今日の学習」（py-fsrs）。期日はサーバー側で毎回導出するので端末には持たない。
+    todayQueue: [],
+    todayQueueCounts: null,
+    todayQueueNextDueAt: null,
+    todayQueueError: null,
+    todayQueueLoading: false,
+    // 「今日の学習」の取得の通し番号。いちばん新しい応答だけを採るために使う。
+    todayQueueToken: 0,
+    // 「答えを見る」で開いた回。回答として記録しない。
+    studyRevealedOnly: false,
+    // 直前の回答が正解だったか。誤答のときは4評価を出さない（自動でAgain）。
+    studyLastCorrect: null,
+    // 各評価を選んだときの次回間隔（サーバーが返す目安）。
+    todayQueueStates: null,
     overview: {},
     dataInventory: {},
     questions: [],
@@ -449,18 +463,63 @@
       refreshStudyPool();
     });
     $("study-topic").addEventListener("change", refreshStudyPool);
-    $("study-search").addEventListener("input", refreshStudyPool);
-    $("study-search").addEventListener("search", refreshStudyPool);
+    // 検索は打つたびに絞り込みが変わる。「今日の学習」のときは、
+    // 打ち終わるのを待たずにキューも組み直さないと、前の語で作った並びと交差してしまう。
+    const onSearchChanged = () => {
+      if ($("study-scope").value === "today") {
+        scheduleTodayQueueReload();
+        return;
+      }
+      refreshStudyPool();
+    };
+    $("study-search").addEventListener("input", onSearchChanged);
+    $("study-search").addEventListener("search", onSearchChanged);
     $("study-clear-search").addEventListener("click", () => {
       $("study-search").value = "";
-      refreshStudyPool();
+      // 値をプログラムから変えても input / search は発火しない。
+      // 同じ処理へ通さないと、検索語付きで組んだキューがそのまま残る。
+      onSearchChanged();
       $("study-search").focus();
     });
     $("study-view").addEventListener("change", () => {
       updateStudyViewControls();
+      if ($("study-scope").value === "today") {
+        loadTodayQueue();
+        return;
+      }
       refreshStudyPool();
     });
-    $("study-scope").addEventListener("change", refreshStudyPool);
+    ["study-subject", "study-topic"].forEach((id) => {
+      $(id).addEventListener("change", () => {
+        if ($("study-scope").value === "today") loadTodayQueue();
+      });
+    });
+    $("study-reveal").addEventListener("click", revealStudyCard);
+    $("study-kind").addEventListener("change", () => {
+      try { localStorage.setItem(STUDY_KIND_KEY, $("study-kind").value); } catch (_) {}
+      if ($("study-scope").value === "today") {
+        loadTodayQueue();
+        return;
+      }
+      refreshStudyPool();
+    });
+    $("study-scope").addEventListener("change", () => {
+      $("study-pace-row").hidden = $("study-scope").value !== "today";
+      if ($("study-scope").value === "today") {
+        loadTodayQueue();
+        return;
+      }
+      refreshStudyPool();
+    });
+    try {
+      const storedKind = localStorage.getItem(STUDY_KIND_KEY);
+      if (storedKind) $("study-kind").value = storedKind;
+    } catch (_) {}
+    $("study-pace").value = todayPace();
+    $("study-pace").addEventListener("change", () => {
+      try { localStorage.setItem(TODAY_PACE_KEY, $("study-pace").value); } catch (_) {}
+      loadTodayQueue();
+    });
     $("study-certain-button").addEventListener("click", () => {
       const item = state.studyCurrent;
       if (!item) return;
@@ -494,15 +553,18 @@
     });
     $("study-confidence-buttons").addEventListener("click", (event) => {
       const button = event.target.closest("[data-study-confidence]");
-      if (!button || !state.studyLastAttemptId || !state.studyCurrent) return;
-      sendCardMark({
-        action: "confidence",
-        cardId: studyCardId(state.studyCurrent),
-        confidence: button.dataset.studyConfidence,
-        attemptEventId: state.studyLastAttemptId,
-        statusNode: $("study-confidence-status"),
-        message: "手ごたえを記録しました。出題には影響しません。"
-      });
+      if (!button) return;
+      chooseStudyRating(button.dataset.studyConfidence);
+    });
+    // キーボードの 1〜4。反復を速く進めるため。
+    document.addEventListener("keydown", (event) => {
+      if (!isStudyPanelActive() || event.metaKey || event.ctrlKey || event.altKey) return;
+      const target = event.target;
+      if (target && /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)) return;
+      const rating = { "1": "again", "2": "hard", "3": "good", "4": "easy" }[event.key];
+      if (!rating) return;
+      event.preventDefault();
+      chooseStudyRating(rating);
     });
     $("study-graduated-list").addEventListener("click", (event) => {
       const button = event.target.closest("[data-graduated-action]");
@@ -748,10 +810,15 @@
   function getStudyTopicCards() {
     const subject = $("study-subject").value;
     const topic = $("study-topic").value;
+    const kind = $("study-kind").value;
     const words = studySearchWords();
     return state.studyDecks.filter((item) =>
       (subject === "all" || item.subjectId === subject) &&
       (topic === "all" || item.topic === topic) &&
+      // 覚えるしかないもの（数字・宛先・列挙・分類・判例の結論）と、
+      // 考えれば導けるものを分ける。8月は暗記ものだけを回す使い方をする。
+      // 既定へ倒さない。分類の無いカードは古いbundleなので、暗記ものへ混ぜない。
+      (kind === "all" || item.learningType === kind) &&
       matchesStudySearch(item, words)
     );
   }
@@ -891,6 +958,34 @@
       return;
     }
     const scope = $("study-scope").value;
+    if (scope === "today") {
+      if (state.todayQueueError) {
+        $("study-scope-summary").textContent = "今日の学習を取得できませんでした（" + state.todayQueueError + "）";
+        return;
+      }
+      const counts = state.todayQueueCounts;
+      if (!counts) {
+        $("study-scope-summary").textContent = "今日の学習を組み立てています…";
+        return;
+      }
+      const next = state.todayQueueNextDueAt
+        ? "／次の期日 " + new Date(state.todayQueueNextDueAt).toLocaleString("ja-JP", { dateStyle: "short", timeStyle: "short" })
+        : "";
+      // 選んだ枚数と、残っている枚数を分けて出す。残りは翌日以降へ回る。
+      const restDue = Math.max(0, counts.due - (counts.selectedDue || 0));
+      const restNew = Math.max(0, counts.new - (counts.selectedNew || 0));
+      const due = counts.selectedDue || 0;
+      const fresh = counts.selectedNew || 0;
+      // 期日ぎれが新規より多い日は、溜まっていた復習を片づける日だと伝える。
+      const why = due > fresh
+        ? "／期日ぎれが溜まっています。片づければ翌日から減ります"
+        : "";
+      $("study-scope-summary").textContent =
+        TODAY_PACE[todayPace()].label + "：今日 " + counts.selected + "枚"
+        + "（期日の復習 " + due + " ＋ はじめて " + fresh + "）"
+        + "／待ち 復習" + restDue + "・はじめて" + restNew + next + why;
+      return;
+    }
     const mastered = cards.filter(isStudyMastered).length;
     const certain = cards.filter(isStudyCertain).length;
     const graduated = cards.filter(isStudyGraduated).length;
@@ -976,9 +1071,14 @@
 
     const variants = item.variants || {};
     state.studyAnswered = false;
+    state.studyRevealedOnly = false;
     state.studyShownAt = new Date().toISOString();
     state.studyStartedAt = performance.now();
     $("study-answer-panel").hidden = true;
+    $("study-reveal").disabled = false;
+    // 高速○×では出さない。次へ進む位置を回答数で数えているので、
+    // 記録しない「答えを見る」を混ぜると同じカードから動かなくなる。
+    $("study-reveal-row").hidden = isRapidStudyView();
     $("study-cross-field").hidden = true;
     $("study-save-status").textContent = "";
     $("study-save-status").className = "save-status";
@@ -989,7 +1089,14 @@
     renderStudyMarkControls(item);
     state.studyLastAttemptId = null;
     renderStudyFrequency(item);
-    $("study-position").textContent = (state.studyFiltered.indexOf(item) + 1) + " / " + state.studyFiltered.length;
+    // 「今日の学習」は、期日ぎれの復習と、はじめてのカードの合計になる。
+    // 分母だけ出すと「はじめて6枚」を選んだのに19と出て理由が分からない。
+    const counts = state.todayQueueCounts;
+    const breakdown = $("study-scope").value === "today" && counts
+      ? "（復習" + (counts.selectedDue || 0) + "・はじめて" + (counts.selectedNew || 0) + "）"
+      : "";
+    $("study-position").textContent =
+      (state.studyFiltered.indexOf(item) + 1) + " / " + state.studyFiltered.length + breakdown;
     setRichText($("study-variant-a"), variants.a || "");
     setRichText($("study-variant-b"), variants.b || "");
     setRichText($("study-variant-b-casual"), variants.bCasual || variants.b || "");
@@ -1164,6 +1271,28 @@
       : "解答時間はまだ記録されていません";
   }
 
+  // カードの中身を確かめたいだけのときに、回答せず解説だけを開く。
+  // **回答として記録しない。** card_attempts へ入れると正答率と間隔反復の期日が動き、
+  // 「読んだだけ」が「正解した」ことになってしまう。
+  function revealStudyCard() {
+    // 高速○×は時間を測って解く画面で、セットの正答率をまとめて出す。
+    // 覗く操作はその意味を壊すうえ、次へ進む位置を回答数で数えているので出さない。
+    if (isRapidStudyView() || state.studyAnswered || !state.studyCurrent) return;
+    const item = state.studyCurrent;
+    state.studyAnswered = true;
+    state.studyRevealedOnly = true;
+    state.studyLastSelected = null;
+    state.studyLastAttemptId = null;
+    stopStudyTimer();
+    document.querySelectorAll("[data-study-answer]").forEach((choice) => {
+      choice.disabled = true;
+      if ((choice.dataset.studyAnswer === "true") === Boolean(item.correct)) {
+        choice.classList.add("correct-answer");
+      }
+    });
+    renderStudyAnswer(item, null, null);
+  }
+
   function answerStudyCard(button) {
     if (state.studyAnswered || !state.studyCurrent) return;
     const item = state.studyCurrent;
@@ -1171,7 +1300,11 @@
     const isCorrect = selected === Boolean(item.correct);
     const answeredAt = new Date().toISOString();
     const attemptId = "card-attempt-" + uuid();
-    const studyMode = isWeaknessStudyView() ? "weakness" : $("study-scope").value;
+    // 高速○×はFSRSの期日を動かさないので、あとで見分けられるよう mode に残す。
+    // これまでは scope の値（review など）が入っていて区別できなかった。
+    const studyMode = isRapidStudyView()
+      ? "rapid"
+      : isWeaknessStudyView() ? "weakness" : $("study-scope").value;
     const responseMs = state.studyStartedAt === null
       ? null
       : Math.max(0, Math.min(86400000, Math.round(performance.now() - state.studyStartedAt)));
@@ -1196,6 +1329,7 @@
 
     state.studyAnswered = true;
     state.studyLastSelected = selected;
+    state.studyLastCorrect = isCorrect;
     state.studyLastAttemptId = attemptId;
     stopStudyTimer();
     flashStudyResult(isCorrect);
@@ -1220,8 +1354,13 @@
   }
 
   function renderStudyAnswer(item, selected, isCorrect) {
-    $("study-feedback").textContent = isCorrect ? "正解です！" : "今回は不正解です";
-    $("study-selected-answer").textContent = studyTruthLabel(selected);
+    // selected が null のときは「答えを見る」で開いた場合。回答していないので、
+    // 正解・不正解の判定文も、選んだ答えも出さない。正答率にも入らない。
+    const revealedOnly = selected === null;
+    $("study-feedback").textContent = revealedOnly
+      ? "答えを見ました（この回は記録していません）"
+      : isCorrect ? "正解です！" : "今回は不正解です";
+    $("study-selected-answer").textContent = revealedOnly ? "—（回答なし）" : studyTruthLabel(selected);
     $("study-correct-answer").textContent = studyTruthLabel(Boolean(item.correct));
     setRichText($("study-correction-text"), item.correction || "");
     renderStudyFigures(item);
@@ -1233,7 +1372,24 @@
     setRichText($("study-deep-trap"), deep.trap || "");
     setRichText($("study-deep-example"), deep.example || "");
     setRichText($("study-common-sense"), explanations.commonSense || "");
-    $("study-answer-summary").classList.toggle("incorrect-result", !isCorrect);
+    $("study-answer-summary").classList.toggle("incorrect-result", !revealedOnly && !isCorrect);
+    $("study-answer-summary").classList.toggle("revealed-only", revealedOnly);
+    // 誤答は自動で Again。選ばせると「間違えたのに Hard」ができてしまう。
+    // 「答えを見る」だけの回も、回答していないので評価を出さない。
+    const askRating = !revealedOnly && isCorrect === true;
+    $("study-rating-group").classList.toggle("for-wrong-answer", !askRating);
+    $("study-rating-question").textContent = askRating
+      ? "どのくらい思い出せましたか？"
+      : revealedOnly
+        ? "この回は記録していません"
+        : "思い出せなかった扱い（Again）で記録しました";
+    $("study-confidence-status").textContent = askRating
+      ? "キーボードの 1〜4 でも選べます。選ばなければ「普通にわかった」として扱います。"
+      : "";
+    document.querySelectorAll("[data-study-confidence]").forEach((node) => {
+      node.setAttribute("aria-pressed", "false");
+    });
+    if (askRating) renderStudyRatingIntervals(item);
     renderStudyAccuracy();
     renderStudyBasis(item);
     renderStudyRelated(item);
@@ -1608,6 +1764,58 @@
 
   // 卒業・絶対覚えた・自信度は本人が押した瞬間の一度きりの記録なので、回答のように
   // 端末へ溜めて再送しない。送れなかったときは、その場で失敗として見せる。
+  // FSRSの4評価。**Again だけが「思い出せなかった」**で、Hard・Good・Easy はどれも
+  // 思い出せた側である。「自信の強さ」ではなく「どれだけ苦労して思い出したか」を選ぶ。
+  const STUDY_RATINGS = ["again", "hard", "good", "easy"];
+  const STUDY_RATING_LABELS = {
+    again: "わからなかった", hard: "かなり迷った",
+    good: "普通にわかった", easy: "即答できた"
+  };
+
+  function isStudyPanelActive() {
+    return $("panel-study") && !$("panel-study").hidden
+      && state.studyAnswered && !state.studyRevealedOnly
+      && !$("study-answer-panel").hidden;
+  }
+
+  function chooseStudyRating(rating) {
+    if (!STUDY_RATINGS.includes(rating)) return;
+    if (!state.studyLastAttemptId || !state.studyCurrent) return;
+    // 誤答はサーバー側で Again として扱う。選び直させない。
+    if (state.studyLastCorrect === false) return;
+    document.querySelectorAll("[data-study-confidence]").forEach((node) => {
+      node.setAttribute("aria-pressed", String(node.dataset.studyConfidence === rating));
+    });
+    sendCardMark({
+      action: "confidence",
+      cardId: studyCardId(state.studyCurrent),
+      confidence: rating,
+      attemptEventId: state.studyLastAttemptId,
+      statusNode: $("study-confidence-status"),
+      message: "「" + STUDY_RATING_LABELS[rating] + "」で記録しました。次に出る日が決まります。"
+    });
+  }
+
+  // 各ボタンに、その評価を選んだときの次回間隔を出す。
+  function renderStudyRatingIntervals(item) {
+    const cardId = studyCardId(item);
+    document.querySelectorAll("[data-rating-interval]").forEach((node) => {
+      node.textContent = "";
+    });
+    fetchJson("api/rating-preview?cardId=" + encodeURIComponent(cardId))
+      .then((data) => {
+        // 取得中に次のカードへ進んでいたら書かない。
+        if (!state.studyCurrent || studyCardId(state.studyCurrent) !== cardId) return;
+        const intervals = data.intervals || {};
+        document.querySelectorAll("[data-rating-interval]").forEach((node) => {
+          node.textContent = intervals[node.dataset.ratingInterval] || "";
+        });
+      })
+      .catch(() => {
+        // 目安が出なくても評価は選べる。落とさない。
+      });
+  }
+
   async function sendCardMark(options) {
     const status = options.statusNode;
     if (status) { status.textContent = "保存中…"; status.className = "study-mark-status saving"; }
@@ -1660,7 +1868,93 @@
     // 利用者の明示仕様: 「全問題」は文字どおり全カード。名称から誤解して、
     // 「絶対覚えた」をここで除外しない。普段の周回から外すのはreview側だけ。
     if (scope === "all") return cards;
+    if (scope === "today") return todayQueuePool(cards);
     return cards.filter((item) => !isStudyGraduated(item));
+  }
+
+  // 「今日の学習」はサーバー側の py-fsrs が決めた順で出す。
+  // 期日が来たものを古い順に、足りない分を未回答のカードで埋めた並びが降ってくる。
+  // 取得前は空にしておき、届いたら refreshStudyPool でこの順に差し替える。
+  function todayQueuePool(cards) {
+    const order = state.todayQueue;
+    if (!order || !order.length) return [];
+    const byId = new Map(cards.map((item) => [studyCardId(item), item]));
+    // キューはサーバーで組んだ時点のもの。そのあと「絶対覚えた」を押しても
+    // 取り直していないので、ここで今の状態を見て外す。外さないと、
+    // 1枚しか残っていないときに次を押しても同じカードが出続ける。
+    return order
+      .map((id) => byId.get(id))
+      .filter((item) => item && !isStudyCertain(item));
+  }
+
+  // 1日の量。実データ（はじめて約90秒・復習約25秒）から逆算した組み合わせ。
+  // 復習は溜まるとこなすしかないので、絞れるのは「はじめて」の枚数のほうである。
+  const TODAY_PACE = {
+    light: { newLimit: 6, limit: 20, label: "軽め（15分）" },
+    normal: { newLimit: 12, limit: 40, label: "ふつう（30分）" },
+    heavy: { newLimit: 25, limit: 80, label: "しっかり（60分）" },
+    reviewOnly: { newLimit: 0, limit: 60, label: "復習だけ" }
+  };
+  // 期日ぎれが溜まっている日は、はじめての枚数より合計がずっと多くなる。
+  // その理由を出さないと「軽めを選んだのに19枚出た」としか見えない。
+  const TODAY_PACE_KEY = "gyousei-lab:todayPace";
+  const STUDY_KIND_KEY = "gyousei-lab:studyKind";
+
+  function todayPace() {
+    const stored = (() => {
+      try { return localStorage.getItem(TODAY_PACE_KEY); } catch (_) { return null; }
+    })();
+    return TODAY_PACE[stored] ? stored : "light";
+  }
+
+  // 1文字ごとにサーバーを叩かないよう、打ち終わりを待ってからまとめて取り直す。
+  let todayQueueReloadTimer = null;
+  function scheduleTodayQueueReload() {
+    if (todayQueueReloadTimer) clearTimeout(todayQueueReloadTimer);
+    todayQueueReloadTimer = setTimeout(() => {
+      todayQueueReloadTimer = null;
+      loadTodayQueue();
+    }, 350);
+  }
+
+  async function loadTodayQueue() {
+    // 取得中の要求があっても、あとから来た要求を捨てない。捨てると、先に投げた
+    // 「すべて」の応答が返ってきたときに、あとで選んだ科目のキューが古いIDで
+    // 上書きされ、その科目に期日ぎれがあるのに空に見える。
+    // 代わりに通し番号を持ち、**いちばん新しい要求の応答だけを採る**。
+    const token = ++state.todayQueueToken;
+    state.todayQueueLoading = true;
+    $("study-scope-summary").textContent = "今日の学習を組み立てています…";
+    const pace = TODAY_PACE[todayPace()];
+    try {
+      // 画面の絞り込みをそのままキューへ渡す。渡さないと、サーバーは全カードから
+      // その日の枠を配ってしまい、選んだ科目に期日ぎれがあるのに空に見える。
+      const kind = $("study-kind").value;
+      const subject = $("study-subject").value;
+      const topic = $("study-topic").value;
+      const params = ["limit=" + pace.limit, "newLimit=" + pace.newLimit];
+      if (kind !== "all") params.push("learningType=" + encodeURIComponent(kind));
+      if (subject !== "all") params.push("subjectId=" + encodeURIComponent(subject));
+      if (topic !== "all") params.push("topic=" + encodeURIComponent(topic));
+      const search = String($("study-search").value || "").trim();
+      if (search) params.push("search=" + encodeURIComponent(search));
+      const data = await fetchJson("api/study-queue?" + params.join("&"));
+      if (token !== state.todayQueueToken) return;   // もっと新しい要求が出ている
+      state.todayQueue = Array.isArray(data.cardIds) ? data.cardIds : [];
+      state.todayQueueCounts = data.counts || null;
+      state.todayQueueNextDueAt = data.nextDueAt || null;
+      state.todayQueueError = null;
+    } catch (error) {
+      if (token !== state.todayQueueToken) return;
+      state.todayQueue = [];
+      state.todayQueueCounts = null;
+      state.todayQueueError = error && error.message ? error.message : "取得できませんでした";
+    } finally {
+      if (token === state.todayQueueToken) {
+        state.todayQueueLoading = false;
+        refreshStudyPool();
+      }
+    }
   }
 
   function queueCardAttempt(attempt) {

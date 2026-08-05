@@ -1051,3 +1051,23 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
   .card-dialog-note { margin-inline: 14px; }
   .card-dialog-problems { margin-inline: 14px; }
 }
+
+/* 「答えを見る」。回答せずに解説だけ開くための入口。 */
+.study-reveal-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 10px 0 0; }
+.study-reveal-row small { color: #63706b; font-size: 12px; }
+.study-answer-summary.revealed-only { border-color: #c9d7e2; background: #f6fafd; }
+.study-answer-summary.revealed-only .study-feedback { color: #37627f; }
+@media (max-width: 640px) { .study-reveal-row { flex-direction: column; align-items: stretch; } }
+
+/* FSRSの4評価。「どれだけ苦労して思い出したか」を選ぶ。自信の強さではない。 */
+.study-rating-buttons { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.study-rating-buttons button { display: grid; gap: 1px; padding: 9px 6px; font-size: 12.5px; line-height: 1.35; text-align: center; }
+.study-rating-buttons button b { font-size: 11px; opacity: .55; font-weight: 800; }
+.study-rating-buttons button em { font-size: 11px; font-style: normal; opacity: .75; }
+.study-rating-buttons .rating-again { border-color: #e2b6b6; }
+.study-rating-buttons .rating-hard { border-color: #ddc79a; }
+.study-rating-buttons .rating-good { border-color: #a9c6da; }
+.study-rating-buttons .rating-easy { border-color: #a6ccb6; }
+.study-rating-buttons button[aria-pressed="true"] { background: #eef6f2; border-color: #1f775b; font-weight: 700; }
+.study-rating-group.for-wrong-answer .study-rating-buttons { display: none; }
+@media (max-width: 640px) { .study-rating-buttons { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

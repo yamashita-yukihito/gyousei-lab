@@ -43,6 +43,10 @@ EDITABLE_FIELDS = (
 )
 VARIANT_FIELDS = ("a", "b", "bCasual", "bCasualStyle", "c")
 
+# 暗記もの（数字・宛先・列挙・分類・義務か努力義務か・判例の結論）と、
+# 理解もの（趣旨や判断枠組みから導けるもの）の区別。2026-08-05に追加。
+LEARNING_TYPES = ("memorize", "understand")
+
 # 新しいカードを作るときだけ必要な項目。既存カードでは触らせない。
 NEW_CARD_FIELDS = (
     "id",
@@ -77,6 +81,13 @@ def check_markup(label: str, text: str, problems: list[str], *, allow_red: bool)
             problems.append(f"{label}: 閉じていない装飾記法 {mark} が残っています")
     if MARKUP.search(strip_markup(text)):
         problems.append(f"{label}: 装飾の入れ子があります")
+    # 記法を外した文字列に記号が残っていないかも見る。`__…==。__` のように、
+    # 閉じた枠の中へ開きっぱなしの記号が入っていると上の2つを素通りしてしまい、
+    # 画面とAnki書き出しの両方に `==` がそのまま出ていた（2026-08-05に追加）。
+    stripped = strip_markup(text)
+    for mark in MARKS:
+        if mark in stripped:
+            problems.append(f"{label}: 記法を外しても {mark} が残ります")
     if not allow_red and any(
         m.group(0).startswith("!!") for m in MARKUP.finditer(text or "")
     ):
@@ -106,6 +117,12 @@ def validate_card(
             problems.append(f"{card_id}: {field} が空です")
     if not isinstance(card.get("correct"), bool):
         problems.append(f"{card_id}: correct は true / false のどちらかにしてください")
+    # 暗記もの／理解ものの区別。画面からは書き換えさせない（EDITABLE_FIELDSに入れない）。
+    # 分類は8月の学習範囲そのものなので、正本の差分として残す形にする。
+    if card.get("learningType") not in LEARNING_TYPES:
+        problems.append(
+            f"{card_id}: learningType は {' / '.join(LEARNING_TYPES)} のどちらかにしてください"
+        )
 
     explanations = card.get("explanations") or {}
     if (
@@ -134,6 +151,25 @@ def validate_card(
         )
     check_markup(f"{card_id}.correction", card.get("correction", ""), problems, allow_red=True)
     check_markup(f"{card_id}.memoryPoint", card.get("memoryPoint", ""), problems, allow_red=True)
+
+    # ①普通の解説・②深掘り・④常識力も同じ記法で表示する。ここを見ていなかったため、
+    # 閉じ忘れ（`__…==`）が画面へそのまま出ていた。
+    check_markup(
+        f"{card_id}.explanations.normal", explanations.get("normal", ""), problems, allow_red=True
+    )
+    for field in ("background", "trap", "example"):
+        check_markup(
+            f"{card_id}.explanations.deepDive.{field}",
+            deep.get(field, ""),
+            problems,
+            allow_red=True,
+        )
+    check_markup(
+        f"{card_id}.explanations.commonSense",
+        explanations.get("commonSense", ""),
+        problems,
+        allow_red=True,
+    )
 
     for index, basis in enumerate(card.get("legalBasis") or []):
         if not isinstance(basis, dict):
