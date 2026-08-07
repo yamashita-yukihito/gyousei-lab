@@ -2052,6 +2052,115 @@ class StudySearchParityTest(unittest.TestCase):
             self.assertIn(field, server_side, f"サーバー側に {field} が無い")
 
 
+class StudyFrequencyFilterTest(unittest.TestCase):
+    """頻出度の絞り込みが、画面とサーバーで同じ語彙・同じ並びであることを見る。
+
+    ラベルは出題数で機械的に決まり（1〜2=重要論点、3〜5=繰り返し出題、6〜9=頻出、
+    10以上=最頻出）、`minFrequency` は「このラベル以上」を意味する。**並び順が
+    ずれると、同じ指定が別の母集団を指す。** 画面には出ているのに「今日の学習」が
+    空になる、という検索のときと同じ壊れ方をするので、ここで固定する。
+    """
+
+    def test_rank_is_ordered_from_rare_to_frequent(self) -> None:
+        self.assertEqual(
+            server.FREQUENCY_RANK,
+            ("重要論点", "繰り返し出題", "頻出", "最頻出"),
+            "低い順に並んでいないと「このラベル以上」の意味が変わる",
+        )
+
+    def test_labels_match_the_audit_thresholds(self) -> None:
+        """`tests/test_card_frequency_audit.py` が使う区分と同じ語彙であること。"""
+        audit = (SERVICE_ROOT / "tests" / "test_card_frequency_audit.py").read_text(
+            encoding="utf-8"
+        )
+        for label in server.FREQUENCY_RANK:
+            self.assertIn(label, audit, f"{label} が頻出度監査の区分に無い")
+
+    def test_client_options_match_the_server_vocabulary(self) -> None:
+        """画面の <select> の値が、サーバーの受け付ける語彙と一致すること。"""
+        index_html = (SERVICE_ROOT / "static" / "index.html").read_text(encoding="utf-8")
+        start = index_html.index('<select id="study-frequency-level">')
+        block = index_html[start : index_html.index("</select>", start)]
+        values = re.findall(r'<option value="([^"]+)"', block)
+        self.assertEqual(values[0], "all", "先頭は絞り込まない選択肢であること")
+        for value in values[1:]:
+            self.assertIn(
+                value, server.FREQUENCY_RANK, f"画面の {value} をサーバーが受け付けない"
+            )
+
+    def test_client_rank_list_matches_the_server(self) -> None:
+        app_js = (SERVICE_ROOT / "static" / "app.js").read_text(encoding="utf-8")
+        match = re.search(r"const FREQUENCY_RANK = \[([^\]]+)\]", app_js)
+        self.assertIsNotNone(match, "画面側に FREQUENCY_RANK が無い")
+        client = tuple(re.findall(r'"([^"]+)"', match.group(1)))
+        self.assertEqual(client, server.FREQUENCY_RANK, "画面とサーバーで並びがずれている")
+
+    def test_queue_narrows_to_the_requested_floor(self) -> None:
+        cards = [
+            {"id": "a", "learningType": "memorize", "frequency": {"label": "最頻出"}},
+            {"id": "b", "learningType": "memorize", "frequency": {"label": "頻出"}},
+            {"id": "c", "learningType": "memorize", "frequency": {"label": "繰り返し出題"}},
+            {"id": "d", "learningType": "memorize", "frequency": {"label": "重要論点"}},
+        ]
+        for floor, expected in [
+            ("最頻出", {"a"}),
+            ("頻出", {"a", "b"}),
+            ("繰り返し出題", {"a", "b", "c"}),
+            ("重要論点", {"a", "b", "c", "d"}),
+        ]:
+            index = server.FREQUENCY_RANK.index(floor)
+            kept = {
+                card["id"]
+                for card in cards
+                if server.FREQUENCY_RANK.index(card["frequency"]["label"]) >= index
+            }
+            self.assertEqual(kept, expected, f"{floor} 以上の絞り込みがずれている")
+
+    def test_real_cards_never_carry_an_unknown_label(self) -> None:
+        """正本の全カードが、絞り込みで落ちない語彙を持っていること。"""
+        source = SERVICE_ROOT / "content" / "explanation_cards.json"
+        cards = json.loads(source.read_text(encoding="utf-8"))["items"]
+        unknown = sorted(
+            card["id"]
+            for card in cards
+            if (card.get("frequency") or {}).get("label") not in server.FREQUENCY_RANK
+        )
+        self.assertEqual(unknown, [], "頻出度のラベルが無い／語彙外のカード")
+
+
+class StudyFilterReloadTest(unittest.TestCase):
+    """絞り込みを**プログラムから**変えたときも、キューを組み直していることを見る。
+
+    `select.value = ...` では change が発火しないので、同じ処理へ通さないと
+    前の条件で組んだキューがそのまま残る。「検索をやめる」で一度これをやっている。
+    """
+
+    def setUp(self) -> None:
+        self.app_js = (SERVICE_ROOT / "static" / "app.js").read_text(encoding="utf-8")
+
+    def test_reset_buttons_go_through_the_shared_reload(self) -> None:
+        for button in ("study-show-all-topics", "study-clear-frequency"):
+            start = self.app_js.index(f'$("{button}").addEventListener')
+            body = self.app_js[start : start + 420]
+            self.assertIn(
+                "reloadStudyAfterFilterChange()", body,
+                f"{button} がキューを組み直していない（今日の学習が古いまま残る）",
+            )
+
+    def test_shared_reload_rebuilds_the_queue_in_today_scope(self) -> None:
+        start = self.app_js.index("function reloadStudyAfterFilterChange")
+        body = self.app_js[start : start + 320]
+        self.assertIn('$("study-scope").value === "today"', body)
+        self.assertIn("loadTodayQueue()", body)
+        self.assertIn("refreshStudyPool()", body)
+
+    def test_related_card_jump_clears_the_frequency_filter(self) -> None:
+        """⑥で結んだ先が絞り込みで落ちると、indexOf が -1 になって開けない。"""
+        start = self.app_js.index("function openRelatedStudyCard")
+        body = self.app_js[start : start + 900]
+        self.assertIn('$("study-frequency-level").value = "all"', body)
+
+
 class SharedRuleDriftTest(unittest.TestCase):
     """同じルールを別々に書いている箇所が、ずれていないことを確かめる。
 

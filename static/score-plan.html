@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183a34">
+  <title>得点設計 | 行政書士 過去問ラボ</title>
+  <link rel="stylesheet" href="architecture.css?v=20260807-1">
+  <style>
+    .score-table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--paper); }
+    .score-table th, .score-table td { padding: 9px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .score-table thead th { background: var(--green-soft); font-size: 12px; letter-spacing: .04em; white-space: nowrap; }
+    .score-table tbody tr:last-child td { border-bottom: 0; }
+    .score-table td.num, .score-table th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .score-table tfoot td { padding: 10px 12px; border-top: 2px solid var(--deep); font-weight: 900; }
+    .score-table tr.core td { background: #f2f8f5; }
+    .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+    .note-card { padding: 18px 20px; border: 1px solid var(--line); border-left: 4px solid var(--amber);
+      border-radius: 12px; background: #fffdf6; }
+    .note-card.warn { border-left-color: #9b2c2c; background: #fdeaea; }
+    .note-card.ok { border-left-color: var(--green); background: var(--green-soft); }
+    .note-card + .note-card { margin-top: 12px; }
+    .note-card h3 { margin: 0 0 6px; font-size: 15px; }
+    .note-card p { margin: 0; font-size: 14px; }
+    .goal-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px;
+      max-width: 760px; margin-top: 20px; border: 1px solid rgba(255,255,255,.18);
+      border-radius: 12px; background: rgba(255,255,255,.18); overflow: hidden; }
+    .goal-strip div { padding: 12px 14px; background: rgba(0,0,0,.18); }
+    .goal-strip span { display: block; font-size: 11px; opacity: .78; }
+    .goal-strip strong { display: block; margin-top: 3px; font-size: 17px; }
+    .cut-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+    .cut-list li { padding: 15px 17px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
+    .cut-list strong { display: block; font-size: 15px; margin-bottom: 4px; }
+    .cut-list small { color: var(--muted); font-size: 13px; }
+    .budget { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .budget th, .budget td { padding: 8px 12px; border-bottom: 1px solid var(--line); text-align: left; }
+    .budget td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    .budget tr.drop td { color: var(--muted); text-decoration: line-through; }
+    .two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .live-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; margin-top: 14px; }
+    .live-strip article { padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); text-align: center; }
+    .live-strip span { display: block; color: var(--muted); font-size: 12px; }
+    .live-strip strong { display: block; margin-top: 4px; font-size: 24px; font-weight: 900; }
+    @media (max-width: 820px) {
+      .goal-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .two-col, .live-strip { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
+  <header class="architecture-hero">
+    <div class="hero-inner">
+      <nav><a href="index.html">← 過去問ラボへ戻る</a><a href="study-guide.html">今日の学習の使い方</a><span>得点設計 2026-08-07版</span></nav>
+      <p class="eyebrow">SCORE PLAN</p>
+      <h1>165〜190点で上振れを取りにいく</h1>
+      <p class="lead">2026-08-07に方針を変えました。フリーランスの仕事を始めるため、<strong>170〜200点で下振れさえ引かなければ合格</strong>という設計から、<strong>165〜190点で上振れを引いたら合格</strong>へ下げます。このページは「何点をどこで取り、何を切ったか」の正本です。<strong>迷ったらここへ戻ってきてください。</strong></p>
+      <div class="goal-strip">
+        <div><span>受験日</span><strong>2026年11月8日</strong></div>
+        <div><span>残り</span><strong id="days-left">—</strong></div>
+        <div><span>狙う幅</span><strong>165〜190点</strong></div>
+        <div><span>合格ライン</span><strong>180点</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">RULE</p>
+        <h2>合格の条件は3つ全部を満たすこと</h2>
+        <p>総得点だけ見ていると足切りで落ちます。3つとも独立した条件です。</p>
+      </div>
+      <div class="two-col">
+        <div class="note-card ok">
+          <h3>① 総得点 180点以上（300点満点）</h3>
+          <p>ここが本体です。狙う幅は<strong>165〜190点</strong>。<strong>180は幅の中の上半分</strong>にあり、真ん中ではありません。<strong>上振れを引いたら合格</strong>という設計です。</p>
+        </div>
+        <div class="note-card ok">
+          <h3>② 法令等 122点以上（244点満点）</h3>
+          <p>下振れの日でも<strong>130点前後</strong>。ここは実質的に問題になりません。</p>
+        </div>
+        <div class="note-card ok">
+          <h3>③ 基礎知識 24点以上（56点満点／6問）</h3>
+          <p>下振れでも28点（7問）を見込んでいます。<strong>ここを落とすと総得点がいくら高くても不合格</strong>なので、余裕を削らないでください。</p>
+        </div>
+        <div class="note-card">
+          <h3>配点の単位</h3>
+          <p>択一1問<strong>4点</strong>、多肢選択1問<strong>8点</strong>（空欄4つ×2点）、記述1問<strong>20点</strong>。記述3問で60点あり、ここが最大の分散源です。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">TARGET</p>
+        <h2>何点をどこで取るか</h2>
+        <p>点数は毎回動きます。<strong>1点の予測ではなく、幅で持ちます。</strong>「悪い日」と「良い日」を両方書いてあるので、下の列だけ見て落ち込まず、上の列だけ見て安心しないでください。</p>
+      </div>
+      <div class="table-scroll">
+        <table class="score-table">
+          <thead>
+            <tr>
+              <th>科目・形式</th><th class="num">満点</th><th class="num">悪い日</th><th class="num">良い日</th><th>ぶれ方</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="core"><td>行政法 択一</td><td class="num">76</td><td class="num">52</td><td class="num">64</td><td>13〜16問。<strong>ここがいちばん安定する</strong>。カード83枚が効く</td></tr>
+            <tr class="core"><td>行政法 多肢選択</td><td class="num">16</td><td class="num">8</td><td class="num">12</td><td>空欄単位の部分点なので、ぶれは小さい</td></tr>
+            <tr class="core"><td>行政法 記述</td><td class="num">20</td><td class="num">6</td><td class="num">16</td><td><strong>読めない。</strong>出題テーマ次第で0にも満点近くにもなる</td></tr>
+            <tr class="core"><td>民法 択一</td><td class="num">36</td><td class="num">16</td><td class="num">24</td><td>4〜6問。事例問題の当たり外れが出る</td></tr>
+            <tr class="core"><td>民法 記述</td><td class="num">40</td><td class="num">10</td><td class="num">24</td><td><strong>いちばん読めない。</strong>2問あるぶん振れ幅も倍</td></tr>
+            <tr><td>憲法 択一</td><td class="num">20</td><td class="num">8</td><td class="num">16</td><td>2〜4問。5問しかないので1問の重みが大きい</td></tr>
+            <tr><td>憲法 多肢選択</td><td class="num">8</td><td class="num">2</td><td class="num">6</td><td>判例の言い回しを知っているかどうか</td></tr>
+            <tr><td>商法・会社法</td><td class="num">20</td><td class="num">4</td><td class="num">12</td><td>1〜3問。<strong>2問取れれば設計どおり</strong></td></tr>
+            <tr><td>基礎法学</td><td class="num">8</td><td class="num">0</td><td class="num">8</td><td>2問しかない。運の要素が大きく、対策もしない</td></tr>
+            <tr><td>基礎知識</td><td class="num">56</td><td class="num">28</td><td class="num">40</td><td>7〜10問。<strong>一般知識5〜6問はほぼ運</strong></td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td>単純合計</td><td class="num">300</td><td class="num">134</td><td class="num">222</td><td>実際にはこの端までは行かない（下を読む）</td></tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="note-card ok" style="margin-top:14px">
+        <h3>単純合計が134〜222でも、狙う幅が165〜190なのはなぜか</h3>
+        <p><strong>全科目で同時に悪い日を引くことも、全科目で同時に良い日を引くこともないから</strong>です。10個の独立に近いぶれを足すと、真ん中に寄ります。両端が同時に来る確率は無視できるほど小さく、実際に出る帯は<strong>165〜190</strong>あたりに収まります。<br>この「真ん中に寄る」性質があるので、<strong>1科目だけ捨てて他で取り返す作戦は効きません。</strong>逆に、全科目を少しずつ底上げするほうが帯ごと上へ動きます。カードを全科目に置いてあるのはそのためです。</p>
+      </div>
+      <div class="note-card warn" style="margin-top:12px">
+        <h3>ぶれの正体は3か所に固まっている</h3>
+        <p><strong>記述3問60点・一般知識5〜6問で20〜24点・多肢選択24点。合わせて約105点</strong>が、勉強量とあまり関係なく動く部分です。300点中の3分の1がここにあるので、点数が毎回大きく変わるのは当然です。<br>裏を返すと、<strong>カードが効くのは残りの約195点（択一160点＋基礎知識の法令系）</strong>です。ここを底上げしても<strong>ぶれ幅は狭まりません。帯が右へ動くだけ</strong>です。「安定して合格する」状態を作るには記述を仕上げるしかありませんが、そこはコストが高すぎるので今回は取りません。<strong>幅を受け入れて、帯を右へ動かすのがこの設計です。</strong></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">CALIBRATION</p>
+        <h2>過去の実績から見て、この幅は妥当か</h2>
+        <p>目標は願望ではなく、実績からの距離で確かめます。</p>
+      </div>
+      <div class="two-col">
+        <div class="note-card">
+          <h3>これまで</h3>
+          <p>過去の得点は<strong>120〜160点</strong>、直近が<strong>152点</strong>。<strong>40点の開き</strong>があります。知識量が毎回そこまで変わったわけではないので、上の「ぶれの正体」がそのまま出ている形です。</p>
+        </div>
+        <div class="note-card warn">
+          <h3>目標との距離</h3>
+          <p><strong>狙う幅165〜190の下端が、過去の最高点160より上にあります。</strong>帯ごと押し上げる必要があるということで、直近152からは<strong>中央値で+25点ほど</strong>。ここは楽観していい数字ではありません。</p>
+        </div>
+      </div>
+      <div class="note-card ok" style="margin-top:12px">
+        <h3>それでも届きうる根拠</h3>
+        <p>152点という得点は、<strong>まったく知らないのではなく「あと一歩で取れた肢」が相当数あった</strong>ことを意味します。0点からの積み上げではありません。<br>○×カード246枚は、平成18年度以降に<strong>2回以上出た論点</strong>だけを集めたものです。つまり「あと一歩」を「確実」に変える作業そのもので、択一160点に直接効きます。択一の正答率が60%から70%へ上がれば、それだけで<strong>+16点</strong>。多肢選択と基礎知識の法令系を足して<strong>+20〜25点</strong>が、50時間で狙える現実的な線です。152＋25＝177で、狙う幅の真ん中に入ります。</p>
+      </div>
+      <div class="note-card warn" style="margin-top:12px">
+        <h3>ただし、前提は「50時間を実際にやること」</h3>
+        <p>この計算は<strong>246枚を一巡し、FSRSの復習を回しきった場合</strong>の数字です。2026-08-07時点で解いたのは<strong>246枚中27枚</strong>。ここが動かない限り、点数も動きません。<strong>いちばんの変数は勉強法ではなく着手です。</strong></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">CUT</p>
+        <h2>切るもの — カードは切らない</h2>
+        <p>方針を下げると聞くと「カードを減らす」と考えがちですが、<strong>計算するとカードがいちばん安い</strong>ので減らしません。</p>
+      </div>
+      <div class="table-scroll" style="margin-bottom:16px">
+        <table class="budget">
+          <thead><tr><th>やること</th><th class="num">全部やると</th><th class="num">この方針では</th><th>理由</th></tr></thead>
+          <tbody>
+            <tr><td>カード246枚 初回一巡（1枚2.5分）</td><td class="num">10h</td><td class="num">10h</td><td>そのまま。安いので削る意味がない</td></tr>
+            <tr><td>カードの復習（93日・延べ約1,500回）</td><td class="num">12h</td><td class="num">12h</td><td>そのまま。FSRSが期日を決める</td></tr>
+            <tr class="drop"><td>過去問569問を周回する</td><td class="num">28h</td><td class="num">9h</td><td>直近3年180問を本番形式で3回だけ</td></tr>
+            <tr class="drop"><td>記述式を作り込む</td><td class="num">25h</td><td class="num">7.5h</td><td>「キーワード3つ」で止める。30問だけ</td></tr>
+            <tr class="drop"><td>条文素読</td><td class="num">10h</td><td class="num">5h</td><td>行政手続法・行政不服審査法だけ</td></tr>
+          </tbody>
+          <tfoot><tr><td>合計</td><td class="num">85h</td><td class="num">約47h</td><td>93日で1日30分</td></tr></tfoot>
+        </table>
+      </div>
+      <ul class="cut-list">
+        <li>
+          <strong>① 過去問569問の周回をやめる（−19時間）</strong>
+          <small>もともと「おまけ」の位置づけです（<code>AGENTS.md</code> 2章）。主役はカード。過去問は本番での聞かれ方を確かめるためだけに使い、直近3年分180問を時間を計って3回解けば足ります。</small>
+        </li>
+        <li>
+          <strong>② 記述式は「キーワード3つ」で止める（−17.5時間）</strong>
+          <small>40字を綺麗に書く練習はしません。問われている条文の要件語を3つ書き出せる状態までにします。部分点はキーワードに付くので、文章の完成度を上げても点は伸びにくい。30問×15分で足ります。</small>
+        </li>
+        <li>
+          <strong>③ 商法・会社法の理解もの9枚を落とす</strong>
+          <small>20点の科目に28枚は重すぎます。暗記もの19枚だけを残し、設立・機関・株式譲渡へ絞って<strong>2問（8点）で満足</strong>します。残り3問は捨てる前提です。</small>
+        </li>
+        <li>
+          <strong>④ 憲法の理解もの20枚を「判例の結論だけ」に落とす</strong>
+          <small>28点の科目で理解ものが20枚は時間対効果が悪い。行政事件訴訟法の処分性・原告適格で採っている「理解ではなく暗記で通す」扱い（<code>AGENTS.md</code> 5.1）を、憲法の人権にも広げます。統治は条文暗記なのでそのまま。</small>
+        </li>
+        <li>
+          <strong>⑤ 一般知識（政治・経済・社会）は引き続き作らない</strong>
+          <small>2026-08-04に決めたとおりです。一問限りの時事がほとんどで、勉強しなくても解ける問題も多い。基礎知識は法令系（諸法令・情報公開・個人情報・情報通信）に絞り、文章理解3問は無勉で取ります。</small>
+        </li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">ORDER</p>
+        <h2>どのカードから固めるか</h2>
+        <p>○×学習の<strong>「頻出度」</strong>で絞れるようにしました。平成18年度以降の出題数で決まる区分です。</p>
+      </div>
+      <div class="table-scroll">
+        <table class="score-table">
+          <thead><tr><th>科目</th><th class="num">最頻出<br>10回〜</th><th class="num">頻出<br>6〜9回</th><th class="num">繰り返し<br>3〜5回</th><th class="num">重要論点<br>1〜2回</th><th class="num">計</th></tr></thead>
+          <tbody>
+            <tr class="core"><td>行政法（112点）</td><td class="num">10</td><td class="num">34</td><td class="num">23</td><td class="num">16</td><td class="num">83</td></tr>
+            <tr class="core"><td>民法（76点）</td><td class="num">0</td><td class="num">8</td><td class="num">28</td><td class="num">18</td><td class="num">54</td></tr>
+            <tr><td>基礎知識（56点）</td><td class="num">0</td><td class="num">0</td><td class="num">5</td><td class="num">37</td><td class="num">42</td></tr>
+            <tr><td>憲法（28点）</td><td class="num">0</td><td class="num">3</td><td class="num">15</td><td class="num">9</td><td class="num">27</td></tr>
+            <tr><td>商法・会社法（20点）</td><td class="num">0</td><td class="num">5</td><td class="num">11</td><td class="num">12</td><td class="num">28</td></tr>
+            <tr><td>基礎法学（8点）</td><td class="num">0</td><td class="num">0</td><td class="num">3</td><td class="num">9</td><td class="num">12</td></tr>
+          </tbody>
+          <tfoot><tr><td>合計</td><td class="num">10</td><td class="num">50</td><td class="num">85</td><td class="num">101</td><td class="num">246</td></tr></tfoot>
+        </table>
+      </div>
+      <div class="note-card ok" style="margin-top:14px">
+        <h3>「頻出だけ」の60枚は、44枚が行政法</h3>
+        <p>頻出度は配点どおりに偏っているので、<strong>上位2段で絞れば自動的に行政法中心になります。</strong>迷ったら「頻出だけ（6回以上）」を選んでください。<br>ただし<strong>民法・憲法・商法・基礎法学・基礎知識には「最頻出」が1枚もありません。</strong>「最頻出だけ」を選ぶと行政法10枚しか出ないので、科目を絞ったまま選ばないよう気をつけてください。</p>
+      </div>
+      <div class="live-strip">
+        <article><span>いまの総カード数</span><strong id="live-total">—</strong></article>
+        <article><span>今日出す</span><strong id="live-selected">—</strong></article>
+        <article><span>期日ぎれ</span><strong id="live-due">—</strong></article>
+      </div>
+      <p class="return-arrow" id="live-note"></p>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">DO NOT</p>
+        <h2>揺り戻さないこと</h2>
+        <p>この方針は時間が足りないから選んだものです。<strong>勉強が進むと「商法もやれる気がする」と思い始めますが、それが崩れる入口です。</strong></p>
+      </div>
+      <div class="note-card warn">
+        <h3>商法・会社法を作り込まない</h3>
+        <p>会社法は範囲が膨大で、5問20点に対して底なしに時間を吸います。<strong>2問取れれば設計どおり</strong>です。3問目を取りにいかないでください。</p>
+      </div>
+      <div class="note-card warn">
+        <h3>記述の文章を磨かない</h3>
+        <p>部分点はキーワードに付きます。40字の日本語を整える時間があるなら、行政法の択一を1問増やすほうが確実です。</p>
+      </div>
+      <div class="note-card warn">
+        <h3>過去問569問を周回しない</h3>
+        <p>暗記してしまうほど回さない前提で置いてある参照用データです。周回したくなったら、代わりにカードの「全問題を出す」を回してください。</p>
+      </div>
+      <div class="note-card">
+        <h3>基礎知識の余裕を削らない</h3>
+        <p>足切り24点に対して36点想定＝12点の余裕。ここだけは「効率が悪いから」と削らないでください。<strong>1問足りないだけで、他が何点でも不合格になります。</strong></p>
+      </div>
+    </section>
+
+    <footer class="section">
+      <p class="return-arrow"><a href="index.html">← 過去問ラボへ戻る</a>　<a href="study-guide.html">今日の学習の使い方 →</a></p>
+      <p style="color:var(--muted);font-size:13px">2026-08-07にフリーランス業務の開始にあわせて設計を変更。配点は本試験の公表内容（択一4点・多肢選択8点・記述20点／合格基準 総得点180点・法令等122点・基礎知識24点）にもとづく。カード枚数は <code>content/explanation_cards.json</code> の実データ。<br>この設計を変えたら、<code>static/app.js</code> の <code>SUBJECT_POINTS</code> と <code>AGENTS.md</code> も同じ作業で直すこと。</p>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      function $(id) { return document.getElementById(id); }
+
+      // 受験日までの残り日数。手で書かない。
+      var EXAM = new Date("2026-11-08T16:00:00+09:00");
+      var days = Math.max(0, Math.ceil((EXAM - new Date()) / 86400000));
+      $("days-left").textContent = days + "日";
+
+      // 枚数はAPIから読む。HTMLへ焼き込まない。
+      fetch("api/study-queue?limit=80&newLimit=12", { headers: { Accept: "application/json" } })
+        .then(function (res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.json();
+        })
+        .then(function (data) {
+          var c = data.counts || {};
+          if (c.eligible != null) $("live-total").textContent = c.eligible + "枚";
+          $("live-selected").textContent = (c.selected != null ? c.selected : "—") + "枚";
+          $("live-due").textContent = (c.due != null ? c.due : "—") + "枚";
+          $("live-note").textContent =
+            "残り" + days + "日。246枚を一巡するには1日3枚で足りますが、期日の復習が乗るので「ふつう（30分）」なら余裕があります。";
+        })
+        .catch(function (error) {
+          $("live-note").textContent = "いまの枚数を取得できませんでした（" + error.message + "）。ラボのAPIが動いているか確かめてください。";
+        });
+    })();
+  </script>
+</body>
+</html>

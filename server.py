@@ -82,6 +82,13 @@ CARD_MARK_ACTIONS = ("certain", "uncertain", "reset", "confidence")
 CARD_MARK_RATINGS = ("again", "hard", "good", "easy")
 CARD_MARK_LEGACY_CONFIDENCE = ("sure", "likely", "guess")
 CARD_MARK_CONFIDENCE = CARD_MARK_RATINGS + CARD_MARK_LEGACY_CONFIDENCE
+# 頻出度のラベルは出題数で機械的に決まる（1〜2=重要論点、3〜5=繰り返し出題、
+# 6〜9=頻出、10以上=最頻出）。**低い順**に並べてあり、`minFrequency` は
+# 「このラベル以上」を意味する。並び順を入れ替えない。入れ替えると、
+# 同じ指定が別の母集団を指すようになる。
+# 画面の <select id="study-frequency-level"> の値と同じ語彙を使う。片方だけ増やさない。
+# `tests/test_server.py` の StudyFrequencyFilterTest がずれを見ている。
+FREQUENCY_RANK = ("重要論点", "繰り返し出題", "頻出", "最頻出")
 SIMILARITY_DECISIONS = {"merge", "related", "reject", "defer"}
 RELATION_TYPES = {"opposite_claim", "exception", "contrast", "same_topic"}
 MERGE_RELATION_TYPE = "same_proposition"
@@ -2236,6 +2243,38 @@ def study_queue_response(query: dict[str, list[str]]) -> dict:
                 "learningType must be memorize or understand",
             )
         cards = [card for card in cards if card["learningType"] == learning_type]
+
+    # 頻出度で絞る。165-190狙いの方針では上位2段（頻出・最頻出）を先に固めるので、
+    # キューの母集団も画面と同じ範囲へ揃える。揃えないと、その日の枠を範囲外の
+    # カードに使ってしまい、絞ったはずの範囲に期日ぎれがあるのに空に見える。
+    min_frequency = _single_query(query, "minFrequency")
+    if min_frequency is not None:
+        if min_frequency not in FREQUENCY_RANK:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST,
+                "minFrequency must be one of " + " / ".join(FREQUENCY_RANK),
+            )
+        # ラベルの無いカードを黙って落とさない。古いbundleが載っているときに
+        # 出題範囲が静かに狭まると、やったつもりの論点が出ないまま本番を迎える。
+        # ただし learningType と違い、**絞り込みを指定したときだけ**見る。
+        # 既定の経路を巻き込むと、頻出度と無関係な使い方まで止まってしまう。
+        unlabelled = [
+            card["id"]
+            for card in cards
+            if (card.get("frequency") or {}).get("label") not in FREQUENCY_RANK
+        ]
+        if unlabelled:
+            raise ApiError(
+                HTTPStatus.CONFLICT,
+                "頻出度のないカードがあります（bundleを作り直してください）: "
+                + ", ".join(sorted(unlabelled)[:5]),
+            )
+        floor = FREQUENCY_RANK.index(min_frequency)
+        cards = [
+            card
+            for card in cards
+            if FREQUENCY_RANK.index(card["frequency"]["label"]) >= floor
+        ]
 
     def _count(name: str, fallback: int, *, low: int) -> int:
         text = _single_query(query, name)

@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260805-11";
+  const APP_VERSION = "20260807-1";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -457,9 +457,21 @@
     }
   }
 
+  // 絞り込みを変えたあとの共通の後始末。「今日の学習」のときはキューを組み直す。
+  // **プログラムから value を代入した場合も必ずここへ通す。** 代入では change が
+  // 発火しないので、通さないと前の条件で組んだキューがそのまま残る。
+  function reloadStudyAfterFilterChange() {
+    if ($("study-scope").value === "today") {
+      loadTodayQueue();
+      return;
+    }
+    refreshStudyPool();
+  }
+
   function bindStudyEvents() {
     $("study-subject").addEventListener("change", () => {
       refreshStudyTopicOptions();
+      renderStudySubjectPoints();
       refreshStudyPool();
     });
     $("study-topic").addEventListener("change", refreshStudyPool);
@@ -503,6 +515,12 @@
       }
       refreshStudyPool();
     });
+    $("study-frequency-level").addEventListener("change", () => {
+      try { localStorage.setItem(STUDY_FREQ_KEY, $("study-frequency-level").value); } catch (_) {}
+      // 「今日の学習」も同じ母集団から組み直す。組み直さないと、範囲外のカードで
+      // その日の枠を使ったキューがそのまま残る。
+      reloadStudyAfterFilterChange();
+    });
     $("study-scope").addEventListener("change", () => {
       $("study-pace-row").hidden = $("study-scope").value !== "today";
       if ($("study-scope").value === "today") {
@@ -514,6 +532,13 @@
     try {
       const storedKind = localStorage.getItem(STUDY_KIND_KEY);
       if (storedKind) $("study-kind").value = storedKind;
+    } catch (_) {}
+    try {
+      const storedFreq = localStorage.getItem(STUDY_FREQ_KEY);
+      // 覚えの無い値が入っていたら「すべて」のまま。黙って絞らない。
+      if (storedFreq && (storedFreq === "all" || FREQUENCY_RANK.includes(storedFreq))) {
+        $("study-frequency-level").value = storedFreq;
+      }
     } catch (_) {}
     $("study-pace").value = todayPace();
     $("study-pace").addEventListener("change", () => {
@@ -592,7 +617,13 @@
       $("study-subject").value = "all";
       refreshStudyTopicOptions();
       $("study-topic").value = "all";
-      refreshStudyPool();
+      // 「今日の学習」のときは科目を戻しただけでキューが古いままになる。
+      reloadStudyAfterFilterChange();
+    });
+    $("study-clear-frequency").addEventListener("click", () => {
+      $("study-frequency-level").value = "all";
+      try { localStorage.setItem(STUDY_FREQ_KEY, "all"); } catch (_) {}
+      reloadStudyAfterFilterChange();
     });
     document.querySelectorAll("[data-study-answer]").forEach((button) => {
       button.addEventListener("click", () => answerStudyCard(button));
@@ -660,9 +691,18 @@
       : uniqueSorted(state.studyDecks.map((item) => item.subjectId)).map((id) => ({ id, label: id }));
     subjectCatalog.forEach((subject) => {
       if (!subject || !subject.id) return;
-      $("study-subject").appendChild(make("option", { value: subject.id }, subject.label || subject.id));
+      const label = subject.label || subject.id;
+      const points = SUBJECT_POINTS[subject.id];
+      // 配点を出す。行政法112点・基礎法学8点のような差が見えないと、
+      // どこへ時間を使うべきかが選ぶ瞬間に分からない。
+      $("study-subject").appendChild(make(
+        "option",
+        { value: subject.id },
+        points ? label + "（" + points.total + "点）" : label
+      ));
     });
     refreshStudyTopicOptions();
+    renderStudySubjectPoints();
     state.cardPendingAttempts = loadCardPendingAttempts();
     await loadCardProgress();
     rebuildCardProgress();
@@ -819,8 +859,35 @@
       // 考えれば導けるものを分ける。8月は暗記ものだけを回す使い方をする。
       // 既定へ倒さない。分類の無いカードは古いbundleなので、暗記ものへ混ぜない。
       (kind === "all" || item.learningType === kind) &&
+      // 頻出度は「このラベル以上」で絞る。時間が足りない時に上位から固めるため。
+      matchesStudyFrequency(item) &&
       matchesStudySearch(item, words)
     );
+  }
+
+  // 選んでいる科目の配点の内訳を出す。全科目なら合格基準そのものを出す。
+  function renderStudySubjectPoints() {
+    const host = $("study-subject-points");
+    if (!host) return;
+    const points = SUBJECT_POINTS[$("study-subject").value];
+    if (!points) {
+      host.replaceChildren(
+        document.createTextNode("本試験300点満点。合格は総得点180点・法令等122点・基礎知識24点。"),
+        make("a", { href: "score-plan.html" }, "得点設計を見る")
+      );
+      return;
+    }
+    host.replaceChildren(
+      document.createTextNode(points.total + "点 ＝ " + points.detail + "。"),
+      make("a", { href: "score-plan.html" }, "得点設計を見る")
+    );
+  }
+
+  function matchesStudyFrequency(item) {
+    const floor = studyFrequencyFloor();
+    if (floor < 0) return true;
+    const label = (item.frequency || {}).label;
+    return FREQUENCY_RANK.indexOf(label) >= floor;
   }
 
   function studySearchWords() {
@@ -1015,7 +1082,16 @@
     $("study-show-all").textContent = weakness ? "通常ビューで全問題を見る" : "全問題モードで復習する";
     $("study-show-all-topics").hidden = !topicSelected;
     $("study-clear-search").hidden = !searching;
-    if (searching && !cards.length) {
+    $("study-clear-frequency").hidden = studyFrequencyFloor() < 0;
+    if (studyFrequencyFloor() >= 0 && !cards.length) {
+      // 頻出度で絞った結果ゼロ枚になったときは、そこが原因だと分かるようにする。
+      // 「この科目にカードが無い」と読み違えると、作ったはずの論点を探しに行ってしまう。
+      $("study-empty-title").textContent = "この頻出度に合うカードがありません";
+      $("study-empty-message").textContent =
+        "「" + $("study-frequency-level").value + "」以上のカードが、いまの科目・分野にありません。"
+        + "頻出度を「すべて」に戻すか、科目を広げてください。"
+        + "民法・憲法・商法には「最頻出」のカードがありません。";
+    } else if (searching && !cards.length) {
       $("study-empty-title").textContent = "この言葉に合うカードがありません";
       $("study-empty-message").textContent = "語を減らすか、科目・分野を「すべて」に戻すと見つかることがあります。カードIDでも探せます。";
     } else if (searching && cards.length && !weakness) {
@@ -1551,6 +1627,9 @@
     $("study-topic").value = target.topic || "all";
     $("study-view").value = "standard";
     $("study-scope").value = "all";
+    // 頻出度の絞り込みも外す。外さないと、⑥で結んだ先が「重要論点」だったときに
+    // 母集団から落ち、indexOf が -1 になって開けない。
+    $("study-frequency-level").value = "all";
     updateStudyViewControls();
     state.studyFiltered = getFilteredStudyCards();
     state.studyCurrent = target;
@@ -1899,6 +1978,28 @@
   // その理由を出さないと「軽めを選んだのに19枚出た」としか見えない。
   const TODAY_PACE_KEY = "gyousei-lab:todayPace";
   const STUDY_KIND_KEY = "gyousei-lab:studyKind";
+  const STUDY_FREQ_KEY = "gyousei-lab:studyFrequency";
+  // 本試験の配点（300点満点）。択一1問4点、多肢選択1問8点、記述1問20点。
+  // 合格基準は総得点180点・法令等122点・基礎知識24点。
+  // どこへ時間を使うかの判断に使うので、科目を選ぶ場所に出す。
+  // 人間向けの正本は static/score-plan.html。数字を変えるならあちらも直す。
+  const SUBJECT_POINTS = {
+    "administrative-law": { total: 112, detail: "択一19問76点＋多肢2問16点＋記述1問20点" },
+    "civil-law": { total: 76, detail: "択一9問36点＋記述2問40点" },
+    "general-knowledge": { total: 56, detail: "14問56点（24点以上で足切り回避）" },
+    "constitutional-law": { total: 28, detail: "択一5問20点＋多肢1問8点" },
+    "commercial-law": { total: 20, detail: "択一5問20点" },
+    "legal-foundations": { total: 8, detail: "択一2問8点" }
+  };
+  // server.py の FREQUENCY_RANK と同じ語彙・同じ並び（低い順）。片方だけ増やさない。
+  // 「このラベル以上」で絞るので、順番が入れ替わると同じ指定が別の母集団を指す。
+  const FREQUENCY_RANK = ["重要論点", "繰り返し出題", "頻出", "最頻出"];
+
+  function studyFrequencyFloor() {
+    const value = $("study-frequency-level").value;
+    const index = FREQUENCY_RANK.indexOf(value);
+    return index < 0 ? -1 : index;   // -1 = すべて
+  }
 
   function todayPace() {
     const stored = (() => {
@@ -1936,6 +2037,8 @@
       if (kind !== "all") params.push("learningType=" + encodeURIComponent(kind));
       if (subject !== "all") params.push("subjectId=" + encodeURIComponent(subject));
       if (topic !== "all") params.push("topic=" + encodeURIComponent(topic));
+      const frequency = $("study-frequency-level").value;
+      if (frequency !== "all") params.push("minFrequency=" + encodeURIComponent(frequency));
       const search = String($("study-search").value || "").trim();
       if (search) params.push("search=" + encodeURIComponent(search));
       const data = await fetchJson("api/study-queue?" + params.join("&"));
