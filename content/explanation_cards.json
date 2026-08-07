@@ -9642,7 +9642,7 @@
           "relatedCardId": "min-general-unauthorized-agency-succession-001"
         }
       ],
-      "learningType": "understand"
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -9822,7 +9822,7 @@
           "relatedCardId": "min-obligation-joint-liability-effects-001"
         }
       ],
-      "learningType": "understand"
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -9907,7 +9907,7 @@
           "relatedCardId": "min-contract-negotiorum-gestio-useful-expenses-001"
         }
       ],
-      "learningType": "understand"
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -10001,7 +10001,7 @@
           "relatedCardId": "min-property-registration-bad-faith-001"
         }
       ],
-      "learningType": "understand"
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -10315,7 +10315,7 @@
         "scope": "平成18年度〜令和7年度",
         "basis": "商法・会社法99問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
       },
-      "learningType": "understand"
+      "learningType": "memorize"
     },
     {
       "category": "商法・会社法",
@@ -16818,7 +16818,7 @@
           "relatedCardId": "min-general-capacity-fraud-001"
         }
       ],
-      "learningType": "understand"
+      "learningType": "memorize"
     },
     {
       "id": "gk-kobunsho-duties-001",
@@ -19990,7 +19990,7 @@
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
       },
-      "learningType": "understand"
+      "learningType": "memorize"
     },
     {
       "id": "com-inc-shareholder-minority-rights-001",
@@ -20138,7 +20138,7 @@
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
       },
-      "learningType": "understand"
+      "learningType": "memorize"
     },
     {
       "id": "gk-joho-kokai-requester-001",
@@ -20922,7 +20922,7 @@
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "archive-question-plus-egov-2026-04-01"
       },
-      "learningType": "understand"
+      "learningType": "memorize"
     },
     {
       "id": "gk-pip-exemption-types-001",
