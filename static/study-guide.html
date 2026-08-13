@@ -105,7 +105,7 @@
         <li>
           <div>
             <strong>「カードの種類」を選ぶ（8月は<em>暗記もの</em>）</strong>
-            <small>暗記もの158枚／理解もの88枚に分けてあります。<strong>暗記ものは、覚えていないと絶対に解けないものだけ</strong>です。数字・期間・割合、どこへ出すか、列挙、分類、義務か努力義務か、判例の結論。8月はここだけを回します。</small>
+            <small>暗記もの<span id="count-memorize">—</span>枚／理解もの<span id="count-understand">—</span>枚に分けてあります。<strong>暗記ものは、覚えていないと絶対に解けないものだけ</strong>です。数字・期間・割合、どこへ出すか、列挙、分類、義務か努力義務か、判例の結論。8月はここだけを回します。</small>
           </div>
         </li>
         <li>
@@ -144,11 +144,11 @@
       <div class="section-heading">
         <p class="kicker">TWO KINDS</p>
         <h2>暗記ものと理解もの</h2>
-        <p>246枚を2つに分けてあります。<strong>8月は「暗記もの」だけを回してください。</strong>15分しかない時期に、考える必要のあるカードを混ぜると終わりません。</p>
+        <p><span id="count-all">—</span>枚を2つに分けてあります。<strong>8月は「暗記もの」だけを回してください。</strong>15分しかない時期に、考える必要のあるカードを混ぜると終わりません。</p>
       </div>
       <div class="two-col">
         <div class="flow-card">
-          <h3>暗記もの　158枚</h3>
+          <h3>暗記もの　<span id="count-memorize-2">—</span>枚</h3>
           <p style="font-size:14px;margin:0 0 10px;">覚えていないと絶対に解けない。考えても導けないもの。</p>
           <ul class="plain-list">
             <li><strong>数字</strong> — 審査請求は3か月・1年、取消訴訟は6か月・1年、監査役の解任は3分の2、出生の届出は14日</li>
@@ -158,10 +158,10 @@
             <li><strong>義務か努力義務か</strong> — 審査基準は義務、処分基準は努力義務</li>
             <li><strong>判例の結論そのもの</strong> — 用途地域は処分性なし、保育所廃止条例は処分性あり</li>
           </ul>
-          <p style="font-size:13px;color:var(--muted);margin:10px 0 0;">科目別: 行政法65・基礎知識35・民法24・商法19・基礎法学8・憲法7</p>
+          <p style="font-size:13px;color:var(--muted);margin:10px 0 0;">科目別: 行政法65・基礎知識35・商法28・民法24・基礎法学8・憲法7</p>
         </div>
         <div class="flow-card">
-          <h3>理解もの　88枚</h3>
+          <h3>理解もの　<span id="count-understand-2">—</span>枚</h3>
           <p style="font-size:14px;margin:0 0 10px;">趣旨や判断枠組みから考えれば導けるもの。9月から回します。</p>
           <ul class="plain-list">
             <li>行政裁量に対する司法審査のしかた</li>
@@ -170,7 +170,7 @@
             <li>即時取得と占有改定、法定地上権の趣旨</li>
             <li>国家賠償法1条の「公権力の行使」の広さ</li>
           </ul>
-          <p style="font-size:13px;color:var(--muted);margin:10px 0 0;">科目別: 民法30・憲法20・行政法18・商法9・基礎知識7・基礎法学4</p>
+          <p style="font-size:13px;color:var(--muted);margin:10px 0 0;">科目別: 民法30・憲法20・行政法18・基礎知識7・基礎法学4（商法・会社法は28枚すべてが暗記もの）</p>
         </div>
       </div>
       <div class="note-card" style="margin-top:14px;">
@@ -267,14 +267,14 @@
           <h3>8月（1日15分）</h3>
           <ul class="plain-list">
             <li><strong>「暗記もの」＋「軽め」にします。</strong>はじめて6枚＋復習で、15分に収まります。</li>
-            <li>暗記もの158枚を6枚ずつなら、<strong>約27日で一巡</strong>します。8月いっぱいでちょうど終わる計算です。</li>
+            <li>暗記もの<span id="count-memorize-3">—</span>枚を6枚ずつなら、<strong>約28日で一巡</strong>します。8月いっぱいでちょうど終わる計算です。</li>
             <li>FP2級（8月末の実技・9月の学科）と重なる時期です。検索欄に <code>FP</code> と入れると、かぶり分野のカードだけを回せます（いまは21枚）。8月はここを優先しても構いません。</li>
           </ul>
         </div>
         <div class="flow-card">
           <h3>9月〜10月（1日2時間）</h3>
           <ul class="plain-list">
-            <li><strong>「すべて」へ戻し、「しっかり」へ上げます。</strong>理解もの88枚を25枚ずつなら4日ほどで一巡できます。</li>
+            <li><strong>「すべて」へ戻し、「しっかり」へ上げます。</strong>理解もの<span id="count-understand-3">—</span>枚を25枚ずつなら4日ほどで一巡できます。</li>
             <li>8月に解いた暗記ものは、期日が来たものだけが混ざってきます。やり直しにはなりません。</li>
             <li>一巡が終わると、<strong>今日出る枚数が自然に減っていきます。</strong>覚えたものの間隔が伸びるからです。</li>
             <li>減った分の時間を、90分の試験セッションと記述式に回します。2時間のうちカードに使うのは30〜60分で足りるようになります。</li>
@@ -388,6 +388,28 @@
           $("today-error").hidden = false;
           $("today-error").textContent = "いまの状態を取得できませんでした（" + error.message + "）。ラボのAPIが動いているか確かめてください。";
         });
+
+      // 枚数はHTMLへ焼き込まず、そのつどAPIから読む。
+      // learningTypeを付け替えたときに、この案内だけが古いまま残るのを防ぐ。
+      function fillCount(ids, query) {
+        fetch("api/study-queue?limit=1" + query, { headers: { accept: "application/json" } })
+          .then(function (res) {
+            if (!res.ok) throw new Error("HTTP " + res.status);
+            return res.json();
+          })
+          .then(function (data) {
+            var n = (data.counts || {}).eligible;
+            if (n == null) return;
+            ids.forEach(function (id) {
+              var el = $(id);
+              if (el) el.textContent = String(n);
+            });
+          })
+          .catch(function () { /* 枚数が出せなくても本文は読めるので、—のままにする */ });
+      }
+      fillCount(["count-all"], "");
+      fillCount(["count-memorize", "count-memorize-2", "count-memorize-3"], "&learningType=memorize");
+      fillCount(["count-understand", "count-understand-2", "count-understand-3"], "&learningType=understand");
     })();
   </script>
 </body>
