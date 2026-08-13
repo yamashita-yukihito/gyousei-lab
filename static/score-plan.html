@@ -283,8 +283,12 @@
           if (c.eligible != null) $("live-total").textContent = c.eligible + "枚";
           $("live-selected").textContent = (c.selected != null ? c.selected : "—") + "枚";
           $("live-due").textContent = (c.due != null ? c.due : "—") + "枚";
-          $("live-note").textContent =
-            "残り" + days + "日。246枚を一巡するには1日3枚で足りますが、期日の復習が乗るので「ふつう（30分）」なら余裕があります。";
+          var total = c.eligible != null ? c.eligible : null;
+          var perDay = total != null && days > 0 ? Math.ceil(total / days) : null;
+          $("live-note").textContent = total == null
+            ? "残り" + days + "日。"
+            : "残り" + days + "日。" + total + "枚を一巡するには1日" + perDay
+              + "枚で足りますが、期日の復習が乗るので「ふつう（30分）」なら余裕があります。";
         })
         .catch(function (error) {
           $("live-note").textContent = "いまの枚数を取得できませんでした（" + error.message + "）。ラボのAPIが動いているか確かめてください。";
