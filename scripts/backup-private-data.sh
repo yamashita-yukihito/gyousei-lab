@@ -58,6 +58,19 @@ fi
 mkdir -p "$DEST" || die "出力先を作れない: $DEST"
 [ -w "$DEST" ] || die "出力先へ書き込めない: $DEST"
 
+# 共有が「見えているのに書けない」状態を、ここで落とす。
+# Windows がスリープすると smbfs の登録は残るので、上のマウント判定も [ -w ] も
+# 通ってしまい、実際の I/O だけが失敗する。2026-08-13 に確認した時点で、自動実行の
+# 直近15回のうち10回がこれで、SQLite のコピーと一時領域の作成を済ませたあと、
+# 最後の tar 書き込みで初めて落ちていた。書いて読み戻し、往復させて即座に止める。
+PROBE="$DEST/.write-probe.$$"
+if ! { printf 'probe\n' >"$PROBE" 2>/dev/null && [ "$(cat "$PROBE" 2>/dev/null)" = "probe" ]; }; then
+    /bin/rm -f -- "$PROBE" 2>/dev/null || true
+    die "$DEST は見えているが書き込めない。Windows側がスリープしていないか確かめる。
+（共有の登録は残るため、マウントされているかどうかの判定だけでは検出できない）"
+fi
+/bin/rm -f -- "$PROBE" 2>/dev/null || true
+
 WORK="$(mktemp -d "${TMPDIR:-/tmp}/gyousei-backup.XXXXXX")"
 # 消すのは mktemp で自分が作った一時領域だけに限る。
 # 出力先のバックアップ本体は、このスクリプトからは既定で消さない。
