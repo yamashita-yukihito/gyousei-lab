@@ -21,9 +21,15 @@ RUNTIME="$HOME/.local/share/yuki-services/gyousei-lab"
 SOURCE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DEST=""
 PRUNE=0
+# --scheduled は launchd から繰り返し呼ばれる用。Windows のスリープ時刻が不定なので、
+# 時刻を決め打ちにせず「書ける時に取る」方式にしてある。共有へ書けないときは
+# 失敗ではなく「今回は取らない」として静かに抜ける。手で実行したときは従来どおり
+# 大きな声で失敗する（利用者はその場で結果を見たいため）。
+SCHEDULED=0
 for arg in "$@"; do
     case "$arg" in
         --prune) PRUNE=1 ;;
+        --scheduled) SCHEDULED=1 ;;
         *) DEST="$arg" ;;
     esac
 done
@@ -37,26 +43,66 @@ if [ -z "$DEST" ]; then
 fi
 KEEP=7
 STAMP="$(date +%Y%m%d-%H%M%S)"
+# 直近の控えがこの時間より新しければ、--scheduled のときは取らない。1日1本にするため。
+STALE_HOURS=20
+# 控えがこの時間より古いまま取れていないなら、--scheduled でも stderr へ出す。
+# 静かに抜けるだけだと、2026-07-29〜08-13のように止まっていても気づけないため。
+WARN_HOURS=72
 
 log() { printf '%s %s\n' "$(date '+%H:%M:%S')" "$1"; }
 die() { printf 'backup failed: %s\n' "$1" >&2; exit 1; }
+
+# 最後に成功した時刻は Mac 側へ残す。共有が落ちていると保存先を読めないので、
+# 「前回いつ取れたか」を保存先の中身から数えると、Windowsがスリープしている間じゅう
+# 「1本も無い」と誤判定してしまう。
+STATE_DIR="$HOME/Library/Logs/yuki-services/gyousei-lab"
+LAST_OK="$STATE_DIR/last-backup-ok"
+
+# 直近の成功から経過した時間。一度も成功していなければ非常に大きい値を返す。
+backup_age_hours() {
+    if [ ! -f "$LAST_OK" ]; then printf '%s\n' 999999; return; fi
+    printf '%s\n' "$(( ($(date +%s) - $(stat -f %m "$LAST_OK")) / 3600 ))"
+}
+
+# --scheduled のときの「今回は取らない」。失敗ではないので終了コードは0にする。
+# ただし控えが WARN_HOURS より古いままなら、stderr へ出して気づけるようにする。
+skip_or_die() {
+    if [ "$SCHEDULED" -ne 1 ]; then die "$1"; fi
+    local age
+    age="$(backup_age_hours)"
+    if [ "$age" -ge "$WARN_HOURS" ]; then
+        printf 'backup warning: 控えが約%s時間前から取れていない。%s\n' "$age" "$1" >&2
+    else
+        log "今回は取らない（$1）"
+    fi
+    exit 0
+}
 
 [ -d "$RUNTIME" ] || die "実行時データが見つからない: $RUNTIME"
 
 # Windows が落ちていると共有が外れる。そのまま mkdir すると、同じパスの
 # ローカルディレクトリへ書いてしまい「Mac外に控えがある」と誤認する。
 # 親ディレクトリのデバイス番号が変わるかどうかでマウント境界を判定する。
+# 定期実行のときは、まず頻度を見る。1日1本あれば足りるので、直近が新しければ
+# 共有へ触らずに抜ける。Windows が起きている間に何本も作らないため。
+if [ "$SCHEDULED" -eq 1 ]; then
+    AGE_NOW="$(backup_age_hours)"
+    if [ "$AGE_NOW" -lt "$STALE_HOURS" ]; then
+        exit 0
+    fi
+fi
+
 if [ "$REQUIRE_MOUNT" -eq 1 ]; then
     MOUNT_ROOT="$(dirname "$DEST")"
     if [ ! -d "$MOUNT_ROOT" ] \
         || [ "$(stat -f %d "$MOUNT_ROOT")" = "$(stat -f %d "$MOUNT_ROOT/..")" ]; then
-        die "$MOUNT_ROOT がマウントされていない。Windows側の共有を接続してから実行する。
+        skip_or_die "$MOUNT_ROOT がマウントされていない。Windows側の共有を接続してから実行する。
 （Mac内へ書いても Mac が壊れたときの備えにならないため、ここで止める）"
     fi
 fi
 
-mkdir -p "$DEST" || die "出力先を作れない: $DEST"
-[ -w "$DEST" ] || die "出力先へ書き込めない: $DEST"
+mkdir -p "$DEST" 2>/dev/null || skip_or_die "出力先を作れない: $DEST"
+[ -w "$DEST" ] || skip_or_die "出力先へ書き込めない: $DEST"
 
 # 共有が「見えているのに書けない」状態を、ここで落とす。
 # Windows がスリープすると smbfs の登録は残るので、上のマウント判定も [ -w ] も
@@ -66,7 +112,7 @@ mkdir -p "$DEST" || die "出力先を作れない: $DEST"
 PROBE="$DEST/.write-probe.$$"
 if ! { printf 'probe\n' >"$PROBE" 2>/dev/null && [ "$(cat "$PROBE" 2>/dev/null)" = "probe" ]; }; then
     /bin/rm -f -- "$PROBE" 2>/dev/null || true
-    die "$DEST は見えているが書き込めない。Windows側がスリープしていないか確かめる。
+    skip_or_die "$DEST は見えているが書き込めない。Windows側がスリープしていないか確かめる。
 （共有の登録は残るため、マウントされているかどうかの判定だけでは検出できない）"
 fi
 /bin/rm -f -- "$PROBE" 2>/dev/null || true
@@ -204,5 +250,11 @@ if [ -n "$EXPIRED" ]; then
         log "消してよければ --prune を付けて実行する"
     fi
 fi
+
+# 最後に成功した時刻を Mac 側へ残す。次回の --scheduled はこれを見て頻度を決め、
+# 取れていない期間が延びたときに警告を出す。共有が読めなくても判断できるようにするため、
+# 保存先ではなくここへ置く。
+mkdir -p "$STATE_DIR" 2>/dev/null || true
+: > "$LAST_OK" 2>/dev/null || true
 
 log "完了: $OUT （$(du -h "$OUT" | cut -f1)）"
