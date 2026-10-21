@@ -82,13 +82,14 @@ CARD_MARK_ACTIONS = ("certain", "uncertain", "reset", "confidence")
 CARD_MARK_RATINGS = ("again", "hard", "good", "easy")
 CARD_MARK_LEGACY_CONFIDENCE = ("sure", "likely", "guess")
 CARD_MARK_CONFIDENCE = CARD_MARK_RATINGS + CARD_MARK_LEGACY_CONFIDENCE
-# 頻出度のラベルは出題数で機械的に決まる（1〜2=重要論点、3〜5=繰り返し出題、
-# 6〜9=頻出、10以上=最頻出）。**低い順**に並べてあり、`minFrequency` は
+# 頻出度のラベルは出題数で機械的に決まる（0=未出題、1〜2=重要論点、3〜5=繰り返し出題、
+# 6〜9=頻出、10以上=最頻出）。「未出題」は法改正で新しく入った規定のカード用
+# （2026-10-21に利用者の指示で追加）。**低い順**に並べてあり、`minFrequency` は
 # 「このラベル以上」を意味する。並び順を入れ替えない。入れ替えると、
 # 同じ指定が別の母集団を指すようになる。
 # 画面の <select id="study-frequency-level"> の値と同じ語彙を使う。片方だけ増やさない。
 # `tests/test_server.py` の StudyFrequencyFilterTest がずれを見ている。
-FREQUENCY_RANK = ("重要論点", "繰り返し出題", "頻出", "最頻出")
+FREQUENCY_RANK = ("未出題", "重要論点", "繰り返し出題", "頻出", "最頻出")
 SIMILARITY_DECISIONS = {"merge", "related", "reject", "defer"}
 RELATION_TYPES = {"opposite_claim", "exception", "contrast", "same_topic"}
 MERGE_RELATION_TYPE = "same_proposition"

@@ -2064,7 +2064,7 @@ class StudyFrequencyFilterTest(unittest.TestCase):
     def test_rank_is_ordered_from_rare_to_frequent(self) -> None:
         self.assertEqual(
             server.FREQUENCY_RANK,
-            ("重要論点", "繰り返し出題", "頻出", "最頻出"),
+            ("未出題", "重要論点", "繰り返し出題", "頻出", "最頻出"),
             "低い順に並んでいないと「このラベル以上」の意味が変わる",
         )
 

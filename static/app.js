@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20261021-2";
+  const APP_VERSION = "20261021-3";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -2085,7 +2085,7 @@
   };
   // server.py の FREQUENCY_RANK と同じ語彙・同じ並び（低い順）。片方だけ増やさない。
   // 「このラベル以上」で絞るので、順番が入れ替わると同じ指定が別の母集団を指す。
-  const FREQUENCY_RANK = ["重要論点", "繰り返し出題", "頻出", "最頻出"];
+  const FREQUENCY_RANK = ["未出題", "重要論点", "繰り返し出題", "頻出", "最頻出"];
 
   function studyFrequencyFloor() {
     const value = $("study-frequency-level").value;
