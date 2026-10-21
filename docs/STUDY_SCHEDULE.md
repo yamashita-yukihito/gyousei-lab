@@ -183,5 +183,5 @@
 ## 9. 次のAIへ
 
 - 利用者から「実際はこうだった」と申告があれば、§4・§5と `static/schedule.html` の `DAYS` を両方直す。Windows側の版と食い違ったら、Windows側を正とし、利用者に確かめる。
-- 通し演習の結果は、利用者のブラウザのlocalStorage（`gyouseiMock:v1`）と、`answer_attempts` の `mode='mock_exam'`（`session_id` が `mock-` で始まる）に残る。記述の自己採点・文章理解の正解数・間違えた理由はlocalStorageだけにあるので、点数は利用者に「結果を文字でコピー」の文を貼ってもらう。
+- 通し演習の採点結果は、`production.sqlite3` の `mock_exam_results`（追記型。`session_id` ごとの `revision` 最大が最新）にある。記述の自己採点・文章理解の正解数・間違えた理由・科目別の点数・時間の使い方まで `result_json` に入っているので、読み取り専用で読めば足りる（`sqlite3 -readonly`）。各問の解答は `answer_attempts` の `mode='mock_exam'`（`session_id` が `mock-` で始まる）。
 - 進み具合を確かめるときは、`card_attempts` を読み取り専用で日別に集計する（`created_at_server`）。肢別過去問集とほかの教材はラボの外なので、記録は無い。利用者に聞く。

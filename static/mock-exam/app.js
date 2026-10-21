@@ -3,8 +3,10 @@
 // 本試験形式の通し演習。1年度分を時間を測って解き、本番と同じ数え方で採点する。
 // 途中経過はこのブラウザのlocalStorageだけに持つ。回答は終了時にまとめて
 // 過去問の回答履歴（POST /api/attempts、mode=mock_exam）へ送る。学習カードの記録には書かない。
+// 採点結果（記述の自己採点・文章理解の正解数・間違えた理由を含む）は POST /api/mock-exam-results へ
+// 版を重ねて送る（2026-10-21追加）。AIが結果を読んで予定を直すため。
 
-const APP_VERSION = 'mock-20261021-3';
+const APP_VERSION = 'mock-20261021-6';
 const API = '../api';
 const STORE_KEY = 'gyouseiMock:v1';
 const STORE_VERSION = 1;
@@ -216,8 +218,33 @@ async function refreshSetup() {
   }
 }
 
+// サーバーに残っている通し演習の最新版を、この端末の履歴より優先して出す（別の端末で解いた分も見える）。
+async function loadServerHistory() {
+  try {
+    const body = await fetchJson(API + '/mock-exam-results');
+    state.serverHistory = ((body && body.results) || []).map((item) => ({
+      id: String(item.sessionId || '').replace(/^mock-/, ''),
+      year: item.examYear,
+      finishedAt: (item.result && item.result.finishedAt) || item.savedAt,
+      elapsedMs: (item.result && item.result.elapsedMs) || 0,
+      total: item.total,
+      withoutWritten: (item.result && item.result.withoutWritten) || 0,
+      legal: item.legal,
+      general: item.general,
+    }));
+  } catch (error) {
+    console.error(error);
+    state.serverHistory = null;
+  }
+  renderHistory();
+}
+
 function renderHistory() {
-  const history = state.store.history || [];
+  const local = state.store.history || [];
+  const server = state.serverHistory || [];
+  const serverIds = new Set(server.map((item) => item.id));
+  const history = server.concat(local.filter((item) => !serverIds.has(item.id)))
+    .sort((a, b) => String(a.finishedAt).localeCompare(String(b.finishedAt)));
   $('history-wrap').hidden = history.length === 0;
   $('history-body').replaceChildren(...history.slice().reverse().map((item) => {
     const row = make('tr');
@@ -836,6 +863,95 @@ async function postAttempts() {
   }
 }
 
+// ---- 採点結果のサーバー保存 -------------------------------------------------
+
+// 送るたびに版（revision）を1つ上げ、eventId は「通し演習のID＋版」で決める。
+// 送れなかった版は中身ごと保存しておき、やり直しでは同じ内容を送る（サーバーは二重に数えない）。
+function resultSnapshot() {
+  const active = state.store.active;
+  const result = computeResult();
+  const bySubject = {};
+  result.bySubject.forEach((row, id) => { bySubject[id || 'missing-legal'] = Object.assign({}, row); });
+  const writtenScores = {};
+  state.slots.forEach((slot) => {
+    if (slot.question && slot.question.format === 'written') writtenScores[slot.number] = Number(active.writtenScores[slot.question.id] || 0);
+  });
+  const wrongNumbers = state.slots
+    .filter((slot) => slot.question && slotOutcome(slot).points < slotOutcome(slot).max)
+    .map((slot) => slot.number);
+  return {
+    year: active.year,
+    minutes: active.minutes,
+    startedAt: active.startedAt,
+    finishedAt: active.finishedAt,
+    elapsedMs: Math.round(active.elapsedMs),
+    total: result.total,
+    legal: result.legal,
+    general: result.general,
+    written: result.written,
+    withoutWritten: result.withoutWritten,
+    inTimeTotal: result.inTimeTotal,
+    overtimeAnswers: result.overtimeAnswers,
+    unansweredInTime: result.unansweredInTime,
+    civilChoice: result.civilChoice,
+    bySubject,
+    writtenScores,
+    missingCorrect: Object.assign({}, active.missingCorrect),
+    reasons: Object.assign({}, active.reasons || {}),
+    wrongNumbers,
+    summaryText: summaryText(result),
+  };
+}
+
+let resultSaveTimer = null;
+function scheduleResultSave() {
+  if (resultSaveTimer) window.clearTimeout(resultSaveTimer);
+  resultSaveTimer = window.setTimeout(() => { resultSaveTimer = null; saveResultToServer(); }, 800);
+}
+
+async function saveResultToServer() {
+  const active = state.store.active;
+  if (!active || active.phase !== 'result') return;
+  const revision = (active.resultRevision || 0) + 1;
+  active.resultRevision = revision;
+  active.resultPending = {
+    eventId: 'mockres-' + active.id + '-r' + revision,
+    sessionId: 'mock-' + active.id,
+    examYear: active.year,
+    revision,
+    savedAt: new Date().toISOString(),
+    appVersion: APP_VERSION,
+    result: resultSnapshot(),
+  };
+  saveStore();
+  await flushResultPending();
+}
+
+async function flushResultPending() {
+  const active = state.store.active;
+  const pending = active && active.resultPending;
+  const status = $('result-save-status');
+  if (!pending) return;
+  status.className = 'save-status';
+  status.textContent = '採点結果をサーバーに保存しています…';
+  try {
+    await fetchJson(API + '/mock-exam-results', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Gyousei-Client': CLIENT_HEADER },
+      body: JSON.stringify(pending),
+    });
+    if (active.resultPending && active.resultPending.eventId === pending.eventId) active.resultPending = null;
+    active.resultSavedRevision = pending.revision;
+    saveStore();
+    status.textContent = '採点結果（記述の自己採点・間違えた理由を含む）をサーバーに保存しました。';
+  } catch (error) {
+    console.error(error);
+    status.className = 'save-status error';
+    status.textContent = '採点結果をサーバーに保存できませんでした。「保存をやり直す」を押してください。';
+    $('retry-save').hidden = false;
+  }
+}
+
 // ---- 採点 -------------------------------------------------------------
 
 function slotOutcome(slot) {
@@ -989,6 +1105,18 @@ function renderResult() {
     $('save-status').className = 'save-status';
     $('save-status').textContent = active.attempts.length + '問の解答を過去問の回答履歴に保存済みです。';
   }
+  const resultStatus = $('result-save-status');
+  if (active.resultPending) {
+    resultStatus.className = 'save-status error';
+    resultStatus.textContent = 'まだサーバーに保存していない採点結果があります。';
+    $('retry-save').hidden = false;
+  } else if (active.resultSavedRevision) {
+    resultStatus.className = 'save-status';
+    resultStatus.textContent = '採点結果（記述の自己採点・間違えた理由を含む）はサーバーに保存済みです。';
+  } else {
+    // この版より前に採点した結果は、まだ一度も送っていない。開いた時点で送る。
+    saveResultToServer();
+  }
 }
 
 function cell(points, max) {
@@ -1097,6 +1225,7 @@ function reasonSelect(slot) {
     renderReasonSummary();
     $('summary-text').textContent = summaryText(computeResult());
     updateHistoryReasons();
+    scheduleResultSave();
   });
   label.append(make('span', {}, '理由'), select);
   return label;
@@ -1284,7 +1413,7 @@ function backToResult() {
 
 function newExam() {
   const active = state.store.active;
-  if (active && active.attempts && active.attempts.some((attempt) => !active.posted[attempt.eventId])) {
+  if (active && ((active.attempts && active.attempts.some((attempt) => !active.posted[attempt.eventId])) || active.resultPending)) {
     if (!window.confirm('まだ回答履歴に保存していない解答があります。保存せずに最初の画面へ戻りますか？（採点結果は「これまでの通し演習」に残ります）')) return;
   }
   state.store.active = null;
@@ -1306,6 +1435,7 @@ function showSetup() {
   $('setup').hidden = false;
   renderSetupYears();
   renderHistory();
+  loadServerHistory();
   refreshSetup();
 }
 
@@ -1381,7 +1511,10 @@ function bind() {
     openActive();
   });
   $('grading-done').addEventListener('click', completeGrading);
-  $('retry-save').addEventListener('click', postAttempts);
+  $('retry-save').addEventListener('click', async () => {
+    await postAttempts();
+    await flushResultPending();
+  });
   $('copy-summary').addEventListener('click', copySummary);
   $('new-exam').addEventListener('click', newExam);
   document.addEventListener('keydown', (event) => {

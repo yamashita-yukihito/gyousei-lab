@@ -149,7 +149,8 @@ class MockExamContractTest(unittest.TestCase):
 
 class MockExamReasonsAndPickedCardsTest(unittest.TestCase):
     def test_reasons_are_local_and_go_into_summary(self) -> None:
-        # 間違えた理由は通し演習の端末内の記録だけに持ち、サーバーへは送らない。コピー用の文と履歴に入れる。
+        # 間違えた理由は過去問の回答（/api/attempts）には混ぜない。コピー用の文と履歴に入れ、
+        # 採点結果としては /api/mock-exam-results へ送る（2026-10-21にサーバー保存へ変えた）。
         source = (PAGE / "app.js").read_text(encoding="utf-8")
         self.assertIn("const REASONS = [", source)
         for label in ("知らなかった", "覚え違い", "2択まで絞って外した", "問題文・肢の読み違い", "時間不足・焦り"):
@@ -159,6 +160,15 @@ class MockExamReasonsAndPickedCardsTest(unittest.TestCase):
         self.assertNotIn("reason", source[start:end])
         self.assertIn("lines.push('間違えた理由：'", source)
         self.assertIn("row.reasons = ", source)
+
+    def test_results_are_saved_to_server_with_revisions(self) -> None:
+        source = (PAGE / "app.js").read_text(encoding="utf-8")
+        self.assertIn("API + '/mock-exam-results'", source)
+        self.assertIn("eventId: 'mockres-' + active.id + '-r' + revision", source)
+        self.assertIn("reasons: Object.assign({}, active.reasons || {})", source)
+        self.assertIn("writtenScores,", source)
+        # 理由を選ぶたびに送らず、少し待ってまとめて1版にする。
+        self.assertIn("scheduleResultSave();", source)
 
     def test_mock_exam_links_wrong_cards_as_a_picked_set(self) -> None:
         source = (PAGE / "app.js").read_text(encoding="utf-8")

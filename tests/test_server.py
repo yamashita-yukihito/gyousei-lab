@@ -2202,3 +2202,79 @@ class SharedRuleDriftTest(unittest.TestCase):
         self.assertIn("from card_edit import", source)
         for owned_by_card_edit in ("def validate_card(", "def check_markup(", "MARKUP = re.compile"):
             self.assertNotIn(owned_by_card_edit, source)
+
+
+class MockExamResultsTest(unittest.TestCase):
+    """通し演習の採点結果（2026-10-21追加）。追記型で、同じ通し演習は版を重ねる。"""
+
+    def setUp(self) -> None:
+        self.temp_directory = tempfile.TemporaryDirectory()
+        self.original_database_path = server.DB_PATH
+        server.DB_PATH = Path(self.temp_directory.name) / "state" / "production.sqlite3"
+        server.init_database()
+
+    def tearDown(self) -> None:
+        server.DB_PATH = self.original_database_path
+        self.temp_directory.cleanup()
+
+    def payload(self, *, revision: int = 1, event_id: str | None = None, reasons: dict | None = None) -> dict:
+        return {
+            "eventId": event_id or f"mockres-m1-r{revision}",
+            "sessionId": "mock-m1",
+            "examYear": 2021,
+            "revision": revision,
+            "savedAt": "2026-10-25T08:00:00Z",
+            "appVersion": "mock-test",
+            "result": {
+                "total": 150, "legal": 118, "general": 32, "written": 30,
+                "writtenScores": {"44": 12, "45": 10, "46": 8},
+                "missingCorrect": {"general": 2},
+                "reasons": reasons or {},
+            },
+        }
+
+    def test_append_and_idempotent_resend(self) -> None:
+        saved, inserted = server.add_mock_exam_result(self.payload())
+        self.assertTrue(inserted)
+        self.assertEqual(saved["total"], 150)
+        again, inserted = server.add_mock_exam_result(self.payload())
+        self.assertFalse(inserted)
+        self.assertEqual(again["eventId"], saved["eventId"])
+
+    def test_conflicting_content_is_rejected(self) -> None:
+        server.add_mock_exam_result(self.payload())
+        changed = self.payload(reasons={"2": "misread"})
+        with self.assertRaises(server.ApiError) as raised:
+            server.add_mock_exam_result(changed)
+        self.assertEqual(raised.exception.status, HTTPStatus.CONFLICT)
+        other_event = self.payload(event_id="mockres-m1-other")
+        with self.assertRaises(server.ApiError) as raised:
+            server.add_mock_exam_result(other_event)
+        self.assertEqual(raised.exception.status, HTTPStatus.CONFLICT)
+
+    def test_validation(self) -> None:
+        bad_total = self.payload()
+        bad_total["result"]["total"] = 151
+        with self.assertRaises(server.ApiError):
+            server.add_mock_exam_result(bad_total)
+        bad_session = self.payload()
+        bad_session["sessionId"] = "session-1"
+        with self.assertRaises(server.ApiError):
+            server.add_mock_exam_result(bad_session)
+
+    def test_list_returns_latest_revision_per_session(self) -> None:
+        server.add_mock_exam_result(self.payload(revision=1))
+        server.add_mock_exam_result(self.payload(revision=2, reasons={"2": "unknown"}))
+        with server.connect() as connection:
+            results = server.list_mock_exam_results(connection)
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["revision"], 2)
+        self.assertEqual(results[0]["result"]["reasons"], {"2": "unknown"})
+
+    def test_rows_cannot_be_updated_or_deleted(self) -> None:
+        server.add_mock_exam_result(self.payload())
+        with server.connect() as connection:
+            with self.assertRaises(sqlite3.DatabaseError):
+                connection.execute("UPDATE mock_exam_results SET total_score = 0")
+            with self.assertRaises(sqlite3.DatabaseError):
+                connection.execute("DELETE FROM mock_exam_results")

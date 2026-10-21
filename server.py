@@ -1347,6 +1347,42 @@ def init_database() -> None:
                 SELECT RAISE(ABORT, 'similarity_decisions is append-only');
             END;
 
+            -- 通し演習（static/mock-exam/）の採点結果。2026-10-21に追加。
+            -- 記述の自己採点・文章理解の正解数・間違えた理由はブラウザにしか無かったので、
+            -- AIが読めるようにサーバーへ残す。理由を選び直すたびに版（revision）を1つ足す追記型で、
+            -- 同じ通し演習の最新は session_id ごとの revision 最大の行。
+            CREATE TABLE IF NOT EXISTS mock_exam_results (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                event_id TEXT NOT NULL UNIQUE,
+                session_id TEXT NOT NULL,
+                exam_year INTEGER NOT NULL CHECK (exam_year BETWEEN 2006 AND 2100),
+                revision INTEGER NOT NULL CHECK (revision BETWEEN 1 AND 100000),
+                total_score INTEGER NOT NULL CHECK (total_score BETWEEN 0 AND 300),
+                legal_score INTEGER NOT NULL CHECK (legal_score BETWEEN 0 AND 244),
+                general_score INTEGER NOT NULL CHECK (general_score BETWEEN 0 AND 56),
+                result_json TEXT NOT NULL,
+                saved_at_client TEXT NOT NULL,
+                app_version TEXT,
+                payload_digest TEXT NOT NULL,
+                created_at_server TEXT NOT NULL,
+                UNIQUE (session_id, revision)
+            );
+
+            CREATE INDEX IF NOT EXISTS idx_mock_exam_results_session
+                ON mock_exam_results(session_id, revision);
+
+            CREATE TRIGGER IF NOT EXISTS mock_exam_results_no_update
+            BEFORE UPDATE ON mock_exam_results
+            BEGIN
+                SELECT RAISE(ABORT, 'mock_exam_results is append-only');
+            END;
+
+            CREATE TRIGGER IF NOT EXISTS mock_exam_results_no_delete
+            BEFORE DELETE ON mock_exam_results
+            BEGIN
+                SELECT RAISE(ABORT, 'mock_exam_results is append-only');
+            END;
+
             """
         )
         if migrated_card_marks:
@@ -1509,6 +1545,120 @@ def progress_statistics(
         },
         "byQuestion": by_question,
     }
+
+
+MAX_MOCK_RESULT_BYTES = 64 * 1024
+
+
+def _score(value: object, field: str, maximum: int) -> int:
+    if type(value) is not int or not 0 <= value <= maximum:
+        raise ApiError(HTTPStatus.BAD_REQUEST, f"invalid {field}")
+    return value
+
+
+def add_mock_exam_result(payload: dict) -> tuple[dict, bool]:
+    """通し演習の採点結果を1版ぶん追記する。同じeventIdを同じ中身で送り直しても二重にしない。"""
+    event_id = payload.get("eventId")
+    session_id = payload.get("sessionId")
+    if not valid_id(event_id):
+        raise ApiError(HTTPStatus.BAD_REQUEST, "invalid eventId")
+    if not valid_id(session_id) or not session_id.startswith("mock-"):
+        raise ApiError(HTTPStatus.BAD_REQUEST, "invalid sessionId")
+    exam_year = payload.get("examYear")
+    if type(exam_year) is not int or not 2006 <= exam_year <= 2100:
+        raise ApiError(HTTPStatus.BAD_REQUEST, "invalid examYear")
+    revision = payload.get("revision")
+    if type(revision) is not int or not 1 <= revision <= 100_000:
+        raise ApiError(HTTPStatus.BAD_REQUEST, "invalid revision")
+    result = payload.get("result")
+    if not isinstance(result, dict):
+        raise ApiError(HTTPStatus.BAD_REQUEST, "result must be an object")
+    result_json = canonical_json(result, "result", MAX_MOCK_RESULT_BYTES)
+    total = _score(result.get("total"), "result.total", 300)
+    legal = _score(result.get("legal"), "result.legal", 244)
+    general = _score(result.get("general"), "result.general", 56)
+    if legal + general != total:
+        raise ApiError(HTTPStatus.BAD_REQUEST, "result.total must equal legal + general")
+    saved_at = parse_timestamp(payload.get("savedAt"), "savedAt", required=True)
+    app_version = short_text(payload.get("appVersion"), "appVersion", 64)
+    normalized = {
+        "eventId": event_id,
+        "sessionId": session_id,
+        "examYear": exam_year,
+        "revision": revision,
+        "result": json.loads(result_json),
+        "savedAt": saved_at,
+        "appVersion": app_version,
+    }
+    payload_digest = hashlib.sha256(
+        canonical_json(normalized, "mockExamResult", MAX_BODY_BYTES).encode("utf-8")
+    ).hexdigest()
+    with WRITE_LOCK, connect() as connection:
+        connection.execute("BEGIN IMMEDIATE")
+        existing = connection.execute(
+            "SELECT * FROM mock_exam_results WHERE event_id = ?", (event_id,)
+        ).fetchone()
+        if existing is not None:
+            if not hmac.compare_digest(existing["payload_digest"], payload_digest):
+                raise ApiError(HTTPStatus.CONFLICT, "eventId already exists with different content")
+            connection.commit()
+            return _mock_result_from_row(existing), False
+        clash = connection.execute(
+            "SELECT 1 FROM mock_exam_results WHERE session_id = ? AND revision = ?",
+            (session_id, revision),
+        ).fetchone()
+        if clash is not None:
+            raise ApiError(HTTPStatus.CONFLICT, "revision already exists for this session")
+        connection.execute(
+            """
+            INSERT INTO mock_exam_results (
+                event_id, session_id, exam_year, revision, total_score, legal_score,
+                general_score, result_json, saved_at_client, app_version,
+                payload_digest, created_at_server
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                event_id, session_id, exam_year, revision, total, legal, general,
+                result_json, saved_at, app_version, payload_digest, utc_now(),
+            ),
+        )
+        row = connection.execute(
+            "SELECT * FROM mock_exam_results WHERE event_id = ?", (event_id,)
+        ).fetchone()
+        connection.commit()
+    return _mock_result_from_row(row), True
+
+
+def _mock_result_from_row(row: sqlite3.Row) -> dict:
+    return {
+        "eventId": row["event_id"],
+        "sessionId": row["session_id"],
+        "examYear": row["exam_year"],
+        "revision": row["revision"],
+        "total": row["total_score"],
+        "legal": row["legal_score"],
+        "general": row["general_score"],
+        "result": json.loads(row["result_json"]),
+        "savedAt": row["saved_at_client"],
+        "appVersion": row["app_version"],
+        "createdAt": row["created_at_server"],
+    }
+
+
+def list_mock_exam_results(connection: sqlite3.Connection) -> list[dict]:
+    """通し演習ごとの最新版（revision 最大）だけを、新しい順に返す。"""
+    rows = connection.execute(
+        """
+        SELECT r.* FROM mock_exam_results AS r
+        JOIN (
+            SELECT session_id, MAX(revision) AS revision
+            FROM mock_exam_results GROUP BY session_id
+        ) AS latest
+          ON latest.session_id = r.session_id AND latest.revision = r.revision
+        ORDER BY r.created_at_server DESC, r.id DESC
+        """
+    ).fetchall()
+    return [_mock_result_from_row(row) for row in rows]
 
 
 def _attempt_from_row(row: sqlite3.Row) -> dict:
@@ -3418,6 +3568,11 @@ class ProductionHandler(BaseHTTPRequestHandler):
             if parsed.path == "/api/learning-analysis":
                 self.send_json(learning_analysis())
                 return
+            if parsed.path == "/api/mock-exam-results":
+                with connect() as connection:
+                    results = list_mock_exam_results(connection)
+                self.send_json({"results": results, "count": len(results)})
+                return
             if parsed.path == "/api/questions":
                 snapshot = CATALOG.load()
                 self.send_json(paginated(question_items(snapshot, query), query, snapshot))
@@ -3537,6 +3692,13 @@ class ProductionHandler(BaseHTTPRequestHandler):
                         "attempt": attempt,
                         **progress,
                     },
+                    HTTPStatus.CREATED if inserted else HTTPStatus.OK,
+                )
+                return
+            if path == "/api/mock-exam-results":
+                result, inserted = add_mock_exam_result(payload)
+                self.send_json(
+                    {"saved": inserted, "duplicate": not inserted, "result": result},
                     HTTPStatus.CREATED if inserted else HTTPStatus.OK,
                 )
                 return

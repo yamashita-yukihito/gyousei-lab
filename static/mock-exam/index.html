@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <title>本試験形式の通し演習</title>
-  <link rel="stylesheet" href="styles.css?v=20261021-3">
+  <link rel="stylesheet" href="styles.css?v=20261021-6">
 </head>
 <body>
   <a class="skip-link" href="#main">本文へ移動</a>
@@ -43,7 +43,7 @@
         <li>タイマーは開始した時刻から数えます。ページを閉じたり再読み込みしたりしても、解答と経過時間は残ります。</li>
         <li>時間が来ても解答は続けられますが、時間を過ぎてから選んだ問題は「時間外」として別に数えます。</li>
         <li>記述式は答案を入力し、終了後に答案例と見比べて自分で点を付けます。</li>
-        <li>終了すると回答を過去問の回答履歴へ保存します（学習カードの記録とは別です）。</li>
+        <li>終了すると回答を過去問の回答履歴へ保存し、採点結果（記述の自己採点・間違えた理由を含む）もサーバーに残します。学習カードの記録とは別です。</li>
       </ul>
       <div class="actions">
         <button id="setup-start" class="primary" type="button" disabled>読込中</button>
@@ -124,8 +124,9 @@
         </table></div>
         <p id="time-summary" class="hint"></p>
         <p id="save-status" class="save-status" aria-live="polite"></p>
+        <p id="result-save-status" class="save-status" aria-live="polite"></p>
         <div class="actions">
-          <button id="retry-save" class="ghost" type="button" hidden>回答履歴の保存をやり直す</button>
+          <button id="retry-save" class="ghost" type="button" hidden>保存をやり直す</button>
           <button id="copy-summary" class="ghost" type="button">結果を文字でコピー</button>
           <button id="new-exam" class="primary" type="button">最初の画面へ</button>
         </div>
@@ -142,6 +143,6 @@
     </section>
   </main>
 
-  <script src="app.js?v=20261021-3"></script>
+  <script src="app.js?v=20261021-6"></script>
 </body>
 </html>
