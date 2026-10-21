@@ -108,8 +108,8 @@ class MockExamScoringTest(unittest.TestCase):
         schedule = (ROOT / "docs" / "STUDY_SCHEDULE.md").read_text(encoding="utf-8")
         planned = {item["date"]: item["year"] for item in self.data["planned"]}
         self.assertEqual(planned, {"2026-10-25": 2021, "2026-11-01": 2020})
-        self.assertRegex(schedule, r"10/25 日 \| \*\*通し演習1\*\* \| 13:00〜16:00 令和3年度")
-        self.assertRegex(schedule, r"11/1 日 \| \*\*通し演習2\*\* \| 13:00〜16:00 令和2年度")
+        self.assertRegex(schedule, r"10/25 日 \| \*\*通し演習1\*\*[^|]*\| 13:00〜16:00 令和3年度")
+        self.assertRegex(schedule, r"11/1 日 \| \*\*通し演習2\*\*[^|]*\| 13:00〜16:00 令和2年度")
         self.assertEqual(self.data["planOn1022"]["year"], 2021)
         self.assertEqual(self.data["planOn1026"]["year"], 2020)
         self.assertIsNone(self.data["planOn1102"])
