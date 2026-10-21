@@ -314,6 +314,10 @@ button:disabled { opacity: .55; cursor: wait; }
 .answer-grid span, .truth-comparison span { color: var(--muted); font-size: 11px; }
 .answer-grid strong { white-space: pre-wrap; line-height: 1.65; }
 .answer-source { margin: 12px 0 0; color: var(--muted); font-size: 12px; }
+.quiz-related-cards { margin-top: 12px; }
+.quiz-related-cards > span { display: block; margin-bottom: 6px; color: var(--muted); font-size: 12px; font-weight: 800; }
+.quiz-related-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.quiz-related-list .secondary-button { min-height: 36px; padding: 6px 12px; font-size: 13px; text-align: left; }
 .accuracy-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
 .accuracy-row > div { display: grid; gap: 1px; padding: 10px 12px; border-left: 3px solid #6fa68b; background: rgba(255,255,255,.5); }
 .accuracy-row span, .accuracy-row small { color: var(--muted); font-size: 11px; }
@@ -957,6 +961,8 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 }
 .card-id-line .source-link:hover { background: #dceee4; }
 .card-id-line .source-link.official { border-color: #ccd7e5; background: #eff3f9; color: #3a5675; }
+/* 民法演習D案の同じ論点の章へ */
+.card-id-line .source-link.drill { border-color: #e6d3a8; background: #fff6dc; color: #7a5710; }
 
 /* 本文の文字装飾（カード側の軽量記法から生成） */
 .mk-strong { color: var(--deep); font-weight: 800; }

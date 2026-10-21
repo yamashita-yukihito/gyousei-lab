@@ -22,7 +22,7 @@ class MinpoDTest(unittest.TestCase):
         data = load_data()
         self.assertEqual("minpo-d@1", data["schemaVersion"])
         self.assertEqual("2026-04-01", data["asOf"])
-        self.assertEqual(5, len(data["chapters"]))
+        self.assertEqual(23, len(data["chapters"]))
         self.assertEqual(6, len(data["cast"]))
 
         chapter_ids = [chapter["id"] for chapter in data["chapters"]]
@@ -59,7 +59,7 @@ class MinpoDTest(unittest.TestCase):
                     if "e-gov.go.jp" in basis["url"]:
                         self.assertIn("occasion_date=20260401", basis["url"])
 
-        self.assertEqual(40, len(question_ids))
+        self.assertEqual(184, len(question_ids))
         self.assertEqual(len(question_ids), len(set(question_ids)))
 
     def test_every_chapter_and_label_mix_true_and_false(self) -> None:
@@ -211,6 +211,103 @@ class MinpoDTest(unittest.TestCase):
         self.assertFalse(questions["minpo-d-inh-008"]["answer"])
         self.assertNotIn("代襲者", json.dumps(questions["minpo-d-inh-003"]["diagram"], ensure_ascii=False))
         self.assertNotIn("個別遺留分1/8", json.dumps(questions["minpo-d-inh-007"]["diagram"], ensure_ascii=False))
+
+    def test_chapters_follow_civil_code_order(self) -> None:
+        chapters = load_data()["chapters"]
+        self.assertEqual(list(range(1, len(chapters) + 1)), [c["number"] for c in chapters])
+        ids = [c["id"] for c in chapters]
+        # 総則→物権→担保物権→債権総論→債権各論→親族・相続。学習日程（docs/STUDY_SCHEDULE.md）と同じ順。
+        self.assertLess(ids.index("declaration-third-party"), ids.index("registration"))
+        self.assertLess(ids.index("registration"), ids.index("mortgage"))
+        self.assertLess(ids.index("mortgage"), ids.index("guarantee-joint"))
+        self.assertLess(ids.index("guarantee-joint"), ids.index("sale-rescission"))
+        self.assertLess(ids.index("sale-rescission"), ids.index("family"))
+        # 2026-10-21に足した6章の位置（占有197条〜・留置権295条〜・贈与549条〜・請負632条〜・事務管理697条〜・遺言960条〜）
+        self.assertLess(ids.index("good-faith-acquisition"), ids.index("possession-easement"))
+        self.assertLess(ids.index("possession-easement"), ids.index("co-ownership"))
+        self.assertLess(ids.index("lien-pledge"), ids.index("mortgage"))
+        self.assertLess(ids.index("gift-loan"), ids.index("sale-rescission"))
+        self.assertLess(ids.index("lease"), ids.index("work-mandate-deposit"))
+        self.assertLess(ids.index("management-unjust"), ids.index("tort"))
+        self.assertEqual(["inheritance", "will"], ids[-2:])
+
+    def test_added_chapters_cite_actual_exam_questions(self) -> None:
+        # 2026-10-20に足した12章と2026-10-21に足した6章は、行政書士試験の過去問で問われた論点だけで作った。
+        # どの問題で問われたかを、年度・問・肢で必ず持つ（原文は載せない）。
+        added = {
+            "declaration-third-party", "limited-capacity", "prescription", "co-ownership",
+            "mortgage", "guarantee-joint", "assignment-setoff", "creditor-protection",
+            "sale-rescission", "lease", "tort", "family",
+            "will", "gift-loan", "work-mandate-deposit", "management-unjust", "lien-pledge", "possession-easement",
+        }
+        pattern = re.compile(r"^(平成|令和)(元|[0-9]+)年問[0-9]+")
+        seen = set()
+        for chapter in load_data()["chapters"]:
+            if chapter["id"] not in added:
+                continue
+            seen.add(chapter["id"])
+            for question in chapter["questions"]:
+                refs = question.get("examRefs")
+                self.assertTrue(refs, question["id"])
+                for ref in refs:
+                    self.assertRegex(ref, pattern, question["id"])
+        self.assertEqual(added, seen)
+
+    def test_added_chapters_legal_boundaries_do_not_regress(self) -> None:
+        questions = {
+            question["id"]: question
+            for chapter in load_data()["chapters"]
+            for question in chapter["questions"]
+        }
+        expected = {
+            # 意思表示：詐欺の第三者は善意無過失、第三者の強迫は相手方が善意でも取り消せる
+            "minpo-d-dec-002": False, "minpo-d-dec-003": False, "minpo-d-dec-004": True,
+            "minpo-d-dec-007": False, "minpo-d-dec-008": True,
+            # 制限行為能力：黙秘だけは詐術でない、催告の効果は相手によって追認／取消し
+            "minpo-d-lc-002": False, "minpo-d-lc-005": False, "minpo-d-lc-006": True, "minpo-d-lc-007": False,
+            # 時効：完成前の第三者は登記不要、完成後は登記の先後、後順位抵当権者は援用不可
+            "minpo-d-pr-001": True, "minpo-d-pr-002": False, "minpo-d-pr-007": False, "minpo-d-pr-008": True,
+            # 抵当権：払渡し後は物上代位不可、転貸料は原則不可、395条の6か月
+            "minpo-d-mtg-002": False, "minpo-d-mtg-005": True, "minpo-d-mtg-006": False,
+            # 債権譲渡・相殺：通知は譲渡人、同時到達でも拒めない、差押え後の他人債権は不可
+            "minpo-d-as-002": False, "minpo-d-as-003": False, "minpo-d-as-004": True, "minpo-d-as-008": False,
+            # 連帯債務：請求・免除は相対効（2020年改正後）
+            "minpo-d-gj-006": True, "minpo-d-gj-007": False,
+            # 賃貸借：敷金は明渡しの後、合意解除は転借人に対抗できない
+            "minpo-d-ls-004": False, "minpo-d-ls-007": False, "minpo-d-ls-008": True,
+            # 売買：受領遅滞後の滅失、軽微な不履行、減額は追完の催告の後
+            "minpo-d-sr-002": False, "minpo-d-sr-004": False, "minpo-d-sr-006": False, "minpo-d-sr-008": True,
+            # 代位・詐害：相続放棄は取消し不可、遺産分割は取消し可
+            "minpo-d-cp-007": False, "minpo-d-cp-008": False,
+            # 不法行為・親族・共有
+            "minpo-d-tt-002": False, "minpo-d-tt-008": False,
+            "minpo-d-fm-002": False, "minpo-d-fm-006": False,
+            "minpo-d-co-002": False, "minpo-d-co-007": False, "minpo-d-co-008": True,
+            # 遺言：成年被後見人は医師2人、カーボン複写は有効、撤回は別方式でよい、受遺者の先死亡で失効、
+            # 相続させる遺言でも法定相続分を超える部分は登記が要る、他人との共有建物に配偶者居住権は成立しない
+            "minpo-d-wil-001": True, "minpo-d-wil-002": False, "minpo-d-wil-003": True, "minpo-d-wil-005": True,
+            "minpo-d-wil-006": False, "minpo-d-wil-007": False, "minpo-d-wil-008": True,
+            # 贈与と貸し借り：履行後は解除不可、無利息が原則、返還時期なしは相当期間の催告、使用貸借の必要費は借主
+            "minpo-d-gl-002": False, "minpo-d-gl-004": False, "minpo-d-gl-005": False, "minpo-d-gl-006": True,
+            "minpo-d-gl-007": True, "minpo-d-gl-008": False,
+            # 請負・委任・寄託：報酬は引渡しと同時、完成後は641条で解除不可、無償委任も善管注意、書面寄託は催告後に解除
+            "minpo-d-wmd-001": False, "minpo-d-wmd-003": False, "minpo-d-wmd-005": False, "minpo-d-wmd-007": True,
+            "minpo-d-wmd-008": False,
+            # 事務管理・不当利得：報酬なし、管理中の損害は請求不可、代理権なし、既登記建物は登記まで移して給付
+            "minpo-d-mu-002": False, "minpo-d-mu-003": True, "minpo-d-mu-004": False, "minpo-d-mu-005": False,
+            "minpo-d-mu-006": False, "minpo-d-mu-007": True, "minpo-d-mu-008": True,
+            # 担保物権：二重譲渡の損害賠償では留置不可、333条の引渡しに占有改定を含む、質権は占有改定で成立しない
+            "minpo-d-lp-001": True, "minpo-d-lp-002": False, "minpo-d-lp-003": False, "minpo-d-lp-005": False,
+            "minpo-d-lp-006": True, "minpo-d-lp-007": True, "minpo-d-lp-008": False,
+            # 占有・地役権・相隣：引渡し前は占有の訴え不可、対抗要件なしの賃借権では請求不可、地役権は不可分、根は自分で切れる
+            "minpo-d-pe-002": False, "minpo-d-pe-003": False, "minpo-d-pe-004": True, "minpo-d-pe-006": False,
+            "minpo-d-pe-007": True, "minpo-d-pe-008": False,
+        }
+        for question_id, answer in expected.items():
+            self.assertIs(answer, questions[question_id]["answer"], question_id)
+        self.assertIn("当然に無効ではなく", questions["minpo-d-fm-002"]["explanation"]["summary"])
+        self.assertIn("805条", questions["minpo-d-fm-002"]["explanation"]["rule"])
+        self.assertIn("1年以内", questions["minpo-d-sr-008"]["statement"])
 
     def test_svg_marker_ids_are_unique_per_render(self) -> None:
         js = (MINPO_D / "app.js").read_text(encoding="utf-8")

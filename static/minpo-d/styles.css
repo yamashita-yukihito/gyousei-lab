@@ -158,6 +158,7 @@ main { max-width: 1040px; margin: 0 auto; padding: 18px 16px 48px; }
 .next-preview { margin: 8px 0 0; padding-left: 10px; border-left: 3px solid var(--green); color: var(--muted); font-size: 12px; }
 .next-preview::before { content: "次は　"; color: var(--green); font-weight: 900; }
 .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.exam-refs p { font-size: 12.5px; color: var(--muted, #5f6b66); }
 .links a { color: var(--blue); font-size: 11.5px; text-decoration: none; border-bottom: 1px solid currentColor; }
 .nav-row { display: flex; justify-content: space-between; gap: 10px; margin-top: 15px; }
 

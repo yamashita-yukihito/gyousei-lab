@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183a34">
+  <title>試験日までの予定 | 行政書士 過去問ラボ</title>
+  <link rel="stylesheet" href="architecture.css?v=20260807-1">
+  <style>
+    .goal-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px;
+      max-width: 760px; margin-top: 20px; border: 1px solid rgba(255,255,255,.18);
+      border-radius: 12px; background: rgba(255,255,255,.18); overflow: hidden; }
+    .goal-strip div { padding: 12px 14px; background: rgba(0,0,0,.18); }
+    .goal-strip span { display: block; font-size: 11px; opacity: .78; }
+    .goal-strip strong { display: block; margin-top: 3px; font-size: 17px; }
+    .plain-table { width: 100%; min-width: 0; border-collapse: collapse; font-size: 14px; background: var(--paper); }
+    .plain-table th, .plain-table td { padding: 9px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .plain-table.daily td:nth-child(2) { white-space: nowrap; }
+    .plain-table thead th { background: var(--green-soft); font-size: 12px; white-space: nowrap; }
+    .plain-table tbody tr:last-child td { border-bottom: 0; }
+    .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+    .note-card { padding: 16px 18px; border: 1px solid var(--line); border-left: 4px solid var(--amber);
+      border-radius: 12px; background: #fffdf6; }
+    .note-card + .note-card { margin-top: 12px; }
+    .note-card h3 { margin: 0 0 6px; font-size: 15px; }
+    .note-card p, .note-card li { font-size: 14px; }
+    .note-card p { margin: 0; }
+    .note-card ul { margin: 0; padding-left: 20px; }
+    .days { display: grid; gap: 10px; }
+    .day { display: grid; grid-template-columns: 128px minmax(0, 1fr); gap: 14px; padding: 14px 16px;
+      border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
+    .day .date { font-weight: 900; font-size: 16px; line-height: 1.3; }
+    .day .date small { display: block; font-weight: 700; font-size: 12px; color: var(--muted); }
+    .day .tag { display: inline-block; margin-top: 6px; padding: 2px 8px; border-radius: 999px;
+      font-size: 11px; font-weight: 800; white-space: nowrap; background: var(--green-soft); color: var(--green); }
+    .day.mock .tag, .day.exam .tag { background: var(--amber-soft); color: var(--amber); }
+    .day.light .tag, .day.eve .tag { background: var(--blue-soft); color: var(--blue); }
+    .day dl { margin: 0; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 4px 8px; font-size: 14px; }
+    .day dt { font-weight: 900; color: var(--muted); }
+    .day dd { margin: 0; }
+    .day.mock, .day.exam { border-left: 4px solid var(--amber); }
+    .day.today { border: 2px solid var(--green); box-shadow: var(--shadow); }
+    .day.today .date::after { content: "今日"; display: inline-block; margin-left: 6px; padding: 1px 7px;
+      border-radius: 999px; background: var(--green); color: #fff; font-size: 11px; vertical-align: 2px; }
+    .day.past { opacity: .55; }
+    @media (max-width: 820px) {
+      .goal-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .day { grid-template-columns: 1fr; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
+  <header class="architecture-hero">
+    <div class="hero-inner">
+      <nav><a href="index.html">← 過去問ラボへ戻る</a><a href="score-plan.html">得点設計</a><a href="study-guide.html">今日の学習の使い方</a><span>予定 2026-10-20版（暫定）</span></nav>
+      <p class="eyebrow">SCHEDULE</p>
+      <h1>試験日までの19日</h1>
+      <p class="lead">1日<strong>約5時間</strong>、合計<strong>約85時間</strong>の予定です。<strong>毎朝ラボのカード、午前は行政法、午後は日替わりの第2科目</strong>という型で回します。10/30ごろにカード246枚が一巡し、11/2からは間違えた肢だけを回す2周目に入ります。<br>初版なので、実際にやってみて合わなければ直します。</p>
+      <div class="goal-strip">
+        <div><span>本試験</span><strong>11/8（日）13:00</strong></div>
+        <div><span>残り</span><strong id="days-left">—</strong></div>
+        <div><span>1日の目安</span><strong>約5時間</strong></div>
+        <div><span>狙う幅</span><strong>165〜190点</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">DAILY</p>
+        <h2>通常日の型</h2>
+        <p>時間が足りない日は<strong>④→③の順に削ります。①と②は削りません。</strong></p>
+      </div>
+      <div class="table-scroll">
+        <table class="plain-table daily">
+          <thead><tr><th>枠</th><th>時間</th><th>やること</th></tr></thead>
+          <tbody>
+            <tr><td>①</td><td>60分</td><td>ラボ「今日の学習」（カード）</td></tr>
+            <tr><td>②</td><td>90分</td><td>行政法の肢別過去問集（その日の範囲）</td></tr>
+            <tr><td>③</td><td>75分</td><td>第2科目の肢別過去問集（その日の範囲）</td></tr>
+            <tr><td>④</td><td>30分</td><td>日替わり。参考書・動画で②③の間違いを確かめる／記述／文章理解</td></tr>
+            <tr><td>⑤</td><td>15分</td><td>寝る前に、その日間違えた肢とカードを見直す</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note-card" style="margin-top:14px">
+        <h3>肢別過去問集では、間違えた肢と迷った肢に印を付ける</h3>
+        <p>11/2からの2周目は、その印の付いた肢だけを回します。</p>
+      </div>
+      <div class="note-card" style="margin-top:12px">
+        <h3>民法の日は、③の前半で<a href="minpo-d/">民法演習D</a>の対応章を読む（Ｄの行）</h3>
+        <p>「答えから読む」で8問を縦に読むだけなので、1章10〜15分です。人物関係を先に頭に入れてから肢別過去問集を解くと、事例問題で迷いにくくなります。時間が足りない日は1章だけで構いません。各問の解説に、その論点が出た本試験の年度・問・肢が書いてあります。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">CALENDAR</p>
+        <h2>日ごとの予定</h2>
+        <p><a id="jump-today" href="#today" hidden>今日の予定へ ↓</a>　②＝行政法、③＝第2科目、④＝その他です。範囲名は一般的な章立てで書いています。お使いの肢別過去問集の章に合わせて読み替えてください。</p>
+      </div>
+      <div class="days" id="days"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">SETUP</p>
+        <h2>ラボの設定（最初に1回だけ）</h2>
+      </div>
+      <div class="table-scroll">
+        <table class="plain-table">
+          <tbody>
+            <tr><th>出題範囲</th><td>今日の学習（間隔反復）</td></tr>
+            <tr><th>1日の量</th><td>しっかり（はじめて25枚＋期日の復習）</td></tr>
+            <tr><th>カードの種類</th><td><strong>すべて</strong>（8月の「暗記ものだけ」から戻す）</td></tr>
+            <tr><th>頻出度・科目</th><td>すべて</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:14px;color:var(--muted)">「1日の量」の欄は、出題範囲を「今日の学習」にすると出てきます。出題範囲は開くたびに「おまかせ」へ戻るので毎回選び直します（1日の量・カードの種類は端末ごとに記憶されます）。①の60分は目安です。<strong>その日の枚数を解き終えたら終わり</strong>で、一巡中は60〜90分かかってかまいません。<br>通し演習の日は「復習だけ」を30分にします。11/2からは、①のあとに学習ビュー「苦手・要観察」を15分足します。</p>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">MOCK</p>
+        <h2>通し演習のあとに記録すること</h2>
+      </div>
+      <p style="font-size:14px;color:var(--muted)"><a href="mock-exam/">通し演習</a>のページで解くと、下の3つは採点結果の画面に自動で出ます。間違えた問題ごとに理由を選び、「間違えた問題のカードをまとめて解く」で関連カードも解いておきます。文章理解（問58〜60）はラボに入っていないので、試験研究センターの問題PDFで解き、採点のときに正解数を入れます。</p>
+      <div class="note-card">
+        <h3>記録する3つ</h3>
+        <ul>
+          <li>科目別の点数と、記述を除いた合計</li>
+          <li>基礎知識が24点（6問）を超えたか</li>
+          <li>時間切れで解けなかった問題の数と、どこで時間を使ったか</li>
+        </ul>
+      </div>
+      <div class="note-card">
+        <h3>1回目の結果を見て予定を直す</h3>
+        <ul>
+          <li>基礎知識が28点を下回った → 11/3の基礎知識を10/29へ前倒しし、④に文章理解を増やす</li>
+          <li>民法の択一が3問以下 → 民法の日の④を<a href="minpo-d/">民法演習D</a>の「答えから読む」にする</li>
+          <li>時間切れが出た → 2回目は、解く順番を決めてから臨む</li>
+          <li>記述を除いた合計が130点以下 → 11/2の商法を半日に減らし、行政法の2周目へ回す</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="section">
+      <p class="return-arrow"><a href="index.html">← 過去問ラボへ戻る</a>　<a href="score-plan.html">得点設計 →</a></p>
+      <p style="color:var(--muted);font-size:13px">2026-10-20作成の初版です。AI向けの同じ内容は <code>docs/STUDY_SCHEDULE.md</code> にあります。日程を変えたら、そちらと、このページの <code>DAYS</code> を同じ作業で直します。</p>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      // 日程の正本は docs/STUDY_SCHEDULE.md の§5。変えたら両方直す。
+      // type: normal / mock / light / eve / exam / prep
+      var DAYS = [
+        { d: "2026-10-20", type: "prep", tag: "準備（夜1時間）", r: "", s: "", o: "ラボを設定し（下の「ラボの設定」）、①を1回解く。教材の章立てをこの表の範囲に対応させ、通し演習に使う年度を用意する" },
+        { d: "2026-10-21", type: "normal", dr: "民法演習Dの第1章 意思表示と第三者・第2章 制限行為能力を「答えから読む」",  r: "総論1：一般原則・行政組織・行政立法", s: "民法 総則1：制限行為能力・意思表示", o: "参考書・動画で間違いを確かめる" },
+        { d: "2026-10-22", type: "normal", dr: "民法演習Dの第3章 無権代理・第4章 時効を「答えから読む」",  r: "総論2：行政行為・行政裁量", s: "民法 総則2：代理・時効", o: "参考書・動画" },
+        { d: "2026-10-23", type: "normal", dr: "民法演習Dの第5章 二重譲渡・第6章 即時取得を「答えから読む」",  r: "総論3：行政強制・行政罰・行政調査・行政指導・行政契約・行政計画", s: "民法 物権1：物権変動・登記・即時取得", o: "参考書・動画" },
+        { d: "2026-10-24", type: "normal", dr: "民法演習Dの第8章 共有・第10章 抵当権・第11章 法定地上権を「答えから読む」（余裕があれば第7章 占有の訴え・地役権、第9章 留置権・質権も）",  r: "行政手続法", s: "民法 物権2：占有・用益物権・担保物権", o: "参考書・動画" },
+        { d: "2026-10-25", type: "mock", tag: "通し演習1", r: "13:00〜16:00　令和3年度を本番形式で解く（ラボの「通し演習」）", s: "", o: "午前に①「復習だけ」30分。16:30〜18:00に記述の自己採点と結果の確認" },
+        { d: "2026-10-26", type: "normal", dr: "民法演習Dの第12章 保証と連帯債務・第13章 債権譲渡と相殺・第14章 債権者代位権と詐害行為取消権を「答えから読む」",  r: "行政不服審査法", s: "民法 債権総論：債務不履行・債権者代位・詐害行為取消・保証・連帯・債権譲渡・相殺", o: "記述30分（行政法）" },
+        { d: "2026-10-27", type: "normal", dr: "民法演習Dの第16章 売買と解除・第17章 賃貸借・第20章 不法行為を「答えから読む」（余裕があれば第15章 贈与と貸し借り、第18章 請負・委任・寄託、第19章 事務管理・不当利得も）",  r: "行政事件訴訟法1：処分性・原告適格・訴えの利益", s: "民法 債権各論：売買・賃貸借・請負・委任・不法行為", o: "記述30分（民法）" },
+        { d: "2026-10-28", type: "normal", dr: "民法演習Dの第21章 親族・第22章 相続・第23章 遺言を「答えから読む」",  r: "行政事件訴訟法2：審理・判決・執行停止・無効等確認・不作為・義務付け・差止め・当事者訴訟", s: "民法 親族・相続", o: "記述30分（民法）" },
+        { d: "2026-10-29", type: "light", tag: "軽め（3時間）", r: "国家賠償法・損失補償", s: "休み", o: "休み" },
+        { d: "2026-10-30", type: "normal", r: "地方自治法1：住民・直接請求・議会と長", s: "憲法 人権", o: "記述30分（行政法）" },
+        { d: "2026-10-31", type: "normal", r: "地方自治法2：住民監査請求・住民訴訟・条例・関与", s: "憲法 統治（＋多肢選択）", o: "文章理解3問" },
+        { d: "2026-11-01", type: "mock", tag: "通し演習2", r: "13:00〜16:00　令和2年度を本番形式で解く（ラボの「通し演習」）", s: "", o: "10/25と同じ" },
+        { d: "2026-11-02", type: "normal", tag: "2周目", r: "間違えた肢：総論・行政手続法", s: "商法・会社法（商法総則・商行為・設立だけ）", o: "記述30分" },
+        { d: "2026-11-03", type: "normal", tag: "2周目", r: "間違えた肢：行政不服審査法・行政事件訴訟法", s: "基礎知識の法令系：行政書士法・住基・戸籍・個人情報保護・情報公開・公文書管理", o: "文章理解3問" },
+        { d: "2026-11-04", type: "normal", tag: "2周目", r: "間違えた肢：国家賠償法・地方自治法", s: "民法の間違えた肢（総則・物権）", o: "記述30分" },
+        { d: "2026-11-05", type: "normal", tag: "2周目", r: "行政法の多肢選択（過去の出題を数年分）", s: "憲法・基礎法学の間違えた肢", o: "基礎知識：情報通信の用語" },
+        { d: "2026-11-06", type: "normal", tag: "2周目", r: "全科目の間違えた肢", s: "民法の間違えた肢（債権・親族・相続）", o: "行政手続法と行政不服審査法の条文を通読（60分）" },
+        { d: "2026-11-07", type: "eve", tag: "前日（2時間）", r: "行政三法の比較（カードの⑦）", s: "", o: "①「復習だけ」30分＋「苦手・要観察」30分。持ち物を確かめる。新しいことはしない。早く寝る" },
+        { d: "2026-11-08", type: "exam", tag: "本試験", r: "13:00〜16:00", s: "", o: "朝は「苦手・要観察」を15分だけ" }
+      ];
+      var DEFAULT_TAG = { normal: "通常（約5時間）" };
+      var WEEK = ["日", "月", "火", "水", "木", "金", "土"];
+
+      function el(tag, cls, text) {
+        var node = document.createElement(tag);
+        if (cls) node.className = cls;
+        if (text != null) node.textContent = text;
+        return node;
+      }
+
+      // 日付は日本時間で判定する。端末のタイムゾーンに依存させない。
+      var todayJst = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Tokyo", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+
+      var EXAM = new Date("2026-11-08T16:00:00+09:00");
+      var daysLeft = Math.max(0, Math.ceil((EXAM - new Date()) / 86400000));
+      document.getElementById("days-left").textContent = daysLeft + "日";
+
+      var root = document.getElementById("days");
+      var todayNode = null;
+      DAYS.forEach(function (day) {
+        var parts = day.d.split("-");
+        var date = new Date(Date.UTC(+parts[0], +parts[1] - 1, +parts[2]));
+        var card = el("article", "day " + day.type);
+        if (day.d === todayJst) { card.classList.add("today"); card.id = "today"; todayNode = card; }
+        else if (day.d < todayJst) card.classList.add("past");
+
+        var head = el("div");
+        var dateNode = el("div", "date", (+parts[1]) + "/" + (+parts[2]) + "（" + WEEK[date.getUTCDay()] + "）");
+        head.appendChild(dateNode);
+        head.appendChild(el("span", "tag", day.tag || DEFAULT_TAG[day.type] || ""));
+        card.appendChild(head);
+
+        var dl = el("dl");
+        var regular = day.type === "normal" || day.type === "light";
+        var rows = regular
+          ? [["①", "ラボ「今日の学習」60分"], ["②", day.r], ["③", day.s], ["Ｄ", day.dr], ["④", day.o]]
+          : [["◎", day.r], ["＋", day.o]];
+        rows
+          .forEach(function (row) {
+            if (!row[1]) return;
+            dl.appendChild(el("dt", null, row[0]));
+            dl.appendChild(el("dd", null, row[1]));
+          });
+        card.appendChild(dl);
+        root.appendChild(card);
+      });
+
+      if (todayNode) document.getElementById("jump-today").hidden = false;
+    })();
+  </script>
+</body>
+</html>

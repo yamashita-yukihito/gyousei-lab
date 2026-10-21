@@ -460,6 +460,15 @@ function renderExplanation(chapter, question, reading, answered) {
     el('p', '', aliasText(ex.remedy || chapter.remedyGuide || '別の契約上・手続上の救済がないかを確認します。', chapter)),
   );
   deepGrid.appendChild(remedy);
+  // どの本試験で問われた論点かを示す。原文は載せず、年度・問・肢だけを出す。
+  if ((question.examRefs || []).length) {
+    const refs = el('article', 'exam-refs');
+    refs.append(
+      el('h3', '', '本試験での出題'),
+      el('p', '', question.examRefs.join('／')),
+    );
+    deepGrid.appendChild(refs);
+  }
   const links = el('div', 'links');
   (question.legalBasis || []).forEach((basis) => {
     const link = el('a', '', basis.label);

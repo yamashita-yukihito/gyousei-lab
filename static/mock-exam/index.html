@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>本試験形式の通し演習</title>
+  <link rel="stylesheet" href="styles.css?v=20261021-3">
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へ移動</a>
+  <header class="head">
+    <div class="head-inner">
+      <div>
+        <p class="kicker">GYOUSEI LAB / MOCK EXAM</p>
+        <h1>本試験形式の通し演習</h1>
+      </div>
+      <a class="back-link" href="../">行政書士過去問ラボへ戻る</a>
+    </div>
+    <p class="head-lead">1年度分を180分で解き、科目別の点数・足切り・時間切れを本番と同じ数え方で出します。間違えた問題からは、対応する学習カードと民法演習Dの章へ戻れます。</p>
+  </header>
+
+  <main id="main">
+    <div id="load-error" class="notice error" role="alert" hidden></div>
+    <div id="storage-warning" class="notice warn" hidden>このブラウザでは途中経過を保存できません。ページを閉じると解答が消えます。</div>
+
+    <!-- 開始前 -->
+    <section id="setup" class="panel" aria-labelledby="setup-title" hidden>
+      <p class="kicker dark">SETUP</p>
+      <h2 id="setup-title">解く年度を選ぶ</h2>
+      <div class="setup-grid">
+        <label class="field"><span>年度</span><select id="setup-year"></select></label>
+        <label class="field"><span>制限時間</span><select id="setup-minutes">
+          <option value="180">180分（本番と同じ）</option>
+          <option value="120">120分</option>
+          <option value="90">90分</option>
+        </select></label>
+      </div>
+      <p id="setup-recommend" class="hint"></p>
+      <dl id="setup-summary" class="setup-summary"></dl>
+      <p id="setup-missing" class="hint warn-text" hidden></p>
+      <ul class="rules">
+        <li>タイマーは開始した時刻から数えます。ページを閉じたり再読み込みしたりしても、解答と経過時間は残ります。</li>
+        <li>時間が来ても解答は続けられますが、時間を過ぎてから選んだ問題は「時間外」として別に数えます。</li>
+        <li>記述式は答案を入力し、終了後に答案例と見比べて自分で点を付けます。</li>
+        <li>終了すると回答を過去問の回答履歴へ保存します（学習カードの記録とは別です）。</li>
+      </ul>
+      <div class="actions">
+        <button id="setup-start" class="primary" type="button" disabled>読込中</button>
+      </div>
+      <div id="history-wrap" hidden>
+        <h3 class="sub-title">これまでの通し演習</h3>
+        <div class="table-wrap"><table class="history-table">
+          <thead><tr><th scope="col">実施日</th><th scope="col">年度</th><th scope="col">合計</th><th scope="col">記述抜き</th><th scope="col">法令等</th><th scope="col">基礎知識</th><th scope="col">時間</th></tr></thead>
+          <tbody id="history-body"></tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <!-- 解答中 -->
+    <section id="exam" aria-label="解答中" hidden>
+      <div class="exam-bar" role="region" aria-label="残り時間と進み具合">
+        <div class="timer-box">
+          <span id="timer-label">残り時間</span>
+          <strong id="timer" aria-live="off">--:--:--</strong>
+        </div>
+        <div class="bar-count"><span>解答済み</span><strong id="answered-count">0</strong></div>
+        <div class="bar-actions">
+          <button id="pause" class="ghost" type="button">一時停止</button>
+          <button id="finish" class="primary" type="button">解答を終える</button>
+        </div>
+      </div>
+      <div id="paused-banner" class="notice warn" hidden>一時停止中です。タイマーは止まっています。<button id="resume" class="primary small" type="button">再開する</button></div>
+      <div id="overtime-banner" class="notice error" hidden>制限時間を過ぎました。このあと選んだ解答は「時間外」として数えます。</div>
+
+      <nav class="question-map panel" aria-label="問題一覧">
+        <div class="map-legend"><span class="dot answered"></span>解答済み<span class="dot flagged"></span>見直し<span class="dot missing"></span>未収録</div>
+        <div id="question-map"></div>
+      </nav>
+
+      <article id="question" class="panel question-panel" aria-live="polite">
+        <div class="question-top">
+          <div>
+            <p id="question-section" class="kicker dark"></p>
+            <h2 id="question-title"></h2>
+          </div>
+          <label class="flag-toggle"><input id="flag" type="checkbox"> 見直す</label>
+        </div>
+        <p id="question-instruction" class="instruction" hidden></p>
+        <p id="question-text" class="question-text"></p>
+        <p id="question-note" class="source-note" hidden></p>
+        <div id="answer-area"></div>
+        <div id="review-answer" class="review-answer" hidden></div>
+        <div class="question-nav">
+          <button id="prev" class="ghost" type="button">前の問題</button>
+          <button id="next" class="primary" type="button">次の問題</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- 記述の自己採点 -->
+    <section id="grading" class="panel" aria-labelledby="grading-title" hidden>
+      <p class="kicker dark">SELF GRADING</p>
+      <h2 id="grading-title">記述式を採点する</h2>
+      <p class="hint">答案例と見比べて、1問20点のうち何点取れたかを選びます。キーワードが2つ合っていれば8〜12点、3つそろって文章が通れば16〜20点が目安です。</p>
+      <div id="written-grades"></div>
+      <div id="missing-inputs"></div>
+      <div class="actions">
+        <button id="grading-back" class="ghost" type="button">解答に戻る</button>
+        <button id="grading-done" class="primary" type="button">採点結果を出す</button>
+      </div>
+    </section>
+
+    <!-- 結果 -->
+    <section id="result" aria-label="採点結果" hidden>
+      <div class="panel">
+        <p class="kicker dark">RESULT</p>
+        <h2 id="result-title">採点結果</h2>
+        <div id="verdicts" class="verdicts"></div>
+        <p class="hint">過去問の年度は、肢別過去問集やラボのカードで同じ肢をすでに解いていることがあります。その分、本番より点が少し高めに出ることがあります。</p>
+        <div class="table-wrap"><table class="score-table">
+          <thead><tr><th scope="col">科目</th><th scope="col">択一</th><th scope="col">多肢</th><th scope="col">記述</th><th scope="col">合計</th></tr></thead>
+          <tbody id="score-body"></tbody>
+        </table></div>
+        <p id="time-summary" class="hint"></p>
+        <p id="save-status" class="save-status" aria-live="polite"></p>
+        <div class="actions">
+          <button id="retry-save" class="ghost" type="button" hidden>回答履歴の保存をやり直す</button>
+          <button id="copy-summary" class="ghost" type="button">結果を文字でコピー</button>
+          <button id="new-exam" class="primary" type="button">最初の画面へ</button>
+        </div>
+        <details class="summary-text"><summary>コピーされる文</summary><pre id="summary-text"></pre></details>
+      </div>
+      <div class="panel">
+        <h2>間違えた問題・解けなかった問題</h2>
+        <p class="hint">問題番号を押すと、自分の解答と正解を並べて見直せます。学習カードと民法演習Dへのリンクは、その問題を出典にしているものだけを出します。間違えた理由を選んでおくと、内訳とコピー用の文に入ります。</p>
+        <div id="cards-status" class="hint"></div>
+        <div id="wrong-actions" class="actions" hidden></div>
+        <div id="reason-summary" class="reason-summary"></div>
+        <div id="wrong-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js?v=20261021-3"></script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20260807-1";
+  const APP_VERSION = "20261021-2";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -26,6 +26,9 @@
     studyLastCorrect: null,
     // 各評価を選んだときの次回間隔（サーバーが返す目安）。
     todayQueueStates: null,
+    // 「指定したカード」ビュー。通し演習の結果などからURLで渡されたカードIDの並び。
+    pickedCardIds: [],
+    pickedLabel: "",
     overview: {},
     dataInventory: {},
     questions: [],
@@ -110,6 +113,7 @@
       syncPendingAttempts();
       scheduleCardPendingSync();
     });
+    loadMinpoDrillIndex();
 
     try {
       let studyReady = false;
@@ -147,7 +151,8 @@
       $("global-loading").hidden = true;
       const requestedTab = location.hash.slice(1);
       // cardIdの指定はタブ指定より優先し、必ず○×学習の対象カードを開く。
-      const openedRequestedCard = studyReady && openRequestedStudyCard(location.search);
+      const openedRequestedCard = studyReady && openRequestedStudyCard(location.search)
+        || studyReady && openRequestedPickedCards(location.search);
       if (
         !openedRequestedCard
         && requestedTab
@@ -495,7 +500,7 @@
     });
     $("study-view").addEventListener("change", () => {
       updateStudyViewControls();
-      if ($("study-scope").value === "today") {
+      if (!isPickedStudyView() && $("study-scope").value === "today") {
         loadTodayQueue();
         return;
       }
@@ -719,10 +724,15 @@
     return $("study-view").value === "rapid";
   }
 
+  function isPickedStudyView() {
+    return $("study-view").value === "picked";
+  }
+
   function updateStudyViewControls() {
     const weakness = isWeaknessStudyView();
     const rapid = isRapidStudyView();
-    $("study-scope").disabled = weakness;
+    const picked = isPickedStudyView();
+    $("study-scope").disabled = weakness || picked;
     $("study-set-field").hidden = !rapid;
     $("study-key-hint").hidden = !rapid;
     $("panel-study").classList.toggle("rapid-view", rapid);
@@ -731,7 +741,9 @@
       $("study-timer").hidden = true;
       $("rapid-summary").hidden = true;
     }
-    $("study-mode-note").textContent = weakness
+    $("study-mode-note").textContent = picked
+      ? "指定したカードだけを、渡された順に出します（" + (state.pickedLabel || "指定") + "）。科目・分野・出題範囲の絞り込みは使いません。回答はふつうどおり記録し、今日の学習の期日にも反映します。終わったら学習ビューを「通常」に戻してください。"
+      : weakness
       ? "苦手・要観察では、同じカードIDの回答から要観察・苦手だけを表示します。2回連続で正解して「回復中」になった問題は、このビューから外れます。"
       : rapid
         ? "高速○×では、Aの本試験文だけを見て即答します。1問10秒が目安です。迷ったらBを開いてかまいませんが、時間は計り続けます。習得済みの判定は通常ビューと同じです。"
@@ -974,6 +986,7 @@
   }
 
   function getFilteredStudyCards() {
+    if (isPickedStudyView()) return pickedStudyCards();
     const cards = getStudyTopicCards();
     if (isRapidStudyView()) {
       return state.rapidQueue.map((id) => state.studyById.get(id)).filter(Boolean);
@@ -992,6 +1005,11 @@
     return studyScopePool(cards);
   }
 
+  // 指定したカードは絞り込みを通さない。渡された全部を、渡された順に出す。
+  function pickedStudyCards() {
+    return state.pickedCardIds.map((id) => state.studyById.get(id)).filter(Boolean);
+  }
+
   function refreshStudyPool() {
     if (isRapidStudyView()) buildRapidQueue();
     state.studyFiltered = getFilteredStudyCards();
@@ -1004,6 +1022,10 @@
   }
 
   function renderStudyScopeSummary() {
+    if (isPickedStudyView()) {
+      $("study-scope-summary").textContent = "指定したカード " + pickedStudyCards().length + "枚";
+      return;
+    }
     const cards = getStudyTopicCards();
     if (isRapidStudyView()) {
       const done = state.rapidLog.length;
@@ -1217,8 +1239,45 @@
         nodes.push(make("span", { className: "source-link archive" }, "元問題 " + label + "（現行法で再確認済み）"));
       }
     });
+    // 民法演習D案に同じ論点の事例があれば、その章へ飛べるようにする。
+    // D案の章は答え入りで読む作りだが、リンクの有無や章名から○×は割れない。
+    (minpoDrillByCard.get(studyCardId(item)) || []).forEach((chapter) => {
+      nodes.push(make("a", {
+        href: "minpo-d/#mode=read&chapter=" + encodeURIComponent(chapter.id),
+        className: "source-link drill"
+      }, "民法演習D：" + chapter.label + " →"));
+    });
     node.replaceChildren(...nodes);
     node.hidden = !nodes.length;
+  }
+
+  // D案の正本 minpo-d/chapters.json の各問の cardId から、カード→章の対応を作る。
+  // 読めなくても学習は止めない（リンクが出ないだけ）。
+  let minpoDrillByCard = new Map();
+  function loadMinpoDrillIndex() {
+    fetch("minpo-d/chapters.json", { headers: { Accept: "application/json" } })
+      .then((res) => {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.json();
+      })
+      .then((data) => {
+        const map = new Map();
+        (Array.isArray(data.chapters) ? data.chapters : []).forEach((chapter) => {
+          const label = String(chapter.title || chapter.id).split("――")[0];
+          (Array.isArray(chapter.questions) ? chapter.questions : []).forEach((question) => {
+            if (!question || !question.cardId) return;
+            const list = map.get(question.cardId) || [];
+            if (!list.some((entry) => entry.id === chapter.id)) list.push({ id: chapter.id, label });
+            map.set(question.cardId, list);
+          });
+        });
+        minpoDrillByCard = map;
+        // 先に描いたカードへも反映する
+        if (state.studyCurrent) renderSourceLinks($("study-source-links"), state.studyCurrent);
+        const card = state.cards && state.cards[state.cardIndex];
+        if (card) renderSourceLinks($("editorial-source-links"), card);
+      })
+      .catch((error) => console.warn("民法演習Dの章一覧を読めませんでした", error));
   }
 
   function renderStudyMarkControls(item) {
@@ -1380,7 +1439,7 @@
     // これまでは scope の値（review など）が入っていて区別できなかった。
     const studyMode = isRapidStudyView()
       ? "rapid"
-      : isWeaknessStudyView() ? "weakness" : $("study-scope").value;
+      : isWeaknessStudyView() ? "weakness" : isPickedStudyView() ? "picked" : $("study-scope").value;
     const responseMs = state.studyStartedAt === null
       ? null
       : Math.max(0, Math.min(86400000, Math.round(performance.now() - state.studyStartedAt)));
@@ -1652,6 +1711,39 @@
     if (!cardId) return false;
     activateTab("study");
     requestAnimationFrame(() => openRelatedStudyCard(cardId));
+    return true;
+  }
+
+  // 通し演習の結果から「間違えた問題のカード」をまとめて渡す入口。?cardIds=a,b,c&from=mock
+  // cardId と同じく、読込済みカードIDとの完全一致だけを通し、URLの値をHTMLへ流さない。
+  function requestedPickedCardIds(search) {
+    const raw = new URLSearchParams(search || "").get("cardIds");
+    if (!raw || raw.length > 8000) return [];
+    const ids = [];
+    raw.split(",").forEach((value) => {
+      const id = value.trim();
+      if (id && id.length <= 128 && state.studyById.has(id) && !ids.includes(id)) ids.push(id);
+    });
+    return ids.slice(0, 200);
+  }
+
+  function openRequestedPickedCards(search) {
+    const ids = requestedPickedCardIds(search);
+    if (!ids.length) return false;
+    const from = new URLSearchParams(search || "").get("from");
+    state.pickedCardIds = ids;
+    state.pickedLabel = from === "mock" ? "通し演習で間違えた問題のカード" : "指定されたカード";
+    const option = $("study-view").querySelector('option[value="picked"]');
+    option.hidden = false;
+    option.disabled = false;
+    option.textContent = state.pickedLabel + "（" + ids.length + "枚）";
+    activateTab("study");
+    // 「今日の学習」のまま入ると、位置表示の内訳やキューの組み直しが混ざる。全問題に切り替えておく。
+    $("study-scope").value = "all";
+    $("study-pace-row").hidden = true;
+    $("study-view").value = "picked";
+    updateStudyViewControls();
+    refreshStudyPool();
     return true;
   }
 
@@ -2815,9 +2907,54 @@
     $("quiz-selected-answer").textContent = formatAnswer(selected, question);
     $("quiz-correct-answer").textContent = formatAnswer(answerValue(question.answer), question);
     $("quiz-answer-source").textContent = verificationLabel(state.checkById.get(question.id));
+    renderQuizRelatedCards(question);
     renderQuestionAccuracy(question.id);
     renderOverallAccuracy();
     $("quiz-result").focus({ preventScroll: true });
+  }
+
+  // 答え合わせのあと、その問題を出典にした学習カードへ戻る入口を出す。
+  // ⑤の肢（relatedQuestionEvidence の questionId）と出典（sourceRefs の年度・問番号）の両方から引く。
+  function renderQuizRelatedCards(question) {
+    const wrap = $("quiz-related-cards");
+    const cards = cardsForQuestion(question);
+    wrap.hidden = !cards.length;
+    if (!cards.length) {
+      wrap.replaceChildren();
+      return;
+    }
+    const list = make("div", { className: "quiz-related-list" });
+    cards.forEach((card) => {
+      const button = make("button", { type: "button", className: "secondary-button" }, card.topic + "／" + card.subtopic);
+      button.addEventListener("click", () => {
+        activateTab("study");
+        requestAnimationFrame(() => openRelatedStudyCard(studyCardId(card)));
+      });
+      list.appendChild(button);
+    });
+    wrap.replaceChildren(make("span", {}, "この問題を出典にした学習カード"), list);
+  }
+
+  function cardsForQuestion(question) {
+    const year = question && question.exam && question.exam.year;
+    const number = question && question.exam && question.exam.number;
+    const found = new Map();
+    state.studyDecks.forEach((card) => {
+      const fromEvidence = (card.relatedPastQuestions || []).some((ref) => {
+        const evidence = state.evidenceById.get(ref.choiceId);
+        return evidence && evidence.questionId === question.id;
+      });
+      const fromSource = (card.sourceRefs || []).some((ref) => eraYearToYear(ref.eraYear) === year && Number(ref.questionNumber) === number);
+      if (fromEvidence || fromSource) found.set(studyCardId(card), card);
+    });
+    return Array.from(found.values());
+  }
+
+  function eraYearToYear(value) {
+    const match = /^(平成|令和)(\d+|元)年/.exec(String(value || ""));
+    if (!match) return null;
+    const n = match[2] === "元" ? 1 : Number(match[2]);
+    return match[1] === "令和" ? 2018 + n : 1988 + n;
   }
 
   function moveQuiz(delta) {
