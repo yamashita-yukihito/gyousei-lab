@@ -101,6 +101,16 @@ function displayName(castId, chapter) {
   return castAliases(chapter).get(castId) || cast.name;
 }
 
+// 「令和6年問28肢4」のような出題箇所から、合格道場の問題ページのURLを引く。
+// 対応表 examLinks は年度と問番号（例 "2024-q28"）で引く。無ければ null を返して文字だけにする。
+function examRefUrl(ref) {
+  const match = /^(平成|令和)(元|\d+)年問(\d+)/.exec(String(ref || ''));
+  if (!match) return null;
+  const year = (match[1] === '平成' ? 1988 : 2018) + (match[2] === '元' ? 1 : Number(match[2]));
+  const url = ((state.data && state.data.examLinks) || {})[`${year}-q${match[3]}`];
+  return typeof url === 'string' && /^https:\/\/www\.pro\.goukakudojyo\.com\//.test(url) ? url : null;
+}
+
 function aliasText(value, chapter) {
   let result = String(value || '');
   if (state.mode !== 'exam') return result;
@@ -461,12 +471,25 @@ function renderExplanation(chapter, question, reading, answered) {
   );
   deepGrid.appendChild(remedy);
   // どの本試験で問われた論点かを示す。原文は載せず、年度・問・肢だけを出す。
+  // 直近10年は合格道場の問題ページへ飛べるようにする。旧10年（平成18〜27年度）は
+  // URLを出さない決まり（AGENTS.md §5.3）なので、chapters.json の examLinks に無く文字だけになる。
   if ((question.examRefs || []).length) {
     const refs = el('article', 'exam-refs');
-    refs.append(
-      el('h3', '', '本試験での出題'),
-      el('p', '', question.examRefs.join('／')),
-    );
+    const line = el('p');
+    question.examRefs.forEach((ref, index) => {
+      if (index) line.appendChild(document.createTextNode('／'));
+      const url = examRefUrl(ref);
+      if (url) {
+        const link = el('a', '', ref);
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noreferrer';
+        line.appendChild(link);
+      } else {
+        line.appendChild(document.createTextNode(ref));
+      }
+    });
+    refs.append(el('h3', '', '本試験での出題'), line);
     deepGrid.appendChild(refs);
   }
   const links = el('div', 'links');

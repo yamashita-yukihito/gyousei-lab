@@ -253,6 +253,27 @@ class MinpoDTest(unittest.TestCase):
                     self.assertRegex(ref, pattern, question["id"])
         self.assertEqual(added, seen)
 
+    def test_exam_refs_link_only_recent_questions_to_goukakudojyo(self) -> None:
+        # 「本試験での出題」は直近10年（平成28〜令和7年度）だけ合格道場の問題ページへ結ぶ（2026-10-22）。
+        # 旧10年のURLは画面へ出さない決まり（AGENTS.md §5.3）なので、対応表に入れない。
+        data = load_data()
+        links = data["examLinks"]
+        url = re.compile(r"^https://www\.pro\.goukakudojyo\.com/worksheet2/w_main(nendo|arch)\.php\?queID=[0-9]+$")
+        for key, value in links.items():
+            self.assertRegex(key, r"^20(1[6-9]|2[0-5])-q[0-9]+$")
+            self.assertRegex(value, url)
+        pattern = re.compile(r"^(平成|令和)(元|[0-9]+)年問([0-9]+)")
+        for chapter in data["chapters"]:
+            for question in chapter["questions"]:
+                for ref in question.get("examRefs") or []:
+                    era, number, q = pattern.match(ref).groups()
+                    year = (1988 if era == "平成" else 2018) + (1 if number == "元" else int(number))
+                    if year >= 2016:
+                        self.assertIn(f"{year}-q{q}", links, (question["id"], ref))
+        js = (MINPO_D / "app.js").read_text(encoding="utf-8")
+        self.assertIn("function examRefUrl(ref)", js)
+        self.assertIn("examRefUrl(ref)", js)
+
     def test_added_chapters_legal_boundaries_do_not_regress(self) -> None:
         questions = {
             question["id"]: question
