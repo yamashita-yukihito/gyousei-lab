@@ -433,6 +433,15 @@ function renderExplanation(chapter, question, reading, answered) {
     verdictClass = 'wrong';
   }
   box.append(el('p', `verdict ${verdictClass}`, verdictText), el('p', 'answer-summary', aliasText(ex.summary, chapter)));
+  // 対応する学習カードがある問は、答えのすぐ下にカードへのリンクを出す。
+  // 以前は開閉式の欄の奥（条文リンクの隣）に置いていて、見つけにくかった（2026-10-22に移した）。
+  if (question.cardId) {
+    const jump = el('p', 'card-jump');
+    const cardLink = el('a', '', 'この論点の学習カードを開く →');
+    cardLink.href = `../?cardId=${encodeURIComponent(question.cardId)}#study`;
+    jump.appendChild(cardLink);
+    box.appendChild(jump);
+  }
 
   const flow = el('div', 'logic-flow');
   [
@@ -471,8 +480,8 @@ function renderExplanation(chapter, question, reading, answered) {
   );
   deepGrid.appendChild(remedy);
   // どの本試験で問われた論点かを示す。原文は載せず、年度・問・肢だけを出す。
-  // 直近10年は合格道場の問題ページへ飛べるようにする。旧10年（平成18〜27年度）は
-  // URLを出さない決まり（AGENTS.md §5.3）なので、chapters.json の examLinks に無く文字だけになる。
+  // 合格道場の問題ページへ飛べるようにする（直近10年に加え、2026-10-22に利用者の指示で旧10年も）。
+  // chapters.json の examLinks に無い出題は文字だけになる。
   if ((question.examRefs || []).length) {
     const refs = el('article', 'exam-refs');
     const line = el('p');
@@ -500,11 +509,6 @@ function renderExplanation(chapter, question, reading, answered) {
     link.rel = 'noreferrer';
     links.appendChild(link);
   });
-  if (question.cardId) {
-    const cardLink = el('a', '', '対応する学習カードを開く');
-    cardLink.href = `../?cardId=${encodeURIComponent(question.cardId)}#study`;
-    links.appendChild(cardLink);
-  }
   deepGrid.appendChild(links);
   deep.appendChild(deepGrid);
   box.appendChild(deep);

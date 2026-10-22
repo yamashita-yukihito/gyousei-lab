@@ -1789,6 +1789,27 @@ class CardEditTest(unittest.TestCase):
             self.assertIn("閉じていない装飾記法", context.exception.message)
         self.assertEqual(self.document, self.stored())
 
+    def test_rejects_cross_field_comparison_without_bundle_required_fields(self) -> None:
+        # ⑥はbundle生成が id・comparedCategory・comparedTopic なども必須にしている。
+        # 検証で見ていなかったため、欠けたカードがbundle生成で初めて止まった（2026-10-22）。
+        missing_id = [{"title": "比べる", "explanation": "違い。", "memoryCue": "見分け方。"}]
+        with self.assertRaises(server.ApiError) as context:
+            server.save_card_edit(
+                {"cardId": "card-1", "editable": {"crossFieldComparisons": missing_id}}
+            )
+        self.assertIn("⑥[0] に id が必要です", context.exception.message)
+
+        complete = {
+            "id": "cross-1", "comparedCategory": "行政法", "comparedTopic": "比べる相手",
+            "title": "比べる", "explanation": "違い。", "memoryCue": "見分け方。",
+        }
+        with self.assertRaises(server.ApiError) as context:
+            server.save_card_edit(
+                {"cardId": "card-1", "editable": {"crossFieldComparisons": [complete, dict(complete)]}}
+            )
+        self.assertIn("⑥の id が重複しています", context.exception.message)
+        self.assertEqual(self.document, self.stored())
+
     def test_unchanged_edit_does_not_touch_the_canonical(self) -> None:
         before = self.canonical_path.read_bytes()
         result = server.save_card_edit(

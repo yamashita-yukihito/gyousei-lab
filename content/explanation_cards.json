@@ -7047,11 +7047,11 @@
         "humanReview": "goukakudojyo-explanation-primary"
       },
       "frequency": {
-        "label": "繰り返し出題",
-        "occurrences": 5,
-        "yearCount": 5,
-        "recentOccurrences": 4,
-        "archiveOccurrences": 1,
+        "label": "重要論点",
+        "occurrences": 2,
+        "yearCount": 2,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "同一・逆向き・条件・例外・比較を問題単位で集計"
       },

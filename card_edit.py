@@ -198,10 +198,23 @@ def validate_card(
                 if MARKUP.search(str(row.get(key) or "")):
                     problems.append(f"{card_id}: ⑦の行（{key}）に装飾記法は使えません")
 
-    for comparison in card.get("crossFieldComparisons") or []:
+    # ⑥はbundle生成（production_bundle._project_cross_field_comparison）が次の6項目を必須にしている。
+    # ここで見ていなかったため、欠けたカードが検証を通り、bundle生成で初めて止まっていた（2026-10-22に追加）。
+    comparison_ids: list[str] = []
+    for index, comparison in enumerate(card.get("crossFieldComparisons") or []):
+        if not isinstance(comparison, dict):
+            problems.append(f"{card_id}: ⑥[{index}] はオブジェクトにしてください")
+            continue
+        for key in ("id", "comparedCategory", "comparedTopic", "title", "explanation", "memoryCue"):
+            if not isinstance(comparison.get(key), str) or not comparison[key].strip():
+                problems.append(f"{card_id}: ⑥[{index}] に {key} が必要です")
+        if isinstance(comparison.get("id"), str):
+            comparison_ids.append(comparison["id"])
         target = comparison.get("relatedCardId")
         if target and target not in known_ids:
             problems.append(f"{card_id}: ⑥のrelatedCardId {target} が存在しません")
+    if len(comparison_ids) != len(set(comparison_ids)):
+        problems.append(f"{card_id}: ⑥の id が重複しています")
 
     figures = card.get("figures")
     if figures is not None:
