@@ -297,7 +297,38 @@
         "gk-pip-exemption-types-001",
         "min-security-pledge-001",
         "min-security-mortgage-interference-001",
-        "min-obligation-joint-notice-001"
+        "min-obligation-joint-notice-001",
+        "min-general-third-party-fraud-duress-001",
+        "min-contract-sublease-mutual-termination-001",
+        "min-property-possession-recovery-001",
+        "min-security-retention-lien-transferee-001",
+        "min-security-mortgage-lessee-grace-001",
+        "min-contract-lease-necessary-expenses-001",
+        "min-contract-work-remuneration-timing-001",
+        "min-contract-illegal-cause-performance-001",
+        "min-inheritance-specific-succession-registration-001",
+        "gyo-litigation-dismissal-rejection-001",
+        "gyo-litigation-special-circumstances-001",
+        "gyo-litigation-issue-suit-001",
+        "gyo-act-discretion-standard-001",
+        "gyo-aia-decision-kinds-001",
+        "gyo-litigation-intervention-001",
+        "gyo-litigation-claim-restriction-001",
+        "gyo-aps-guidance-definition-001",
+        "gyo-aia-order-disposition-001",
+        "gyo-litigation-pm-objection-001",
+        "gyo-act-administrative-organ-001",
+        "gyo-aps-due-process-narita-001",
+        "gyo-litigation-no-provisional-disposition-001",
+        "gyo-local-involvement-types-001",
+        "gyo-aps-guidance-application-001",
+        "gyo-act-policy-change-trust-001",
+        "gyo-aps-reason-degree-001",
+        "gyo-litigation-ikata-review-001",
+        "gyo-litigation-medical-recommendation-001",
+        "con-exp-censorship-prior-restraint-001",
+        "con-civil-servant-political-act-001",
+        "con-gov-cabinet-order-limits-001"
       ]
     }
   ],
@@ -804,11 +835,11 @@
         "humanReview": "prototype"
       },
       "frequency": {
-        "label": "繰り返し出題",
-        "occurrences": 5,
-        "yearCount": 4,
-        "recentOccurrences": 4,
-        "archiveOccurrences": 1,
+        "label": "頻出",
+        "occurrences": 7,
+        "yearCount": 6,
+        "recentOccurrences": 5,
+        "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "同一・逆向き・条件・例外・比較を問題単位で集計"
       },
@@ -1045,10 +1076,10 @@
         "humanReview": "prototype"
       },
       "frequency": {
-        "label": "重要論点",
-        "occurrences": 2,
-        "yearCount": 2,
-        "recentOccurrences": 1,
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 2,
         "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "同一・逆向き・条件・例外・比較を問題単位で集計"
@@ -1896,10 +1927,10 @@
       },
       "frequency": {
         "label": "繰り返し出題",
-        "occurrences": 4,
-        "yearCount": 4,
+        "occurrences": 5,
+        "yearCount": 5,
         "recentOccurrences": 3,
-        "archiveOccurrences": 1,
+        "archiveOccurrences": 2,
         "scope": "平成18年度〜令和7年度",
         "basis": "同一・逆向き・条件・例外・比較を問題単位で集計"
       },
@@ -2526,10 +2557,10 @@
       },
       "frequency": {
         "label": "頻出",
-        "occurrences": 6,
-        "yearCount": 6,
+        "occurrences": 7,
+        "yearCount": 7,
         "recentOccurrences": 6,
-        "archiveOccurrences": 0,
+        "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "同一・逆向き・条件・例外・比較を問題単位で集計"
       },
@@ -3517,9 +3548,9 @@
       },
       "frequency": {
         "label": "頻出",
-        "occurrences": 8,
-        "yearCount": 8,
-        "recentOccurrences": 4,
+        "occurrences": 9,
+        "yearCount": 9,
+        "recentOccurrences": 5,
         "archiveOccurrences": 4,
         "scope": "平成18年度〜令和7年度",
         "basis": "同一・逆向き・条件・例外・比較を問題単位で集計"
@@ -3625,9 +3656,9 @@
       },
       "frequency": {
         "label": "頻出",
-        "occurrences": 8,
-        "yearCount": 6,
-        "recentOccurrences": 5,
+        "occurrences": 9,
+        "yearCount": 7,
+        "recentOccurrences": 6,
         "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "同一・逆向き・条件・例外・比較を問題単位で集計"
@@ -3989,10 +4020,10 @@
         "humanReview": "goukakudojyo-explanation-primary"
       },
       "frequency": {
-        "label": "頻出",
-        "occurrences": 9,
+        "label": "最頻出",
+        "occurrences": 10,
         "yearCount": 9,
-        "recentOccurrences": 6,
+        "recentOccurrences": 7,
         "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "独立再監査済み。問題単位で同一・逆向き・条件・例外・比較を集計"
@@ -4795,10 +4826,10 @@
       },
       "frequency": {
         "label": "頻出",
-        "occurrences": 8,
-        "yearCount": 7,
+        "occurrences": 9,
+        "yearCount": 8,
         "recentOccurrences": 4,
-        "archiveOccurrences": 4,
+        "archiveOccurrences": 5,
         "scope": "平成18年度〜令和7年度",
         "basis": "独立再監査済み。問題単位で同一・逆向き・条件・例外・比較を集計"
       },
@@ -5347,10 +5378,10 @@
         "humanReview": "goukakudojyo-explanation-primary"
       },
       "frequency": {
-        "label": "頻出",
-        "occurrences": 8,
-        "yearCount": 7,
-        "recentOccurrences": 4,
+        "label": "最頻出",
+        "occurrences": 10,
+        "yearCount": 9,
+        "recentOccurrences": 6,
         "archiveOccurrences": 4,
         "scope": "平成18年度〜令和7年度",
         "basis": "独立再監査済み。問題単位で同一・逆向き・条件・例外・比較を集計"
@@ -10591,9 +10622,9 @@
       ],
       "frequency": {
         "label": "頻出",
-        "occurrences": 7,
-        "yearCount": 7,
-        "recentOccurrences": 4,
+        "occurrences": 6,
+        "yearCount": 6,
+        "recentOccurrences": 3,
         "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
@@ -11448,10 +11479,10 @@
       ],
       "frequency": {
         "label": "頻出",
-        "occurrences": 7,
-        "yearCount": 6,
+        "occurrences": 8,
+        "yearCount": 7,
         "recentOccurrences": 3,
-        "archiveOccurrences": 4,
+        "archiveOccurrences": 5,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
       },
@@ -11863,10 +11894,10 @@
       ],
       "frequency": {
         "label": "繰り返し出題",
-        "occurrences": 4,
-        "yearCount": 4,
+        "occurrences": 5,
+        "yearCount": 5,
         "recentOccurrences": 2,
-        "archiveOccurrences": 2,
+        "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "憲法120問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
       },
@@ -12896,10 +12927,10 @@
         "評議の秘密"
       ],
       "frequency": {
-        "label": "重要論点",
-        "occurrences": 2,
-        "yearCount": 2,
-        "recentOccurrences": 2,
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 3,
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "基礎法学40問を1問ずつ突き合わせて集計（平成18〜27年度は非公開の頻度判定専用のため問題文を表示しない）"
@@ -14384,9 +14415,9 @@
       },
       "frequency": {
         "label": "最頻出",
-        "occurrences": 15,
-        "yearCount": 12,
-        "recentOccurrences": 8,
+        "occurrences": 16,
+        "yearCount": 13,
+        "recentOccurrences": 9,
         "archiveOccurrences": 7,
         "scope": "平成18年度〜令和7年度",
         "basis": "処分の効果消滅後に取消しで回復できる法律上の利益が残るかを直接扱う問題を集計"
@@ -14484,10 +14515,10 @@
       },
       "frequency": {
         "label": "最頻出",
-        "occurrences": 11,
-        "yearCount": 8,
-        "recentOccurrences": 2,
-        "archiveOccurrences": 9,
+        "occurrences": 15,
+        "yearCount": 12,
+        "recentOccurrences": 5,
+        "archiveOccurrences": 10,
         "scope": "平成18年度〜令和7年度",
         "basis": "実質的・形式的当事者訴訟の分類・典型と他の訴訟との区別を直接扱う問題を集計"
       },
@@ -14559,11 +14590,11 @@
         "humanReview": "ai-cross-review-plus-primary-source-2026-07-29"
       },
       "frequency": {
-        "label": "繰り返し出題",
-        "occurrences": 5,
-        "yearCount": 5,
+        "label": "頻出",
+        "occurrences": 6,
+        "yearCount": 6,
         "recentOccurrences": 3,
-        "archiveOccurrences": 2,
+        "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "仮の義務付け・仮の差止めについて本案訴訟の係属要件を直接扱う問題を集計"
       },
@@ -15611,10 +15642,10 @@
       },
       "frequency": {
         "label": "頻出",
-        "occurrences": 7,
-        "yearCount": 7,
+        "occurrences": 6,
+        "yearCount": 6,
         "recentOccurrences": 2,
-        "archiveOccurrences": 5,
+        "archiveOccurrences": 4,
         "scope": "平成18年度〜令和7年度",
         "basis": "法規命令・行政規則・委任命令・通達を主題とする行政立法の問題を集計"
       },
@@ -15706,9 +15737,9 @@
       },
       "frequency": {
         "label": "最頻出",
-        "occurrences": 17,
-        "yearCount": 14,
-        "recentOccurrences": 7,
+        "occurrences": 18,
+        "yearCount": 15,
+        "recentOccurrences": 8,
         "archiveOccurrences": 10,
         "scope": "平成18年度〜令和7年度",
         "basis": "意見公募手続の対象・実施・例外・結果公示を直接扱う関連問題を集計"
@@ -17609,10 +17640,10 @@
       },
       "frequency": {
         "label": "頻出",
-        "occurrences": 6,
-        "yearCount": 6,
-        "recentOccurrences": 5,
-        "archiveOccurrences": 1,
+        "occurrences": 9,
+        "yearCount": 9,
+        "recentOccurrences": 6,
+        "archiveOccurrences": 3,
         "scope": "平成18年度〜令和7年度",
         "basis": "行政上の秩序罰（過料）を科す主体と手続を直接扱う問題を集計"
       },
@@ -17676,9 +17707,9 @@
       },
       "frequency": {
         "label": "頻出",
-        "occurrences": 8,
-        "yearCount": 6,
-        "recentOccurrences": 3,
+        "occurrences": 9,
+        "yearCount": 7,
+        "recentOccurrences": 4,
         "archiveOccurrences": 5,
         "scope": "平成18年度〜令和7年度",
         "basis": "法律上の争訟にあたるかを正面から判定させる問題を集計（憲法枠の統治行為論を含む）"
@@ -18911,10 +18942,10 @@
         }
       ],
       "frequency": {
-        "label": "重要論点",
-        "occurrences": 2,
+        "label": "繰り返し出題",
+        "occurrences": 3,
         "yearCount": 2,
-        "recentOccurrences": 2,
+        "recentOccurrences": 3,
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "不利益処分の理由提示の時期と、理由の具体性を直接扱う問題を集計"
@@ -18982,11 +19013,11 @@
         }
       ],
       "frequency": {
-        "label": "重要論点",
-        "occurrences": 2,
-        "yearCount": 2,
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
         "recentOccurrences": 2,
-        "archiveOccurrences": 0,
+        "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "法の一般原則（信義則・施策変更・権利濫用）を直接扱う問題を集計"
       },
@@ -19057,10 +19088,10 @@
         }
       ],
       "frequency": {
-        "label": "重要論点",
-        "occurrences": 2,
+        "label": "繰り返し出題",
+        "occurrences": 3,
         "yearCount": 2,
-        "recentOccurrences": 2,
+        "recentOccurrences": 3,
         "archiveOccurrences": 0,
         "scope": "平成18年度〜令和7年度",
         "basis": "行政上の法律関係における民法の適用の有無を直接扱う問題を集計"
@@ -19128,11 +19159,11 @@
         }
       ],
       "frequency": {
-        "label": "重要論点",
-        "occurrences": 2,
-        "yearCount": 2,
-        "recentOccurrences": 2,
-        "archiveOccurrences": 0,
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 4,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 1,
         "scope": "平成18年度〜令和7年度",
         "basis": "民衆訴訟・機関訴訟の定義、提起要件、準用関係を直接扱う問題を集計"
       },
@@ -20520,11 +20551,11 @@
         }
       ],
       "frequency": {
-        "label": "繰り返し出題",
-        "occurrences": 4,
-        "yearCount": 4,
-        "recentOccurrences": 2,
-        "archiveOccurrences": 2,
+        "label": "頻出",
+        "occurrences": 7,
+        "yearCount": 7,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 4,
         "scope": "平成18年度〜令和7年度",
         "basis": "通達の法的性質・処分性を正面から問う問題を集計"
       },
@@ -21502,6 +21533,3000 @@
         "両罰規定",
         "行為者を罰するほか",
         "罰金刑"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "min-general-third-party-fraud-duress-001",
+      "category": "民法",
+      "topic": "総則",
+      "subtopic": "第三者による詐欺・強迫（96条2項）",
+      "clusterId": "civil-intent",
+      "variants": {
+        "a": "この動産が骨董品であり、Aが、%%鑑定人%%の故意に行った虚偽の鑑定結果に騙された結果、Bに対して時価よりも相当程度安価で当該動産を譲渡するという意思表示をした場合、__Bがこの事情を知っているか否かにかかわらず__、Aは当該意思表示を==取り消すことができない==。",
+        "b": "Aさんは、持っていた骨董品をBさんに安く売ると申し込みました。安くしたのは、%%鑑定士%%がわざとうその鑑定結果を出したからです。だましたのは買主のBさんではなく、取引の外にいる鑑定士です。\n\nこの場合、__Bさんがうその鑑定を知っていたとしても__、Aさんは売るという意思表示を==取り消せません==。",
+        "bCasual": "登場するのは3人です。\n・売る人（A）\n・買う人（B）＝取引の%%相手方%%\n・うその鑑定をした%%鑑定人%%＝取引の外の**第三者**\n\nだましたのが相手方ではなく第三者のとき、Aは、__相手方Bがその事情を知っていたかどうかに関係なく__、意思表示を==取り消せません==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "%%第三者%%（鑑定人）の**詐欺** → 相手方Bが知っていても → ==取り消せない=="
+      },
+      "correct": false,
+      "correction": "取り消せる場合があります。相手方以外の第三者が詐欺をしたときは、%%相手方%%がその事実を__知り、又は知ることができたとき__に限り、意思表示を==取り消すことができます==@@（民法96条2項）@@。Bが鑑定人のうそを知っていれば、Aは取り消せます。なお、第三者が!!強迫!!をした場合は、相手方が知らなくても取り消せます（96条2項は詐欺だけの規定です）。",
+      "memoryPoint": "第三者の**詐欺** → 相手方が__知り、又は知ることができた__ときだけ取り消せる。第三者の**強迫** → ==相手方の事情に関係なく取り消せる==。",
+      "explanations": {
+        "normal": "詐欺または強迫による意思表示は、取り消すことができます（民法96条1項）。ただし、だましたのが相手方ではなく第三者の場合は、相手方がその事実を知り、又は知ることができたときに限り取り消せます（同条2項）。何も知らず、知ることもできなかった相手方の取引を守るためです。2017年の改正（2020年4月施行）で「知ることができたとき」が加わり、相手方に過失があるときも取り消せるようになりました。\n\n強迫には2項のような制限がありません。第三者が強迫した場合は、相手方の事情に関係なく取り消せます。",
+        "deepDive": {
+          "background": "詐欺の被害者にも「だまされた」という落ち度が少しはある、という見方が民法の根底にあります。そこで、事情を知らず知ることもできなかった相手方との関係では、取引の安全を優先して取消しを認めません。一方、強迫された人は自由に意思を決めること自体を奪われており、落ち度を問えません。だから第三者の強迫は、相手方が善意無過失でも取り消せます。",
+          "trap": "定番は3つです。1つ目は「相手方が知っているか否かにかかわらず取り消せない」と書く形で、@@平成22年問27肢3@@がこれです。相手方が知っていれば取り消せます。2つ目は詐欺と強迫の入れ替えで、@@平成26年問28肢3@@は第三者の強迫を「相手方が善意無過失なら取り消せない」としていました。強迫にこの制限はありません。3つ目は代理人がだました場合です。代理人は96条2項の「第三者」に当たらないので、本人が知らなくても相手方は取り消せます（@@平成21年問27肢5@@）。改正前の問題は「知っていたときに限り」でしたが、今は「知り、又は知ることができたとき」です。",
+          "example": "Aが骨董品をBに売るとき、鑑定士がわざと低い鑑定額を出したとします。Bがそのうそを知っていた、または少し注意すれば分かったなら、Aは売買を取り消せます。Bがまったく知り得なかったなら取り消せません。同じ場面で、鑑定士がAを脅して売らせたのなら、Bが何も知らなくてもAは取り消せます。"
+        },
+        "commonSense": "だまされた人を守るのは当然ですが、何も知らずに取引した相手まで巻き込むのは酷です。ただ、相手がうそを知っていた、または気づけたのなら、守る理由はありません。脅された人は、そもそも自分で決めたとは言えないので、相手が知らなくても守られます。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法96条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:337",
+          "choiceNumber": "3",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:97",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:397",
+          "choiceNumber": "5",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:337:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:97:choice:3",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:397:choice:5",
+          "relation": "exception"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "archive-question-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 5,
+        "yearCount": 5,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 3,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "相手方以外の人による詐欺・強迫と取消しの可否を正面から問う問題を集計"
+      },
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-min-general-third-party-fraud-duress-001-1",
+          "comparedCategory": "民法",
+          "comparedTopic": "虚偽表示と94条2項の「第三者」",
+          "title": "だれを守る規定か：虚偽表示の第三者（94条2項）と、第三者の詐欺の相手方（96条2項）",
+          "explanation": "94条2項は、虚偽表示のあとで取引に入った第三者を守る規定で、善意であれば足ります。96条2項は、第三者がだましたときに取引の相手方を守る規定で、相手方が善意無過失のときに限り取消しを封じます。",
+          "memoryCue": "94条2項＝あとから来た第三者・善意で足りる。96条2項＝取引の相手方・善意無過失が要る。",
+          "relatedCardId": "min-general-false-representation-third-party-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "鑑定人の故意に行った虚偽の鑑定結果",
+        "知っているか否かにかかわらず",
+        "強迫",
+        "欺罔行為"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "min-contract-sublease-mutual-termination-001",
+      "category": "民法",
+      "topic": "債権各論",
+      "subtopic": "原賃貸借の合意解除と転借人（613条3項）",
+      "clusterId": "civil-lease",
+      "variants": {
+        "a": "BがAの承諾を得て甲建物を%%D%%に**転貸**したが、その後、__A・B間の合意により__本件賃貸借が解除された場合、B・D間の転貸借が期間満了前であっても、AはDに対して甲建物の明渡しを==求めることができる==。",
+        "b": "大家の%%Aさん%%は、建物をBさんに貸しました。Bさんは、Aさんの了解を得て、その建物を%%Dさん%%にまた貸ししています。\n\nその後、AさんとBさんが__話し合って__A・B間の賃貸借を終わらせました。このときAさんは、Dさんとの又貸しの期間がまだ残っていても、Dさんに建物から出ていくよう==求めることができます==。",
+        "bCasual": "① AがBに建物を貸す\n② BがAの承諾を得てDに**転貸**する（Dは転借人）\n③ A・Bが__話し合って__賃貸借を終わらせる（**合意解除**）\n④ AがDに明渡しを求める\n\n④の時点でB・D間の転貸借の期間は残っていますが、AはDに明渡しを==求められます==。",
+        "bCasualStyle": "時間の流れで追う",
+        "c": "承諾転貸 → 原賃貸借を**合意解除** → 転借人Dに==明渡しを求められる=="
+      },
+      "correct": false,
+      "correction": "求めることはできません。賃借人が適法に転貸した場合、賃貸人は、賃借人との間の賃貸借を__合意により解除__したことをもって転借人に==対抗することができません==@@（民法613条3項本文）@@。ただし、解除の当時に賃貸人が賃借人の債務不履行による解除権を持っていたときは、対抗できます（同項ただし書）。賃料不払いで解除したときは、転借人に払う機会を与えなくても明渡しを求められます@@（最判昭37.3.29）@@。",
+      "memoryPoint": "**合意解除**は転借人に==対抗できない==。__債務不履行による解除__なら対抗できる（転借人への催告も要らない）。",
+      "explanations": {
+        "normal": "転貸借は、もとの賃貸借（原賃貸借）の上に乗っている関係です。原賃貸借が終われば転借人も使えなくなるのが原則ですが、賃貸人と賃借人が話し合って原賃貸借を終わらせた場合は別扱いです。民法613条3項本文は、賃貸人は合意解除を転借人に対抗できないと定めています。2020年4月施行の改正で、それまでの判例を条文にしたものです。\n\nただし、合意解除の当時に賃借人の債務不履行による解除権があったときは、対抗できます（同項ただし書）。債務不履行で解除されたときは、賃貸人は転借人に明渡しを求められます。その前に転借人へ賃料を払う機会を与える必要もありません（最判昭37.3.29）。",
+        "deepDive": {
+          "background": "賃貸人は転貸を承諾した以上、転借人がその建物を使うことを認めています。それなのに、賃貸人と賃借人が話し合うだけで転借人の立場を消せるとすると、転借人は自分の関わらないところで住まいを失います。合意解除は当事者が自由に選んだ終わり方なので、承諾した転借人には主張させない、というのが613条3項の考え方です。賃料不払いのような債務不履行は賃貸人にはどうにもならない事情なので、転借人にも対抗できます。",
+          "trap": "合意解除と債務不履行解除の入れ替えが定番です。@@平成24年問33@@は、肢3で合意解除でも明渡しを求められると書き（誤り）、肢4で賃料不払いで解除しても転貸借の期間中は明渡しを求められないと書きました（誤り）。@@平成18年問33肢ア@@も「合意解除をCに対抗できる」として誤りです。借地上の建物の賃借人も同じ扱いで、土地の賃貸借を合意解除しても、特段の事情がない限り建物の賃借人に明渡しを求められません（@@最判昭38.2.21・平成25年問32肢オ@@）。",
+          "example": "Aのマンションの一室をBが借り、Aの承諾を得てDに又貸ししていました。AとBが「もう契約をやめよう」と話し合って賃貸借を終わらせても、Dはそのまま住み続けられます。これに対し、Bが家賃を払わないのでAが契約を解除したときは、Dは部屋を明け渡さなければなりません。"
+        },
+        "commonSense": "大家と借主が二人で話をつけただけで、何も悪くない又借りの人が追い出されるのは筋が通りません。借主の家賃不払いのように、大家にはどうにもならない理由で終わったときとは分けて考えます。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法613条3項",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:224",
+          "choiceNumber": "3",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:583",
+          "choiceNumber": "ア",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:162",
+          "choiceNumber": "オ",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:224:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:224:choice:4",
+          "relation": "exception"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:583:choice:ア",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:162:choice:オ",
+          "relation": "application"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "archive-question-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 4,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 3,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "原賃貸借の合意解除・債務不履行解除と転借人（借地上の建物の賃借人を含む）を正面から問う問題を集計"
+      },
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-min-contract-sublease-mutual-termination-001-1",
+          "comparedCategory": "民法",
+          "comparedTopic": "承諾転貸と転借人の直接履行義務",
+          "title": "転借人の立場：賃料の直接請求（613条1項）と、原賃貸借が終わったとき（613条3項）",
+          "explanation": "613条1項は、転借人が賃貸人に対して直接義務を負う場面です。3項は、原賃貸借が終わったことを転借人に対抗できるかの場面で、合意解除なら対抗できず、債務不履行解除なら対抗できます。",
+          "memoryCue": "1項＝転借人は賃貸人へ直接払う義務がある。3項＝合意解除は対抗できない、債務不履行解除は対抗できる。",
+          "relatedCardId": "min-contract-sublease-direct-rent-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "合意により本件賃貸借が解除",
+        "賃料不払い",
+        "合意解除",
+        "対抗することができる"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "min-property-possession-recovery-001",
+      "category": "民法",
+      "topic": "物権",
+      "subtopic": "占有回収の訴え（占有代理人・効果・占有していない者）",
+      "clusterId": "civil-real-claim",
+      "variants": {
+        "a": "Aが所有する動産丁（以下「丁」という。）を保管することを%%B%%に**寄託**し、これに基づいてBが丁を占有していたところ、丁をCに盗取された場合、Bは、**占有回収の訴え**により、Cに対して丁の返還を==請求することができる==。",
+        "b": "Aさんは自分の物をBさんに預け、Bさんが保管していました。ところが、その物をCに盗まれました。\n\n持ち主はAさんですが、実際に手元で預かっていたのは%%Bさん%%です。このBさんは、「奪われた物を取り戻す訴え」を使って、Cに物を返すよう==求めることができます==。",
+        "bCasual": "**占有**は、物を事実上手元に置いている状態のことです。持ち主でなくても、__預かっている人や借りている人__にも占有があります。\n\n**占有回収の訴え**は、その占有を奪われた人が、奪った人に物を返すよう求める手段です。預かっていたBは、この訴えでCに返還を==求めることができます==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "%%受寄者B%% → 預かり物を盗まれた → **占有回収の訴え**で==返還を請求できる=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。占有の訴えは、__他人のために占有をする者__も提起することができます@@（民法197条後段）@@。占有者がその占有を奪われたときは、占有回収の訴えにより、その物の返還__及び損害の賠償__を請求できます@@（民法200条1項）@@。寄託を受けて預かっているBは、Aのために占有する者なので、Cに返還を==請求できます==。",
+      "memoryPoint": "占有の訴えは__預かっている人・借りている人__も使える。占有回収の訴え＝返還＋!!損害賠償!!。占有を一度も取得していない人は==使えない==。",
+      "explanations": {
+        "normal": "占有の訴えは、所有権などの本権があるかどうかとは関係なく、いま物を事実上支配しているという状態を守る制度です。民法197条は、占有者だけでなく「他人のために占有をする者」（受寄者・賃借人などの占有代理人）も占有の訴えを提起できると定めています。\n\n占有を奪われたときの占有回収の訴えでは、物の返還と損害の賠償を請求できます（200条1項）。提起できるのは、占有を奪われた時から1年以内です（201条3項）。占有を奪われたことが要件なので、まだ引渡しを受けておらず占有を取得していない人は、この訴えを使えません。",
+        "deepDive": {
+          "background": "物を実際に持っている人から勝手に奪うことを許すと、力の強い者が勝つ社会になります。そこで民法は、持っている状態そのものを一応保護し、奪われたら取り戻せるようにしました。この保護は持ち主かどうかを問わないので、預かっている人や借りている人も使えます。持ち主の判断を待たずに、手元にいる人がすぐ動けることに意味があります。",
+          "trap": "効果を削る形がよく出ます。@@平成29年問31肢3@@は「返還は請求できるが、損害の賠償は請求できない」として誤りでした。200条1項は返還と損害賠償の両方です。もう一つは、まだ占有していない人に使わせる形です。@@平成20年問30肢エ@@は、引渡しを受ける前に土地を占拠された賃借人Bが占有回収の訴えで明渡しを求めるとして、誤りでした。Bは一度も占有していないので、奪われた占有がありません。",
+          "example": "友人から預かっていた自転車を盗まれたら、預かっていた人が自分で、盗んだ人に返還と損害賠償を求められます。持ち主の友人が手続をする必要はありません。これに対し、借りる約束をしただけで、まだ鍵を受け取っていない自転車を他人に持っていかれても、占有回収の訴えは使えません。"
+        },
+        "commonSense": "物を手元で管理しているのは預かっている人なので、盗まれたときにすぐ取り戻せるのもその人であるべきです。ただ、一度も手にしていない物について「奪われた」とは言えません。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法197条・200条・201条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1598",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1301",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:460",
+          "choiceNumber": "エ",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1598:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1301:choice:3",
+          "relation": "condition"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:460:choice:エ",
+          "relation": "application"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "占有回収の訴えを使える者と効果を正面から問う問題を集計"
+      },
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-min-property-possession-recovery-001-1",
+          "comparedCategory": "民法",
+          "comparedTopic": "質権（動産質・不動産質・権利質）",
+          "title": "質物を奪われたとき（353条）も占有回収の訴えになる",
+          "explanation": "動産質権者が質物の占有を奪われたときは、質権に基づいて返還を求めることはできず、占有回収の訴えによってのみ回復できます（353条）。預かっている人の占有を守る占有回収の訴えが、ここでは質権者の唯一の取り戻し手段になります。",
+          "memoryCue": "動産質権者が取り戻すのも占有回収の訴え。質権そのものに基づく返還請求はできない。",
+          "relatedCardId": "min-security-pledge-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "占有回収の訴え",
+        "損害の賠償",
+        "寄託"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "min-security-retention-lien-transferee-001",
+      "category": "民法",
+      "topic": "物権",
+      "subtopic": "留置権を転得者に主張できるか（売主の代金債権）",
+      "clusterId": "civil-security",
+      "variants": {
+        "a": "Aは自己所有の建物をBに売却し登記をBに移転した上で、建物の引渡しは代金と引換えにすることを約していたが、Bが代金を支払わないうちに%%C%%に当該建物を転売し移転登記を済ませてしまった場合、Aは、Cからの建物引渡請求に対して、Bに対する代金債権を保全するために**留置権**を==行使することができる==。",
+        "b": "Aさんは建物をBさんに売り、登記もBさんに移しました。建物は、代金と引換えに渡す約束で、まだAさんの手元にあります。そのうちBさんは、この建物を%%Cさん%%に転売し、登記もCさんに移しました。\n\nCさんが「自分の建物だから渡して」と求めてきたとき、Aさんは、Bさんから代金をもらうまで、建物を==手元に置き続けることができます==。",
+        "bCasual": "**留置権**は、__その物に関して生じた債権__の支払を受けるまで、物を手元に置いておける権利です。\n\nこの場面で、売主Aが持っているのはBに対する代金債権です。建物の新しい持ち主になった%%転得者C%%から引渡しを求められたとき、Aはこの代金債権を理由に建物を==留置できます==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "売主A（代金未払） → 転得者Cから引渡請求 → 代金債権で==留置できる=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。売買代金債権は建物そのものに関して生じた債権なので、Aは**留置権**を取得します@@（民法295条1項）@@。留置権は物権なので、目的物がCに転売されても、Aは%%C%%に対して==留置権を主張できます==@@（最判昭47.11.16）@@。これに対し、債権にすぎない**同時履行の抗弁権**は、契約の相手方Bにしか主張できません。",
+      "memoryPoint": "留置権は**物権** → 転得者にも==主張できる==。同時履行の抗弁権は契約の相手方にだけ。損害賠償債権は「物に関して生じた債権」に当たらず、!!留置できない!!。",
+      "explanations": {
+        "normal": "他人の物を占有する者は、その物に関して生じた債権を持っているとき、弁済を受けるまでその物を留置できます（民法295条1項）。売主の代金債権は売った物について生じた債権なので、代金を払ってもらうまで、売主は目的物を手元に置いておけます。\n\n留置権は物権なので、だれに対しても主張できます。買主が目的物を第三者に転売しても、売主は転得者からの明渡請求を拒めます（最判昭47.11.16）。これに対し、同時履行の抗弁権（533条）は契約から生じる権利なので、契約の相手方にしか主張できません。\n\n一方、二重譲渡で負けた買主が売主に対して持つ損害賠償債権は、物そのものから生じた債権ではないので、勝った第二買主からの明渡請求に対して留置権を主張できません。",
+        "deepDive": {
+          "background": "留置権は、物を押さえておくことで支払を事実上強制する担保です。もし転売されただけで消えるなら、買主は代金を払わずに転売すれば売主の担保を外せてしまいます。そこで、物そのものに付いた権利（物権）として、だれが新しい持ち主になっても主張できるようにしています。",
+          "trap": "留置権と同時履行の抗弁権の入れ替えが定番です。@@平成25年問29@@は、転得者Cからの引渡請求に対して、留置権なら拒めるが（肢4・正しい）、同時履行の抗弁権では拒めない（肢2・誤り）という対比でした。@@令和3年問30肢4@@は「留置することはできない」として誤り、@@平成27年問30肢1@@は「留置権を行使することができる」として正しい肢でした。同じ問題で、二重譲渡で負けた買主の損害賠償債権による留置（@@平成27年問30肢2・令和3年問30肢5@@）は誤りです。",
+          "example": "Aが中古車をBに売り、代金と引換えに渡す約束でAが保管していたところ、Bが代金を払わないままCに転売しました。Cが「自分の車だから渡せ」と言ってきても、AはBから代金を払ってもらうまで渡さなくてよいのです。"
+        },
+        "commonSense": "代金をもらうまで品物を渡さないのは当然の自衛です。買主が勝手に転売したからといって、その自衛が使えなくなるのはおかしい、という感覚がそのまま結論になります。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法295条・533条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:640",
+          "choiceNumber": "1",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1540",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:159",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:640:choice:1",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1540:choice:4",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:159:choice:4",
+          "relation": "application"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:159:choice:2",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1540:choice:5",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "archive-question-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "売主の代金債権による留置権を転得者に主張できるかを正面から問う問題を集計"
+      },
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-min-security-retention-lien-transferee-001-1",
+          "comparedCategory": "民法",
+          "comparedTopic": "留置権の成立と占有が不法行為で始まった場合",
+          "title": "留置権が成立する場面：転得者への主張と、占有が不法行為で始まった場合",
+          "explanation": "留置権は物権なので転得者にも主張できます。ただし、占有が不法行為によって始まった場合は成立しません（295条2項）。解除されたあとの賃借人が支出した有益費がその例です。",
+          "memoryCue": "成立すれば転得者にも主張できる。そもそも成立しないのが、不法な占有と、物に関して生じた債権でない場合。",
+          "relatedCardId": "min-security-retention-lien-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "留置することはできない",
+        "留置権を行使することができる",
+        "同時履行の抗弁権",
+        "損害賠償"
+      ],
+      "learningType": "understand"
+    },
+    {
+      "id": "min-security-mortgage-lessee-grace-001",
+      "category": "民法",
+      "topic": "物権",
+      "subtopic": "抵当建物使用者の明渡猶予（395条）",
+      "clusterId": "civil-mortgage",
+      "variants": {
+        "a": "Hは甲建物を抵当権の実行による競売により買い受けたが、甲建物には、抵当権設定後に従前の所有者より賃借した%%I%%が居住している。HはIに対し、__相当の期間を定めて甲建物の賃料1ヵ月分以上の支払いを催告した__が、期間経過後もIが賃料を支払わない場合には、Hは買受け後6ヵ月を経過した後、Iに対して建物の明け渡しを==求めることができる==。",
+        "b": "Hさんは、競売で甲建物を買いました。建物には、抵当権が付いたあとで前の持ち主から借りた%%Iさん%%が住んでいます。\n\nHさんがIさんに「__家賃1か月分以上を、この期間内に払ってください__」と求めたのに、Iさんは期間が過ぎても払いませんでした。それでもHさんが明渡しを求められるのは、買ってから6か月が過ぎた後==になります==。",
+        "bCasual": "① 抵当権が付く\n② そのあとでIが建物を借りて住む\n③ 抵当権が実行され、Hが競売で買い受ける\n④ HがIに、使った分の対価（1か月分以上）を払うよう催告したが、Iは払わない\n\nこの場合でも、HがIに明渡しを求められるのは、__買受けから6か月が過ぎた後__==です==。",
+        "bCasualStyle": "時間の流れで追う",
+        "c": "抵当権に後れる賃借人 → 1か月分以上の催告に応じない → それでも明渡しは==買受けから6か月後=="
+      },
+      "correct": false,
+      "correction": "6か月を待つ必要はありません。抵当権者に対抗できない賃借人は、買受けの時から__6か月__は明渡しを猶予されます@@（民法395条1項）@@。ただし、買受人が使用の対価の__1か月分以上__を相当の期間を定めて催告し、その期間内に払われなかったときは、猶予は==適用されません==@@（同条2項）@@。HはIに直ちに明渡しを求められます。",
+      "memoryPoint": "抵当権に後れる建物の賃借人 → 買受けから!!6か月!!は明渡し猶予。ただし、その間も__使った分の対価は払う__。1か月分以上の催告に応じなければ==猶予なし==。",
+      "explanations": {
+        "normal": "抵当権の設定登記より後に設定された賃借権は、抵当権者に対抗できません。抵当権が実行されて建物が競売されると、買受人に対しても対抗できず、明け渡すことになります。かつては短期賃貸借（建物は3年以内）であれば保護されていましたが、2003年の改正（2004年4月施行）でこの制度は廃止されました。\n\n代わりに置かれたのが明渡猶予です。競売手続の開始前から使用している賃借人は、買受人の買受けの時から6か月を経過するまで、明渡しを猶予されます（395条1項）。ただし、ただで住めるわけではありません。買受けの後に使用したことの対価は買受人に払う必要があります。買受人が相当の期間を定めて1か月分以上の支払を催告し、期間内に払われなかったときは、猶予は適用されません（同条2項）。",
+        "deepDive": {
+          "background": "抵当権に後れる賃借人をすぐに追い出せると、住んでいる人は突然住まいを失います。一方で、短期賃貸借を保護していた頃は、競売を妨害するための賃貸借が横行しました。そこで、権利としては対抗できないとしたうえで、引っ越しの準備期間として6か月だけ猶予を与える形にしました。猶予中も使った分の対価を払うのは、買受人の負担でただ住まわせる理由がないからです。",
+          "trap": "定番は2つです。1つ目は「対価を払わずに6か月猶予される」と書く形で、@@平成20年問31肢5@@がこれです。対価は払います。2つ目は、催告に応じなかったのに「6か月を経過した後」に明渡しを求められると書く形で、@@平成21年問30肢エ@@がこれです。払わなければ猶予自体が無くなります。@@令和6年問30肢2@@は、買受人が「直ちに」明渡しを求められるとして誤りでした（6か月の猶予があるため）。短期賃貸借でも対抗できない（@@平成20年問31肢4@@）ことも一緒に押さえます。",
+          "example": "競売で落札したマンションに、抵当権の後で入居した借主が住んでいました。落札者は6か月間は追い出せませんが、その間の家賃相当額は請求できます。借主が1か月分以上の支払を催告されても払わなければ、落札者はすぐに明渡しを求められます。"
+        },
+        "commonSense": "抵当権の後から借りた人は、本来は競売の買主に負ける立場です。それでも急に追い出すのは酷なので、半年だけ待ってもらえます。ただし、ただで住み続けてよいわけではありません。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法395条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:400",
+          "choiceNumber": "エ",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:461",
+          "choiceNumber": "5",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1720",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:400:choice:エ",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:461:choice:5",
+          "relation": "condition"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:461:choice:4",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1720:choice:2",
+          "relation": "application"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "archive-question-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "抵当権に後れる建物賃借人の明渡猶予と対価の支払を正面から問う問題を集計"
+      },
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-min-security-mortgage-lessee-grace-001-1",
+          "comparedCategory": "民法",
+          "comparedTopic": "抵当権に基づく妨害排除請求",
+          "title": "抵当権に後れる占有者への対応：明渡猶予（395条）と妨害排除請求",
+          "explanation": "395条は、正常な賃借人に6か月の猶予を与える規定です。これに対し、抵当権の実行を妨害する目的の占有者には、抵当権者が抵当権に基づく妨害排除請求をすることができます。",
+          "memoryCue": "普通の賃借人には猶予、妨害目的の占有者には妨害排除。",
+          "relatedCardId": "min-security-mortgage-interference-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "6ヵ月",
+        "1ヵ月分以上",
+        "使用の対価",
+        "明渡猶予",
+        "短期の賃貸借",
+        "直ちに"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "min-contract-lease-necessary-expenses-001",
+      "category": "民法",
+      "topic": "債権各論",
+      "subtopic": "賃借人が支出した必要費・有益費の償還時期（608条）",
+      "clusterId": "civil-lease",
+      "variants": {
+        "a": "%%賃借人%%は、賃借物について賃貸人の負担に属する**必要費**を支出したときは、賃貸人に対し、==直ちに==その償還を請求することができる。",
+        "b": "借りている部屋の給湯器が壊れたので、借主が自分のお金で修理しました。こうした修理代は本来、大家さんが負担するものです。\n\n借主は、契約が終わるのを待たずに、大家さんにその修理代を==すぐ返してもらうよう請求できます==。",
+        "bCasual": "**必要費**は、借りている物を使える状態に保つための費用です（雨漏りや故障の修理など）。**有益費**は、物の価値を上げるための費用です（リフォームなど）。\n\n%%賃借人%%が、賃貸人が負担すべき必要費を出したときは、賃貸人に対して==直ちに==償還を請求できます。",
+        "bCasualStyle": "用語からほどく",
+        "c": "賃借人が**必要費**を支出 → 賃貸人に==直ちに==償還請求できる"
+      },
+      "correct": true,
+      "correction": "そのとおりです。賃借人が賃貸人の負担に属する必要費を支出したときは、賃貸人に対し、==直ちに==その償還を請求できます@@（民法608条1項）@@。これに対し、**有益費**は__賃貸借の終了の時__に、価格の増加が現存する場合に限り、賃貸人の選択で支出額か増価額を償還します（同条2項・196条2項）。裁判所は有益費について期限を許与できます。",
+      "memoryPoint": "**必要費**＝==直ちに==償還請求。**有益費**＝!!賃貸借の終了時!!（価格の増加が現存する限り）。使用貸借では、通常の必要費は借主の負担。",
+      "explanations": {
+        "normal": "賃貸人は、賃借物の使用及び収益に必要な修繕をする義務を負います（606条1項）。そのため、賃借人が賃貸人に代わって必要費を支出したときは、賃貸人に対して直ちに償還を請求できます（608条1項）。\n\n有益費は、賃借物の価値を高める費用です。賃貸借が終了したときに、価格の増加が現存している場合に限り、賃貸人の選択で、支出した金額か増加額を償還します（608条2項・196条2項）。有益費については、裁判所は賃貸人の請求により相当の期限を許与できます。\n\n賃貸人の地位が移転したときは、費用の償還債務は新しい賃貸人が引き継ぎます（605条の2第4項）。",
+        "deepDive": {
+          "background": "必要費は、本来は賃貸人が修繕義務として負担すべき費用を賃借人が立て替えたものです。立て替えた人を契約の終わりまで待たせる理由はありません。一方、有益費は賃借人が自分の判断で価値を高めた費用なので、終了時にその価値が残っていれば清算する、という扱いになります。",
+          "trap": "必要費と有益費の時期の入れ替えが定番です。@@平成29年問33肢1@@は、必要費について「特約がない限り契約終了時でなければ償還を求められない」として誤りでした。@@平成24年問33肢1@@は、必要費と有益費をまとめて「直ちに」償還請求できるとして誤りでした（有益費は終了時）。@@令和2年問33肢4@@は、賃貸人の地位が移転した後に支出した必要費は新しい賃貸人に直ちに請求できるとして正しい肢でした。",
+          "example": "借りた家の雨漏りを借主が業者に直してもらい、10万円を払いました。借主は、契約期間の途中でも、大家に10万円をすぐ請求できます。これに対し、借主が自分の判断で床暖房を付けた費用は、退去するときに価値が残っていれば清算します。"
+        },
+        "commonSense": "大家が直すべきものを借主が立て替えたなら、すぐ返してもらうのが当然です。自分の好みで付けた設備の費用まですぐ払えとは言えないので、そちらは退去時の清算になります。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法606条・608条・196条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1483",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1303",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:224",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1483:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1303:choice:1",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:224:choice:1",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "賃借人が支出した必要費・有益費の償還時期を正面から問う問題を集計"
+      },
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "必要費",
+        "有益費",
+        "直ちに",
+        "修理費用",
+        "契約終了時"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "min-contract-work-remuneration-timing-001",
+      "category": "民法",
+      "topic": "債権各論",
+      "subtopic": "請負の報酬の支払時期（633条）",
+      "clusterId": "civil-service-contracts",
+      "variants": {
+        "a": "**請負**契約においては仕事完成義務と報酬支払義務とが同時履行の関係に立つため、__物の引渡しを要する場合であっても__、特約がない限り、仕事を完成させた%%請負人%%は、目的物の引渡しに先立って報酬の支払を求めることができ、%%注文者%%はこれを==拒むことができない==。",
+        "b": "家の建築を工務店に頼みました。工務店は家を完成させましたが、まだ引き渡していません。\n\nこの場合でも、特別な約束がなければ、工務店は家を引き渡す前に代金を請求でき、施主は「引渡しと引換えでなければ払わない」とは==言えません==。",
+        "bCasual": "請負には、2つの義務があります。\n・%%請負人%%：仕事を完成させる義務（物を作るときは、引き渡す義務も）\n・%%注文者%%：報酬を払う義務\n\n仕事の完成と報酬の支払は同時履行なので、__物の引渡しを要する場合でも__、請負人は完成した時点で報酬を請求でき、注文者は==拒めません==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "請負（引渡しを要する） → 完成した時点で報酬を請求できる → 注文者は==拒めない=="
+      },
+      "correct": false,
+      "correction": "拒むことができます。報酬は、仕事の目的物の__引渡しと同時に__支払わなければなりません@@（民法633条本文）@@。同時履行の関係に立つのは「引渡し」と「報酬の支払」で、「完成」と「報酬の支払」ではありません。仕事の完成は報酬の支払より先に履行すべき義務です。引渡しを要しない請負では、仕事を終えた後に請求できます（633条ただし書・624条1項）。",
+      "memoryPoint": "請負の報酬は==引渡しと同時==。!!完成しただけ!!では先払いを求められない。完成は報酬より先。",
+      "explanations": {
+        "normal": "請負は、仕事の完成を約束し、その結果に対して報酬を払う契約です（632条）。報酬の支払時期について、民法633条は、仕事の目的物の引渡しと同時に支払わなければならないと定めています。物を作って渡す請負では、引渡しと報酬が同時履行になります。\n\n仕事の完成そのものは、報酬より先に済ませる義務です。だから完成と報酬が同時履行になるわけではありません。引渡しを要しない請負（たとえば清掃や演奏）では、仕事を終えた後に報酬を請求できます（633条ただし書・624条1項）。",
+        "deepDive": {
+          "background": "請負は結果に対して報酬を払う契約なので、まず仕事を完成させるのが筋です。そのうえで、できあがった物を渡すことと代金を払うことを引換えにすれば、お互いに相手が履行しないリスクを避けられます。完成しただけで代金を請求できるとすると、注文者は物を受け取れないまま払う危険を負います。",
+          "trap": "「完成」と「引渡し」の入れ替えが定番です。@@令和2年問32肢4@@は、完成義務と報酬支払義務が同時履行だとして、引渡しの前に報酬を請求でき注文者は拒めないとしました（誤り）。@@平成18年問32肢ア@@も「完成時に支払わなければならない」として誤りでした。どちらも、引渡しと同時が正解です。",
+          "example": "大工さんに棚を作ってもらう約束をしました。棚が完成した段階で「代金を先に払って」と言われても、注文者は「棚を渡してくれるのと引換えに払います」と言えます。"
+        },
+        "commonSense": "注文した物を受け取る前に代金だけ取られると、本当に渡してもらえるのか不安です。物を渡すのと代金を払うのを同時にするのが、お互いに安心な順番です。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法632条・633条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1482",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:582",
+          "choiceNumber": "ア",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1482:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:582:choice:ア",
+          "relation": "wording_variant"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "請負の報酬の支払時期（引渡しと同時）を正面から問う問題を集計"
+      },
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "引渡し",
+        "完成",
+        "報酬",
+        "同時履行"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "min-contract-illegal-cause-performance-001",
+      "category": "民法",
+      "topic": "債権各論",
+      "subtopic": "不法原因給付（708条）",
+      "clusterId": "civil-unjust-enrichment",
+      "variants": {
+        "a": "__違法な賭博を目的とする契約__に基づいて賭金を支払った者は、いつでも当該契約が無効であることを理由として、相手方に対して賭金の返還を==求めることができる==。",
+        "b": "違法な賭けごとをして、負けた人が相手に賭け金を払いました。この賭けの約束は、法律上は無効です。\n\n払った人は、いつでも「契約は無効だったのだから返して」と言って、相手に賭け金を==返してもらえます==。",
+        "bCasual": "**不法原因給付**は、法律や公の秩序に反する目的のために、物やお金を渡すことです。\n\n違法な賭博の契約は無効（90条）なので、それに基づいて払った賭金は、払った人が==いつでも返還を求められます==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "違法な賭博の賭金を払った → 契約は無効 → ==いつでも返還を求められる=="
+      },
+      "correct": false,
+      "correction": "求めることはできません。違法な賭博の契約は公序良俗に反して無効ですが@@（民法90条）@@、不法な原因のために給付をした者は、その給付したものの返還を==請求することができません==@@（民法708条本文）@@。ただし、不法な原因が受益者の側にだけあるときは返還を請求できます（同条ただし書）。",
+      "memoryPoint": "不法な目的で渡した物は==取り戻せない==（708条）。ただし、!!既登記建物は登記まで!!「給付」にならない。給付後に任意で返す約束をしたなら返還を求められる。",
+      "explanations": {
+        "normal": "公序良俗に反する契約は無効です（90条）。無効な契約に基づいて渡した物は、本来なら不当利得として返還を求められます。しかし、不法な原因のために給付をした者は、その返還を請求できません（708条本文）。自分から違法な取引に手を貸した人を、裁判所は助けないという考え方です。不法な原因が受益者だけにあるときは、返還を請求できます（同条ただし書）。\n\n判例は「給付」の意味を物の種類で分けています。未登記建物は引渡しで給付が終わるので、返還を求められません（最大判昭45.10.21）。既登記建物は、引渡しだけでは足りず、移転登記まで済んで初めて給付になります（最判昭46.10.28）。また、給付した後に当事者が任意に返還する約束をした場合は、その約束は有効で、返還を求められます（最判昭28.1.22）。",
+        "deepDive": {
+          "background": "708条は「汚れた手で法廷に来る者は救われない」という考え方です。違法な目的で物を渡した人が、あとで裁判所に返還を求めても手を貸さない、という形で違法な取引を抑えます。ただ、判例は受け取った側も返還を請求できないとしているので（最大判昭45.10.21）、結果として所有権は受け取った側に移ります。だから「給付」が終わったかどうかの線引きが重要で、登記のある建物は登記まで移って初めて給付になります。",
+          "trap": "@@令和7年問34肢3@@は「いつでも返還を求めることができる」として誤りでした。給付の完了の線引きもよく出ます。@@平成25年問34@@は、不倫関係を維持する目的の建物の贈与について、未登記建物は引渡しで給付が終わり返還を請求できない（肢2・正しい）、既登記建物は引き渡しただけなら移転登記請求を拒める（肢4・誤り）という対比でした。@@平成22年問33@@では、賭博の債務の弁済として骨董品を渡した後に返還の合意をすれば返還を請求できる（肢イ・正しい）、未登記建物を引き渡せば返還を請求できない（肢エ・誤り）が問われました。",
+          "example": "違法な賭けマージャンに負けて10万円を払った人が、あとで「賭博は違法だから無効、返して」と言っても、裁判所は返還を認めません。ただし、相手が「やはり返す」と約束したのなら、その約束どおり返してもらえます。"
+        },
+        "commonSense": "違法なことにお金を使っておいて、都合が悪くなったら法律に助けを求めるのは虫がよすぎます。だから取り戻せません。ただ、相手が自分から返すと約束したなら、それを止める理由はありません。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法90条・708条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1784",
+          "choiceNumber": "3",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:164",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:343",
+          "choiceNumber": "イ",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1784:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:164:choice:2",
+          "relation": "application"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:164:choice:4",
+          "relation": "exception"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:343:choice:イ",
+          "relation": "exception"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:343:choice:エ",
+          "relation": "application"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "不法原因給付（708条）と「給付」の完了・返還の合意を正面から問う問題を集計"
+      },
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "賭博",
+        "賭金",
+        "未登記建物",
+        "返還を請求することはできない",
+        "返還する旨の契約"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "min-inheritance-specific-succession-registration-001",
+      "category": "民法",
+      "topic": "相続",
+      "subtopic": "相続させる遺言と登記（899条の2）",
+      "clusterId": "civil-will",
+      "variants": {
+        "a": "Aが「甲を%%C%%に相続させる」旨の**特定財産承継遺言**を行っていたが、__Cが相続登記手続をしないうちに__、Bが甲に関するBの法定相続分に基づく持分権につき相続登記手続を行った上で、これを%%H%%に売却して持分権移転登記手続が行われた場合、民法の規定によれば、Cは、Hに対して、Hの持分権が自己に帰属する旨を==主張することができない==。",
+        "b": "お父さんAは、「甲土地は子Cに相続させる」という遺言を残しました。Cが相続の登記をしないでいるうちに、もう一人の子Bが、自分の法定相続分の持分について相続登記をし、その持分をHに売って登記も移しました。\n\nこの場合、Cは、Hに「その持分も私のものだ」と==主張できません==。",
+        "bCasual": "① Aが「甲をCに相続させる」と遺言する（特定財産承継遺言）\n② Aが亡くなる\n③ __Cが登記をしないうちに__、Bが自分の法定相続分の持分を登記し、Hに売って登記する\n④ CがHに「その持分も自分のもの」と主張する\n\nCは、④の主張を==することができません==。",
+        "bCasualStyle": "時間の流れで追う",
+        "c": "相続させる遺言で取得 → 登記の前にBの持分を買ったHが登記 → CはHに==主張できない=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。相続による権利の承継は、遺産の分割によるものかどうかにかかわらず、__法定相続分を超える部分__については、登記などの対抗要件を備えなければ第三者に==対抗できません==@@（民法899条の2第1項）@@。Cにとって、Bの法定相続分にあたる持分は自分の法定相続分を超える部分なので、先に登記をしたHに負けます。預金債権なら、債権譲渡の対抗要件（通知など）が要ります。",
+      "memoryPoint": "相続させる遺言でも、!!法定相続分を超える部分!!は==登記などが要る==（899条の2）。改正前は登記なしで対抗できた。",
+      "explanations": {
+        "normal": "2018年の相続法改正（2019年7月施行）で、899条の2が新しく置かれました。相続による権利の承継は、遺産分割によるものか、相続させる旨の遺言（特定財産承継遺言）によるものかにかかわらず、法定相続分を超える部分については、登記・登録などの対抗要件を備えなければ第三者に対抗できません（同条1項）。\n\n改正前の判例（最判平14.6.10）は、相続させる遺言で取得した不動産は登記なしに第三者へ対抗できるとしていました。改正でこの結論が変わったので、改正前の考え方で書かれた肢は誤りになります。\n\n法定相続分までの部分は、登記がなくても対抗できます。債権を承継したときは、債務者への通知などの対抗要件が必要です（同条2項は、承継した相続人が遺言の内容を明らかにして通知すれば、共同相続人全員の通知とみなすと定めています）。",
+        "deepDive": {
+          "background": "遺言の中身は、外から見ても分かりません。登記を見て法定相続分の持分を買った第三者が、あとから出てきた遺言で権利を失うのでは、取引の安全が守れません。そこで、遺贈や遺産分割と同じく、法定相続分を超える部分は登記で決着をつけることにしました。遺言で多くもらった相続人は、早く登記をすれば守られます。",
+          "trap": "改正前の判例のまま「登記なくして対抗できる」と書くのが定番です。@@令和3年問35肢ア@@はこの形で誤りでした。@@令和6年問29@@では、特定財産承継遺言（肢5）・遺産分割（肢2）・遺贈（肢3）のどれでも、登記をしないうちに法定相続分の持分を買って登記した第三者には主張できない、と並べて問われました。@@令和6年問35肢2@@は、預金債権でも法定相続分を超える部分は対抗要件が要るとして正しい肢でした。",
+          "example": "父の遺言で自宅を全部もらった母が、登記を後回しにしていたところ、兄が法定相続分で共有の登記をして自分の持分を業者に売ってしまいました。母は、自分の法定相続分の2分の1は登記なしで主張できますが、それを超える兄の持分の部分は、先に登記をした業者に負けます。"
+        },
+        "commonSense": "遺言は本人が書いたものなので、外の人には中身が見えません。登記を信じて買った人を守るため、もらった人には早く登記をしてもらう、というのが今のルールです。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法899条の2",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1719",
+          "choiceNumber": "5",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1545",
+          "choiceNumber": "ア",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1725",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1719:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1545:choice:ア",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1719:choice:3",
+          "relation": "comparison"
+        },
+        {
+          "choiceId": "goukakudojyo:1725:choice:2",
+          "relation": "application"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 2,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 0,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "相続による承継のうち法定相続分を超える部分の対抗要件（899条の2）を正面から問う問題を集計"
+      },
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-min-inheritance-specific-succession-registration-001-1",
+          "comparedCategory": "民法",
+          "comparedTopic": "177条の「第三者」と背信的悪意者",
+          "title": "登記がなければ負ける場面：二重譲渡（177条）と、法定相続分を超える相続（899条の2）",
+          "explanation": "177条は、不動産の物権変動を登記がなければ第三者に対抗できないとする基本の規定です。899条の2は、相続による承継でも、法定相続分を超える部分には同じ考え方を当てはめます。",
+          "memoryCue": "相続でも、法定相続分を超える部分は二重譲渡と同じく登記の先後で決まる。",
+          "relatedCardId": "min-property-registration-bad-faith-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "相続させる旨の遺言",
+        "特定財産承継遺言",
+        "登記なくして",
+        "法定相続分",
+        "債権譲渡の対抗要件"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "gyo-litigation-dismissal-rejection-001",
+      "category": "行政法",
+      "topic": "行政事件訴訟法",
+      "subtopic": "訴えの却下と請求の棄却の区別（不適法→却下／理由なし→棄却）",
+      "clusterId": "administrative-litigation-types",
+      "variants": {
+        "a": "1条1項に基づく国家賠償請求については、国または公共団体が賠償の責に任ずるのであって、公務員が行政機関としての地位において賠償の責任を負うものではなく、また公務員個人もその責任を負うものではないから、行政機関を相手方とする訴えは==不適法==であり、公務員個人を相手方とする請求には==理由がない==。",
+        "b": "国家賠償の請求は、国や自治体に対してするものです。役所という組織そのもの（行政機関）が責任を負うことはなく、公務員個人も責任を負いません。\n\nそのため、行政機関を相手に起こした訴えは__訴えとして__==不適法==になり、公務員個人を相手にした請求は__中身として__==理由がない==ことになります。",
+        "bCasual": "判決には、入口で門前払いにする**却下**と、中身を見たうえで「請求は認められない」とする**棄却**があります。\n\n国家賠償請求で、そもそも当事者になれない%%行政機関%%を訴えたときは入口の問題なので不適法、責任を負わない%%公務員個人%%を訴えたときは中身の問題なので==理由がない==ことになります。",
+        "bCasualStyle": "用語からほどく",
+        "c": "国賠請求 → %%行政機関%%を被告＝==不適法==（却下）／%%公務員個人%%を被告＝理由なし（棄却）"
+      },
+      "correct": true,
+      "correction": "そのとおりです。判決には、__訴訟要件を欠く__ときに訴えを退ける**却下**と、訴訟要件はそろっているが__請求に理由がない__ときの**棄却**があります。国家賠償法1条1項の責任を負うのは国または公共団体なので、行政機関を相手方とする訴えは==不適法==です。公務員個人は責任を負わないので、個人への請求は理由がないことになります@@（最判昭30.4.19）@@。",
+      "memoryPoint": "入口の要件（処分性・原告適格・訴えの利益・出訴期間・被告）を欠く → ==却下==。中身で負け（違法でない・無効原因が無い・個人に責任が無い） → ==棄却==。",
+      "explanations": {
+        "normal": "裁判所は、まず訴えが適法か（訴訟要件を満たすか）を見て、満たさなければ訴えを却下します。取消訴訟なら、処分性・原告適格・訴えの利益・出訴期間・被告適格などが訴訟要件です。訴訟要件を満たしたうえで、請求に理由がなければ請求を棄却し、理由があれば認容します。\n\n却下になる例は、通達の取消しを求める訴え（処分性が無い）、許認可がされて申請拒否処分の取消しを求める利益が無くなった訴え、代執行が終わった後の戒告の取消訴訟などです。棄却になる例は、無効確認訴訟で無効原因が無かった場合（訴え自体は適法）、公務員個人に国家賠償を求めた場合、自己の法律上の利益に関係のない違法だけを主張した場合（行政事件訴訟法10条1項）、事情判決（31条）です。",
+        "deepDive": {
+          "background": "却下は「この訴えでは裁判所は判断しない」、棄却は「判断した結果、あなたの言い分は通らない」という意味です。どちらも原告が負ける点は同じですが、却下は中身の判断をしていないので、要件を整えれば訴え直せる場合があります。棄却は中身の判断なので、同じ請求を蒸し返せません。だから、試験では「入口の問題か、中身の問題か」を見分けさせます。",
+          "trap": "却下と棄却を入れ替えるのが定番です。@@令和4年問19肢1@@は、無効原因が無いと「不適法として却下」とし、誤りでした（無効確認訴訟は適法で、棄却）。@@平成29年問17肢4@@は、訴えの利益を失ったのに「請求は棄却」とし、誤りでした（却下）。@@令和2年問20肢ウ@@は、公務員個人への国賠請求を「不適法として却下」とし、誤りでした（棄却）。@@令和3年問25肢5@@は、通達の取消しを求める訴えを「棄却」とし、誤りでした（処分性が無いので却下）。記述式でも「どのような判決がされるか」が繰り返し問われています（@@平成18年問44・平成25年問44・平成29年問44@@）。",
+          "example": "通達の取消しを求めて訴えても、通達は処分ではないので、裁判所は中身を見ずに訴えを却下します。これに対し、処分の取消訴訟で、裁判所が審理した結果、処分は適法だと判断すれば、請求を棄却します。"
+        },
+        "commonSense": "受付で書類の不備を理由に断られるのが却下、窓口で話を聞いてもらったうえで断られるのが棄却、と考えると区別しやすくなります。"
+      },
+      "legalBasis": [
+        {
+          "label": "国家賠償法1条",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000125?occasion_date=20260401"
+        },
+        {
+          "label": "行政事件訴訟法9条・10条・14条・31条",
+          "url": "https://laws.e-gov.go.jp/law/337AC0000000139?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:88",
+          "choiceNumber": "ア",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1589",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1287",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1470",
+          "choiceNumber": "ウ",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:446",
+          "choiceNumber": "5",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:88:choice:ア",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1589:choice:1",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1287:choice:4",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1470:choice:ウ",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:446:choice:5",
+          "relation": "application"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "archive-question-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "最頻出",
+        "occurrences": 14,
+        "yearCount": 13,
+        "recentOccurrences": 9,
+        "archiveOccurrences": 5,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "訴えの却下（訴訟要件を欠く）と請求の棄却（理由がない）の区別を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-gyo-litigation-dismissal-rejection-001-1",
+          "comparedCategory": "行政事件訴訟法",
+          "comparedTopic": "処分の効果消滅後の訴えの利益",
+          "title": "訴えの利益が無くなったときの判決",
+          "explanation": "処分の効果が無くなった後も取消しで回復すべき法律上の利益が残るか、というのが狭義の訴えの利益の問題です。残らなければ訴訟要件を欠くので、判決は請求の棄却ではなく訴えの却下になります。",
+          "memoryCue": "訴えの利益が無い＝入口の要件を欠く＝却下。",
+          "relatedCardId": "gyo-litigation-interest-after-effect-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "却下",
+        "棄却",
+        "不適法",
+        "理由がない",
+        "訴えの利益"
+      ],
+      "learningType": "understand"
+    },
+    {
+      "id": "gyo-litigation-special-circumstances-001",
+      "category": "行政法",
+      "topic": "行政事件訴訟法",
+      "subtopic": "事情判決・事情裁決（違法でも取り消さない仕組み）",
+      "clusterId": "administrative-litigation-types",
+      "variants": {
+        "a": "**事情判決**においては、処分が違法であることが、判決の理由の中だけではなく、==その主文においても宣言される==。",
+        "b": "役所の処分が違法だと裁判所が認めても、取り消すと社会に大きな混乱が起きるときは、あえて取り消さないことがあります。これを**事情判決**といいます。\n\nこのとき、処分が違法だったことは、判決の理由の中だけでなく、判決の結論の部分（__主文__）でもはっきり==宣言されます==。",
+        "bCasual": "事情判決の流れは次のとおりです。\n・処分は違法\n・でも、取り消すと公の利益に著しい障害が出る\n・だから取り消さない\n\nそのうえで、処分が違法であることを、理由の中だけでなく__判決の主文でも__==宣言します==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "**事情判決** → 処分の違法を__理由だけでなく主文でも__==宣言する=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。取消訴訟で処分が違法でも、取り消すと公の利益に著しい障害を生ずる場合に、一切の事情を考えて取り消すことが公共の福祉に適合しないと認めるときは、裁判所は請求を==棄却できます==@@（行政事件訴訟法31条1項前段）@@。このとき判決の__主文__で処分が違法であることを宣言しなければなりません（同項後段）。訴えの却下でも、請求の認容でもありません。",
+      "memoryPoint": "事情判決＝処分は違法だが!!請求棄却!!、主文で違法を宣言。審査請求・再審査請求には事情裁決がある。再調査の請求には==無い==。",
+      "explanations": {
+        "normal": "事情判決（行政事件訴訟法31条1項）は、処分が違法でも、取り消すことで公の利益に著しい障害が生じ、原告の受ける損害の程度、その損害の賠償や防止の程度・方法その他一切の事情を考えて、取り消すことが公共の福祉に適合しないと認めるときに、請求を棄却する判決です。判決の主文で処分が違法であることを宣言します。裁判所は、相当と認めるときは、終局判決の前に判決で処分の違法を宣言することもできます（同条2項）。\n\n行政不服審査法にも同じ仕組みがあり、審査請求では事情裁決として、処分が違法または不当でも審査請求を棄却し、裁決の主文で違法または不当を宣言します（45条3項）。再審査請求にもあります（64条4項）。再調査の請求の決定には、この規定がありません。",
+        "deepDive": {
+          "background": "たとえばダムや空港が完成した後で、その元になった処分が違法だと分かっても、取り壊して元に戻すことが社会全体に大きな損失をもたらす場合があります。そこで、違法は違法と認めたうえで取消しだけを控え、原告には損害賠償などで手当てをする、というのが事情判決の考え方です。違法をはっきりさせるために、主文で宣言します。",
+          "trap": "判決の種類の取り違えが定番です。@@令和元年問19肢4@@は、事情判決で「訴えを却下することができる」とし、誤りでした（請求の棄却）。@@平成20年問18@@は1問まるごと事情判決で、請求認容の判決とする肢1、損害賠償を命じられるとする肢3、行政不服審査法に事情裁決は無いとする肢4、公職選挙法の選挙訴訟に準用されるとする肢5がすべて誤りでした（公職選挙法219条1項は31条を準用から外している）。@@令和元年問14肢エ@@は、再調査の請求にも事情裁決に似た制度があるとして誤りでした。",
+          "example": "土地区画整理事業の処分が違法だったものの、すでに工事が終わり多くの人が新しい区画で暮らしている場合、裁判所は処分を取り消さずに請求を棄却し、主文で「処分は違法である」と宣言することがあります。"
+        },
+        "commonSense": "間違いは間違いと認めるが、元に戻すと周りの人に大きな迷惑がかかるので戻さない、という判断です。そのかわり、間違いだったことは判決の結論ではっきり書きます。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政事件訴訟法31条",
+          "url": "https://laws.e-gov.go.jp/law/337AC0000000139?occasion_date=20260401"
+        },
+        {
+          "label": "行政不服審査法45条3項・64条4項",
+          "url": "https://laws.e-gov.go.jp/law/426AC0000000068?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:448",
+          "choiceNumber": "2",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1409",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1404",
+          "choiceNumber": "エ",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1708",
+          "choiceNumber": "ア",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:448:choice:2",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:448:choice:1",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1409:choice:4",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1404:choice:エ",
+          "relation": "comparison"
+        },
+        {
+          "choiceId": "goukakudojyo:1708:choice:ア",
+          "relation": "application"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "archive-question-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "頻出",
+        "occurrences": 9,
+        "yearCount": 7,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 6,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "事情判決・事情裁決の要件と効果を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "事情判決",
+        "事情裁決",
+        "主文",
+        "却下",
+        "公の利益に著しい障害"
+      ],
+      "comparisonTable": {
+        "title": "違法なのに取り消さない仕組みはどこにあるか",
+        "rows": [
+          {
+            "label": "取消訴訟",
+            "article": "行政事件訴訟法31条1項",
+            "rule": "違法でも、取り消すと公の利益に著しい障害が生じ公共の福祉に適合しないときは、請求を棄却し、主文で違法を宣言する",
+            "conclusion": "事情判決あり（違法のみ）"
+          },
+          {
+            "label": "審査請求",
+            "article": "行政不服審査法45条3項",
+            "rule": "違法または不当でも、取り消すと公の利益に著しい障害が生じるときは、審査請求を棄却し、主文で違法または不当を宣言する",
+            "conclusion": "事情裁決あり（違法・不当）"
+          },
+          {
+            "label": "再審査請求",
+            "article": "行政不服審査法64条4項",
+            "rule": "審査請求と同じく、事情裁決で棄却し主文で宣言できる",
+            "conclusion": "事情裁決あり"
+          },
+          {
+            "label": "再調査の請求",
+            "article": "行政不服審査法58条・59条",
+            "rule": "決定で却下・棄却・取消し・変更をするが、事情を理由に棄却する規定は無い",
+            "conclusion": "規定なし"
+          }
+        ],
+        "memoryCue": "裁判と審査請求・再審査請求には、違法でも公益のために取り消さない仕組みがある。再調査の請求は処分庁自身が簡易に見直す手続で、公益と天秤にかける場面を想定していないので規定が無い。裁判所は不当を判断できないので、事情判決は違法の場合だけになる。"
+      },
+      "learningType": "memorize"
+    },
+    {
+      "id": "gyo-litigation-issue-suit-001",
+      "category": "行政法",
+      "topic": "行政事件訴訟法",
+      "subtopic": "争点訴訟（行訴法45条）と、無効を民事訴訟で主張できること",
+      "clusterId": "administrative-litigation-types",
+      "variants": {
+        "a": "裁判所は、__私法上の法律関係に関する訴訟__において処分の効力の有無が争われている場合、決定をもって、%%その処分に関係する行政庁%%を当該訴訟に==参加させることができる==。",
+        "b": "土地の明渡しをめぐる民事の裁判で、その前提になっている役所の処分（たとえば土地の買収処分）が有効かどうかが争いになることがあります。\n\nこのとき裁判所は、決定によって、その処分にかかわる役所を裁判に==参加させることができます==。",
+        "bCasual": "**争点訴訟**は、私人どうしの民事の訴訟なのに、その中で行政処分の効力（有効か無効か）が争点になっているものです（行政事件訴訟法45条）。\n\n争点訴訟では、裁判所は決定で、その処分に関係する%%行政庁%%を訴訟に==参加させることができます==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "民事訴訟で処分の効力が争点（**争点訴訟**） → 関係行政庁を==参加させられる=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。私法上の法律関係に関する訴訟で、処分の存否やその効力の有無が争われている場合（**争点訴訟**）は、行政庁の訴訟参加の規定が準用され、裁判所は関係行政庁を==参加させることができます==@@（行政事件訴訟法45条1項・23条1項）@@。争点訴訟は行政事件訴訟ではなく民事訴訟です。処分が無効なら、無効確認訴訟を起こさなくても、民事訴訟や当事者訴訟の中で無効を前提に主張できます。",
+      "memoryPoint": "処分の無効は==民事訴訟・当事者訴訟でも主張できる==（争点訴訟）。!!取り消しうべき瑕疵!!は取消訴訟で取り消されるまで有効（公定力）。",
+      "explanations": {
+        "normal": "処分に取り消すことのできる瑕疵があるだけなら、取消訴訟で取り消されるまでは有効として扱われます（公定力）。これに対し、処分が無効なら、はじめから効力が無いので、だれでもどの訴訟の中でもその無効を主張できます。農地買収処分が無効だとして、買い受けた人に土地の返還を求める民事訴訟がその例で、これを争点訴訟といいます（行政事件訴訟法45条）。\n\n争点訴訟は民事訴訟ですが、行政事件訴訟法の一部の規定が準用されます。裁判所は関係行政庁を訴訟に参加させることができ（23条1項・2項の準用）、職権で証拠調べをすることもできます（24条の準用）。無効確認訴訟は、こうした現在の法律関係に関する訴えで目的を達することができないときに限って起こせる補充的な訴訟です（36条）。",
+        "deepDive": {
+          "background": "無効な処分は、最初から効力がありません。それなのに「無効は無効確認訴訟でしか言えない」とすると、出訴期間の制限が無いとはいえ、本来争う必要のない手続を国民に強いることになります。だから無効は民事訴訟の中でもそのまま主張でき、そのとき処分をした行政庁の言い分も聞けるように、参加の仕組みを用意しています。",
+          "trap": "「無効は無効確認訴訟（抗告訴訟）でしか主張できない」と書くのが定番です。@@平成19年問18肢2@@、@@平成28年問10肢イ@@、@@平成29年問9肢1@@がこの形で、どれも誤りでした。@@令和6年問8肢3@@は、出訴期間の経過後に無効を争う訴訟は無効確認の訴えのみとし、誤りでした。多肢選択式でも、争点訴訟は行政事件訴訟ではなく民事訴訟だという点が繰り返し問われています（@@平成18年問42・令和元年問43・令和5年問43@@）。",
+          "example": "国が農地を買収して別の人に売り渡したところ、元の所有者が「買収処分は無効だ」として、買った人に土地の返還と登記の抹消を求める民事訴訟を起こすのが典型です。裁判所は、農地買収をした行政庁をこの訴訟に参加させることができます。"
+        },
+        "commonSense": "はじめから効力の無い処分なら、どの裁判でも「無効だ」と言えて当然です。ただ、行政の言い分も聞いたほうが正しい判断ができるので、関係する役所を呼べるようにしています。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政事件訴訟法23条・36条・45条",
+          "url": "https://laws.e-gov.go.jp/law/337AC0000000139?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1408",
+          "choiceNumber": "5",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1220",
+          "choiceNumber": "イ",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1279",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:508",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1698",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1408:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1220:choice:イ",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1279:choice:1",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:508:choice:2",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1698:choice:3",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "頻出",
+        "occurrences": 8,
+        "yearCount": 7,
+        "recentOccurrences": 6,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "争点訴訟と、処分の無効を民事訴訟・当事者訴訟で主張できることを正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-gyo-litigation-issue-suit-001-1",
+          "comparedCategory": "行政事件訴訟法",
+          "comparedTopic": "無効等確認訴訟の原告適格・補充性",
+          "title": "無効を争う道：無効確認訴訟と、争点訴訟・当事者訴訟",
+          "explanation": "無効確認訴訟は、現在の法律関係に関する訴え（争点訴訟・当事者訴訟）で目的を達することができないときに限って起こせる補充的な訴訟です（36条）。無効は、民事訴訟や当事者訴訟の中で主張するのが基本になります。",
+          "memoryCue": "無効は民事訴訟でも主張できる。無効確認訴訟は、それで足りないときの補充。",
+          "relatedCardId": "gyo-litigation-invalidity-subsidiarity-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "私法上の法律関係に関する訴訟",
+        "民事訴訟",
+        "無効確認訴訟",
+        "参加させる"
+      ],
+      "learningType": "understand"
+    },
+    {
+      "id": "gyo-act-discretion-standard-001",
+      "category": "行政法",
+      "topic": "行政総論",
+      "subtopic": "裁量基準・通達・審査基準に反した処分と違法（行政規則の効力）",
+      "clusterId": "administrative-discretion",
+      "variants": {
+        "a": "行政庁がその裁量に任された事項について、裁量権行使の準則（**裁量基準**）を定めることがあっても、このような準則は、行政庁の処分の妥当性を確保するためのものであるから、処分が当該準則に違背して行われたとしても、==違背したという理由だけでは違法とはならない==。",
+        "b": "役所が、自分の判断に任されたことについて、内部で「こういう場合はこう判断する」という基準を作ることがあります。\n\nこの基準は、判断のばらつきを防ぐための内部の目安です。だから処分がこの基準に反していても、反したというだけでは==違法になりません==。",
+        "bCasual": "**裁量基準**（裁量権行使の準則）は、法律で行政庁の判断に任された事項について、行政庁が自分で決める判断の目安です。法律や政令ではなく、行政の内部の決まり（**行政規則**）です。\n\n処分が裁量基準に違背していても、違背したという理由だけでは==違法とはなりません==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "**裁量基準**に違背した処分 → それだけでは==違法にならない=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。裁量基準は、行政庁の処分の妥当性を確保するための内部の準則で、国民を拘束する法規ではありません。処分が準則に違背していても、原則として当・不当の問題にとどまり、==当然に違法となるものではありません==@@（最大判昭53.10.4・マクリーン事件）@@。ただし、特段の理由もなく基準と違う扱いをすれば、!!平等原則!!に反して違法とされる余地があります。",
+      "memoryPoint": "裁量基準・通達・審査基準は**行政規則** → 反しても==それだけでは違法でない==。ただし特段の理由なく反すれば!!平等原則違反!!の余地。",
+      "explanations": {
+        "normal": "行政機関が定める基準には、国民の権利義務を定める法規命令（政令・省令など）と、行政の内部だけを拘束する行政規則（通達・訓令・裁量基準など）があります。行政規則は国民も裁判所も拘束しないので、処分が行政規則に反していても、それだけでは違法になりません。\n\n裁量基準について、判例は、処分が準則に違背して行われても原則として当・不当の問題にとどまるとしています（最大判昭53.10.4）。通達に反する処分も、そのことを理由に効力が左右されません（最判昭43.12.24）。行政手続法の審査基準（5条）も、設定と公表が義務付けられてはいますが、法規命令ではありません。\n\nただし、特段の理由もなく基準と異なる扱いをすれば、平等原則に反するとして違法になる余地があります。不利益処分の処分基準に、過去の処分を理由に後行処分を重くする定めがあるときは、特段の事情がない限りそれに従わない処分は裁量権の逸脱・濫用になります（最判平27.3.3）。違法になり得るということで、当然に無効になるわけではありません。",
+        "deepDive": {
+          "background": "法律が行政庁に判断を任せた部分は、具体的な場面に応じて柔軟に判断するためのものです。行政庁が自分で作った目安に縛られ、目安から外れたら即違法となると、柔軟な判断ができなくなります。一方で、同じ事情の人を理由なく違う扱いにしてよいわけではないので、平等原則が歯止めになります。",
+          "trap": "@@平成24年問11肢3@@は、審査基準を「行政手続法によって設定が義務付けられた法規命令」とし、違反すれば拒否処分は違法になるとして誤りでした。@@平成19年問12肢ウ@@は、審査基準に反した扱いが「比例原則違反」になり得るとして誤りでした（平等原則）。@@令和6年問9肢5@@は、処分基準の量定加重の定めに反する後行処分が「当然に無効」になるとして誤りでした。正しい肢は、@@平成25年問9肢2@@（裁量基準違背だけでは違法でない）、@@平成22年問9肢2@@（特段の理由なく通達に反すれば平等原則違反の余地）、@@令和3年問25肢3@@（通達違反を理由に処分の効力は左右されない）です。",
+          "example": "入国管理の担当部署が「こういう事情なら在留更新を認める」という内部基準を持っていても、ある外国人についてその基準と違う判断をしたこと自体は、直ちに違法にはなりません。ただ、同じ事情の人を特段の理由もなく違う扱いにしていれば、平等原則違反として違法になる余地があります。"
+        },
+        "commonSense": "役所の内部マニュアルに反しただけで裁判に負けるなら、マニュアルが法律と同じ力を持ってしまいます。マニュアルはあくまで目安ですが、同じ人を理由なく別扱いするのは許されない、という線引きです。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政手続法2条8号・5条・12条",
+          "url": "https://laws.e-gov.go.jp/law/405AC0000000088?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:139",
+          "choiceNumber": "2",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:319",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1535",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:201",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1699",
+          "choiceNumber": "5",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:139:choice:2",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:319:choice:2",
+          "relation": "exception"
+        },
+        {
+          "choiceId": "goukakudojyo:1535:choice:3",
+          "relation": "application"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:201:choice:3",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1699:choice:5",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "archive-question-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "頻出",
+        "occurrences": 7,
+        "yearCount": 6,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 5,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "裁量基準・通達・審査基準など行政規則に反した処分の違法性を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-gyo-act-discretion-standard-001-1",
+          "comparedCategory": "行政総論",
+          "comparedTopic": "通達の法的性質と処分性",
+          "title": "通達そのものを争えるか、通達に反した処分は違法か",
+          "explanation": "通達は行政内部の命令なので処分性が無く、取消訴訟の対象になりません。同じ理由で、通達に反した処分も、反したことだけを理由に違法・無効にはなりません。",
+          "memoryCue": "通達は外に効かない。争えないし、反しても違法にならない。",
+          "relatedCardId": "gyo-legislation-circular-nature-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "裁量基準",
+        "通達",
+        "審査基準",
+        "平等原則",
+        "法規命令",
+        "当然に無効"
+      ],
+      "learningType": "understand"
+    },
+    {
+      "id": "gyo-aia-decision-kinds-001",
+      "category": "行政法",
+      "topic": "行政不服審査法",
+      "subtopic": "裁決（決定）の種類：却下・棄却・認容と、みなし棄却が無いこと",
+      "clusterId": "gyo-aia-no-adverse-change",
+      "variants": {
+        "a": "**不作為についての審査請求**が当該不作為に係る処分についての申請から__相当の期間が経過しないで__されたものである場合その他不適法である場合には、審査庁は、裁決で、当該審査請求を==却下する==。",
+        "b": "役所に許可を申請したのに返事がないので、その「放置」について審査請求をしました。ところが、申請してからまだ相当の期間がたっていませんでした。\n\nこのように審査請求が要件を欠くとき、審査庁は裁決で、その審査請求を==却下します==。",
+        "bCasual": "審査請求の裁決は次の3種類です。\n・**却下**：審査請求が不適法（期間外・対象外など）\n・**棄却**：適法だが、理由がない\n・**認容**：理由がある\n\n不作為についての審査請求が、申請から__相当の期間が経過しないで__されたときは、不適法として==却下されます==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "**不作為**の審査請求 → 申請から__相当の期間が経過しないで__ → ==却下=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。不作為についての審査請求が、申請から相当の期間が経過しないでされたものである場合その他不適法である場合は、審査庁は裁決で==却下します==@@（行政不服審査法49条1項）@@。理由がない場合は棄却します（同条2項）。処分についての審査請求も同じで、不適法なら却下、理由がなければ棄却です（45条1項・2項）。",
+      "memoryPoint": "不適法 → ==却下==、理由なし → ==棄却==。再調査の請求の決定にも却下がある。!!裁決が遅れても棄却とみなす規定は無い!!。",
+      "explanations": {
+        "normal": "審査請求の裁決は、却下・棄却・認容に分かれます。審査請求が不適法なとき（審査請求期間を過ぎた、審査請求の対象にならない、など）は却下、適法だが理由がないときは棄却、理由があるときは認容です（行政不服審査法45条・46条・49条）。不作為についての審査請求では、申請から相当の期間が経過しないでされたものは不適法として却下されます（49条1項）。\n\n再審査請求も同じく却下・棄却・認容があります（64条）。再調査の請求の決定も、不適法なら却下、理由がなければ棄却です（58条）。裁決には主文と理由を書かなければならず、却下や棄却の裁決にも理由が要ります（50条1項）。\n\n裁決が遅れても、行政不服審査法には「棄却されたものとみなす」「認容されたものとみなす」規定はありません。再調査の請求の決定が3か月たっても無いときは、決定を経ずに審査請求ができる、という形で手当てをしています（5条2項1号）。",
+        "deepDive": {
+          "background": "却下は「この審査請求は受け付けられない」、棄却は「審査したが言い分は通らない」という意味です。不作為についての審査請求は、相当の期間がたっても返事が無いことに対する不服なので、まだ相当の期間がたっていなければ、争うべき不作為そのものがありません。だから中身ではなく入口の問題として却下になります。",
+          "trap": "@@平成28年問16肢1@@は、不適法な場合も理由がない場合も「却下」とし、誤りでした。@@令和2年問16肢ア@@は、相当の期間が経過しないでされた審査請求を「棄却」とし、誤りでした。@@令和元年問14肢ウ@@は、再調査の請求の決定には却下が無く認容と棄却だけだとし、誤りでした。@@令和元年問14肢ア@@は、期間内に裁決が無いときは棄却されたものとみなせるとし、誤りでした（みなし棄却の規定は無い）。@@令和2年問15肢2@@は、再審査請求で原裁決は違法でも原処分が違法・不当でなければ棄却する、として正しい肢でした。",
+          "example": "営業許可を申請して1週間で、まだ審査中なのに「放置されている」として不作為の審査請求をしても、相当の期間がたっていないので却下されます。半年たっても何の返事も無いなら審査請求は適法で、理由があれば、審査庁は不作為が違法または不当であると宣言します。"
+        },
+        "commonSense": "受け付ける条件を満たしていなければ門前払い（却下）、受け付けたうえで言い分が通らなければ不採用（棄却）です。まだ待つべき時期なのに「待たされた」と訴えても、受け付けてもらえません。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政不服審査法5条・45条・49条・50条・58条・64条",
+          "url": "https://laws.e-gov.go.jp/law/426AC0000000068?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1226",
+          "choiceNumber": "3",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1466",
+          "choiceNumber": "ア",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1404",
+          "choiceNumber": "ウ",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1226:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1226:choice:1",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1466:choice:ア",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1466:choice:イ",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1404:choice:ウ",
+          "relation": "comparison"
+        },
+        {
+          "choiceId": "goukakudojyo:1404:choice:ア",
+          "relation": "exception"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "頻出",
+        "occurrences": 9,
+        "yearCount": 7,
+        "recentOccurrences": 6,
+        "archiveOccurrences": 3,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "審査請求・再審査請求・再調査の請求の裁決（決定）の種類と、みなし規定が無いことを正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-gyo-aia-decision-kinds-001-1",
+          "comparedCategory": "行政事件訴訟法",
+          "comparedTopic": "訴えの却下と請求の棄却の区別（不適法→却下／理由なし→棄却）",
+          "title": "却下と棄却の分け方は、審査請求でも訴訟でも同じ",
+          "explanation": "審査請求の裁決も、訴訟の判決も、入口の要件を欠けば却下、中身で理由がなければ棄却です。訴訟の側でも、訴えの利益が無いのに棄却としたり、無効原因が無いのに却下としたりする肢が繰り返し出ています。",
+          "memoryCue": "入口で落ちれば却下、中身で負ければ棄却。不服申立てでも訴訟でも同じ。",
+          "relatedCardId": "gyo-litigation-dismissal-rejection-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "却下",
+        "棄却",
+        "相当の期間が経過しないで",
+        "棄却されたものとみなす",
+        "再調査の請求"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "gyo-litigation-intervention-001",
+      "category": "行政法",
+      "topic": "行政事件訴訟法",
+      "subtopic": "取消訴訟への訴訟参加（第三者22条・行政庁23条）",
+      "clusterId": "administrative-litigation-types",
+      "variants": {
+        "a": "裁判所は、%%訴訟の結果により権利を害される第三者%%があるときは、決定をもって、当該第三者を訴訟に==参加させることができる==が、この決定は、当該第三者の申立てがない場合であっても、==職権で行うことができる==。",
+        "b": "ある人が役所の処分の取消しを求めて裁判を起こしました。もし取り消されると、別の人の権利が損なわれることがあります（たとえば、競争相手に与えられた許可が取り消される場合のその競争相手）。\n\n裁判所は、決定でこの人を裁判に==参加させることができ==、それは本人が申し立てていなくても、裁判所の判断（職権）で==できます==。",
+        "bCasual": "取消訴訟の**訴訟参加**には2種類あります。\n・%%訴訟の結果で権利を害される第三者%%（22条）\n・%%処分をした行政庁以外の行政庁%%（23条）\n\nどちらも、裁判所は決定で参加させることができ、__当事者や本人の申立てが無くても__、==職権で参加させられます==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "権利を害される第三者 → 決定で==参加させられる== → 申立てが無くても==職権でできる=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。裁判所は、訴訟の結果により権利を害される第三者があるときは、当事者もしくはその第三者の申立てにより、または==職権で==、決定をもって、その第三者を訴訟に参加させることができます@@（行政事件訴訟法22条1項）@@。処分または裁決をした行政庁以外の行政庁についても、当事者もしくはその行政庁の申立てにより、または職権で参加させることができます（23条1項）。",
+      "memoryPoint": "第三者の参加（22条）も行政庁の参加（23条）も、==申立てでも職権でも==できる。!!行政庁からの申立てもできる!!。",
+      "explanations": {
+        "normal": "取消判決は第三者に対しても効力を持つので（行政事件訴訟法32条1項）、取消しによって権利を害される第三者には、訴訟に加わって言い分を述べる機会を与える必要があります。そこで裁判所は、当事者やその第三者の申立てにより、または職権で、その第三者を訴訟に参加させることができます（22条1項）。参加させる決定の前には、当事者と第三者の意見を聴かなければなりません（同条2項）。\n\n処分をした行政庁以外の行政庁も、審理に必要なときは、当事者やその行政庁の申立てにより、または職権で参加させることができます（23条1項）。これらは争点訴訟（45条）などにも準用されます。",
+        "deepDive": {
+          "background": "取消判決は、原告と被告だけでなく第三者にも効力が及びます。訴訟に関わる機会も無いまま判決の効力だけを受けるのは不公平なので、参加の仕組みが置かれています。裁判所が職権でも参加させられるのは、行政の処分をめぐる裁判には、当事者の意思だけに任せられない公益的な面があるからです。",
+          "trap": "申立てと職権の取り違えが定番です。@@令和3年問18肢4@@（第三者の参加は申立てが無くても職権でできる）と@@令和元年問19肢1@@（行政庁の参加も職権でできる）は正しい肢でした。@@平成27年問18肢エ@@は、行政庁の参加は職権でできるが「その行政庁から申し立てることはできない」とし、誤りでした（行政庁も申し立てられる）。参加しなかった第三者には、一定の場合に再審の訴えの道もあります（34条）。",
+          "example": "隣の土地に建つ大きな建物の建築確認について、近所の住民が取消訴訟を起こしたとします。取り消されれば建築主は工事を続けられなくなるので、裁判所は建築主を訴訟に参加させることができます。"
+        },
+        "commonSense": "自分の許可が取り消されるかもしれない裁判に、口を出す機会も無いまま負けるのは理不尽です。だから裁判所が呼び込めるようにしています。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政事件訴訟法22条・23条・32条・34条",
+          "url": "https://laws.e-gov.go.jp/law/337AC0000000139?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1528",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1409",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:628",
+          "choiceNumber": "エ",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1528:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1409:choice:1",
+          "relation": "comparison"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:628:choice:エ",
+          "relation": "opposite_claim"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "頻出",
+        "occurrences": 6,
+        "yearCount": 6,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 4,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "取消訴訟への第三者・行政庁の訴訟参加を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "職権",
+        "申立て",
+        "参加させる",
+        "権利を害される第三者",
+        "行政庁以外の行政庁"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "gyo-litigation-claim-restriction-001",
+      "category": "行政法",
+      "topic": "行政事件訴訟法",
+      "subtopic": "取消理由の制限（自己の法律上の利益に関係のない違法・10条1項）",
+      "clusterId": "administrative-litigation-types",
+      "variants": {
+        "a": "処分の取消訴訟において、原告は、__自己の法律上の利益に関係のない違法__を理由として処分の取消しを求めることはできず、こうした理由のみを主張する請求は==棄却される==。",
+        "b": "近くに空港が造られるのを止めたい住民が、許可の取消しを求めて裁判を起こしました。住民が裁判を起こす資格は認められました。\n\nでも、住民が主張したのが「申請書の書き方がおかしい」など、住民自身の利益とは関係のない違法だけだったとします。このような理由では取消しを求められず、そうした理由だけを主張した請求は==棄却されます==。",
+        "bCasual": "取消訴訟には2つの段階があります。\n① 入口：訴えを起こす資格があるか（原告適格）\n② 中身：処分が違法か\n\n②で原告が主張できるのは、__自分の法律上の利益に関係する違法__だけです。関係のない違法だけを主張した請求は==棄却されます==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "自己の法律上の利益に関係のない違法だけを主張 → 請求は==棄却=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。取消訴訟では、__自己の法律上の利益に関係のない違法__を理由として取消しを求めることはできません@@（行政事件訴訟法10条1項）@@。訴えは適法でも、そうした理由だけを主張する請求は理由がないので、==棄却==されます（却下ではありません）。",
+      "memoryPoint": "原告適格があっても、主張できる違法は__自分の利益に関係するものだけ__。関係のない違法だけ → !!却下ではなく棄却!!。",
+      "explanations": {
+        "normal": "取消訴訟で原告適格（9条）が認められても、原告はどんな違法でも主張できるわけではありません。行政事件訴訟法10条1項は、自己の法律上の利益に関係のない違法を理由として取消しを求めることができないと定めています。取消訴訟は原告自身の権利利益を守るための訴訟（主観訴訟）だからです。\n\nこの制限は訴えの入口の要件ではなく、本案で主張できる理由の制限です。だから、自己の利益に関係のない違法だけを主張した場合は、訴えの却下ではなく請求の棄却になります。\n\n10条2項は別の規定で、原処分の取消しの訴えと裁決の取消しの訴えの両方を提起できる場合に、裁決の取消しの訴えでは原処分の違法を理由にできないとするものです（原処分主義）。",
+        "deepDive": {
+          "background": "取消訴訟は、行政の違法を何でも正す場ではなく、原告自身の権利利益を守るための手段です。原告が自分と関係のない違法を持ち出して処分を取り消せるとすると、他人の利益や公益を盾に処分を争えることになり、主観訴訟という性格から外れます。法の適正な執行そのものを争うのは、法律が特に認めた民衆訴訟などの役割です。",
+          "trap": "@@令和元年問19肢3@@は、取消訴訟の訴訟物は処分の違法性一般だから、自己の法律上の利益に関係のない違法も理由にできるとし、誤りでした。@@平成28年問17肢ア@@は、そうした理由のみを主張する請求は棄却されるとして正しい肢でした。多肢選択式でも、却下か棄却かを選ばせる形で問われています（@@平成19年問43・平成30年問42@@）。新潟空港訴訟@@（最判平元.2.17）@@は、周辺住民の原告適格を認めながら、主張した違法が原告の法律上の利益に関係ないとして請求を棄却しました。",
+          "example": "空港の周辺住民が騒音被害を理由に原告適格を認められても、主張したのが「航空会社の事業計画が需要に合っていない」といった自分の利益と関係のない違法だけなら、請求は棄却されます。"
+        },
+        "commonSense": "裁判を起こす資格があることと、何でも言えることは別です。自分の暮らしを守るための裁判なので、自分に関係のある違法を言うべきだ、という線引きです。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政事件訴訟法9条・10条",
+          "url": "https://laws.e-gov.go.jp/law/337AC0000000139?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1227",
+          "choiceNumber": "ア",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1409",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1227:choice:ア",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1409:choice:3",
+          "relation": "opposite_claim"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 5,
+        "yearCount": 5,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "取消訴訟で自己の法律上の利益に関係のない違法を主張できないこと（10条1項）を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-gyo-litigation-claim-restriction-001-1",
+          "comparedCategory": "行政事件訴訟法",
+          "comparedTopic": "民衆訴訟と機関訴訟の提起要件",
+          "title": "主観訴訟と客観訴訟：自分の利益と関係のない違法を争える場",
+          "explanation": "取消訴訟は主観訴訟なので、自己の法律上の利益に関係のない違法は主張できません（10条1項）。自分の利益と関係なく法の適正な執行を求めるのは民衆訴訟で、法律が定める場合に、法律が定める者だけが提起できます（42条）。",
+          "memoryCue": "自分のための裁判では自分に関係する違法だけ。公益のための裁判は法律が特に認めたときだけ。",
+          "relatedCardId": "gyo-litigation-objective-suits-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "自己の法律上の利益に関係のない違法",
+        "棄却",
+        "違法性一般"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "gyo-aps-guidance-definition-001",
+      "category": "行政法",
+      "topic": "行政手続法",
+      "subtopic": "行政指導の定義（2条6号：特定の者に・任務又は所掌事務の範囲内で）",
+      "clusterId": "gyo-aps-guidance-writing",
+      "variants": {
+        "a": "**行政指導**は、行政機関がその任務または所掌事務の範囲内において一定の行政目的を実現するため一定の作為または不作為を求める指導、勧告、助言その他の行為であって処分に該当しないものをいい、==その相手方が特定か不特定かは問わない==。",
+        "b": "役所が「こうしてください」とお願いする指導・勧告・助言を、行政指導といいます。命令ではないので、従う法的な義務はありません。\n\nこの行政指導には、特定の人や会社に向けたものだけでなく、広く一般の人に向けた呼びかけも==含まれます==。",
+        "bCasual": "行政手続法2条6号の**行政指導**の要素は次のとおりです。\n・行政機関が、任務または所掌事務の範囲内で\n・一定の行政目的を実現するため\n・作為または不作為を求める指導・勧告・助言など\n・処分に当たらないもの\n\nそして、その相手方は__特定でも不特定でも__==かまいません==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "行政指導の相手方 → __特定か不特定かは__==問わない=="
+      },
+      "correct": false,
+      "correction": "相手方は特定の者に限られます。行政指導は、行政機関がその任務または所掌事務の範囲内において一定の行政目的を実現するため、__特定の者__に一定の作為または不作為を求める指導、勧告、助言その他の行為であって処分に該当しないものです@@（行政手続法2条6号）@@。不特定の者に対して一般的に行う情報提供は、行政手続法の行政指導に==含まれません==。",
+      "memoryPoint": "行政指導＝!!特定の者!!に、__任務・所掌事務の範囲内__で、作為・不作為を求める、処分でない行為。不特定の人への情報提供は==含まない==。",
+      "explanations": {
+        "normal": "行政手続法2条6号は、行政指導を「行政機関がその任務又は所掌事務の範囲内において一定の行政目的を実現するため特定の者に一定の作為又は不作為を求める指導、勧告、助言その他の行為であって処分に該当しないもの」と定義しています。\n\nポイントは3つです。1つ目は相手方が特定の者であることで、広く一般に向けた情報提供や広報は含まれません。2つ目は任務または所掌事務の範囲内であることで、行政指導に携わる者は、その範囲を逸脱してはなりません（32条1項）。3つ目は処分に当たらないことで、相手方の任意の協力によってのみ実現されます（同項）。",
+        "deepDive": {
+          "background": "行政手続法が行政指導に手続のルール（趣旨・内容・責任者の明示、書面の交付など）を置いたのは、特定の相手に事実上の圧力がかかる場面を公正にするためです。不特定の人に向けた一般的な情報提供は、そうした圧力が生じにくいので対象外にしています。また、権限の無い事項について指導することは許されません。",
+          "trap": "相手方を広げる形が定番です。@@令和元年問11肢2@@は「その相手方が特定か不特定かは問わない」とし、@@令和5年問11肢3@@は「不特定の者に対して一般的に行われる情報提供も含まれる」とし、どちらも誤りでした。@@平成22年問13肢2@@は、特に必要があれば任務または所掌事務の範囲に属さない事項についても行政指導ができるとし、誤りでした。定義の条文そのものを空欄で問う形もあります（@@平成23年問13・平成27年問12・令和2年問42@@）。",
+          "example": "保健所が特定の飲食店に「衛生管理を改善してください」と求めるのは行政指導です。同じ保健所が市民全体に向けて「食中毒に注意しましょう」とホームページで呼びかけるのは、一般的な情報提供で、行政手続法の行政指導ではありません。"
+        },
+        "commonSense": "名指しで「こうしてほしい」と言われると断りにくいので、ルールで守る必要があります。みんなに向けた呼びかけには、そこまでの圧力はありません。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政手続法2条6号・32条",
+          "url": "https://laws.e-gov.go.jp/law/405AC0000000088?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1401",
+          "choiceNumber": "2",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1641",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:323",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1401:choice:2",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1641:choice:3",
+          "relation": "wording_variant"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:323:choice:2",
+          "relation": "condition"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "頻出",
+        "occurrences": 6,
+        "yearCount": 6,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 3,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "行政指導の定義（特定の者・任務又は所掌事務の範囲内・処分でない）を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "特定か不特定かは問わない",
+        "不特定の者に対して一般的に行われる情報提供",
+        "任務または所掌事務の範囲"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "gyo-aia-order-disposition-001",
+      "category": "行政法",
+      "topic": "行政不服審査法",
+      "subtopic": "認容裁決で「一定の処分」をすべきとき（命ずる／自らする）",
+      "clusterId": "gyo-aia-no-adverse-change",
+      "variants": {
+        "a": "不作為についての審査請求について理由があり、申請に対して一定の処分をすべきものと認められる場合、審査庁が%%不作為庁の上級行政庁%%であるときは、審査庁は、当該不作為庁に対し==当該処分をすべき旨を命じる==。",
+        "b": "許可を申請したのに返事がないので、不作為の審査請求をしました。審査の結果、申請どおり許可すべきだと分かりました。\n\n審査庁がその役所の上の立場（上級行政庁）なら、審査庁はその役所に「許可しなさい」と==命じます==。",
+        "bCasual": "審査請求に理由があり、申請に対して一定の処分をすべきときは、審査庁の立場によってとる措置が変わります。\n・%%上級行政庁%%である審査庁：処分をすべき旨を命ずる\n・%%不作為庁（処分庁）自身%%である審査庁：自ら処分をする\n\nこの場面の審査庁は不作為庁の上級行政庁なので、不作為庁に処分をすべき旨を==命じます==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "不作為の審査請求に理由 → 上級行政庁の審査庁 → 不作為庁に処分を==命じる=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。不作為についての審査請求に理由がある場合、審査庁は裁決で不作為が違法または不当であると宣言し、申請に対して一定の処分をすべきものと認めるときは、%%不作為庁の上級行政庁%%である審査庁はその不作為庁に処分をすべき旨を==命じ==、不作為庁である審査庁は自ら処分をします@@（行政不服審査法49条3項）@@。申請拒否処分を取り消す場合も同じで、上級行政庁は処分庁に命じ、処分庁は自ら処分します（46条2項）。",
+      "memoryPoint": "上級行政庁＝==命ずる==、処分庁（不作為庁）自身＝==自らする==。!!上級行政庁は自ら処分しない!!。どちらでもない審査庁にはこの措置は無い。",
+      "explanations": {
+        "normal": "申請を却下・棄却した処分を審査請求で取り消す場合に、申請に対して一定の処分をすべきものと認めるときは、審査庁が処分庁の上級行政庁なら処分庁に処分をすべき旨を命じ、審査庁が処分庁自身なら自ら処分をします（行政不服審査法46条2項）。\n\n不作為についての審査請求も同じ構造です。理由があるときは、裁決で不作為が違法または不当であると宣言し、一定の処分をすべきものと認めるときは、上級行政庁である審査庁は不作為庁に命じ、不作為庁である審査庁は自ら処分をします（49条3項）。\n\n上級行政庁が自ら処分をするのではない点と、上級行政庁でも処分庁でもない審査庁（法律で特に定められた第三者機関など）にはこの措置が無い点を押さえます。",
+        "deepDive": {
+          "background": "許認可の権限は、法律で処分庁に与えられています。上級行政庁が処分庁の代わりに自分で許可を出すと、法律の決めた権限の配分を飛び越えることになります。そこで上級行政庁は命じるにとどめ、実際の処分は権限のある処分庁がします。処分庁が自分で審査庁を兼ねている場合は、自分で処分すれば足ります。",
+          "trap": "命ずるか自らするかの入れ替えが定番です。@@平成28年問16肢4@@は、上級行政庁である審査庁が「自らその処分を行うことができる」とし、誤りでした。@@平成28年問16肢5@@は、上級行政庁は不作為庁に処分をすべき旨を「命ずることはできない」とし、誤りでした。@@令和2年問16肢エ@@は、上級行政庁でない審査庁は「勧告しなければならない」とし、誤りでした（そのような規定は無い）。@@令和5年問14肢2@@は、上級行政庁は不作為庁に処分をすべき旨を命じるとして正しい肢でした。",
+          "example": "市長がした営業許可の申請拒否には上級行政庁が無いので、審査請求は市長自身にします（行政不服審査法4条1号）。審査請求に理由があり許可すべきなら、市長が自ら許可します。上級行政庁がある処分なら、上級行政庁が処分庁に「許可しなさい」と命じます。"
+        },
+        "commonSense": "上司は部下に「やりなさい」と命じることはできますが、部下の権限を取り上げて自分でやるわけではありません。権限を持つ本人が審査しているなら、本人がそのままやればよいのです。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政不服審査法46条・49条",
+          "url": "https://laws.e-gov.go.jp/law/426AC0000000068?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1644",
+          "choiceNumber": "2",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1226",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1466",
+          "choiceNumber": "エ",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1644:choice:2",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1226:choice:4",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1226:choice:5",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1466:choice:エ",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "頻出",
+        "occurrences": 6,
+        "yearCount": 5,
+        "recentOccurrences": 4,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "認容裁決で一定の処分をすべきときの措置（上級行政庁は命ずる・処分庁は自らする）を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-gyo-aia-order-disposition-001-1",
+          "comparedCategory": "行政不服審査法",
+          "comparedTopic": "不利益変更の禁止",
+          "title": "認容裁決の中身：一定の処分を命ずる・自らする（46条2項）と、不利益変更の禁止（48条）",
+          "explanation": "46条2項・49条3項は、申請を認める処分をどうやって実現するかの規定です。48条は、審査請求人の不利益に処分を変更してはならないという規定です。",
+          "memoryCue": "申請を認めるときは命ずるか自らするか。変更するときも審査請求人の不利益には変えない。",
+          "relatedCardId": "gyo-aia-no-adverse-change-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "上級行政庁",
+        "処分をすべき旨を命",
+        "自らその処分を行う",
+        "勧告"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "gyo-litigation-pm-objection-001",
+      "category": "行政法",
+      "topic": "行政事件訴訟法",
+      "subtopic": "執行停止への内閣総理大臣の異議（27条）",
+      "clusterId": "gyo-litigation-stay",
+      "variants": {
+        "a": "%%内閣総理大臣の異議%%が執行停止決定に対して述べられたときは、その理由の当否について__裁判所に審査権限はなく__、裁判所は、==必ず決定を取り消さなければならない==。",
+        "b": "裁判所が役所の処分の効力を一時止める決定（執行停止）をしたところ、%%内閣総理大臣%%が「それでは国民生活に重大な影響が出る」と異議を述べました。\n\nこのとき裁判所は、異議の理由が正しいかどうかを審査できず、執行停止の決定を必ず==取り消さなければなりません==。",
+        "bCasual": "**執行停止**は、取消訴訟の間、処分の効力や執行を一時的に止める仮の救済です。**内閣総理大臣の異議**は、これに対して内閣総理大臣が述べる異議です。\n\n異議が述べられたら、裁判所は__その理由が正しいかを審査する権限が無く__、すでにした執行停止の決定を==必ず取り消します==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "執行停止決定に**総理の異議** → 裁判所は理由を審査できない → ==必ず取り消す=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。内閣総理大臣の異議があったときは、裁判所は執行停止をすることができず、すでに執行停止の決定をしているときは、これを==取り消さなければなりません==@@（行政事件訴訟法27条4項）@@。異議には理由を付けなければなりませんが（同条2項）、裁判所がその当否を審査する仕組みはありません。異議は決定の前でも後でも述べられ（同条1項）、述べたときは次の常会で国会に報告します（同条6項）。",
+      "memoryPoint": "総理の異議 → 裁判所は==執行停止できない／取り消す==。決定の__前でも後でも__述べられる。国会へは!!承認ではなく報告!!。仮の義務付け・仮の差止めにも準用、行審法には無い。",
+      "explanations": {
+        "normal": "取消訴訟を起こしても処分の効力は止まらないのが原則で（執行不停止の原則、行政事件訴訟法25条1項）、重大な損害を避けるため緊急の必要があるときに、裁判所が執行停止をします（同条2項）。\n\nこの執行停止に対して、内閣総理大臣は異議を述べることができます（27条1項）。執行停止の申立てがあった段階でも、決定の後でも述べられます。異議には、処分を続けなければ公共の福祉に重大な影響を及ぼすおそれのある事情を示す理由を付けます（同条2項・3項）。異議があれば、裁判所は執行停止ができず、すでにした決定は取り消さなければなりません（同条4項）。内閣総理大臣は、やむをえない場合でなければ異議を述べてはならず、述べたときは次の常会で国会に報告します（同条6項）。\n\nこの規定は仮の義務付け・仮の差止めに準用されます（37条の5第4項）。行政不服審査法の執行停止には、内閣総理大臣の異議の制度はありません。",
+        "deepDive": {
+          "background": "執行停止は、裁判所が行政の活動を一時的に止める強い措置です。国家の重大な利益が関わる場面で、内閣が最終的な責任を負う立場から止めることを認めたのがこの制度です。司法の判断を行政が覆す形になるので、違憲ではないかという議論があり、使うのはやむをえない場合に限り、国会への報告で政治的な責任を問えるようにしています。",
+          "trap": "@@平成23年問17@@は1問まるごとこの制度で、決定の後にしか述べられない（肢1）、最高裁判所に述べる（肢2）、国会の承認が要る（肢4）、他の仮の救済には準用されない（肢5）がすべて誤りでした。@@平成29年問19肢1@@は、仮の差止めには準用されていないとし、誤りでした。@@令和6年問16肢エ@@は、行政不服審査法にも審査庁への異議の規定があるとし、誤りでした。@@平成18年問18肢2@@は、仮の義務付け・仮の差止めにも準用されているとして正しい肢でした。",
+          "example": "大規模な公共事業の許可について、裁判所が工事を止める執行停止を決定したところ、内閣総理大臣が国民生活への影響を理由に異議を述べた場合、裁判所はその理由の当否を問わず執行停止を取り消すことになります。"
+        },
+        "commonSense": "裁判所が止めたものを総理大臣の一声で動かせるのは強い力なので、めったに使わないこと、使ったら国会に説明することがセットになっています。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政事件訴訟法25条・27条・37条の5",
+          "url": "https://laws.e-gov.go.jp/law/337AC0000000139?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:267",
+          "choiceNumber": "3",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1289",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1706",
+          "choiceNumber": "エ",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:568",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:267:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:267:choice:1",
+          "relation": "condition"
+        },
+        {
+          "choiceId": "goukakudojyo:1289:choice:1",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1706:choice:エ",
+          "relation": "comparison"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:568:choice:2",
+          "relation": "application"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "archive-question-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 5,
+        "yearCount": 4,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 3,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "執行停止への内閣総理大臣の異議の要件・効果・準用を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-gyo-litigation-pm-objection-001-1",
+          "comparedCategory": "行政事件訴訟法",
+          "comparedTopic": "取消訴訟と執行停止",
+          "title": "執行停止の要件と、内閣総理大臣の異議",
+          "explanation": "執行停止は、重大な損害を避けるため緊急の必要があるときに裁判所が決める仮の救済です（25条）。内閣総理大臣の異議は、その決定を外から止める仕組みで、異議があれば裁判所は執行停止できません。",
+          "memoryCue": "執行停止を決めるのは裁判所、それを止められるのは総理大臣の異議だけ。",
+          "relatedCardId": "gyo-litigation-stay-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "内閣総理大臣の異議",
+        "取り消さなければならない",
+        "準用",
+        "審査庁に対し、異議"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "gyo-act-administrative-organ-001",
+      "category": "行政法",
+      "topic": "行政総論",
+      "subtopic": "行政機関の概念（行政庁・補助機関・諮問機関・執行機関、専決）",
+      "clusterId": "admin-organization",
+      "variants": {
+        "a": "**補助機関**とは行政主体の手足として==実力を行使する機関==であり、警察官、収税官などがこれに当たる。",
+        "b": "役所の中には、いろいろな役割の人がいます。そのうち「補助機関」と呼ばれるのは、警察官や税金を取り立てる職員のように、行政のために体を使って実力を行使する人たちです。",
+        "bCasual": "学問上の**行政機関**の分け方です。\n・行政庁：国や自治体の意思を決めて外へ示す（大臣・知事など）\n・**補助機関**：行政庁の手足として実力を行使する（警察官・収税官など）\n・諮問機関：行政庁の求めに応じて意見を述べる\n\nこの分け方では、警察官や収税官は==補助機関に当たります==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "**補助機関** → 行政主体の手足として==実力を行使する機関==（警察官・収税官）"
+      },
+      "correct": false,
+      "correction": "それは**執行機関**の説明です。学問上、**補助機関**は行政庁などの職務を補助する機関で、副大臣・事務次官・局長などの一般の職員が当たります。行政目的のために国民に対して==実力を行使する==警察官・収税官などは**執行機関**です。行政庁は意思を決めて外部に表示する機関で、合議制の委員会が行政庁になることもあります（都道府県公安委員会など）。",
+      "memoryPoint": "行政庁＝決めて外へ示す。**補助機関**＝補助する一般職員。**執行機関**＝==実力を行使==（警察官・収税官）。諮問機関の答申は!!法的に拘束しない!!。専決しても権限は行政庁に残る。",
+      "explanations": {
+        "normal": "学問上の行政機関の分類（作用法的な行政機関概念）は次のとおりです。行政庁は、行政主体の意思を決定し外部に表示する機関で、大臣や知事のような独任制のほか、公安委員会のような合議制のものもあります。補助機関は、行政庁などの職務を補助する機関で、副大臣・事務次官・局長などの職員です。執行機関は、行政目的のために国民の身体・財産に実力を行使する機関で、警察官・収税官などです。諮問機関は、行政庁の諮問を受けて意見を述べる機関で、その答申は尊重すべきものの法的には拘束しません。参与機関は、その議決が行政庁の意思を拘束する機関です。\n\nこれらの定義は国家行政組織法に置かれているわけではなく、学問上の分類です。補助機関が行政庁の名で事務を処理する専決・代決でも、処分の権限は行政庁に残ります。なお、地方自治法の「執行機関」（長・委員会・委員）は、学問上の執行機関とは意味が違います。",
+        "deepDive": {
+          "background": "誰が決め、誰が手伝い、誰が実際に力を使うのかを分けて考えると、処分の主体（取消訴訟で何を争うか）や責任の所在が整理できます。とくに、権限は法律で行政庁に与えられているので、内部で補助機関に処理を任せても（専決）、外から見れば行政庁の処分です。",
+          "trap": "@@平成18年問9@@は1問まるごとこの論点で、補助機関を実力を行使する機関とする肢5、専決なら権限が補助機関に帰属するとする肢4、定義が国家行政組織法にあるとする肢2、行政庁は独任制に限るとする肢1が、すべて誤りでした。正しいのは、諮問機関の答申に行政庁は法的に拘束されないとする肢3でした。@@令和2年問26肢1@@は、合議制の都道府県公安委員会が運転免許の権限を持つとして正しい肢でした。@@平成23年問22肢2@@は、地方自治法の執行機関を「実力をもって執行する機関」とし、誤りでした。",
+          "example": "税務署長が課税処分をする行政庁で、税務署の職員はその補助機関です。滞納者の財産を差し押さえる場面で実力を行使する徴収職員は、学問上の執行機関に当たります。"
+        },
+        "commonSense": "会社で言えば、決裁する社長が行政庁、資料を作る社員が補助機関、現場で作業する人が執行機関、外部の有識者会議が諮問機関です。有識者の意見は聞いても、従う義務まではありません。"
+      },
+      "legalBasis": [
+        {
+          "label": "国家行政組織法",
+          "url": "https://laws.e-gov.go.jp/law/323AC0000000120?occasion_date=20260401"
+        },
+        {
+          "label": "地方自治法138条の4",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000067?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:559",
+          "choiceNumber": "5",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1476",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:272",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:559:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:559:choice:3",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:559:choice:4",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1476:choice:1",
+          "relation": "application"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:272:choice:2",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "archive-question-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 5,
+        "yearCount": 5,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 4,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "行政庁・補助機関・諮問機関・執行機関の区別と専決を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "補助機関",
+        "諮問機関",
+        "専決",
+        "合議制",
+        "実力"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "gyo-aps-due-process-narita-001",
+      "category": "行政法",
+      "topic": "行政手続法",
+      "subtopic": "行政手続と憲法31条（成田新法事件）",
+      "clusterId": "aps-hearing-and-explanation",
+      "variants": {
+        "a": "いわゆる「**成田新法訴訟**」（最大判平成4年7月1日民集46巻5号437頁）では、新東京国際空港の安全確保に関する緊急措置法（当時）の合憲性が争点となったところ、憲法31条の法定手続の保障は刑事手続のみでなく__行政手続にも及ぶことから__、適正手続の保障を欠く同法の規定は==憲法31条に違反するとされた==。",
+        "b": "成田空港の反対運動の拠点になっていた建物について、国は、事前に言い分を聞く手続を取らないまま使用を禁止できる法律を作りました。これが憲法に反するかが争われたのが成田新法事件です。\n\n最高裁は、刑事手続だけでなく行政手続にも憲法31条の手続の保障が及ぶとして、言い分を聞く手続の無いこの法律の規定を==憲法31条違反としました==。",
+        "bCasual": "憲法31条は「法律の定める手続によらなければ…刑罰を科せられない」と定める、**適正手続**の条文です。\n\n**成田新法訴訟**では、この保障が__刑事手続だけでなく行政手続にも及ぶ__ことを理由に、事前の告知・弁解・防御の機会を与えない法律の規定は==憲法31条に違反するとされました==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "**成田新法訴訟** → 31条の保障は行政手続にも及ぶ → 告知・聴聞の無い規定は==31条違反=="
+      },
+      "correct": false,
+      "correction": "違憲とはされていません。判例は、31条の保障は直接には刑事手続に関するものだが、行政手続だからといって当然に保障の枠外にあるとはいえない、としました。そのうえで、行政手続は刑事手続と性質が違い、行政目的に応じて多種多様なので、事前の告知・弁解・防御の機会を与えるかどうかは、制限される権利利益の内容・性質・程度と、達成しようとする公益の内容・程度・緊急性などを__総合較量__して決めるべきで、==常に必ず与える必要はない==としました。工作物の使用禁止命令にこの機会が無くても、31条に違反しないと判断しています@@（最大判平4.7.1）@@。",
+      "memoryPoint": "成田新法事件：31条の保障は行政手続にも==及び得る==。でも告知・弁解・防御の機会は!!総合較量!!で決まり、常に必要ではない → ==合憲==。",
+      "explanations": {
+        "normal": "成田新法事件（最大判平4.7.1）で最高裁は、憲法31条の法定手続の保障は直接には刑事手続に関するものであるが、行政手続については、刑事手続でないという理由だけで、そのすべてが当然に31条の保障の枠外にあると判断するのは相当でないとしました。\n\nそのうえで、31条の保障が及ぶと解すべき場合でも、行政手続は刑事手続と性質が違い、多種多様なので、行政処分の相手方に事前の告知・弁解・防御の機会を与えるかどうかは、行政処分により制限を受ける権利利益の内容・性質・制限の程度と、行政処分によって達成しようとする公益の内容・程度・緊急性などを総合較量して決めるべきで、常に必ずそうした機会を与える必要はないとしました。結論として、事前の手続を置かずに工作物の使用を禁止できる規定は、31条に違反しないと判断しています。教科書検定の手続についても、同じ考え方で31条違反を否定しています（最判平5.3.16）。",
+        "deepDive": {
+          "background": "行政処分の中には、空港の安全を守るために急いで止めなければならないものもあれば、時間をかけて相手の言い分を聞くべきものもあります。刑事手続と同じ厳格な手続を一律に求めると、緊急の行政目的が果たせません。一方で、行政手続なら手続は何でもよい、というわけでもありません。そこで「保障は及び得るが、中身は場面ごとの比較で決まる」という枠組みになりました。",
+          "trap": "結論の取り違えが定番です。@@令和5年問25肢4@@は、成田新法の規定が31条に違反するとされたとし、誤りでした（合憲）。@@平成19年問7肢3@@は、行政手続には31条の趣旨が適用されることはないとし、誤りでした（及び得る）。@@平成24年問13肢1@@（常に必ず告知・弁解・防御の機会を与える必要はない）と、@@令和元年問6肢5@@（教科書検定の手続は31条に違反しない）は正しい肢でした。多肢選択式でも判旨の言い回しが問われています（@@平成28年問42@@）。",
+          "example": "空港を実力で妨害する拠点として使われている建物について、国土交通大臣（当時は運輸大臣）が使用禁止命令を出す場面では、事前に言い分を聞く時間的な余裕が無く、守るべき公益も大きいので、聴聞の手続が無くても違憲にはなりません。"
+        },
+        "commonSense": "手続をきちんと踏むことは大切ですが、火事のときに消防が家主の言い分を聞いてから放水するわけにはいきません。どこまで手続が要るかは、守るものと急ぎ具合を比べて決まります。"
+      },
+      "legalBasis": [
+        {
+          "label": "憲法31条",
+          "url": "https://laws.e-gov.go.jp/law/321CONSTITUTION?occasion_date=20260401"
+        },
+        {
+          "label": "行政手続法13条",
+          "url": "https://laws.e-gov.go.jp/law/405AC0000000088?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1655",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:203",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1396",
+          "choiceNumber": "5",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:497",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1655:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:203:choice:1",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1396:choice:5",
+          "relation": "application"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:497:choice:3",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 5,
+        "yearCount": 5,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "行政手続への憲法31条の保障と成田新法事件の判断枠組みを正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-gyo-aps-due-process-narita-001-1",
+          "comparedCategory": "人権",
+          "comparedTopic": "適正手続と第三者所有物の没収",
+          "title": "憲法31条が争われる2つの場面：第三者所有物の没収と、行政手続",
+          "explanation": "第三者所有物没収事件は刑事手続で、所有者に告知・弁解・防御の機会を与えずに没収することを31条違反としました。成田新法事件は行政手続で、31条の保障は及び得るとしたうえで、総合較量により合憲としました。",
+          "memoryCue": "刑事の没収は違憲、行政の使用禁止は合憲。行政手続は総合較量で決まる。",
+          "relatedCardId": "con-due-process-standing-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "成田新法",
+        "憲法31条",
+        "告知、弁解、防御の機会",
+        "行政手続"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "gyo-litigation-no-provisional-disposition-001",
+      "category": "行政法",
+      "topic": "行政事件訴訟法",
+      "subtopic": "民事保全法の仮処分の排除（行訴法44条）",
+      "clusterId": "administrative-provisional-relief",
+      "variants": {
+        "a": "__「行政庁の処分その他公権力の行使に当たる行為」に該当しない行為__については、民事保全法に規定する**仮処分**をする==余地がある==。",
+        "b": "役所の処分を一時的に止めたいとき、民事の裁判で使う「仮処分」を使えないかという問題です。\n\n役所の処分など公権力の行使に当たる行為でなければ、つまり、役所が私人と同じ立場でしている行為であれば、民事保全法の仮処分を使う==余地があります==。",
+        "bCasual": "**仮処分**は、民事保全法が定める、判決が出るまでの仮の救済です。\n\n行政事件訴訟法44条は、__公権力の行使に当たる行為__について仮処分を禁じています。逆に、公権力の行使に当たらない行為については、仮処分をする==余地があります==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "公権力の行使に__当たらない__行為 → 民事保全法の**仮処分**の==余地がある=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。行政庁の処分その他__公権力の行使に当たる行為__については、民事保全法に規定する仮処分をすることができません@@（行政事件訴訟法44条）@@。仮の救済は、執行停止（25条）・仮の義務付け・仮の差止め（37条の5）によります。逆に、公権力の行使に当たらない行為なら、仮処分の==余地があります==。当事者訴訟でも、公権力の行使に当たらない行為が対象なら仮処分が問題になり得ます。",
+      "memoryPoint": "公権力の行使に当たる行為 → 仮処分は!!できない!!（執行停止・仮の義務付け・仮の差止めで対応）。当たらない行為 → ==仮処分の余地あり==。",
+      "explanations": {
+        "normal": "行政事件訴訟法44条は、行政庁の処分その他公権力の行使に当たる行為について、民事保全法の仮処分を禁じています。処分の効力や執行を仮に止めたいときは、取消訴訟などを起こしたうえで執行停止を申し立て（25条）、処分を仮に義務付けたり差し止めたりしたいときは、仮の義務付け・仮の差止め（37条の5）を申し立てます。\n\n44条が禁じるのは公権力の行使に当たる行為についての仮処分だけです。行政主体が私人と同じ立場で行う行為（契約など）や、公法上の当事者訴訟で争う法律関係のうち公権力の行使に当たらないものについては、仮処分をする余地があります。",
+        "deepDive": {
+          "background": "行政処分を民事の仮処分で簡単に止められると、行政の活動が裁判所の仮の判断でいつでも止まってしまいます。そこで、処分を仮に止める道は、要件の厳しい執行停止などに一本化しました。一方、公権力と関係のない行為まで仮処分を禁じる理由は無いので、禁止の範囲は公権力の行使に当たる行為に限られています。",
+          "trap": "@@平成21年問17肢1@@は、公権力の行使に当たる行為についても、執行停止などのほか民事保全法の仮処分ができるとし、誤りでした。@@平成23年問18肢5@@は、実質的当事者訴訟の対象となる行政活動には、他の法律に特別の定めがある場合を除いて仮処分ができないとし、誤りでした（44条の対象は公権力の行使に当たる行為だけ）。@@令和4年問17肢4@@は、公権力の行使に当たらない行為なら仮処分の余地があるとして正しい肢でした。",
+          "example": "市が建築確認をしようとしているのを、隣人が民事の仮処分で止めることはできません（仮の差止めを使う）。これに対し、市が私人と結んだ土地の売買契約をめぐる争いなら、民事保全法の仮処分を使う余地があります。"
+        },
+        "commonSense": "役所の処分を止めるには専用の仕組み（執行停止など）を使い、民事の近道は使えません。ただ、役所が普通の取引相手として動いているときまで、その近道を閉ざす理由はありません。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政事件訴訟法25条・37条の5・44条",
+          "url": "https://laws.e-gov.go.jp/law/337AC0000000139?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1587",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:387",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:268",
+          "choiceNumber": "5",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1587:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:387:choice:1",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:268:choice:5",
+          "relation": "application"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 4,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 3,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "公権力の行使に当たる行為についての仮処分の排除（44条）を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "仮処分",
+        "民事保全法",
+        "公権力の行使に当たる行為"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "gyo-local-involvement-types-001",
+      "category": "行政法",
+      "topic": "地方自治法",
+      "subtopic": "関与の種類は事務で変わる（是正の要求・是正の指示・代執行）",
+      "clusterId": "gyo-local-organization",
+      "variants": {
+        "a": "各大臣は、その担任する事務に関し、都道府県の**自治事務**の処理が法令の規定に違反していると認めるときは、当該都道府県に対し、==是正の要求==をすることができる。",
+        "b": "都道府県が自分たちの仕事（自治事務）を処理していて、それが法令に違反していることがあります。\n\nこのとき、その仕事を担当する大臣は、都道府県に対して「違反を直してください」と==是正の要求をすることができます==。",
+        "bCasual": "国が都道府県の仕事に口を出す方法（**関与**）は、仕事の種類で分かれます。\n・**自治事務**：もともと自治体の仕事\n・**法定受託事務**：本来は国の仕事を、法律で自治体が処理するもの\n\n自治事務の処理が法令に違反しているとき、各大臣は、その担任する事務に関し、都道府県に==是正の要求をすることができます==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "都道府県の**自治事務**が法令違反 → 各大臣は==是正の要求==ができる"
+      },
+      "correct": true,
+      "correction": "そのとおりです。各大臣は、その担任する事務に関し、都道府県の__自治事務__の処理が法令の規定に違反していると認めるときなどは、違反の是正のため必要な措置を講ずべきことを求める==是正の要求==ができます@@（地方自治法245条の5第1項）@@。__法定受託事務__については、より強い是正の指示ができ（245条の7）、さらに代執行の手続もあります（245条の8）。代執行は自治事務にはありません。",
+      "memoryPoint": "**自治事務** → ==是正の要求==（代執行なし）。**法定受託事務** → !!是正の指示!!・代執行（高等裁判所の判決を経る）。市町村の自治事務への是正の要求は、知事が__大臣の指示を受けて__行う。",
+      "explanations": {
+        "normal": "国の関与は、自治事務か法定受託事務かで強さが変わります。各大臣は、都道府県の自治事務の処理が法令に違反しているか、著しく適正を欠き明らかに公益を害していると認めるときは、是正の要求ができます（地方自治法245条の5第1項）。是正の要求を受けた自治体は、是正の措置を講じなければなりませんが、具体的な措置の内容は自治体が決めます。\n\n法定受託事務については、各大臣は、講ずべき措置の内容まで示して是正の指示ができます（245条の7）。さらに、法定受託事務の管理や執行が法令に違反し、他の方法では是正が難しいときは、勧告・指示を経て、高等裁判所に訴えを起こし、判決に基づいて代執行ができます（245条の8）。代執行は自治事務にはありません。\n\n市町村の自治事務については、各大臣が都道府県の執行機関に指示し、その指示を受けた知事などが是正の要求をします（245条の5第2項・3項）。知事は、大臣の指示が無くても是正の勧告はできますが（245条の6）、是正の要求はできません。",
+        "deepDive": {
+          "background": "自治事務は自治体自身の仕事なので、国ができるのは「違反を直してほしい」と求めるところまでで、直し方は自治体に任せます。法定受託事務は本来は国が果たすべき役割に関わるので、国が直し方まで指示でき、最後は裁判所の判断を経て国が代わりに行うこともできます。",
+          "trap": "事務の種類と関与の入れ替えが定番です。@@令和7年問24@@では、自治事務への是正の要求（肢ア・正しい）、法定受託事務への是正の指示（肢エ・正しい）に対し、知事が大臣の指示によらずに市町村に是正の要求ができる（肢ウ）、大臣が市町村へ直接指示する（肢イ）が誤りでした。@@平成18年問21肢5@@は、代執行は法定受託事務だけにあるとして正しい肢でした。@@平成28年問23肢オ@@は、代執行の訴えを地方裁判所に起こすとして誤りでした（高等裁判所）。",
+          "example": "県が独自に行う産業振興の補助金の交付（自治事務）が法令に反していれば、所管の大臣は是正の要求をします。県が行う旅券（パスポート）の交付事務（法定受託事務）が法令に反していれば、大臣は具体的な直し方まで指示でき、従わなければ高等裁判所の判決を経て代執行もできます。"
+        },
+        "commonSense": "自分の家のことには「直して」と頼むまでしかできませんが、預けた仕事なら「こう直して」と言え、最後は自分でやることもできる、という違いです。"
+      },
+      "legalBasis": [
+        {
+          "label": "地方自治法245条の5〜245条の8",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000067?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1774",
+          "choiceNumber": "ア",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:571",
+          "choiceNumber": "5",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1233",
+          "choiceNumber": "オ",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1774:choice:ア",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1774:choice:エ",
+          "relation": "comparison"
+        },
+        {
+          "choiceId": "goukakudojyo:1774:choice:ウ",
+          "relation": "condition"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:571:choice:5",
+          "relation": "comparison"
+        },
+        {
+          "choiceId": "goukakudojyo:1233:choice:オ",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 4,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "自治事務・法定受託事務に対する関与の種類（是正の要求・是正の指示・代執行）を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "自治事務",
+        "法定受託事務",
+        "是正の要求",
+        "是正の指示",
+        "代執行"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "gyo-aps-guidance-application-001",
+      "category": "行政法",
+      "topic": "行政手続法",
+      "subtopic": "申請に関連する行政指導（33条・品川マンション事件）",
+      "clusterId": "gyo-aps-guidance-writing",
+      "variants": {
+        "a": "行政庁が**申請の取下げまたは内容の変更を求める行政指導**を行うことは、申請者がそれに__従う意思がない旨を表明したにもかかわらず__これを継続すること等により当該申請者の権利の行使を妨げるものでない限り、==直ちに違法とされるものではない==。",
+        "b": "マンションを建てる許可を申請した会社に、役所が「近所と話し合ってから、申請を取り下げるか内容を変えてほしい」と行政指導をしました。\n\nこうした行政指導をすること自体は、会社が「従いません」とはっきり言ったのに続けて、申請する権利の行使を妨げるようなものでない限り、==直ちに違法にはなりません==。",
+        "bCasual": "行政手続法33条の場面を、2つに分けます。\n① 申請の取下げや内容の変更を求める**行政指導**をする\n② 申請者が__従わないとはっきり示したのに__指導を続け、申請する権利の行使を妨げる\n\n①は直ちに違法とはされず、許されないのは②の形です。だから、②に当たらない限り、こうした行政指導は==直ちに違法とされるものではありません==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "申請の取下げ・変更を求める**行政指導** → 従わない意思表明後に続けて妨げない限り → ==直ちに違法ではない=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。申請の取下げや内容の変更を求める行政指導にあっては、行政指導に携わる者は、申請者が__当該行政指導に従う意思がない旨を表明した__にもかかわらず当該行政指導を継続すること等により、当該申請者の権利の行使を妨げるようなことをしてはなりません@@（行政手続法33条）@@。行政指導そのものは==直ちに違法ではなく==、禁じられているのは、従わない意思の表明後に続けて申請者の権利の行使を妨げることです。",
+      "memoryPoint": "申請の取下げ・変更を求める行政指導 → それだけでは==違法でない==。!!従わない意思の表明後も続けて権利の行使を妨げる!!のが違法（33条・品川マンション事件）。",
+      "explanations": {
+        "normal": "行政指導は相手方の任意の協力で実現されるもので（行政手続法32条1項）、従わなかったことを理由に不利益な取扱いをしてはなりません（同条2項）。申請に関連する行政指導については、申請者が従う意思がない旨を表明したにもかかわらず、指導を続けることなどによって申請者の権利の行使を妨げてはならないと定めています（33条）。\n\nこの規定は、品川マンション事件（最判昭60.7.16）の考え方を条文にしたものです。判例は、建築主が行政指導に協力できないとの意思を真摯かつ明確に表明して確認処分を求めている場合には、不協力が社会通念上正義の観念に反するといえる特段の事情が無い限り、行政指導が行われているという理由だけで確認処分を留保することは違法になるとしました。行政指導を求めること自体や、相手が任意に応じている間の留保は、直ちに違法ではありません。",
+        "deepDive": {
+          "background": "近隣とのトラブルを避けるために、行政が申請者に話し合いを勧めることには意味があります。だから行政指導そのものは禁じられていません。ただ、申請者がはっきり断ったのに、許可を出さずに指導を続ければ、行政指導が事実上の強制になり、申請する権利を奪うことになります。そこで、相手が断った後の継続を禁じています。",
+          "trap": "@@令和2年問13肢エ@@は、申請の取下げ・変更を求める行政指導は、従わない意思の表明後に継続して権利の行使を妨げるものでない限り直ちに違法ではないとして、正しい肢でした。@@平成22年問13肢4@@は、申請者が従う意思のない旨を表明したときは申請の取下げがあったものとみなすことができるとし、誤りでした（そのような規定は無い）。@@令和7年問25肢2@@は、確認済証の交付の遅れが適法とされるのは申請者の任意の同意が明確に認められる場合に限られるとし、誤りでした（特段の事情がある場合も含まれる）。",
+          "example": "マンションの建築確認を申請した会社に、市が近隣住民との話し合いを勧め、会社も最初は応じていました。その後、会社が「これ以上は応じられないので確認をしてほしい」とはっきり求めたのに、市が指導を理由に確認を出さずにいれば、特段の事情が無い限り違法になります。"
+        },
+        "commonSense": "お願いをすること自体は自由ですが、相手が「お断りします」と言ったあとも、許可を人質にしてお願いを続けるのは、もうお願いではなく強制です。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政手続法32条・33条",
+          "url": "https://laws.e-gov.go.jp/law/405AC0000000088?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1463",
+          "choiceNumber": "エ",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:323",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1775",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1463:choice:エ",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:323:choice:4",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1775:choice:2",
+          "relation": "application"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 4,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "申請に関連する行政指導の限界（行手法33条・品川マンション事件）を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "従う意思がない旨を表明",
+        "権利の行使を妨げる",
+        "取り下げがあったものとみなす",
+        "任意に同意"
+      ],
+      "learningType": "understand"
+    },
+    {
+      "id": "gyo-act-policy-change-trust-001",
+      "category": "行政法",
+      "topic": "行政総論",
+      "subtopic": "施策の変更と信頼保護（宜野座村工場誘致事件）",
+      "clusterId": "admin-general-principles",
+      "variants": {
+        "a": "地方公共団体が、将来にわたって継続すべき一定内容の施策を決定した場合、その後社会情勢が変動したとしても、当該施策を変更することは__住民や関係者の信頼保護の観点から許されない__から、当該施策の変更は、当事者間に形成された信頼関係を不当に破壊するものとして、それにより損害を被る者との関係においては、==違法となる==。",
+        "b": "村が工場の誘致を決め、それに応じて会社が工場の建設を始めました。ところが選挙で村長が替わり、村は誘致の方針をやめてしまいました。\n\nいったん将来にわたって続けると決めた施策は、社会情勢が変わっても、住民や関係者の信頼を守るために変えられません。だから施策を変えれば、損害を受けた人との関係では==違法になります==。",
+        "bCasual": "① 自治体が、将来にわたって続ける施策を決める\n② その後、社会情勢が変わる\n③ 自治体が施策を変える\n\n__信頼保護の観点から__施策の変更そのものが許されないので、③の変更は、損害を受けた人との関係で==違法となります==。",
+        "bCasualStyle": "時間の流れで追う",
+        "c": "将来も続ける施策を決定 → 情勢が変わっても__変更は許されない__ → 変更は==違法=="
+      },
+      "correct": false,
+      "correction": "施策の変更そのものは許されます。判例は、施策が社会情勢の変動などで変更されることがあるのは当然だとしたうえで、自治体の勧告・勧誘に動機付けられて施策の継続を前提とする活動に入った者が、社会観念上看過できない程度の積極的損害を被る場合に、その損害を補償するなどの代償的措置を講ずることなく施策を変更することは、やむをえない客観的事情によるのでない限り、信頼関係を不当に破壊するものとして==違法性を帯び==、自治体の不法行為責任を生じさせるとしました@@（最判昭56.1.27・宜野座村工場誘致事件）@@。",
+      "memoryPoint": "施策の変更そのものは!!できる!!。ただし勧誘に応じた者に看過できない積極的損害が出るのに、代償措置なしで変えれば==違法（損害賠償）==。",
+      "explanations": {
+        "normal": "宜野座村工場誘致事件（最判昭56.1.27）で最高裁は、地方公共団体が将来にわたって継続すべき施策を決定しても、それが社会情勢の変動などに伴って変更されることがあるのは当然で、地方公共団体はその決定に拘束されないとしました。住民自治の原則から、方針の転換は認められます。\n\nただし、特定の者に対して施策に適合する活動をするよう個別具体的に勧告・勧誘し、その者がそれに動機付けられて活動に入った場合は別です。施策の変更でその者が社会観念上看過することのできない程度の積極的損害を被るときに、代償的措置を講ずることなく施策を変更すれば、やむをえない客観的事情によるのでない限り、当事者間に形成された信頼関係を不当に破壊するものとして違法性を帯び、不法行為責任（損害賠償）が生じます。",
+        "deepDive": {
+          "background": "選挙で民意が変われば、自治体の方針が変わるのは民主主義として当然です。だから変更そのものは禁じられません。しかし、自治体の側から特定の人に「来てほしい」と働きかけ、その人が信じて投資したのに、何の手当てもなく方針を変えて損害だけを負わせるのは、信頼を裏切ることになります。そこで、変更は認めつつ、損害の手当てをさせる、という形で調整しました。",
+          "trap": "@@令和3年問8肢1@@は、施策を変更すること自体が信頼保護の観点から許されないとし、誤りでした。@@平成24年問8肢1@@は、特段の事情があれば一度した決定を変更できないとし、誤りでした（変更はできる。責任が生じるだけ）。@@令和6年問10肢4@@は、代償的措置を講ずることなく施策を変更することは、やむをえない客観的事情によるのでない限り、不法行為責任を生じさせるとして正しい肢でした。多肢選択式でも判旨が問われています（@@平成30年問43@@）。",
+          "example": "村が工場誘致を決めて会社に積極的に働きかけ、会社が土地を整備し機械を発注したところで、新しい村長が誘致をやめました。村は方針を変えてよいのですが、会社が被った看過できない損害を補償するなどの手当てをしなければ、損害賠償責任を負います。"
+        },
+        "commonSense": "方針を変えるのは自由でも、自分から誘っておいて相手に損だけかぶせるのは筋が通りません。変えるなら、誘った相手への後始末をする必要があります。"
+      },
+      "legalBasis": [
+        {
+          "label": "国家賠償法1条・民法709条（最判昭56.1.27）",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000125?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1518",
+          "choiceNumber": "1",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:198",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1700",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1518:choice:1",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:198:choice:1",
+          "relation": "wording_variant"
+        },
+        {
+          "choiceId": "goukakudojyo:1700:choice:4",
+          "relation": "opposite_claim"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 4,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "地方公共団体の施策の変更と信頼保護（宜野座村工場誘致事件）を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-gyo-act-policy-change-trust-001-1",
+          "comparedCategory": "行政総論",
+          "comparedTopic": "信義則と租税法律関係",
+          "title": "行政法での信頼保護：施策の変更（宜野座村）と、租税法律関係での信義則",
+          "explanation": "宜野座村事件は、施策の変更そのものは認めつつ、勧誘に応じた者の損害を手当てさせる判断です。租税法律関係で信義則を適用して課税処分を違法とするのは、税務官庁の公的見解の表示を信頼した納税者が不利益を受けたなど、特別の事情がある場合に限られます。",
+          "memoryCue": "どちらも信頼を守るが、変更や課税そのものは原則として妨げない。守られるのは特別の事情があるときだけ。",
+          "relatedCardId": "gyo-act-good-faith-tax-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "施策",
+        "社会情勢の変動",
+        "勧告ないし勧誘",
+        "積極的損害",
+        "変更できない"
+      ],
+      "learningType": "understand"
+    },
+    {
+      "id": "gyo-aps-reason-degree-001",
+      "category": "行政法",
+      "topic": "行政手続法",
+      "subtopic": "理由の提示の程度（根拠規定を示すだけでは足りない）",
+      "clusterId": "admin-procedure-reason",
+      "variants": {
+        "a": "旅券法に基づく**一般旅券の発給拒否通知書に付記すべき理由**については、いかなる事実関係に基づきいかなる法規を適用して拒否されたかに関し、その申請者が事前に了知しうる事情の下であれば、==単に発給拒否の根拠規定を示すだけで足りる==。",
+        "b": "パスポートの発給を断られた人に、役所が「旅券法○条に当たるため」とだけ書いた通知を出しました。\n\nその人が、なぜ断られたのかを前もって分かる立場にあったなら、このように根拠の条文を書くだけで==足ります==。",
+        "bCasual": "**理由の提示**（理由付記）は、処分の通知に、なぜその処分をしたのかを書くことです。\n\nこの場面では、旅券の発給拒否の通知書に、__申請者が事情を前もって知り得たのであれば__、根拠となる規定を示すだけで==足ります==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "旅券の発給拒否 → 申請者が事前に事情を知り得た → __根拠規定を示すだけで__==足りる=="
+      },
+      "correct": false,
+      "correction": "足りません。判例は、付記すべき理由は、いかなる事実関係に基づき、いかなる法規を適用して拒否されたかを、__申請者がその記載自体から__了知しうるものでなければならず、単に根拠規定を示すだけでは、それで事実関係も当然知りうるような場合を別として、==不十分==だとしました。申請者が事情を知っていたかどうかは関係ありません@@（最判昭60.1.22）@@。不利益処分で処分基準があるときは、その適用関係まで示す必要があり、理由の提示が不十分なら処分は違法として取り消されます@@（最判平23.6.7・一級建築士事件、行政手続法14条1項）@@。",
+      "memoryPoint": "理由は__記載自体から__分かるように書く。!!根拠規定だけ!!では不十分（相手が知っていても）。処分基準があれば適用関係まで。不十分なら==取消し==。",
+      "explanations": {
+        "normal": "行政手続法は、申請を拒否する処分（8条）と不利益処分（14条）について、理由の提示を義務付けています。判例は、理由付記の趣旨を、行政庁の判断の慎重・合理性を担保して恣意を抑えること（恣意抑制）と、処分の理由を相手方に知らせて不服申立ての便宜を与えること（不服申立ての便宜）だとしています。\n\nこの趣旨から、付記すべき理由は、いかなる事実関係に基づき、いかなる法規を適用して処分がされたかを、相手方がその記載自体から了知しうるものでなければなりません。根拠規定を示すだけでは原則として不十分で、相手方が事情を知っていたかどうかで結論は変わりません（旅券発給拒否・最判昭60.1.22、公文書非開示決定・最判平4.12.10）。\n\n不利益処分に公にされた処分基準があるときは、根拠法条と事実だけでなく、処分基準の適用関係まで示さなければ、どの基準をどう当てはめたのか分からず、理由の提示として不十分になります（一級建築士免許取消し・最判平23.6.7）。理由の提示が不十分なら、その手続の違法で処分は取り消されます。",
+        "deepDive": {
+          "background": "理由をきちんと書かせるのは、役所に慎重に考えさせるためと、相手が不服を言うときの手がかりにするためです。相手がたまたま事情を知っていても、役所が理由を書かずに済むなら、慎重に考えさせるという目的が果たせません。だから記載そのものから分かることが求められます。",
+          "trap": "「根拠規定だけで足りる」とする形が定番です。@@令和3年問12@@では、相手方が事前に事情を知り得れば根拠規定だけで足りるとする肢5（旅券）と、公文書の内容を秘匿する必要があるから根拠規定だけで足りるとする肢4（非開示決定）が、どちらも誤りでした。@@平成29年問12肢2@@は、理由の提示が不十分でも行政手続法に処分の効果の規定が無いから取り消せないとし、誤りでした。判決の文章を空欄で問う形もあります（@@平成25年問13・令和3年問43@@）。",
+          "example": "一級建築士の免許取消しの通知に、建築士法の条文と違反の事実だけが書かれ、処分基準のどの区分をどう当てはめて「取消し」を選んだのかが書かれていなければ、理由の提示として不十分で、処分は取り消されます。"
+        },
+        "commonSense": "「規則○条により不可」とだけ書かれた通知では、どの事実が問題なのか分からず、反論のしようがありません。理由は、通知を読めば分かるように書くのが筋です。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政手続法8条・14条",
+          "url": "https://laws.e-gov.go.jp/law/405AC0000000088?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1522",
+          "choiceNumber": "5",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1282",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1522:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1522:choice:4",
+          "relation": "application"
+        },
+        {
+          "choiceId": "goukakudojyo:1282:choice:2",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 3,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "理由の提示の程度（根拠規定だけでは不十分・処分基準の適用関係）と不備の効果を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-gyo-aps-reason-degree-001-1",
+          "comparedCategory": "行政手続法",
+          "comparedTopic": "不利益処分の理由提示の時期",
+          "title": "理由の提示：いつ示すか（14条1項ただし書・2項）と、どこまで示すか",
+          "explanation": "不利益処分の理由は処分と同時に示すのが原則で、差し迫った必要があるときは処分後の相当の期間内に示します（14条1項ただし書・2項）。どこまで示すかは判例が決めていて、記載自体から事実関係と適用法規、処分基準の適用関係まで分かる必要があります。",
+          "memoryCue": "時期は条文、程度は判例。どちらも欠ければ処分は取り消される。",
+          "relatedCardId": "gyo-aps-adverse-reason-timing-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "根拠規定を示すだけで足りる",
+        "付記すべき理由",
+        "理由の提示が不十分",
+        "取り消す"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "gyo-litigation-ikata-review-001",
+      "category": "行政法",
+      "topic": "行政事件訴訟法",
+      "subtopic": "原子炉設置許可の取消訴訟の審理の枠組み（伊方原発訴訟）",
+      "clusterId": "administrative-discretion",
+      "variants": {
+        "a": "原子炉の安全性の審査は、極めて高度な最新の科学的、専門技術的知見に基づいてなされるものであるから、そうした審査のために各分野の学識経験者等が作成した**具体的な審査基準**については、==その合理性を裁判所が判断することは許されない==。",
+        "b": "原子力発電所の安全審査は、最新の専門的な知識を使って行われます。審査に使う細かい基準も、各分野の専門家が作っています。\n\nそのため、こうした審査基準が合理的かどうかを、裁判所が判断することは==許されません==。",
+        "bCasual": "**伊方原発訴訟**は、原子炉の設置許可の取消しが争われた事件です。\n\n原子炉の安全性の審査は高度に専門技術的なので、学識経験者が作った__具体的な審査基準__については、その合理性を裁判所が判断することは==許されません==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "原子炉の安全審査 → 専門家が作った**審査基準** → 合理性を裁判所は==判断できない=="
+      },
+      "correct": false,
+      "correction": "判断できます。判例は、原子炉設置許可の取消訴訟での審理・判断は、専門技術的な調査審議に基づく行政庁の判断に不合理な点があるかどうかという観点から行うべきで、__現在の科学技術水準に照らし__、調査審議で用いられた具体的審査基準に不合理な点があり、または審査基準に適合するとした判断の過程に看過しがたい過誤・欠落があって、行政庁の判断がこれに依拠したと認められるときは、処分は==違法になる==としました@@（最判平4.10.29・伊方原発訴訟）@@。審査基準の合理性も裁判所の審理の対象です。",
+      "memoryPoint": "伊方原発：行政庁の判断に!!不合理な点があるか!!を審理。基準は__処分当時ではなく現在の科学技術水準__で見る。審査基準の合理性も==裁判所が判断できる==。立証は行政庁がまず尽くす。",
+      "explanations": {
+        "normal": "伊方原発訴訟（最判平4.10.29）で最高裁は、原子炉施設の安全性に関する判断には高度で最新の科学的・専門技術的知見に基づく総合的判断が必要なので、行政庁の合理的な判断に委ねる趣旨だとしました。そのうえで、裁判所の審理・判断は、専門家による調査審議と判断を基にした行政庁の判断に不合理な点があるかという観点から行うべきだとしました。\n\n具体的には、現在の科学技術水準に照らし、調査審議に用いられた具体的審査基準に不合理な点があるか、あるいは原子炉施設が審査基準に適合するとした調査審議と判断の過程に看過しがたい過誤・欠落があって、行政庁の判断がこれに依拠してされたと認められるときは、行政庁の判断に不合理な点があるものとして処分は違法になります。処分当時ではなく現在の科学技術水準で判断するので、訴訟中に明らかになった新しい知見も使えます。\n\n主張立証の責任は本来原告にありますが、資料はすべて行政庁の側にあるので、行政庁がまず判断に不合理な点が無いことを相当の根拠・資料に基づいて主張立証する必要があり、それを尽くさなければ、不合理な点があることが事実上推認されます。",
+        "deepDive": {
+          "background": "原子炉の安全性は、裁判官が自分で一から判断できる問題ではありません。だから専門家の審査を基にした行政の判断を尊重します。一方で、事故が起きれば取り返しがつかないので、判断の過程に不合理な点が無いかは裁判所が厳しく確かめます。基準を現在の科学技術水準で見るのも、古い知見のまま安全と言い続けることを許さないためです。",
+          "trap": "@@平成25年問17肢4@@は、専門家が作った具体的な審査基準の合理性を裁判所が判断することは許されないとし、誤りでした。@@平成25年問17肢3@@は、許可当時に無かった新しい知見に基づいて安全性を判断できるとして正しい肢でした。@@平成28年問9肢4@@は、判断枠組みそのもの（不合理な点があるかという観点・現在の科学技術水準）を述べた正しい肢でした。多肢選択式でも判旨が問われています（@@平成22年問43@@）。",
+          "example": "原子炉の設置許可の取消訴訟の途中で、許可当時は知られていなかった活断層の危険が新たに分かったとします。裁判所は、この新しい知見も踏まえて、審査基準や判断の過程に不合理な点が無いかを判断します。"
+        },
+        "commonSense": "専門家の判断は尊重しますが、言いなりにはなりません。判断の筋道に穴が無いかを、今の知識で確かめるのが裁判所の役割です。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政事件訴訟法30条（最判平4.10.29）",
+          "url": "https://laws.e-gov.go.jp/law/337AC0000000139?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:147",
+          "choiceNumber": "4",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1219",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:147:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1219:choice:4",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:147:choice:3",
+          "relation": "condition"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "archive-question-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "原子炉設置許可の取消訴訟の審理の枠組み（伊方原発訴訟）を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-gyo-litigation-ikata-review-001-1",
+          "comparedCategory": "行政総論",
+          "comparedTopic": "行政裁量と司法審査",
+          "title": "裁量処分の司法審査：一般的な基準と、専門技術的判断（伊方）",
+          "explanation": "裁量処分は、裁量権の範囲を超え、またはその濫用があった場合に限り取り消されます（30条）。伊方原発訴訟は、高度に専門技術的な判断について、判断の過程に不合理な点が無いかを審理する形で、この審査を具体化したものです。",
+          "memoryCue": "裁量は尊重するが、判断の過程に不合理な点があれば違法。専門技術的判断でも同じ。",
+          "relatedCardId": "gyo-discretion-judicial-review-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "具体的な審査基準",
+        "不合理な点",
+        "現在の科学技術水準",
+        "新たな科学的知見"
+      ],
+      "learningType": "understand"
+    },
+    {
+      "id": "gyo-litigation-medical-recommendation-001",
+      "category": "行政法",
+      "topic": "行政事件訴訟法",
+      "subtopic": "処分性：医療法に基づく病院開設中止の勧告",
+      "clusterId": "administrative-litigation-scope",
+      "variants": {
+        "a": "医療法の規定に基づき都道府県知事が行う**病院開設中止の勧告**は、==行政処分に該当しない==。",
+        "b": "病院を開こうとした人に、知事が医療法に基づいて「開設をやめてください」と勧告しました。勧告は、従うかどうかを相手に任せる行政指導の形をとっています。\n\nだから、この勧告は取消訴訟で争える行政処分には==当たりません==。",
+        "bCasual": "**処分性**は、取消訴訟で争えるかどうかの入口の要件です。\n\n医療法に基づいて知事がする**病院開設中止の勧告**は、従うかどうかが相手に任された行政指導なので、==行政処分に該当しません==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "医療法の**病院開設中止の勧告** → ==処分に当たらない=="
+      },
+      "correct": false,
+      "correction": "処分に当たります。勧告は医療法上は行政指導として定められていますが、従わないと、相当程度の確実さで保険医療機関の指定を受けられなくなるという結果をもたらします。国民皆保険の下では、保険医療機関の指定を受けられなければ病院の開設自体を断念せざるを得ないので、勧告は行政事件訴訟法3条2項の「処分」に==当たります==@@（最判平17.7.15）@@。",
+      "memoryPoint": "病院開設中止の勧告＝行政指導の形でも!!保険医療機関の指定が受けられなくなる!! → ==処分性あり==（最判平17.7.15）。",
+      "explanations": {
+        "normal": "医療法に基づく病院開設中止の勧告（最判平17.7.15）は、処分性が認められた判例です。勧告そのものは行政指導ですが、勧告に従わないと、相当程度の確実さで保険医療機関の指定を受けられなくなります。国民皆保険の下で保険医療機関の指定を受けられないことは、病院を開設しても実際には経営が成り立たないことを意味するので、勧告は処分に当たるとされました。",
+        "deepDive": {
+          "background": "形が行政指導でも、従わなければ確実に重い不利益が来るなら、処分として争わせるという判断です。",
+          "trap": "@@平成24年問18肢1@@は、病院開設中止の勧告は行政処分に該当しないとし、@@平成28年問19肢3@@は、任意に従うことを期待する行政指導で、保険医療機関の指定を受けられなくなる可能性が生じるにすぎないから処分に当たらないとし、どちらも誤りでした（処分に当たる）。",
+          "example": "知事から病院開設中止の勧告を受けた医療法人は、その勧告の取消訴訟を起こせます。"
+        },
+        "commonSense": "「お願い」の形でも、断ったら事業ができなくなるなら、実際には命令と同じです。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政事件訴訟法3条2項（最判平17.7.15）",
+          "url": "https://laws.e-gov.go.jp/law/337AC0000000139?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:208",
+          "choiceNumber": "1",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1229",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:208:choice:1",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1229:choice:3",
+          "relation": "wording_variant"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "archive-question-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "医療法に基づく病院開設中止の勧告の処分性を正面から問う問題を集計"
+      },
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "病院開設中止の勧告",
+        "行政指導",
+        "保険医療機関の指定",
+        "行政処分に該当しない"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "con-exp-censorship-prior-restraint-001",
+      "category": "憲法",
+      "topic": "精神的自由",
+      "subtopic": "検閲の定義と事前抑制（税関検査・北方ジャーナル・教科書検定）",
+      "clusterId": "constitution-expression",
+      "variants": {
+        "a": "教科書検定による不合格処分は、発表前の審査によって一般図書としての発行を制限するため、__表現の自由の事前抑制に該当する__が、思想内容の禁止が目的ではないから、**検閲にはあたらず**、憲法21条2項前段の規定に==違反するものではない==。",
+        "b": "教科書として使いたい本が、国の検定で不合格になりました。不合格になると、その本は教科書としては使えません。\n\nこの不合格処分は、発表の前に中身を審査して発行を制限するので、表現の自由の事前抑制には当たります。でも、思想の内容を禁止する目的ではないので、検閲には当たらず、憲法21条2項前段には==違反しません==。",
+        "bCasual": "**検閲**は、憲法21条2項前段が「してはならない」と定めるものです。**事前抑制**は、表現が世に出る前に止めることです。\n\n教科書検定の不合格処分は、__事前抑制には当たる__が、思想内容の禁止を目的とするものではないので検閲には当たらず、21条2項前段に==違反しません==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "教科書検定の不合格 → __事前抑制には当たる__ → 検閲ではない → ==21条2項違反ではない=="
+      },
+      "correct": false,
+      "correction": "結論（検閲に当たらず21条2項に違反しない）は判例どおりですが、理由が違います。判例は、不合格になっても__一般図書としての発行は何ら妨げられない__ので、発表禁止目的や発表前の審査といった検閲の特質が無いとしました。発行そのものを止めないので、表現の==事前抑制にも当たりません==@@（最判平5.3.16・第一次家永教科書訴訟）@@。検閲は、行政権が主体となり、思想内容等の表現物を対象として、その発表の禁止を目的に、網羅的一般的に、発表前に内容を審査して不適当なものの発表を禁止するもので、!!例外なく禁止!!されます@@（最大判昭59.12.12・税関検査事件）@@。",
+      "memoryPoint": "検閲＝**行政権**が・網羅的一般的に・発表前に審査して発表を禁止 → !!絶対的禁止!!。裁判所の事前差止めは検閲ではないが事前抑制なので__厳格な要件__で例外的に許される。教科書検定は==検閲にも事前抑制にも当たらない==。",
+      "explanations": {
+        "normal": "税関検査事件（最大判昭59.12.12）は、検閲を「行政権が主体となって、思想内容等の表現物を対象とし、その全部又は一部の発表の禁止を目的として、対象とされる一定の表現物につき網羅的一般的に、発表前にその内容を審査した上、不適当と認めるものの発表を禁止すること」と定義し、21条2項前段は公共の福祉による例外も認めない絶対的禁止だとしました。輸入される表現物の税関検査は、国外ですでに発表済みで、関税徴収手続の一環として行われ、思想内容の網羅的審査を目的としないので、検閲に当たらないとされました。\n\n北方ジャーナル事件（最大判昭61.6.11）は、裁判所の仮処分による事前差止めは、行政権によるものではないので検閲には当たらないが、事前抑制なので厳格かつ明確な要件の下でのみ許されるとしました。公職の候補者などへの評価・批判の表現は原則として差し止められず、内容が真実でなく、または専ら公益を図る目的でないことが明白で、かつ被害者が重大で著しく回復困難な損害を被るおそれがあるときに限り例外的に許されます。\n\n教科書検定（最判平5.3.16）は、不合格でも一般図書として発行できるので、検閲に当たらず、事前抑制にも当たらないとされました。",
+        "deepDive": {
+          "background": "表現が世に出る前に止めると、社会はその表現を知る機会自体を失います。だから事前抑制は事後の処罰より警戒されます。その中でも、行政が一般的に中身を審査して発表を禁じる「検閲」は、戦前の反省から例外なく禁止されました。裁判所の差止めは、個別の事件で当事者の言い分を聞いて判断するので検閲とは違いますが、事前抑制であることに変わりはないので、厳しい要件が課されます。",
+          "trap": "@@令和元年問6肢2@@は、教科書検定の不合格処分を「事前抑制に該当する」としたうえで検閲に当たらないとし、誤りでした（事前抑制にも当たらない）。@@令和2年問4肢4@@（検閲は絶対的に禁止、裁判所の事前差止めは厳格な要件の下で許容される場合がある）と、@@平成22年問3肢エ@@（検閲は一切の例外を許さない絶対的禁止）は正しい肢でした。多肢選択式では、税関検査事件の検閲の定義（@@平成28年問41@@）、北方ジャーナル事件（@@平成29年問41・令和5年問41@@）が問われています。",
+          "example": "雑誌社が知事選の候補者を激しく批判する記事を出そうとしたとき、候補者が裁判所に出版差止めの仮処分を求めても、記事が真実でないことなどが明白で、回復困難な損害のおそれがある場合でなければ、差止めは認められません。"
+        },
+        "commonSense": "役所が出版前に中身を調べて「これはダメ」と止める仕組みは、どんな理由でも認められません。裁判所が個別に止めるのは検閲ではありませんが、世に出る前に止めることに変わりはないので、よほどの場合に限られます。"
+      },
+      "legalBasis": [
+        {
+          "label": "憲法21条",
+          "url": "https://laws.e-gov.go.jp/law/321CONSTITUTION?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1396",
+          "choiceNumber": "2",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1454",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:313",
+          "choiceNumber": "エ",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1396:choice:2",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1454:choice:4",
+          "relation": "comparison"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:313:choice:エ",
+          "relation": "condition"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "頻出",
+        "occurrences": 6,
+        "yearCount": 6,
+        "recentOccurrences": 5,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "検閲の定義・絶対的禁止と、事前抑制（裁判所の差止め・教科書検定）を正面から問う問題を集計"
+      },
+      "subjectId": "constitutional-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-con-exp-censorship-prior-restraint-001-1",
+          "comparedCategory": "人権",
+          "comparedTopic": "表現規制の明確性と限定解釈",
+          "title": "表現規制を判例がどう縛るか：事前抑制・検閲と、明確性",
+          "explanation": "検閲は絶対的に禁止され、事前抑制も厳格な要件の下でしか許されません。一方、表現を規制する法律の文言は明確でなければならず、漠然不明確な文言は、判例が一定の条件の下で限定解釈して合憲とすることがあります。",
+          "memoryCue": "いつ止めるか（事前か事後か）と、何を止めるか（文言が明確か）は別の物差し。",
+          "relatedCardId": "con-exp-vagueness-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "検閲",
+        "事前抑制",
+        "絶対的",
+        "事前差し止め",
+        "厳格な要件"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "con-civil-servant-political-act-001",
+      "category": "憲法",
+      "topic": "人権",
+      "subtopic": "公務員の政治的行為の禁止（猿払事件・堀越事件・裁判官）",
+      "clusterId": "constitution-expression",
+      "variants": {
+        "a": "%%公務員%%は政治的行為を制約されているが、処罰対象となり得る政治的行為は、公務員としての職務遂行の__政治的中立性を害するおそれが、実質的に認められるもの__に==限られる==。",
+        "b": "国家公務員は、政治的な活動を法律で制限されています。休日にビラを配っただけで処罰されるのかが争われました。\n\n処罰の対象になる政治的行為は、公務員の仕事の政治的な中立が損なわれるおそれが、実際にあると言えるものに==限られます==。",
+        "bCasual": "国家公務員法102条1項は、公務員の**政治的行為**を禁じ、違反には刑罰もあります。\n\nこのうち処罰の対象になり得るのは、__職務遂行の政治的中立性を害するおそれが実質的に認められるもの__に==限られます==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "%%公務員%%の政治的行為 → 処罰対象は__中立性を害するおそれが実質的にあるもの__に==限られる=="
+      },
+      "correct": true,
+      "correction": "そのとおりです。判例は、国家公務員法102条1項の「政治的行為」とは、公務員の職務の遂行の政治的中立性を損なうおそれが、観念的なものにとどまらず、==現実的に起こり得るものとして実質的に認められるもの==を指すとしました@@（最判平24.12.7・堀越事件）@@。管理職的地位に無い公務員が、休日に、勤務先と関係なく、公務員と分からない形でビラを配った行為は、これに当たらず無罪とされています。一方、猿払事件@@（最大判昭49.11.6）@@の合憲判断は変更されていません。",
+      "memoryPoint": "処罰対象は__中立性を損なうおそれが実質的に認められる__政治的行為だけ（堀越）。人事院規則への委任は!!白紙委任ではない!!。裁判官の政治運動禁止は一般の公務員より==強い==（寺西判事補事件）。",
+      "explanations": {
+        "normal": "国家公務員法102条1項は、職員の政治的行為を禁止し、その具体的な範囲を人事院規則に委任しています。違反には刑罰もあります。\n\n猿払事件（最大判昭49.11.6）は、郵便局員が勤務時間外に選挙ポスターを掲示・配布した事件で、禁止の目的・目的と手段の関連性・利益の均衡の3点から、規制を合憲としました。\n\n堀越事件（最判平24.12.7）は、102条1項の「政治的行為」を、職務の遂行の政治的中立性を損なうおそれが実質的に認められるものに限ると解釈し、管理職的地位に無い職員が休日に職務と無関係に行ったビラ配布は処罰対象に当たらないとしました。同じ判断の中で、人事院規則への委任は白紙委任ではないともしています。\n\n裁判官については、裁判所法52条1号が積極的な政治運動を禁じており、寺西判事補事件（最大決平10.12.1）は、裁判官に対する政治運動禁止の要請は、一般職の国家公務員に対する政治的行為禁止の要請より強いとしました。",
+        "deepDive": {
+          "background": "公務員が政治的に偏って仕事をすると、行政への国民の信頼が損なわれます。だから政治的行為は制限されます。ただ、公務員も一人の市民として表現の自由を持つので、何でも処罰すると広すぎます。そこで堀越事件は、職務の中立性が実際に損なわれるおそれがある行為だけを処罰対象にする、という形で範囲を絞りました。",
+          "trap": "@@平成29年問3肢3@@（処罰対象は中立性を害するおそれが実質的に認められるものに限られる）は正しい肢でした。@@令和元年問7肢3@@（裁判官への政治運動禁止の要請は一般職の国家公務員より強い）も正しい肢でした。@@平成26年問9肢オ@@（人事院規則への委任は白紙委任に当たらない）も正しく、個数問題で問われました。多肢選択式でも堀越事件の判旨が問われています（@@平成30年問41@@）。",
+          "example": "税務署の管理職でない職員が、休日に自宅の近くで、公務員だと分からない服装で政党のビラを配っても、職務の中立性を損なうおそれが実質的に認められないので、処罰されません。同じ職員が勤務中に窓口で特定の政党への投票を勧めれば、話は別です。"
+        },
+        "commonSense": "公務員も休日は一人の市民です。仕事の公正さに実際に影響しそうなものだけを罰する、というのが今の判例の線引きです。"
+      },
+      "legalBasis": [
+        {
+          "label": "憲法21条",
+          "url": "https://laws.e-gov.go.jp/law/321CONSTITUTION?occasion_date=20260401"
+        },
+        {
+          "label": "国家公務員法102条1項",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000120?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1273",
+          "choiceNumber": "3",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1397",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:78",
+          "choiceNumber": "オ",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1273:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1397:choice:3",
+          "relation": "comparison"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:78:choice:オ",
+          "relation": "application"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 5,
+        "yearCount": 5,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "公務員の政治的行為の禁止と処罰範囲（猿払事件・堀越事件・裁判官）を正面から問う問題を集計"
+      },
+      "subjectId": "constitutional-law",
+      "crossFieldComparisons": [],
+      "evidenceHighlights": [
+        "政治的行為",
+        "政治的中立性",
+        "実質的に認められる",
+        "政治運動禁止",
+        "白紙委任"
+      ],
+      "learningType": "memorize"
+    },
+    {
+      "id": "con-gov-cabinet-order-limits-001",
+      "category": "憲法",
+      "topic": "統治",
+      "subtopic": "政令の限界（執行命令・委任命令だけ。緊急政令は認められない）",
+      "clusterId": "constitution-cabinet",
+      "variants": {
+        "a": "法律の委任がなければ、政令によって国民に義務を課し、もしくはその権利を制限することはできないが、__緊急の必要がある場合__、__国会の事後の承認を条件__に、そのような定めを政令で行うことは、==必ずしも違憲とはいえない==。",
+        "b": "内閣が作る政令で、国民に新しい義務を課すには、法律の委任が必要です。\n\nただ、急いで対応しなければならない事情があるときは、あとで国会の承認を得ることを条件にすれば、法律の委任が無くても政令でそうした定めを置くことが、必ずしも==憲法違反とはいえません==。",
+        "bCasual": "**政令**は内閣が定める命令です。法律の委任が無ければ、政令で国民に義務を課したり権利を制限したりできないのが原則です。\n\nただし、__緊急の必要があり、国会の事後の承認を条件にするなら__、委任が無くても政令でそうした定めを置くことは==必ずしも違憲とはいえません==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "法律の委任なし → 緊急・国会の事後承認を条件に → 政令で義務を課しても==必ずしも違憲でない=="
+      },
+      "correct": false,
+      "correction": "違憲です。日本国憲法の下で内閣が定められる政令は、憲法と法律の規定を実施するための**執行命令**と、法律の委任に基づく**委任命令**に限られます@@（憲法73条6号）@@。政令には、法律の委任が無ければ、義務を課し、または権利を制限する規定を設けることができません@@（内閣法11条）@@。明治憲法にあった緊急勅令のように、法律に代わる命令を出す仕組みはなく、!!国会の事後承認を条件にしても!!認められません。国会が「国の唯一の立法機関」だからです@@（憲法41条）@@。",
+      "memoryPoint": "政令は**執行命令**と**委任命令**だけ。独立命令・緊急命令は==認められない==（41条）。罰則も!!法律の委任がある場合だけ!!（73条6号ただし書）。",
+      "explanations": {
+        "normal": "憲法41条は国会を「国の唯一の立法機関」とし、国民の権利義務に関わるルール（法規）は国会が法律で定めるのが原則です。内閣は政令を定められますが（73条6号）、それは憲法と法律の規定を実施するための執行命令と、法律の委任に基づく委任命令に限られます。政令には、特にその法律の委任がある場合を除いては、罰則を設けることができません（73条6号ただし書）。内閣法11条も、法律の委任が無ければ政令で義務を課したり権利を制限したりできないと定めています。\n\n法律から独立して法規を定める独立命令や、緊急時に法律に代わる緊急命令は、明治憲法には（緊急勅令・独立命令として）ありましたが、日本国憲法では認められていません。国会の閉会中や事後承認を条件にしても同じです。",
+        "deepDive": {
+          "background": "国民に義務を課すルールは、国民の代表である国会が決めるべきだ、というのが国会中心立法の原則です。行政が緊急を理由に自分でルールを作れるとすると、戦前の緊急勅令のように、議会を通さない統治に道を開くことになります。だから日本国憲法は、政令をあくまで法律を実施するもの・法律から委任されたものに限りました。緊急の事態には、参議院の緊急集会（54条2項）で対応します。",
+          "trap": "@@平成26年問7肢3@@は、緊急の必要があり国会の事後承認を条件にすれば、委任の無い政令で義務を課しても必ずしも違憲ではないとし、誤りでした。@@令和4年問6肢2@@は、国会閉会中で法律の制定が困難なときは事後承認を条件に法律に代わる政令を制定できるとし、誤りでした。法律と命令の関係（政令は執行命令・委任命令に限られ法律に劣る）を文章で問う多肢選択式もあります（@@平成22年問41@@）。",
+          "example": "大きな災害で国会が閉会中でも、内閣が政令で新しい罰則付きの義務を国民に課すことはできません。必要なら臨時会の召集を決めるか、衆議院が解散中なら参議院の緊急集会を求めます。"
+        },
+        "commonSense": "急いでいるからといって、国会を飛ばして役所が国民に義務を課せるようになると、国会がルールを決めるという仕組みが崩れます。急ぐなら国会を開けばよい、というのが憲法の答えです。"
+      },
+      "legalBasis": [
+        {
+          "label": "憲法41条・73条6号",
+          "url": "https://laws.e-gov.go.jp/law/321CONSTITUTION?occasion_date=20260401"
+        },
+        {
+          "label": "内閣法11条",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000005?occasion_date=20260401"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:76",
+          "choiceNumber": "3",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1576",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:76:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1576:choice:2",
+          "relation": "wording_variant"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "archive-question-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "政令の限界（執行命令・委任命令に限られ、緊急政令・独立命令は認められない）を正面から問う問題を集計"
+      },
+      "subjectId": "constitutional-law",
+      "crossFieldComparisons": [
+        {
+          "id": "cross-con-gov-cabinet-order-limits-001-1",
+          "comparedCategory": "統治",
+          "comparedTopic": "内閣の権限と総辞職",
+          "title": "内閣の権限の限界：政令と、条約・予算・緊急集会",
+          "explanation": "内閣は政令を定められますが、法律に代わる政令は出せません。同じように、条約の締結には国会の承認が要り、参議院の緊急集会は内閣が求めるもので、いずれも国会を飛ばして内閣だけで決める道はありません。",
+          "memoryCue": "内閣は国会を飛ばせない。緊急時の答えは緊急集会であって、緊急政令ではない。",
+          "relatedCardId": "con-cabinet-power-001"
+        }
+      ],
+      "evidenceHighlights": [
+        "法律にかわる政令",
+        "緊急の必要",
+        "国会の事後の承認",
+        "政令"
       ],
       "learningType": "memorize"
     }
