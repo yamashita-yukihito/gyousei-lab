@@ -11,5 +11,6 @@
 - `law.py 行手 5 6 36_2` … e-Gov法令API（2026-04-01時点）から条文を引く。応答は `~/.cache/yuki-services/egov/` に置く
 - `overlap.py *.html` … Chromeの `--dump-dom` で保存したページの図から、枠とラベルの重なりを数える
 - `mshot.mjs URL OUT.png 390 2400` … 端末幅を指定して撮る（ヘッドレスChromeの `--window-size` は狭い幅を再現しない）
+- `export_text.py` … 全6科目のD案の文章だけを `static/docs/drill-d/` へMarkdownで書き出す（Geminiに読みやすさを見てもらう用。依頼文は `static/docs/gemini-drill-d-readability-request.md`）。章を直したら書き出し直す
 
 過去問の本文はここにもリポジトリにも保存しない（検索結果を見て、出題箇所だけを `examRefs` に書く）。

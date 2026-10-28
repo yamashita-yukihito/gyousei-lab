@@ -42,6 +42,30 @@
 
   <main>
     <article class="card">
+      <h2>演習D案（全6科目）の文章の読みやすさをGeminiに見てもらう</h2>
+      <p class="meta">2026-10-28 · 依頼中</p>
+      <p>演習D案432問の事例文・○×の文・解説を、読みやすさだけの観点で点検してもらう依頼文です。頻出度や法律の正しさは見てもらいません。文章は1回の回答に収まるよう7つに分けてあります。</p>
+      <div class="actions">
+        <a class="primary" href="gemini-drill-d-readability-request.md" download>依頼文をダウンロード（.md）</a>
+        <a class="secondary" href="gemini-drill-d-readability-request.md" target="_blank" rel="noopener">開いて中身を見る</a>
+      </div>
+      <p>文章（どれか1つを依頼文と一緒に添付）：
+        <a href="drill-d/minpo-1.md" download>民法1</a> ·
+        <a href="drill-d/minpo-2.md" download>民法2</a> ·
+        <a href="drill-d/minpo-3.md" download>民法3</a> ·
+        <a href="drill-d/gyosei-1.md" download>行政法1</a> ·
+        <a href="drill-d/gyosei-2.md" download>行政法2</a> ·
+        <a href="drill-d/kenpo.md" download>憲法</a> ·
+        <a href="drill-d/small.md" download>商法・基礎法学・基礎知識</a>
+      </p>
+      <ol class="steps">
+        <li>Geminiの新しいチャットごとに、依頼文と文章ファイル1つを添付して「依頼文に従って点検して」と送る。</li>
+        <li>返ってきた回答を、依頼文の最後にある名前（例：<code>GEMINI_DRILL_D_READABILITY_RESPONSE_gyosei-2.md</code>）で保存する。</li>
+        <li>そのファイルをMac側の <code>static/docs/</code> へ置くか、内容をそのまま貼って渡す。Mac側で当てはめ、テストを通してから反映する。</li>
+      </ol>
+    </article>
+
+    <article class="card">
       <h2>コードレビューを頼む（今日の学習キュー・Anki書き出し・暗記/理解の分類）</h2>
       <p class="meta">2026-08-05 · 依頼中</p>
       <p>py-fsrsによる「今日の学習」キュー、Ankiへの書き出し、カードを暗記もの／理解ものへ分けた変更のレビュー依頼です。GitHubのCodexへは Issue と Pull Request で渡してあります。同じ内容をChatGPT（Web版）へ渡すときは、このファイルをダウンロードして添付してください。秘密情報は含めていません。</p>
