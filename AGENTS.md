@@ -460,6 +460,16 @@ LANから `http://192.168.10.102:8080/services/gyousei-lab/card-video/` で開�
 - 読み違えた語は `READINGS` へ足す（Kyokoの時代に足したものも残してある）。スライドの見た目や読み上げの組み方を変えたら `BUILDER_VERSION` を上げる。
 - 動画を見ても回答記録は付かない。再生ページから `production.sqlite3` へ書かない。
 
+### 5.8 行政法マップ（`static/gyosei-map/`、2026-10-28に追加）
+
+利用者の持っていた「行政法MAP」（倍速学習STOTEの画像）を、勉強しやすい形にHTMLで組み直した独立ページ。
+LANから `http://192.168.10.102:8080/services/gyousei-lab/gyosei-map/` で開ける。メイン画面のタブ列にも入口がある。
+
+- **内容は `static/gyosei-map/content.md` だけに持つ。追記・修正もこのファイルだけを編集する**（書式は先頭のコメント）。§5.6 と同じ理由。
+- 元の画像をそのまま写さない。元は2014年改正前の行政不服審査法（異議申立て・職権探知など）なので、**現行法（2026-04-01）で書く**。条文上の結論はカードの `correction` とずれないようにする。
+- **行政法のカード（`subjectId: administrative-law`）は全部どこかの項目に結ぶ。** カードを足したら同じ作業でマップにも足す（`tests/test_gyosei_map.py` が見ている）。
+- このページから回答や印を書き込まない（`/api/cards` と `/api/card-progress` を読むだけ）。
+
 ## 6. 問題・バンドルを変更する時
 
 - 問題生成コードは`authoring/`、取得スナップショット・抽出結果・⑤の出典・監査データは非公開編集データ配下を正本とする。学習カードの正本だけは `content/explanation_cards.json`（Git管理）である。`gyousei-production-bundle` の `--explanation-cards` の既定はこのパスで、環境変数 `GYOUSEI_CARD_SOURCE` で上書きできる。既定を非公開領域へ戻さない。

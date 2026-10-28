@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183a34">
+  <title>行政法マップ | 行政書士 過去問ラボ</title>
+  <link rel="stylesheet" href="../architecture.css?v=20260807-1">
+  <style>
+    .lead strong { color: #fff; }
+    .trunk { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; max-width: 1080px; margin-top: 26px; }
+    .trunk a { display: grid; gap: 2px; padding: 12px 14px; border: 1px solid rgba(255,255,255,.18); border-radius: 12px; background: rgba(255,255,255,.06); color: #fff; text-decoration: none; }
+    .trunk a:hover { background: rgba(255,255,255,.12); }
+    .trunk .step { color: #a6dac2; font-size: 11px; font-weight: 800; letter-spacing: .08em; }
+    .trunk strong { font-size: 17px; }
+    .trunk .sub { color: #c8ddd4; font-size: 12px; }
+    .trunk .meta { color: #a6dac2; font-size: 11px; }
+
+    .toolbar { border-bottom: 1px solid var(--line); background: var(--paper); }
+    .toolbar-inner { display: grid; gap: 10px; width: min(1120px, calc(100% - 32px)); margin: auto; padding: 12px 0; }
+    .tool-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+    .seg { display: inline-flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .seg > span { color: var(--muted); font-size: 12px; }
+    .seg button, .tool-btn { min-height: 34px; padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); color: var(--ink); font: inherit; font-size: 13px; cursor: pointer; }
+    .seg button[aria-pressed="true"] { border-color: var(--deep); background: var(--deep); color: #fff; }
+    #recall-toggle[aria-pressed="true"] { border-color: var(--amber); background: var(--amber); color: #fff; }
+    #freq-only[aria-pressed="true"] { border-color: #a3271f; background: #a3271f; color: #fff; }
+    .tool-row input { flex: 1 1 220px; max-width: 360px; min-height: 36px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); font: inherit; font-size: 14px; }
+    .hint { margin: 0; color: var(--muted); font-size: 12px; }
+    .hint.error { color: #9b2c2c; }
+
+    .map-branch { margin: 28px 0; padding: 18px 20px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); box-shadow: var(--shadow); scroll-margin-top: 12px; }
+    .map-branch-head { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; justify-content: space-between; }
+    .map-branch-head h2 { margin: 0; color: var(--deep); font-family: "Yu Mincho", "Hiragino Mincho ProN", serif; font-size: clamp(22px, 3.4vw, 30px); line-height: 1.35; }
+    .map-branch-head h2 small { margin-left: 8px; color: var(--muted); font-family: inherit; font-size: 14px; font-weight: 400; }
+    .map-branch-actions { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 13px; }
+    .map-branch > .note { margin: 4px 0 10px; color: var(--muted); font-size: 14px; }
+
+    .tree, .tree ul { margin: 0; padding: 0; list-style: none; }
+    .tree ul { margin-left: 11px; padding-left: 14px; border-left: 2px solid var(--line); }
+    .tree li { position: relative; }
+    .tree ul > li::before { position: absolute; top: 15px; left: -14px; width: 11px; border-top: 2px solid var(--line); content: ""; }
+    .row { display: flex; flex-wrap: wrap; gap: 2px 6px; align-items: baseline; padding: 3px 0; }
+    .twisty { flex: 0 0 22px; width: 22px; height: 22px; padding: 0; border: 0; border-radius: 6px; background: none; color: var(--green); font-size: 12px; line-height: 22px; cursor: pointer; }
+    .twisty:hover { background: var(--green-soft); }
+    .twisty.leaf { visibility: hidden; cursor: default; }
+    li.collapsed > ul { display: none; }
+    .label { font-weight: 700; }
+    .depth-0 > .row > .label { color: var(--deep); font-size: 17px; }
+    .depth-1 > .row > .label { font-size: 15px; }
+    .depth-2 > .row > .label, .depth-3 > .row > .label { font-size: 14px; }
+    .ans { padding: 0 2px; border: 0; background: none; color: var(--ink); font: inherit; font-size: 14px; text-align: left; cursor: default; }
+    .ans::before { margin-right: 6px; color: var(--muted); content: "…"; }
+    body.recall .ans { cursor: pointer; }
+    body.recall .ans:not(.shown) { border-radius: 5px; background: repeating-linear-gradient(135deg, #e3ebe6 0 6px, #edf2ee 6px 12px); color: transparent; user-select: none; }
+    body.recall .ans:not(.shown)::before { color: transparent; }
+    body.recall .ans:not(.shown):hover { outline: 2px solid var(--amber); }
+    .mark { display: inline-block; padding: 0 6px; border-radius: 4px; font-size: 11px; font-weight: 700; line-height: 1.7; white-space: nowrap; }
+    .mark.important { background: var(--deep); color: #fff; }
+    .mark.trap { background: var(--amber-soft); color: var(--amber); border: 1px solid #e7cf8f; }
+    .mark.freq { background: #a3271f; color: #fff; }
+    .chip { display: inline-block; padding: 0 8px; border: 1px solid currentColor; border-radius: 999px; font-size: 11px; line-height: 1.7; text-decoration: none; white-space: nowrap; }
+    .chip.cards { color: var(--green); }
+    .chip.cards.is-done { border-color: var(--green); background: var(--green); color: #fff; }
+    .chip.drill { color: var(--blue); }
+    .chip.page { color: var(--amber); }
+    li.hit > .row > .label { background: #fff2b8; }
+    .status { padding: 40px 0; color: var(--muted); }
+    .status.error { color: #9b2c2c; }
+    .page-foot { padding: 12px 0 48px; color: var(--muted); font-size: 12px; }
+    @media (max-width: 760px) {
+      .trunk { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .map-branch { padding: 14px 12px 10px; }
+      .tree ul { margin-left: 8px; padding-left: 10px; }
+      .tree ul > li::before { left: -10px; width: 8px; }
+      .tool-row input { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
+  <header class="architecture-hero">
+    <div class="hero-inner">
+      <nav><a href="../index.html">← 過去問ラボへ戻る</a><a href="../architecture.html">構成図</a></nav>
+      <p class="eyebrow">ADMINISTRATIVE LAW MAP</p>
+      <h1>行政法マップ</h1>
+      <p class="lead">行政法の全体を1枚の木にしたものです。<strong>誰が（組織）→ 何をする（作用）→ どう決める（手続）→ 間違ったら（救済）</strong>の順に読みます。「隠して思い出す」にすると、見出しだけを見て中身を言えるか確かめられます。各枝から学習カードと演習D案の章へ飛べます。</p>
+      <div class="trunk" id="trunk"></div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="toolbar-inner">
+      <div class="tool-row">
+        <div class="seg"><button type="button" id="recall-toggle" aria-pressed="false">隠して思い出す</button><button type="button" class="tool-btn" id="reveal-all" hidden>隠した答えを全部出す</button></div>
+        <div class="seg" id="depth-buttons" role="group" aria-label="開く深さ"><span>開く深さ</span><button type="button" data-depth="1">1段</button><button type="button" data-depth="2">2段</button><button type="button" data-depth="99">全部</button></div>
+        <div class="seg"><button type="button" id="freq-only" aria-pressed="false">頻出の枝だけ</button></div>
+      </div>
+      <div class="tool-row">
+        <input id="search" type="search" placeholder="キーワードで探す（例：3か月、聴聞、1/50）" aria-label="キーワードで探す">
+      </div>
+      <p class="hint" id="progress-note">カードの頻出度と習得状況を読み込んでいます…</p>
+    </div>
+  </div>
+
+  <main id="main-content">
+    <div id="content"><p class="status">読み込んでいます…</p></div>
+    <p class="page-foot">内容の正本は <code>static/gyosei-map/content.md</code>。項目を足すときはこのファイルだけを編集します。法令基準日 2026-04-01。元にしたのは倍速学習STOTEの「行政法MAP」で、2014年改正前の行政不服審査法だった部分は現行法へ直しています。</p>
+  </main>
+
+  <script src="app.js?v=20261028-2"></script>
+</body>
+</html>

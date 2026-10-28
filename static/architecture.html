@@ -86,8 +86,8 @@
     <section class="section">
       <div class="section-heading">
         <p class="kicker">STANDALONE PAGES</p>
-        <h2>engineに載せない、独立した9ページ</h2>
-        <p>共通エンジンに載せるほうが原則ですが、次の9つは目的が違うので別ページにしています。記録はいずれもブラウザのlocalStorageで、○×学習の回答履歴とは混ぜません（通し演習だけは、終了時に解答を過去問の回答履歴へ、採点結果を追記型テーブル <code>mock_exam_results</code> へも保存します）。民法D案を実際の学習用とし、A・B・C案は比較素材として残します。</p>
+        <h2>engineに載せない、独立した10ページ</h2>
+        <p>共通エンジンに載せるほうが原則ですが、次の10は目的が違うので別ページにしています。記録はいずれもブラウザのlocalStorageで、○×学習の回答履歴とは混ぜません（通し演習だけは、終了時に解答を過去問の回答履歴へ、採点結果を追記型テーブル <code>mock_exam_results</code> へも保存します）。民法D案を実際の学習用とし、A・B・C案は比較素材として残します。</p>
       </div>
       <div class="view-grid">
         <article><strong><a href="minpo-a/">民法・固定配役ドリル（A案）</a></strong><span>1問1事例。役割で配役を固定し、事実だけの関係図を先に、答え入りの関係図を回答後に出す。16問</span></article>
@@ -96,6 +96,7 @@
         <article><strong><a href="minpo-d/">民法・法律家の常識ドリル（D案）</a></strong><span>最初の2周は答えから縦に読み、3周目から解く。素直／ひっかけ、前問との差分、救済理由、答え入り図を一体化。民法の全分野25章200問（各問に本試験の出題箇所つき）</span></article>
         <article><strong><a href="gyosei-d/">行政法・憲法・小科目の常識ドリル（D案）</a></strong><span>民法D案と同じ画面（app.jsを共用）で、ほかの5科目も連続事例にした。<a href="gyosei-d/">行政法</a>15章120問、<a href="kenpo-d/">憲法</a>10章80問、<a href="shoho-d/">商法・会社法</a>2章16問、<a href="kiso-d/">基礎法学</a>1章8問、<a href="chishiki-d/">基礎知識</a>3章24問（小科目は最頻出だけ）。各問に本試験の出題箇所つき。記録は科目ごとのlocalStorage（gyoseiD:v1 など）だけ</span></article>
         <article><strong><a href="mock-exam/">本試験形式の通し演習</a></strong><span>1年度分を180分で解き、科目別の点数・足切り・時間切れを本番の配点で出す。記述は答案例と比べて自己採点。間違えた問題から学習カードと演習D（全6科目）の章へ戻れる。途中経過はlocalStorage、回答は終了時に過去問の回答履歴へ mode=mock_exam で保存。採点結果（記述の自己採点・文章理解の正解数・間違えた理由・科目別の点数）はサーバーの <code>mock_exam_results</code> に版を重ねて残し、AIが読み取り専用で読める</span></article>
+        <article><strong><a href="gyosei-map/">行政法マップ</a></strong><span>行政法の全体を「組織→作用→手続→救済＋地方自治」の木にした一覧。「隠して思い出す」で見出しから中身を言えるか確かめる。行政法カード全125枚がどこかの枝に結ばれ、枝ごとに未習得カードと演習D案の章へ飛べる。内容は content.md だけに持つ</span></article>
         <article><strong><a href="memorize-map/">暗記と思考の仕分け</a></strong><span>論点を「覚える」と「その場で考える」に分けた箇条書き。内容は content.md だけに持ち、追記はそのファイルを直す。暗記の項目から学習カードへ飛んで解ける</span></article>
         <article><strong><a href="card-video/">カード動画</a></strong><span>学習カードを答えを見せたまま「問題文と○×→やさしい言い換え（B）→理由と覚え方」の順に流す16:9の動画（Cは画面だけ）。全カードを科目→分野の順に26本へ分け、1本が終わると次の回へ進む。VOICEVOX（冥鳴ひまり）の読み上げとスライドから scripts/card_video/ が自動で作り、動画は実行時データ側に置いて nginx の media/card-video/ で配る。見ても回答記録は付かず、迷ったカードはアプリで解く</span></article>
         <article><strong><a href="tools/quiz3.html">行政事件訴訟法の暗記ドリル</a></strong><span>処分性・原告適格・狭義の訴えの利益。ここは理解ではなく、どの事案が○でどの事案が×かを判例ごとに覚える方針</span></article>
