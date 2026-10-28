@@ -45,7 +45,7 @@
       "id": "min-03",
       "group": "民法",
       "title": "民法 第3回　担保物権・債権総論",
-      "description": "担保物権・債権総論の11枚。うち頻出以上3枚。",
+      "description": "担保物権・債権総論の13枚。うち頻出以上3枚。",
       "cardIds": [
         "min-security-subrogation-attachment-001",
         "min-security-revolving-mortgage-001",
@@ -57,7 +57,9 @@
         "min-obligation-setoff-attachment-001",
         "min-obligation-creditor-subrogation-001",
         "min-obligation-assignment-restriction-001",
-        "min-obligation-joint-notice-001"
+        "min-obligation-joint-notice-001",
+        "min-obligation-oral-tender-001",
+        "min-obligation-substitute-performance-001"
       ]
     },
     {
