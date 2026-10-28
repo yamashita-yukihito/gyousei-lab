@@ -337,6 +337,10 @@ class MinpoDTest(unittest.TestCase):
             # 占有・地役権・相隣：引渡し前は占有の訴え不可、対抗要件なしの賃借権では請求不可、地役権は不可分、根は自分で切れる
             "minpo-d-pe-002": False, "minpo-d-pe-003": False, "minpo-d-pe-004": True, "minpo-d-pe-006": False,
             "minpo-d-pe-007": True, "minpo-d-pe-008": False,
+            # 2026-10-28の見直しで足した頻出論点：権限外の代理は110条で本人が責任、無権代理人が本人を単独相続すると
+            # 追認拒絶できない、共同相続人の持分は登記なしで主張できる、代理と名乗った売買は即時取得なし、預金は遺産分割の対象
+            "minpo-d-ua-009": False, "minpo-d-ua-010": False, "minpo-d-reg-009": False,
+            "minpo-d-gfa-009": True, "minpo-d-wil-009": False,
         }
         for question_id, answer in expected.items():
             self.assertIs(answer, questions[question_id]["answer"], question_id)
