@@ -2315,7 +2315,7 @@ def _normalize_search(value: object) -> str:
 def _search_haystack(card: dict, evidence: dict[str, dict]) -> str:
     """検索の対象にする文字列。**画面の `studySearchHaystack()` と同じ範囲にする。**
 
-    カードID・分類・A/B/C・解説・⑥・⑦に加えて、⑤の肢の本文と年度まで含める。
+    カードID・分類・A/B/C・解説・⑥・⑦・⑨質問ノートに加えて、⑤の肢の本文と年度まで含める。
     ここを狭めると、⑤の言い回しで探したときに画面とキューの結果が食い違う。
     """
     card_edit, _ = _card_edit_modules()
@@ -2339,6 +2339,8 @@ def _search_haystack(card: dict, evidence: dict[str, dict]) -> str:
         for row in table.get("rows") or []:
             parts += [row.get("label"), row.get("article"), row.get("rule"),
                       row.get("conclusion")]
+    for entry in card.get("learnerQa") or []:
+        parts += [entry.get("question"), entry.get("answer")]
     for ref in card.get("relatedPastQuestions") or []:
         item = evidence.get(ref.get("choiceId", ""))
         if item:

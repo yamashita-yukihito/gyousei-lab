@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183a34">
+  <title>声の聞きくらべ | 行政書士 過去問ラボ</title>
+  <link rel="stylesheet" href="../architecture.css?v=20260807-1">
+  <style>
+    .wrap { width: min(1180px, calc(100% - 32px)); margin: auto; padding: 28px 0 60px; }
+    .bar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin: 0 0 18px; }
+    .bar .label { color: var(--muted); font-size: 13px; }
+    .bar button { min-height: 34px; padding: 4px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); color: var(--deep); font-weight: 700; font-size: 14px; cursor: pointer; }
+    .bar button[aria-pressed="true"] { border-color: var(--deep); background: var(--deep); color: #fff; }
+    .script { margin: 0 0 24px; padding: 16px 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); font-size: 14px; line-height: 1.8; }
+    .script summary { color: var(--deep); font-weight: 700; cursor: pointer; }
+    .script p { margin: 8px 0 0; }
+    .group { margin: 0 0 26px; }
+    .group h2 { margin: 0 0 4px; color: var(--deep); font-size: 20px; }
+    .group > p { margin: 0 0 12px; color: var(--muted); font-size: 13.5px; }
+    .voices { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 10px; }
+    .voice { display: grid; gap: 8px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
+    .voice.playing { border-color: #e2a93b; background: #fff8e6; }
+    .voice.kept { box-shadow: inset 4px 0 0 #2e7d4f; }
+    .voice .head { display: flex; gap: 10px; align-items: baseline; justify-content: space-between; }
+    .voice strong { color: var(--deep); font-size: 16px; }
+    .voice .note { color: var(--muted); font-size: 13px; }
+    .voice audio { width: 100%; height: 36px; }
+    .voice .foot { display: flex; gap: 10px; align-items: center; justify-content: space-between; color: var(--muted); font-size: 12px; }
+    .voice .keep { min-height: 30px; padding: 2px 12px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--deep); font-weight: 700; font-size: 13px; cursor: pointer; }
+    .voice.kept .keep { border-color: #2e7d4f; background: #2e7d4f; color: #fff; }
+    .note-box { margin: 26px 0 0; color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .status { padding: 40px 0; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
+  <header class="architecture-hero">
+    <div class="hero-inner">
+      <nav><a href="./">← カード動画へ戻る</a><a href="../index.html">過去問ラボ</a></nav>
+      <p class="eyebrow">VOICE SAMPLES</p>
+      <h1>声の聞きくらべ</h1>
+      <p class="lead">カード動画の声の候補です。どれも<strong>同じカード1枚</strong>（行政法・最頻出の第1問）を、動画と同じ順番（問題文→答え→やさしい言い換え→理由→覚え方）で読んでいます。気に入った声は「候補に残す」で印を付けておき、決まったら名前を教えてください。その声で全部の動画を作り直します。<strong>2026-10-27に冥鳴ひまりに決まり、動画はこの声になりました。</strong></p>
+    </div>
+  </header>
+
+  <main id="main-content" class="wrap">
+    <div class="bar">
+      <span class="label">速さ</span><span id="rates"></span>
+      <button type="button" id="kept-only" aria-pressed="false">残した声だけ</button>
+    </div>
+    <div id="app"><p class="status">読み込んでいます…</p></div>
+    <p class="note-box">
+      各声のひとこと（「低めで落ち着いた女性」など）は配布元の紹介をもとにした目安です。
+      VOICEVOX と AivisSpeech は、どちらも無料でMacの中だけで動く読み上げソフトです。文章を外のサービスへ送りません。
+      Irodori-TTS は、家のWindows PCで動かしている読み上げです。LANの中だけでやりとりし、外のサービスへは送りません（読ませた文章はWindows側に残ります）。
+      動画にするときは、作者の決まりに従って画面の端に「VOICEVOX:ずんだもん」のようなクレジットを入れます。
+      聞きくらべの音声はこのページを開いたブラウザで再生するだけで、記録は「候補に残す」の印をこのブラウザに覚えるだけです。
+    </p>
+  </main>
+  <script src="voices.js?v=20261027-2"></script>
+</body>
+</html>

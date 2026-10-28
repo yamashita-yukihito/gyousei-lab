@@ -40,6 +40,7 @@ EDITABLE_FIELDS = (
     "crossFieldComparisons",
     "comparisonTable",
     "figures",
+    "learnerQa",
 )
 VARIANT_FIELDS = ("a", "b", "bCasual", "bCasualStyle", "c")
 
@@ -63,6 +64,9 @@ FIGURE_SRC = re.compile(
     r"assets/card-figures/[A-Za-z0-9][A-Za-z0-9._-]*\.(?:png|svg|webp)"
 )
 FIGURE_LIMIT = 2
+
+# ⑨質問ノート。利用者の質問と、それへの回答をカードへ追記していく（2026-10-24に追加）。
+LEARNER_QA_DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
 
 MARKUP = re.compile(
     r"(\*\*[^*\n]+\*\*|__[^_\n]+__|==[^=\n]+==|!![^!\n]+!!|%%[^%\n]+%%|@@[^@\n]+@@)"
@@ -98,6 +102,32 @@ def check_markup(label: str, text: str, problems: list[str], *, allow_red: bool)
         ]
         if len(highlights) > 2:
             problems.append(f"{label}: 1文に黄（==）が{len(highlights)}か所あります")
+
+
+def check_figures(label: str, figures: object, problems: list[str]) -> None:
+    """⑧解説図と⑨質問ノートの図。置き場所・枚数・alt・captionの決まりは同じ。"""
+    if figures is None:
+        return
+    if not isinstance(figures, list):
+        problems.append(f"{label} は配列にしてください")
+        return
+    if len(figures) > FIGURE_LIMIT:
+        problems.append(f"{label} は{FIGURE_LIMIT}枚までです")
+    for figure in figures:
+        if not isinstance(figure, dict):
+            problems.append(f"{label} の要素はオブジェクトにしてください")
+            continue
+        src = str(figure.get("src") or "")
+        if not FIGURE_SRC.fullmatch(src):
+            problems.append(f"{label} の src {src!r} は assets/card-figures/ の下だけです")
+        elif not (FIGURE_DIR / Path(src).name).is_file():
+            # 画像そのものはMac側で置く。存在しないパスを指すと、画面に壊れた画像が出る。
+            problems.append(f"{label} の画像 {src} がまだ置かれていません")
+        for key in ("alt", "caption"):
+            if not str(figure.get(key) or "").strip():
+                problems.append(f"{label} には {key} が必要です")
+            elif MARKUP.search(str(figure.get(key))):
+                problems.append(f"{label} の {key} に装飾記法は使えません")
 
 
 def validate_card(
@@ -216,30 +246,33 @@ def validate_card(
     if len(comparison_ids) != len(set(comparison_ids)):
         problems.append(f"{card_id}: ⑥の id が重複しています")
 
-    figures = card.get("figures")
-    if figures is not None:
-        if not isinstance(figures, list):
-            problems.append(f"{card_id}: ⑧figures は配列にしてください")
-            figures = []
-        if len(figures) > FIGURE_LIMIT:
-            problems.append(f"{card_id}: ⑧figures は{FIGURE_LIMIT}枚までです")
-        for figure in figures:
-            if not isinstance(figure, dict):
-                problems.append(f"{card_id}: ⑧figures の要素はオブジェクトにしてください")
+    check_figures(f"{card_id}: ⑧figures", card.get("figures"), problems)
+
+    # ⑨は回答後にだけ出す。答えは①②と同じ記法で表示し、質問は利用者の言葉を素の文字列で出す。
+    qa = card.get("learnerQa")
+    if qa is not None:
+        if not isinstance(qa, list):
+            problems.append(f"{card_id}: ⑨learnerQa は配列にしてください")
+            qa = []
+        qa_ids: list[str] = []
+        for index, entry in enumerate(qa):
+            label = f"{card_id}: ⑨learnerQa[{index}]"
+            if not isinstance(entry, dict):
+                problems.append(f"{label} はオブジェクトにしてください")
                 continue
-            src = str(figure.get("src") or "")
-            if not FIGURE_SRC.fullmatch(src):
-                problems.append(
-                    f"{card_id}: ⑧figures の src {src!r} は assets/card-figures/ の下だけです"
-                )
-            elif not (FIGURE_DIR / Path(src).name).is_file():
-                # 画像そのものはMac側で置く。存在しないパスを指すと、画面に壊れた画像が出る。
-                problems.append(f"{card_id}: ⑧figures の画像 {src} がまだ置かれていません")
-            for key in ("alt", "caption"):
-                if not str(figure.get(key) or "").strip():
-                    problems.append(f"{card_id}: ⑧figures には {key} が必要です")
-                elif MARKUP.search(str(figure.get(key))):
-                    problems.append(f"{card_id}: ⑧figures の {key} に装飾記法は使えません")
+            for key in ("id", "askedAt", "question", "answer"):
+                if not isinstance(entry.get(key), str) or not entry[key].strip():
+                    problems.append(f"{label} に {key} が必要です")
+            if isinstance(entry.get("id"), str):
+                qa_ids.append(entry["id"])
+            if isinstance(entry.get("askedAt"), str) and not LEARNER_QA_DATE.fullmatch(entry["askedAt"]):
+                problems.append(f"{label} の askedAt は YYYY-MM-DD にしてください")
+            if MARKUP.search(str(entry.get("question") or "")):
+                problems.append(f"{label} の question に装飾記法は使えません")
+            check_markup(f"{card_id}.learnerQa[{index}].answer", str(entry.get("answer") or ""), problems, allow_red=True)
+            check_figures(f"{label}.figures", entry.get("figures"), problems)
+        if len(qa_ids) != len(set(qa_ids)):
+            problems.append(f"{card_id}: ⑨learnerQa の id が重複しています")
 
     if is_new:
         for field in NEW_CARD_FIELDS:

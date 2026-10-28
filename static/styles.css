@@ -260,6 +260,9 @@ select:focus, input:focus, textarea:focus, button:focus-visible, a:focus-visible
 }
 .badge.blue { background: var(--blue-soft); color: #2d6285; }
 .badge.gray { background: #edf0ee; color: #59645f; }
+.badge.card-kind { border: 1px solid currentColor; }
+.badge.kind-new { background: var(--amber-soft); color: var(--amber); }
+.badge.kind-review { background: var(--blue-soft); color: #2d6285; }
 .position { color: var(--muted); font-size: 12px; font-weight: 800; white-space: nowrap; }
 .question-card h3, .written-card h3, .editorial-card > h3, .audit-card h3 { margin: 0 0 16px; color: var(--deep); font-size: 24px; line-height: 1.45; }
 .instruction { margin: 0 0 14px; padding-left: 13px; border-left: 3px solid #98b9a9; color: var(--muted); font-weight: 700; }
@@ -621,6 +624,25 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .comparison-cue > strong { color: #1f4f74; font-weight: 800; }
 #study-comparison-title { color: #38607f; font-size: 12px; font-weight: 800; }
 
+/* ⑨ 質問ノート */
+.study-learner-qa { border-color: #c9bfe0; background: #fbfaff; }
+.learner-qa-item { margin-top: 10px; padding: 14px; border: 1px solid #ddd5ee; border-radius: 9px; background: #fff; }
+.learner-qa-question, .learner-qa-answer { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 4px 8px; align-items: start; }
+.learner-qa-answer { margin-top: 12px; padding-top: 12px; border-top: 1px dashed #ddd5ee; }
+.learner-qa-question > b, .learner-qa-answer > b { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: #fff; font-size: 13px; }
+.learner-qa-question > b { background: #6a58a8; }
+.learner-qa-answer > b { background: var(--deep); }
+.learner-qa-question p { margin: 0; color: #3f3566; font-weight: 700; white-space: pre-wrap; }
+.learner-qa-question small { grid-column: 2; color: var(--muted); font-size: 11px; }
+.learner-qa-answer p { margin: 0; white-space: pre-wrap; }
+.learner-qa-figures { margin-top: 14px; }
+/* スマホでは入れ子の余白で本文が細くなるので、Q・Aの印の下へ本文を全幅で流す */
+@media (max-width: 620px) {
+  .study-learner-qa { padding: 14px 12px; }
+  .learner-qa-item { padding: 12px 10px; }
+  .learner-qa-question p, .learner-qa-question small, .learner-qa-answer p { grid-column: 1 / -1; }
+}
+
 @media (max-width: 860px) {
   .header-inner { grid-template-columns: 1fr; gap: 20px; }
   .exam-date-card { max-width: 400px; }
@@ -770,6 +792,7 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .rapid-view .study-related,
 .rapid-view .study-cross-field,
 .rapid-view .study-comparison-table,
+.rapid-view .study-learner-qa,
 .rapid-view .study-mark-row,
 .rapid-view .markup-legend { display: none; }
 
@@ -837,7 +860,8 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .rapid-view .study-answer-panel.reveal-all .study-common-sense,
 .rapid-view .study-answer-panel.reveal-all .study-related,
 .rapid-view .study-answer-panel.reveal-all .study-cross-field,
-.rapid-view .study-answer-panel.reveal-all .study-comparison-table { display: block; }
+.rapid-view .study-answer-panel.reveal-all .study-comparison-table,
+.rapid-view .study-answer-panel.reveal-all .study-learner-qa { display: block; }
 .rapid-reveal {
   display: inline-flex;
   align-items: center;

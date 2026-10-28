@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 624" role="img" aria-labelledby="t d">
+  <title id="t">AはBへの仮装譲渡の無効を言えるか</title>
+  <desc id="d">AがBに土地を仮装譲渡した後の6つの場面の比較。善意のCが建物を借りただけならAは無効を言える。善意のCが土地を買った、または土地を借りたなら言えない。悪意のCが土地を買ったなら言える。悪意のCから善意有過失のDが土地を借りた、または買った場合は、Dに対しては言えない。守られるのは土地そのものに利害関係を持った善意の人で、過失があっても登記がなくても守られる。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 14px; fill: #55635d; }
+    .th { font-size: 13px; font-weight: 800; fill: #55635d; }
+    .m { font-size: 15px; font-weight: 700; }
+    .s { font-size: 12px; fill: #55635d; }
+    .r { font-size: 16px; font-weight: 800; fill: #ffffff; }
+    .note { font-size: 15px; font-weight: 700; }
+  </style>
+  <rect width="640" height="624" fill="#ffffff"/>
+  <text class="h" x="320" y="34" text-anchor="middle">Aは「仮装譲渡は無効」と言える？</text>
+  <text class="sub" x="320" y="58" text-anchor="middle">AがBへ土地を仮装譲渡したあと、誰が何を手に入れたか</text>
+
+  <text class="th" x="28" y="96">誰が、何を手に入れた？</text>
+  <text class="th" x="548" y="96" text-anchor="middle">Aは無効を</text>
+
+  <!-- 1 -->
+  <rect x="16" y="108" width="608" height="62" rx="8" fill="#eef2f9" stroke="#b3c0d8"/>
+  <text class="m" x="28" y="134">善意のCが、建物を借りた（このカード）</text>
+  <text class="s" x="28" y="156">土地とはつながっていない</text>
+  <rect x="486" y="122" width="124" height="34" rx="17" fill="#3d5a8a"/>
+  <text class="r" x="548" y="145" text-anchor="middle">言える</text>
+
+  <!-- 2 -->
+  <rect x="16" y="176" width="608" height="62" rx="8" fill="#ffffff" stroke="#d6dfdb"/>
+  <text class="m" x="28" y="202">善意のCが、土地を買った</text>
+  <text class="s" x="28" y="224">いちばん典型的な第三者</text>
+  <rect x="486" y="190" width="124" height="34" rx="17" fill="#b23a2e"/>
+  <text class="r" x="548" y="213" text-anchor="middle">言えない</text>
+
+  <!-- 3 -->
+  <rect x="16" y="244" width="608" height="62" rx="8" fill="#ffffff" stroke="#d6dfdb"/>
+  <text class="m" x="28" y="270">善意のCが、土地を借りた</text>
+  <text class="s" x="28" y="292">土地そのものを使う立場（20年で出題なし）</text>
+  <rect x="486" y="258" width="124" height="34" rx="17" fill="#b23a2e"/>
+  <text class="r" x="548" y="281" text-anchor="middle">言えない</text>
+
+  <!-- 4 -->
+  <rect x="16" y="312" width="608" height="62" rx="8" fill="#eef2f9" stroke="#b3c0d8"/>
+  <text class="m" x="28" y="338">悪意のCが、土地を買った</text>
+  <text class="s" x="28" y="360">嘘と知っていた人は守らない</text>
+  <rect x="486" y="326" width="124" height="34" rx="17" fill="#3d5a8a"/>
+  <text class="r" x="548" y="349" text-anchor="middle">言える</text>
+
+  <!-- 5 -->
+  <rect x="16" y="380" width="608" height="62" rx="8" fill="#ffffff" stroke="#d6dfdb"/>
+  <text class="m" x="28" y="406">悪意のCから、善意有過失のDが土地を借りた</text>
+  <text class="s" x="28" y="428">Cには言えるが、Dには言えない（出題なし）</text>
+  <rect x="486" y="394" width="124" height="34" rx="17" fill="#b23a2e"/>
+  <text class="r" x="548" y="417" text-anchor="middle">言えない</text>
+
+  <!-- 6 -->
+  <rect x="16" y="448" width="608" height="62" rx="8" fill="#ffffff" stroke="#d6dfdb"/>
+  <text class="m" x="28" y="474">悪意のCから、善意有過失のDが土地を買った</text>
+  <text class="s" x="28" y="496">Dには言えない（令和4年問27肢2は○）</text>
+  <rect x="486" y="462" width="124" height="34" rx="17" fill="#b23a2e"/>
+  <text class="r" x="548" y="485" text-anchor="middle">言えない</text>
+
+  <!-- まとめ -->
+  <rect x="16" y="526" width="608" height="82" rx="12" fill="#fff8e6" stroke="#e2c27a" stroke-width="2"/>
+  <text class="note" x="320" y="558" text-anchor="middle">守られるのは「土地そのもの」に利害関係を持った善意の人</text>
+  <text class="sub" x="320" y="586" text-anchor="middle">過失があっても、登記がなくても守られる（95条・96条は無過失まで要る）</text>
+</svg>

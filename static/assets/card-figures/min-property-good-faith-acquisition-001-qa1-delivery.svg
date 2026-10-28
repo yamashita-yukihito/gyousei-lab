@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 600" role="img" aria-labelledby="t d">
+  <title id="t">引渡しの4つの形と即時取得</title>
+  <desc id="d">現実の引渡し、簡易の引渡し、指図による占有移転では、売主の手から物が離れるので即時取得が成立する。占有改定では物が売主の手元に残るので成立しない。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 15px; fill: #55635d; }
+    .lab { font-size: 17px; font-weight: 800; }
+    .ex { font-size: 13px; fill: #55635d; }
+    .who { font-size: 14px; font-weight: 800; }
+    .thing { font-size: 13px; font-weight: 800; fill: #6b4f0f; }
+    .arr { font-size: 12px; fill: #55635d; }
+    .ok { font-size: 18px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 18px; font-weight: 800; fill: #b23a2e; }
+    .note { font-size: 15px; font-weight: 700; }
+  </style>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#6b7a73"/></marker>
+  </defs>
+  <rect width="640" height="600" fill="#ffffff"/>
+  <text class="h" x="320" y="34" text-anchor="middle">即時取得：売主の手から物が離れたか</text>
+  <text class="sub" x="320" y="58" text-anchor="middle">B＝売主（実は持ち主ではない）　A＝買主（善意・無過失）</text>
+
+  <!-- 1 現実の引渡し -->
+  <rect x="16" y="74" width="608" height="100" rx="12" fill="#f2f8f4" stroke="#b7d6c3"/>
+  <text class="lab" x="30" y="104">現実の引渡し</text>
+  <text class="ex" x="30" y="126">その場で持ち帰る</text>
+  <rect x="220" y="96" width="62" height="34" rx="7" fill="#fff" stroke="#9aa7a1"/><text class="who" x="251" y="118" text-anchor="middle">売主B</text>
+  <rect x="380" y="96" width="62" height="34" rx="7" fill="#fff" stroke="#9aa7a1"/><text class="who" x="411" y="118" text-anchor="middle">買主A</text>
+  <rect x="450" y="100" width="30" height="26" rx="5" fill="#fbe7b0" stroke="#d9a62e"/><text class="thing" x="465" y="118" text-anchor="middle">物</text>
+  <path d="M286 113 L374 113" stroke="#6b7a73" stroke-width="2.5" marker-end="url(#ah)"/>
+  <text class="arr" x="330" y="150" text-anchor="middle">物がAの手へ</text>
+  <text class="ok" x="560" y="120" text-anchor="middle">○ 成立</text>
+
+  <!-- 2 簡易の引渡し -->
+  <rect x="16" y="184" width="608" height="100" rx="12" fill="#f2f8f4" stroke="#b7d6c3"/>
+  <text class="lab" x="30" y="214">簡易の引渡し</text>
+  <text class="ex" x="30" y="236">借りていた物を買う</text>
+  <rect x="220" y="206" width="62" height="34" rx="7" fill="#fff" stroke="#9aa7a1"/><text class="who" x="251" y="228" text-anchor="middle">売主B</text>
+  <rect x="380" y="206" width="62" height="34" rx="7" fill="#fff" stroke="#9aa7a1"/><text class="who" x="411" y="228" text-anchor="middle">買主A</text>
+  <rect x="450" y="210" width="30" height="26" rx="5" fill="#fbe7b0" stroke="#d9a62e"/><text class="thing" x="465" y="228" text-anchor="middle">物</text>
+  <path d="M286 223 L374 223" stroke="#6b7a73" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+  <text class="arr" x="330" y="260" text-anchor="middle">物は前からAの手に</text>
+  <text class="ok" x="560" y="230" text-anchor="middle">○ 成立</text>
+
+  <!-- 3 指図による占有移転 -->
+  <rect x="16" y="294" width="608" height="100" rx="12" fill="#f2f8f4" stroke="#b7d6c3"/>
+  <text class="lab" x="30" y="324">指図による</text>
+  <text class="lab" x="30" y="346">占有移転</text>
+  <text class="ex" x="30" y="368">倉庫に預けたまま売る</text>
+  <rect x="200" y="310" width="62" height="34" rx="7" fill="#fff" stroke="#9aa7a1"/><text class="who" x="231" y="332" text-anchor="middle">売主B</text>
+  <rect x="300" y="346" width="62" height="34" rx="7" fill="#fff" stroke="#9aa7a1"/><text class="who" x="331" y="368" text-anchor="middle">倉庫D</text>
+  <rect x="368" y="350" width="30" height="26" rx="5" fill="#fbe7b0" stroke="#d9a62e"/><text class="thing" x="383" y="368" text-anchor="middle">物</text>
+  <rect x="410" y="310" width="62" height="34" rx="7" fill="#fff" stroke="#9aa7a1"/><text class="who" x="441" y="332" text-anchor="middle">買主A</text>
+  <path d="M250 346 L296 360" stroke="#6b7a73" stroke-width="2" marker-end="url(#ah)"/>
+  <text class="arr" x="232" y="384" text-anchor="middle">「以後Aのために」</text>
+  <text class="ok" x="560" y="340" text-anchor="middle">○ 成立</text>
+
+  <!-- 4 占有改定 -->
+  <rect x="16" y="404" width="608" height="100" rx="12" fill="#fdf1ef" stroke="#e0a49b" stroke-width="2"/>
+  <text class="lab" x="30" y="434">占有改定</text>
+  <text class="ex" x="30" y="456">「店に置いといて」</text>
+  <rect x="220" y="426" width="62" height="34" rx="7" fill="#fff" stroke="#9aa7a1"/><text class="who" x="251" y="448" text-anchor="middle">売主B</text>
+  <rect x="290" y="430" width="30" height="26" rx="5" fill="#fbe7b0" stroke="#d9a62e"/><text class="thing" x="305" y="448" text-anchor="middle">物</text>
+  <rect x="380" y="426" width="62" height="34" rx="7" fill="#fff" stroke="#9aa7a1"/><text class="who" x="411" y="448" text-anchor="middle">買主A</text>
+  <text class="arr" x="330" y="484" text-anchor="middle">物はBの手元に残ったまま</text>
+  <text class="ng" x="560" y="450" text-anchor="middle">× 不成立</text>
+
+  <!-- まとめ -->
+  <rect x="16" y="516" width="608" height="70" rx="12" fill="#fff8e6" stroke="#e2c27a" stroke-width="2"/>
+  <text class="note" x="320" y="546" text-anchor="middle">売主の手から離れたら○、売主の手元に残ったら×</text>
+  <text class="ex" x="320" y="570" text-anchor="middle">占有改定のあと現実に受け取れば、その時に善意・無過失なら成立</text>
+</svg>

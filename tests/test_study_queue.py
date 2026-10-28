@@ -205,6 +205,27 @@ class StudyQueueTest(unittest.TestCase):
         self.assertEqual(queue["counts"]["due"], 1)
         self.assertEqual(queue["counts"]["new"], 1)
 
+    def test_new_cards_come_one_subject_at_a_time(self) -> None:
+        """はじめてのカードは民法→行政法→…の順に、科目を混ぜずに出す。復習は期日順のまま。"""
+        self.attempt("due-admin", False, BASE)
+        cards = [
+            {"id": "admin-1", "subjectId": "administrative-law"},
+            {"id": "civil-1", "subjectId": "civil-law"},
+            {"id": "due-admin", "subjectId": "administrative-law"},
+            {"id": "con-1", "subjectId": "constitutional-law"},
+            {"id": "admin-2", "subjectId": "administrative-law"},
+            {"id": "civil-2", "subjectId": "civil-law"},
+            {"id": "other-1"},
+        ]
+        queue = self.study_queue.build_queue(
+            self.connection, cards, limit=20, new_limit=20,
+            now=BASE + timedelta(days=3),
+        )
+        self.assertEqual(
+            queue["cardIds"],
+            ["due-admin", "civil-1", "civil-2", "admin-1", "admin-2", "con-1", "other-1"],
+        )
+
     def test_schedule_is_stable_for_the_same_history(self) -> None:
         """期日を保存せず毎回計算するので、揺らいでは困る。"""
         self.attempt("card-x", True, BASE)

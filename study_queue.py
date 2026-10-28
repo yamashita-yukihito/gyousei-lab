@@ -75,6 +75,18 @@ MAX_QUEUE_LIMIT = 200
 DEFAULT_QUEUE_LIMIT = 20
 DEFAULT_NEW_LIMIT = 6
 
+# はじめてのカードを出す科目の順（2026-10-22に利用者が指定）。民法、行政法のあとは
+# 配点の大きい順にする。科目どうしを混ぜず、1科目を出し切ってから次へ進む。
+# 復習は科目を問わず期日の古い順のまま。ここに無い科目は最後に回す。
+NEW_CARD_SUBJECT_ORDER = (
+    "civil-law",
+    "administrative-law",
+    "general-knowledge",
+    "constitutional-law",
+    "commercial-law",
+    "legal-foundations",
+)
+
 # 令和8年度の受験日。試験は13時〜16時（法令等・基礎知識あわせて180分）なので、
 # 終了時刻を越える期日には意味がない。日付だけでUTCの0時にすると日本時間の9時になり、
 # 試験前日の夜に答えたぶんが試験時刻より後へ落ちることがあった（2026-08-05に修正）。
@@ -392,6 +404,7 @@ def build_queue(
     """今日出す順にカードを並べる。
 
     期限を過ぎたものを古い順に出し、足りない分を未回答のカードで埋める。
+    未回答のカードは `NEW_CARD_SUBJECT_ORDER` の科目順に、1科目ずつまとめて出す。
     「絶対覚えた」はどちらにも入れない（履歴は残したまま、出題からだけ外れる）。
 
     **はじめてのカードには別枠の上限（`new_limit`）を置く。** 期日が来た復習は
@@ -409,6 +422,14 @@ def build_queue(
         exam_at=exam_at, study_deck_id=study_deck_id,
     )
     position = {card_id: index for index, card_id in enumerate(order)}
+    subject_rank = {
+        card["id"]: (
+            NEW_CARD_SUBJECT_ORDER.index(card.get("subjectId"))
+            if card.get("subjectId") in NEW_CARD_SUBJECT_ORDER
+            else len(NEW_CARD_SUBJECT_ORDER)
+        )
+        for card in cards
+    }
 
     due_items = [
         state
@@ -421,7 +442,8 @@ def build_queue(
         for state in states.values()
         if state["state"] == "new" and not state["certain"]
     ]
-    new_items.sort(key=lambda s: position[s["cardId"]])
+    # 科目の中はカードの並び（分野ごとにまとまっている）のまま。
+    new_items.sort(key=lambda s: (subject_rank[s["cardId"]], position[s["cardId"]]))
 
     # 復習を先に確保し、残り枠のうち new_limit までを新規で埋める。
     limit = max(0, limit)

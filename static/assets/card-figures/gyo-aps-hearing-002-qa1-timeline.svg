@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 600" role="img" aria-labelledby="t d">
+  <title id="t">聴聞と弁明の分かれ目と、資料を見られる時期</title>
+  <desc id="d">許認可の取消しなど「なくなる」処分は聴聞、営業停止など「止まる・直す」処分は弁明になる。聴聞では通知から終結まで資料を閲覧できるが、弁明では閲覧できず、処分後の審査請求で閲覧と写しの交付を求められる。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .sec { font-size: 15px; font-weight: 800; fill: #55635d; }
+    .lane { font-size: 20px; font-weight: 800; }
+    .b { font-size: 16px; font-weight: 700; }
+    .s { font-size: 14px; fill: #55635d; }
+    .w { font-size: 15px; font-weight: 800; fill: #ffffff; }
+    .ng { font-size: 15px; font-weight: 800; fill: #b23a2e; }
+  </style>
+  <rect width="640" height="600" fill="#ffffff"/>
+  <text class="h" x="320" y="34" text-anchor="middle">聴聞か弁明か ／ 資料を見られるのはいつ？</text>
+
+  <!-- 分かれ目 -->
+  <text class="sec" x="24" y="66">どっちの手続になる？（13条1項）</text>
+  <rect x="24" y="76" width="288" height="112" rx="12" fill="#eef4fb" stroke="#8fb0d3" stroke-width="2"/>
+  <text class="lane" x="40" y="104" style="fill:#1f4f74">聴聞＝「なくなる」処分</text>
+  <text class="b" x="40" y="132">許認可の取消し</text>
+  <text class="b" x="40" y="156">資格・地位のはく奪</text>
+  <text class="b" x="40" y="180">役員の解任・会員の除名</text>
+  <rect x="328" y="76" width="288" height="112" rx="12" fill="#f4f6f5" stroke="#aab6b0" stroke-width="2"/>
+  <text class="lane" x="344" y="104" style="fill:#3c4a44">弁明＝「止まる・直す」</text>
+  <text class="b" x="344" y="132">左の処分以外</text>
+  <text class="b" x="344" y="156">（営業停止・改善命令など）</text>
+  <text class="s" x="344" y="180">原則、弁明書を出すだけ</text>
+
+  <!-- 聴聞の流れ -->
+  <text class="lane" x="24" y="232" style="fill:#1f4f74">聴聞</text>
+  <path d="M60 268 L600 268" stroke="#1f4f74" stroke-width="3"/>
+  <circle cx="70" cy="268" r="7" fill="#1f4f74"/>
+  <circle cx="360" cy="268" r="7" fill="#1f4f74"/>
+  <circle cx="500" cy="268" r="7" fill="#1f4f74"/>
+  <circle cx="590" cy="268" r="7" fill="#1f4f74"/>
+  <text class="s" x="70" y="252" text-anchor="middle">通知</text>
+  <text class="s" x="360" y="252" text-anchor="middle">期日（口頭）</text>
+  <text class="s" x="500" y="252" text-anchor="middle">終結</text>
+  <text class="s" x="590" y="252" text-anchor="middle">処分</text>
+  <rect x="70" y="282" width="430" height="30" rx="6" fill="#2f6f9f"/>
+  <text class="w" x="285" y="303" text-anchor="middle">資料の閲覧OK（通知〜終結まで・18条）</text>
+  <text class="s" x="360" y="334" text-anchor="middle">主宰者の前で、職員に質問もできる</text>
+
+  <!-- 弁明の流れ -->
+  <text class="lane" x="24" y="378" style="fill:#3c4a44">弁明</text>
+  <path d="M60 414 L600 414" stroke="#6b7a73" stroke-width="3"/>
+  <circle cx="70" cy="414" r="7" fill="#6b7a73"/>
+  <circle cx="320" cy="414" r="7" fill="#6b7a73"/>
+  <circle cx="590" cy="414" r="7" fill="#6b7a73"/>
+  <text class="s" x="70" y="398" text-anchor="middle">通知</text>
+  <text class="s" x="320" y="398" text-anchor="middle">弁明書を出す</text>
+  <text class="s" x="590" y="398" text-anchor="middle">処分</text>
+  <rect x="70" y="428" width="250" height="30" rx="6" fill="#ffffff" stroke="#c0473a" stroke-width="2" stroke-dasharray="6 4"/>
+  <text class="ng" x="195" y="449" text-anchor="middle">× 資料棚は開かない</text>
+  <text class="s" x="70" y="482">通知書に「原因となる事実」は書いてある（30条）</text>
+
+  <!-- あとで見る -->
+  <rect x="24" y="504" width="592" height="80" rx="12" fill="#fff8e6" stroke="#e2c27a" stroke-width="2"/>
+  <text class="b" x="40" y="536">弁明で見られなかった資料は？</text>
+  <text class="b" x="40" y="564">→ 処分のあと審査請求で、閲覧＋写しの交付（行審法38条）</text>
+</svg>

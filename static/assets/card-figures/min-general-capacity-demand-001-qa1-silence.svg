@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 610" role="img" aria-labelledby="t d">
+  <title id="t">黙っていたら今の状態のまま固まる</title>
+  <desc id="d">取り消せる契約は今は有効なので、黙っていれば有効のまま固まり追認とみなされる。無権代理は今は本人に効果がないので、黙っていれば効果なしのまま固まり追認拒絶とみなされる。遺贈は死亡で効力が生じて受遺者がもらった状態なので、黙っていれば承認とみなされる。例外として、被保佐人本人など一人で決められない人への催告は、保佐人などの追認が届かなければ取消しとみなされる。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .lab { font-size: 16px; font-weight: 800; }
+    .ls { font-size: 12px; fill: #55635d; }
+    .b { font-size: 15px; font-weight: 700; }
+    .bs { font-size: 12px; fill: #55635d; }
+    .arr { font-size: 13px; font-weight: 700; fill: #55635d; }
+    .note { font-size: 15px; font-weight: 700; }
+    .ex { font-size: 13px; fill: #55635d; }
+  </style>
+  <defs>
+    <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#6b7a73"/></marker>
+  </defs>
+  <rect width="640" height="610" fill="#ffffff"/>
+  <text class="h" x="320" y="38" text-anchor="middle">黙っていたら「今の状態」のまま固まる</text>
+
+  <!-- 1 取り消せる契約 -->
+  <rect x="16" y="64" width="608" height="104" rx="12" fill="#f2f8f4" stroke="#b7d6c3"/>
+  <text class="lab" x="30" y="108">取り消せる契約</text>
+  <text class="ls" x="30" y="130">制限行為能力（20条1・2項）</text>
+  <rect x="214" y="88" width="156" height="56" rx="8" fill="#ffffff" stroke="#9aa7a1"/>
+  <text class="b" x="292" y="112" text-anchor="middle">今は「有効」</text>
+  <text class="bs" x="292" y="132" text-anchor="middle">取り消されるまで</text>
+  <path d="M376 116 L446 116" stroke="#6b7a73" stroke-width="2.5" marker-end="url(#ah2)"/>
+  <text class="arr" x="411" y="104" text-anchor="middle">黙る</text>
+  <rect x="452" y="88" width="160" height="56" rx="8" fill="#2f7d55"/>
+  <text class="b" x="532" y="112" text-anchor="middle" style="fill:#fff">有効で固まる</text>
+  <text class="bs" x="532" y="132" text-anchor="middle" style="fill:#e6f3ec">＝追認とみなす</text>
+
+  <!-- 2 無権代理 -->
+  <rect x="16" y="180" width="608" height="104" rx="12" fill="#eef2f9" stroke="#b3c0d8"/>
+  <text class="lab" x="30" y="224">無権代理</text>
+  <text class="ls" x="30" y="246">本人への催告（114条）</text>
+  <rect x="214" y="204" width="156" height="56" rx="8" fill="#ffffff" stroke="#9aa7a1"/>
+  <text class="b" x="292" y="228" text-anchor="middle">今は本人に</text>
+  <text class="b" x="292" y="248" text-anchor="middle">「効果なし」</text>
+  <path d="M376 232 L446 232" stroke="#6b7a73" stroke-width="2.5" marker-end="url(#ah2)"/>
+  <text class="arr" x="411" y="220" text-anchor="middle">黙る</text>
+  <rect x="452" y="204" width="160" height="56" rx="8" fill="#3d5a8a"/>
+  <text class="b" x="532" y="228" text-anchor="middle" style="fill:#fff">効果なしで固まる</text>
+  <text class="bs" x="532" y="248" text-anchor="middle" style="fill:#e3e9f4">＝追認拒絶とみなす</text>
+
+  <!-- 3 遺贈 -->
+  <rect x="16" y="296" width="608" height="104" rx="12" fill="#f6f2fa" stroke="#c8b8da"/>
+  <text class="lab" x="30" y="340">遺贈</text>
+  <text class="ls" x="30" y="362">受遺者への催告（987条）</text>
+  <rect x="214" y="320" width="156" height="56" rx="8" fill="#ffffff" stroke="#9aa7a1"/>
+  <text class="b" x="292" y="344" text-anchor="middle">今は「もらった」</text>
+  <text class="bs" x="292" y="364" text-anchor="middle">死亡で遺言が効力を生じた</text>
+  <path d="M376 348 L446 348" stroke="#6b7a73" stroke-width="2.5" marker-end="url(#ah2)"/>
+  <text class="arr" x="411" y="336" text-anchor="middle">黙る</text>
+  <rect x="452" y="320" width="160" height="56" rx="8" fill="#2f7d55"/>
+  <text class="b" x="532" y="344" text-anchor="middle" style="fill:#fff">もらったまま</text>
+  <text class="bs" x="532" y="364" text-anchor="middle" style="fill:#e6f3ec">＝承認とみなす</text>
+
+  <!-- 4 例外 -->
+  <rect x="16" y="412" width="608" height="104" rx="12" fill="#fdf1ef" stroke="#e0a49b" stroke-width="2"/>
+  <text class="lab" x="30" y="448" style="fill:#b23a2e">例外</text>
+  <text class="ls" x="30" y="470">一人で決められない</text>
+  <text class="ls" x="30" y="488">（20条3・4項）</text>
+  <rect x="214" y="436" width="156" height="56" rx="8" fill="#ffffff" stroke="#9aa7a1"/>
+  <text class="b" x="292" y="460" text-anchor="middle">被保佐人本人など</text>
+  <text class="bs" x="292" y="480" text-anchor="middle">「OKをもらってきて」</text>
+  <path d="M376 464 L446 464" stroke="#6b7a73" stroke-width="2.5" marker-end="url(#ah2)"/>
+  <text class="arr" x="411" y="452" text-anchor="middle">届かない</text>
+  <rect x="452" y="436" width="160" height="56" rx="8" fill="#b23a2e"/>
+  <text class="b" x="532" y="460" text-anchor="middle" style="fill:#fff">本人を守る側へ</text>
+  <text class="bs" x="532" y="480" text-anchor="middle" style="fill:#f8e1dd">＝取消しとみなす</text>
+
+  <!-- まとめ -->
+  <rect x="16" y="528" width="608" height="68" rx="12" fill="#fff8e6" stroke="#e2c27a" stroke-width="2"/>
+  <text class="note" x="320" y="556" text-anchor="middle">黙ったら今のまま。一人で決められない人の沈黙だけは取消し</text>
+  <text class="ex" x="320" y="580" text-anchor="middle">履行の催告（541条）は別物。払わなくても当然には失効せず、解除の通知が要る</text>
+</svg>

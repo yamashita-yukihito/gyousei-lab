@@ -62,6 +62,19 @@ class MinpoDTest(unittest.TestCase):
         self.assertEqual(184, len(question_ids))
         self.assertEqual(len(question_ids), len(set(question_ids)))
 
+    def test_first_question_delta_is_from_chapter_base_not_previous(self) -> None:
+        # 1問目に「前問から変わった1点」と出ていた（2026-10-24）。1問目は章の共通事例との差で、
+        # resetの見出しも「基準事例へ戻る」と決め打ちすると「基準事例から離れる」問題で嘘になる。
+        for chapter in load_data()["chapters"]:
+            first = chapter["questions"][0]["delta"]
+            self.assertNotIn("transition", first, chapter["id"])
+            self.assertEqual("章の共通事例", first["before"], chapter["id"])
+        js = (MINPO_D / "app.js").read_text(encoding="utf-8")
+        self.assertIn("const first = index === 0;", js)
+        self.assertIn("'章の共通事例から変えた1点'", js)
+        self.assertIn("renderDelta(question, chapter, index)", js)
+        self.assertNotIn("基準事例へ戻る）'", js)
+
     def test_every_chapter_and_label_mix_true_and_false(self) -> None:
         for chapter in load_data()["chapters"]:
             answers = [question["answer"] for question in chapter["questions"]]

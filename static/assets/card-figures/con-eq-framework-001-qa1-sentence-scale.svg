@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" role="img" aria-labelledby="t d">
+  <title id="t">当時の普通殺人と尊属殺の法定刑の比較</title>
+  <desc id="d">普通殺人は3年以上の懲役から死刑までで、減軽すれば執行猶予を付けられた。尊属殺は死刑と無期懲役だけで、2回減軽しても3年6月までしか下がらず、執行猶予を付けられなかった。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .s { font-size: 15px; fill: #55635d; }
+    .row { font-size: 18px; font-weight: 800; }
+    .law { font-size: 14px; fill: #55635d; }
+    .in { font-size: 15px; font-weight: 800; fill: #ffffff; }
+    .note { font-size: 15px; font-weight: 700; }
+    .ok { fill: #1f6b45; font-weight: 800; }
+    .ng { fill: #b23a2e; font-weight: 800; }
+    .gold { font-size: 15px; font-weight: 800; fill: #8a6410; }
+    .tick { font-size: 14px; fill: #55635d; }
+  </style>
+  <rect width="640" height="500" fill="#ffffff"/>
+  <text class="h" x="320" y="36" text-anchor="middle">なぜ「死刑か無期だけ」が重すぎたのか</text>
+  <text class="s" x="320" y="62" text-anchor="middle">執行猶予を付けられるのは「3年以下」の刑だけ（刑法25条）</text>
+
+  <!-- 3年の線 -->
+  <text class="gold" x="216" y="98" text-anchor="middle">3年以下（この線より左）なら執行猶予OK</text>
+  <path d="M216 106 L216 372" stroke="#d9a62e" stroke-width="3" stroke-dasharray="7 5"/>
+
+  <!-- 普通殺人 -->
+  <text class="row" x="20" y="162">ふつうの殺人</text>
+  <text class="law" x="20" y="184">（当時の199条）</text>
+  <rect x="216" y="150" width="264" height="28" rx="5" fill="#3f8a63"/>
+  <text class="in" x="348" y="170" text-anchor="middle">3年以上の懲役</text>
+  <rect x="494" y="150" width="60" height="28" rx="5" fill="#3f8a63"/>
+  <text class="in" x="524" y="170" text-anchor="middle">無期</text>
+  <rect x="562" y="150" width="60" height="28" rx="5" fill="#3f8a63"/>
+  <text class="in" x="592" y="170" text-anchor="middle">死刑</text>
+  <path d="M183 164 L216 164" stroke="#3f8a63" stroke-width="4" stroke-dasharray="5 4"/>
+  <circle cx="183" cy="164" r="5" fill="#3f8a63"/>
+  <text class="note" x="232" y="210">下限3年（減軽すれば1年6月）→ <tspan class="ok">執行猶予 ○</tspan></text>
+
+  <!-- 尊属殺 -->
+  <text class="row" x="20" y="286">尊属殺</text>
+  <text class="law" x="20" y="308">（当時の200条）</text>
+  <rect x="494" y="274" width="60" height="28" rx="5" fill="#c0473a"/>
+  <text class="in" x="524" y="294" text-anchor="middle">無期</text>
+  <rect x="562" y="274" width="60" height="28" rx="5" fill="#c0473a"/>
+  <text class="in" x="592" y="294" text-anchor="middle">死刑</text>
+  <path d="M227 288 L494 288" stroke="#c0473a" stroke-width="4" stroke-dasharray="5 4"/>
+  <circle cx="304" cy="288" r="5" fill="#c0473a"/>
+  <circle cx="227" cy="288" r="6" fill="#c0473a"/>
+  <text class="tick" x="304" y="266" text-anchor="middle">1回減軽 → 7年</text>
+  <text class="note" x="232" y="334">2回減軽しても3年6月が下限 → <tspan class="ng">執行猶予 ×</tspan></text>
+
+  <!-- 目盛り -->
+  <path d="M150 380 L480 380" stroke="#9aa7a1" stroke-width="2"/>
+  <path d="M150 374 L150 386 M216 374 L216 386 M304 374 L304 386 M480 374 L480 386" stroke="#9aa7a1" stroke-width="2"/>
+  <text class="tick" x="150" y="404" text-anchor="middle">0</text>
+  <text class="tick" x="216" y="404" text-anchor="middle">3年</text>
+  <text class="tick" x="304" y="404" text-anchor="middle">7年</text>
+  <text class="tick" x="480" y="404" text-anchor="middle">15年</text>
+  <text class="tick" x="558" y="404" text-anchor="middle">有期より重い刑</text>
+
+  <!-- まとめ -->
+  <rect x="16" y="424" width="608" height="64" rx="12" fill="#f4f6f5"/>
+  <text class="note" x="30" y="450">最高裁は199条を当てはめ、懲役2年6月・執行猶予3年とした</text>
+  <text class="law" x="30" y="474">※年数は当時の条文。今は殺人の下限が5年で、懲役は拘禁刑になった</text>
+</svg>

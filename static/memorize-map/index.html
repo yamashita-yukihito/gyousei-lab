@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183a34">
+  <title>暗記と思考の仕分け | 行政書士 過去問ラボ</title>
+  <link rel="stylesheet" href="../architecture.css?v=20260807-1">
+  <style>
+    .goal-strip strong { display: block; font-size: 20px; }
+    .goal-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .toolbar { border-bottom: 1px solid var(--line); }
+    .hero-action { margin: 18px 0 0; }
+    .star-todo-link { display: inline-block; padding: 10px 18px; border-radius: 10px; background: #f6c453; color: #1d2a24; font-weight: 800; text-decoration: none; }
+    .star-todo-link:hover { background: #ffd673; }
+    .star-todo-done { color: #c8ddd4; font-weight: 700; }
+    .progress-note { margin: 2px 0 0; color: var(--muted); font-size: 12px; }
+    .progress-note.error { color: #9b2c2c; }
+    .toolbar-inner { display: grid; gap: 10px; width: min(1120px, calc(100% - 32px)); margin: auto; padding: 12px 0; }
+    .chips, .modes { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chips button, .modes button { min-height: 34px; padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); color: var(--ink); font: inherit; font-size: 13px; cursor: pointer; }
+    .chips button small { margin-left: 4px; color: var(--muted); font-size: 11px; }
+    .chips button[aria-pressed="true"] { border-color: var(--deep); background: var(--deep); color: #fff; }
+    .chips button[aria-pressed="true"] small { color: #c8ddd4; }
+    .modes button[aria-pressed="true"][data-mode="all"] { border-color: var(--deep); background: var(--deep); color: #fff; }
+    .modes button[aria-pressed="true"][data-mode="暗"] { border-color: var(--amber); background: var(--amber); color: #fff; }
+    .modes button[aria-pressed="true"][data-mode="考"] { border-color: var(--blue); background: var(--blue); color: #fff; }
+    .modes .star-toggle { margin-left: 6px; }
+    .modes .star-toggle[aria-pressed="true"] { border-color: #a3271f; background: #a3271f; color: #fff; }
+    .star-badge { display: inline-block; margin-right: 5px; padding: 0 6px; border-radius: 4px; background: #a3271f; color: #fff; font-size: 11px; font-weight: 700; line-height: 1.7; vertical-align: 1px; }
+    .tool-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+    .tool-row input { flex: 1 1 220px; max-width: 360px; min-height: 36px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); font: inherit; font-size: 14px; }
+
+    .subject { padding: 40px 0 8px; border-bottom: 1px solid var(--line); }
+    .subject:last-child { border-bottom: 0; }
+    .subject > h2 { margin: 0; color: var(--deep); font-family: "Yu Mincho", "Hiragino Mincho ProN", serif; font-size: clamp(26px, 4vw, 36px); line-height: 1.35; }
+    .subject > .note { max-width: 820px; margin: 6px 0 0; color: var(--muted); }
+    .field { margin: 18px 0 26px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); box-shadow: var(--shadow); }
+    .field > h3 { margin: 0; color: var(--deep); font-size: 18px; }
+    .field > .note { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+    .cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+    .cols.single { grid-template-columns: 1fr; }
+    .col { padding: 12px 14px 10px; border-radius: 10px; border-top: 4px solid; }
+    .col.mem { border-top-color: var(--amber); background: var(--amber-soft); }
+    .col.think { border-top-color: var(--blue); background: var(--blue-soft); }
+    .col h4 { display: flex; justify-content: space-between; gap: 8px; margin: 0 0 6px; font-size: 13px; letter-spacing: .04em; }
+    .col.mem h4 { color: var(--amber); }
+    .col.think h4 { color: var(--blue); }
+    .col h4 span { color: var(--muted); font-weight: 400; }
+    .col ul { margin: 0; padding-left: 1.2em; }
+    .col > ul > li { margin: 0 0 8px; font-size: 15px; }
+    .col li ul { margin-top: 2px; padding-left: 1.1em; color: var(--muted); }
+    .col li ul li { font-size: 13.5px; }
+    .col strong { color: var(--ink); }
+    .card-link { display: inline-block; margin-left: 4px; padding: 0 7px; border: 1px solid currentColor; border-radius: 999px; font-size: 11px; line-height: 1.6; text-decoration: none; white-space: nowrap; vertical-align: 1px; }
+    .col.mem .card-link { color: var(--amber); }
+    .col.think .card-link { color: var(--blue); }
+    .col .card-link.is-done { border-color: var(--green); background: var(--green); color: #fff; }
+    .col .card-link.is-done::before { content: "✓ "; }
+    .col .card-link.is-new { color: var(--muted); }
+    .col li.done { color: var(--muted); }
+    .col li.done strong { color: var(--muted); }
+    .modes .todo-toggle[aria-pressed="true"] { border-color: var(--green); background: var(--green); color: #fff; }
+    .col-foot { margin: 6px 0 0; font-size: 12px; text-align: right; }
+    .status { padding: 40px 0; color: var(--muted); }
+    .status.error { color: #9b2c2c; }
+    .warn-box { margin: 24px 0; padding: 12px 16px; border: 1px solid #e3b5b5; border-left: 4px solid #9b2c2c; border-radius: 10px; background: #fdeaea; font-size: 13px; }
+    .page-foot { padding: 28px 0 48px; color: var(--muted); font-size: 12px; }
+    @media (max-width: 760px) {
+      .cols { grid-template-columns: 1fr; }
+      .chips { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; }
+      .chips button { flex: 0 0 auto; }
+      .field { padding: 14px 14px; }
+      .goal-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .goal-strip div:nth-child(3) { border-left: 0; }
+      .goal-strip div:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.15); }
+      .goal-strip div { padding: 10px 12px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
+  <header class="architecture-hero">
+    <div class="hero-inner">
+      <nav><a href="../index.html">← 過去問ラボへ戻る</a><a href="../architecture.html">構成図</a></nav>
+      <p class="eyebrow">MEMORIZE OR THINK</p>
+      <h1>覚えるか、考えるか</h1>
+      <p class="lead">行政書士試験の論点を、<strong>暗記しないと解けないもの</strong>と<strong>その場で考えれば出るもの</strong>に分けた一覧です。「頻出」の印は過去20年で6問以上出た論点で、まずここを完璧にします。「カード」から学習カードへ飛んで、そのまま解けます。</p>
+      <div class="goal-strip">
+        <div><span>覚える</span><strong id="count-mem">—</strong></div>
+        <div><span>考える</span><strong id="count-think">—</strong></div>
+        <div><span>うち頻出（★）</span><strong id="count-star">—</strong></div>
+        <div><span>頻出のうち習得済み</span><strong id="count-star-done">—</strong></div>
+      </div>
+      <p class="hero-action"><a id="star-todo-link" class="star-todo-link" href="../#study" hidden></a><span id="star-todo-done" class="star-todo-done" hidden>頻出のカードはすべて習得済みです</span></p>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="toolbar-inner">
+      <div class="chips" id="subject-chips" role="group" aria-label="科目"></div>
+      <div class="tool-row">
+        <div class="modes" id="mode-buttons" role="group" aria-label="表示する種類">
+          <button type="button" data-mode="all">両方</button>
+          <button type="button" data-mode="暗">覚えるだけ</button>
+          <button type="button" data-mode="考">考えるだけ</button>
+          <button type="button" id="star-only" class="star-toggle">★ 頻出だけ</button>
+          <button type="button" id="todo-only" class="todo-toggle" hidden>未習得だけ</button>
+        </div>
+        <input id="search" type="search" placeholder="キーワードで絞り込む（例：3か月、聴聞）" aria-label="キーワードで絞り込む">
+      </div>
+      <p class="progress-note" id="progress-note">習得状況を読み込んでいます…</p>
+    </div>
+  </div>
+
+  <main id="main-content">
+    <div id="content"><p class="status">読み込んでいます…</p></div>
+    <p class="page-foot">内容の正本は <code>static/memorize-map/content.md</code>。項目を足すときはこのファイルだけを編集します。</p>
+  </main>
+
+  <script src="app.js?v=20261026-6"></script>
+</body>
+</html>

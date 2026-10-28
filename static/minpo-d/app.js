@@ -293,13 +293,19 @@ function renderStudy() {
   updateHash();
 }
 
-function renderDelta(question, chapter) {
+function renderDelta(question, chapter, index) {
   const box = el('section', 'delta');
+  // 1問目は前問が無いので、章の共通事例との差を出す。
+  // resetには「基準事例へ戻る」ものと「基準事例から離れる」ものがあり、どちらかは「今回」の文に書いてある。
+  const first = index === 0;
   const reset = question.delta.transition === 'reset';
-  box.appendChild(el('h3', '', reset ? '小系列を切り替える（基準事例へ戻る）' : '前問から変わった1点'));
+  const heading = first ? '章の共通事例から変えた1点'
+    : reset ? '小系列を切り替える（いくつかの事実をまとめて変える）'
+    : '前問から変わった1点';
+  box.appendChild(el('h3', '', heading));
   const grid = el('div', 'delta-grid');
   const before = el('div');
-  before.append(el('small', '', '前'), el('p', '', aliasText(question.delta.before, chapter)));
+  before.append(el('small', '', first ? '元' : '前'), el('p', '', aliasText(question.delta.before, chapter)));
   const now = el('div');
   now.append(el('small', '', '今回'), el('p', '', aliasText(question.delta.now, chapter)));
   grid.append(before, el('div', 'arrow', '→'), now);
@@ -327,7 +333,7 @@ function renderQuestionCard(chapter, question, index, options = {}) {
   const scenario = el('p', 'current-scenario');
   appendRichText(scenario, question.currentScenario, chapter);
   card.appendChild(scenario);
-  if (state.mode !== 'exam') card.appendChild(renderDelta(question, chapter));
+  if (state.mode !== 'exam') card.appendChild(renderDelta(question, chapter, index));
 
   const statement = el('p', 'statement');
   appendRichText(statement, question.statement, chapter);

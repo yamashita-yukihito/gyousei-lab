@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 520" role="img" aria-labelledby="t d">
+  <title id="t">尊属殺重罰規定違憲判決の2段階の判断</title>
+  <desc id="d">1段目で目的を見て合理的と判断し、2段目で刑の重さの程度を見て重すぎるとして違憲にした流れ。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 24px; font-weight: 800; fill: #183a34; }
+    .s { font-size: 16px; fill: #55635d; }
+    .step { font-size: 15px; font-weight: 800; }
+    .b { font-size: 19px; font-weight: 700; }
+    .ok { font-size: 20px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 20px; font-weight: 800; fill: #b23a2e; }
+    .sum { font-size: 19px; font-weight: 800; }
+  </style>
+  <rect width="640" height="520" fill="#ffffff"/>
+  <text class="h" x="320" y="40" text-anchor="middle">最高裁（昭和48年4月4日）は2段階で見た</text>
+  <text class="s" x="320" y="66" text-anchor="middle">当時の刑法200条：尊属殺は「死刑か無期懲役」だけ</text>
+
+  <!-- 1段目 -->
+  <rect x="24" y="88" width="592" height="132" rx="14" fill="#f2f8f4" stroke="#8fbfa3" stroke-width="2"/>
+  <rect x="40" y="102" width="132" height="28" rx="14" fill="#1f6b45"/>
+  <text class="step" x="106" y="122" text-anchor="middle" style="fill:#fff">① 目的</text>
+  <text class="b" x="40" y="160">親など尊属を殺したら、ふつうの殺人より</text>
+  <text class="b" x="40" y="186">重く罰する（尊属を大切にする道徳を守る）</text>
+  <rect x="404" y="102" width="196" height="36" rx="8" fill="#ffffff" stroke="#1f6b45" stroke-width="2"/>
+  <text class="ok" x="502" y="127" text-anchor="middle">○ 区別してよい</text>
+  <text class="s" x="40" y="210">→ 重くすること「自体」は合憲</text>
+
+  <!-- 矢印 -->
+  <path d="M320 226 L320 252" stroke="#7a8a84" stroke-width="3"/>
+  <path d="M310 246 L320 260 L330 246 Z" fill="#7a8a84"/>
+
+  <!-- 2段目 -->
+  <rect x="24" y="266" width="592" height="132" rx="14" fill="#fdf1ef" stroke="#e0a49b" stroke-width="2"/>
+  <rect x="40" y="280" width="200" height="28" rx="14" fill="#b23a2e"/>
+  <text class="step" x="140" y="300" text-anchor="middle" style="fill:#fff">② 手段＝重さの程度</text>
+  <text class="b" x="40" y="338">刑を「死刑か無期」だけにした。どんな</text>
+  <text class="b" x="40" y="364">事情があっても執行猶予が付けられない</text>
+  <rect x="404" y="280" width="196" height="36" rx="8" fill="#ffffff" stroke="#b23a2e" stroke-width="2"/>
+  <text class="ng" x="502" y="305" text-anchor="middle">× 重すぎる</text>
+  <text class="s" x="40" y="388">→ 必要な限度をはるかに超える＝違憲</text>
+
+  <!-- まとめ -->
+  <rect x="24" y="414" width="592" height="88" rx="14" fill="#fff8e6" stroke="#e2c27a" stroke-width="2"/>
+  <text class="sum" x="320" y="450" text-anchor="middle">違憲なのは「重くしすぎた程度」</text>
+  <text class="sum" x="320" y="480" text-anchor="middle">「重くしたこと自体」ではない</text>
+</svg>

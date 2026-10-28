@@ -839,6 +839,52 @@ class ProductionBundleTests(unittest.TestCase):
         bundle = self.build(explanation_cards=no_figures)
         self.assertNotIn("figures", bundle["explanationCards"][0])
 
+    def test_learner_qa_is_projected_with_the_same_figure_rules(self) -> None:
+        # ⑨質問ノート。利用者の質問と回答をカードへ追記していく。図は⑧と同じ決まりで縛る。
+        entry = {
+            "id": "qa-20261024-1",
+            "askedAt": "2026-10-24",
+            "question": "重くしすぎたら違憲なの？",
+            "answer": "__程度__が違憲です。",
+            "figures": [
+                {
+                    "src": "assets/card-figures/qa-example.svg",
+                    "alt": "2段階の判断の図",
+                    "caption": "目的は合憲、手段が違憲",
+                }
+            ],
+        }
+        accepted = explanation_cards()
+        accepted["items"][0]["learnerQa"] = [dict(entry, editorNote="内部メモ")]
+        bundle = self.build(explanation_cards=accepted)
+        self.assertEqual([entry], bundle["explanationCards"][0]["learnerQa"])
+
+        no_qa = explanation_cards()
+        bundle = self.build(explanation_cards=no_qa)
+        self.assertNotIn("learnerQa", bundle["explanationCards"][0])
+
+        bad_src = explanation_cards()
+        bad_src["items"][0]["learnerQa"] = [
+            dict(entry, figures=[dict(entry["figures"][0], src="https://example.test/x.png")])
+        ]
+        with self.assertRaisesRegex(ProductionBundleError, "src must match"):
+            self.build(explanation_cards=bad_src)
+
+        bad_date = explanation_cards()
+        bad_date["items"][0]["learnerQa"] = [dict(entry, askedAt="10月24日")]
+        with self.assertRaisesRegex(ProductionBundleError, "askedAt must be YYYY-MM-DD"):
+            self.build(explanation_cards=bad_date)
+
+        empty_answer = explanation_cards()
+        empty_answer["items"][0]["learnerQa"] = [dict(entry, answer=" ")]
+        with self.assertRaisesRegex(ProductionBundleError, "answer must be"):
+            self.build(explanation_cards=empty_answer)
+
+        repeated = explanation_cards()
+        repeated["items"][0]["learnerQa"] = [entry, dict(entry)]
+        with self.assertRaisesRegex(ProductionBundleError, "must not repeat an id"):
+            self.build(explanation_cards=repeated)
+
     def test_source_question_links_fail_closed_and_stay_deduplicated(self) -> None:
         missing_provider_url = related_question_source()
         del missing_provider_url["records"][0]["providerUrl"]
@@ -857,6 +903,16 @@ class ProductionBundleTests(unittest.TestCase):
         self.assertEqual("archive", archive_ref["sourceEra"])
         self.assertNotIn("sourceUrl", bundle["relatedQuestionEvidence"][0])
         self.assertEqual("archive", bundle["relatedQuestionEvidence"][0]["sourceEra"])
+
+        # 旧10年でもURLがあれば、元問題リンクと⑤の「出典を見る」の両方へ出す（2026-10-24）。
+        archive_url = "https://www.pro.goukakudojyo.com/worksheet2/w_mainarch.php?queID=405"
+        archive_linked = related_question_source()
+        archive_linked["records"][0]["sourceEra"] = "archive"
+        archive_linked["records"][0]["providerUrl"] = archive_url
+        archive_linked["records"][0]["officialQuestionUrl"] = archive_url
+        bundle = self.build(related_question_source=archive_linked)
+        self.assertEqual(archive_url, bundle["explanationCards"][0]["sourceRefs"][0]["providerUrl"])
+        self.assertEqual(archive_url, bundle["relatedQuestionEvidence"][0]["sourceUrl"])
 
         same_url = related_question_source()
         same_url["records"][0]["officialQuestionUrl"] = same_url["records"][0][

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-labelledby="t d">
+  <title id="t">催告に返事がなかったときの扱いの比較表</title>
+  <desc id="d">制限行為能力者の相手方の催告は、行為能力者になった本人と法定代理人・保佐人・補助人への催告なら追認、特別の方式が要る行為と被保佐人・被補助人本人への催告なら取消し、未成年者・成年被後見人本人への催告は効果なし。無権代理の本人への催告は追認拒絶、遺贈の受遺者への催告は承認とみなされる。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 14px; fill: #55635d; }
+    .th { font-size: 13px; font-weight: 800; fill: #55635d; }
+    .grp { font-size: 15px; font-weight: 800; }
+    .per { font-size: 12px; fill: #55635d; }
+    .m { font-size: 15px; font-weight: 700; }
+    .s { font-size: 12px; fill: #55635d; }
+    .r { font-size: 16px; font-weight: 800; fill: #ffffff; }
+    .rg { font-size: 15px; font-weight: 800; fill: #55635d; }
+    .note { font-size: 15px; font-weight: 700; }
+  </style>
+  <rect width="640" height="640" fill="#ffffff"/>
+  <text class="h" x="320" y="34" text-anchor="middle">催告に返事がなかったら、どうなる？</text>
+  <text class="sub" x="320" y="58" text-anchor="middle">「誰に催告したか」で結論が決まる</text>
+
+  <!-- 見出し -->
+  <text class="th" x="24" y="98">制度・期間</text>
+  <text class="th" x="166" y="98">誰に催告した？</text>
+  <text class="th" x="548" y="98" text-anchor="middle">黙っていたら</text>
+
+  <!-- 制限行為能力（20条） -->
+  <rect x="16" y="108" width="140" height="294" rx="10" fill="#f2f6f4" stroke="#b9c9c1"/>
+  <text class="grp" x="28" y="136">制限行為能力</text>
+  <text class="grp" x="28" y="158">（20条）</text>
+  <text class="per" x="28" y="182">期間は1か月以上</text>
+
+  <rect x="160" y="108" width="464" height="54" rx="8" fill="#ffffff" stroke="#d6dfdb"/>
+  <text class="m" x="172" y="132">行為能力者になった本人（1項）</text>
+  <text class="s" x="172" y="152">例：未成年者が18歳になったあと</text>
+  <rect x="486" y="118" width="124" height="34" rx="17" fill="#2f7d55"/>
+  <text class="r" x="548" y="141" text-anchor="middle">追認</text>
+
+  <rect x="160" y="168" width="464" height="54" rx="8" fill="#ffffff" stroke="#d6dfdb"/>
+  <text class="m" x="172" y="192">法定代理人・保佐人・補助人（2項）</text>
+  <text class="s" x="172" y="212">一人で追認を決められる人</text>
+  <rect x="486" y="178" width="124" height="34" rx="17" fill="#2f7d55"/>
+  <text class="r" x="548" y="201" text-anchor="middle">追認</text>
+
+  <rect x="160" y="228" width="464" height="54" rx="8" fill="#fdf1ef" stroke="#e8b9b2"/>
+  <text class="m" x="172" y="252">特別の方式が要る行為（3項）</text>
+  <text class="s" x="172" y="272">例：後見監督人の同意が要る行為</text>
+  <rect x="486" y="238" width="124" height="34" rx="17" fill="#b23a2e"/>
+  <text class="r" x="548" y="261" text-anchor="middle">取消し</text>
+
+  <rect x="160" y="288" width="464" height="54" rx="8" fill="#fdf1ef" stroke="#e8b9b2"/>
+  <text class="m" x="172" y="312">被保佐人・被補助人の本人（4項）</text>
+  <text class="s" x="172" y="332">「保佐人のOKをもらってきて」と催告</text>
+  <rect x="486" y="298" width="124" height="34" rx="17" fill="#b23a2e"/>
+  <text class="r" x="548" y="321" text-anchor="middle">取消し</text>
+
+  <rect x="160" y="348" width="464" height="54" rx="8" fill="#f4f4f4" stroke="#d0d0d0"/>
+  <text class="m" x="172" y="372">未成年者・成年被後見人の本人</text>
+  <text class="s" x="172" y="392">親・成年後見人へ催告し直す</text>
+  <rect x="486" y="358" width="124" height="34" rx="17" fill="#ffffff" stroke="#9aa39f" stroke-dasharray="5 4"/>
+  <text class="rg" x="548" y="381" text-anchor="middle">効果なし</text>
+
+  <!-- 無権代理（114条） -->
+  <rect x="16" y="414" width="140" height="54" rx="10" fill="#eef2f9" stroke="#b3c0d8"/>
+  <text class="grp" x="28" y="438">無権代理</text>
+  <text class="per" x="28" y="458">相当の期間</text>
+  <rect x="160" y="414" width="464" height="54" rx="8" fill="#ffffff" stroke="#d6dfdb"/>
+  <text class="m" x="172" y="438">本人（114条）</text>
+  <text class="s" x="172" y="458">相手方が悪意でも催告できる</text>
+  <rect x="486" y="424" width="124" height="34" rx="17" fill="#3d5a8a"/>
+  <text class="r" x="548" y="447" text-anchor="middle">追認拒絶</text>
+
+  <!-- 遺贈（987条） -->
+  <rect x="16" y="474" width="140" height="54" rx="10" fill="#f6f2fa" stroke="#c8b8da"/>
+  <text class="grp" x="28" y="498">遺贈</text>
+  <text class="per" x="28" y="518">相当の期間</text>
+  <rect x="160" y="474" width="464" height="54" rx="8" fill="#ffffff" stroke="#d6dfdb"/>
+  <text class="m" x="172" y="498">受遺者（987条）</text>
+  <text class="s" x="172" y="518">催告するのは相続人などの利害関係人</text>
+  <rect x="486" y="484" width="124" height="34" rx="17" fill="#2f7d55"/>
+  <text class="r" x="548" y="507" text-anchor="middle">承認</text>
+
+  <!-- まとめ -->
+  <rect x="16" y="544" width="608" height="80" rx="12" fill="#fff8e6" stroke="#e2c27a" stroke-width="2"/>
+  <text class="note" x="320" y="576" text-anchor="middle">「取消し」になるのは、一人で決められない場面だけ</text>
+  <text class="sub" x="320" y="604" text-anchor="middle">無権代理は「取消し」ではなく「追認拒絶」。言葉を取り違えない</text>
+</svg>

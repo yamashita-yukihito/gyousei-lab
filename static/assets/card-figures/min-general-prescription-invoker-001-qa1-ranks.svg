@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 600" role="img" aria-labelledby="t d">
+  <title id="t">1番抵当権と2番抵当権の配当</title>
+  <desc id="d">土地が3000万円で売れ、1番抵当権の借金が2000万円、2番抵当権の借金が1500万円の例。ふだんは1番が2000万円、2番が1000万円を受け取る。1番の借金が時効で消えると2番は1500万円に増えるが、これは反射的な利益なので2番は援用できない。2番の借金が時効で消えても1番の取り分は2000万円のまま変わらないので、1番には援用する理由がない。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 14px; fill: #55635d; }
+    .lab { font-size: 16px; font-weight: 800; fill: #183a34; }
+    .bar { font-size: 14px; font-weight: 800; fill: #ffffff; }
+    .bard { font-size: 14px; font-weight: 800; fill: #1d2a26; }
+    .gone { font-size: 13px; font-weight: 700; fill: #8a958f; }
+    .ok { font-size: 15px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 15px; font-weight: 800; fill: #b23a2e; }
+    .exp { font-size: 13px; fill: #55635d; }
+  </style>
+  <rect width="640" height="600" fill="#ffffff"/>
+  <text class="h" x="320" y="34" text-anchor="middle">1番と2番、どちらの借金が消えると誰が得する？</text>
+  <text class="sub" x="320" y="58" text-anchor="middle">土地が3000万円で売れた。1番X銀行の貸金2000万円、2番Y銀行の貸金1500万円</text>
+
+  <!-- ふだん -->
+  <rect x="16" y="76" width="608" height="128" rx="12" fill="#f6f8f7" stroke="#d3dbd7"/>
+  <text class="lab" x="30" y="104">ふだん（どちらも時効になっていない）</text>
+  <rect x="80" y="118" width="320" height="40" fill="#2f6f8f"/><text class="bar" x="240" y="143" text-anchor="middle">1番X 2000万</text>
+  <rect x="400" y="118" width="160" height="40" fill="#c98a2b"/><text class="bar" x="480" y="143" text-anchor="middle">2番Y 1000万</text>
+  <text class="exp" x="30" y="186">先に1番が全額、残りを2番。2番は500万円とりっぱぐれ、持ち主には0円</text>
+
+  <!-- 1番の借金が消えた -->
+  <rect x="16" y="216" width="608" height="170" rx="12" fill="#fdf1ef" stroke="#e0a49b" stroke-width="2"/>
+  <text class="lab" x="30" y="244">1番の借金が時効で消えたら</text>
+  <rect x="80" y="258" width="240" height="40" fill="#c98a2b"/><text class="bar" x="200" y="283" text-anchor="middle">2番Y 1500万（＋500万）</text>
+  <rect x="320" y="258" width="240" height="40" fill="#e3ece7" stroke="#9aa7a1"/><text class="bard" x="440" y="283" text-anchor="middle">持ち主へ 1500万</text>
+  <text class="ng" x="30" y="326">2番Yは援用できない（×）</text>
+  <text class="exp" x="30" y="348">繰り上がって増えるのは「おこぼれ」（最判平11.10.21）</text>
+  <text class="ok" x="30" y="372">持ち主（債務者・物上保証人・第三取得者）は援用できる（○）</text>
+
+  <!-- 2番の借金が消えた -->
+  <rect x="16" y="398" width="608" height="170" rx="12" fill="#fdf1ef" stroke="#e0a49b" stroke-width="2"/>
+  <text class="lab" x="30" y="426">2番の借金が時効で消えたら</text>
+  <rect x="80" y="440" width="320" height="40" fill="#2f6f8f"/><text class="bar" x="240" y="465" text-anchor="middle">1番X 2000万（そのまま）</text>
+  <rect x="400" y="440" width="160" height="40" fill="#e3ece7" stroke="#9aa7a1"/><text class="bard" x="480" y="465" text-anchor="middle">持ち主へ 1000万</text>
+  <text class="ng" x="30" y="508">1番Xは援用できない（×）</text>
+  <text class="exp" x="30" y="530">もともと先に全額もらえるので、1円も増えない。守られるものがない</text>
+  <text class="ok" x="30" y="554">持ち主（債務者・物上保証人・第三取得者）は援用できる（○）</text>
+</svg>

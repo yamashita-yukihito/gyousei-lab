@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20261021-3";
+  const APP_VERSION = "20261028-2";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -24,8 +24,10 @@
     studyRevealedOnly: false,
     // 直前の回答が正解だったか。誤答のときは4評価を出さない（自動でAgain）。
     studyLastCorrect: null,
-    // 各評価を選んだときの次回間隔（サーバーが返す目安）。
+    // 「今日の学習」の各カードが new（はじめて）か review（復習）か。サーバーの items から作る。
     todayQueueStates: null,
+    // 出題中のカードが「はじめて」か「復習」か。出題した時点で決める。
+    studyCurrentKind: null,
     // 「指定したカード」ビュー。通し演習の結果などからURLで渡されたカードIDの並び。
     pickedCardIds: [],
     pickedLabel: "",
@@ -909,7 +911,7 @@
       .filter(Boolean);
   }
 
-  // カードID・論点名・A/B/C・解説・⑤の肢まで一続きの文字列にして探す
+  // カードID・論点名・A/B/C・解説・⑥⑦⑨・⑤の肢まで一続きの文字列にして探す
   function studySearchHaystack(item) {
     const cardId = studyCardId(item);
     const cached = state.studySearchIndex.get(cardId);
@@ -933,6 +935,9 @@
         parts.push(row.label, row.article, row.rule, row.conclusion);
       });
     }
+    (item.learnerQa || []).forEach((entry) => {
+      parts.push(entry.question, entry.answer);
+    });
     (item.relatedPastQuestions || []).forEach((ref) => {
       const evidence = state.evidenceById.get(ref.choiceId);
       if (evidence) parts.push(evidence.statementText, evidence.eraYear);
@@ -1200,6 +1205,7 @@
     setRichText($("study-variant-b-casual"), variants.bCasual || variants.b || "");
     $("study-variant-b-style").textContent = variants.bCasualStyle || "やわらかくほどく";
     setRichText($("study-variant-c"), variants.c || "");
+    state.studyCurrentKind = studyCardKind(item);
     renderStudyBadges(item);
     renderStudyHistory(item);
     $("study-flash").className = "study-flash";
@@ -1226,17 +1232,19 @@
     const nodes = [];
     chosen.forEach((ref) => {
       const label = [ref.eraYear, ref.questionNumber ? "問" + ref.questionNumber : null, ref.choiceNumber ? "肢" + ref.choiceNumber : null].filter(Boolean).join(" ");
+      // 旧10年（平成18〜27年度）は取得元の解説が無く、現行法での正誤をe-Govで確かめている。
+      // 2026-10-24から合格道場の問題ページへのリンクも出すが、その印は残す
+      const recheck = ref.sourceEra === "archive" ? "（現行法で再確認済み）" : "";
       if (safeUrl(ref.providerUrl)) {
-        nodes.push(make("a", { href: ref.providerUrl, className: "source-link", target: "_blank", rel: "noopener noreferrer" }, "元問題" + (label ? " " + label : "") + " ↗"));
+        nodes.push(make("a", { href: ref.providerUrl, className: "source-link", target: "_blank", rel: "noopener noreferrer" }, "元問題" + (label ? " " + label : "") + recheck + " ↗"));
       }
       // 公式PDFがある年度は、取得元と食い違っていないかを自分で確かめられるようにする
       if (safeUrl(ref.officialQuestionUrl)) {
         nodes.push(make("a", { href: ref.officialQuestionUrl, className: "source-link official", target: "_blank", rel: "noopener noreferrer" }, "公式PDF ↗"));
       }
-      // 旧10年（平成18〜27年度）は取得元がURLを公開していない。リンクは出せないが、
-      // どの年度のどの肢から作ったかは分かるようにする
+      // URLが無い出典でも、どの年度のどの肢から作ったかは分かるようにする
       if (!safeUrl(ref.providerUrl) && !safeUrl(ref.officialQuestionUrl) && label) {
-        nodes.push(make("span", { className: "source-link archive" }, "元問題 " + label + "（現行法で再確認済み）"));
+        nodes.push(make("span", { className: "source-link archive" }, "元問題 " + label + recheck));
       }
     });
     // 民法演習D案に同じ論点の事例があれば、その章へ飛べるようにする。
@@ -1391,6 +1399,27 @@
     if (isStudyCertain(item)) labels.push("絶対覚えた");
     if (isStudyMastered(item)) labels.push("習得済み");
     renderBadges($("study-badges"), labels);
+    const kind = state.studyCurrentKind;
+    if (kind && kind.cardId === studyCardId(item)) {
+      $("study-badges").prepend(make("span", { className: "badge card-kind " + kind.className }, kind.label));
+    }
+  }
+
+  // はじめてのカードか復習かを、カードの先頭に出す。「今日の学習」ではサーバーが決めた
+  // 区分（リセット後は「はじめて」に戻る）を、それ以外は回答履歴の有無を使う。
+  // 出題した時点で決めて持っておく。答えた直後に「復習」へ変わると紛らわしい。
+  function studyCardKind(item) {
+    const cardId = studyCardId(item);
+    let isNew;
+    if ($("study-scope").value === "today" && state.todayQueueStates && state.todayQueueStates.has(cardId)) {
+      isNew = state.todayQueueStates.get(cardId) === "new";
+    } else {
+      const progress = getCardProgress(cardId);
+      isNew = progress.correct + progress.incorrect === 0;
+    }
+    return isNew
+      ? { cardId, label: "はじめて", className: "kind-new" }
+      : { cardId, label: "復習", className: "kind-review" };
   }
 
   function renderStudyHistory(item) {
@@ -1530,6 +1559,7 @@
     renderStudyRelated(item);
     renderStudyCrossField(item);
     renderStudyComparisonTable(item);
+    renderStudyLearnerQa(item);
     $("study-answer-panel").hidden = false;
     requestAnimationFrame(() => $("study-answer-summary").focus({ preventScroll: true }));
   }
@@ -1676,6 +1706,48 @@
     });
     $("study-comparison-rows").replaceChildren(...nodes);
     $("study-comparison-cue").textContent = table.memoryCue || "";
+  }
+
+  // ⑨ 質問ノート。利用者がこのカードについて聞いたことと、その回答。
+  // 回答後にだけ出す。答えそのものを書いているので、出題面へ出すと○×が割れる。
+  // 図は⑧と同じ置き場所・同じ形だけを通す。
+  function renderStudyLearnerQa(item) {
+    const entries = (Array.isArray(item.learnerQa) ? item.learnerQa : [])
+      .filter((entry) => entry && entry.question && entry.answer);
+    const section = $("study-learner-qa");
+    section.hidden = !entries.length;
+    $("study-learner-qa-count").textContent = entries.length ? entries.length + "件" : "";
+    const nodes = entries.map((entry) => {
+      const article = make("article", { className: "learner-qa-item" });
+      const question = make("div", { className: "learner-qa-question" });
+      question.appendChild(make("b", {}, "Q"));
+      question.appendChild(make("p", {}, entry.question));
+      if (entry.askedAt) question.appendChild(make("small", {}, entry.askedAt + " に質問"));
+      article.appendChild(question);
+      const answer = make("div", { className: "learner-qa-answer" });
+      answer.appendChild(make("b", {}, "A"));
+      const body = make("p");
+      setRichText(body, entry.answer);
+      answer.appendChild(body);
+      article.appendChild(answer);
+      const figures = (Array.isArray(entry.figures) ? entry.figures : [])
+        .filter((figure) => figure && CARD_FIGURE_SRC.test(String(figure.src || "")))
+        .map((figure) => {
+          const element = make("figure", { className: "study-figure" });
+          const link = make("a", { href: figure.src, target: "_blank", rel: "noopener noreferrer" });
+          link.appendChild(make("img", { src: figure.src, alt: figure.alt || "", loading: "lazy", decoding: "async" }));
+          element.appendChild(link);
+          if (figure.caption) element.appendChild(make("figcaption", {}, figure.caption));
+          return element;
+        });
+      if (figures.length) {
+        const holder = make("div", { className: "study-figures learner-qa-figures" });
+        holder.replaceChildren(...figures);
+        article.appendChild(holder);
+      }
+      return article;
+    });
+    $("study-learner-qa-list").replaceChildren(...nodes);
   }
 
   function openRelatedStudyCard(cardId) {
@@ -2064,6 +2136,9 @@
     light: { newLimit: 6, limit: 20, label: "軽め（15分）" },
     normal: { newLimit: 12, limit: 40, label: "ふつう（30分）" },
     heavy: { newLimit: 25, limit: 80, label: "しっかり（60分）" },
+    // 受験日まで3週間を切ってから始める一巡用（2026-10-22に追加）。復習が増えても
+    // はじめての30枚が押し出されにくいよう、合計の上限を広めにとる。
+    sprint: { newLimit: 30, limit: 120, label: "追い込み（70分）" },
     reviewOnly: { newLimit: 0, limit: 60, label: "復習だけ" }
   };
   // 期日ぎれが溜まっている日は、はじめての枚数より合計がずっと多くなる。
@@ -2136,12 +2211,15 @@
       const data = await fetchJson("api/study-queue?" + params.join("&"));
       if (token !== state.todayQueueToken) return;   // もっと新しい要求が出ている
       state.todayQueue = Array.isArray(data.cardIds) ? data.cardIds : [];
+      state.todayQueueStates = new Map((Array.isArray(data.items) ? data.items : [])
+        .map((item) => [item.cardId, item.state]));
       state.todayQueueCounts = data.counts || null;
       state.todayQueueNextDueAt = data.nextDueAt || null;
       state.todayQueueError = null;
     } catch (error) {
       if (token !== state.todayQueueToken) return;
       state.todayQueue = [];
+      state.todayQueueStates = null;
       state.todayQueueCounts = null;
       state.todayQueueError = error && error.message ? error.message : "取得できませんでした";
     } finally {
@@ -2312,7 +2390,8 @@
     ["legalBasis", "③ 根拠資料（[{\"label\":\"…\",\"url\":\"https://…\"}]）"],
     ["crossFieldComparisons", "⑥ 似た制度・他分野との違い"],
     ["comparisonTable", "⑦ 法律ごとの結論くらべ（2〜4行）"],
-    ["figures", "⑧ 解説図（src は assets/card-figures/ の下だけ）"]
+    ["figures", "⑧ 解説図（src は assets/card-figures/ の下だけ）"],
+    ["learnerQa", "⑨ 質問ノート（[{\"id\",\"askedAt\":\"YYYY-MM-DD\",\"question\",\"answer\",\"figures\"}]）"]
   ];
 
   function dig(source, path) {

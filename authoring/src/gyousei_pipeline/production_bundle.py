@@ -646,6 +646,38 @@ def _project_card_figures(value: Any, context: str) -> list[dict[str, str]]:
     return projected
 
 
+LEARNER_QA_DATE_PATTERN = re.compile(r"\d{4}-\d{2}-\d{2}")
+
+
+def _project_learner_qa(value: Any, context: str) -> list[dict[str, Any]]:
+    # ⑨ 質問ノート。利用者がカードを解いて分からなかったことと、それへの回答を
+    # 追記していく（2026-10-24に追加）。回答後にだけ出す。答えそのものを書くので、
+    # 回答ボタンより上へ出すと○×が割れる。図は⑧と同じ置き場所・同じ制限にする。
+    entries = _array(value, context)
+    projected: list[dict[str, Any]] = []
+    for entry_index, entry_value in enumerate(entries):
+        entry_context = f"{context}[{entry_index}]"
+        entry = _object(entry_value, entry_context)
+        asked_at = _text(entry.get("askedAt"), f"{entry_context}.askedAt")
+        if not LEARNER_QA_DATE_PATTERN.fullmatch(asked_at):
+            raise ProductionBundleError(f"{entry_context}.askedAt must be YYYY-MM-DD")
+        projected_entry: dict[str, Any] = {
+            "id": _text(entry.get("id"), f"{entry_context}.id"),
+            "askedAt": asked_at,
+            "question": _text(entry.get("question"), f"{entry_context}.question"),
+            "answer": _text(entry.get("answer"), f"{entry_context}.answer"),
+        }
+        if "figures" in entry:
+            projected_entry["figures"] = _project_card_figures(
+                entry["figures"], f"{entry_context}.figures"
+            )
+        projected.append(projected_entry)
+    ids = [entry["id"] for entry in projected]
+    if len(ids) != len(set(ids)):
+        raise ProductionBundleError(f"{context} must not repeat an id")
+    return projected
+
+
 def _project_explanation_card(value: Any, index: int) -> dict[str, Any]:
     context = f"explanationCards[{index}]"
     card = _object(value, context)
@@ -804,6 +836,10 @@ def _project_explanation_card(value: Any, index: int) -> dict[str, Any]:
     if "figures" in card:
         projected["figures"] = _project_card_figures(
             card["figures"], f"{context}.figures"
+        )
+    if "learnerQa" in card:
+        projected["learnerQa"] = _project_learner_qa(
+            card["learnerQa"], f"{context}.learnerQa"
         )
     if "evidenceHighlights" in card:
         # ⑤の肢は原文を書き換えられないため、画面側で目立たせる語だけを渡す
@@ -1076,8 +1112,8 @@ def _project_related_question_evidence(
                 choice.get("verification"), f"{context}.verification"
             ),
         }
-        # 旧10年（sourceEra が archive）の肢は、取得元がURLを公開していないので
-        # 出典リンクを出さない。それ以外の年度は今までどおりURLを必須にする。
+        # URLを省けるのは旧10年（sourceEra が archive）の肢だけ。2026-10-24から旧10年にも
+        # 合格道場の問題ページのURLを入れたので、あればそのまま出す。それ以外の年度は必須。
         if record.get("sourceEra") != "archive":
             evidence["sourceUrl"] = _text(
                 record.get("officialQuestionUrl"), f"{context}.officialQuestionUrl"
@@ -1167,8 +1203,8 @@ def _attach_source_question_links(
             ref["questionNumber"] = _integer(
                 record.get("questionNumber"), f"{context}.questionNumber"
             )
-            # URLを省けるのは旧10年（sourceEra が archive）だけ。取得元がURLを
-            # 公開していないためで、それ以外の年度は今までどおりURLを必須にする。
+            # URLを省けるのは旧10年（sourceEra が archive）だけ。旧10年もURLがあれば
+            # 出す（2026-10-24から入れている）。それ以外の年度は今までどおり必須。
             era = record.get("sourceEra")
             if era == "archive":
                 if record.get("providerUrl"):

@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 684" role="img" aria-labelledby="t d">
+  <title id="t">制限行為能力者の保護者がもつ権限の比較表</title>
+  <desc id="d">未成年者の親権者・未成年後見人は同意権・代理権・取消権・追認権のすべてを持つ。成年被後見人の成年後見人は代理権・取消権・追認権を持つが同意権はなく、同意を得た行為も取り消せる。ただし日用品の購入など日常生活に関する行為は取り消せない。被保佐人の保佐人は13条1項の行為について同意権を持ち、その行為の取消権・追認権を持ち、代理権は審判で付けた行為だけ。被補助人の補助人は、同意権も代理権も審判で付けた行為だけで、取消権・追認権は同意権を付けた行為だけ。どの類型でも本人も取り消せ、保護者の同意は要らない。審判を受けるまでは、判断能力を欠いていても成年被後見人ではない。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 14px; fill: #55635d; }
+    .th { font-size: 14px; font-weight: 800; fill: #ffffff; }
+    .ty { font-size: 16px; font-weight: 800; fill: #183a34; }
+    .tys { font-size: 12px; fill: #55635d; }
+    .who { font-size: 14px; font-weight: 700; }
+    .mk { font-size: 15px; font-weight: 800; fill: #ffffff; }
+    .s { font-size: 12px; fill: #3c4a44; }
+    .note { font-size: 14px; font-weight: 700; fill: #183a34; }
+    .ns { font-size: 13px; fill: #3c4a44; }
+  </style>
+  <rect width="760" height="684" fill="#ffffff"/>
+  <text class="h" x="380" y="34" text-anchor="middle">制限行為能力者の保護者は、何ができる？</text>
+  <text class="sub" x="380" y="58" text-anchor="middle">○＝法律で当然にある　△＝家庭裁判所の審判で付けた行為だけ　×＝ない</text>
+
+  <!-- 見出し -->
+  <rect x="16" y="72" width="728" height="36" rx="8" fill="#183a34"/>
+  <text class="th" x="28" y="96">類型（判断能力）</text>
+  <text class="th" x="176" y="96">保護者</text>
+  <text class="th" x="360" y="96" text-anchor="middle">同意権</text>
+  <text class="th" x="500" y="96" text-anchor="middle">代理権</text>
+  <text class="th" x="657" y="96" text-anchor="middle">取消権・追認権</text>
+
+  <!-- 未成年者 -->
+  <rect x="16" y="114" width="728" height="84" rx="8" fill="#fff9e8" stroke="#e8d6a0"/>
+  <text class="ty" x="28" y="144">未成年者</text>
+  <text class="tys" x="28" y="164">18歳未満（4条）</text>
+  <text class="tys" x="28" y="182">審判は要らない</text>
+  <text class="who" x="176" y="144">親権者</text>
+  <text class="who" x="176" y="164">未成年後見人</text>
+  <rect x="292" y="124" width="36" height="28" rx="14" fill="#2f7d55"/><text class="mk" x="310" y="144" text-anchor="middle">○</text>
+  <text class="s" x="336" y="143">あり（5条）</text>
+  <rect x="432" y="124" width="36" height="28" rx="14" fill="#2f7d55"/><text class="mk" x="450" y="144" text-anchor="middle">○</text>
+  <text class="s" x="476" y="143">あり</text>
+  <rect x="572" y="124" width="36" height="28" rx="14" fill="#2f7d55"/><text class="mk" x="590" y="144" text-anchor="middle">○</text>
+  <text class="s" x="616" y="143">あり</text>
+  <text class="s" x="292" y="176">お小遣い・もらうだけの</text>
+  <text class="s" x="292" y="192">行為は同意不要</text>
+  <text class="s" x="572" y="176">同意なしの行為を</text>
+  <text class="s" x="572" y="192">取り消せる</text>
+
+  <!-- 成年被後見人 -->
+  <rect x="16" y="204" width="728" height="84" rx="8" fill="#fdf1ef" stroke="#e8b9b2"/>
+  <text class="ty" x="28" y="234">成年被後見人</text>
+  <text class="tys" x="28" y="254">事理弁識能力を欠く常況</text>
+  <text class="tys" x="28" y="272">後見開始の審判（7条）</text>
+  <text class="who" x="176" y="234">成年後見人</text>
+  <rect x="292" y="214" width="36" height="28" rx="14" fill="#b23a2e"/><text class="mk" x="310" y="234" text-anchor="middle">×</text>
+  <text class="s" x="336" y="233">なし</text>
+  <rect x="432" y="214" width="36" height="28" rx="14" fill="#2f7d55"/><text class="mk" x="450" y="234" text-anchor="middle">○</text>
+  <text class="s" x="476" y="233">あり</text>
+  <rect x="572" y="214" width="36" height="28" rx="14" fill="#2f7d55"/><text class="mk" x="590" y="234" text-anchor="middle">○</text>
+  <text class="s" x="616" y="233">あり</text>
+  <text class="s" x="292" y="266">同意を得た行為も</text>
+  <text class="s" x="292" y="282">取り消せる（9条）</text>
+  <text class="s" x="572" y="266">日用品の購入などは</text>
+  <text class="s" x="572" y="282">取り消せない</text>
+
+  <!-- 被保佐人 -->
+  <rect x="16" y="294" width="728" height="84" rx="8" fill="#eef4fa" stroke="#b8cbe0"/>
+  <text class="ty" x="28" y="324">被保佐人</text>
+  <text class="tys" x="28" y="344">著しく不十分</text>
+  <text class="tys" x="28" y="362">保佐開始の審判（11条）</text>
+  <text class="who" x="176" y="324">保佐人</text>
+  <rect x="292" y="304" width="36" height="28" rx="14" fill="#2f7d55"/><text class="mk" x="310" y="324" text-anchor="middle">○</text>
+  <text class="s" x="336" y="323">13条1項の行為</text>
+  <rect x="432" y="304" width="36" height="28" rx="14" fill="#c98a2b"/><text class="mk" x="450" y="324" text-anchor="middle">△</text>
+  <text class="s" x="476" y="323">審判で付ける</text>
+  <rect x="572" y="304" width="36" height="28" rx="14" fill="#2f7d55"/><text class="mk" x="590" y="324" text-anchor="middle">○</text>
+  <text class="s" x="616" y="323">同意が要る行為</text>
+  <text class="s" x="292" y="356">借金・保証・不動産・</text>
+  <text class="s" x="292" y="372">相続の承認や遺産分割</text>
+  <text class="s" x="432" y="356">（876条の4）</text>
+  <text class="s" x="572" y="356">同意なしでした</text>
+  <text class="s" x="572" y="372">行為を取り消せる</text>
+
+  <!-- 被補助人 -->
+  <rect x="16" y="384" width="728" height="84" rx="8" fill="#f1f7f2" stroke="#b7d6c3"/>
+  <text class="ty" x="28" y="414">被補助人</text>
+  <text class="tys" x="28" y="434">不十分</text>
+  <text class="tys" x="28" y="452">補助開始の審判（15条）</text>
+  <text class="who" x="176" y="414">補助人</text>
+  <rect x="292" y="394" width="36" height="28" rx="14" fill="#c98a2b"/><text class="mk" x="310" y="414" text-anchor="middle">△</text>
+  <text class="s" x="336" y="413">審判で付ける</text>
+  <rect x="432" y="394" width="36" height="28" rx="14" fill="#c98a2b"/><text class="mk" x="450" y="414" text-anchor="middle">△</text>
+  <text class="s" x="476" y="413">審判で付ける</text>
+  <rect x="572" y="394" width="36" height="28" rx="14" fill="#c98a2b"/><text class="mk" x="590" y="414" text-anchor="middle">△</text>
+  <text class="s" x="616" y="413">同意権を付けた</text>
+  <text class="s" x="292" y="446">13条1項の一部だけ</text>
+  <text class="s" x="292" y="462">（17条）</text>
+  <text class="s" x="432" y="446">（876条の9）</text>
+  <text class="s" x="616" y="430">行為だけ</text>
+
+  <!-- 表の外のルール -->
+  <rect x="16" y="482" width="728" height="120" rx="12" fill="#f6f8f7" stroke="#d3dbd7"/>
+  <text class="note" x="30" y="510">表にない2つのルール</text>
+  <text class="ns" x="30" y="536">・どの類型でも本人も取り消せる。取り消すのに保護者の同意は要らない（120条1項）</text>
+  <text class="ns" x="30" y="560">・審判を受けるまでは、判断能力を欠いていても成年被後見人ではない。取消しは使えず、</text>
+  <text class="ns" x="42" y="582">契約したときに意思能力がなかったと示して、無効を主張する（3条の2）</text>
+
+  <!-- 覚え方 -->
+  <rect x="16" y="614" width="728" height="56" rx="12" fill="#fff8e6" stroke="#e2c27a" stroke-width="2"/>
+  <text class="note" x="380" y="638" text-anchor="middle">成年後見人だけ同意権なし（同意しても本人がその通りに動けない）</text>
+  <text class="ns" x="380" y="660" text-anchor="middle">取消権は同意権の裏返し。同意が要るのに同意なし → 取り消せる</text>
+</svg>

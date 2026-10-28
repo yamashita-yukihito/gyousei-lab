@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-labelledby="t d">
+  <title id="t">サラ金の借金と時効の時計</title>
+  <desc id="d">2027年4月に返済が止まり一括で請求できるようになると、そこから5年の2032年4月ごろに時効が完成する。完成後に内容証明郵便で援用を通知すると、借金は2027年4月にさかのぼって消える。債権者は、一部でも払わせたり返済を待ってほしいと言わせたりする承認、裁判や支払督促で時計をゼロに戻せる。判決が確定すると以後は10年になる。督促状などの催告は6か月延びるだけで、くり返しても延びない。完成後にうっかり払うと、判例により援用できなくなる。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 14px; fill: #55635d; }
+    .date { font-size: 14px; font-weight: 800; fill: #183a34; }
+    .ev { font-size: 13px; fill: #1d2a26; }
+    .span { font-size: 15px; font-weight: 800; fill: #2f6f8f; }
+    .sec { font-size: 17px; font-weight: 800; fill: #183a34; }
+    .act { font-size: 15px; font-weight: 800; }
+    .res { font-size: 13px; fill: #55635d; }
+    .reset { font-size: 14px; font-weight: 800; fill: #b23a2e; }
+    .keep { font-size: 14px; font-weight: 800; fill: #8a6d1d; }
+    .ok { font-size: 14px; font-weight: 800; fill: #1f6b45; }
+  </style>
+  <defs>
+    <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2f6f8f"/></marker>
+  </defs>
+  <rect width="640" height="640" fill="#ffffff"/>
+  <text class="h" x="320" y="34" text-anchor="middle">サラ金の借金と「時効の時計」</text>
+  <text class="sub" x="320" y="58" text-anchor="middle">2026年11月に借りて、2027年4月の返済から払えなくなった例</text>
+
+  <!-- timeline -->
+  <rect x="16" y="74" width="608" height="196" rx="12" fill="#f2f6f8" stroke="#c4d4dc"/>
+  <line x1="60" y1="150" x2="590" y2="150" stroke="#2f6f8f" stroke-width="4" marker-end="url(#ah2)"/>
+  <circle cx="80" cy="150" r="8" fill="#2f6f8f"/>
+  <text class="date" x="80" y="124" text-anchor="middle">2027年4月</text>
+  <text class="ev" x="80" y="180" text-anchor="middle">返済が止まる</text>
+  <text class="ev" x="80" y="198" text-anchor="middle">一括で請求できる</text>
+  <text class="span" x="255" y="140" text-anchor="middle">5年（何もなければ）</text>
+  <circle cx="430" cy="150" r="8" fill="#2f6f8f"/>
+  <text class="date" x="430" y="124" text-anchor="middle">2032年4月ごろ</text>
+  <text class="ev" x="430" y="180" text-anchor="middle">時効完成</text>
+  <text class="ev" x="430" y="198" text-anchor="middle">まだ借金は消えない</text>
+  <circle cx="555" cy="150" r="8" fill="#1f6b45"/>
+  <text class="date" x="555" y="124" text-anchor="middle">援用</text>
+  <text class="ev" x="555" y="180" text-anchor="middle">内容証明で</text>
+  <text class="ev" x="555" y="198" text-anchor="middle">「援用します」</text>
+  <text class="ok" x="320" y="244" text-anchor="middle">援用した時点で、借金は2027年4月にさかのぼって消える</text>
+
+  <!-- creditor actions -->
+  <text class="sec" x="24" y="304">貸した側が時計を止める・戻す手</text>
+  <rect x="16" y="316" width="608" height="62" rx="10" fill="#fdf1ef" stroke="#e0a49b"/>
+  <text class="act" x="30" y="342">少しでも払わせる・「待って」と言わせる</text>
+  <text class="res" x="30" y="364">債務の承認（152条）</text>
+  <text class="reset" x="610" y="352" text-anchor="end">時計が0に戻る</text>
+
+  <rect x="16" y="386" width="608" height="62" rx="10" fill="#fdf1ef" stroke="#e0a49b"/>
+  <text class="act" x="30" y="412">裁判・支払督促</text>
+  <text class="res" x="30" y="434">手続中は止まり、確定で0に戻る（147条）</text>
+  <text class="reset" x="610" y="422" text-anchor="end">以後は10年（169条）</text>
+
+  <rect x="16" y="456" width="608" height="62" rx="10" fill="#fbf6e6" stroke="#e2cf8f"/>
+  <text class="act" x="30" y="482">督促状・内容証明で請求する</text>
+  <text class="res" x="30" y="504">催告（150条）。くり返しても延びない</text>
+  <text class="keep" x="610" y="492" text-anchor="end">6か月延びるだけ</text>
+
+  <rect x="16" y="526" width="608" height="62" rx="10" fill="#fdf1ef" stroke="#e0a49b" stroke-width="2"/>
+  <text class="act" x="30" y="552">完成後に「1000円だけでも」と払わせる</text>
+  <text class="res" x="30" y="574">時効を知らずに払っても（最大判昭41.4.20）</text>
+  <text class="reset" x="610" y="562" text-anchor="end">援用できなくなる</text>
+
+  <text class="sub" x="320" y="618" text-anchor="middle">督促状を送り続けるだけでは、時効は止まらない</text>
+</svg>

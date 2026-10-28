@@ -1810,6 +1810,24 @@ class CardEditTest(unittest.TestCase):
         self.assertIn("⑥の id が重複しています", context.exception.message)
         self.assertEqual(self.document, self.stored())
 
+    def test_rejects_broken_learner_qa(self) -> None:
+        # ⑨質問ノート。答えは①②と同じ記法の検査を通し、質問は素の文字列にする。
+        good = {"id": "qa-1", "askedAt": "2026-10-24", "question": "なぜ？", "answer": "__理由__です。"}
+        for entries, expected in (
+            ([dict(good, answer="__閉じ忘れ。")], "閉じていない装飾記法"),
+            ([dict(good, question="==なぜ==？")], "question に装飾記法は使えません"),
+            ([dict(good, askedAt="2026/10/24")], "askedAt は YYYY-MM-DD"),
+            ([dict(good, answer="")], "answer が必要です"),
+            ([good, dict(good)], "⑨learnerQa の id が重複しています"),
+            ([dict(good, figures=[{"src": "../secret.png", "alt": "図", "caption": "図"}])],
+             "assets/card-figures/ の下だけです"),
+            ("not-a-list", "⑨learnerQa は配列にしてください"),
+        ):
+            with self.assertRaises(server.ApiError, msg=expected) as context:
+                server.save_card_edit({"cardId": "card-1", "editable": {"learnerQa": entries}})
+            self.assertIn(expected, context.exception.message)
+        self.assertEqual(self.document, self.stored())
+
     def test_unchanged_edit_does_not_touch_the_canonical(self) -> None:
         before = self.canonical_path.read_bytes()
         result = server.save_card_edit(
@@ -2042,11 +2060,12 @@ class StudySearchParityTest(unittest.TestCase):
                 "title": "OOO", "memoryCue": "PPP",
                 "rows": [{"label": "QQQ", "article": "RRR", "rule": "SSS", "conclusion": "TTT"}],
             },
+            "learnerQa": [{"id": "qa-1", "askedAt": "2026-10-24", "question": "VVV", "answer": "__WWW__"}],
             "relatedPastQuestions": [{"choiceId": "src:1"}],
         }
         evidence = {"src:1": {"choiceId": "src:1", "statementText": "UUU", "eraYear": "令和7年"}}
         haystack = server._search_haystack(card, evidence)
-        for token in "AAA BBB CCC DDD EEE FFF GGG HHH III JJJ KKK LLL MMM NNN OOO PPP QQQ RRR SSS TTT UUU".split():
+        for token in "AAA BBB CCC DDD EEE FFF GGG HHH III JJJ KKK LLL MMM NNN OOO PPP QQQ RRR SSS TTT UUU VVV WWW".split():
             self.assertIn(token.lower(), haystack, f"{token} が検索対象から漏れている")
         self.assertIn("gyo-x-001", haystack)
         self.assertIn("行政手続法", haystack)
@@ -2063,10 +2082,10 @@ class StudySearchParityTest(unittest.TestCase):
         client = app_js[start : app_js.index("function matchesStudySearch")]
         server_source = (SERVICE_ROOT / "server.py").read_text(encoding="utf-8")
         start = server_source.index("def _search_haystack")
-        server_side = server_source[start : start + 2400]
+        server_side = server_source[start : server_source.index("\ndef ", start + 1)]
         for field in (
             "bCasual", "correction", "memoryPoint", "commonSense",
-            "crossFieldComparisons", "comparisonTable", "relatedPastQuestions",
+            "crossFieldComparisons", "comparisonTable", "learnerQa", "relatedPastQuestions",
             "statementText", "eraYear",
         ):
             self.assertIn(field, client, f"画面側に {field} が無い（テストの前提が古い）")

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 560" role="img" aria-labelledby="t d">
+  <title id="t">時効を援用できる人・できない人</title>
+  <desc id="d">保証人、物上保証人、第三取得者、詐害行為の受益者は、借金が時効で消えると自分が払う義務や自分の財産を失う危険がなくなるので援用できる。後順位抵当権者は配当が増えるかもしれない期待があるだけなので援用できない。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 15px; fill: #55635d; }
+    .who { font-size: 17px; font-weight: 800; }
+    .ex { font-size: 13px; fill: #55635d; }
+    .gain { font-size: 15px; font-weight: 700; }
+    .gain2 { font-size: 13px; fill: #55635d; }
+    .ok { font-size: 20px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 20px; font-weight: 800; fill: #b23a2e; }
+    .note { font-size: 15px; font-weight: 700; fill: #183a34; }
+  </style>
+  <rect width="640" height="560" fill="#ffffff"/>
+  <text class="h" x="320" y="34" text-anchor="middle">借金が時効で消えたら、自分の何が守られる？</text>
+  <text class="sub" x="320" y="58" text-anchor="middle">B＝お金を借りた人（債務者）　A＝貸した人（債権者）</text>
+
+  <!-- 保証人 -->
+  <rect x="16" y="74" width="608" height="76" rx="12" fill="#f2f8f4" stroke="#b7d6c3"/>
+  <text class="who" x="30" y="106">保証人</text>
+  <text class="ex" x="30" y="128">Bの借金を保証した</text>
+  <text class="gain" x="200" y="106">代わりに払う義務が消える</text>
+  <text class="gain2" x="200" y="128">主たる債務が消えれば、保証債務も一緒に消える</text>
+  <text class="ok" x="590" y="118" text-anchor="middle">○</text>
+
+  <!-- 物上保証人 -->
+  <rect x="16" y="158" width="608" height="76" rx="12" fill="#f2f8f4" stroke="#b7d6c3"/>
+  <text class="who" x="30" y="190">物上保証人</text>
+  <text class="ex" x="30" y="212">自分の土地を担保に出した</text>
+  <text class="gain" x="200" y="190">自分の土地が競売されない</text>
+  <text class="gain2" x="200" y="212">借金が消えれば、抵当権も一緒に消える</text>
+  <text class="ok" x="590" y="202" text-anchor="middle">○</text>
+
+  <!-- 第三取得者 -->
+  <rect x="16" y="242" width="608" height="76" rx="12" fill="#f2f8f4" stroke="#b7d6c3"/>
+  <text class="who" x="30" y="274">第三取得者</text>
+  <text class="ex" x="30" y="296">抵当権付きの土地を買った</text>
+  <text class="gain" x="200" y="274">買った土地を取られない</text>
+  <text class="gain2" x="200" y="296">抵当権が消え、競売で所有権を失う心配がなくなる</text>
+  <text class="ok" x="590" y="286" text-anchor="middle">○</text>
+
+  <!-- 詐害行為の受益者 -->
+  <rect x="16" y="326" width="608" height="76" rx="12" fill="#f2f8f4" stroke="#b7d6c3"/>
+  <text class="who" x="30" y="358">詐害行為の受益者</text>
+  <text class="ex" x="30" y="380">Bの財産を譲り受けた</text>
+  <text class="gain" x="200" y="358">もらった財産を取り戻されない</text>
+  <text class="gain2" x="200" y="380">Aの債権が消えれば、詐害行為取消しもできない</text>
+  <text class="ok" x="590" y="370" text-anchor="middle">○</text>
+
+  <!-- 後順位抵当権者 -->
+  <rect x="16" y="410" width="608" height="76" rx="12" fill="#fdf1ef" stroke="#e0a49b" stroke-width="2"/>
+  <text class="who" x="30" y="442">後順位抵当権者</text>
+  <text class="ex" x="30" y="464">同じ土地の2番抵当権者</text>
+  <text class="gain" x="200" y="442">配当が増える「かも」しれないだけ</text>
+  <text class="gain2" x="200" y="464">払う義務も、取られる物もない（反射的な利益）</text>
+  <text class="ng" x="590" y="454" text-anchor="middle">×</text>
+
+  <text class="note" x="320" y="518" text-anchor="middle">払わされる人・物を取られる人は○</text>
+  <text class="note" x="320" y="542" text-anchor="middle">取り分が増えるのを待つだけの人は×</text>
+</svg>

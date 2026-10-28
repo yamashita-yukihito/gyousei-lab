@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 600" role="img" aria-labelledby="t d">
+  <title id="t">取得時効の完成前と完成後に現れた買主</title>
+  <desc id="d">Bが2000年から隣地の一部を庭として使い、2010年に時効が完成する例。2008年に土地を買ったCは時効完成前の買主で、Bの時効取得の当事者になるので、Bは登記なしで勝つ。Cは自分が持ち主の間にBを追い出せたのに放っておいた。2012年に土地を買ったDは時効完成後の買主で、二重譲渡と同じく登記の早い者勝ちになる。Bは2010年から登記できたのにしなかった。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 14px; fill: #55635d; }
+    .yr { font-size: 14px; font-weight: 800; fill: #183a34; }
+    .ev { font-size: 13px; fill: #1d2a26; }
+    .lab { font-size: 17px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 14px; fill: #1d2a26; }
+    .ok { font-size: 16px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 16px; font-weight: 800; fill: #b23a2e; }
+    .sleep { font-size: 14px; font-weight: 800; fill: #8a6d1d; }
+  </style>
+  <defs>
+    <marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2f6f8f"/></marker>
+  </defs>
+  <rect width="640" height="600" fill="#ffffff"/>
+  <text class="h" x="320" y="34" text-anchor="middle">買主が現れたのは、時効の完成「前」か「後」か</text>
+  <text class="sub" x="320" y="58" text-anchor="middle">B＝隣のA所有地の一部を自分の庭だと信じて使う人（善意・無過失で10年）</text>
+
+  <!-- timeline -->
+  <rect x="16" y="72" width="608" height="132" rx="12" fill="#f2f6f8" stroke="#c4d4dc"/>
+  <line x1="50" y1="130" x2="600" y2="130" stroke="#2f6f8f" stroke-width="4" marker-end="url(#ah3)"/>
+  <circle cx="80" cy="130" r="7" fill="#2f6f8f"/>
+  <text class="yr" x="80" y="108" text-anchor="middle">2000年</text>
+  <text class="ev" x="80" y="160" text-anchor="middle">Bが使い始める</text>
+  <circle cx="280" cy="130" r="7" fill="#c98a2b"/>
+  <text class="yr" x="280" y="108" text-anchor="middle">2008年</text>
+  <text class="ev" x="280" y="160" text-anchor="middle">AがCへ売る</text>
+  <text class="ev" x="280" y="178" text-anchor="middle">（完成前）</text>
+  <circle cx="390" cy="130" r="9" fill="#183a34"/>
+  <text class="yr" x="390" y="108" text-anchor="middle">2010年</text>
+  <text class="ev" x="390" y="160" text-anchor="middle">時効完成</text>
+  <circle cx="500" cy="130" r="7" fill="#b23a2e"/>
+  <text class="yr" x="500" y="108" text-anchor="middle">2012年</text>
+  <text class="ev" x="500" y="160" text-anchor="middle">AがDへ売る</text>
+  <text class="ev" x="500" y="178" text-anchor="middle">（完成後）</text>
+
+  <!-- before -->
+  <rect x="16" y="216" width="608" height="166" rx="12" fill="#f2f8f4" stroke="#b7d6c3" stroke-width="2"/>
+  <text class="lab" x="30" y="246">完成前に買ったC　→　B vs C は「当事者」</text>
+  <text class="ok" x="30" y="274">Bは登記なしで勝つ（最判昭41.11.22）</text>
+  <text class="t" x="30" y="300">・2010年、BはC（そのときの持ち主）から取ったのと同じ関係になる</text>
+  <text class="t" x="30" y="322">・2008年のBには、まだ登記できる権利がない</text>
+  <text class="sleep" x="30" y="352">眠っていたのはC：持ち主として2年間、Bを追い出せたのに</text>
+  <text class="sleep" x="30" y="372">放っておいた（裁判を起こせば時効は止まった）</text>
+
+  <!-- after -->
+  <rect x="16" y="394" width="608" height="190" rx="12" fill="#fdf1ef" stroke="#e0a49b" stroke-width="2"/>
+  <text class="lab" x="30" y="424">完成後に買ったD　→　二重譲渡と同じ土俵</text>
+  <text class="ng" x="30" y="452">登記の早い者勝ち。Dが先に登記すればBは負ける（最判昭33.8.28）</text>
+  <text class="t" x="30" y="478">・A→B（時効）とA→D（売買）の二重譲渡に似た関係になる</text>
+  <text class="t" x="30" y="500">・Dは登記簿でA名義を確かめて買った。Bの時効は外から見えない</text>
+  <text class="sleep" x="30" y="530">眠っていたのはB：2010年から援用して登記できたのに、</text>
+  <text class="sleep" x="30" y="550">しなかった</text>
+  <text class="t" x="30" y="574">・ただしDが背信的悪意者なら、Bは登記なしで勝つ（最判平18.1.17）</text>
+</svg>
