@@ -97,7 +97,7 @@ CHAPTER["questions"] = [
        "審査請求と取消訴訟は原則として自由に選べる",
        "先に審査請求をしていたら、出訴期間はどこから数えるか。"),
       [E("行政事件訴訟法8条")],
-      ["令和3年問18肢5"], card="gyo-litigation-review-prerequisite-001",
+      ["令和3年問18肢5", "平成18年問17肢3"], card="gyo-litigation-review-prerequisite-001",
       hidden=["suneo", "pm", "city"]),
 
     Q("gyosei-d-sp-004", "審査請求をした後の出訴期間", "trap",

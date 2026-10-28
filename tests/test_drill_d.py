@@ -175,6 +175,10 @@ class GyoseiDLegalBoundaryTest(unittest.TestCase):
             # 地方自治：手数料は直接請求の対象外、住民監査請求は一人で、住民訴訟は違法だけ、規則は過料だけ、再度の不信任で失職
             "gyosei-d-lr-002": False, "gyosei-d-lr-004": True, "gyosei-d-lr-006": False,
             "gyosei-d-ls-002": False, "gyosei-d-ls-007": False,
+            # 2026-10-28の見直しで足した頻出論点：期限は条件でない、公聴会は努力義務、意見ゼロでも結果を公示、
+            # 利害関係人にも教示（書面で求めれば書面）、無効確認にも執行停止を準用
+            "gyosei-d-ae-009": False, "gyosei-d-app-009": True, "gyosei-d-gui-009": True,
+            "gyosei-d-ape-009": True, "gyosei-d-so-009": True,
         }
         for qid, answer in later.items():
             self.assertIs(answer, qs[qid]["answer"], qid)
@@ -194,16 +198,27 @@ class OtherDrillLegalBoundaryTest(unittest.TestCase):
                 "kenpo-d-cb-001": False, "kenpo-d-cb-002": False, "kenpo-d-cb-007": False,
                 "kenpo-d-jd-004": False, "kenpo-d-fn-003": False,
                 "kenpo-d-eq-002": True, "kenpo-d-jd-002": True, "kenpo-d-cb-008": True,
+                # 2026-10-28の見直しで足した頻出論点：指紋押なつの自由は外国人にも、容ぼうの撮影は憲法問題になる、
+                # 普通教育の教師に完全な教授の自由はない、争議行為の一律禁止は合憲、議院の懲罰に司法審査なし、
+                # 単位認定は特段の事情がない限り審査外、予算の増額修正もできる
+                "kenpo-d-hr-009": True, "kenpo-d-ex-009": False, "kenpo-d-ae-009": False,
+                "kenpo-d-sp-009": False, "kenpo-d-dt-009": True, "kenpo-d-jd-009": False,
+                "kenpo-d-fn-009": True,
             },
             "shoho-d": {
                 # 引受人は現物出資できない、仮装払込みも総株主の同意で免除できる、創立総会は募集設立だけ、
                 # 株主総会では利害関係株主も議決できる、監査役設置会社の議事録閲覧は裁判所の許可、解任は有効
                 "shoho-d-in-002": False, "shoho-d-in-004": False, "shoho-d-in-007": False, "shoho-d-in-008": True,
                 "shoho-d-og-001": True, "shoho-d-og-002": False, "shoho-d-og-004": False, "shoho-d-og-007": False,
+                # 2026-10-28の見直しで足した：発起人は通知の期日まで失権しない、設立時取締役は業務を執行しない、
+                # 取締役会の招集通知は1週間前で議題不要
+                "shoho-d-in-009": True, "shoho-d-in-010": False, "shoho-d-og-009": True,
             },
             "kiso-d": {
                 # 施行期日なしは20日、公布日施行も可、後の一般法は前の特別法を破らない、罰則の経過規定は可
                 "kiso-d-law-001": True, "kiso-d-law-002": False, "kiso-d-law-005": False, "kiso-d-law-006": False,
+                # 公海上の日本船舶にも及ぶ、推定は覆せるがみなすは覆せない
+                "kiso-d-law-009": False, "kiso-d-law-010": True,
             },
             "chishiki-d": {
                 # 公務員経験は20年、復権で欠格でなくなる、法人の解散は知事、業務禁止で登録抹消
@@ -213,6 +228,8 @@ class OtherDrillLegalBoundaryTest(unittest.TestCase):
                 "chishiki-d-pi-002": False, "chishiki-d-pi-006": False, "chishiki-d-pi-008": False,
                 # 外国に住む外国人も開示請求できる、公文書管理法に罰則なし、出生届は14日
                 "chishiki-d-rc-002": False, "chishiki-d-rc-006": False, "chishiki-d-rc-008": False,
+                # 個人情報は生存する個人（外国人を含む）、外国人住民にも住民票
+                "chishiki-d-pi-009": True, "chishiki-d-rc-009": True,
             },
         }
         for name, answers in expected.items():
