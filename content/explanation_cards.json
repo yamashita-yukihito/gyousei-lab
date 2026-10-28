@@ -54,6 +54,7 @@
         "gyo-aps-hearing-exception-001",
         "gyo-act-defect-001",
         "gyo-act-withdrawal-001",
+        "gyo-act-incidental-terms-001",
         "gyo-written-r7-decision-defect-001",
         "gyo-aia-noncorporate-group-001",
         "gyo-aia-agent-withdrawal-001",
@@ -62,6 +63,7 @@
         "gyo-aps-standard-period-001",
         "gyo-aps-formal-defect-001",
         "gyo-aps-progress-info-001",
+        "gyo-aps-third-party-hearing-001",
         "gyo-local-designated-manager-001",
         "gyo-local-public-facility-use-001",
         "gyo-local-involvement-law-001",
@@ -70,6 +72,7 @@
         "gyo-local-autonomous-affairs-001",
         "gyo-aia-inaction-scope-001",
         "gyo-aps-hearing-file-access-001",
+        "gyo-aps-hearing-presider-001",
         "gyo-aps-hearing-report-001",
         "gyo-aps-hearing-absence-001",
         "gyo-aps-guidance-stop-001",
@@ -78,7 +81,9 @@
         "gyo-aia-reinvestigation-stay-001",
         "gyo-aia-inaction-examiner-001",
         "gyo-aia-examiner-affiliation-001",
+        "gyo-aia-examiner-roster-001",
         "gyo-aia-examiner-stay-opinion-001",
+        "gyo-aia-stay-authority-001",
         "gyo-litigation-nursery-ordinance-001",
         "gyo-litigation-land-readjustment-plan-001",
         "gyo-litigation-zoning-001",
@@ -99,10 +104,14 @@
         "gyo-litigation-filing-period-001",
         "gyo-litigation-standing-001",
         "gyo-litigation-stay-001",
+        "gyo-litigation-invalidity-stay-001",
         "gyo-litigation-invalidity-subsidiarity-001",
         "gyo-litigation-cancel-judgment-effects-001",
         "gyo-state-comp-public-official-liability-001",
         "gyo-state-comp-public-facility-001",
+        "gyo-state-comp-facility-budget-001",
+        "gyo-state-comp-facility-use-related-001",
+        "gyo-state-comp-cost-bearer-001",
         "gyo-state-comp-no-prior-cancel-001",
         "gyo-local-statutory-entrusted-ordinance-001",
         "gyo-local-ordinance-penalty-001",
@@ -111,6 +120,7 @@
         "min-general-unauthorized-agency-succession-001",
         "min-general-capacity-demand-001",
         "min-general-capacity-fraud-001",
+        "min-general-assistance-consent-agency-001",
         "min-general-false-representation-third-party-001",
         "min-property-good-faith-acquisition-001",
         "min-property-registration-bad-faith-001",
@@ -119,6 +129,7 @@
         "min-security-subrogation-attachment-001",
         "min-security-collective-movables-001",
         "min-security-revolving-mortgage-001",
+        "min-security-revolving-reduction-001",
         "min-obligation-joint-liability-effects-001",
         "min-obligation-setoff-attachment-001",
         "min-obligation-guarantee-prescription-001",
@@ -184,10 +195,13 @@
         "con-vote-right-001",
         "con-diet-member-privilege-001",
         "con-diet-investigation-001",
+        "con-diet-autonomy-discipline-001",
         "con-cabinet-power-001",
         "con-pm-status-001",
         "con-dissolution-001",
         "con-court-open-001",
+        "con-court-internal-dispute-001",
+        "con-court-judge-discipline-001",
         "con-finance-settlement-001",
         "con-due-process-standing-001",
         "con-edu-content-001",
@@ -216,6 +230,7 @@
         "gk-gen-foreigner-001",
         "con-rel-purpose-effect-001",
         "gyo-litigation-interest-after-effect-001",
+        "gyo-litigation-document-evidence-interest-001",
         "gyo-litigation-substantive-party-action-001",
         "gyo-litigation-provisional-mandate-main-action-001",
         "com-inc-board-special-interest-001",
@@ -233,10 +248,15 @@
         "gyo-legislation-delegation-limit-001",
         "gyo-aps-public-comment-draft-001",
         "gyo-aps-public-comment-scope-001",
+        "gyo-aps-public-comment-result-001",
         "gyo-loss-compensation-project-restriction-value-001",
         "gyo-enforcement-immediate-compulsion-001",
+        "gyo-enforcement-periodic-penalty-001",
         "gyo-aia-guidance-omission-001",
+        "gyo-aia-guidance-request-001",
         "gyo-state-comp-public-power-scope-001",
+        "gyo-state-comp-objective-appearance-001",
+        "gyo-state-comp-regulatory-inaction-001",
         "min-security-movables-sale-preference-third-party-001",
         "min-contract-negotiorum-gestio-useful-expenses-001",
         "min-contract-sublease-direct-rent-001",
@@ -309,6 +329,7 @@
         "min-obligation-oral-tender-001",
         "min-obligation-substitute-performance-001",
         "min-general-third-party-fraud-duress-001",
+        "min-general-mistake-gross-negligence-001",
         "min-contract-sublease-mutual-termination-001",
         "min-property-possession-recovery-001",
         "min-security-retention-lien-transferee-001",
@@ -317,6 +338,7 @@
         "min-contract-work-remuneration-timing-001",
         "min-contract-illegal-cause-performance-001",
         "min-inheritance-specific-succession-registration-001",
+        "min-inheritance-renunciation-registration-001",
         "gyo-litigation-dismissal-rejection-001",
         "gyo-litigation-special-circumstances-001",
         "gyo-litigation-issue-suit-001",
@@ -1110,6 +1132,126 @@
         "memoryCue": "分かれ目は瑕疵がいつあったかである。最初からおかしければさかのぼって消し、後から事情が変わったのなら、それまでの効力は認めて先だけ止める。撤回できるのは原則として処分庁だけで、上級行政庁は撤回できない点も取消しとの違いである。法令が「取消し」という語を使っていても、中身が撤回であることは珍しくない。"
       },
       "learningType": "understand"
+    },
+    {
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "gyo-act-incidental-terms-001",
+      "topic": "行政総論",
+      "subtopic": "行政行為の附款（期限と条件の区別・撤回権の留保・負担）",
+      "clusterId": "administrative-act-incidental-terms",
+      "learningType": "memorize",
+      "correct": false,
+      "variants": {
+        "a": "道路の占用許可について、__開始と終了の具体的な日付__を示す附款は、講学上の==「条件」に該当する==。",
+        "b": "%%Aさん%%が、道路に看板を出す許可をもらいました。許可証には「4月1日から9月30日まで」と、始まりと終わりの日付が書いてあります。\n\nこの日付の書き込みは、許可に付けたおまけの決まり（**附款**）のうち、講学上の==「条件」にあたります==。",
+        "bCasual": "用語からほどきます。\n\n**附款**は、許可などの行政行為に付け足す決まりです。\n__開始と終了の具体的な日付__を示すものは、附款のうち==「条件」にあたります==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "__開始と終了の具体的な日付__を示す**附款** → 講学上の==「条件」=="
+      },
+      "correction": "誤りです。日付のように__到来することが確実な事実__に効果をかからせる附款は、**期限**です。**条件**は、__起きるかどうか不確実な事実__にかからせるものをいいます。道路占用許可の開始日と終了日は必ず来るので、==「期限」==にあたります。運転免許証の「○年○月○日まで有効」も同じく期限です。",
+      "memoryPoint": "必ず来る日付 → **期限**／来るかわからない事実 → **条件**。附款は__法令の根拠がなくても__裁量の範囲で付けられる",
+      "explanations": {
+        "normal": "**附款**は、行政行為の効果を制限するために、主たる意思表示に付け加える従たる意思表示です。講学上、次のように分けます。\n\n・**期限**：__到来が確実な事実__に効果をかからせる（「9月30日まで」など）。\n・**条件**：__到来が不確実な事実__に効果をかからせる（「工事が完成したら」など）。\n・**負担**：許可などに付けて、特別の義務を課す（占用料の納付など）。作為だけでなく不作為の義務も課せる。\n・**撤回権の留保**：「公益上必要なときは撤回する」と付けておく。\n\n附款は、法令に根拠がなくても、__裁量が認められる行為__なら、その範囲で付けられます。",
+        "deepDive": {
+          "background": "許可を出すか出さないかの二択だけだと、条件付きなら認められるような申請まで拒否するしかなくなります。附款は、許可に期間や義務を付けて、柔軟に認めるための道具です。そのぶん、目的に必要な範囲を超える附款は、裁量の逸脱として違法になりえます。",
+          "trap": "!!日付を条件と呼ぶ!!のがAの形で、@@令和2年問26肢3@@でも運転免許証の有効期限を「条件」とする形で誤りでした。@@令和7年問10@@は附款だけの問題で、!!撤回権を留保しなければ撤回できない!!（撤回は留保がなくてもできる）、!!負担に違反すると許可が遡って無効になる!!（負担違反は撤回の理由になるだけ）、!!負担として不作為義務は課せない!!が、どれも誤りでした。正しかったのは、法令の根拠がなくても裁量の範囲で附款を付けられる、という肢です。",
+          "example": "道路占用許可に「占用期間は令和8年4月1日から令和9年3月31日まで」「占用料を納めること」と付けたなら、前者が期限、後者が負担です。占用料を納めなくても許可は当然には消えず、行政庁が撤回するかどうかを判断します。"
+        },
+        "commonSense": "カレンダーに書ける日付は必ずやって来るので「期限」、天気のように起きるかどうかわからないものが「条件」です。"
+      },
+      "legalBasis": [
+        {
+          "label": "道路法87条（許可等の条件。附款の一般規定は無く講学上の整理）",
+          "url": "https://laws.e-gov.go.jp/law/327AC1000000180?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "開始と終了の具体的な日付",
+        "「条件」に該当する"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1760",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1476",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1760",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1760",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1760",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1760",
+          "choiceNumber": "5",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:500",
+          "choiceNumber": "3",
+          "relationship": "archive-choice-rechecked"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1760:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1476:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:500:choice:3",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1760:choice:1",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1760:choice:2",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1760:choice:3",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1760:choice:5",
+          "relation": "same_topic"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 5,
+        "yearCount": 5,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 3,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "行政行為の附款（期限・条件・負担・撤回権の留保、附款を付ける根拠）を問う問題を集計"
+      }
     },
     {
       "id": "gyo-written-r7-decision-defect-001",
@@ -1967,6 +2109,109 @@
       "learningType": "memorize"
     },
     {
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "gyo-aps-third-party-hearing-001",
+      "topic": "行政手続法",
+      "subtopic": "申請者以外の者の意見を聴く機会（公聴会の開催は努力義務）",
+      "clusterId": "aps-third-party-hearing",
+      "learningType": "memorize",
+      "correct": true,
+      "variants": {
+        "a": "申請に対する処分について、**公聴会の開催**その他の適当な方法により__利害関係人の意見を聴く機会__を設けるべきことは、担当行政庁の==努力義務にとどまり==、義務とはされていない。",
+        "b": "%%Aさん%%が、近所に大きな施設を建てる許可を申請しました。許可するかどうかは、近所の人たちの暮らしへの影響も考えて決める仕組みになっています。\n\nこのとき%%行政庁%%が、説明会のような**公聴会**を開いて近所の人の意見を聴くことは、「できればそうしてください」という==努力義務にとどまります==。必ず開かなければならないわけではありません。",
+        "bCasual": "条件を並べます。\n\n① 申請に対する処分である。\n② __申請者以外の人の利害を考えること__が、許可の要件として法令に書かれている。\n\nこの2つがそろうと、行政庁は**公聴会**などで申請者以外の人の意見を聴く機会を設けるよう努めます。これは==努力義務にとどまり==、義務ではありません。",
+        "bCasualStyle": "条件を並べる",
+        "c": "申請者以外の者の意見を聴く**公聴会**など → ==努力義務にとどまる=="
+      },
+      "correction": "そのとおりです。行政庁は、申請に対する処分であって__申請者以外の者の利害を考慮すべきことが許認可等の要件とされているもの__を行う場合には、必要に応じ、**公聴会**の開催その他の適当な方法によって申請者以外の者の意見を聴く機会を設けるよう==努めなければなりません==@@（行政手続法10条）@@。義務ではなく努力義務です。",
+      "memoryPoint": "申請者以外の者の意見を聴く**公聴会** → 申請に対する処分の==努力義務==（行手法10条）。不利益処分の**聴聞**とは別物",
+      "explanations": {
+        "normal": "行政手続法10条は、許可などの判断で__申請者以外の人の利害を考えることが要件になっている__場合に、その人たちの意見を聴く機会を設けるよう求める規定です。方法は**公聴会**のほか、意見書の受付などの「適当な方法」でかまいません。\n\nこの規定は==努力義務==です@@（行政手続法10条「努めなければならない」）@@。行政手続法の申請の章で努力義務なのは、ほかに標準処理期間を定めること@@（6条）@@、審査の進行状況などの情報提供@@（9条）@@、共同して審査する行政庁の審査の促進@@（11条2項）@@などです。",
+        "deepDive": {
+          "background": "行政手続法は、全国のあらゆる許認可に同じ決まりをかける一般法です。どの許可でも必ず公聴会を開けとすると、必要のない場面まで手間がかかります。そこで「必要に応じて」「努めなければならない」とし、聴く方法も行政庁に任せました。開催を義務にしたいときは、個別の法律が定めます。",
+          "trap": "!!公聴会を「開かなければならない」!!と義務に書き換える形が定番で、@@令和4年問11肢5@@は「申請者以外の者および申請者本人の意見を聴く機会を設けなければならない」とする形で誤りでした。もう一つは!!不利益処分の聴聞と混ぜる!!形です。@@令和元年問12エ@@は「申請者以外の者に対し、不利益処分に準じた聴聞を行わなければならない」として誤り、@@平成30年問11肢5@@は「不利益処分では公聴会を開催しなければならない」として誤りでした。不利益処分で行うのは**聴聞**か**弁明の機会の付与**で、公聴会ではありません。",
+          "example": "工場の設置許可で、許可の要件に「周辺の生活環境に支障がないこと」が書かれている場合が典型です。周辺住民の利害が要件に入っているので、行政庁は住民説明会のような場を設けるよう努めます。@@令和5年問13ア@@では、この公聴会の開催が「努力義務として規定されているもの」の一つとして出ました。"
+        },
+        "commonSense": "申請したのはAさんなので、手続の主役はAさんです。周りの人の声も聞けたほうがよいけれど、毎回必ず集会を開くのは大変です。だから==「できれば聴いてね」の努力義務==になっている、と覚えると混ざりません。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政手続法10条",
+          "url": "https://laws.e-gov.go.jp/law/405AC0000000088?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "公聴会の開催",
+        "利害関係人の意見を聴く機会",
+        "努力義務にとどまり"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1222",
+          "choiceNumber": "2",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1581",
+          "choiceNumber": "5",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1341",
+          "choiceNumber": "5",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1402",
+          "choiceNumber": "エ",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:142",
+          "choiceNumber": "2",
+          "relationship": "archive-choice-rechecked"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1222:choice:2",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1581:choice:5",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1341:choice:5",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1402:choice:エ",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:142:choice:2",
+          "relation": "same_rule"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "頻出",
+        "occurrences": 6,
+        "yearCount": 6,
+        "recentOccurrences": 5,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "申請者以外の者の意見を聴く機会（行手法10条）の義務・努力義務の区別と、聴聞・公聴会の取り違えを問う問題を集計"
+      }
+    },
+    {
       "id": "gyo-local-designated-manager-001",
       "category": "行政法",
       "topic": "地方自治法",
@@ -2821,6 +3066,86 @@
       "learningType": "memorize"
     },
     {
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "gyo-aps-hearing-presider-001",
+      "topic": "行政手続法",
+      "subtopic": "聴聞の主宰者（行政庁が指名する職員・主宰できない者）",
+      "clusterId": "aps-hearing-procedure",
+      "learningType": "memorize",
+      "correct": false,
+      "variants": {
+        "a": "聴聞は、%%行政庁%%が指名する職員その他政令で定める者が主宰するが、当該聴聞の当事者や参加人など、当該不利益処分の対象者に一定の関連を有する者のほか、__行政庁の職員のうち、当該不利益処分に係る事案の処理に直接関与した者__は、主宰者と==なることができない==。",
+        "b": "%%お店%%に営業停止を命じる前に、言い分を聴く**聴聞**を開く場面です。その司会役（**主宰者**）は、%%行政庁%%が指名した職員などが務めます。\n\nお店の人や参加人、その家族などは司会役になれません。さらに、__この件を担当して調べてきた職員__も、司会役には==なれません==。",
+        "bCasual": "主宰者になれない人を並べると、次のとおりです。\n\n① 当事者・参加人と、その配偶者・親族・代理人など、処分を受ける側と関係のある人。\n② __行政庁の職員のうち、その事案の処理に直接関与した人__。\n\nこのどちらも、聴聞の**主宰者**には==なれません==。",
+        "bCasualStyle": "なれない人を並べる",
+        "c": "__事案の処理に直接関与した職員__ → 聴聞の**主宰者**に==なれない=="
+      },
+      "correction": "誤りです。聴聞は、%%行政庁%%が指名する職員その他政令で定める者が主宰します@@（行政手続法19条1項）@@。主宰できないのは、当事者・参加人、その配偶者や親族、代理人・補佐人、後見人など、__処分の相手方の側と関係のある者__だけです@@（同条2項）@@。__事案の処理に直接関与した職員__を外す規定は==ありません==。それを外すのは、行政不服審査法の**審理員**です@@（行政不服審査法9条2項1号）@@。",
+      "memoryPoint": "**聴聞の主宰者**：除かれるのは__当事者側の関係者__だけ。__処分に関与した職員__を除くのは行審法の**審理員**",
+      "explanations": {
+        "normal": "**聴聞**を進める**主宰者**は、%%行政庁%%が指名する職員その他政令で定める者です@@（行政手続法19条1項）@@。処分をする行政庁の職員でもかまいません。\n\n主宰者になれないのは、19条2項が並べる者です。当事者・参加人、その配偶者・四親等内の親族・同居の親族、代理人・補佐人、それらであった者、後見人・保佐人・補助人など、それに参加人以外の関係人です。つまり==処分を受ける側と関係のある人==を外す規定で、事案を担当した職員を外す定めは==ありません==。",
+        "deepDive": {
+          "background": "行政手続法の聴聞は、処分の前に行政庁の内部で言い分を聴く手続です。行政庁が自分の職員に主宰させることを前提に作られていて、裁判のような第三者性までは求めていません。これに対し、行政不服審査法の審理員は、処分が終わった後に、その処分が正しかったかを審査する役です。だから__処分に関与した人__を外して、公正さを高めています。",
+          "trap": "!!審理員の除外事由（事案に関与した職員）を聴聞の主宰者に持ち込む!!のが、このAの誤りです。もう一つは、!!主宰者は上級行政庁が指名する!!、!!処分庁の職員は主宰できない!!という書き換えで、@@平成26年問11肢5@@で誤りとして出ました。@@平成19年問11肢1@@は「当事者と行政庁の合議で主宰者を決める」とする形で、これも誤りです。",
+          "example": "県が飲食店に営業停止を命じる前の聴聞で、保健所の課長補佐が主宰者に指名されるのはかまいません。その課長補佐がこの店の立入検査に関わっていても、行政手続法の上では主宰者になれます。これに対し、店が営業停止に審査請求をすると、審理員にはその検査に関わった職員を==選べません=="
+        },
+        "commonSense": "聴聞は「処分の前に、役所の中で言い分を聴く場」、審理員は「処分の後に、判断が正しかったかを見直す役」です。見直す人が当の担当者では意味がないので、関与した人を外すのは==審理員のほう==です。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政手続法19条",
+          "url": "https://laws.e-gov.go.jp/law/405AC0000000088?occasion_date=20260401"
+        },
+        {
+          "label": "行政不服審査法9条2項",
+          "url": "https://laws.e-gov.go.jp/law/426AC0000000068?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "行政庁が指名する職員",
+        "事案の処理に直接関与した者",
+        "主宰者となることができない"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1402",
+          "choiceNumber": "ア",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:80",
+          "choiceNumber": "5",
+          "relationship": "archive-choice-rechecked"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1402:choice:ア",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:80:choice:5",
+          "relation": "same_topic"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "聴聞の主宰者の指名と、主宰できない者（行手法19条）を問う問題を集計"
+      }
+    },
+    {
       "id": "gyo-aps-hearing-report-001",
       "category": "行政法",
       "topic": "行政手続法",
@@ -3610,6 +3935,91 @@
       "learningType": "memorize"
     },
     {
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "gyo-aia-examiner-roster-001",
+      "topic": "行政不服審査法",
+      "subtopic": "審理員となるべき者の名簿（作成は努力義務・作成したら公にする義務）",
+      "clusterId": "aia-examiner-roster",
+      "learningType": "memorize",
+      "correct": false,
+      "variants": {
+        "a": "%%審査庁となるべき行政庁%%は、**審理員となるべき者の名簿**を==作成しなければならない==が、__当該名簿を公にする必要はない__。",
+        "b": "%%審査庁になる役所%%は、審査請求を担当する**審理員**の候補者リストを==必ず作らなければなりません==。ただし、作ったリストを__外に公表する必要はありません__。",
+        "bCasual": "義務の中身を2つに分けます。\n\n① **名簿**の作成 → ==作らなければならない==。\n② 作った名簿 → __公にする必要はない__。",
+        "bCasualStyle": "義務を2つに分ける",
+        "c": "**審理員の名簿** → 作成は==義務==、__公表は不要__"
+      },
+      "correction": "誤りです。%%審査庁となるべき行政庁%%は、**審理員となるべき者の名簿**を作成するよう__努める__とされ、作成は==努力義務==です。そのうえで、__名簿を作成したとき__は、事務所に備え付けるなどの方法で==公にしておかなければなりません==@@（行政不服審査法17条）@@。義務と努力義務が、Aとちょうど逆です。",
+      "memoryPoint": "**審理員の名簿**：作るのは==努力義務==／作ったら__公にする__のは==義務==（行審法17条）",
+      "explanations": {
+        "normal": "行政不服審査法17条は、審理員の名簿について2段階で決めています。\n\n① %%審査庁となるべき行政庁%%は、**審理員となるべき者の名簿**を作成するよう==努める==（努力義務）。\n② __名簿を作成したとき__は、審査庁となるべき行政庁と関係処分庁の事務所に備え付けるなどの方法で、==公にしておかなければならない==（義務）。\n\nこの名簿は議会の議決などを経る必要もありません。審理員は、審査庁に所属する職員のうちから、審査庁が指名します@@（9条1項）@@。",
+        "deepDive": {
+          "background": "小さな市町村では、審理員になれる職員の数が限られていて、名簿まで作るのが難しいことがあります。そこで作成は努力義務にとどめました。そのかわり、名簿を作ったのなら、誰が審理員になりうるかを国民に見せて、審理の公正さを確かめられるようにしています。",
+          "trap": "!!作成と公表のどちらが義務か!!を入れ替えるのが、Aの形です（@@令和7年問14肢3@@）。ほかに、@@令和元年問16肢2@@は!!名簿を作ったら議会の議決を経なければならない!!として誤りでした。@@平成28年問15肢2@@は「審理員は審査庁に所属する職員から指名され、名簿の作成は努力義務」として正しい肢で出ています。",
+          "example": "ある県が審理員候補として10人の名簿を作ったなら、県庁の窓口に置くか、ウェブサイトに載せるなどして公にします。名簿を作っていない町でも、そのこと自体は違法ではありません。"
+        },
+        "commonSense": "「作るのは頑張って、作ったら見せる」と覚えます。作るかどうかは各役所の事情によりますが、作ったものを隠す理由はありません。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政不服審査法17条・9条",
+          "url": "https://laws.e-gov.go.jp/law/426AC0000000068?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "審理員となるべき者の名簿",
+        "作成しなければならない",
+        "公にする必要はない"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1764",
+          "choiceNumber": "3",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1225",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1406",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1764:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1225:choice:2",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1406:choice:2",
+          "relation": "same_topic"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 0,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "審理員となるべき者の名簿の作成・公表（行審法17条）を問う問題を集計"
+      }
+    },
+    {
       "id": "gyo-aia-examiner-stay-opinion-001",
       "category": "行政法",
       "topic": "行政不服審査法",
@@ -3701,6 +4111,127 @@
         "速やかに"
       ],
       "learningType": "memorize"
+    },
+    {
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "gyo-aia-stay-authority-001",
+      "topic": "行政不服審査法",
+      "subtopic": "審査請求の執行停止（職権でできる審査庁・しなければならない執行停止とその例外）",
+      "clusterId": "aia-stay-authority",
+      "learningType": "memorize",
+      "correct": false,
+      "variants": {
+        "a": "%%審査庁%%は、処分、処分の執行または手続の続行により生ずる__重大な損害を避けるために緊急の必要がある__と認めるときは、__審査請求人の申立てがなくとも__、==職権で執行停止をしなければならない==。",
+        "b": "%%Aさん%%が営業停止の処分に審査請求をしました。このまま処分が続くと、店がつぶれるほどの__重大な損害__が出そうです。\n\nこのとき%%審査庁%%は、__Aさんが「止めてください」と申し立てていなくても__、自分の判断で処分の**執行停止**を==しなければなりません==。",
+        "bCasual": "条件を並べます。\n\n① __重大な損害を避けるため、緊急の必要がある__。\n② __審査請求人の申立てがなくてもよい__。\n\nこの2つがそろえば、%%審査庁%%は==職権で執行停止をしなければなりません==。",
+        "bCasualStyle": "条件を並べる",
+        "c": "__重大な損害・緊急の必要__ → 申立てがなくても==職権で執行停止の義務=="
+      },
+      "correction": "誤りです。執行停止を==しなければならない==のは、__審査請求人の申立てがあった__場合です@@（行政不服審査法25条4項）@@。しかも、__公共の福祉に重大な影響を及ぼすおそれがあるとき__や__本案について理由がないとみえるとき__は、しなくてかまいません@@（同項ただし書）@@。職権でできるのは、__処分庁または処分庁の上級行政庁である審査庁__だけで@@（同条2項）@@、それも「できる」にとどまります。",
+      "memoryPoint": "**執行停止の義務**は__申立て__があるときだけ（例外：公共の福祉・本案理由なし）。**職権**でできるのは__処分庁・上級行政庁__の審査庁だけ",
+      "explanations": {
+        "normal": "審査請求をしても、処分の効力や執行は止まらないのが原則です@@（行政不服審査法25条1項）@@。止めるには**執行停止**が要り、審査庁の立場で決まりが変わります。\n\n・__処分庁または処分庁の上級行政庁__である審査庁：申立てによっても==職権でも==、執行停止その他の措置をとれます@@（2項）@@。\n・__それ以外の審査庁__：審査請求人の==申立てがあるときだけ==、処分庁の意見を聴いたうえで、停止に限ってできます@@（3項）@@。\n・__申立てがあり__、重大な損害を避けるため緊急の必要があるとき：==執行停止をしなければなりません==@@（4項）@@。ただし、公共の福祉に重大な影響を及ぼすおそれがあるときと、本案について理由がないとみえるときは別です。\n\n執行停止の後に公共の福祉に重大な影響が明らかになるなど、事情が変わったときは、審査庁は執行停止を取り消せます@@（26条）@@。",
+        "deepDive": {
+          "background": "処分庁やその上級行政庁は、もともとその処分を指揮・監督できる立場なので、自分から止めることも許されます。第三者的な審査庁（たとえば別の機関）は、処分庁の判断に深く立ち入る立場ではないので、請求人から頼まれたときに、処分庁の意見を聴いてから止める形にしています。",
+          "trap": "!!申立てがなくても職権で「しなければならない」!!とするのがAの形です（@@平成29年問16肢2@@）。@@令和3年問14肢1@@は!!本案について理由がないとみえるときでも執行停止しなければならない!!、同肢5は!!処分庁・上級行政庁でない審査庁は申立てがあっても執行停止できない!!として、どちらも誤りでした。@@平成18年問15肢5@@は!!上級庁である審査庁は職権で執行停止できない!!として誤りです。",
+          "example": "大臣が処分庁で、審査庁も同じ大臣という場合は、申立てがなくても大臣の判断で処分を止められます。審査請求先が別の第三者機関に定められている場合は、請求人からの申立てを受け、処分庁の意見を聴いてからでなければ止められません。"
+        },
+        "commonSense": "「止めなきゃいけない」とまで言うのは、本人が「止めて」と頼んでいる場合だけです。頼まれてもいないのに止める義務までは負わせない、と覚えます。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政不服審査法25条・26条",
+          "url": "https://laws.e-gov.go.jp/law/426AC0000000068?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "重大な損害を避けるために緊急の必要がある",
+        "審査請求人の申立てがなくとも",
+        "職権で執行停止をしなければならない"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1286",
+          "choiceNumber": "2",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1524",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1524",
+          "choiceNumber": "5",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1286",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1524",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:565",
+          "choiceNumber": "5",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo_archive:565",
+          "choiceNumber": "2",
+          "relationship": "archive-choice-rechecked"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1286:choice:2",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1524:choice:1",
+          "relation": "exception"
+        },
+        {
+          "choiceId": "goukakudojyo:1524:choice:5",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1286:choice:4",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1524:choice:2",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:565:choice:5",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:565:choice:2",
+          "relation": "exception"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 4,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "行審法の執行停止（職権でできる審査庁、しなければならない場合と例外、事情変更による取消し）を問う問題を集計"
+      }
     },
     {
       "id": "gyo-litigation-nursery-ordinance-001",
@@ -5499,6 +6030,90 @@
       "learningType": "memorize"
     },
     {
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "gyo-litigation-invalidity-stay-001",
+      "topic": "行政事件訴訟法",
+      "subtopic": "無効等確認訴訟にも執行停止が準用される（38条3項）",
+      "clusterId": "gyo-litigation-stay",
+      "learningType": "memorize",
+      "correct": false,
+      "variants": {
+        "a": "**無効確認訴訟**においては、訴訟の対象となる処分は__当初から無効であるのが前提__であるから、当該処分の**執行停止**を==申し立てることはできない==。",
+        "b": "%%Aさん%%は、自分への処分はそもそも無効だと考えて、**無効確認訴訟**を起こしました。\n\n無効な処分は__初めから効力がない__のだから、わざわざ止める必要はない。だから、この訴訟では処分の**執行停止**を==申し立てられません==。",
+        "bCasual": "理由と結論を並べます。\n\n① 無効確認訴訟の処分は、__初めから無効__が前提。\n② だから止めるものが無い。\n③ よって、**執行停止**は==申し立てられない==。",
+        "bCasualStyle": "理由と結論を並べる",
+        "c": "**無効確認訴訟** → __初めから無効__だから**執行停止**は==申し立てられない=="
+      },
+      "correction": "誤りです。取消訴訟の**執行停止**の規定（25条〜29条）は、**無効等確認の訴え**に==準用されます==@@（行政事件訴訟法38条3項）@@。無効だと主張していても、行政庁は有効なものとして執行してくることがあるので、仮の救済が必要だからです。準用されないのは、出訴期間@@（14条）@@などです。",
+      "memoryPoint": "**無効等確認訴訟**にも**執行停止**は==ある==（38条3項）。出訴期間（14条）は__無い__",
+      "explanations": {
+        "normal": "行政事件訴訟法38条は、取消訴訟の規定のうちどれを他の抗告訴訟に使うかを決めています。\n\n・**無効等確認の訴え**には、__執行停止（25条〜29条）__と、行政庁の訴訟参加の仕組みの一部などが==準用されます==@@（38条3項）@@。\n・出訴期間@@（14条）@@は準用されず、無効確認はいつでも起こせます。\n・**義務付け訴訟・差止訴訟**には執行停止は準用されず、それぞれ**仮の義務付け**・**仮の差止め**が用意されています@@（37条の5）@@。",
+        "deepDive": {
+          "background": "理屈の上では無効な処分は誰も従う必要がありませんが、現実には、行政庁は有効だと考えて執行を進めます。本当に無効かどうかは判決が出るまでわからないので、それまでの間に取り返しのつかない損害が出ないよう、取消訴訟と同じ仮の救済を使えるようにしています。",
+          "trap": "!!無効だから執行停止は要らない!!という理屈が繰り返し出ています（@@令和4年問19肢4@@・@@平成29年問9肢5@@で誤り）。@@平成24年問16肢3@@は逆に!!無効確認訴訟では執行停止が原則!!（執行しないのが原則）として誤りでした。無効確認訴訟でも、取消訴訟と同じく__執行不停止が原則__で、申立てで止めます。",
+          "example": "課税処分に重大明白な瑕疵があるとして無効確認訴訟を起こした人も、そのままだと財産を差し押さえられるおそれがあるので、執行停止を申し立てられます。"
+        },
+        "commonSense": "「無効なはずだ」と言っているだけでは、相手は止まってくれません。判決が出るまでの間の安全装置は、取消訴訟と同じように必要です。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政事件訴訟法38条3項・25条",
+          "url": "https://laws.e-gov.go.jp/law/337AC0000000139?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "当初から無効であるのが前提",
+        "執行停止を申し立てることはできない"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1589",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1279",
+          "choiceNumber": "5",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:206",
+          "choiceNumber": "3",
+          "relationship": "archive-choice-rechecked"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1589:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1279:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:206:choice:3",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 4,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "無効等確認訴訟への執行停止の準用（行訴法38条3項）を問う問題を集計"
+      }
+    },
+    {
       "id": "gyo-litigation-invalidity-subsidiarity-001",
       "category": "行政法",
       "topic": "行政事件訴訟法",
@@ -5869,6 +6484,278 @@
         "memoryCue": "民法717条は占有者に一度逃げ道を用意してから所有者へ回すが、国賠法2条にはその段階がない。公の営造物は誰もが避けようなく使うもので、被害者の側に選ぶ余地がないからである。なお国賠法2条の「営造物」は建物などに限らず、動産（公用車、拳銃）や自然公物（河川、海岸）も含む点が717条の「土地の工作物」と違う。"
       },
       "learningType": "understand"
+    },
+    {
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "gyo-state-comp-facility-budget-001",
+      "topic": "国家賠償法",
+      "subtopic": "営造物の管理の瑕疵：予算措置が困難でも責任を免れない（高知落石事件）",
+      "clusterId": "gyo-state-comp-public-facility",
+      "learningType": "memorize",
+      "correct": false,
+      "variants": {
+        "a": "落石事故の発生した道路に防護柵を設置する場合に、その費用の額が相当の多額にのぼり、県としてその__予算措置に困却する__であろうことが推察できる場合には、そのことを理由として、%%道路管理者%%は、道路の管理の瑕疵によって生じた損害に対する賠償責任を==免れ得る==ものと解するのが相当である。",
+        "b": "落石が何度も起きていた県道で、ついに通行中の車に石が当たる事故が起きました。防護柵を付けるには多額の費用がかかり、%%県%%には__そのお金を用意するのが難しい__事情がありました。\n\nこの場合、県は「予算がなかった」ことを理由に、事故の賠償を==免れることができます==。",
+        "bCasual": "理由と結論を並べます。\n\n① 防護柵には多額の費用がかかる。\n② %%県%%は__予算を組むのが難しい__。\n③ だから、道路の管理の瑕疵による賠償責任を==免れうる==。",
+        "bCasualStyle": "理由と結論を並べる",
+        "c": "__予算措置が困難__ → 道路の管理の瑕疵の賠償責任を==免れうる=="
+      },
+      "correction": "誤りです。判例は、防護柵の設置に多額の費用がかかり、県が__予算措置に困却する__ことが推察できても、それにより==直ちに賠償責任を免れることはできない==としました@@（最判昭和45年8月20日・高知落石事件）@@。国家賠償法2条1項の責任は、営造物が__通常有すべき安全性を欠いていた__かどうかで決まり、管理者の過失は要りません。",
+      "memoryPoint": "**営造物責任**（国賠法2条）：__予算が足りない__は==言い訳にならない==。過失も要らない（高知落石事件）",
+      "explanations": {
+        "normal": "国家賠償法2条1項の「設置又は管理の瑕疵」は、営造物が__通常有すべき安全性を欠いていること__をいい、管理者の故意・過失は要りません（無過失責任）@@（最判昭和45年8月20日）@@。\n\n高知落石事件では、落石や崩土が何度もあった国道で、管理者は「落石注意」の標識を立てる程度しかしていませんでした。判例は、防護柵の設置に多額の費用がかかり予算措置に困っても、==それだけで責任を免れることはできない==としました。",
+        "deepDive": {
+          "background": "道路を開いて人に通らせている以上、安全に通れる状態にしておくのは管理者の責任です。お金がないなら通行止めにするなどの手段もあります。予算不足を理由に危険なまま通らせて、事故の損害を利用者に負わせるのは筋が違います。",
+          "trap": "!!予算措置が困難なら責任を免れる!!という形が、@@令和5年問20肢1@@と@@平成22年問20肢2@@で誤りとして出ています。@@令和元年問21@@は判決文の空欄補充で、「［予算措置］に困却する」が入りました。逆に、責任を免れる方向の判例は、事故の直前に第三者が倒した工事標識の事件（時間的に原状に戻せなかった）などで、「予算」とは別の理由です。",
+          "example": "山沿いの県道で落石が続いているのに、柵を付ける予算がないまま通行させ、落石で車が壊れた場合、県は賠償を免れません。"
+        },
+        "commonSense": "「お金がなかったので直せませんでした」は、ケガをした人には何の慰めにもなりません。直せないなら通行止めにする、と考えれば結論は自然です。"
+      },
+      "legalBasis": [
+        {
+          "label": "国家賠償法2条",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000125?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "予算措置に困却する",
+        "賠償責任を免れ得る"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1650",
+          "choiceNumber": "1",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:330",
+          "choiceNumber": "2",
+          "relationship": "archive-choice-rechecked"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1650:choice:1",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:330:choice:2",
+          "relation": "same_rule"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "営造物の設置・管理の瑕疵で、予算措置が困難なことが責任を免れる理由になるか（高知落石事件）を問う問題を集計"
+      }
+    },
+    {
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "gyo-state-comp-facility-use-related-001",
+      "topic": "国家賠償法",
+      "subtopic": "供用関連瑕疵：道路の騒音などで周辺住民に生じた被害も2条の瑕疵",
+      "clusterId": "gyo-state-comp-public-facility",
+      "learningType": "memorize",
+      "correct": false,
+      "variants": {
+        "a": "道路の供用によって騒音や排気ガス等が生じ、当該道路の周辺住民に__社会生活上受忍すべき限度を超える被害__が生じていたとしても、このような**供用に関連する瑕疵**は、国家賠償法に定める「公の営造物の設置又は管理」上の瑕疵とはいえないから、%%道路管理者%%には国家賠償法上の責任は==生じない==。",
+        "b": "交通量の多い国道の沿道に住む%%人たち%%が、車の騒音や排気ガスに長年苦しんでいます。被害は、普通なら我慢すべき程度を__大きく超えています__。\n\nそれでも、道路そのものが壊れているわけではないので、国家賠償法の「管理の瑕疵」にはあたらず、%%道路管理者%%は==責任を負いません==。",
+        "bCasual": "理由と結論を並べます。\n\n① 被害の原因は、道路が__使われていること__（騒音・排気ガス）。\n② 道路そのものの欠陥ではない。\n③ だから2条の瑕疵にあたらず、道路管理者は==責任を負わない==。",
+        "bCasualStyle": "理由と結論を並べる",
+        "c": "道路の騒音・排気ガスの被害（**供用関連瑕疵**） → 2条の瑕疵では==ない=="
+      },
+      "correction": "誤りです。判例は、営造物の設置・管理の瑕疵には、物理的な欠陥だけでなく、__その営造物が供用目的に沿って利用されることで、利用者以外の第三者に危害を生じさせる危険性__がある場合も含むとしています@@（最大判昭和56年12月16日・大阪空港訴訟、最判平成7年7月7日・国道43号線訴訟）@@。周辺住民に__受忍限度を超える被害__があれば、道路管理者は==賠償責任を負います==。",
+      "memoryPoint": "**供用関連瑕疵**：空港・道路の騒音で__周辺住民__に受忍限度を超える被害 → 2条の瑕疵に==あたる==（大阪空港・国道43号線）",
+      "explanations": {
+        "normal": "国家賠償法2条1項の瑕疵は、営造物が通常有すべき安全性を欠いていることです。判例は、ここに==機能的な瑕疵==（**供用関連瑕疵**）も含めます。営造物そのものに欠陥がなくても、供用目的どおりに使われることで、__利用者以外の第三者__（周辺住民）に社会生活上受忍すべき限度を超える被害を生じさせるなら、瑕疵にあたります。\n\n大阪空港訴訟@@（最大判昭和56年12月16日）@@では航空機騒音、国道43号線訴訟@@（最判平成7年7月7日）@@では自動車の騒音・排気ガスが問題になりました。国道43号線訴訟は、道路の公共性があっても、それだけで受忍限度を超える被害を正当化することはできないとして、責任を認めました。",
+        "deepDive": {
+          "background": "空港や幹線道路は社会全体の役に立ちますが、その負担が沿道の人たちだけに集中します。受忍限度を超える部分まで我慢させるのは不公平なので、国や公共団体に賠償させて負担をならす、という考え方です。",
+          "trap": "!!道路の利用者の被害に限られ、沿道住民の騒音は対象外!!（@@平成22年問20肢1@@で誤り）、!!供用関連瑕疵は2条の瑕疵とはいえない!!（@@平成30年問25肢1@@で誤り）がAの仲間です。@@令和5年問20肢4@@は!!道路が周辺住民に一定の利益を与えていれば、公共性ゆえに違法といえない!!とする形で誤りでした。なお、大阪空港訴訟は、夜間の飛行の差止めを民事訴訟で求めることはできないとした点も有名です。",
+          "example": "幹線道路の沿道で、夜も眠れないほどの騒音が続いている住民は、国道の管理者である国に、国家賠償法2条で損害賠償を求められます。"
+        },
+        "commonSense": "道路は壊れていなくても、そのそばで暮らせないほどうるさければ、周りの人には「欠陥のある道路」です。"
+      },
+      "legalBasis": [
+        {
+          "label": "国家賠償法2条",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000125?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "社会生活上受忍すべき限度を超える被害",
+        "供用に関連する瑕疵",
+        "国家賠償法上の責任は生じない"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1355",
+          "choiceNumber": "1",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1650",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:330",
+          "choiceNumber": "1",
+          "relationship": "archive-choice-rechecked"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1355:choice:1",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1650:choice:4",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:330:choice:1",
+          "relation": "same_rule"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 5,
+        "yearCount": 5,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "供用関連瑕疵（道路・空港の騒音などによる周辺住民の被害）が国家賠償法2条の瑕疵にあたるかを問う問題を集計"
+      }
+    },
+    {
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "gyo-state-comp-cost-bearer-001",
+      "topic": "国家賠償法",
+      "subtopic": "費用負担者の責任（国賠法3条）：管理者と費用負担者の双方が責任を負う",
+      "clusterId": "gyo-state-comp-cost-bearer",
+      "learningType": "memorize",
+      "correct": true,
+      "variants": {
+        "a": "公の営造物の設置または管理に瑕疵があることによる国家賠償責任につき、当該営造物の__設置または管理にあたる者とその費用の負担者とが異なる__ときは、==その双方が責任を負う==ことになるが、ここにいう**設置費用の負担者**には、当該営造物の設置費用につき法律上の負担義務を負う者のほか、この者と同等もしくはこれに近い設置費用を負担し、実質的には事業を共同して執行していると認められる一定範囲の者も含まれる。",
+        "b": "%%市%%が管理する公園の遊具で、子どもがけがをしました。その公園は、%%国%%が補助金をたくさん出して作ったものです。\n\n管理している市と、お金を出した国が別のときは、被害者は==どちらにも賠償を求められます==。お金を出した側には、法律上の負担者だけでなく、__同じくらいの補助金を出して実質的に一緒に事業をしている__国のような立場の者も入ります。",
+        "bCasual": "条件を並べます。\n\n① 営造物の__管理者と費用の負担者が別__。\n② このときは、==双方が賠償責任を負う==（3条1項）。\n③ 費用の負担者には、法律上の負担者のほか、__同等に近い補助をして実質的に共同で事業をしている者__も含む。",
+        "bCasualStyle": "条件を並べる",
+        "c": "__管理者と費用負担者が別__ → ==双方が責任==。負担者には実質的な共同事業者も含む"
+      },
+      "correction": "そのとおりです。国または公共団体が1条・2条で責任を負う場合に、公務員の選任・監督者や営造物の設置・管理者と、__費用を負担する者__が異なるときは、費用を負担する者も==賠償責任を負います==@@（国家賠償法3条1項）@@。判例は、法律上の負担義務者のほか、これと同等かそれに近い補助をして実質的に事業を共同で執行している者も含むとしました@@（最判昭和50年11月28日・鬼ヶ城転落事件）@@。最終的な負担は、内部関係で求償して調整します@@（3条2項）@@。",
+      "memoryPoint": "**国賠法3条**：管理者と__費用負担者が別__なら==双方が責任==。被害者はどちらにも請求でき、内部で求償",
+      "explanations": {
+        "normal": "国家賠償法3条1項は、被害者が、誰を訴えればよいかで迷わないようにする規定です。\n\n・**2条の場合**：営造物の__設置・管理者__と__設置・管理の費用負担者__が違えば、==両方が責任を負います==。\n・**1条の場合**：公務員の__選任・監督者__と__給与などの費用負担者__が違えば、==両方が責任を負います==。たとえば市町村立中学校の教員は、給与を都道府県が負担しているので、市町村（設置者）と都道府県（給与負担者）の両方が責任を負います。\n\n賠償した者は、内部関係で損害を賠償する責任のある者に求償できます@@（3条2項）@@。判例は、市町村立中学校の事件で、都道府県が賠償したときは、市町村に求償できるとしました@@（最判平成21年10月23日）@@。",
+        "deepDive": {
+          "background": "国と自治体の間でお金の出し方や管理の分担は複雑で、被害者には見えません。どちらかを選び間違えたら負ける、という仕組みでは被害者が困ります。そこで、外から見てどちらに請求してもよいとし、分担の調整は国と自治体の内部に任せました。",
+          "trap": "!!費用負担者だけが責任を負う!!（@@平成21年問19肢4@@で誤り）、!!費用負担者は管理者が注意を尽くしたときに限り責任を負う!!（@@平成23年問19肢4@@で誤り）と、責任の範囲を狭める形が定番です。@@令和7年問21肢3@@は!!教員の給与を負担する都道府県だけが責任を負い、設置者の市町村は負わない!!として誤りでした。",
+          "example": "国が補助金を出して県が管理する国立公園の施設で事故が起きたとき、被害者は県にも国にも賠償を求められます。"
+        },
+        "commonSense": "被害者から見れば、管理している役所もお金を出している役所も同じ「お上」です。==どちらに言ってもよい==、精算は役所同士でやる、と覚えます。"
+      },
+      "legalBasis": [
+        {
+          "label": "国家賠償法3条",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000125?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "設置または管理にあたる者とその費用の負担者とが異なる",
+        "その双方が責任を負う",
+        "実質的には事業を共同して執行している"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1771",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1771",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:389",
+          "choiceNumber": "4",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo_archive:269",
+          "choiceNumber": "4",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo_archive:88",
+          "choiceNumber": "ウ",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo_archive:88",
+          "choiceNumber": "エ",
+          "relationship": "archive-choice-rechecked"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1771:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1771:choice:3",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:389:choice:4",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:269:choice:4",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:88:choice:ウ",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:88:choice:エ",
+          "relation": "same_topic"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 5,
+        "yearCount": 5,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 4,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "国家賠償法3条の費用負担者の責任（双方の責任・費用負担者の範囲・内部の求償）を問う問題を集計"
+      }
     },
     {
       "id": "gyo-state-comp-no-prior-cancel-001",
@@ -6692,6 +7579,118 @@
       "learningType": "understand"
     },
     {
+      "category": "民法",
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "min-general-assistance-consent-agency-001",
+      "topic": "総則",
+      "subtopic": "保佐・補助の同意権と代理権（審判で付け足す・本人以外の請求には本人の同意）",
+      "clusterId": "civil-capacity",
+      "learningType": "memorize",
+      "correct": true,
+      "variants": {
+        "a": "%%家庭裁判所%%は、%%被補助人%%の特定の法律行為につき__補助人の同意を要する旨の審判__、および__補助人に代理権を付与する旨の審判__を==することができる==。",
+        "b": "%%Aさん%%は、物忘れが少し増えてきたので、補助人を付けてもらいました（補助）。補助は、本人に必要な手助けだけを選んで付ける仕組みです。\n\n%%家庭裁判所%%は、たとえば「土地を売るときは補助人の同意が要る」と決める審判や、「預金の管理は補助人が代わりにできる」と決める審判を==することができます==。",
+        "bCasual": "保佐と補助で、手助けの付け方を並べます。\n\n① **保佐**：13条1項の行為は、法律で当然に保佐人の同意が要る。審判で同意が要る行為を増やせる。代理権は審判で付ける。\n② **補助**：同意権も代理権も、__審判で必要なものだけ__を付ける（同意権は13条1項の行為の一部に限る）。==どちらの審判もできる==。\n③ 本人以外の請求で、補助開始・補助の同意権・代理権の審判をするには、__本人の同意__が要る。",
+        "bCasualStyle": "保佐と補助を並べる",
+        "c": "**補助**：__同意を要する旨の審判__も__代理権付与の審判__も==できる=="
+      },
+      "correction": "そのとおりです。家庭裁判所は、被補助人が特定の法律行為をするには補助人の同意が必要とする審判ができ@@（民法17条1項）@@、補助人に代理権を付ける審判もできます@@（民法876条の9第1項）@@。同意を要するとできるのは__13条1項の行為の一部__に限られます。また、__本人以外の者の請求__で同意権・代理権の審判をするには、==本人の同意==が要ります@@（17条2項・876条の9第2項）@@。",
+      "memoryPoint": "**補助**＝同意権も代理権も__審判で選んで付ける__。**保佐**＝同意権は法定（13条1項）＋審判で追加、代理権は審判。__本人以外の請求__なら本人の同意（保佐の代理権・補助の開始・同意権・代理権）",
+      "explanations": {
+        "normal": "制限行為能力者の手助けは、後見・保佐・補助で重さが違います。\n\n・**保佐**：13条1項に並ぶ行為（借財・保証、不動産の売買、相続の承認・放棄・遺産分割など）は、当然に__保佐人の同意__が要ります。審判で、それ以外の行為にも同意が要るとすることができます@@（13条2項）@@。代理権は、審判で特定の法律行為について付けます@@（876条の4第1項）@@。\n・**補助**：同意権も代理権も、__審判で必要なものだけ__を付けます@@（17条1項・876条の9第1項）@@。同意を要するとできるのは、13条1項の行為の一部です。補助開始の審判は、同意権か代理権の審判と一緒にしなければなりません@@（15条3項）@@。\n\n__本人以外の者の請求__で、保佐人への代理権付与、補助開始、補助人の同意権・代理権の審判をするには、==本人の同意==が要ります@@（876条の4第2項・15条2項・17条2項・876条の9第2項）@@。保佐開始の審判には、この本人の同意は要りません。",
+        "deepDive": {
+          "background": "補助は判断能力の衰えが軽い人のための制度で、本人の自己決定をできるだけ残すために、手助けを選んで付ける形にしました。代理権を付けるのは、本人の代わりに他人が決めることなので、本人以外が求めるときは本人の同意を要件にしています。",
+          "trap": "!!保佐人の同意が要る行為は法定のものに限られ、審判で増やせない!!（@@平成27年問27イ@@で誤り）が定番です。「本人以外の請求には本人の同意」は、保佐の代理権（@@平成27年問27ウ@@）と補助開始（同エ）で正しい肢として出ました。保佐開始の審判には本人の同意が要らないので、!!保佐開始にも本人の同意が要る!!とされたら誤りです。補助人が同意しないときの「同意に代わる許可」（17条3項）も@@令和7年問27肢1@@で出ています。",
+          "example": "軽い認知症の父に補助人を付けるとき、子が請求するなら父本人の同意が要ります。そのうえで「不動産の売却と借金には補助人の同意が要る」「預金の払戻しは補助人が代理できる」と、必要なものだけを審判で決めます。"
+        },
+        "commonSense": "補助は「必要なところだけ手すりを付ける」制度です。どこに手すりを付けるか（同意権・代理権）は、==審判で選んで決める==と覚えます。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法13条・15条・17条・876条の4・876条の9",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "補助人の同意を要する旨の審判",
+        "補助人に代理権を付与する旨の審判",
+        "することができる"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1477",
+          "choiceNumber": "3",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1477",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:637",
+          "choiceNumber": "ウ",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo_archive:637",
+          "choiceNumber": "エ",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo_archive:637",
+          "choiceNumber": "イ",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo:1777",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1477:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1477:choice:2",
+          "relation": "comparison"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:637:choice:ウ",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:637:choice:エ",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:637:choice:イ",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1777:choice:1",
+          "relation": "same_topic"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "保佐人・補助人の同意権と代理権の付与（審判・本人の同意・同意に代わる許可）を問う問題を集計"
+      }
+    },
+    {
       "id": "min-general-false-representation-third-party-001",
       "category": "民法",
       "topic": "総則",
@@ -7429,6 +8428,99 @@
         "極度額"
       ],
       "learningType": "memorize"
+    },
+    {
+      "category": "民法",
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "min-security-revolving-reduction-001",
+      "topic": "担保物権",
+      "subtopic": "根抵当権：元本確定後の極度額の減額請求",
+      "clusterId": "civil-mortgage",
+      "learningType": "memorize",
+      "correct": false,
+      "variants": {
+        "a": "%%根抵当権設定者%%は、__元本確定後においては__、根抵当権の極度額の一切の減額を==請求することはできない==。",
+        "b": "%%Aさん%%は、取引先%%Bさん%%への代金の支払いのために、自分の土地に極度額1億円の**根抵当権**を付けていました。取引が終わり、元本が確定してみると、実際の借りは6,000万円だけでした。\n\nそれでもAさんは、__元本が確定した後__は、極度額を減らしてほしいと==一切求められません==。",
+        "bCasual": "時間の流れで追います。\n\n① 元本の確定前：取引が続き、担保する債権が入れ替わる。\n② __元本の確定後__：担保する債権の額が決まる。\n③ この後は、極度額の減額は==一切請求できない==。",
+        "bCasualStyle": "時間の流れで追う",
+        "c": "__元本確定後__ → 極度額の減額は==一切請求できない=="
+      },
+      "correction": "誤りです。__元本の確定後__は、%%根抵当権設定者%%は、極度額を「__現に存する債務の額__と、以後__2年間__に生ずべき利息その他の定期金・債務の不履行による損害賠償の額とを加えた額」まで==減額するよう請求できます==@@（民法398条の21第1項）@@。担保する債権の額が決まったのに、大きな枠を残しておく意味がないからです。",
+      "memoryPoint": "**根抵当権**・__元本確定後__：設定者は極度額を「現在の債務＋__2年分__の利息・損害金」まで==減額請求できる==（398条の21）",
+      "explanations": {
+        "normal": "**根抵当権**は、極度額の範囲で、入れ替わる不特定の債権を担保する抵当権です。元本が確定すると、担保される元本がその時点のものに決まります。\n\n元本の確定後は、%%根抵当権設定者%%は、極度額を「__現に存する債務の額__＋以後__2年間__に生ずべき利息・定期金・遅延損害金」の額まで==減らすよう請求できます==@@（民法398条の21第1項）@@。\n\nまた、確定した被担保債権の額が極度額を超えるときは、物上保証人や第三取得者、地上権者などは、__極度額に相当する金額__を払い渡して根抵当権の消滅を請求できます@@（398条の22）@@。根抵当権者が優先弁済を受けられるのは、利息・損害金を含めて極度額までです。",
+        "deepDive": {
+          "background": "1億円の枠が残ったままだと、設定者は、後から別の人のために抵当権を付けても、その人の取り分が少なく見積もられ、土地を担保に使いにくくなります。元本が決まった後は、実際に必要な額まで枠を小さくして、土地の担保価値を他にも使えるようにしています。",
+          "trap": "!!元本確定後は減額請求が一切できない!!とするのがAの形です（@@令和2年問29肢5@@）。減額できる額の計算で!!2年分!!の数字も狙われ、@@平成28年問31肢4@@と@@令和4年問29肢3@@で正しい肢として出ました。普通抵当権の「最後の2年分」の制限（375条）と混ぜて、!!根抵当権も最後の2年分なら極度額を超えて優先弁済を受けられる!!とする肢も誤りです（@@令和4年問29肢4@@）。",
+          "example": "極度額1億円・確定した元本6,000万円なら、設定者は、6,000万円と以後2年間の利息・損害金を加えた額まで極度額を減らすよう求められます。減ったぶん、2番抵当権者の取り分の見通しがよくなります。"
+        },
+        "commonSense": "取引が終わって借りの額が決まったら、大きすぎる担保の枠は、実際の借りに少し余裕を足した大きさまで縮めてもらえます。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法398条の21・398条の22",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "元本確定後においては",
+        "一切の減額を請求することはできない"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1479",
+          "choiceNumber": "5",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1599",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1241",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1599",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1479:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1599:choice:3",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1241:choice:4",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1599:choice:4",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 0,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "根抵当権の元本確定後の極度額の減額請求と、極度額を超える優先弁済の可否を問う問題を集計"
+      }
     },
     {
       "id": "min-obligation-joint-liability-effects-001",
@@ -12376,6 +13468,81 @@
     {
       "category": "憲法",
       "subjectId": "constitutional-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "con-diet-autonomy-discipline-001",
+      "topic": "統治",
+      "subtopic": "議院の自律権：議員の資格争訟・懲罰と司法審査（地方議会との違い）",
+      "clusterId": "constitution-diet",
+      "learningType": "memorize",
+      "correct": false,
+      "variants": {
+        "a": "%%議院%%が所属議員に科した**懲罰**には、議院自律権の趣旨から司法審査は及ばないのが原則であるが、__除名に関しては__、手続の適正さについて審査が==及ぶとするのが最高裁判所の判例である==。",
+        "b": "%%衆議院%%が、院内で騒いだ%%議員%%を**懲罰**として除名しました。\n\n議院の懲罰は、議院が自分で決めることなので、原則として裁判所は口を出しません。ただ、__除名だけは__、手続が正しかったかを裁判所が==調べられる==のが最高裁の判例です。",
+        "bCasual": "原則と例外を並べます。\n\n① 原則：議院の**懲罰**に司法審査は及ばない。\n② 例外：__除名__は、手続の適正さについて審査が及ぶ。\n③ 以上が==最高裁判所の判例である==。",
+        "bCasualStyle": "原則と例外を並べる",
+        "c": "議院の**懲罰**は審査なしが原則、__除名だけは__手続審査が==及ぶ（最高裁判例）=="
+      },
+      "correction": "誤りです。議院の**懲罰**（58条2項）と**議員の資格争訟**（55条）は、憲法が各議院に与えた自律権で、__除名を含めて__司法審査は==及ばないと解されています==。除名について手続の審査が及ぶとした最高裁判例は==ありません==。司法審査が及ぶのは**地方議会**の懲罰で、除名@@（最大判昭和35年10月19日）@@も出席停止@@（最大判令和2年11月25日）@@も審査の対象です。",
+      "memoryPoint": "**国会の議院**の懲罰・資格争訟 → 憲法上の自律権で==審査なし==（除名も）／**地方議会**の除名・出席停止 → ==審査あり==",
+      "explanations": {
+        "normal": "憲法は、両議院に自分のことを自分で決める権能（**議院自律権**）を与えています。\n\n・**議員の資格争訟**：各議院が裁判します。議席を失わせるには__出席議員の3分の2以上__の多数が要ります@@（憲法55条）@@。\n・**懲罰**：院内の秩序を乱した議員を懲罰できます。除名には__出席議員の3分の2以上__の多数が要ります@@（憲法58条2項）@@。\n\nどちらも憲法が議院に任せたものなので、裁判所の審査は==及ばない==と解されています（判例は無く、通説の理解）。これに対し、**地方議会**の自律権は法律上のもので、議員の除名や出席停止は==司法審査の対象==です@@（最大判令和2年11月25日）@@。",
+        "deepDive": {
+          "background": "国会の議院は、国民の代表が集まる最高機関の一部で、その構成員を誰にするか、どう規律するかを裁判所が決めると、三権分立が崩れます。だから憲法自身が「議院が裁判する」と書きました。地方議会は、法律で作られた団体の内部の話なので、住民の権利に関わる処分は裁判で争えます。",
+          "trap": "!!除名だけは手続審査が及ぶとするのが最高裁判例!!（@@令和6年問7肢5@@で誤り）がAです。@@令和5年問5肢2@@は!!資格争訟の裁判は国会の権能で、両院の議員が裁判する!!として誤りでした（各議院がそれぞれ裁判する）。地方議会の出席停止は、昔の判例（昭和35年）では審査が及ばないとされていましたが、令和2年の大法廷判決で変わりました。それより前の過去問は、答えが逆になっているものがあります。",
+          "example": "参議院が議員を除名しても、その議員は裁判所に除名の取消しを求められません。市議会が議員を出席停止にした場合は、その議員は取消訴訟で争えます。"
+        },
+        "commonSense": "国会の中のもめごとは国会の中で片付ける、市議会のもめごとは裁判所で争える。==国会は憲法、地方議会は法律==が根拠、と覚えます。"
+      },
+      "legalBasis": [
+        {
+          "label": "日本国憲法55条・58条",
+          "url": "https://laws.e-gov.go.jp/law/321CONSTITUTION?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "除名に関しては",
+        "審査が及ぶとするのが最高裁判所の判例である"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1697",
+          "choiceNumber": "5",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1635",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1697:choice:5",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1635:choice:2",
+          "relation": "same_topic"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 4,
+        "recentOccurrences": 4,
+        "archiveOccurrences": 0,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "議院の自律権（議員の資格争訟・懲罰）と司法審査、地方議会の懲罰との違いを問う問題を集計"
+      }
+    },
+    {
+      "category": "憲法",
+      "subjectId": "constitutional-law",
       "review": {
         "currentLawStatus": "egov-verified-2026-04-01",
         "humanReview": "goukakudojyo-explanation-primary-plus-egov-2026-04-01"
@@ -12726,6 +13893,205 @@
         }
       ],
       "learningType": "understand"
+    },
+    {
+      "category": "憲法",
+      "subjectId": "constitutional-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "con-court-internal-dispute-001",
+      "topic": "統治",
+      "subtopic": "司法権の限界：団体の内部の紛争（大学の単位認定・政党の処分・地方議会の出席停止）",
+      "clusterId": "constitution-court",
+      "learningType": "memorize",
+      "correct": true,
+      "variants": {
+        "a": "大学は、国公立であると私立であるとを問わず、自律的な法規範を有する特殊な**部分社会**を形成しているから、大学における法律上の紛争は、__一般市民法秩序と直接の関係を有しない内部的な問題にとどまる限り__、その自主的・自律的な解決に==ゆだねられる==。",
+        "b": "%%学生%%が、%%大学%%から単位を認めてもらえなかったことに納得できず、裁判所に訴えました。\n\n大学は、独自のルールで動く一つの社会（**部分社会**）です。単位の認定のように、__世の中一般の権利とは直接関係のない大学の中だけの問題__なら、大学が自分で解決することに==任されます==。",
+        "bCasual": "判断の流れを並べます。\n\n① 大学・政党などの団体は、自律的なルールを持つ**部分社会**。\n② その中の紛争が、__一般市民法秩序と直接の関係を持たない内部の問題__か。\n③ 内部の問題にとどまるなら、裁判所は立ち入らず、団体の自主的な解決に==ゆだねる==。",
+        "bCasualStyle": "判断の流れを並べる",
+        "c": "大学の紛争が__内部的な問題にとどまる限り__ → 大学の自主的な解決に==ゆだねる=="
+      },
+      "correction": "そのとおりです。判例は、大学は国公立・私立を問わず自律的な法規範を持つ特殊な**部分社会**であり、__一般市民法秩序と直接の関係を有しない内部的な問題__は、その自主的・自律的な解決に==ゆだねられる==としました@@（最判昭和52年3月15日・富山大学事件）@@。単位の認定は原則として審査の対象になりませんが、専攻科の修了の認定は、一般市民として公の施設を利用する権利に関わるので、==審査の対象==になるとされました。",
+      "memoryPoint": "**部分社会**：__内部の問題__は審査しない（大学の単位認定・政党の処分）。__一般市民法秩序に関わる__なら審査する（専攻科修了の認定・地方議会の出席停止）",
+      "explanations": {
+        "normal": "団体の内部の紛争に、裁判所はどこまで立ち入るか。判例は、団体ごとに次のように整理しています。\n\n・**大学**：単位の授与（認定）は、一般市民法秩序と直接の関係を持つ特段の事情がない限り、審査は==及びません==。専攻科の修了の認定は審査の対象です@@（最判昭和52年3月15日・富山大学事件）@@。\n・**政党**：党員への処分は、一般市民法秩序と直接の関係を持たない内部的な問題にとどまる限り、審査は==及びません==。審査するとしても、党の規範や条理に従った適正な手続かどうかに限られます@@（最判昭和63年12月20日・共産党袴田事件）@@。\n・**地方議会**：議員の出席停止の懲罰も、==審査が及びます==@@（最大判令和2年11月25日。昭和35年の判例を変更）@@。",
+        "deepDive": {
+          "background": "大学や政党は、それぞれの目的のために自分でルールを作り、構成員を律しています。そこに裁判所が細かく入ると、学問の自由や結社の自由を損ないます。ただ、構成員の市民としての権利まで奪うような処分は、内部の問題では済まないので、裁判で争えるようにしています。",
+          "trap": "平成27年度以前の過去問には、!!地方議会の出席停止には審査が及ばない!!を正しいとするものがあります。令和2年の大法廷判決で変わったので、今は==審査が及ぶ==が正解です（取得元は@@平成27年問6肢5@@を今の判例に合わせて直しています）。単位認定と専攻科修了の区別、政党の処分は「内部的な問題にとどまる限り」という限定付きであることも狙われます。",
+          "example": "大学の授業で単位を落とされた学生は、原則として裁判で争えません。専攻科を修了したのに大学が修了を認めないときは、裁判所に判断を求められます。"
+        },
+        "commonSense": "学校の中の成績のことは学校で、市民としての権利に関わることは裁判所で。==中の話か、外にはみ出す話か==で分けます。"
+      },
+      "legalBasis": [
+        {
+          "label": "日本国憲法76条1項（司法権）",
+          "url": "https://laws.e-gov.go.jp/law/321CONSTITUTION?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "部分社会",
+        "一般市民法秩序と直接の関係を有しない内部的な問題にとどまる限り",
+        "ゆだねられる"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:495",
+          "choiceNumber": "1",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:495",
+          "choiceNumber": "3",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo_archive:616",
+          "choiceNumber": "2",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo_archive:616",
+          "choiceNumber": "4",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo_archive:616",
+          "choiceNumber": "5",
+          "relationship": "archive-choice-rechecked"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:495:choice:1",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:495:choice:3",
+          "relation": "parallel_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:616:choice:2",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:616:choice:4",
+          "relation": "parallel_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:616:choice:5",
+          "relation": "contrast"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "団体の内部の紛争と司法審査（部分社会の法理：大学・政党・地方議会）を問う問題を集計"
+      }
+    },
+    {
+      "category": "憲法",
+      "subjectId": "constitutional-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "con-court-judge-discipline-001",
+      "topic": "統治",
+      "subtopic": "裁判官の懲戒（分限裁判で行い、戒告か過料だけ。罷免は弾劾裁判）",
+      "clusterId": "constitution-court",
+      "learningType": "memorize",
+      "correct": false,
+      "variants": {
+        "a": "**裁判官の懲戒**の内容は、__職務停止、減給、戒告または過料__と==される==。",
+        "b": "%%裁判官%%が問題のある行動をして、懲戒を受けることになりました。\n\n裁判官の懲戒には、__仕事を止める（職務停止）・給料を減らす（減給）・注意する（戒告）・お金を払わせる（過料）__の4種類が==あります==。",
+        "bCasual": "懲戒の種類を並べます。\n\n① 職務停止\n② 減給\n③ 戒告\n④ 過料\n\nこの4つが、**裁判官の懲戒**の内容と==されている==。",
+        "bCasualStyle": "種類を並べる",
+        "c": "**裁判官の懲戒** ＝ __職務停止・減給・戒告・過料__と==される=="
+      },
+      "correction": "誤りです。**裁判官の懲戒**は、__戒告または1万円以下の過料__の==2つだけ==です@@（裁判官分限法2条）@@。職務停止や減給はありません。懲戒は、行政機関ではなく__裁判所__が分限裁判で行います@@（憲法78条後段・裁判官分限法3条）@@。罷免は、心身の故障による場合を除き、国会に設けられた__弾劾裁判所__によります@@（憲法64条・78条前段）@@。",
+      "memoryPoint": "**裁判官の懲戒**＝__戒告か1万円以下の過料__だけ。裁判所が**分限裁判**で決める（行政機関は不可）。**罷免**は弾劾裁判か心身の故障",
+      "explanations": {
+        "normal": "裁判官の身分は、憲法で強く守られています@@（憲法78条）@@。\n\n・**罷免**：__公の弾劾__（国会の弾劾裁判所）によるか、__心身の故障のために職務を執ることができないと裁判された__場合だけです。\n・**懲戒**：行政機関は行えません。__裁判所__が、裁判官分限法の手続（**分限裁判**）で行います@@（裁判官分限法3条）@@。内容は__戒告または1万円以下の過料__だけです@@（同法2条）@@。\n・懲戒の裁判は、純然たる訴訟事件の裁判ではないので、公開の法廷で行う必要は==ありません==@@（最大決平成10年12月1日・寺西判事補事件）@@。",
+        "deepDive": {
+          "background": "裁判官が、判断の中身を理由に給料を減らされたり仕事を外されたりすると、圧力に屈した裁判をしかねません。だから懲戒は軽いものに限り、しかも裁判所自身にさせて、行政や国会から手を出せないようにしています。重い処分である罷免は、国民の代表が関わる弾劾裁判にゆだねています。",
+          "trap": "!!職務停止・減給!!を混ぜるのがAの形です（@@令和元年問7肢2@@）。同じ問の肢1は!!懲戒は独立の懲戒委員会が決める!!として誤りでした（裁判所が決める）。@@令和5年問5肢5@@は!!著しい非行の裁判官を懲戒免職するには最高裁の裁判官会議の全員一致が要る!!として誤りで、懲戒免職という処分自体がありません。@@令和4年問7肢5@@は!!懲戒の裁判は公開しなければならない!!として誤りでした。",
+          "example": "裁判官が政治集会で発言したことを理由に、高等裁判所が分限裁判で戒告の決定をする、というのが懲戒の形です。辞めさせたいなら、国会の訴追委員会が訴追し、弾劾裁判所が罷免を判断します。"
+        },
+        "commonSense": "裁判官への懲戒は「叱る（戒告）」と「少額の罰金のような過料」だけ、と覚えます。辞めさせるほどの話は、国会の弾劾裁判に回ります。"
+      },
+      "legalBasis": [
+        {
+          "label": "裁判官分限法2条・3条",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000127?occasion_date=20260401"
+        },
+        {
+          "label": "日本国憲法64条・78条",
+          "url": "https://laws.e-gov.go.jp/law/321CONSTITUTION?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "職務停止、減給、戒告または過料"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1397",
+          "choiceNumber": "2",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1397",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1635",
+          "choiceNumber": "5",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1577",
+          "choiceNumber": "5",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1397:choice:2",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1397:choice:1",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1635:choice:5",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1577:choice:5",
+          "relation": "same_topic"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 0,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "裁判官の懲戒（懲戒の内容・懲戒を行う機関・手続の公開）と罷免の区別を問う問題を集計"
+      }
     },
     {
       "category": "憲法",
@@ -15163,6 +16529,99 @@
       "learningType": "memorize"
     },
     {
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "gyo-litigation-document-evidence-interest-001",
+      "topic": "行政事件訴訟法",
+      "subtopic": "訴えの利益：非公開決定の取消訴訟で文書が書証として出されても利益は消えない",
+      "clusterId": "administrative-litigation-interest",
+      "learningType": "memorize",
+      "correct": true,
+      "variants": {
+        "a": "**公文書の非公開決定**の取消しを求める利益は、当該公文書が__裁判所に書証として提出された場合でも__==失われない==。",
+        "b": "%%Aさん%%が役所に文書の公開を求めたら、「非公開」と決められました。Aさんはその取消しを求めて裁判を起こし、裁判の中で役所がその文書を__証拠として提出しました__。\n\nAさんは裁判所で文書を見られたことになりますが、それでも非公開決定の取消しを求める利益は==なくなりません==。",
+        "bCasual": "比べて覚えます。\n\n① 免許停止の期間が過ぎた、建築確認の後に工事が完了した → 取り消しても意味がなくなり、訴えの利益は消える。\n② 非公開とされた文書が__裁判で書証として出された__ → 制度どおりの公開を受けたわけではないので、訴えの利益は==失われない==。",
+        "bCasualStyle": "消える例と比べる",
+        "c": "__裁判で書証として提出__されても → 非公開決定の取消しを求める利益は==失われない=="
+      },
+      "correction": "そのとおりです。判例は、**公文書の非公開決定**の取消訴訟で、その公文書が__書証として提出__されても、取消しを求める**訴えの利益**は==消滅しない==としました@@（最判平成14年2月28日）@@。公開請求の制度は、誰でも、いつでも、条例が定める方法で閲覧や写しの交付を受けられるようにするもので、裁判の証拠として目にしたこととは別だからです。",
+      "memoryPoint": "**非公開決定の取消訴訟**：文書が__書証で出ても__訴えの利益は==消えない==（最判平14.2.28）",
+      "explanations": {
+        "normal": "情報公開の請求は、条例や法律が定める方法で文書を閲覧し、写しの交付を受ける権利を求めるものです。裁判で__書証として提出__されても、その方法による公開を受けたことにはならないので、非公開決定を取り消してもらう**訴えの利益**は==残ります==@@（最判平成14年2月28日）@@。",
+        "deepDive": {
+          "background": "書証として出された文書は、訴訟の当事者が裁判の手続の中で見るものです。公開請求の制度は、誰にでも、決まった方法で見せるためのもので、目的が違います。",
+          "trap": "!!書証として出されたので訴えの利益は消滅する!!という形で、@@令和6年問17肢3@@・@@令和2年問25肢3@@・@@平成20年問17肢5@@と繰り返し誤りとして出ています。消えるほうの例（免許停止期間の経過、建築確認後の工事完了など）と並べて出されるので、==消えない側==として覚えます。",
+          "example": "県の交際費の明細を非公開とされた住民が取消訴訟を起こし、県が裁判で明細を証拠に出しても、住民はそのまま取消判決を求められます。"
+        },
+        "commonSense": "裁判の中でちらっと見せてもらうことと、制度に従って正式に公開してもらうことは別、と考えれば迷いません。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政事件訴訟法9条1項（法律上の利益）",
+          "url": "https://laws.e-gov.go.jp/law/337AC0000000139?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "裁判所に書証として提出された場合でも",
+        "失われない"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:87",
+          "choiceNumber": "3",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1707",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1475",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:447",
+          "choiceNumber": "5",
+          "relationship": "archive-choice-rechecked"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:87:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1707:choice:3",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1475:choice:3",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:447:choice:5",
+          "relation": "opposite_claim"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 5,
+        "yearCount": 5,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 3,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "公文書の非公開決定の取消訴訟で、文書が書証として提出された後の訴えの利益を問う問題を集計"
+      }
+    },
+    {
       "id": "gyo-litigation-substantive-party-action-001",
       "category": "行政法",
       "subjectId": "administrative-law",
@@ -16589,6 +18048,118 @@
       "learningType": "memorize"
     },
     {
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "gyo-aps-public-comment-result-001",
+      "topic": "行政手続法",
+      "subtopic": "意見公募手続の結果の公示（意見がなかったとき・定めなかったとき・実施しなかったとき）",
+      "clusterId": "administrative-procedure-public-comment",
+      "learningType": "memorize",
+      "correct": true,
+      "variants": {
+        "a": "意見公募手続を実施したが、当該命令等に対して__提出された意見(提出意見)が全く存在しなかった__場合に、**結果を公示**するのみで再度の意見公募手続を実施することなく命令等を==公布することができる==。",
+        "b": "%%役所%%が新しいルールの案を公表して意見を募りましたが、意見は1件も届きませんでした。\n\nこのときは、もう一度募集をやり直す必要はありません。「意見はありませんでした」という**結果を公示**して、そのままルールを==公布できます==。",
+        "bCasual": "意見公募の後に何を公示するかを、場面ごとに並べます。\n\n① 命令等を定めた → 題名・案の公示日・提出意見・意見を考慮した結果と理由を公示する。\n② __意見が全く出なかった__ → その旨を書いた**結果を公示**すれば、やり直さずに==公布できる==。\n③ 定めないことにした → その旨などを速やかに公示する。",
+        "bCasualStyle": "場面ごとに並べる",
+        "c": "__提出意見が全く無い__ → **結果を公示**して、再募集なしで==公布できる=="
+      },
+      "correction": "そのとおりです。意見公募手続を実施して命令等を定めたときは、公布と同時期に、題名・案の公示の日・**提出意見**・提出意見を考慮した結果とその理由を公示します@@（行政手続法43条1項）@@。__提出意見がなかった__ときは、「その旨」を公示すれば足ります@@（同項3号）@@。意見が一定数集まらなければやり直す、という決まりは==ありません==。",
+      "memoryPoint": "意見公募の後は**必ず公示**：意見ゼロでも「なかった旨」、定めなくても「定めない旨」、実施しなくても「しなかった旨と理由」",
+      "explanations": {
+        "normal": "意見公募手続の最後には、必ず結果の公示があります@@（行政手続法43条）@@。場面ごとに公示する中身が変わります。\n\n・命令等を定めたとき：題名、案の公示の日、**提出意見**（__なかった場合はその旨__）、提出意見を考慮した結果と理由を、公布と同時期に公示します@@（1項）@@。\n・__意見公募をしたのに定めないことにした__とき：その旨と題名・案の公示の日を==速やかに公示します==@@（4項）@@。\n・例外にあたって__意見公募をしないで定めた__とき：題名・趣旨と、==実施しなかった旨とその理由==を公示します@@（5項）@@。",
+        "deepDive": {
+          "background": "意見公募手続は、国民が意見を出せることと、出した意見がどう扱われたかが見えることを、セットで保障する仕組みです。結果がわからなければ、意見を出した意味が確かめられません。だから、意見がなかったときも、定めるのをやめたときも、公示を省けないことになっています。",
+          "trap": "!!意見がなかったときは公示しなくてよい!!という書き換えが繰り返し出ています（@@平成22年問11肢5@@・@@平成27年問11肢2@@で誤り）。@@令和3年問11肢4@@は!!定めないことにしたときは特段の公示は要らない!!、同肢5は!!意見公募をしなかった理由は公示しなくてよい!!として、どちらも誤りでした。逆に、!!意見が法定の数に満たなければやり直す!!、!!募集した以上は必ず定めなければならない!!という作り話の要件も@@平成24年問12@@で出ています。",
+          "example": "省令の改正案を30日間公表したが意見はゼロだった、という場面では、「提出意見はありませんでした」と書いて公布と同時期に公示し、そのまま公布します。途中で改正自体をやめたときは、やめた旨を速やかに公示します。"
+        },
+        "commonSense": "意見を募集したら、どんな結末になっても==「こうなりました」と報告して終える==、と覚えます。報告を省いてよい場面は無く、報告の中身が場面で変わるだけです。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政手続法43条",
+          "url": "https://laws.e-gov.go.jp/law/405AC0000000088?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "提出された意見(提出意見)が全く存在しなかった",
+        "結果を公示",
+        "公布することができる"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:563",
+          "choiceNumber": "3",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:563",
+          "choiceNumber": "4",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo_archive:321",
+          "choiceNumber": "5",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo_archive:621",
+          "choiceNumber": "2",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo:1521",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1521",
+          "choiceNumber": "5",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:563:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:563:choice:4",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:321:choice:5",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:621:choice:2",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1521:choice:4",
+          "relation": "same_topic"
+        },
+        {
+          "choiceId": "goukakudojyo:1521:choice:5",
+          "relation": "same_topic"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 5,
+        "yearCount": 5,
+        "recentOccurrences": 1,
+        "archiveOccurrences": 4,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "意見公募手続の結果の公示（意見がなかった場合・定めなかった場合・実施しなかった場合）を問う問題を集計"
+      }
+    },
+    {
       "id": "gyo-loss-compensation-project-restriction-value-001",
       "category": "行政法",
       "subjectId": "administrative-law",
@@ -16786,6 +18357,117 @@
       "learningType": "understand"
     },
     {
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "gyo-enforcement-periodic-penalty-001",
+      "topic": "行政総論",
+      "subtopic": "執行罰（刑罰ではないので繰り返し科せる・一般法はない）",
+      "clusterId": "administrative-enforcement",
+      "learningType": "memorize",
+      "correct": true,
+      "variants": {
+        "a": "**執行罰**は、刑罰ではないため、__二重処罰の禁止の原則の適用はなく__、同一の義務の不履行について、これを==複数回にわたり科すことも認められる==。",
+        "b": "%%Aさん%%が、%%役所%%から「この柵を外しなさい」と命じられたのに、外しません。そこで役所は「外すまで、期限ごとにお金を払ってもらいます」と予告し、払わせます。これが**執行罰**です。\n\n執行罰は罰を与えるための刑罰ではなく、義務を果たさせるための圧力です。だから、Aさんが外すまで、何回でも==繰り返し科すことができます==。",
+        "bCasual": "用語からほどきます。\n\n**執行罰**は、義務を果たさない人に、期限を決めて過料を予告し、果たさなければ科す仕組みです。目的は罰ではなく__義務を果たさせること__なので、刑罰ではありません。\n\nそのため__二重処罰の禁止は当てはまらず__、同じ義務の不履行に==何度でも科せます==。",
+        "bCasualStyle": "用語からほどく",
+        "c": "**執行罰**は刑罰ではない → 同じ不履行に==何度でも科せる=="
+      },
+      "correction": "そのとおりです。**執行罰**は、義務の不履行に対して過料を予告し、なお履行しないときに科して、将来の履行を促す強制執行の手段です。過去の違反への制裁である刑罰ではないので、__二重処罰の禁止は及ばず__、履行されるまで==繰り返し科せます==。刑罰との併科もできます。いまは__砂防法36条__に残るだけで、行政代執行法のような一般法は==ありません==@@（行政代執行法1条）@@。",
+      "memoryPoint": "**執行罰**：将来の履行を促す強制執行（罰金ではなく過料）。==何度でも科せる==・刑罰と併科できる・__一般法なし__（砂防法だけ）",
+      "explanations": {
+        "normal": "行政上の義務を果たさせる強制執行には、代執行・**執行罰**・直接強制・強制徴収があります。執行罰は、__期限を示して過料を予告__し、それまでに履行しなければ過料を科すことで、心理的に履行を促すものです。\n\n・刑罰ではない：二重処罰の禁止は及ばず、==繰り返し科せます==。刑罰との併科も可能です。\n・「罰金」ではなく__過料__です。秩序罰の過料（非訟事件手続法で裁判所が科す）とは別物です。\n・一般法は==ありません==。行政代執行法1条は「別に法律で定めるもの」を除いて同法によるとしていて、執行罰を使うには__個別の法律__が要ります。条例で創設することはできないと解されています。現在の例は砂防法36条だけです。",
+        "deepDive": {
+          "background": "代執行は、他人が代わりにできる義務（作為義務）にしか使えません。代わりにやれない義務や、やめるべき義務（不作為義務）を果たさせる手段として、執行罰が考えられました。ただ、過料の額が小さいと効き目がなく、ほとんどの法律から姿を消しました。",
+          "trap": "!!制裁なので一回しか科せない!!（@@平成21年問10肢3@@で誤り）、!!処罰としての実質があるので刑罰と併用できない!!（@@平成19年問9肢5@@で誤り）がAの逆です。@@平成29年問10@@は執行罰だけの問題で、!!罰金を科す制度!!、!!非訟事件手続法で裁判所が科す!!（これは秩序罰）、!!行政代執行法が条例での規定を明文で許している!!、!!軽い届出義務の違反に科される!!（これも秩序罰）が誤りでした。",
+          "example": "砂防指定地で禁止された工作物を撤去するよう命じられた人に、知事が「期限までに撤去しなければ過料を科す」と予告し、撤去しないので過料を科し、さらに次の期限を示して予告する。撤去するまでこれを繰り返せるのが執行罰です。"
+        },
+        "commonSense": "執行罰は「罰」という名前でも、中身は「やるまで続く催促料」です。過去の悪さを償わせるものではないので、何度払わせてもかまいません。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政代執行法1条",
+          "url": "https://laws.e-gov.go.jp/law/323AC0000000043?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "二重処罰の禁止の原則の適用はなく",
+        "複数回にわたり科すことも認められる"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1280",
+          "choiceNumber": "3",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:380",
+          "choiceNumber": "3",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo_archive:499",
+          "choiceNumber": "5",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo:1280",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1280",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1280",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1280:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:380:choice:3",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:499:choice:5",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1280:choice:1",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1280:choice:2",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1280:choice:4",
+          "relation": "same_topic"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 5,
+        "yearCount": 5,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 3,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "執行罰の性質（繰り返し科せる・刑罰との関係・一般法の有無・秩序罰との区別）を問う問題を集計"
+      }
+    },
+    {
       "id": "gyo-aia-guidance-omission-001",
       "category": "行政法",
       "subjectId": "administrative-law",
@@ -16881,6 +18563,127 @@
       "learningType": "memorize"
     },
     {
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "gyo-aia-guidance-request-001",
+      "topic": "行政不服審査法",
+      "subtopic": "教示の方法（書面でする処分は書面で教示・利害関係人から求められた教示）",
+      "clusterId": "administrative-review-guidance",
+      "learningType": "memorize",
+      "correct": true,
+      "variants": {
+        "a": "%%処分庁%%は、__利害関係人から__、当該処分が審査請求をすることができる処分であるかどうかにつき__書面による教示を求められた__ときは、==書面で教示をしなければならない==。",
+        "b": "%%隣に住むBさん%%が、%%役所%%に「お隣への建築許可には、不服を申し立てられますか。答えを紙でください」と頼みました。\n\nBさんは処分を受けた本人ではありませんが、利害関係のある人です。紙で答えるよう頼まれた以上、役所は==書面で教えなければなりません==。",
+        "bCasual": "教示の方法を、誰に・どう聞かれたかで並べます。\n\n① 処分の相手方：処分を__書面でする__ときは、こちらから==書面で教示する==。\n② 利害関係人：__教示を求められたら__教示する。\n③ 利害関係人が__書面での教示を求めた__ → ==書面で教示しなければならない==。",
+        "bCasualStyle": "誰に・どう聞かれたかで並べる",
+        "c": "__利害関係人から書面で求められた__ → ==書面で教示しなければならない=="
+      },
+      "correction": "そのとおりです。%%行政庁%%は、__利害関係人から__、処分が不服申立てをすることができるものかどうか、不服申立てをすべき行政庁、不服申立てができる期間について__教示を求められた__ときは、==教示しなければなりません==@@（行政不服審査法82条2項）@@。__書面による教示を求められた__ときは、==書面で==しなければなりません@@（同条3項）@@。",
+      "memoryPoint": "**教示**：相手方には__書面でする処分__なら自分から書面で／**利害関係人**には__求められたら__教示、__書面を求められたら__書面で",
+      "explanations": {
+        "normal": "行政不服審査法82条は、**教示**を3つの場面に分けています。\n\n① 処分の相手方へ：不服申立てができる処分を__書面でする__ときは、不服申立てができる旨、すべき行政庁、期間を==書面で教示します==@@（1項）@@。__口頭でする処分__なら、この義務はありません@@（1項ただし書）@@。\n② 利害関係人へ：__求められたら__、不服申立てができるかどうかなどを==教示します==@@（2項）@@。\n③ ②で__書面を求められたら__：==書面で==教示します@@（3項）@@。\n\n教示しなかった場合や誤って教示した場合の救済は、83条・22条などに別に定めがあります。",
+        "deepDive": {
+          "background": "処分の相手方は自分に届いた処分なので、役所の側から知らせます。利害関係人は人数も範囲も決まっていないので、全員に知らせることはできません。そこで、聞いてきた人には答える、紙で欲しいと言われたら紙で答える、という形にしました。",
+          "trap": "!!利害関係人は処分の相手方ではないから教示しなくてよい!!（@@令和7年問16肢1@@）、!!書面を求められても口頭で足りる!!（同肢3）が、どちらも誤りとして出ました。相手方への教示も、!!口頭でする処分にも書面で教示が要る!!（@@令和4年問16肢1@@）、!!書面でする処分なのに口頭の教示で足りる!!（@@令和7年問16肢2@@）という形で狙われます。教示する事項に!!審査請求書の記載事項!!や!!執行停止の申立てができること!!は入りません。",
+          "example": "マンションの建築確認に反対する近所の住民が、市に「この確認に審査請求できますか。書面で回答してください」と申し出たら、市は審査請求ができる旨、審査庁、審査請求期間を書いた書面を渡します。"
+        },
+        "commonSense": "聞かれたら答える、紙で欲しいと言われたら紙で渡す。窓口の対応としてごく自然なことが、そのまま条文になっています。"
+      },
+      "legalBasis": [
+        {
+          "label": "行政不服審査法82条",
+          "url": "https://laws.e-gov.go.jp/law/426AC0000000068?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "利害関係人から",
+        "書面による教示を求められた",
+        "書面で教示をしなければならない"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1586",
+          "choiceNumber": "3",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1766",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1766",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1586",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1766",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:84",
+          "choiceNumber": "ウ",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo_archive:84",
+          "choiceNumber": "ア",
+          "relationship": "archive-choice-rechecked"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1586:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1766:choice:1",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1766:choice:3",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1586:choice:1",
+          "relation": "condition"
+        },
+        {
+          "choiceId": "goukakudojyo:1766:choice:2",
+          "relation": "condition"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:84:choice:ウ",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:84:choice:ア",
+          "relation": "same_topic"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 4,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "行審法の教示の方法（書面でする処分の書面教示、利害関係人からの請求、書面での教示）を問う問題を集計"
+      }
+    },
+    {
       "id": "gyo-state-comp-public-power-scope-001",
       "category": "行政法",
       "subjectId": "administrative-law",
@@ -16973,6 +18776,211 @@
         "職務"
       ],
       "learningType": "understand"
+    },
+    {
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "gyo-state-comp-objective-appearance-001",
+      "topic": "国家賠償法",
+      "subtopic": "「職務を行うについて」は客観的な外形で判断する（非番の警察官事件）",
+      "clusterId": "state-compensation-elements",
+      "learningType": "memorize",
+      "correct": true,
+      "variants": {
+        "a": "国家賠償法1条1項が定める「公務員が、その職務を行うについて」という要件については、公務員が__主観的に権限行使の意思をもってする場合に限らず__、自己の利をはかる意図をもってする場合であっても、__客観的に職務執行の外形をそなえる行為__をしたときは、この要件に==該当する==。",
+        "b": "非番の%%警察官%%が、制服を着て職務質問のふりをし、通行人からお金を奪おうとしました。本人には仕事をするつもりなどなく、自分のためにやったことです。\n\nそれでも、見た目が__警察官の仕事そのもの__なら、「職務を行うについて」にあたります。国や県は、被害者に==賠償しなければなりません==。",
+        "bCasual": "条件を並べます。\n\n① 公務員が、__自分の利益のため__にやった。\n② それでも、外から見ると__職務を行っているように見える__。\n\nこの場合は「職務を行うについて」に==該当します==。本人の内心ではなく、外から見た形で決めます。",
+        "bCasualStyle": "条件を並べる",
+        "c": "__自分の利益目的__でも、__客観的に職務の外形__があれば → 「職務を行うについて」に==該当=="
+      },
+      "correction": "そのとおりです。判例は、公務員が__主観的に権限行使の意思をもってする場合に限らず__、自己の利をはかる意図でした場合でも、__客観的に職務執行の外形をそなえる行為__をして他人に損害を与えたときは、国または公共団体が==賠償責任を負う==としました@@（最判昭和31年11月30日・非番の警察官による強盗殺人事件）@@。これを**外形標準説**といいます。",
+      "memoryPoint": "「職務を行うについて」は**外形標準説**：本人の__内心（私的な目的）__ではなく、__外から見て職務らしいか__で決める",
+      "explanations": {
+        "normal": "国家賠償法1条1項は、公務員が「その職務を行うについて」違法に他人に損害を与えたことを求めています。判例はこれを、行為の__外形__から判断します@@（最判昭和31年11月30日）@@。非番の警察官が制服姿で職務を装い、通行人を撃って金品を奪おうとした事件で、県の賠償責任が==認められました==。\n\n被害者から見れば、その人が本当に仕事をしているかどうかはわかりません。外から見て職務らしい行為なら、国や公共団体が責任を負うべきだ、という考え方です。",
+        "deepDive": {
+          "background": "国家賠償は、公務員の行為を信頼した被害者を救うための制度です。公務員の内心を基準にすると、悪質な公務員ほど「仕事のつもりはなかった」として国の責任が逃れられることになってしまいます。",
+          "trap": "!!主観的に権限行使の意思がなければ該当しない!!という形で繰り返し出ます（@@令和6年問21肢4@@・@@令和7年問20ウ@@・@@平成27年問19肢1@@で誤り）。「専ら自己の利をはかる意図」「私的な目的」「外形のいかんにかかわらず」という言い回しが出たら、==外形で決める==判例を思い出します。",
+          "example": "市の職員が、公用車を使って業務中のように見せかけながら、私用の買い物の途中で事故を起こした場合も、外形から職務執行と見られれば、市が賠償責任を負う方向で考えます。"
+        },
+        "commonSense": "制服を着た警察官に呼び止められたら、誰でも本物の職務だと思います。だまされた人を守るには、==見た目で決める==しかありません。"
+      },
+      "legalBasis": [
+        {
+          "label": "国家賠償法1条",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000125?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "主観的に権限行使の意思をもってする場合に限らず",
+        "客観的に職務執行の外形をそなえる行為",
+        "この要件に該当する"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1470",
+          "choiceNumber": "エ",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1711",
+          "choiceNumber": "4",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1770",
+          "choiceNumber": "ウ",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo_archive:629",
+          "choiceNumber": "1",
+          "relationship": "archive-choice-rechecked"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1470:choice:エ",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1711:choice:4",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo:1770:choice:ウ",
+          "relation": "opposite_claim"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:629:choice:1",
+          "relation": "opposite_claim"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 5,
+        "yearCount": 5,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "国家賠償法1条1項の「職務を行うについて」（外形標準説）を問う問題を集計"
+      }
+    },
+    {
+      "category": "行政法",
+      "subjectId": "administrative-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "gyo-state-comp-regulatory-inaction-001",
+      "topic": "国家賠償法",
+      "subtopic": "規制権限の不行使が国家賠償法上違法となる場合",
+      "clusterId": "state-compensation-elements",
+      "learningType": "memorize",
+      "correct": true,
+      "variants": {
+        "a": "国または公共団体の公務員による**規制権限の不行使**は、その権限を定めた法令の趣旨、目的や、その権限の性質等に照らし、具体的事情の下において、その不行使が__許容される限度を逸脱して著しく合理性を欠く__と認められるときは、その不行使により被害を受けた者との関係において国家賠償法1条1項の適用上==違法となる==。",
+        "b": "%%国%%は、工場の有害な粉じんを規制する権限を持っていたのに、長い間使いませんでした。そのせいで、%%働く人たち%%が健康を害しました。\n\n権限を使うかどうかは、本来は国の判断に任されています。それでも、具体的な事情からみて__使わなかったことがあまりに不合理__といえるなら、被害者との関係で==違法になり==、国は賠償します。",
+        "bCasual": "判断の流れを並べます。\n\n① 権限を使うかどうかは、原則として行政の裁量。\n② ただし、法令の趣旨・目的、権限の性質、具体的な事情を見る。\n③ 使わなかったことが__許される限度を超えて著しく不合理__なら、==違法になる==。",
+        "bCasualStyle": "判断の流れを並べる",
+        "c": "**規制権限の不行使**が__著しく合理性を欠く__ → 国家賠償法上==違法=="
+      },
+      "correction": "そのとおりです。判例は、**規制権限の不行使**は、権限を定めた法令の趣旨・目的や権限の性質などに照らし、具体的事情の下で、その不行使が__許容される限度を逸脱して著しく合理性を欠く__と認められるときに、被害者との関係で国家賠償法1条1項の適用上==違法になる==としています@@（最判平成元年11月24日・宅建業者事件、最判平成16年4月27日・筑豊じん肺訴訟）@@。",
+      "memoryPoint": "**規制権限の不行使**は__著しく合理性を欠く__ときだけ違法。違法とされた例：じん肺・水俣病・アスベスト／違法でない例：宅建業者・クロロキン",
+      "explanations": {
+        "normal": "規制の権限を使うかどうか、いつ使うかは、原則として行政庁の裁量です。そのため、使わなかったことが直ちに違法になるわけではありません。判例は、__許容される限度を逸脱して著しく合理性を欠く__ときに限り、被害者との関係で==違法になる==とします。\n\n・==違法とされた==例：筑豊じん肺訴訟@@（最判平成16年4月27日）@@、水俣病関西訴訟@@（最判平成16年10月15日）@@、泉南アスベスト訴訟@@（最判平成26年10月9日）@@。\n・違法でないとされた例：宅地建物取引業者への監督権限@@（最判平成元年11月24日）@@、医薬品クロロキンの副作用@@（最判平成7年6月23日）@@。",
+        "deepDive": {
+          "background": "規制は、相手の営業の自由などを制約するので、行政は慎重に使う必要があります。一方で、命や健康に関わる被害が予見でき、権限を使えば防げたのに放置した場合まで裁量だとすると、被害者が救われません。その境目を「著しく合理性を欠く」という基準で引いています。",
+          "trap": "!!宅建業法は個々の取引関係者の損害防止を直接の目的とするから、監督権限の不行使は直ちに違法!!という形が、@@令和2年問21肢1@@で誤りでした。判例は、直接の目的は個々の損害の救済ではないとし、違法を否定しています。@@令和3年問21@@は事例の組合せで、!!水俣病で規制権限を行使しなかったのは違法とはならない!!が誤りでした（違法とされた）。",
+          "example": "炭鉱で粉じん対策の省令を改めるべき時期を過ぎても放置し、多くの労働者がじん肺になった事件では、国の責任が認められました。"
+        },
+        "commonSense": "「やらなかった」ことの責任は、やるべきことがはっきりしていて、やれば防げたのに放っておいた、というときだけ問われます。"
+      },
+      "legalBasis": [
+        {
+          "label": "国家賠償法1条",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000125?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "許容される限度を逸脱して著しく合理性を欠く",
+        "国家賠償法1条1項の適用上違法となる"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo_archive:390",
+          "choiceNumber": "3",
+          "relationship": "archive-question-primary"
+        },
+        {
+          "rawId": "goukakudojyo_archive:390",
+          "choiceNumber": "2",
+          "relationship": "archive-choice-rechecked"
+        },
+        {
+          "rawId": "goukakudojyo:1471",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1531",
+          "choiceNumber": "ア",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1531",
+          "choiceNumber": "イ",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1531",
+          "choiceNumber": "エ",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo_archive:390:choice:3",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo_archive:390:choice:2",
+          "relation": "application"
+        },
+        {
+          "choiceId": "goukakudojyo:1471:choice:1",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1531:choice:ア",
+          "relation": "application"
+        },
+        {
+          "choiceId": "goukakudojyo:1531:choice:イ",
+          "relation": "application"
+        },
+        {
+          "choiceId": "goukakudojyo:1531:choice:エ",
+          "relation": "application"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 1,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "規制権限の不行使が国家賠償法1条1項の適用上違法となる場合（判断基準と事例）を問う問題を集計"
+      }
     },
     {
       "category": "民法",
@@ -22826,6 +24834,62 @@
       "learningType": "memorize"
     },
     {
+      "category": "民法",
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "min-general-mistake-gross-negligence-001",
+      "topic": "総則",
+      "subtopic": "錯誤（重要な錯誤は取消し・動機は表示が要る・重過失でも取り消せる場合）",
+      "clusterId": "civil-intent",
+      "learningType": "memorize",
+      "correct": true,
+      "variants": {
+        "a": "錯誤が__表意者の重大な過失__によるものであった場合でも、%%相手方%%が表意者に錯誤があることを__知っていた__ときは、%%表意者%%は、その意思表示を==取り消すことができる==。",
+        "b": "%%Aさん%%は、うっかり桁を一つ間違えて、10万円の時計を1万円で売ると%%Bさん%%に申し込みました。少し確かめればすぐ気づける、かなり大きな不注意（重大な過失）です。\n\nでも、Bさんは「値段を間違えているな」と__気づいたうえで__、黙って買うと答えました。このときAさんは、売買の申込みを==取り消すことができます==。",
+        "bCasual": "条件を順に並べます。\n\n① 重要な錯誤があれば、意思表示は取り消せる。\n② ただし、__表意者に重大な過失__があると、原則として取り消せない。\n③ それでも、__相手方が錯誤を知っていた（または重大な過失で知らなかった）__とき、__相手方も同じ錯誤に陥っていた__ときは、==取り消せる==。",
+        "bCasualStyle": "原則と例外を順に並べる",
+        "c": "表意者に__重大な過失__があっても、%%相手方%%が錯誤を__知っていた__ → ==取り消せる=="
+      },
+      "correction": "そのとおりです。錯誤が__表意者の重大な過失__によるときは、原則として取り消せません@@（民法95条3項）@@。ただし、①%%相手方%%が表意者の錯誤を__知り、または重大な過失で知らなかった__とき、②相手方も__同じ錯誤に陥っていた__ときは、例外として==取り消せます==@@（同項1号・2号）@@。相手方を守る必要がないからです。",
+      "memoryPoint": "**錯誤**＝重要なら==取消し==（無効ではない）。動機の錯誤は__表示__が要る。__重過失__なら取り消せないが、相手方の悪意・重過失、共通錯誤なら==取り消せる==",
+      "explanations": {
+        "normal": "2020年の改正で、**錯誤**の決まりは次のようになりました@@（民法95条）@@。\n\n・__法律行為の目的と取引上の社会通念に照らして重要な__錯誤なら、意思表示を==取り消せます==（改正前は「無効」）@@（1項）@@。\n・**動機の錯誤**（法律行為の基礎とした事情の認識が違っていた）は、その事情が__法律行為の基礎とされていることが表示されていた__ときに限り取り消せます@@（2項）@@。表示は黙示でもかまいません。\n・表意者に__重大な過失__があるときは取り消せません。ただし、相手方が錯誤を知り、または重大な過失で知らなかったとき、相手方も同じ錯誤に陥っていたときは、取り消せます@@（3項）@@。\n・取消しは、__善意でかつ過失がない第三者__に対抗できません@@（4項）@@。",
+        "deepDive": {
+          "background": "重大な過失のある人を守らないのは、相手方の信頼を守るためです。相手方が錯誤に気づいていたなら、守るべき信頼がありません。相手方も同じ勘違いをしていたなら、どちらかを特に守る理由がありません。だから、その2つの場合は表意者を守る側に戻します。",
+          "trap": "過去問の多くは改正前の「要素の錯誤＝無効」で出ています（@@平成23年問27@@・@@平成25年問27@@・@@平成29年問28@@）。今は!!無効ではなく取消し!!なので、「誰からでも無効を主張できる」「第三者が無効を主張する」といった肢は、そのままでは使えません。動機の錯誤は、改正前の判例と同じく__表示されていれば__取消しの対象になります。黙示の表示でもよいとした財産分与と課税の判例@@（最判平成元年9月14日）@@は、今もそのまま出せます。",
+          "example": "連帯保証人が「ほかにも連帯保証人がいる」と思い込んで保証した場合、それは保証の動機にすぎず、特に保証契約の内容とした（表示した）のでなければ、錯誤による取消しはできません（@@平成29年問28肢4@@の判例）。"
+        },
+        "commonSense": "気づいていながら黙って相手の勘違いに乗った人まで守る必要はありません。==ずるい相手には、うっかりした側も取り消せる==、と覚えます。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法95条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "表意者の重大な過失",
+        "知っていた",
+        "取り消すことができる"
+      ],
+      "sourceRefs": [],
+      "relatedPastQuestions": [],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 4,
+        "yearCount": 3,
+        "recentOccurrences": 2,
+        "archiveOccurrences": 2,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "錯誤の要件と効果（重要な錯誤・動機の錯誤の表示・表意者の重過失・第三者）を問う問題を集計。4問とも改正前（錯誤は無効）の出題で、今の法律で結論が同じ肢が無いため⑤は付けていない"
+      }
+    },
+    {
       "id": "min-contract-sublease-mutual-termination-001",
       "category": "民法",
       "topic": "債権各論",
@@ -23577,6 +25641,100 @@
         "債権譲渡の対抗要件"
       ],
       "learningType": "memorize"
+    },
+    {
+      "category": "民法",
+      "subjectId": "civil-law",
+      "crossFieldComparisons": [],
+      "figures": [],
+      "id": "min-inheritance-renunciation-registration-001",
+      "topic": "相続",
+      "subtopic": "相続と登記：相続放棄は登記なしで対抗できる／遺産分割・遺贈は登記が要る",
+      "clusterId": "civil-will",
+      "learningType": "memorize",
+      "correct": false,
+      "variants": {
+        "a": "%%B%%が**相続を放棄**したため、甲は%%C%%が単独で相続することとなったが、Cが相続登記手続をしないうちに、%%Bの債権者であるG%%が甲に関するBの法定相続分に基づく持分権につき差押えを申し立てた場合、Cは、当該差押えの無効を==主張することができない==。",
+        "b": "父%%A%%が亡くなり、子の%%B%%と%%C%%が相続人になりました。Bが**相続を放棄**したので、土地はCが一人で相続します。\n\nところが、Cが名義を変える前に、%%Bにお金を貸していたG%%が、「Bの取り分の半分」を差し押さえました。このときCは、登記をしていない以上、差押えは無効だと==主張できません==。",
+        "bCasual": "状況を順に並べます。\n\n① **相続放棄**でCが単独相続した。\n② Cは、まだ__登記をしていない__。\n③ この状態で、Bの持分を差し押さえたGに対し、Cは差押えの無効を==主張できない==。",
+        "bCasualStyle": "相続のやり方ごとに読む",
+        "c": "**相続放棄**でCが単独相続、__未登記__ → Bの債権者の差押えに==無効を主張できない=="
+      },
+      "correction": "誤りです。**相続を放棄**した者は、初めから相続人とならなかったものとみなされます@@（民法939条）@@。この効力は絶対的で、誰に対しても==登記なしで主張できます==。だから、Bの持分は初めから存在せず、Cは、Gの差押えの==無効を主張できます==@@（最判昭和42年1月20日）@@。これに対し、__遺産分割__で法定相続分を超えて取得した部分や__遺贈__は、登記をしなければ第三者に対抗できません@@（899条の2第1項・177条）@@。",
+      "memoryPoint": "相続と登記：**相続放棄**は==登記なしで対抗できる==（初めから相続人でない）／__遺産分割・遺贈・相続させる遺言__で法定相続分を超える部分は==登記が要る==",
+      "explanations": {
+        "normal": "相続で取得した不動産を第三者に主張するのに登記が要るかは、取得の仕方で変わります。\n\n・**共同相続**の法定相続分：自分の持分は==登記なしで主張できます==。他の相続人が勝手に単独名義にして第三者に売っても、その第三者は自分の持分を取得できません。\n・**相続放棄**：放棄した者は初めから相続人でなかったとみなされます@@（939条）@@。放棄した人の持分を差し押さえた債権者に対しても、==登記なしで主張できます==@@（最判昭和42年1月20日）@@。\n・**遺産分割**・**遺贈**・**相続させる旨の遺言**：法定相続分を__超える__部分は、==登記をしなければ第三者に対抗できません==@@（899条の2第1項・177条）@@。",
+        "deepDive": {
+          "background": "相続放棄は、家庭裁判所に申述して、初めから相続人でなかったことになる制度です。期間も相続を知った時から3か月と短く、放棄した人の持分を信じた第三者を守る必要は小さいと考えられています。一方、遺産分割や遺言は、いったん法定相続分で共有になったものを後から動かすので、普通の売買と同じく登記の先後で決めます。",
+          "trap": "!!相続放棄も登記がなければ対抗できない!!とするのがAの形です（@@令和6年問29肢4@@）。同じ問の肢2（遺産分割）・肢3（遺贈）・肢5（相続させる遺言）は、登記がなければ第三者に主張できないとして正しい肢でした。並べて問われるので、==放棄だけが登記不要==と覚えます。2019年施行の改正で、相続させる遺言も法定相続分を超える部分は登記が要るようになりました（@@令和3年問35ア@@）。",
+          "example": "父の土地を兄弟2人が相続し、兄が放棄したので弟が単独で相続した。弟が名義を変える前に、兄の債権者が兄の2分の1の持分を差し押さえても、弟は差押えの無効を主張して、第三者異議の訴えで取り消させられます。"
+        },
+        "commonSense": "放棄は「最初から相続人ではなかった」ことになるので、その人の取り分は最初から存在しません。==無いものは差し押さえられない==、と考えれば迷いません。"
+      },
+      "legalBasis": [
+        {
+          "label": "民法939条・899条の2・177条",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
+        }
+      ],
+      "evidenceHighlights": [
+        "相続を放棄",
+        "相続登記手続をしないうちに",
+        "差押えの無効を主張することができない"
+      ],
+      "sourceRefs": [
+        {
+          "rawId": "goukakudojyo:1719",
+          "choiceNumber": "4",
+          "relationship": "provider-explanation-primary"
+        },
+        {
+          "rawId": "goukakudojyo:1719",
+          "choiceNumber": "2",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1719",
+          "choiceNumber": "3",
+          "relationship": "related-past-question"
+        },
+        {
+          "rawId": "goukakudojyo:1719",
+          "choiceNumber": "1",
+          "relationship": "related-past-question"
+        }
+      ],
+      "relatedPastQuestions": [
+        {
+          "choiceId": "goukakudojyo:1719:choice:4",
+          "relation": "same_rule"
+        },
+        {
+          "choiceId": "goukakudojyo:1719:choice:2",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1719:choice:3",
+          "relation": "contrast"
+        },
+        {
+          "choiceId": "goukakudojyo:1719:choice:1",
+          "relation": "comparison"
+        }
+      ],
+      "review": {
+        "currentLawStatus": "egov-verified-2026-04-01",
+        "humanReview": "goukakudojyo-result-plus-egov-2026-04-01"
+      },
+      "frequency": {
+        "label": "繰り返し出題",
+        "occurrences": 3,
+        "yearCount": 3,
+        "recentOccurrences": 3,
+        "archiveOccurrences": 0,
+        "scope": "平成18年度〜令和7年度",
+        "basis": "相続と登記（相続放棄・遺産分割・遺贈・相続させる遺言・共同相続の持分）で登記が要るかを比べて問う問題を集計"
+      }
     },
     {
       "id": "gyo-litigation-dismissal-rejection-001",
