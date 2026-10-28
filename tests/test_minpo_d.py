@@ -22,7 +22,7 @@ class MinpoDTest(unittest.TestCase):
         data = load_data()
         self.assertEqual("minpo-d@1", data["schemaVersion"])
         self.assertEqual("2026-04-01", data["asOf"])
-        self.assertEqual(23, len(data["chapters"]))
+        self.assertEqual(25, len(data["chapters"]))
         self.assertEqual(6, len(data["cast"]))
 
         chapter_ids = [chapter["id"] for chapter in data["chapters"]]
@@ -59,7 +59,7 @@ class MinpoDTest(unittest.TestCase):
                     if "e-gov.go.jp" in basis["url"]:
                         self.assertIn("occasion_date=20260401", basis["url"])
 
-        self.assertEqual(184, len(question_ids))
+        self.assertEqual(200, len(question_ids))
         self.assertEqual(len(question_ids), len(set(question_ids)))
 
     def test_first_question_delta_is_from_chapter_base_not_previous(self) -> None:
@@ -230,7 +230,11 @@ class MinpoDTest(unittest.TestCase):
 
     def test_chapters_follow_civil_code_order(self) -> None:
         chapters = load_data()["chapters"]
-        self.assertEqual(list(range(1, len(chapters) + 1)), [c["number"] for c in chapters])
+        # 23章は1〜23の整数。2026-10-28に、番号を動かさずに条文順の位置へ2章を足した（第11.5章・第13.5章）。
+        numbers = [c["number"] for c in chapters]
+        self.assertEqual(list(range(1, 24)), [n for n in numbers if n == int(n)])
+        self.assertEqual(numbers, sorted(numbers))
+        self.assertEqual(len(numbers), len(set(numbers)))
         ids = [c["id"] for c in chapters]
         # 総則→物権→担保物権→債権総論→債権各論→親族・相続。学習日程（docs/STUDY_SCHEDULE.md）と同じ順。
         self.assertLess(ids.index("declaration-third-party"), ids.index("registration"))
@@ -246,6 +250,11 @@ class MinpoDTest(unittest.TestCase):
         self.assertLess(ids.index("lease"), ids.index("work-mandate-deposit"))
         self.assertLess(ids.index("management-unjust"), ids.index("tort"))
         self.assertEqual(["inheritance", "will"], ids[-2:])
+        # 譲渡担保は担保物権の最後（法定地上権の次）、弁済は債権譲渡と相殺の次
+        self.assertEqual(ids.index("statutory-superficies") + 1, ids.index("transfer-security"))
+        self.assertLess(ids.index("transfer-security"), ids.index("guarantee-joint"))
+        self.assertEqual(ids.index("assignment-setoff") + 1, ids.index("payment"))
+        self.assertLess(ids.index("payment"), ids.index("creditor-protection"))
 
     def test_added_chapters_cite_actual_exam_questions(self) -> None:
         # 2026-10-20に足した12章と2026-10-21に足した6章は、行政書士試験の過去問で問われた論点だけで作った。
@@ -255,6 +264,7 @@ class MinpoDTest(unittest.TestCase):
             "mortgage", "guarantee-joint", "assignment-setoff", "creditor-protection",
             "sale-rescission", "lease", "tort", "family",
             "will", "gift-loan", "work-mandate-deposit", "management-unjust", "lien-pledge", "possession-easement",
+            "transfer-security", "payment",
         }
         pattern = re.compile(r"^(平成|令和)(元|[0-9]+)年問[0-9]+")
         seen = set()
@@ -341,6 +351,15 @@ class MinpoDTest(unittest.TestCase):
             # 追認拒絶できない、共同相続人の持分は登記なしで主張できる、代理と名乗った売買は即時取得なし、預金は遺産分割の対象
             "minpo-d-ua-009": False, "minpo-d-ua-010": False, "minpo-d-reg-009": False,
             "minpo-d-gfa-009": True, "minpo-d-wil-009": False,
+            # 譲渡担保（2026-10-28追加）：集合動産も可、占有改定で対抗できる、後から入った商品にも及ぶ、通常の営業での売却は
+            # 買主が取得、範囲外の売却は倉庫にある限り取得できない、所有権留保の商品には主張できない、先取特権は占有改定で消える、
+            # 清算前に転売されたら背信的悪意者でも受け戻せない
+            "minpo-d-tsec-001": True, "minpo-d-tsec-002": False, "minpo-d-tsec-003": True, "minpo-d-tsec-004": False,
+            "minpo-d-tsec-005": True, "minpo-d-tsec-006": False, "minpo-d-tsec-007": True, "minpo-d-tsec-008": False,
+            # 弁済（2026-10-28追加）：詐称代理人にも478条、過失があれば無効、代物弁済の借金は登記で消える、代物弁済にも担保責任、
+            # あらかじめ拒まれたら口頭の提供、供託は同意不要、受領しない意思が明確なら口頭の提供も不要、充当は指定で変えられない
+            "minpo-d-pay-001": True, "minpo-d-pay-002": False, "minpo-d-pay-003": False, "minpo-d-pay-004": True,
+            "minpo-d-pay-005": True, "minpo-d-pay-006": True, "minpo-d-pay-007": False, "minpo-d-pay-008": False,
         }
         for question_id, answer in expected.items():
             self.assertIs(answer, questions[question_id]["answer"], question_id)
