@@ -1,6 +1,6 @@
 # 演習D案の文章：民法（1/3）総則〜物権
 
-依頼文 `gemini-drill-d-readability-request.md` と一緒に読む。`問` の見出しにある問IDで指摘を返すこと。
+`問` の見出しにある問IDで指摘を返すこと。
 
 ## 章 `declaration-third-party` 意思表示と第三者――だまされた人・脅された人・嘘をついた人
 

@@ -77,7 +77,7 @@ def main():
     dest.mkdir(parents=True, exist_ok=True)
     for name, heading, sources in PARTS:
         out = [f"# 演習D案の文章：{heading}", "",
-               "依頼文 `gemini-drill-d-readability-request.md` と一緒に読む。`問` の見出しにある問IDで指摘を返すこと。", ""]
+               "`問` の見出しにある問IDで指摘を返すこと。", ""]
         count = 0
         for subject, part in sources:
             data = json.loads((STATIC / subject / "chapters.json").read_text(encoding="utf-8"))

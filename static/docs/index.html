@@ -43,13 +43,9 @@
   <main>
     <article class="card">
       <h2>演習D案（全6科目）の文章の読みやすさをGeminiに見てもらう</h2>
-      <p class="meta">2026-10-28 · 回答済み・反映済み</p>
-      <p>演習D案432問の事例文・○×の文・解説を、読みやすさだけの観点で点検してもらう依頼文です。頻出度や法律の正しさは見てもらいません。文章は1回の回答に収まるよう7つに分けてあります。</p>
-      <div class="actions">
-        <a class="primary" href="gemini-drill-d-readability-request.md" download>依頼文をダウンロード（.md）</a>
-        <a class="secondary" href="gemini-drill-d-readability-request.md" target="_blank" rel="noopener">開いて中身を見る</a>
-      </div>
-      <p>文章（どれか1つを依頼文と一緒に添付）：
+      <p class="meta">2026-10-28 · 完了（依頼文は片付けた）</p>
+      <p>演習D案432問の事例文・○×の文・解説を、読みやすさだけの観点でGeminiとargonに点検してもらいました。依頼は終わり、依頼文は片付けました。下の文章ファイルは点検に使ったもので、<code>scripts/drill_d/export_text.py</code> で書き出し直せます。</p>
+      <p>文章：
         <a href="drill-d/minpo-1.md" download>民法1</a> ·
         <a href="drill-d/minpo-2.md" download>民法2</a> ·
         <a href="drill-d/minpo-3.md" download>民法3</a> ·
@@ -59,11 +55,6 @@
         <a href="drill-d/small.md" download>商法・基礎法学・基礎知識</a>
       </p>
       <p class="note">回答：<a href="GEMINI_DRILL_D_READABILITY_RESPONSE.md" target="_blank" rel="noopener">GEMINI_DRILL_D_READABILITY_RESPONSE.md</a>。民法・行政法1の23件は、存在しない問IDか、元の文と一致しない引用だったので使っていません。一致した15件のうち、読みやすさが上がる7件だけを当てはめました。ひっかけの説明（「引っかけは〜」「誤りは後半」）は、わざと残しています。その後、民法1を出し直した回答（<a href="GEMINI_DRILL_D_READABILITY_RESPONSE_minpo-1.md" target="_blank" rel="noopener">6件</a>）と、argonによる全7ファイルの回答（<a href="ARGON_DRILL_D_READABILITY_RESPONSE_INDEX.md" target="_blank" rel="noopener">30件</a>）は、すべて元の文と一致したので当てはめました。</p>
-      <ol class="steps">
-        <li>Geminiの新しいチャットごとに、依頼文と文章ファイル1つを添付して「依頼文に従って点検して」と送る。</li>
-        <li>返ってきた回答を、依頼文の最後にある名前（例：<code>GEMINI_DRILL_D_READABILITY_RESPONSE_gyosei-2.md</code>）で保存する。</li>
-        <li>そのファイルをMac側の <code>static/docs/</code> へ置くか、内容をそのまま貼って渡す。Mac側で当てはめ、テストを通してから反映する。</li>
-      </ol>
     </article>
 
     <article class="card">
