@@ -1247,45 +1247,63 @@
         nodes.push(make("span", { className: "source-link archive" }, "元問題 " + label + recheck));
       }
     });
-    // 民法演習D案に同じ論点の事例があれば、その章へ飛べるようにする。
+    // 演習D案（民法・行政法など）に同じ論点の事例があれば、その章へ飛べるようにする。
     // D案の章は答え入りで読む作りだが、リンクの有無や章名から○×は割れない。
     (minpoDrillByCard.get(studyCardId(item)) || []).forEach((chapter) => {
       nodes.push(make("a", {
-        href: "minpo-d/#mode=read&chapter=" + encodeURIComponent(chapter.id),
+        href: chapter.dir + "/#mode=read&chapter=" + encodeURIComponent(chapter.id),
         className: "source-link drill"
-      }, "民法演習D：" + chapter.label + " →"));
+      }, chapter.drillName + "：" + chapter.label + " →"));
     });
     node.replaceChildren(...nodes);
     node.hidden = !nodes.length;
   }
 
-  // D案の正本 minpo-d/chapters.json の各問の cardId から、カード→章の対応を作る。
+  // D案の正本（minpo-d/chapters.json など）の各問の cardId から、カード→章の対応を作る。
+  // 行政法などの演習D案も同じ形なので、まとめて読む（2026-10-28）。
   // 読めなくても学習は止めない（リンクが出ないだけ）。
+  const DRILLS = [
+    { dir: "minpo-d", drillName: "民法演習D" },
+    { dir: "gyosei-d", drillName: "行政法演習D" },
+    { dir: "kenpo-d", drillName: "憲法演習D" },
+    { dir: "shoho-d", drillName: "商法演習D" },
+    { dir: "kiso-d", drillName: "基礎法学演習D" },
+    { dir: "chishiki-d", drillName: "基礎知識演習D" }
+  ];
   let minpoDrillByCard = new Map();
   function loadMinpoDrillIndex() {
-    fetch("minpo-d/chapters.json", { headers: { Accept: "application/json" } })
-      .then((res) => {
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        return res.json();
-      })
-      .then((data) => {
-        const map = new Map();
+    Promise.all(DRILLS.map((drill) =>
+      fetch(drill.dir + "/chapters.json", { headers: { Accept: "application/json" } })
+        .then((res) => {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.json();
+        })
+        .then((data) => ({ drill, data }))
+        .catch((error) => {
+          console.warn(drill.drillName + "の章一覧を読めませんでした", error);
+          return null;
+        })
+    )).then((loaded) => {
+      const map = new Map();
+      loaded.filter(Boolean).forEach(({ drill, data }) => {
         (Array.isArray(data.chapters) ? data.chapters : []).forEach((chapter) => {
           const label = String(chapter.title || chapter.id).split("――")[0];
           (Array.isArray(chapter.questions) ? chapter.questions : []).forEach((question) => {
             if (!question || !question.cardId) return;
             const list = map.get(question.cardId) || [];
-            if (!list.some((entry) => entry.id === chapter.id)) list.push({ id: chapter.id, label });
+            if (!list.some((entry) => entry.dir === drill.dir && entry.id === chapter.id)) {
+              list.push({ dir: drill.dir, drillName: drill.drillName, id: chapter.id, label });
+            }
             map.set(question.cardId, list);
           });
         });
-        minpoDrillByCard = map;
-        // 先に描いたカードへも反映する
-        if (state.studyCurrent) renderSourceLinks($("study-source-links"), state.studyCurrent);
-        const card = state.cards && state.cards[state.cardIndex];
-        if (card) renderSourceLinks($("editorial-source-links"), card);
-      })
-      .catch((error) => console.warn("民法演習Dの章一覧を読めませんでした", error));
+      });
+      minpoDrillByCard = map;
+      // 先に描いたカードへも反映する
+      if (state.studyCurrent) renderSourceLinks($("study-source-links"), state.studyCurrent);
+      const card = state.cards && state.cards[state.cardIndex];
+      if (card) renderSourceLinks($("editorial-source-links"), card);
+    });
   }
 
   function renderStudyMarkControls(item) {

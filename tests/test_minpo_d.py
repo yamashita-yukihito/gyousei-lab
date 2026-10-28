@@ -136,7 +136,10 @@ class MinpoDTest(unittest.TestCase):
         self.assertEqual(len(versions), 2, "styles.cssとapp.jsの両方に版番号が要る")
         self.assertEqual(versions[0], versions[1], "CSSとJSの版番号がそろっていない")
         self.assertIn("minpoD:v1", html)
-        self.assertIn("const STORE_KEY = 'minpoD:v1'", js)
+        # 行政法など他科目のD案も同じapp.jsを使うので、保存先は<html data-store-key>で切り替える。
+        # 民法D案のページは指定しないので、既定の minpoD:v1 のまま。
+        self.assertIn("const STORE_KEY = document.documentElement.dataset.storeKey || 'minpoD:v1'", js)
+        self.assertNotIn("data-store-key", html)
         self.assertIn("chapter.questions.forEach", js)
         self.assertIn("state.mode !== 'exam'", js)
         self.assertLess(

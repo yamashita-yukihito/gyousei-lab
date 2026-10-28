@@ -40,7 +40,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 .kicker { margin: 0; color: #93b4a7; font-size: 10.5px; font-weight: 900; letter-spacing: .13em; }
 .kicker.dark { color: var(--green); }
 .head h1 { margin: 3px 0 0; font-size: 24px; letter-spacing: .01em; }
-.head h1 span { margin-left: 7px; padding: 2px 9px; border-radius: 999px; background: rgba(255,255,255,.14); font-size: 12px; vertical-align: 4px; }
+.head h1 span { margin-left: 7px; padding: 2px 9px; border-radius: 999px; background: rgba(255,255,255,.14); font-size: 12px; vertical-align: 4px; white-space: nowrap; }
 .back-link { color: #c0dacf; font-size: 13px; text-decoration: none; border-bottom: 1px solid #53766a; }
 .head-lead { max-width: 1040px; margin: 12px auto 0; color: #c9ddd4; font-size: 13.5px; }
 

@@ -6,7 +6,7 @@
 // 採点結果（記述の自己採点・文章理解の正解数・間違えた理由を含む）は POST /api/mock-exam-results へ
 // 版を重ねて送る（2026-10-21追加）。AIが結果を読んで予定を直すため。
 
-const APP_VERSION = 'mock-20261021-6';
+const APP_VERSION = 'mock-20261028-2';
 const API = '../api';
 const STORE_KEY = 'gyouseiMock:v1';
 const STORE_VERSION = 1;
@@ -1277,12 +1277,12 @@ function answerLine(slot) {
 async function loadLinks() {
   if (state.cardIndex && state.drillIndex) return;
   $('cards-status').textContent = '学習カードとの対応を読み込んでいます…';
-  const [cards, drill] = await Promise.all([
+  const [cards, drills] = await Promise.all([
     state.cardIndex ? null : fetchJson(API + '/cards?limit=1000'),
-    state.drillIndex ? null : fetchJson('../minpo-d/chapters.json').catch(() => null),
+    state.drillIndex ? null : Promise.all(DRILLS.map((drill) => fetchJson('../' + drill.dir + '/chapters.json').catch(() => null))),
   ]);
   if (cards) state.cardIndex = buildCardIndex(cards);
-  if (!state.drillIndex) state.drillIndex = buildDrillIndex(drill);
+  if (!state.drillIndex) state.drillIndex = mergeDrillIndexes(DRILLS.map((drill, index) => buildDrillIndex(drills[index], drill)));
   $('cards-status').textContent = '';
 }
 
@@ -1309,7 +1309,26 @@ function buildCardIndex(payload) {
   return byKey;
 }
 
-function buildDrillIndex(data) {
+// 演習D案は科目ごとに同じ形の chapters.json を持つ（2026-10-28に行政法を追加）。
+const DRILLS = [
+  { dir: 'minpo-d', name: '民法演習D' },
+  { dir: 'gyosei-d', name: '行政法演習D' },
+  { dir: 'kenpo-d', name: '憲法演習D' },
+  { dir: 'shoho-d', name: '商法演習D' },
+  { dir: 'kiso-d', name: '基礎法学演習D' },
+  { dir: 'chishiki-d', name: '基礎知識演習D' },
+];
+
+function mergeDrillIndexes(indexes) {
+  const merged = new Map();
+  indexes.forEach((index) => index.forEach((chapters, key) => {
+    if (!merged.has(key)) merged.set(key, new Map());
+    chapters.forEach((chapter, id) => merged.get(key).set(id, chapter));
+  }));
+  return merged;
+}
+
+function buildDrillIndex(data, drill = DRILLS[0]) {
   const byKey = new Map();
   ((data && data.chapters) || []).forEach((chapter, index) => {
     (chapter.questions || []).forEach((question) => {
@@ -1319,7 +1338,7 @@ function buildDrillIndex(data) {
         const year = eraToYear(match[1] + match[2] + '年');
         const key = year + ':' + Number(match[3]);
         if (!byKey.has(key)) byKey.set(key, new Map());
-        byKey.get(key).set(chapter.id, { id: chapter.id, number: index + 1, title: chapter.title.split('――')[0] });
+        byKey.get(key).set(drill.dir === DRILLS[0].dir ? chapter.id : drill.dir + ':' + chapter.id, { id: chapter.id, number: index + 1, title: chapter.title.split('――')[0], dir: drill.dir, name: drill.name });
       });
     });
   });
@@ -1347,7 +1366,7 @@ function fillLinks() {
     });
     const chapters = Array.from(((state.drillIndex && state.drillIndex.get(key)) || new Map()).values());
     chapters.forEach((chapter) => {
-      links.appendChild(make('a', { className: 'link-chip drill', href: '../minpo-d/#mode=read&chapter=' + encodeURIComponent(chapter.id) }, '民法演習D 第' + chapter.number + '章：' + chapter.title));
+      links.appendChild(make('a', { className: 'link-chip drill', href: '../' + chapter.dir + '/#mode=read&chapter=' + encodeURIComponent(chapter.id) }, chapter.name + ' 第' + chapter.number + '章：' + chapter.title));
     });
     if (!cards.length && !chapters.length) links.appendChild(make('span', { className: 'hint' }, 'この問題を出典にしたカードはありません。'));
     cards.forEach((card) => { if (!picked.includes(card.id)) picked.push(card.id); });

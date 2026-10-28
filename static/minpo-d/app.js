@@ -1,6 +1,9 @@
 'use strict';
 
-const STORE_KEY = 'minpoD:v1';
+// 民法以外の科目（gyosei-d など）も同じ画面を使う。保存先と名前は、各ページの
+// <html data-store-key data-drill-name> から受け取る。指定が無ければ民法D案のまま。
+const STORE_KEY = document.documentElement.dataset.storeKey || 'minpoD:v1';
+const DRILL_NAME = document.documentElement.dataset.drillName || '民法ドリルD案';
 const STORE_VERSION = 1;
 const MODES = {
   read: '最初の2周向けです。答え・解説・答え入り図を隠さず、章の8問を上から一気に読みます。',
@@ -579,7 +582,9 @@ function placeEdgeLabel(start, end, width, height, occupied) {
   // 判定する矩形を6px膨らませて margin 0 で見る。これで置けた場所は必ず3px以上あく。
   const gap = 6;
   for (const t of [0.5, 0.4, 0.6, 0.3, 0.7, 0.22, 0.78, 0.15, 0.85]) {
-    for (const step of [0, -1, 1, -2, 2, -3, 3, -4, 4, -5, 5]) {
+    // ±5（120px）までで置けないとき、上下に並んだ枠の間の短い線では横に逃がしきれない。
+    // 枠の幅（182px）を越えられるよう±8まで試す。±5までで置けていた位置は変わらない。
+    for (const step of [0, -1, 1, -2, 2, -3, 3, -4, 4, -5, 5, -6, 6, -7, 7, -8, 8]) {
       const x = start.x + dx * t + nx * step * 24;
       const y = start.y + dy * t + ny * step * 24;
       if (!fallback) fallback = { x, y };
@@ -849,7 +854,7 @@ function savedSummary(chapterId, mode) {
 }
 
 function resetAll() {
-  if (!window.confirm('民法ドリルD案の読了・回答記録をすべて消します。通常の学習カード履歴と本番SQLiteには影響しません。')) return;
+  if (!window.confirm(DRILL_NAME + 'の読了・回答記録をすべて消します。通常の学習カード履歴と本番SQLiteには影響しません。')) return;
   state.store = blankStore();
   state.mode = 'read';
   saveStore();
