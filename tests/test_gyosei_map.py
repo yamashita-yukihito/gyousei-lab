@@ -154,6 +154,14 @@ class LawMapTest(unittest.TestCase):
             demoted = sorted(card for card, prio in best.items() if card in frequent and prio != "重点")
             self.assertEqual([], demoted, f"{directory}: 頻出なのに重点でないカード")
 
+    def test_study_screen_reads_every_map(self) -> None:
+        # 学習画面（static/app.js）も同じ content.md から優先度を読み、解いているカードに印を出す。
+        # マップを足したのに学習画面の一覧へ足し忘れると、その科目のカードだけ印が出なくなる。
+        main = (STATIC / "app.js").read_text(encoding="utf-8")
+        block = re.search(r"const PRIORITY_MAPS = \[([\s\S]*?)\];", main)
+        self.assertIsNotNone(block)
+        self.assertEqual(set(MAPS), set(re.findall(r'dir: "([a-z-]+)"', block.group(1))))
+
     def test_current_appeal_law(self) -> None:
         # 行政法マップの元の画像は2014年改正前の行政不服審査法だった。旧制度の言葉を戻さない。
         # 枝の説明（> の行）で「なくなった」と書くのはよいので、項目だけを見る。

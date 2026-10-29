@@ -263,6 +263,11 @@ select:focus, input:focus, textarea:focus, button:focus-visible, a:focus-visible
 .badge.card-kind { border: 1px solid currentColor; }
 .badge.kind-new { background: var(--amber-soft); color: var(--amber); }
 .badge.kind-review { background: var(--blue-soft); color: #2d6285; }
+/* 科目別マップの優先度（重点・抑えめ・捨て候補）。色は static/gyosei-map/map.css の .prio とそろえる */
+.badge.prio { text-decoration: none; }
+.badge.prio-focus { background: #1f5fa8; color: #fff; }
+.badge.prio-light { border: 1px solid #c9b27a; background: var(--amber-soft); color: var(--amber); }
+.badge.prio-skip { border: 1px solid #cfd6d2; background: #eef1ef; color: #59645f; }
 .position { color: var(--muted); font-size: 12px; font-weight: 800; white-space: nowrap; }
 .question-card h3, .written-card h3, .editorial-card > h3, .audit-card h3 { margin: 0 0 16px; color: var(--deep); font-size: 24px; line-height: 1.45; }
 .instruction { margin: 0 0 14px; padding-left: 13px; border-left: 3px solid #98b9a9; color: var(--muted); font-weight: 700; }

@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20261029-1";
+  const APP_VERSION = "20261029-2";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -116,6 +116,7 @@
       scheduleCardPendingSync();
     });
     loadMinpoDrillIndex();
+    loadCardPriorityIndex();
 
     try {
       let studyReady = false;
@@ -1270,6 +1271,80 @@
     { dir: "kiso-d", drillName: "基礎法学演習D" },
     { dir: "chishiki-d", drillName: "基礎知識演習D" }
   ];
+  // 科目別マップ（static/*-map/content.md）の優先度「重点／抑えめ／捨て候補」を、解いているカードにも出す。
+  // 正本はマップの content.md だけ。読み方は gyosei-map/app.js の parse() と同じ（枝の印を受け継ぎ、
+  // 項目に書いた印が優先。1枚のカードが複数の項目にあれば高いほう）。読めなくても学習は止めない（印が出ないだけ）。
+  const PRIORITY_MAPS = [
+    { dir: "minpo-map", label: "民法" },
+    { dir: "gyosei-map", label: "行政法" },
+    { dir: "kenpo-map", label: "憲法" },
+    { dir: "shoho-map", label: "商法・会社法" },
+    { dir: "kiso-map", label: "基礎法学" },
+    { dir: "chishiki-map", label: "基礎知識" }
+  ];
+  const PRIORITY_LABELS = {
+    "重点": { rank: 3, className: "prio-focus", text: "◎重点", help: "残りの時間はまずここに使う" },
+    "抑えめ": { rank: 2, className: "prio-light", text: "○抑えめ", help: "1周で済ませ、深追いしない" },
+    "捨て候補": { rank: 1, className: "prio-skip", text: "△捨て候補", help: "重点と抑えめが終わってから" }
+  };
+  let cardPriority = new Map();
+
+  function parseMapPriorities(text, map, out) {
+    const tag = /\[(重点|抑えめ|捨て候補)\]/;
+    let branch = "";
+    let stack = [];
+    text.replace(/<!--[\s\S]*?-->/g, "").split(/\r?\n/).forEach((line) => {
+      let m;
+      if ((m = line.match(/^#\s+(.+)$/))) {
+        const own = m[1].match(tag);
+        branch = own ? own[1] : "抑えめ";
+        stack = [];
+      } else if ((m = line.match(/^( *)-\s+(.+)$/)) && branch) {
+        const depth = Math.floor(m[1].length / 2);
+        stack.length = Math.min(stack.length, depth);
+        const own = m[2].match(tag);
+        const prio = own ? own[1] : (stack.length ? stack[stack.length - 1] : branch);
+        stack.push(prio);
+        (m[2].match(/\{[a-z0-9-]+\}/g) || []).forEach((ref) => {
+          const id = ref.slice(1, -1);
+          const before = out.get(id);
+          if (!before || PRIORITY_LABELS[prio].rank > PRIORITY_LABELS[before.prio].rank) out.set(id, { prio, map });
+        });
+      }
+    });
+  }
+
+  function loadCardPriorityIndex() {
+    Promise.all(PRIORITY_MAPS.map((map) =>
+      fetch(map.dir + "/content.md", { cache: "no-store" })
+        .then((res) => {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.text();
+        })
+        .then((text) => ({ map, text }))
+        .catch((error) => {
+          console.warn(map.label + "マップの優先度を読めませんでした", error);
+          return null;
+        })
+    )).then((loaded) => {
+      const out = new Map();
+      loaded.filter(Boolean).forEach(({ map, text }) => parseMapPriorities(text, map, out));
+      cardPriority = out;
+      if (state.studyCurrent) renderStudyBadges(state.studyCurrent);
+    });
+  }
+
+  function renderStudyPriority(item) {
+    const entry = cardPriority.get(studyCardId(item));
+    if (!entry) return null;
+    const info = PRIORITY_LABELS[entry.prio];
+    return make("a", {
+      className: "badge prio " + info.className,
+      href: entry.map.dir + "/",
+      title: entry.map.label + "マップでの優先度：" + entry.prio + "（" + info.help + "）。押すとマップを開きます。"
+    }, info.text);
+  }
+
   let minpoDrillByCard = new Map();
   function loadMinpoDrillIndex() {
     Promise.all(DRILLS.map((drill) =>
@@ -1417,6 +1492,8 @@
     if (isStudyCertain(item)) labels.push("絶対覚えた");
     if (isStudyMastered(item)) labels.push("習得済み");
     renderBadges($("study-badges"), labels);
+    const priority = renderStudyPriority(item);
+    if (priority) $("study-badges").prepend(priority);
     const kind = state.studyCurrentKind;
     if (kind && kind.cardId === studyCardId(item)) {
       $("study-badges").prepend(make("span", { className: "badge card-kind " + kind.className }, kind.label));
