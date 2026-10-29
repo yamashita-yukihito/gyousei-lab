@@ -148,7 +148,8 @@
 
 1. カードはIDで1枚だけ引く（正本全体を開かない）。書き方は §5.0 とメモ「質問ノートの書き方」に従う。
 2. 過去問の出典は、カードの⑤と `static/*-d/chapters.json` の `examRefs`、リンクは同じファイルの `examLinks`。
-3. チャットで答える（結論 → 表・箇条書き → 場面 → 誤解の原因 → 過去問リンク → 覚え方の一言）。
+3. **全文（結論 → 表・箇条書き → 場面 → 誤解の原因 → 過去問 → 覚え方の一言）は⑨にだけ書く。チャットは結論と要点3〜5行、
+   過去問リンクだけにする**（2026-10-29に利用者が指示。同じ解説を2回出力するとトークンが倍になる）。
 4. 図は `static/assets/card-figures/<カードID>-qa<n>-<名前>.svg` に置く。同じ内容を `{"question", "answer", "figures"}` のJSONにし、
    `/opt/homebrew/bin/python3.12 scripts/add_learner_qa.py <カードID> <QA.json> --render <scratchpad>` で検証とPNG化だけ行い、PNGで文字の重なりを見る。
 5. `--render` を外して同じコマンドを流す。追記→全カード検証→tests→bundle作り直し・差し替え→APIでの確認まで行い、失敗したら正本を戻す。API再起動は要らない。
