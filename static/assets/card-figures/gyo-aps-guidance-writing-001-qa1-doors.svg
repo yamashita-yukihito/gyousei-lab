@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 560" role="img" aria-labelledby="t d">
+  <title id="t">行政指導に不満があるときに使える手段</title>
+  <desc id="d">行政指導は処分ではないので、行政不服審査法の審査請求と行政事件訴訟法の取消訴訟は原則使えない。使えるのは行政手続法の書面交付の求めと中止等の求め、それに国家賠償。例外として病院開設中止の勧告は処分に当たる。第三者は行政手続法36条の3の処分等の求めを使う。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .s { font-size: 15px; fill: #55635d; }
+    .law { font-size: 13px; fill: #55635d; }
+    .tool { font-size: 17px; font-weight: 800; }
+    .mark { font-size: 26px; font-weight: 800; }
+    .ok { fill: #1f6b45; }
+    .ng { fill: #b23a2e; }
+    .r { font-size: 14px; }
+    .rb { font-size: 14px; font-weight: 800; }
+    .gold { font-size: 14px; font-weight: 800; fill: #8a6410; }
+  </style>
+  <rect width="640" height="560" fill="#ffffff"/>
+  <text class="h" x="320" y="36" text-anchor="middle">行政指導に不満があるとき、どこへ行けるか</text>
+  <text class="s" x="320" y="62" text-anchor="middle">行政指導は「処分」ではない → 審査請求・取消訴訟は原則門前払い</text>
+
+  <!-- 1 書面交付 -->
+  <rect x="20" y="82" width="600" height="70" rx="8" fill="#eef6f1" stroke="#3f8a63" stroke-width="2"/>
+  <text class="law" x="36" y="104">行政手続法35条3項</text>
+  <text class="tool" x="36" y="130">書面をください</text>
+  <text class="mark ok" x="250" y="129">○</text>
+  <text class="r" x="290" y="108">口頭の指導なら、行政上特別の支障がない限り</text>
+  <text class="rb ok" x="290" y="132">交付しなければならない（義務）</text>
+
+  <!-- 2 中止の求め -->
+  <rect x="20" y="162" width="600" height="70" rx="8" fill="#eef6f1" stroke="#3f8a63" stroke-width="2"/>
+  <text class="law" x="36" y="184">行政手続法36条の2</text>
+  <text class="tool" x="36" y="210">中止を求める</text>
+  <text class="mark ok" x="250" y="209">○</text>
+  <text class="r" x="290" y="188">指導の相手方だけ。根拠が法律にある</text>
+  <text class="r" x="290" y="212">違反是正の指導だけ</text>
+
+  <!-- 3 審査請求 -->
+  <rect x="20" y="242" width="600" height="70" rx="8" fill="#fbeeec" stroke="#b23a2e" stroke-width="2"/>
+  <text class="law" x="36" y="264">行政不服審査法</text>
+  <text class="tool" x="36" y="290">審査請求</text>
+  <text class="mark ng" x="250" y="289">×</text>
+  <text class="r" x="290" y="268">入口は「処分」と「申請への不作為」だけ</text>
+  <text class="rb ng" x="290" y="292">行政指導はどちらでもない</text>
+
+  <!-- 4 取消訴訟 -->
+  <rect x="20" y="322" width="600" height="94" rx="8" fill="#fbeeec" stroke="#b23a2e" stroke-width="2"/>
+  <text class="law" x="36" y="344">行政事件訴訟法</text>
+  <text class="tool" x="36" y="370">取消訴訟</text>
+  <text class="mark ng" x="250" y="369">×</text>
+  <text class="r" x="290" y="348">法的な効果が無いので処分性なし</text>
+  <text class="gold" x="290" y="374">例外：病院開設中止の勧告は処分</text>
+  <text class="r" x="290" y="398">（最判平17.7.15。保険医療機関になれない）</text>
+
+  <!-- 5 国賠 -->
+  <rect x="20" y="426" width="600" height="70" rx="8" fill="#eef6f1" stroke="#3f8a63" stroke-width="2"/>
+  <text class="law" x="36" y="448">国家賠償法1条</text>
+  <text class="tool" x="36" y="474">損害賠償</text>
+  <text class="mark ok" x="250" y="473">○</text>
+  <text class="r" x="290" y="452">「公権力の行使」は処分より広い</text>
+  <text class="rb ok" x="290" y="476">行政指導も入り得る</text>
+
+  <text class="s" x="320" y="526" text-anchor="middle">第三者が「違反を放置するな」と言うなら → 行政手続法36条の3（何人も）</text>
+  <text class="s" x="320" y="548" text-anchor="middle">※地方公共団体の機関の指導には行政手続法が適用されない（3条3項）</text>
+</svg>
