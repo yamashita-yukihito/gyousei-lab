@@ -421,7 +421,7 @@ LANから `http://192.168.10.102:8080/services/gyousei-lab/card-video/` で開�
 - 読み違えた語は `READINGS` へ足す（Kyokoの時代に足したものも残してある）。スライドの見た目や読み上げの組み方を変えたら `BUILDER_VERSION` を上げる。
 - 動画を見ても回答記録は付かない。再生ページから `production.sqlite3` へ書かない。
 
-### 5.8 行政法マップ（`static/gyosei-map/`、2026-10-28に追加）
+### 5.8 科目別マップ（`static/gyosei-map/` ほか、2026-10-28に行政法、10-29に全科目）
 
 利用者の持っていた「行政法MAP」（倍速学習STOTEの画像）を、勉強しやすい形にHTMLで組み直した独立ページ。
 LANから `http://192.168.10.102:8080/services/gyousei-lab/gyosei-map/` で開ける。メイン画面のタブ列にも入口がある。
@@ -430,6 +430,11 @@ LANから `http://192.168.10.102:8080/services/gyousei-lab/gyosei-map/` で開�
 - 元の画像をそのまま写さない。元は2014年改正前の行政不服審査法（異議申立て・職権探知など）なので、**現行法（2026-04-01）で書く**。条文上の結論はカードの `correction` とずれないようにする。
 - **行政法のカード（`subjectId: administrative-law`）は全部どこかの項目に結ぶ。** カードを足したら同じ作業でマップにも足す（`tests/test_gyosei_map.py` が見ている）。
 - このページから回答や印を書き込まない（`/api/cards` と `/api/card-progress` を読むだけ）。
+- **2026-10-29に全6科目へ広げた**（利用者の依頼）。`static/minpo-map/`・`kenpo-map/`・`shoho-map/`・`kiso-map/`・`chishiki-map/` は
+  `index.html` と `content.md` だけを持ち、画面は `../gyosei-map/app.js`・`map.css` を共用する（§5.2.1 の演習D案と同じ形。複製しない）。
+  `app.js` や `map.css` を変えたら、6つの `index.html` の版番号（`?v=`）を同時に上げる。科目を足したら `app.js` の `MAPS` にも足す。
+  **どの科目でも、カードを足したら同じ作業でその科目のマップにも足す**（`tests/test_gyosei_map.py` が全科目を見ている）。
+  一般知識（政治・経済・社会）は既にあるカードを基礎知識マップの最後の枝に置くだけで、項目を増やさない。
 
 ## 6. 問題・バンドルを変更する時
 

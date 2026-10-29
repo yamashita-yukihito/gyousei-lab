@@ -1,12 +1,22 @@
 (() => {
   "use strict";
 
-  // 内容は content.md にだけ持つ。書式は content.md の先頭のコメントを参照。
+  // 内容は各科目のディレクトリの content.md にだけ持つ。書式は gyosei-map/content.md の先頭のコメントを参照。
+  // 画面のコードは全科目でこのファイルを共用する（各科目は index.html と content.md だけを持つ）。
   const SOURCE = "content.md";
   // 頻出度と習得状況は読むだけ。このページからは何も書き込まない。
   const CARDS = "../api/cards";
   const PROGRESS = "../api/card-progress";
-  const STORE_KEY = "gyoseiMap:v1";
+  const STORE_KEY = document.documentElement.dataset.storeKey || "gyoseiMap:v1";
+  // 科目の切り替え。マップを足したらここにも足す（tests/test_gyosei_map.py が見ている）。
+  const MAPS = [
+    { dir: "minpo-map", label: "民法" },
+    { dir: "gyosei-map", label: "行政法" },
+    { dir: "kenpo-map", label: "憲法" },
+    { dir: "shoho-map", label: "商法・会社法" },
+    { dir: "kiso-map", label: "基礎法学" },
+    { dir: "chishiki-map", label: "基礎知識" }
+  ];
   const FREQUENT = ["最頻出", "頻出"];
   const MARKS = { "重要": "important", "ひっかけ": "trap" };
 
@@ -92,6 +102,10 @@
   }
 
   function isFrequent(id) { return FREQUENT.includes(freqOf(id)); }
+
+  function hasFrequent() {
+    return state.branches.some((branch) => subtreeCards(branch).some(isFrequent));
+  }
 
   function isDone(id) {
     return Boolean(state.progress && state.progress[id] && state.progress[id].graduated);
@@ -264,6 +278,8 @@
     $("reveal-all").hidden = !state.recall;
     $("freq-only").setAttribute("aria-pressed", String(state.freqOnly));
     $("freq-only").disabled = !state.cardInfo;
+    // 頻出カードが1枚も無い科目（基礎法学など）では、押しても空になるだけなので出さない。
+    $("freq-only").hidden = Boolean(state.cardInfo) && !hasFrequent();
     document.querySelectorAll("#depth-buttons button").forEach((button) => {
       button.setAttribute("aria-pressed", String(Number(button.dataset.depth) === state.depth));
     });
@@ -289,6 +305,7 @@
       });
     });
     $("freq-only").addEventListener("click", () => {
+      if (state.cardInfo && !hasFrequent()) return;
       state.freqOnly = !state.freqOnly;
       state.open.clear();
       savePrefs();
@@ -335,6 +352,7 @@
         state.chapters.set(dirs[index] + "/" + chapter.id, String(chapter.title || chapter.id).split("――")[0]);
       });
     });
+    if (state.cardInfo && !hasFrequent()) state.freqOnly = false;
     const note = $("progress-note");
     const missing = [];
     if (!state.cardInfo) missing.push("頻出度");
@@ -343,14 +361,27 @@
       note.textContent = missing.join("と") + "を読み込めませんでした。項目とリンクだけ表示しています。";
       note.classList.add("error");
     } else {
-      note.textContent = "「最頻出」「頻出」は結んだカードの過去20年の出題数（6問以上）。「習得」は学習画面と同じ判定（リセット後に正解が不正解より3回多い、または「絶対覚えた」）。カードの印にマウスを乗せると論点名が出ます。";
+      note.textContent = "「最頻出」「頻出」は結んだカードの過去問での出題数（6問以上）。「習得」は学習画面と同じ判定（リセット後に正解が不正解より3回多い、または「絶対覚えた」）。カードの印にマウスを乗せると論点名が出ます。";
     }
     syncControls();
     renderTrunk();
     render();
   }
 
+  function renderSwitch() {
+    const nav = $("map-switch");
+    if (!nav) return;
+    const here = location.pathname.split("/").filter((part) => part && part !== "index.html").pop();
+    nav.replaceChildren(...MAPS.map((map) => {
+      const a = el("a", "", map.label);
+      a.href = "../" + map.dir + "/";
+      if (map.dir === here) a.setAttribute("aria-current", "page");
+      return a;
+    }));
+  }
+
   async function init() {
+    renderSwitch();
     loadPrefs();
     bind();
     syncControls();

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja" data-store-key="minpoMap:v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183a34">
+  <title>民法マップ | 行政書士 過去問ラボ</title>
+  <link rel="stylesheet" href="../architecture.css?v=20260807-1">
+  <link rel="stylesheet" href="../gyosei-map/map.css?v=20261029-2">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
+  <header class="architecture-hero">
+    <div class="hero-inner">
+      <nav><a href="../index.html">← 過去問ラボへ戻る</a><a href="../architecture.html">構成図</a></nav>
+      <div class="map-switch" id="map-switch" aria-label="科目を切り替える"></div>
+      <p class="eyebrow">CIVIL LAW MAP</p>
+      <h1>民法マップ</h1>
+      <p class="lead">民法の全体を、条文の順（総則→物権→担保物権→債権総論→契約→事務管理・不法行為→親族→相続）に1枚の木にしたものです。<strong>誰が、誰に対して、何を主張できるか</strong>を枝ごとに確かめます。「隠して思い出す」で見出しだけを見て中身を言えるか試し、各枝から学習カードと民法演習D案の章へ飛べます。</p>
+      <div class="trunk" id="trunk"></div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="toolbar-inner">
+      <div class="tool-row">
+        <div class="seg"><button type="button" id="recall-toggle" aria-pressed="false">隠して思い出す</button><button type="button" class="tool-btn" id="reveal-all" hidden>隠した答えを全部出す</button></div>
+        <div class="seg" id="depth-buttons" role="group" aria-label="開く深さ"><span>開く深さ</span><button type="button" data-depth="1">1段</button><button type="button" data-depth="2">2段</button><button type="button" data-depth="99">全部</button></div>
+        <div class="seg"><button type="button" id="freq-only" aria-pressed="false">頻出の枝だけ</button></div>
+      </div>
+      <div class="tool-row">
+        <input id="search" type="search" placeholder="キーワードで探す（例：背信的悪意者、1/2、遺言）" aria-label="キーワードで探す">
+      </div>
+      <p class="hint" id="progress-note">カードの頻出度と習得状況を読み込んでいます…</p>
+    </div>
+  </div>
+
+  <main id="main-content">
+    <div id="content"><p class="status">読み込んでいます…</p></div>
+    <p class="page-foot">内容の正本は <code>static/minpo-map/content.md</code>。項目を足すときはこのファイルだけを編集します。画面は行政法マップ（<code>static/gyosei-map/</code>）と共用です。法令基準日 2026-04-01。</p>
+  </main>
+
+  <script src="../gyosei-map/app.js?v=20261029-3"></script>
+</body>
+</html>
