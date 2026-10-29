@@ -19,6 +19,15 @@
   ];
   const FREQUENT = ["最頻出", "頻出"];
   const MARKS = { "重要": "important", "ひっかけ": "trap" };
+  // 試験日までの時間の使い方。content.md の [重点] [抑えめ] [捨て候補] で付け、書いていない項目は親から受け継ぐ。
+  // 枝（# の行）には必ずどれかを書く（tests/test_gyosei_map.py が見ている）。
+  const PRIORITIES = {
+    "重点": { cls: "focus", rank: 3, sym: "◎", help: "時間を使う" },
+    "抑えめ": { cls: "light", rank: 2, sym: "○", help: "1周で済ませる" },
+    "捨て候補": { cls: "skip", rank: 1, sym: "△", help: "最後に回す" }
+  };
+  const PRIORITY_RE = /\[(重点|抑えめ|捨て候補)\]/;
+  const PRIO_MODES = { all: "すべて", focus: "重点だけ", hideSkip: "捨て候補を隠す" };
 
   const $ = (id) => document.getElementById(id);
   const state = {
@@ -26,6 +35,7 @@
     recall: false,
     depth: 2,
     freqOnly: false,
+    prio: "all",
     query: "",
     open: new Map(),
     cardInfo: null,
@@ -39,12 +49,13 @@
       state.recall = saved.recall === true;
       if ([1, 2, 99].includes(saved.depth)) state.depth = saved.depth;
       state.freqOnly = saved.freqOnly === true;
+      if (PRIO_MODES[saved.prio]) state.prio = saved.prio;
     } catch (error) { /* localStorage が使えなくても表示はできる */ }
   }
 
   function savePrefs() {
     try {
-      localStorage.setItem(STORE_KEY, JSON.stringify({ recall: state.recall, depth: state.depth, freqOnly: state.freqOnly }));
+      localStorage.setItem(STORE_KEY, JSON.stringify({ recall: state.recall, depth: state.depth, freqOnly: state.freqOnly, prio: state.prio }));
     } catch (error) { /* 同上 */ }
   }
 
@@ -55,7 +66,8 @@
       .replace(/\{([a-z0-9-]+)\}/g, (_, id) => { if (!node.cards.includes(id)) node.cards.push(id); return ""; })
       .replace(/@([a-z0-9-]+)\/([a-z0-9-]+)/g, (_, dir, id) => { node.drills.push({ dir, id }); return ""; })
       .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, label, url) => { if (!/^[a-z]+:/i.test(url)) node.pages.push({ label, url }); return ""; })
-      .replace(/\[(重要|ひっかけ)\]/g, (_, mark) => { node.marks.push(mark); return ""; });
+      .replace(/\[(重要|ひっかけ)\]/g, (_, mark) => { node.marks.push(mark); return ""; })
+      .replace(PRIORITY_RE, (_, prio) => { node.priority = prio; return ""; });
     text = text.replace(/\s{2,}/g, " ").trim();
     const at = text.indexOf("::");
     node.label = (at < 0 ? text : text.slice(0, at)).trim();
@@ -71,8 +83,10 @@
       if (!raw.trim()) return;
       let m;
       if ((m = raw.match(/^#\s+(.+)$/))) {
-        const [name, sub] = m[1].split("|").map((s) => s.trim());
-        branch = { key: "b" + branches.length, name, sub: sub || "", note: "", children: [] };
+        let priority = "";
+        const head = m[1].replace(PRIORITY_RE, (_, prio) => { priority = prio; return ""; });
+        const [name, sub] = head.split("|").map((s) => s.trim());
+        branch = { key: "b" + branches.length, name, sub: sub || "", note: "", priority: priority || "抑えめ", children: [] };
         branches.push(branch);
         stack = [];
       } else if ((m = raw.match(/^>\s?(.*)$/)) && branch) {
@@ -87,7 +101,26 @@
         stack.push(node);
       }
     });
+    // 優先度は書いていなければ親から受け継ぐ。
+    branches.forEach((b) => (function resolve(nodes, inherited) {
+      nodes.forEach((node) => {
+        node.prio = node.priority || inherited;
+        resolve(node.children, node.prio);
+      });
+    })(b.children, b.priority));
     return branches;
+  }
+
+  // カードの優先度は、そのカードを結んだ項目のうちいちばん高いもの。
+  function cardPriorities(nodes, out = new Map()) {
+    nodes.forEach((node) => {
+      node.cards.forEach((id) => {
+        const before = out.get(id);
+        if (!before || PRIORITIES[node.prio].rank > PRIORITIES[before].rank) out.set(id, node.prio);
+      });
+      cardPriorities(node.children, out);
+    });
+    return out;
   }
 
   function subtreeCards(node, out = []) {
@@ -140,7 +173,8 @@
       node.children.forEach((child) => { if (walk(child, ancestorHit || selfHit, ancestorFreq || selfFreq)) show = true; });
       const passQuery = !q || selfHit || ancestorHit;
       const passFreq = !state.freqOnly || ancestorFreq || subtreeCards(node).some(isFrequent);
-      if (passQuery && passFreq) show = true;
+      const passPrio = state.prio === "all" || (state.prio === "focus" ? node.prio === "重点" : node.prio !== "捨て候補");
+      if (passQuery && passFreq && passPrio) show = true;
       if (show) keep.add(node.key);
       return show;
     }
@@ -169,8 +203,14 @@
     return a;
   }
 
-  function renderNode(node, view) {
-    const li = el("li", "depth-" + node.depth);
+  function prioBadge(prio) {
+    const badge = el("span", "prio p-" + PRIORITIES[prio].cls, PRIORITIES[prio].sym + prio);
+    badge.title = prio + "：" + PRIORITIES[prio].help;
+    return badge;
+  }
+
+  function renderNode(node, view, parentPrio) {
+    const li = el("li", "depth-" + node.depth + " p-" + PRIORITIES[node.prio].cls);
     const row = el("div", "row");
     const hasKids = node.children.some((child) => view.keep.has(child.key));
     const open = hasKids && isOpen(node);
@@ -188,6 +228,8 @@
       twisty.setAttribute("aria-hidden", "true");
     }
     row.append(twisty, el("span", "label", node.label));
+    // 親と同じ優先度なら印を重ねない（見出しの段だけ、または親と違うときに出す）。
+    if (node.prio !== parentPrio) row.append(prioBadge(node.prio));
     node.marks.forEach((mark) => row.append(el("span", "mark " + MARKS[mark], mark)));
     if (state.cardInfo) {
       const best = FREQUENT.find((label) => node.cards.some((id) => freqOf(id) === label));
@@ -217,25 +259,53 @@
     if (hasKids) {
       if (!open) li.classList.add("collapsed");
       const ul = el("ul");
-      node.children.filter((child) => view.keep.has(child.key)).forEach((child) => ul.append(renderNode(child, view)));
+      node.children.filter((child) => view.keep.has(child.key)).forEach((child) => ul.append(renderNode(child, view, node.prio)));
       li.append(ul);
     }
     return li;
+  }
+
+  function prioSummary(ids, prios) {
+    return Object.keys(PRIORITIES).map((prio) => {
+      const n = ids.filter((id) => prios.get(id) === prio).length;
+      return n ? prio + " " + n : "";
+    }).filter(Boolean).join("・");
   }
 
   function renderTrunk() {
     const trunk = $("trunk");
     trunk.replaceChildren(...state.branches.map((branch, index) => {
       const ids = subtreeCards(branch);
-      const a = el("a");
+      const prios = cardPriorities(branch.children);
+      const a = el("a", "p-" + PRIORITIES[branch.priority].cls);
       a.href = "#" + branch.key;
-      a.append(el("span", "step", String(index + 1).padStart(2, "0")), el("strong", "", branch.name), el("span", "sub", branch.sub));
+      const step = el("span", "step", String(index + 1).padStart(2, "0") + " ");
+      step.append(prioBadge(branch.priority));
+      a.append(step, el("strong", "", branch.name), el("span", "sub", branch.sub));
       const meta = state.progress
         ? "カード " + ids.filter(isDone).length + "/" + ids.length + " 習得"
         : "カード " + ids.length + "枚";
-      a.append(el("span", "meta", meta));
+      a.append(el("span", "meta", meta), el("span", "meta", prioSummary(ids, prios)));
       return a;
     }));
+    // 科目全体の「重点で未習得」のカードをまとめて解く入口。
+    let action = $("focus-action");
+    if (!action) {
+      action = el("p", "focus-action");
+      action.id = "focus-action";
+      trunk.after(action);
+    }
+    const prios = cardPriorities(state.branches.flatMap((b) => b.children));
+    const focus = [...prios.keys()].filter((id) => prios.get(id) === "重点");
+    const todo = state.progress ? focus.filter((id) => !isDone(id)) : focus;
+    action.replaceChildren();
+    if (todo.length) {
+      const a = el("a", "focus-link", (state.progress ? "この科目の重点で未習得のカードをまとめて解く（" : "この科目の重点のカードをまとめて解く（") + Math.min(todo.length, 200) + "枚）→");
+      a.href = cardsUrl(todo);
+      action.append(a);
+    } else if (focus.length) {
+      action.append(el("span", "focus-done", "重点のカードはすべて習得済みです。抑えめの枝へ進みます。"));
+    }
   }
 
   function render() {
@@ -252,7 +322,14 @@
       const actions = el("div", "map-branch-actions");
       const ids = subtreeCards(branch);
       if (ids.length) {
+        const prios = cardPriorities(branch.children);
         const todo = state.progress ? ids.filter((id) => !isDone(id)) : ids;
+        const focusTodo = todo.filter((id) => prios.get(id) === "重点");
+        if (focusTodo.length && focusTodo.length < todo.length) {
+          const a = el("a", "", "重点の" + (state.progress ? "未習得" : "") + "カード（" + focusTodo.length + "枚）→");
+          a.href = cardsUrl(focusTodo);
+          actions.append(a);
+        }
         if (todo.length) {
           const a = el("a", "", (state.progress ? "この枝の未習得カードを解く（" : "この枝のカードを解く（") + todo.length + "枚）→");
           a.href = cardsUrl(todo);
@@ -261,15 +338,19 @@
           actions.append(el("span", "", "この枝のカードはすべて習得済み"));
         }
       }
+      h2.append(prioBadge(branch.priority));
       head.append(h2, actions);
       section.append(head);
       if (branch.note) section.append(el("p", "note", branch.note));
       const ul = el("ul", "tree");
-      roots.forEach((node) => ul.append(renderNode(node, view)));
+      roots.forEach((node) => ul.append(renderNode(node, view, "")));
       section.append(ul);
       return section;
     }).filter(Boolean);
-    content.replaceChildren(...(sections.length ? sections : [el("p", "status", "当てはまる項目がありません。")]));
+    const empty = state.prio === "focus" && !state.query && !state.freqOnly
+      ? "この科目に「重点」の項目はありません。「抑えめ」の項目を1周すれば足ります。"
+      : "当てはまる項目がありません。";
+    content.replaceChildren(...(sections.length ? sections : [el("p", "status", empty)]));
   }
 
   function syncControls() {
@@ -283,6 +364,45 @@
     document.querySelectorAll("#depth-buttons button").forEach((button) => {
       button.setAttribute("aria-pressed", String(Number(button.dataset.depth) === state.depth));
     });
+    document.querySelectorAll("#prio-buttons button").forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.prio === state.prio));
+    });
+  }
+
+  // 優先度の切り替えと凡例は、6科目の index.html を触らずに済むようここで足す。
+  function buildPriorityControls() {
+    const row = document.querySelector(".toolbar .tool-row");
+    if (!row || $("prio-buttons")) return;
+    const seg = el("div", "seg");
+    seg.id = "prio-buttons";
+    seg.setAttribute("role", "group");
+    seg.setAttribute("aria-label", "優先度で絞る");
+    seg.append(el("span", "", "優先度"));
+    Object.entries(PRIO_MODES).forEach(([mode, label]) => {
+      const button = el("button", "", label);
+      button.type = "button";
+      button.dataset.prio = mode;
+      button.addEventListener("click", () => {
+        state.prio = mode;
+        state.open.clear();
+        savePrefs();
+        syncControls();
+        render();
+      });
+      seg.append(button);
+    });
+    row.append(seg);
+    const legend = el("div", "prio-legend");
+    [
+      ["重点", "過去問で6問以上出た頻出論点と、毎年出る中心の分野。残りの時間はまずここに使う。"],
+      ["抑えめ", "出るが頻度が低いか、配点が小さい。マップの1行とカード1周で済ませ、深追いしない。"],
+      ["捨て候補", "出題が少ないか、1問のために覚える量が多い。重点と抑えめが終わってから。0点覚悟で捨てる意味ではない。"]
+    ].forEach(([prio, text]) => {
+      const p = el("p");
+      p.append(prioBadge(prio), document.createTextNode(" " + text));
+      legend.append(p);
+    });
+    $("progress-note").before(legend);
   }
 
   function bind() {
@@ -382,6 +502,7 @@
 
   async function init() {
     renderSwitch();
+    buildPriorityControls();
     loadPrefs();
     bind();
     syncControls();

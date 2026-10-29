@@ -70,3 +70,19 @@ li.hit > .row > .label { background: #fff2b8; }
 .map-switch a { padding: 3px 12px; border: 1px solid rgba(255,255,255,.22); border-radius: 999px; color: #c8ddd4; font-size: 13px; text-decoration: none; }
 .map-switch a:hover { background: rgba(255,255,255,.1); }
 .map-switch a[aria-current="page"] { border-color: #fff; background: #fff; color: var(--deep); font-weight: 700; }
+.prio { display: inline-block; padding: 0 7px; border-radius: 4px; font-size: 11px; font-weight: 800; line-height: 1.7; white-space: nowrap; vertical-align: 2px; letter-spacing: 0; }
+.prio.p-focus { background: #1f5fa8; color: #fff; }
+.prio.p-light { border: 1px solid #c9b27a; background: var(--amber-soft); color: var(--amber); }
+.prio.p-skip { border: 1px solid var(--line); background: #eef1ef; color: var(--muted); }
+.map-branch-head h2 .prio { margin-left: 10px; font-family: inherit; font-size: 12px; vertical-align: 6px; }
+li.p-skip > .row > .label, li.p-skip > .row > .ans { color: var(--muted); }
+li.p-skip > .row > .label { font-weight: 600; }
+.trunk a.p-skip { opacity: .72; }
+.trunk .step .prio { margin-left: 4px; }
+.prio-legend { display: grid; gap: 2px; }
+.prio-legend p { margin: 0; color: var(--muted); font-size: 12px; }
+#prio-buttons button[aria-pressed="true"] { border-color: #1f5fa8; background: #1f5fa8; color: #fff; }
+.focus-action { margin: 16px 0 0; }
+.focus-link { display: inline-block; padding: 10px 18px; border-radius: 10px; background: #f6c453; color: #1d2a24; font-weight: 800; text-decoration: none; }
+.focus-link:hover { background: #ffd673; }
+.focus-done { color: #c8ddd4; font-weight: 700; }

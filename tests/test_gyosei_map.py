@@ -19,6 +19,8 @@ MAPS = {
     "chishiki-map": "general-knowledge",
 }
 
+PRIORITY = re.compile(r"\[(重点|抑えめ|捨て候補)\]")
+
 # static/gyosei-map/app.js の parse() と同じ行の型。
 LINE_PATTERNS = (
     re.compile(r"^#\s+.+$"),
@@ -116,6 +118,41 @@ class LawMapTest(unittest.TestCase):
                 self.assertNotRegex(url, r"^[a-z]+:", label)
                 target = (STATIC / directory / url.split("#")[0]).resolve()
                 self.assertTrue(target.exists(), f"{directory}: {label}: {url}")
+
+    def test_every_branch_has_priority(self) -> None:
+        # 優先度（重点・抑えめ・捨て候補）は枝に必ず書き、項目は書かなければ親から受け継ぐ。
+        for directory in MAPS:
+            heads = [line for _, line in content_lines(directory) if line.startswith("# ")]
+            missing = [line for line in heads if not PRIORITY.search(line)]
+            self.assertEqual([], missing, f"{directory}: 優先度の無い枝")
+
+    def test_frequent_cards_are_focus(self) -> None:
+        # 過去問で6問以上出た（最頻出・頻出）カードを、抑えめや捨て候補の項目にだけ置かない。
+        cards = json.loads((ROOT / "content" / "explanation_cards.json").read_text(encoding="utf-8"))["items"]
+        frequent = {card["id"] for card in cards if card["frequency"]["label"] in ("最頻出", "頻出")}
+        rank = {"重点": 3, "抑えめ": 2, "捨て候補": 1}
+        for directory in MAPS:
+            best: dict[str, str] = {}
+            branch = ""
+            stack: list[str] = []
+            for _, line in content_lines(directory):
+                if line.startswith("# "):
+                    branch = PRIORITY.search(line).group(1)
+                    stack = []
+                    continue
+                m = re.match(r"^( *)-\s+(.+)$", line)
+                if not m:
+                    continue
+                depth = len(m.group(1)) // 2
+                stack = stack[:depth]
+                own = PRIORITY.search(m.group(2))
+                prio = own.group(1) if own else (stack[-1] if stack else branch)
+                stack.append(prio)
+                for card in re.findall(r"\{([^{}]+)\}", m.group(2)):
+                    if card not in best or rank[prio] > rank[best[card]]:
+                        best[card] = prio
+            demoted = sorted(card for card, prio in best.items() if card in frequent and prio != "重点")
+            self.assertEqual([], demoted, f"{directory}: 頻出なのに重点でないカード")
 
     def test_current_appeal_law(self) -> None:
         # 行政法マップの元の画像は2014年改正前の行政不服審査法だった。旧制度の言葉を戻さない。
