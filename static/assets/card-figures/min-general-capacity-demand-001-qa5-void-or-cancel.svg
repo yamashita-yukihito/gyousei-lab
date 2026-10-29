@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 700" role="img" aria-labelledby="t d">
+  <title id="t">成年被後見人がした契約は無効か取消しか</title>
+  <desc id="d">後見開始の審判を受けた成年被後見人の契約は、後見人の同意があってもなくても取り消せるが、取り消すまでは有効で、無効ではない。取り消すと初めにさかのぼって無効になり、本人も後見人も取り消せる。日用品の購入など日常生活に関する行為は取り消せない。審判を受ける前の行為は取り消せず、その時に意思能力がなかったことを証明すれば無効を主張できる。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 14px; fill: #55635d; }
+    .q { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .yn { font-size: 13px; font-weight: 800; fill: #2f6f8f; }
+    .big { font-size: 18px; font-weight: 800; }
+    .t { font-size: 13px; fill: #3c4a44; }
+    .ex { font-size: 12px; fill: #7a5a12; font-weight: 700; }
+    .lab { font-size: 15px; font-weight: 800; fill: #183a34; }
+  </style>
+  <defs>
+    <marker id="ah5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2f6f8f"/></marker>
+  </defs>
+  <rect width="640" height="700" fill="#ffffff"/>
+  <text class="h" x="320" y="34" text-anchor="middle">成年被後見人の契約は「無効」？「取消し」？</text>
+  <text class="sub" x="320" y="58" text-anchor="middle">後見人の同意があったかどうかは、どこにも出てこない</text>
+
+  <!-- Q1 -->
+  <rect x="150" y="74" width="340" height="44" rx="10" fill="#eef4fa" stroke="#b8cbe0"/>
+  <text class="q" x="320" y="102" text-anchor="middle">後見開始の審判を受けている？</text>
+  <line x1="150" y1="96" x2="112" y2="96" stroke="#2f6f8f" stroke-width="2.5"/>
+  <line x1="112" y1="96" x2="112" y2="140" stroke="#2f6f8f" stroke-width="2.5" marker-end="url(#ah5)"/>
+  <text class="yn" x="124" y="88" text-anchor="middle">いいえ</text>
+  <line x1="440" y1="118" x2="440" y2="230" stroke="#2f6f8f" stroke-width="2.5" marker-end="url(#ah5)"/>
+  <text class="yn" x="456" y="138">はい</text>
+
+  <!-- 審判前 -->
+  <rect x="16" y="144" width="270" height="122" rx="10" fill="#f6f8f7" stroke="#c9d2ce"/>
+  <text class="lab" x="28" y="168">まだ成年被後見人ではない</text>
+  <text class="t" x="28" y="192">制限行為能力の取消しは使えない</text>
+  <text class="t" x="28" y="212">その時に意思能力がなかったと</text>
+  <text class="t" x="28" y="230">証明すれば <tspan font-weight="800" fill="#b23a2e">無効</tspan>（3条の2）</text>
+  <text class="ex" x="28" y="254">平成22年問27肢1・平成24年問27肢5</text>
+
+  <!-- Q2 -->
+  <rect x="330" y="234" width="294" height="62" rx="10" fill="#eef4fa" stroke="#b8cbe0"/>
+  <text class="q" x="477" y="260" text-anchor="middle">日用品の購入など</text>
+  <text class="q" x="477" y="282" text-anchor="middle">日常生活に関する行為？</text>
+  <line x1="477" y1="296" x2="477" y2="330" stroke="#2f6f8f" stroke-width="2.5" marker-end="url(#ah5)"/>
+  <text class="yn" x="490" y="318">はい</text>
+  <line x1="330" y1="265" x2="190" y2="265" stroke="#2f6f8f" stroke-width="2.5"/>
+  <line x1="190" y1="265" x2="190" y2="330" stroke="#2f6f8f" stroke-width="2.5" marker-end="url(#ah5)"/>
+  <text class="yn" x="206" y="300">いいえ（土地・高額な物など）</text>
+
+  <!-- 日用品 -->
+  <rect x="384" y="334" width="240" height="98" rx="10" fill="#f6f8f7" stroke="#c9d2ce"/>
+  <text class="big" x="396" y="364" fill="#55635d">取り消せない</text>
+  <text class="t" x="396" y="388">ふつうに有効のまま</text>
+  <text class="t" x="396" y="406">（9条ただし書）</text>
+  <text class="ex" x="396" y="424">平成18年問27肢3</text>
+
+  <!-- 本題 -->
+  <rect x="16" y="334" width="356" height="200" rx="10" fill="#f2f8f4" stroke="#7fb596" stroke-width="2"/>
+  <text class="big" x="28" y="364" fill="#1f6b45">取り消せる（9条）</text>
+  <text class="t" x="28" y="390">・後見人の同意が <tspan font-weight="800">あってもなくても</tspan> 同じ</text>
+  <text class="t" x="28" y="412">・<tspan font-weight="800">取り消すまでは有効</tspan>。無効ではない</text>
+  <text class="t" x="28" y="434">・取り消すと、初めにさかのぼって無効（121条）</text>
+  <text class="t" x="28" y="456">・本人も後見人も取り消せる（120条1項）</text>
+  <text class="t" x="28" y="478">・相手方は「追認するか」と催告できる（20条）</text>
+  <text class="ex" x="28" y="508">平成24年問27肢4・平成30年問45（記述）</text>
+
+  <!-- 無効と取消し -->
+  <rect x="16" y="550" width="608" height="134" rx="12" fill="#fff8e6" stroke="#e2c27a" stroke-width="2"/>
+  <text class="lab" x="30" y="576">「無効」と「取消し」の違い</text>
+  <text class="t" x="30" y="602"><tspan font-weight="800" fill="#b23a2e">無効</tspan>：だれも何もしなくても、初めから効力がない</text>
+  <text class="t" x="30" y="626"><tspan font-weight="800" fill="#1f6b45">取消し</tspan>：取り消すまでは有効。取り消せる人が取り消して初めて、</text>
+  <text class="t" x="80" y="646">さかのぼって無効になる。取り消さなければ有効のまま残る</text>
+  <text class="t" x="30" y="672">制限行為能力者の行為は、どの類型でも「取消し」。「無効」になるのは意思能力がないとき</text>
+</svg>
