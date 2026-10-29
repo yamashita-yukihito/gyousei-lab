@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 520" role="img" aria-labelledby="t d">
+  <title id="t">保証は主たる債務から保証人への一方通行</title>
+  <desc id="d">銀行が主たる債務者ケンに請求して時効の完成猶予・更新が生じると、保証人ミナミさんにも及ぶ（457条1項）。銀行が保証人ミナミさんに請求しても、ケンの債務の時効には及ばない（連帯保証人でも同じ、458条・441条）。ミナミさんが払ったあとは、ケンに対して払った額と利息・費用を求償でき（459条）、一緒に保証した人に対しては負担部分を超えた分だけを求償できる（465条）。</desc>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2f6b4f"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a2f3f"/></marker>
+    <marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#55635d"/></marker>
+  </defs>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 21px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 14px; fill: #55635d; }
+    .who { font-size: 18px; font-weight: 800; fill: #183a34; }
+    .role { font-size: 12px; fill: #55635d; }
+    .lab { font-size: 13px; font-weight: 700; fill: #55635d; }
+    .ok { font-size: 15px; font-weight: 800; fill: #2f6b4f; }
+    .ng { font-size: 15px; font-weight: 800; fill: #8a2f3f; }
+    .bh { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 14px; }
+  </style>
+  <rect width="640" height="520" fill="#ffffff"/>
+  <text class="h" x="320" y="34" text-anchor="middle">保証は「主たる債務 → 保証人」の一方通行</text>
+  <text class="sub" x="320" y="58" text-anchor="middle">本体（ケンの借金）が動けば、保証もついて動く。保証が動いても本体は動かない</text>
+
+  <rect x="240" y="80" width="160" height="56" rx="8" fill="#eef3f1" stroke="#183a34" stroke-width="2"/>
+  <text class="who" x="320" y="106" text-anchor="middle">銀行</text>
+  <text class="role" x="320" y="126" text-anchor="middle">貸した人（債権者）</text>
+
+  <rect x="30" y="230" width="200" height="60" rx="8" fill="#eef3f1" stroke="#183a34" stroke-width="2"/>
+  <text class="who" x="130" y="257" text-anchor="middle">ケン</text>
+  <text class="role" x="130" y="278" text-anchor="middle">借りた本人（主たる債務者）</text>
+
+  <rect x="410" y="230" width="200" height="60" rx="8" fill="#eef3f1" stroke="#183a34" stroke-width="2"/>
+  <text class="who" x="510" y="257" text-anchor="middle">ミナミさん</text>
+  <text class="role" x="510" y="278" text-anchor="middle">保証人</text>
+
+  <line x1="270" y1="136" x2="170" y2="226" stroke="#55635d" stroke-width="2" marker-end="url(#ak)"/>
+  <text class="lab" x="160" y="180" text-anchor="middle">請求・訴え</text>
+  <line x1="370" y1="136" x2="470" y2="226" stroke="#55635d" stroke-width="2" marker-end="url(#ak)"/>
+  <text class="lab" x="480" y="180" text-anchor="middle">請求・訴え</text>
+
+  <line x1="232" y1="248" x2="406" y2="248" stroke="#2f6b4f" stroke-width="3" marker-end="url(#ag)"/>
+  <text class="ok" x="320" y="240" text-anchor="middle">○ 及ぶ</text>
+  <line x1="408" y1="276" x2="234" y2="276" stroke="#8a2f3f" stroke-width="3" stroke-dasharray="7 5" marker-end="url(#ar)"/>
+  <text class="ng" x="320" y="300" text-anchor="middle">✕ 及ばない</text>
+
+  <text class="b" x="30" y="332">○ 銀行がケンに請求して時効が止まれば、ミナミさんの保証債務の時効も止まる（457条1項）</text>
+  <text class="b" x="30" y="356">✕ 銀行がミナミさんに請求しても、ケンの借金の時効は止まらない（連帯保証人でも同じ）</text>
+
+  <rect x="30" y="384" width="580" height="116" rx="8" fill="#f7f4ec" stroke="#b9a77a" stroke-width="1.5"/>
+  <text class="bh" x="48" y="412">ミナミさんが代わりに払ったあと（求償）</text>
+  <text class="b" x="48" y="440">・ミナミさんはケンに対して、払った額＋利息＋費用を請求できる（459条）</text>
+  <text class="b" x="48" y="464">・ミナミさんは一緒に保証した仲間に対しては、自分の負担部分を</text>
+  <text class="b" x="62" y="486">超えて払った分だけを請求できる（465条）</text>
+</svg>
