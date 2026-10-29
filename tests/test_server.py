@@ -1822,6 +1822,10 @@ class CardEditTest(unittest.TestCase):
             ([dict(good, figures=[{"src": "../secret.png", "alt": "図", "caption": "図"}])],
              "assets/card-figures/ の下だけです"),
             ("not-a-list", "⑨learnerQa は配列にしてください"),
+            ([dict(good, pastExams=[{"label": "令和6年問32", "url": "https://example.test/q"}])],
+             "合格道場の問題ページだけです"),
+            ([dict(good, pastExams=[{"url": "https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1"}])],
+             "label が必要です"),
         ):
             with self.assertRaises(server.ApiError, msg=expected) as context:
                 server.save_card_edit({"cardId": "card-1", "editable": {"learnerQa": entries}})

@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20261028-2";
+  const APP_VERSION = "20261029-1";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -1587,6 +1587,7 @@
   // 深掘りは3列の格子なので、そこへ図を入れると1枠だけ横に伸びて右側が空いた。
   // srcはbundle側でも同じ形に限っているが、画面側でも確かめてから <img> に載せる。
   const CARD_FIGURE_SRC = /^assets\/card-figures\/[A-Za-z0-9][A-Za-z0-9._-]*\.(?:png|svg|webp)$/;
+  const PAST_EXAM_URL = /^https:\/\/www\.pro\.goukakudojyo\.com\/worksheet2\/w_main(?:nendo|arch)\.php\?queID=\d+$/;
 
   function renderStudyFigures(item) {
     const nodes = (Array.isArray(item.figures) ? item.figures : [])
@@ -1748,6 +1749,16 @@
       setRichText(body, entry.answer);
       answer.appendChild(body);
       article.appendChild(answer);
+      const pastExams = (Array.isArray(entry.pastExams) ? entry.pastExams : [])
+        .filter((exam) => exam && exam.label && PAST_EXAM_URL.test(String(exam.url || "")));
+      if (pastExams.length) {
+        const links = make("p", { className: "learner-qa-exams" });
+        links.appendChild(make("span", {}, "過去問を開く"));
+        pastExams.forEach((exam) => {
+          links.appendChild(make("a", { href: exam.url, target: "_blank", rel: "noopener noreferrer" }, exam.label));
+        });
+        article.appendChild(links);
+      }
       const figures = (Array.isArray(entry.figures) ? entry.figures : [])
         .filter((figure) => figure && CARD_FIGURE_SRC.test(String(figure.src || "")))
         .map((figure) => {

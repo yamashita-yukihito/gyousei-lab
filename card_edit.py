@@ -67,6 +67,10 @@ FIGURE_LIMIT = 2
 
 # ⑨質問ノート。利用者の質問と、それへの回答をカードへ追記していく（2026-10-24に追加）。
 LEARNER_QA_DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
+# ⑨の本文で触れた過去問へのリンク。合格道場の問題ページだけ（2026-10-29に追加）。
+PAST_EXAM_URL = re.compile(
+    r"https://www\.pro\.goukakudojyo\.com/worksheet2/w_main(?:nendo|arch)\.php\?queID=\d+"
+)
 
 MARKUP = re.compile(
     r"(\*\*[^*\n]+\*\*|__[^_\n]+__|==[^=\n]+==|!![^!\n]+!!|%%[^%\n]+%%|@@[^@\n]+@@)"
@@ -271,6 +275,14 @@ def validate_card(
                 problems.append(f"{label} の question に装飾記法は使えません")
             check_markup(f"{card_id}.learnerQa[{index}].answer", str(entry.get("answer") or ""), problems, allow_red=True)
             check_figures(f"{label}.figures", entry.get("figures"), problems)
+            past_exams = entry.get("pastExams")
+            if past_exams is not None and not isinstance(past_exams, list):
+                problems.append(f"{label}.pastExams は配列にしてください")
+            for exam in past_exams if isinstance(past_exams, list) else []:
+                if not isinstance(exam, dict) or not str(exam.get("label") or "").strip():
+                    problems.append(f"{label}.pastExams には label が必要です")
+                elif not PAST_EXAM_URL.fullmatch(str(exam.get("url") or "")):
+                    problems.append(f"{label}.pastExams の url は合格道場の問題ページだけです")
         if len(qa_ids) != len(set(qa_ids)):
             problems.append(f"{card_id}: ⑨learnerQa の id が重複しています")
 

@@ -635,6 +635,9 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .learner-qa-question p { margin: 0; color: #3f3566; font-weight: 700; white-space: pre-wrap; }
 .learner-qa-question small { grid-column: 2; color: var(--muted); font-size: 11px; }
 .learner-qa-answer p { margin: 0; white-space: pre-wrap; }
+.learner-qa-exams { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 12px 0 0 34px; font-size: 13px; }
+.learner-qa-exams span { color: var(--muted); font-weight: 700; }
+.learner-qa-exams a { padding: 2px 10px; border: 1px solid #c9bfe0; border-radius: 999px; background: #fff; color: #4b3d8f; text-decoration: none; }
 .learner-qa-figures { margin-top: 14px; }
 /* スマホでは入れ子の余白で本文が細くなるので、Q・Aの印の下へ本文を全幅で流す */
 @media (max-width: 620px) {

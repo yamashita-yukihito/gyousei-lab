@@ -647,6 +647,22 @@ def _project_card_figures(value: Any, context: str) -> list[dict[str, str]]:
 
 
 LEARNER_QA_DATE_PATTERN = re.compile(r"\d{4}-\d{2}-\d{2}")
+LEARNER_QA_PAST_EXAM_URL = re.compile(
+    r"https://www\.pro\.goukakudojyo\.com/worksheet2/w_main(?:nendo|arch)\.php\?queID=\d+"
+)
+
+
+def _project_learner_qa_past_exams(value: Any, context: str) -> list[dict[str, Any]]:
+    # ⑨の本文で触れた過去問へのリンク（2026-10-29に追加）。合格道場の問題ページだけを通す。
+    projected: list[dict[str, Any]] = []
+    for index, item_value in enumerate(_array(value, context)):
+        item_context = f"{context}[{index}]"
+        item = _object(item_value, item_context)
+        url = _text(item.get("url"), f"{item_context}.url")
+        if not LEARNER_QA_PAST_EXAM_URL.fullmatch(url):
+            raise ProductionBundleError(f"{item_context}.url must be a goukakudojyo question page")
+        projected.append({"label": _text(item.get("label"), f"{item_context}.label"), "url": url})
+    return projected
 
 
 def _project_learner_qa(value: Any, context: str) -> list[dict[str, Any]]:
@@ -670,6 +686,10 @@ def _project_learner_qa(value: Any, context: str) -> list[dict[str, Any]]:
         if "figures" in entry:
             projected_entry["figures"] = _project_card_figures(
                 entry["figures"], f"{entry_context}.figures"
+            )
+        if "pastExams" in entry:
+            projected_entry["pastExams"] = _project_learner_qa_past_exams(
+                entry["pastExams"], f"{entry_context}.pastExams"
             )
         projected.append(projected_entry)
     ids = [entry["id"] for entry in projected]

@@ -128,7 +128,9 @@
 **同じ作業のうちにそのカードの `learnerQa` へ質問と回答を追記する**（利用者の指示。今年不合格でも、
 来年このカードで深く勉強し直せるようにするため）。
 
-- 形：`{"id": "qa-YYYYMMDD-n", "askedAt": "YYYY-MM-DD", "question": "…", "answer": "…", "figures": [...]}` の配列。
+- 形：`{"id": "qa-YYYYMMDD-n", "askedAt": "YYYY-MM-DD", "question": "…", "answer": "…", "pastExams": [...], "figures": [...]}` の配列。
+  `pastExams`（`{"label": "令和6年問32", "url": 合格道場の問題ページ}`）は回答の下に「過去問を開く」として出す（2026-10-29に追加）。
+  **手で書かない。** 本文に「令和6年問32」の形で書けば、スクリプトが全分野カタログからURLを引いて付ける。
   **追記だけにし、前の質問を書き換えたり消したりしない**（誤りが見つかったときの訂正だけは行い、完了報告に書く）。
 - `question` は利用者の言葉をなるべくそのまま、素の文字列で書く（装飾記法は使えない）。取得元の解説を引くときは要旨に留める。
 - `answer` は①②と同じ装飾記法で書き、`check_markup` を通す。最初に結論を書き、条文・判例番号を付ける。
@@ -152,6 +154,7 @@
    過去問リンクだけにする**（2026-10-29に利用者が指示。同じ解説を2回出力するとトークンが倍になる）。
 4. 図は `static/assets/card-figures/<カードID>-qa<n>-<名前>.svg` に置く。同じ内容を `{"question", "answer", "figures"}` のJSONにし、
    `/opt/homebrew/bin/python3.12 scripts/add_learner_qa.py <カードID> <QA.json> --render <scratchpad>` で検証とPNG化だけ行い、PNGで文字の重なりを見る。
+   既存の⑨の本文を直したら `--relink` で過去問リンクを付け直す。
 5. `--render` を外して同じコマンドを流す。追記→全カード検証→tests→bundle作り直し・差し替え→APIでの確認まで行い、失敗したら正本を戻す。API再起動は要らない。
 6. 自分の追記と図だけをコミットする。ほかの未コミット差分が同じ正本にあるときは、HEADの正本に自分の `learnerQa` だけを足した版を
    `git hash-object -w` → `git update-index --cacheinfo` で積む。

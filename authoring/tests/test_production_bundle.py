@@ -880,6 +880,17 @@ class ProductionBundleTests(unittest.TestCase):
         with self.assertRaisesRegex(ProductionBundleError, "answer must be"):
             self.build(explanation_cards=empty_answer)
 
+        exam = {"label": "令和6年問32", "url": "https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1722"}
+        linked = explanation_cards()
+        linked["items"][0]["learnerQa"] = [dict(entry, pastExams=[dict(exam, note="内部")])]
+        bundle = self.build(explanation_cards=linked)
+        self.assertEqual([exam], bundle["explanationCards"][0]["learnerQa"][0]["pastExams"])
+
+        bad_exam = explanation_cards()
+        bad_exam["items"][0]["learnerQa"] = [dict(entry, pastExams=[dict(exam, url="https://example.test/q")])]
+        with self.assertRaisesRegex(ProductionBundleError, "goukakudojyo question page"):
+            self.build(explanation_cards=bad_exam)
+
         repeated = explanation_cards()
         repeated["items"][0]["learnerQa"] = [entry, dict(entry)]
         with self.assertRaisesRegex(ProductionBundleError, "must not repeat an id"):
