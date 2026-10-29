@@ -7,6 +7,7 @@
 
 - ユーザーへの説明は日本語で、簡潔かつ具体的に行う。
 - 最初に `pwd` を確認し、`README.md`、`HANDOFF.md`、`ARCHITECTURE.md`、`docs/migration.md` を読む。
+  **カードIDを指定した質問（§5.0）では読まない。** §5.0 の手順だけで足りる。
 - 変更前に対象ファイル、起動方法、実行中サービス、永続データの場所を確認する。
 - 親ディレクトリの `../../AGENTS.md` も適用される。矛盾する場合は、このファイルのプロジェクト固有ルールを優先する。
 - このディレクトリはprivate Gitリポジトリ `yamashita-yukihito/gyousei-lab` として管理する。親の `yuki-services` はGitリポジトリではないため、親で `git init` しない。
@@ -143,6 +144,17 @@
 - 編集フォームのJSON欄からも直せる（`EDITABLE_FIELDS` に入れた）。Anki書き出しには出さない。
 - 追記したら `card_edit.validate_card` を全カードへ通し、テスト→bundle作り直し→差し替えまでを同じ作業で行う
   （bundle生成は `learnerQa` を投影する。古いAPIプロセスは古い生成コードを抱えているので、生成コードを変えたらAPIを再起動する）。
+
+**手順（トークン節約のためこの順で。§1の README・HANDOFF などは読まない）**
+
+1. カードはIDで1枚だけ引く（正本全体を開かない）。書き方は §5.0 とメモ「質問ノートの書き方」に従う。
+2. 過去問の出典は、カードの⑤と `static/*-d/chapters.json` の `examRefs`、リンクは同じファイルの `examLinks`。
+3. チャットで答える（結論 → 表・箇条書き → 場面 → 誤解の原因 → 過去問リンク → 覚え方の一言）。
+4. 図は `static/assets/card-figures/<カードID>-qa<n>-<名前>.svg` に置く。同じ内容を `{"question", "answer", "figures"}` のJSONにし、
+   `/opt/homebrew/bin/python3.12 scripts/add_learner_qa.py <カードID> <QA.json> --render <scratchpad>` で検証とPNG化だけ行い、PNGで文字の重なりを見る。
+5. `--render` を外して同じコマンドを流す。追記→全カード検証→tests→bundle作り直し・差し替え→APIでの確認まで行い、失敗したら正本を戻す。API再起動は要らない。
+6. 自分の追記と図だけをコミットする。ほかの未コミット差分が同じ正本にあるときは、HEADの正本に自分の `learnerQa` だけを足した版を
+   `git hash-object -w` → `git update-index --cacheinfo` で積む。
 
 ### 5.1 判例の結論だけを覚える論点（深掘りを増やさない）
 
