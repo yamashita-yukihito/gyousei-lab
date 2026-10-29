@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" role="img" aria-labelledby="t d">
+  <title id="t">無権代理と相続の4つの場面</title>
+  <desc id="d">無権代理人が本人を単独で相続したら追認を拒めず契約は有効。本人が無権代理人を相続したら追認を拒絶できるが、無権代理人の117条の責任は引き継ぐ。無権代理人が他の人と共同相続したら、全員で追認しない限り無権代理人の取り分も有効にならない。本人が追認を拒絶してから死亡し無権代理人が相続しても、無効のまま。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 14px; fill: #55635d; }
+    .case { font-size: 16px; font-weight: 800; }
+    .why { font-size: 13px; fill: #55635d; }
+    .res { font-size: 16px; font-weight: 800; fill: #ffffff; }
+    .law { font-size: 12px; fill: #55635d; }
+    .note { font-size: 15px; font-weight: 700; }
+  </style>
+  <rect width="640" height="500" fill="#ffffff"/>
+  <text class="h" x="320" y="34" text-anchor="middle">無権代理と相続：自分のまいた種は自分で刈る</text>
+  <text class="sub" x="320" y="58" text-anchor="middle">嘘をついた人は得をしない。何も知らない人は巻き込まれない</text>
+
+  <!-- 1 -->
+  <rect x="20" y="78" width="600" height="92" rx="10" fill="#f7f9f8" stroke="#d6dedb"/>
+  <text class="case" x="36" y="106">無権代理人が本人を一人で相続</text>
+  <text class="why" x="36" y="130">自分の嘘を「本人として認めない」は虫がよすぎる</text>
+  <text class="law" x="36" y="152">最判昭40.6.18</text>
+  <rect x="440" y="100" width="164" height="44" rx="8" fill="#2f5d8a"/>
+  <text class="res" x="522" y="128" text-anchor="middle">有効（拒めない）</text>
+
+  <!-- 2 -->
+  <rect x="20" y="182" width="600" height="92" rx="10" fill="#f7f9f8" stroke="#d6dedb"/>
+  <text class="case" x="36" y="210">本人が無権代理人を相続</text>
+  <text class="why" x="36" y="234">被害者だから拒める。でも117条の責任は相続する</text>
+  <text class="law" x="36" y="256">最判昭37.4.20／最判昭48.7.3</text>
+  <rect x="440" y="204" width="164" height="44" rx="8" fill="#5b8a72"/>
+  <text class="res" x="522" y="232" text-anchor="middle">拒絶できる</text>
+
+  <!-- 3 -->
+  <rect x="20" y="286" width="600" height="92" rx="10" fill="#f7f9f8" stroke="#d6dedb"/>
+  <text class="case" x="36" y="314">無権代理人が他の人と共同相続</text>
+  <text class="why" x="36" y="338">何も知らない他の相続人の拒絶権は奪えない</text>
+  <text class="law" x="36" y="360">最判平5.1.21</text>
+  <rect x="440" y="300" width="164" height="64" rx="8" fill="#8a5a2f"/>
+  <text class="res" x="522" y="326" text-anchor="middle">全員で追認しない</text>
+  <text class="res" x="522" y="350" text-anchor="middle">限り無効</text>
+
+  <!-- 4 -->
+  <rect x="20" y="390" width="600" height="92" rx="10" fill="#f7f9f8" stroke="#d6dedb"/>
+  <text class="case" x="36" y="418">本人が拒絶してから死亡→無権代理人が相続</text>
+  <text class="why" x="36" y="442">拒絶した時点で無効が確定している</text>
+  <text class="law" x="36" y="464">最判平10.7.17</text>
+  <rect x="440" y="414" width="164" height="44" rx="8" fill="#8a2f3f"/>
+  <text class="res" x="522" y="442" text-anchor="middle">無効のまま</text>
+</svg>

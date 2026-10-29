@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 560" role="img" aria-labelledby="t d">
+  <title id="t">相手方の4つの道具と、求められる相手方の条件</title>
+  <desc id="d">無権代理の相手方が使える道具を軽い順に並べた図。催告は悪意でも使える（114条）。取消しは善意が必要で、本人の追認前に限る（115条）。無権代理人の責任は善意無過失が必要だが、無権代理人が自分に代理権が無いと知っていたなら相手方に過失があっても追及できる（117条）。表見代理は善意無過失（110条は正当な理由）に加えて本人の落ち度が必要（109条・110条・112条）。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 14px; fill: #55635d; }
+    .th { font-size: 13px; font-weight: 800; fill: #55635d; }
+    .tool { font-size: 17px; font-weight: 800; }
+    .what { font-size: 13px; fill: #55635d; }
+    .need { font-size: 16px; font-weight: 800; fill: #ffffff; }
+    .law { font-size: 12px; fill: #55635d; }
+    .ex { font-size: 13px; font-weight: 700; fill: #9a3412; }
+    .note { font-size: 15px; font-weight: 700; }
+  </style>
+  <rect width="640" height="560" fill="#ffffff"/>
+  <text class="h" x="320" y="34" text-anchor="middle">道具が重いほど、相手方は「きれい」でないと使えない</text>
+  <text class="sub" x="320" y="58" text-anchor="middle">無権代理の相手方が使える4つの道具（下へ行くほど重い）</text>
+
+  <text class="th" x="24" y="96">相手方の道具</text>
+  <text class="th" x="300" y="96">相手方に要るもの</text>
+  <line x1="20" y1="106" x2="620" y2="106" stroke="#c9d3cf"/>
+
+  <!-- 催告 -->
+  <text class="tool" x="24" y="138">① 催告</text>
+  <text class="what" x="24" y="160">本人に「追認する？」と聞くだけ</text>
+  <text class="law" x="24" y="178">114条</text>
+  <rect x="300" y="122" width="150" height="44" rx="8" fill="#5b8a72"/>
+  <text class="need" x="375" y="150" text-anchor="middle">悪意でもOK</text>
+  <line x1="20" y1="196" x2="620" y2="196" stroke="#e3e8e6"/>
+
+  <!-- 取消し -->
+  <text class="tool" x="24" y="228">② 取消し</text>
+  <text class="what" x="24" y="250">自分が契約から抜ける</text>
+  <text class="law" x="24" y="268">115条（本人の追認前まで）</text>
+  <rect x="300" y="212" width="200" height="44" rx="8" fill="#3f7a7a"/>
+  <text class="need" x="400" y="240" text-anchor="middle">善意</text>
+  <line x1="20" y1="286" x2="620" y2="286" stroke="#e3e8e6"/>
+
+  <!-- 117条 -->
+  <text class="tool" x="24" y="318">③ 無権代理人の責任</text>
+  <text class="what" x="24" y="340">嘘をついた人に履行か損害賠償</text>
+  <text class="law" x="24" y="358">117条</text>
+  <rect x="300" y="302" width="260" height="44" rx="8" fill="#2f5d8a"/>
+  <text class="need" x="430" y="330" text-anchor="middle">善意無過失</text>
+  <text class="ex" x="300" y="370">例外：無権代理人が分かっていて嘘をついた</text>
+  <text class="ex" x="300" y="388">→ 相手方に過失があっても追及できる</text>
+  <line x1="20" y1="404" x2="620" y2="404" stroke="#e3e8e6"/>
+
+  <!-- 表見代理 -->
+  <text class="tool" x="24" y="436">④ 表見代理</text>
+  <text class="what" x="24" y="458">何も知らない本人に責任を負わせる</text>
+  <text class="law" x="24" y="476">109条・110条・112条</text>
+  <rect x="300" y="420" width="316" height="44" rx="8" fill="#5a3f8a"/>
+  <text class="need" x="458" y="448" text-anchor="middle">善意無過失＋本人の落ち度</text>
+  <text class="law" x="300" y="482">110条は「正当な理由」。落ち度＝委任状・実印を渡した等</text>
+
+  <rect x="20" y="502" width="600" height="40" rx="8" fill="#f3f6f5"/>
+  <text class="note" x="320" y="528" text-anchor="middle">他人に損をかぶせる道具ほど、自分もきれいでなければならない</text>
+</svg>
