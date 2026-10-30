@@ -157,37 +157,45 @@ class LawMapTest(unittest.TestCase):
     def test_drill_skip_marks_match_the_map(self) -> None:
         # 演習D案の「今年は飛ばしてよい」（skipNote）は、マップの優先度とずれないようにする。
         # 重点のカードの問を飛ばさせない。捨て候補のカードの問は必ず飛ばせる。
+        drills = {
+            "minpo-d": "minpo-map", "gyosei-d": "gyosei-map", "kenpo-d": "kenpo-map",
+            "shoho-d": "shoho-map", "kiso-d": "kiso-map", "chishiki-d": "chishiki-map",
+        }
         rank = {"重点": 3, "抑えめ": 2, "捨て候補": 1}
-        best: dict[str, str] = {}
-        stack: list[str] = []
-        branch = ""
-        for _, line in content_lines("minpo-map"):
-            if line.startswith("# "):
-                branch = PRIORITY.search(line).group(1)
-                stack = []
-                continue
-            m = re.match(r"^( *)-\s+(.+)$", line)
-            if not m:
-                continue
-            depth = len(m.group(1)) // 2
-            stack = stack[:depth]
-            own = PRIORITY.search(m.group(2))
-            prio = own.group(1) if own else (stack[-1] if stack else branch)
-            stack.append(prio)
-            for card in re.findall(r"\{([^{}]+)\}", m.group(2)):
-                if card not in best or rank[prio] > rank[best[card]]:
-                    best[card] = prio
-        chapters = json.loads((STATIC / "minpo-d" / "chapters.json").read_text(encoding="utf-8"))["chapters"]
-        for chapter in chapters:
-            # 章を丸ごと飛ばす形にしない（結果の正答率が出せなくなる）。
-            self.assertTrue([q for q in chapter["questions"] if not q.get("skipNote")], chapter["id"])
-            for q in chapter["questions"]:
-                prio = best.get(q.get("cardId"))
-                if q.get("skipNote"):
-                    self.assertNotEqual("重点", prio, q["id"])
-                # 飛ばす印を付けたのは物権の章（第5〜11.5章）だけ。ほかの章は全部解く。
-                elif prio == "捨て候補" and 5 <= float(chapter["number"]) <= 11.5:
-                    self.fail(f"{q['id']}: カードは捨て候補なのに飛ばせない")
+        for drill, directory in drills.items():
+            best: dict[str, str] = {}
+            stack: list[str] = []
+            branch = ""
+            for _, line in content_lines(directory):
+                if line.startswith("# "):
+                    branch = PRIORITY.search(line).group(1)
+                    stack = []
+                    continue
+                m = re.match(r"^( *)-\s+(.+)$", line)
+                if not m:
+                    continue
+                depth = len(m.group(1)) // 2
+                stack = stack[:depth]
+                own = PRIORITY.search(m.group(2))
+                prio = own.group(1) if own else (stack[-1] if stack else branch)
+                stack.append(prio)
+                for card in re.findall(r"\{([^{}]+)\}", m.group(2)):
+                    if card not in best or rank[prio] > rank[best[card]]:
+                        best[card] = prio
+            chapters = json.loads((STATIC / drill / "chapters.json").read_text(encoding="utf-8"))["chapters"]
+            for chapter in chapters:
+                # 章を丸ごと飛ばす形にしない（結果の正答率が出せなくなる）。
+                self.assertTrue([q for q in chapter["questions"] if not q.get("skipNote")], chapter["id"])
+                # 民法の第1〜4章は勉強済みなので、印を付けず全部解く。
+                settled = drill == "minpo-d" and float(chapter["number"]) < 5
+                for q in chapter["questions"]:
+                    prio = best.get(q.get("cardId"))
+                    if q.get("skipNote"):
+                        self.assertFalse(settled, q["id"])
+                        self.assertNotEqual("重点", prio, q["id"])
+                        self.assertNotEqual("chishiki-d", drill, "基礎知識は足切りがあるので飛ばす問を作らない")
+                    elif prio == "捨て候補" and not settled:
+                        self.fail(f"{q['id']}: カードは捨て候補なのに飛ばせない")
 
     def test_study_screen_reads_every_map(self) -> None:
         # 学習画面（static/app.js）も同じ content.md から優先度を読み、解いているカードに印を出す。

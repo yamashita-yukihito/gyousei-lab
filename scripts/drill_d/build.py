@@ -13,6 +13,7 @@ HERE = Path(__file__).resolve().parent
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(HERE))
 from pq import era, limbs  # noqa: E402
+import skip_notes  # noqa: E402
 
 APP = Path.home() / "dev/yuki-services/apps/gyousei-lab"
 DATA = Path.home() / ".local/share/yuki-services/gyousei-lab/authoring/all_subjects"
@@ -188,6 +189,7 @@ def build(key):
         ch = importlib.reload(importlib.import_module(mod)).CHAPTER
         ch = {"id": ch["id"], "number": number, **{k: v for k, v in ch.items() if k != "id"}}
         chapters.append(ch)
+    skip_notes.apply(chapters)
     cast = [
         {"id": cid, "name": CAST_STYLE[cid][0], "emoji": CAST_STYLE[cid][1], "color": CAST_STYLE[cid][2], "role": role}
         for cid, role in conf["roles"].items()

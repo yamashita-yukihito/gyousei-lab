@@ -13,6 +13,7 @@ HERE = Path(__file__).resolve().parent
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(HERE))
 from build import APP, check, exam_index, ref_key  # noqa: E402
+import skip_notes  # noqa: E402
 
 # (章ファイル, 番号, この章の前に来る章ID)
 EXTRA = [
@@ -33,6 +34,7 @@ def main(argv):
         at = [c["id"] for c in chapters].index(after) + 1
         chapters.insert(at, ch)
         new.append(ch)
+    skip_notes.apply(new)
     cards = {c["id"] for c in json.loads((APP / "content/explanation_cards.json").read_text(encoding="utf-8"))["items"]}
     errors = check({"cast": data["cast"], "chapters": new}, cards)
     _, urls = exam_index()

@@ -43,7 +43,7 @@
   - 少数株主権 :: 総株主の議決権の100分の1以上を持つ株主（公開会社は6か月の保有も要る）は、総会検査役の選任を裁判所に申し立てられる（取締役に請求するのではない） {com-inc-shareholder-minority-rights-001}
   - 決議の内容が法令違反 :: 決議は無効（決議無効確認の訴えに提訴期間の制限はない）。内容が定款違反なら、決議の日から3か月以内に取消しの訴え {com-inc-shareholders-resolution-illegal-content-001}
 - 取締役会 [重要] @shoho-d/organs
-  - 特別利害関係のある取締役 [捨て候補] :: その決議に加わることができない {com-inc-board-special-interest-001}
+  - 特別利害関係のある取締役 [抑えめ] :: その決議に加わることができない {com-inc-board-special-interest-001}
   - 議事録 :: 決議に参加して議事録に異議をとどめなかった取締役は、決議に賛成したと推定される {com-inc-board-minutes-presumption-001}
 - 監査役・監査役会 @shoho-d/organs
   - 選任と解任 [捨て候補] :: 選任は普通決議、解任は特別決議 {com-inc-auditor-appointment-dismissal-001}

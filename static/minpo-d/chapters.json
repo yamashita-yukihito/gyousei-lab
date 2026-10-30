@@ -8433,7 +8433,8 @@
           ],
           "examRefs": [
             "平成21年問30ウ"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成21年問30が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-gj-002",
@@ -8693,7 +8694,8 @@
           "examRefs": [
             "平成26年問31",
             "平成22年問31肢5"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成26年問31が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-gj-006",
@@ -9150,7 +9152,8 @@
           ],
           "examRefs": [
             "平成20年問46（記述式）"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成20年問46が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-as-003",
@@ -9753,7 +9756,8 @@
           "examRefs": [
             "平成26年問33ア（改正前の出題）",
             "平成26年問33エ（改正前の出題）"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成26年問33が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-pay-002",
@@ -9817,7 +9821,8 @@
           ],
           "examRefs": [
             "平成26年問33ア（改正前の出題）"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成26年問33が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-pay-003",
@@ -9895,7 +9900,8 @@
           "examRefs": [
             "平成27年問31肢1（改正前の出題）",
             "平成27年問31肢2（改正前の出題）"
-          ]
+          ],
+          "skipNote": "カードが捨て候補（20年で2問）"
         },
         {
           "id": "minpo-d-pay-004",
@@ -9964,7 +9970,8 @@
           ],
           "examRefs": [
             "平成27年問31肢4（改正前の出題）"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成27年問31が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-pay-005",
@@ -10731,7 +10738,8 @@
           ],
           "examRefs": [
             "平成25年問30肢5"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成25年問30が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-cp-007",
@@ -10809,7 +10817,8 @@
           "cardId": "min-inheritance-renunciation-effect-001",
           "examRefs": [
             "平成25年問30肢2"
-          ]
+          ],
+          "skipNote": "カードが捨て候補（20年で2問）"
         },
         {
           "id": "minpo-d-cp-008",
@@ -10882,7 +10891,8 @@
           "cardId": "min-inheritance-renunciation-effect-001",
           "examRefs": [
             "平成25年問30肢1"
-          ]
+          ],
+          "skipNote": "カードが捨て候補（20年で2問）"
         }
       ]
     },
@@ -11068,7 +11078,8 @@
           ],
           "examRefs": [
             "平成27年問33肢1"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成27年問33が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-gl-002",
@@ -11132,7 +11143,8 @@
           ],
           "examRefs": [
             "平成27年問33肢1"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成27年問33が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-gl-003",
@@ -11204,7 +11216,8 @@
           ],
           "examRefs": [
             "平成24年問32肢1"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成24年問32が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-gl-004",
@@ -13239,7 +13252,8 @@
           ],
           "examRefs": [
             "平成24年問32肢4"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成24年問32が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-wmd-006",
@@ -13362,7 +13376,8 @@
           "cardId": "com-act-reward-custody-001",
           "examRefs": [
             "平成24年問32肢5"
-          ]
+          ],
+          "skipNote": "カードが捨て候補（20年で3問）"
         },
         {
           "id": "minpo-d-wmd-008",
@@ -13754,7 +13769,8 @@
           ],
           "examRefs": [
             "平成23年問33肢1"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成23年問33が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-mu-004",
@@ -14030,7 +14046,8 @@
           "cardId": "min-contract-illegal-cause-performance-001",
           "examRefs": [
             "平成22年問33イ"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成22年問33が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-mu-008",
@@ -14429,7 +14446,8 @@
           ],
           "examRefs": [
             "平成21年問34肢3"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成21年問34が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-tt-004",
@@ -14637,7 +14655,8 @@
           ],
           "examRefs": [
             "平成27年問34肢3"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成27年問34が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-tt-007",
@@ -15241,7 +15260,8 @@
           "cardId": "min-family-acknowledgement-effect-001",
           "examRefs": [
             "令和7年問35肢1"
-          ]
+          ],
+          "skipNote": "カードが捨て候補（20年で2問）"
         },
         {
           "id": "minpo-d-fm-006",
@@ -15314,7 +15334,8 @@
           "cardId": "min-family-acknowledgement-effect-001",
           "examRefs": [
             "令和7年問35肢3・肢4"
-          ]
+          ],
+          "skipNote": "カードが捨て候補（20年で2問）"
         },
         {
           "id": "minpo-d-fm-007",
@@ -15379,7 +15400,8 @@
           ],
           "examRefs": [
             "平成26年問35エ"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成26年問35が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-fm-008",
@@ -15676,7 +15698,8 @@
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
           ],
-          "cardId": "min-inheritance-substitution-cause-001"
+          "cardId": "min-inheritance-substitution-cause-001",
+          "skipNote": "カードが捨て候補（20年で3問）"
         },
         {
           "id": "minpo-d-inh-003",
@@ -15747,7 +15770,8 @@
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
           ],
-          "cardId": "min-inheritance-substitution-cause-001"
+          "cardId": "min-inheritance-substitution-cause-001",
+          "skipNote": "カードが捨て候補（20年で3問）"
         },
         {
           "id": "minpo-d-inh-004",
@@ -15819,7 +15843,8 @@
           "cardId": "min-inheritance-substitution-cause-001",
           "examRefs": [
             "平成19年問35オ"
-          ]
+          ],
+          "skipNote": "カードが捨て候補（20年で3問）"
         },
         {
           "id": "minpo-d-inh-005",
@@ -15892,7 +15917,8 @@
           "examRefs": [
             "平成21年問35エ",
             "平成19年問35エ"
-          ]
+          ],
+          "skipNote": "カードが捨て候補（20年で3問）"
         },
         {
           "id": "minpo-d-inh-006",
@@ -15965,7 +15991,8 @@
           ],
           "examRefs": [
             "平成24年問46（記述式・改正前の出題）"
-          ]
+          ],
+          "skipNote": "過去問の出典は平成24年問46が最後（直近10年の出典なし）"
         },
         {
           "id": "minpo-d-inh-007",
@@ -16663,7 +16690,8 @@
           "examRefs": [
             "令和5年問35オ",
             "令和5年問35ウ"
-          ]
+          ],
+          "skipNote": "カードが捨て候補（20年で1問）"
         },
         {
           "id": "minpo-d-wil-006",
@@ -16732,7 +16760,8 @@
           "cardId": "min-inheritance-legatee-predecease-001",
           "examRefs": [
             "令和5年問35エ"
-          ]
+          ],
+          "skipNote": "カードが捨て候補（20年で1問）"
         },
         {
           "id": "minpo-d-wil-007",

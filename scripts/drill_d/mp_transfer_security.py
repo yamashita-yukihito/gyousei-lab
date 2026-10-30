@@ -195,8 +195,3 @@ CHAPTER = {
           remedy="しずかは、ドラえもんに対して清算金（土地の価値から残りの借金を引いた分）の支払を求めることができます。"),
     ],
 }
-
-# 今年は飛ばしてよい問（AGENTS.md §5.2）。問を消さず、画面で灰色にする。
-for _q in CHAPTER["questions"]:
-    if _q["id"] in ("minpo-d-tsec-005", "minpo-d-tsec-008"):
-        _q["skipNote"] = "譲渡担保の細部。この形の出題は平成24年問30の肢だけ"
