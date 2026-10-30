@@ -84,6 +84,11 @@ main { max-width: 1040px; margin: 0 auto; padding: 18px 16px 48px; }
 .goal-box { margin-top: 12px; padding: 10px 12px; border-radius: 9px; background: var(--amber-soft); font-size: 12.5px; }
 .goal-box strong { display: block; color: var(--amber); }
 .goal-box span { display: block; margin-top: 2px; }
+.guide-box { margin-top: 12px; padding: 10px 12px; border: 1px solid #b9c7e0; border-radius: 9px; background: var(--blue-soft); font-size: 12.5px; }
+.guide-box > summary { cursor: pointer; color: var(--blue); font-weight: 900; }
+.guide-box ul { margin: 8px 0 0; padding-left: 18px; }
+.guide-box li { margin-top: 5px; line-height: 1.65; }
+.meta-chip.guide { color: var(--blue); background: var(--blue-soft); font-weight: 800; }
 .case-details { margin-top: 13px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
 .case-details summary { padding: 10px 12px; cursor: pointer; color: var(--green); font-size: 13px; font-weight: 900; }
 .case-details summary span { margin-left: 5px; color: var(--muted); font-size: 11px; font-weight: 500; }

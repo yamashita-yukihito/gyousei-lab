@@ -224,6 +224,7 @@ function renderHome() {
     if (rec.readRounds >= 2 && !rec.sessions.solve.length) meta.append(chip('3周目：解く推奨', true));
     const skippable = chapter.questions.filter((question) => question.skipNote).length;
     if (skippable) meta.append(el('span', 'meta-chip skip', `△ ${chapter.questions.length}問中${skippable}問は今年は飛ばしてよい`));
+    if (chapter.guide) meta.append(el('span', 'meta-chip guide', '◆ 勘で解くコツあり'));
     body.appendChild(meta);
 
     const open = el('button', 'primary chapter-open');
@@ -258,6 +259,7 @@ function renderChapterHeader(chapter) {
   setText('chapter-lead', aliasText(chapter.lead, chapter));
   setText('chapter-goal', aliasText(chapter.goal, chapter));
   appendRichText(document.getElementById('base-scenario'), chapter.baseScenario, chapter);
+  renderChapterGuide(chapter);
   const strip = document.getElementById('cast-strip');
   strip.textContent = '';
   (chapter.castIds || []).forEach((castId) => {
@@ -268,6 +270,21 @@ function renderChapterHeader(chapter) {
     item.append(el('strong', '', `${cast.emoji} ${displayName(castId, chapter)}`), el('span', '', aliasText(cast.role, chapter)));
     strip.appendChild(item);
   });
+}
+
+// 捨てる範囲で点を拾うための「勘で解くコツ」。章に guide があるときだけ、共通事例の上に出す。
+// 本番変換は論点名を隠すので出さない。
+function renderChapterGuide(chapter) {
+  document.getElementById('chapter-guide')?.remove();
+  if (!chapter.guide || state.mode === 'exam') return;
+  const box = el('details', 'guide-box');
+  box.id = 'chapter-guide';
+  box.open = true;
+  box.appendChild(el('summary', '', chapter.guide.title));
+  const list = el('ul');
+  chapter.guide.items.forEach((item) => list.appendChild(el('li', '', item)));
+  box.appendChild(list);
+  document.querySelector('.goal-box').after(box);
 }
 
 function renderStudy() {

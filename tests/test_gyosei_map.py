@@ -195,6 +195,21 @@ class LawMapTest(unittest.TestCase):
                     elif prio == "捨て候補" and not settled:
                         self.fail(f"{q['id']}: カードは捨て候補なのに飛ばせない")
 
+    def test_guess_guides_are_on_the_given_up_chapters(self) -> None:
+        # 捨てる範囲（商法・地方自治法・家族法）の章に「勘で解くコツ」を出す。過去問の裏付けが無い通説を書かない。
+        want = {
+            "shoho-d": {"incorporation", "organs"},
+            "gyosei-d": {"local-residents", "local-structure"},
+            "minpo-d": {"family", "inheritance", "will"},
+        }
+        for drill, ids in want.items():
+            chapters = json.loads((STATIC / drill / "chapters.json").read_text(encoding="utf-8"))["chapters"]
+            self.assertEqual(ids, {c["id"] for c in chapters if c.get("guide")}, drill)
+            for chapter in chapters:
+                if chapter.get("guide"):
+                    self.assertTrue(chapter["guide"]["title"])
+                    self.assertTrue(all(isinstance(i, str) and i for i in chapter["guide"]["items"]))
+
     def test_every_page_has_favicon(self) -> None:
         # 科目のページは科目の字（民・行・憲・商・基・知）、ほかはラボの字のアイコンを出す。
         want = {"minpo": "min", "gyosei": "gyo", "kenpo": "ken", "shoho": "sho", "kiso": "kiso", "chishiki": "chi"}
