@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20261029-2";
+  const APP_VERSION = "20261030-1";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -515,6 +515,17 @@
       });
     });
     $("study-reveal").addEventListener("click", revealStudyCard);
+    // 回答せずに次へ進む。「答えを見る」を押さなくても飛ばせるようにする（2026-10-30に利用者が依頼）。
+    $("study-skip").addEventListener("click", () => {
+      if (isRapidStudyView() || state.studyAnswered) return;
+      stopStudyTimer();
+      showNextStudyCard();
+    });
+    $("study-show-answer").checked = studyShowAnswerEnabled();
+    $("study-show-answer").addEventListener("change", () => {
+      try { localStorage.setItem(STUDY_SHOW_ANSWER_KEY, $("study-show-answer").checked ? "on" : "off"); } catch (_) {}
+      renderStudyAnswerPreview();
+    });
     $("study-kind").addEventListener("change", () => {
       try { localStorage.setItem(STUDY_KIND_KEY, $("study-kind").value); } catch (_) {}
       if ($("study-scope").value === "today") {
@@ -1219,7 +1230,26 @@
       button.disabled = false;
       button.classList.remove("correct-answer", "selected-wrong");
     });
+    renderStudyAnswerPreview();
     startStudyTimer();
+  }
+
+  // 解く前に答え（○×）を見せる設定。利用者が「答えを知った状態で解きたい」と決めた（2026-10-30）。
+  // 既定はオン。端末ごとにlocalStorageへ持つ。回答の記録はふだんどおり行う。
+  const STUDY_SHOW_ANSWER_KEY = "gyousei-lab:studyShowAnswer";
+
+  function studyShowAnswerEnabled() {
+    try { return localStorage.getItem(STUDY_SHOW_ANSWER_KEY) !== "off"; } catch (_) { return true; }
+  }
+
+  function renderStudyAnswerPreview() {
+    const item = state.studyCurrent;
+    const show = Boolean(item) && !state.studyAnswered && $("study-show-answer").checked;
+    $("study-answer-preview").hidden = !show;
+    if (show) $("study-answer-preview-label").textContent = studyTruthLabel(Boolean(item.correct));
+    document.querySelectorAll("[data-study-answer]").forEach((button) => {
+      button.classList.toggle("answer-hint", show && (button.dataset.studyAnswer === "true") === Boolean(item.correct));
+    });
   }
 
   // カードの素になった過去問へ飛べるようにする。関連肢はすべて⑤側にリンクがあるので、
@@ -1655,6 +1685,7 @@
     renderStudyCrossField(item);
     renderStudyComparisonTable(item);
     renderStudyLearnerQa(item);
+    renderStudyAnswerPreview();
     $("study-answer-panel").hidden = false;
     requestAnimationFrame(() => $("study-answer-summary").focus({ preventScroll: true }));
   }

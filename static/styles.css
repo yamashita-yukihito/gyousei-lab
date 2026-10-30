@@ -1096,6 +1096,12 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .study-answer-summary.revealed-only { border-color: #c9d7e2; background: #f6fafd; }
 .study-answer-summary.revealed-only .study-feedback { color: #37627f; }
 @media (max-width: 640px) { .study-reveal-row { flex-direction: column; align-items: stretch; } }
+.study-show-answer { display: inline-flex; align-items: center; gap: 6px; margin: 10px 0 0; color: #43514b; font-size: 13px; cursor: pointer; }
+.study-answer-preview { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 0 0 10px; padding: 9px 12px; border: 1px solid #c9d7e2; border-radius: 10px; background: #f6fafd; }
+.study-answer-preview span { color: #37627f; font-size: 12px; font-weight: 800; }
+.study-answer-preview strong { color: #183a34; font-size: 18px; }
+.study-answer-preview small { color: #63706b; font-size: 12px; }
+.study-answer-buttons button.answer-hint { border: 2px dashed var(--green); background: var(--green-soft); }
 
 /* FSRSの4評価。「どれだけ苦労して思い出したか」を選ぶ。自信の強さではない。 */
 .study-rating-buttons { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
