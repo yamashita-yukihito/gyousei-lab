@@ -925,6 +925,9 @@ function resetAll() {
 }
 
 function bind() {
+  const techniqueLink = el('a', 'technique-link', '選択肢の絞り方は「絞り込みテクニック」へ →');
+  techniqueLink.href = '../technique/';
+  document.getElementById('mode-note').after(techniqueLink);
   document.querySelectorAll('.mode-button').forEach((button) => {
     button.addEventListener('click', () => setMode(button.dataset.mode));
   });

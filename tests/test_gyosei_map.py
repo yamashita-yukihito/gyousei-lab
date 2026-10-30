@@ -210,6 +210,15 @@ class LawMapTest(unittest.TestCase):
                     self.assertTrue(chapter["guide"]["title"])
                     self.assertTrue(all(isinstance(i, str) and i for i in chapter["guide"]["items"]))
 
+    def test_technique_page_is_linked(self) -> None:
+        # 全科目の手順は1ページにまとめ、メイン画面と演習ページから開けるようにする。
+        self.assertTrue((STATIC / "technique" / "index.html").is_file())
+        self.assertIn('href="technique/"', (STATIC / "index.html").read_text(encoding="utf-8"))
+        self.assertIn("'../technique/'", (STATIC / "minpo-d" / "app.js").read_text(encoding="utf-8"))
+        page = (STATIC / "technique" / "index.html").read_text(encoding="utf-8")
+        # 実測で効かなかった手を「効く」と書かない。効かなかったと書いた欄を消さない。
+        self.assertIn("効かなかった手", page)
+
     def test_every_page_has_favicon(self) -> None:
         # 科目のページは科目の字（民・行・憲・商・基・知）、ほかはラボの字のアイコンを出す。
         want = {"minpo": "min", "gyosei": "gyo", "kenpo": "ken", "shoho": "sho", "kiso": "kiso", "chishiki": "chi"}
