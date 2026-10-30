@@ -104,6 +104,13 @@ main { max-width: 1040px; margin: 0 auto; padding: 18px 16px 48px; }
 .badge.topic { color: var(--green); background: var(--green-soft); }
 .badge.straight { color: var(--blue); background: var(--blue-soft); }
 .badge.trap { color: var(--red); background: var(--red-soft); }
+/* 今年は飛ばしてよい問。問は消さず、灰色にして見分ける。 */
+.question-card.skippable { border-style: dashed; border-color: #a9b2ae; background: #dfe3e1; box-shadow: none; }
+.badge.skip, .meta-chip.skip { color: #48524e; background: #cdd3d0; font-weight: 800; }
+.skip-note { margin: 8px 0 0; color: #48524e; font-size: 12.5px; }
+.skip-fold { margin-top: 10px; }
+.skip-fold > summary { cursor: pointer; color: #48524e; font-size: 13px; font-weight: 800; }
+.skip-fold[open] > summary { margin-bottom: 10px; }
 .q-no { color: var(--muted); font-size: 12px; }
 .current-scenario { margin: 12px 0 0; padding: 10px 12px; border-radius: 9px; background: #f5f8f6; font-size: 13px; }
 .current-scenario::before { content: "今回の事実　"; color: var(--green); font-weight: 900; }

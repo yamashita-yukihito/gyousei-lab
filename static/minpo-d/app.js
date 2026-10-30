@@ -222,6 +222,8 @@ function renderHome() {
       chip(`本番 ${sessionSummary(chapter.id, 'exam')}`, rec.sessions.exam.length > 0),
     );
     if (rec.readRounds >= 2 && !rec.sessions.solve.length) meta.append(chip('3周目：解く推奨', true));
+    const skippable = chapter.questions.filter((question) => question.skipNote).length;
+    if (skippable) meta.append(el('span', 'meta-chip skip', `△ ${chapter.questions.length}問中${skippable}問は今年は飛ばしてよい`));
     body.appendChild(meta);
 
     const open = el('button', 'primary chapter-open');
@@ -318,8 +320,9 @@ function renderDelta(question, chapter, index) {
 
 function renderQuestionCard(chapter, question, index, options = {}) {
   const reading = Boolean(options.reading);
-  const answered = options.answer;
-  const card = el('article', 'question-card');
+  // 「飛ばす」を押した問は未回答と同じに描く。あとから戻って解くこともできる。
+  const answered = options.answer && !options.answer.skipped ? options.answer : null;
+  const card = el('article', `question-card${question.skipNote ? ' skippable' : ''}`);
   card.id = `question-${question.id}`;
 
   const head = el('div', 'question-head');
@@ -330,8 +333,12 @@ function renderQuestionCard(chapter, question, index, options = {}) {
   } else {
     badges.appendChild(el('span', 'badge topic', '本番変換'));
   }
+  if (question.skipNote) badges.appendChild(el('span', 'badge skip', '△ 今年は飛ばしてよい'));
   head.append(badges, el('span', 'q-no', `${index + 1} / ${chapter.questions.length}`));
   card.appendChild(head);
+  // 本番変換は論点名を隠すので、論点が分かる理由の文も出さない。
+  if (question.skipNote && state.mode !== 'exam') card.appendChild(el('p', 'skip-note', question.skipNote));
+  const headCount = card.childNodes.length;
 
   const scenario = el('p', 'current-scenario');
   appendRichText(scenario, question.currentScenario, chapter);
@@ -363,6 +370,13 @@ function renderQuestionCard(chapter, question, index, options = {}) {
 
   if (reading || answered) card.appendChild(renderExplanation(chapter, question, reading, answered));
   if (!reading) card.appendChild(renderNavigation(chapter, question, Boolean(answered)));
+  // 「答えから読む」では飛ばしてよい問を畳む。中身は消さず、開けば全部読める。
+  if (reading && question.skipNote) {
+    const fold = el('details', 'skip-fold');
+    fold.appendChild(el('summary', '', '開いて読む'));
+    Array.from(card.childNodes).slice(headCount).forEach((node) => fold.appendChild(node));
+    card.appendChild(fold);
+  }
   return card;
 }
 
@@ -384,8 +398,29 @@ function renderNavigation(chapter, question, answered) {
     else if (atLast) moveToQuestion(firstUnanswered);
     else moveQuestion(1);
   });
-  nav.append(previous, next);
+  nav.append(previous);
+  if (question.skipNote && !answered) {
+    const skip = el('button', 'primary skip-button', '飛ばす →');
+    skip.type = 'button';
+    skip.addEventListener('click', () => skipQuestion(question.id));
+    nav.append(skip);
+  } else {
+    nav.append(next);
+  }
   return nav;
+}
+
+// 飛ばした問は回答として数えない。記録は章の結果へ進むためだけに持つ。
+function skipQuestion(questionId) {
+  const chapter = currentChapter();
+  if (!chapter || state.mode === 'read') return;
+  const current = chapterRecord(chapter.id).current[state.mode];
+  current.answers[questionId] = { skipped: true, at: new Date().toISOString() };
+  saveStore();
+  const firstUnanswered = chapter.questions.findIndex((item) => !current.answers[item.id]);
+  if (state.index < chapter.questions.length - 1) moveQuestion(1);
+  else if (firstUnanswered === -1) finishRound();
+  else moveToQuestion(firstUnanswered);
 }
 
 function answerQuestion(questionId, selected) {
@@ -394,7 +429,7 @@ function answerQuestion(questionId, selected) {
   const question = chapter.questions.find((item) => item.id === questionId);
   if (!question) return;
   const current = chapterRecord(chapter.id).current[state.mode];
-  if (current.answers[questionId]) return;
+  if (current.answers[questionId] && !current.answers[questionId].skipped) return;
   current.answers[questionId] = {
     selected,
     correct: selected === question.answer,
@@ -758,10 +793,12 @@ function finishRound() {
     if (firstUnanswered >= 0) moveToQuestion(firstUnanswered);
     return;
   }
+  const solved = answers.filter((answer) => !answer.skipped);
   const session = {
     at: new Date().toISOString(),
-    total: chapter.questions.length,
-    correct: answers.filter((answer) => answer.correct).length,
+    total: solved.length,
+    correct: solved.filter((answer) => answer.correct).length,
+    skipped: answers.length - solved.length,
   };
   rec.sessions[state.mode].push(session);
   rec.current[state.mode] = blankCurrent();
@@ -790,7 +827,8 @@ function showSummary(summary) {
     setText('summary-result', `答えから読む：第${summary.round}周を記録しました。${summary.round >= 2 ? '次は「普通に解く」へ進めます。' : 'もう1周、答えから読むのがおすすめです。'}`);
   } else {
     const modeName = summary.mode === 'solve' ? '普通に解く' : '本番変換';
-    setText('summary-result', `${modeName}：${summary.correct} / ${summary.total}正解（${Math.round(summary.correct / summary.total * 100)}%）`);
+    const skippedText = summary.skipped ? `・${summary.skipped}問は飛ばしました` : '';
+    setText('summary-result', `${modeName}：${summary.correct} / ${summary.total}正解（${Math.round(summary.correct / summary.total * 100)}%）${skippedText}`);
   }
   renderSummaryTable(chapter);
   document.getElementById('switch-solve').hidden = summary.mode !== 'read';

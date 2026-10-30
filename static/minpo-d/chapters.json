@@ -3745,7 +3745,8 @@
           "cardId": "min-property-stolen-goods-recovery-001",
           "examRefs": [
             "平成19年問29肢3"
-          ]
+          ],
+          "skipNote": "盗品の特則。直近10年の択一では肢1つだけ（令和7年問34）"
         },
         {
           "id": "minpo-d-gfa-006",
@@ -3808,7 +3809,8 @@
           "cardId": "min-property-stolen-goods-recovery-001",
           "examRefs": [
             "平成19年問29肢5"
-          ]
+          ],
+          "skipNote": "盗品の特則。直近10年の択一では肢1つだけ（令和7年問34）"
         },
         {
           "id": "minpo-d-gfa-007",
@@ -3884,7 +3886,8 @@
           "examRefs": [
             "平成25年問46（記述式）",
             "平成19年問29肢4"
-          ]
+          ],
+          "skipNote": "盗品の特則。直近10年の択一では肢1つだけ（令和7年問34）"
         },
         {
           "id": "minpo-d-gfa-008",
@@ -3959,7 +3962,8 @@
           "examRefs": [
             "平成25年問46（記述式）",
             "令和7年問34肢1"
-          ]
+          ],
+          "skipNote": "盗品の特則。直近10年の択一では肢1つだけ（令和7年問34）"
         }
       ],
       "summaryTable": {
@@ -4205,7 +4209,8 @@
           "examRefs": [
             "令和4年問28肢4",
             "平成20年問30エ"
-          ]
+          ],
+          "skipNote": "占有の訴え。占有権を1問まるごと聞いたのは直近10年で令和4年問28だけ"
         },
         {
           "id": "minpo-d-pe-002",
@@ -4270,7 +4275,8 @@
           "cardId": "min-property-possession-recovery-001",
           "examRefs": [
             "平成20年問30エ"
-          ]
+          ],
+          "skipNote": "占有の訴え。占有権を1問まるごと聞いたのは直近10年で令和4年問28だけ"
         },
         {
           "id": "minpo-d-pe-003",
@@ -4474,7 +4480,8 @@
           ],
           "examRefs": [
             "令和元年問30イ"
-          ]
+          ],
+          "skipNote": "地役権・相隣。1問で聞いたのは直近10年で令和元年問30だけ"
         },
         {
           "id": "minpo-d-pe-006",
@@ -4547,7 +4554,8 @@
           ],
           "examRefs": [
             "平成26年問29ウ"
-          ]
+          ],
+          "skipNote": "地役権・相隣。1問で聞いたのは直近10年で令和元年問30だけ"
         },
         {
           "id": "minpo-d-pe-007",
@@ -4612,7 +4620,8 @@
           ],
           "examRefs": [
             "平成27年問29肢3"
-          ]
+          ],
+          "skipNote": "地役権・相隣。1問で聞いたのは直近10年で令和元年問30だけ"
         },
         {
           "id": "minpo-d-pe-008",
@@ -4684,7 +4693,8 @@
           ],
           "examRefs": [
             "令和元年問30ウ"
-          ]
+          ],
+          "skipNote": "地役権・相隣。1問で聞いたのは直近10年で令和元年問30だけ"
         }
       ]
     },
@@ -5106,7 +5116,8 @@
           ],
           "examRefs": [
             "平成22年問29ア"
-          ]
+          ],
+          "skipNote": "共有物の分割。直近10年の出題は肢1つだけ（平成28年問29エ）"
         },
         {
           "id": "minpo-d-co-005",
@@ -5176,7 +5187,8 @@
           "examRefs": [
             "平成22年問29エ",
             "平成28年問29エ"
-          ]
+          ],
+          "skipNote": "共有物の分割。直近10年の出題は肢1つだけ（平成28年問29エ）"
         },
         {
           "id": "minpo-d-co-006",
@@ -5246,7 +5258,8 @@
           "examRefs": [
             "平成22年問29エ",
             "平成28年問29エ"
-          ]
+          ],
+          "skipNote": "共有物の分割。直近10年の出題は肢1つだけ（平成28年問29エ）"
         },
         {
           "id": "minpo-d-co-007",
@@ -5619,7 +5632,8 @@
           "examRefs": [
             "平成27年問30肢1",
             "令和3年問30肢4"
-          ]
+          ],
+          "skipNote": "留置権。1問まるごと出たのは直近10年で令和3年問30だけ"
         },
         {
           "id": "minpo-d-lp-002",
@@ -5701,7 +5715,8 @@
           "examRefs": [
             "平成27年問30肢2",
             "令和3年問30肢5"
-          ]
+          ],
+          "skipNote": "留置権。1問まるごと出たのは直近10年で令和3年問30だけ"
         },
         {
           "id": "minpo-d-lp-003",
@@ -5772,7 +5787,8 @@
           "examRefs": [
             "平成27年問30肢4",
             "令和3年問30肢3"
-          ]
+          ],
+          "skipNote": "留置権。1問まるごと出たのは直近10年で令和3年問30だけ"
         },
         {
           "id": "minpo-d-lp-004",
@@ -5991,7 +6007,8 @@
           "cardId": "min-security-pledge-001",
           "examRefs": [
             "令和2年問28エ"
-          ]
+          ],
+          "skipNote": "質権。1問まるごと出たのは直近10年で令和元年問31だけ"
         },
         {
           "id": "minpo-d-lp-007",
@@ -6065,7 +6082,8 @@
           "cardId": "min-security-pledge-001",
           "examRefs": [
             "令和元年問31肢1"
-          ]
+          ],
+          "skipNote": "質権。1問まるごと出たのは直近10年で令和元年問31だけ"
         },
         {
           "id": "minpo-d-lp-008",
@@ -6135,7 +6153,8 @@
           "cardId": "min-security-pledge-001",
           "examRefs": [
             "令和元年問31肢4"
-          ]
+          ],
+          "skipNote": "質権。1問まるごと出たのは直近10年で令和元年問31だけ"
         }
       ]
     },
@@ -7242,7 +7261,8 @@
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
           ],
-          "cardId": "min-security-statutory-superficies-same-owner-001"
+          "cardId": "min-security-statutory-superficies-same-owner-001",
+          "skipNote": "法定地上権の細部。1問まるごと出たのは平成23年問30が最後"
         },
         {
           "id": "minpo-d-sup-005",
@@ -7321,7 +7341,8 @@
           "cardId": "min-security-statutory-superficies-same-owner-001",
           "examRefs": [
             "平成23年問30肢4"
-          ]
+          ],
+          "skipNote": "法定地上権の細部。1問まるごと出たのは平成23年問30が最後"
         },
         {
           "id": "minpo-d-sup-006",
@@ -7391,7 +7412,8 @@
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
           ],
-          "cardId": "min-security-statutory-superficies-same-owner-001"
+          "cardId": "min-security-statutory-superficies-same-owner-001",
+          "skipNote": "法定地上権の細部。1問まるごと出たのは平成23年問30が最後"
         },
         {
           "id": "minpo-d-sup-007",
@@ -7465,7 +7487,8 @@
           "cardId": "min-security-statutory-superficies-same-owner-001",
           "examRefs": [
             "平成20年問31肢2"
-          ]
+          ],
+          "skipNote": "法定地上権の細部。1問まるごと出たのは平成23年問30が最後"
         },
         {
           "id": "minpo-d-sup-008",
@@ -7534,7 +7557,8 @@
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
           ],
-          "cardId": "min-security-statutory-superficies-same-owner-001"
+          "cardId": "min-security-statutory-superficies-same-owner-001",
+          "skipNote": "法定地上権の細部。1問まるごと出たのは平成23年問30が最後"
         }
       ],
       "summaryTable": {
@@ -8012,7 +8036,8 @@
           ],
           "examRefs": [
             "平成24年問30肢3"
-          ]
+          ],
+          "skipNote": "譲渡担保の細部。この形の出題は平成24年問30の肢だけ"
         },
         {
           "id": "minpo-d-tsec-006",
@@ -8235,7 +8260,8 @@
           ],
           "examRefs": [
             "平成24年問30肢1"
-          ]
+          ],
+          "skipNote": "譲渡担保の細部。この形の出題は平成24年問30の肢だけ"
         }
       ]
     },
