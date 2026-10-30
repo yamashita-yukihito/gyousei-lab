@@ -219,3 +219,4 @@ th { background: #eff5f1; }
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; }
 }
+.q-no { white-space: nowrap; }
