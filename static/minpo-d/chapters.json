@@ -14967,7 +14967,8 @@
           ],
           "examRefs": [
             "平成28年問35肢3"
-          ]
+          ],
+          "skipNote": "家族法は配点が少ないので今年は飛ばす"
         },
         {
           "id": "minpo-d-fm-002",
@@ -15031,7 +15032,8 @@
           ],
           "examRefs": [
             "平成28年問35肢4"
-          ]
+          ],
+          "skipNote": "家族法は配点が少ないので今年は飛ばす"
         },
         {
           "id": "minpo-d-fm-003",
@@ -16056,7 +16058,8 @@
               "label": "民法1042条・1046条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "skipNote": "家族法は配点が少ないので今年は飛ばす"
         },
         {
           "id": "minpo-d-inh-008",
@@ -16123,7 +16126,8 @@
               "label": "民法1042条",
               "url": "https://laws.e-gov.go.jp/law/129AC0000000089?occasion_date=20260401"
             }
-          ]
+          ],
+          "skipNote": "家族法は配点が少ないので今年は飛ばす"
         }
       ],
       "summaryTable": {
@@ -16381,7 +16385,8 @@
           "examRefs": [
             "令和5年問35ア",
             "平成29年問35オ"
-          ]
+          ],
+          "skipNote": "家族法は配点が少ないので今年は飛ばす"
         },
         {
           "id": "minpo-d-wil-002",
@@ -16450,7 +16455,8 @@
           "cardId": "min-inheritance-ward-will-001",
           "examRefs": [
             "平成29年問35オ"
-          ]
+          ],
+          "skipNote": "家族法は配点が少ないので今年は飛ばす"
         },
         {
           "id": "minpo-d-wil-003",
@@ -16518,7 +16524,8 @@
           "cardId": "min-inheritance-holograph-will-001",
           "examRefs": [
             "令和5年問35イ"
-          ]
+          ],
+          "skipNote": "家族法は配点が少ないので今年は飛ばす"
         },
         {
           "id": "minpo-d-wil-009",
@@ -16917,7 +16924,8 @@
           ],
           "examRefs": [
             "令和3年問35ウ"
-          ]
+          ],
+          "skipNote": "家族法は配点が少ないので今年は飛ばす"
         }
       ]
     }

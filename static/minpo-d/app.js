@@ -794,6 +794,13 @@ function finishRound() {
     return;
   }
   const solved = answers.filter((answer) => !answer.skipped);
+  // 全問を飛ばしたら周回として記録せず、章一覧へ戻る（正答率が出せない）。
+  if (!solved.length) {
+    rec.current[state.mode] = blankCurrent();
+    saveStore();
+    renderHome();
+    return;
+  }
   const session = {
     at: new Date().toISOString(),
     total: solved.length,

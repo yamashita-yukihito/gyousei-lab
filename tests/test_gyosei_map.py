@@ -184,8 +184,6 @@ class LawMapTest(unittest.TestCase):
                         best[card] = prio
             chapters = json.loads((STATIC / drill / "chapters.json").read_text(encoding="utf-8"))["chapters"]
             for chapter in chapters:
-                # 章を丸ごと飛ばす形にしない（結果の正答率が出せなくなる）。
-                self.assertTrue([q for q in chapter["questions"] if not q.get("skipNote")], chapter["id"])
                 # 民法の第1〜4章は勉強済みなので、印を付けず全部解く。
                 settled = drill == "minpo-d" and float(chapter["number"]) < 5
                 for q in chapter["questions"]:
@@ -196,6 +194,20 @@ class LawMapTest(unittest.TestCase):
                         self.assertNotEqual("chishiki-d", drill, "基礎知識は足切りがあるので飛ばす問を作らない")
                     elif prio == "捨て候補" and not settled:
                         self.fail(f"{q['id']}: カードは捨て候補なのに飛ばせない")
+
+    def test_every_page_has_favicon(self) -> None:
+        # 科目のページは科目の字（民・行・憲・商・基・知）、ほかはラボの字のアイコンを出す。
+        want = {"minpo": "min", "gyosei": "gyo", "kenpo": "ken", "shoho": "sho", "kiso": "kiso", "chishiki": "chi"}
+        for subject, icon in want.items():
+            for kind in ("d", "map"):
+                html = (STATIC / f"{subject}-{kind}" / "index.html").read_text(encoding="utf-8")
+                self.assertIn(f'href="../assets/favicons/{icon}.svg"', html, subject)
+        for page in STATIC.rglob("*.html"):
+            if "docs" in page.parts:
+                continue
+            found = re.search(r'<link rel="icon" type="image/svg\+xml" href="([^"]+)"', page.read_text(encoding="utf-8"))
+            self.assertIsNotNone(found, str(page))
+            self.assertTrue((page.parent / found.group(1)).is_file(), str(page))
 
     def test_study_screen_reads_every_map(self) -> None:
         # 学習画面（static/app.js）も同じ content.md から優先度を読み、解いているカードに印を出す。
