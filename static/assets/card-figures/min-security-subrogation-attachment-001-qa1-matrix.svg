@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 430" role="img" aria-labelledby="t d">
+  <title id="t">抵当権をどこに付けたかで、物上代位できる賃料が決まる</title>
+  <desc id="d">建物だけに抵当権を設定した場合、銀行は建物の家賃に物上代位できるが、土地の地代にはできない。土地だけに設定した場合、土地の地代には物上代位できるが、建物の家賃にはできない。両方に設定した場合は、家賃にも地代にも物上代位できる。どの場合も、払われる前に銀行が自分で差し押さえる必要がある。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 21px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 14px; fill: #55635d; }
+    .th { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .ths { font-size: 12px; fill: #55635d; }
+    .row { font-size: 16px; font-weight: 800; }
+    .rows { font-size: 12px; fill: #55635d; }
+    .ok { font-size: 22px; font-weight: 800; fill: #ffffff; }
+    .note { font-size: 14px; }
+  </style>
+  <rect width="640" height="430" fill="#ffffff"/>
+  <text class="h" x="320" y="34" text-anchor="middle">賃料を生む物に抵当権が付いているか、だけを見る</text>
+  <text class="sub" x="320" y="58" text-anchor="middle">家賃は建物から、地代は土地から生まれる（372条・304条）</text>
+
+  <text class="th" x="370" y="100" text-anchor="middle">建物の家賃</text>
+  <text class="ths" x="370" y="118" text-anchor="middle">借り主が建物を借りて払う</text>
+  <text class="th" x="530" y="100" text-anchor="middle">土地の地代</text>
+  <text class="ths" x="530" y="118" text-anchor="middle">借り主が土地を借りて払う</text>
+
+  <text class="row" x="24" y="160">建物だけに抵当権</text>
+  <rect x="300" y="134" width="140" height="50" rx="8" fill="#2f6b4f"/>
+  <text class="ok" x="370" y="167" text-anchor="middle">○ できる</text>
+  <rect x="460" y="134" width="140" height="50" rx="8" fill="#8a2f3f"/>
+  <text class="ok" x="530" y="167" text-anchor="middle">✕ できない</text>
+
+  <text class="row" x="24" y="222">土地だけに抵当権</text>
+  <rect x="300" y="196" width="140" height="50" rx="8" fill="#8a2f3f"/>
+  <text class="ok" x="370" y="229" text-anchor="middle">✕ できない</text>
+  <rect x="460" y="196" width="140" height="50" rx="8" fill="#2f6b4f"/>
+  <text class="ok" x="530" y="229" text-anchor="middle">○ できる</text>
+
+  <text class="row" x="24" y="284">土地と建物の両方</text>
+  <rect x="300" y="258" width="140" height="50" rx="8" fill="#2f6b4f"/>
+  <text class="ok" x="370" y="291" text-anchor="middle">○ できる</text>
+  <rect x="460" y="258" width="140" height="50" rx="8" fill="#2f6b4f"/>
+  <text class="ok" x="530" y="291" text-anchor="middle">○ できる</text>
+
+  <rect x="24" y="330" width="592" height="80" rx="8" fill="#f7f4ec" stroke="#b9a77a" stroke-width="1.5"/>
+  <text class="note" x="40" y="356">どの場合も、賃料が大家に払われる前に、銀行が自分で差し押さえる</text>
+  <text class="note" x="40" y="380">（304条1項ただし書）。借り主が又貸しして受け取る転貸料には、</text>
+  <text class="note" x="40" y="400">原則として物上代位できない（最決平12.4.14）。</text>
+</svg>
