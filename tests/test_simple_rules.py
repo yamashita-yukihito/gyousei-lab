@@ -61,6 +61,13 @@ class SimpleRulesTest(unittest.TestCase):
             for key in ("目安", "理由", "使い方"):
                 self.assertNotRegex(item[key], r"\d+%", item["概念"])
 
+    def test_example_count_matches_the_listed_exams(self) -> None:
+        # 「過去問の例 7肢」と書いたら、過去問の欄にも7つ並べる。足したのに数を直し忘れると、目安が嘘になる。
+        for item in self.tables["sense"]:
+            found = re.search(r"過去問の例 (\d+)肢", item["目安"])
+            if found:
+                self.assertEqual(int(found.group(1)), len(item.get("過去問", "").split()), item["概念"])
+
     def test_word_signals_live_on_the_technique_page(self) -> None:
         data = json.loads((ROOT / "static" / "technique" / "word-signals.json").read_text(encoding="utf-8"))
         self.assertGreater(data["simulation"]["questions"], 0)

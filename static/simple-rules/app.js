@@ -230,21 +230,33 @@
     applyFilter(ALL);
   }
 
-  function showTab(name) {
+  function showTab(name, remember) {
     TABS.forEach((tab) => {
       document.getElementById(tab + "-section").hidden = tab !== name;
       const button = document.getElementById(tab + "-tab");
       button.setAttribute("aria-selected", String(tab === name));
     });
+    // 「simple-rules/#ng」のように直接開けるよう、選んだタブをURLに残す。
+    if (remember && window.history && history.replaceState) history.replaceState(null, "", "#" + name);
+  }
+
+  function hashTab() {
+    const name = location.hash.replace(/^#/, "");
+    return TABS.includes(name) ? name : null;
   }
 
   TABS.forEach((tab) => {
-    document.getElementById(tab + "-tab").addEventListener("click", () => showTab(tab));
+    document.getElementById(tab + "-tab").addEventListener("click", () => showTab(tab, true));
   });
-  showTab("sense");
+  // 「本文へ移動」（#main-content）のようなタブ以外の # では、開いているタブを変えない。
+  window.addEventListener("hashchange", () => {
+    const name = hashTab();
+    if (name) showTab(name, false);
+  });
+  showTab(hashTab() || "sense", false);
 
   function load(path, read) {
-    return fetch(path + "?v=20261031-6").then((res) => {
+    return fetch(path + "?v=20261031-7").then((res) => {
       if (!res.ok) throw new Error(path + ": HTTP " + res.status);
       return read(res);
     });

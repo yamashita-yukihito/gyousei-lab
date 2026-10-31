@@ -86,15 +86,15 @@
         <a class="flow-step" href="../technique/"><span>2. 残った肢に使う</span><strong>絞り込みテクニック →</strong>中身が分からない肢を、語や言い回し、肢の長さで絞ります。語だけでは正答率はあまり上がらないので、1の補助です。</a>
       </div>
       <div class="page-tabs" role="tablist" aria-label="表示を切り替える">
-        <button class="page-tab" type="button" role="tab" id="sense-tab">考え方（<span id="sense-count">0</span>）</button>
-        <button class="page-tab" type="button" role="tab" id="ok-tab">言い切ってよい（<span id="ok-count">0</span>）</button>
-        <button class="page-tab" type="button" role="tab" id="ng-tab">言い切るとだめ（<span id="ng-count">0</span>）</button>
+        <button class="page-tab" type="button" role="tab" id="sense-tab" aria-controls="sense-section">考え方（<span id="sense-count">0</span>）</button>
+        <button class="page-tab" type="button" role="tab" id="ok-tab" aria-controls="ok-section">言い切ってよい（<span id="ok-count">0</span>）</button>
+        <button class="page-tab" type="button" role="tab" id="ng-tab" aria-controls="ng-section">言い切るとだめ（<span id="ng-count">0</span>）</button>
       </div>
       <div class="subject-filter" id="subject-filter" aria-label="科目で絞り込む"></div>
       <p class="load-error" id="load-error" hidden></p>
     </section>
 
-    <section class="section" id="sense-section">
+    <section class="section" id="sense-section" role="tabpanel" aria-labelledby="sense-tab">
       <div class="section-heading">
         <p class="kicker">HOW TO THINK</p>
         <h2>問題を解くときの考え方</h2>
@@ -110,7 +110,7 @@
       </div>
     </section>
 
-    <section class="section" id="ok-section">
+    <section class="section" id="ok-section" role="tabpanel" aria-labelledby="ok-tab">
       <div class="section-heading">
         <p class="kicker">SAFE TO SIMPLIFY</p>
         <h2>短く言い切って覚えてよいもの</h2>
@@ -119,7 +119,7 @@
       <div id="ok-tables"></div>
     </section>
 
-    <section class="section" id="ng-section">
+    <section class="section" id="ng-section" role="tabpanel" aria-labelledby="ng-tab">
       <div class="section-heading">
         <p class="kicker">DO NOT SIMPLIFY</p>
         <h2>言い切って覚えるとだめなもの</h2>
@@ -130,6 +130,6 @@
 
     <p class="page-foot">語や言い回しの割合は、絞り込みテクニックのページにまとめました。過去問の○×は、その肢の文章の正誤です（問全体の正解番号ではありません）。内容の正本は static/simple-rules/content.md です。カードへのリンクから解いた回答はふつうの学習として記録され、このページ自体は何も書き込みません。</p>
   </main>
-  <script src="app.js?v=20261031-6"></script>
+  <script src="app.js?v=20261031-7"></script>
 </body>
 </html>
