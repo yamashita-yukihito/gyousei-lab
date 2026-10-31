@@ -8,130 +8,138 @@
   <title>絞り込みテクニック | 行政書士 過去問ラボ</title>
   <link rel="stylesheet" href="../architecture.css?v=20260807-1">
   <style>
-    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
-    .tech-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    .tech-table th, .tech-table td { padding: 9px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
-    .tech-table thead th { background: var(--green-soft); font-size: 12px; white-space: nowrap; }
-    .tech-table tbody tr:last-child td { border-bottom: 0; }
-    .tech-table .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-    .tech-table tfoot td { border-top: 2px solid var(--deep); font-weight: 900; }
-    .low { color: #9b2c2c; font-weight: 900; }
-    .high { color: var(--green); font-weight: 900; }
-    .steps { margin: 0; padding-left: 22px; font-size: 15px; }
-    .steps li { margin-top: 9px; }
-    .note-card { margin-top: 14px; padding: 13px 16px; border: 1px solid var(--line); border-left: 4px solid var(--amber); border-radius: 12px; background: #fffdf6; font-size: 14px; }
-    .note-card.warn { border-left-color: #9b2c2c; background: #fdeaea; }
+    .flow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+    .flow-step { display: block; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: inherit; font-size: 13.5px; line-height: 1.6; text-decoration: none; }
+    .flow-step.now { border-color: var(--green); background: var(--green-soft); }
+    .flow-step span { display: block; color: var(--muted); font-size: 11.5px; font-weight: 800; }
+    .flow-step strong { display: block; color: var(--deep); font-size: 16px; }
+    .page-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
+    .page-tab { min-height: 44px; padding: 8px 16px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--deep); font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; }
+    .page-tab[aria-selected="true"] { border-color: var(--deep); background: var(--deep); color: #fff; }
+    .section[hidden], .subject-group[hidden], .load-error[hidden] { display: none; }
+    .tip-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .tip-card { position: relative; padding: 15px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); font-size: 14.5px; line-height: 1.7; }
+    .tip-card h4 { margin: 0; color: var(--deep); font-size: 16px; line-height: 1.5; }
+    .tip-card p { margin: 6px 0 0; }
+    .tip-part { margin-top: 10px; }
+    .tip-part span { display: block; color: var(--muted); font-size: 11.5px; font-weight: 800; }
+    .tip-part p { margin: 1px 0 0; }
+    .tip-card.step { padding-left: 54px; }
+    .step-no { position: absolute; top: 14px; left: 15px; width: 28px; height: 28px; border-radius: 50%; background: var(--deep); color: #fff; font-size: 14px; font-weight: 900; line-height: 28px; text-align: center; }
+    .tip-card.no { border-left: 4px solid #9b2c2c; }
+    .count-badge { float: right; margin-left: 10px; color: #8a2424; font-size: 12px; }
+    .count-badge strong { font-size: 22px; font-weight: 900; }
+    .rate { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 9px; margin-top: 9px; padding: 7px 10px; border-radius: 8px; font-size: 12.5px; line-height: 1.55; }
+    .rate strong { font-size: 17px; font-weight: 900; }
+    .lean-false { background: #fdeaea; color: #8a2424; }
+    .lean-true { background: var(--green-soft); color: #155d42; }
+    .subject-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+    .filter-button { min-height: 40px; padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--deep); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .filter-button[aria-pressed="true"] { border-color: var(--green); background: var(--green-soft); }
+    .subject-group { margin-top: 22px; }
+    .subject-group h3, .subhead { margin: 0 0 9px; color: var(--deep); font-size: 17px; }
+    .subhead { margin-top: 26px; }
+    .note-card { margin-top: 14px; padding: 13px 16px; border: 1px solid var(--line); border-left: 4px solid var(--amber); border-radius: 12px; background: #fff; font-size: 14px; }
+    .note-card.warn { border-left-color: #9b2c2c; }
     .note-card.ok { border-left-color: var(--green); background: var(--green-soft); }
     .note-card h3 { margin: 0 0 6px; font-size: 15px; }
-    .note-card p, .note-card ul { margin: 0; }
-    .note-card ul { padding-left: 20px; }
-    .note-card li + li { margin-top: 5px; }
-    .subhead { margin: 26px 0 10px; color: var(--deep); font-size: 18px; }
-    .template { padding: 11px 14px; border-radius: 10px; background: var(--deep); color: #edf6f1; font-size: 15px; font-weight: 700; }
+    .note-card p { margin: 0; }
+    .table-wrap { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--paper); box-shadow: none; }
+    .stack-table { width: 100%; min-width: 0; border-collapse: collapse; background: var(--paper); font-size: 14.5px; line-height: 1.65; }
+    .stack-table th, .stack-table td { padding: 10px 13px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+    .stack-table thead th { background: var(--green-soft); font-size: 12.5px; }
+    .stack-table tbody tr:last-child td { border-bottom: 0; }
+    .stack-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .stack-table tfoot td { border-top: 2px solid var(--deep); font-weight: 900; }
+    .low { color: #9b2c2c; font-weight: 900; }
+    .high { color: var(--green); font-weight: 900; }
+    .template { margin-top: 10px; padding: 11px 14px; border-radius: 10px; background: var(--deep); color: #edf6f1; font-size: 15px; font-weight: 700; }
+    .plain { margin: 12px 0 0; font-size: 14.5px; line-height: 1.75; }
+    .numbered { margin: 12px 0 0; padding-left: 22px; font-size: 14.5px; }
+    .numbered li + li { margin-top: 5px; }
+    .load-error { margin-top: 12px; color: #9b2c2c; font-weight: 700; }
     .page-foot { padding: 24px 0 40px; color: var(--muted); font-size: 12.5px; }
+    @media (max-width: 720px) {
+      .flow, .tip-grid { grid-template-columns: minmax(0, 1fr); }
+      .stack-table, .stack-table thead, .stack-table tbody, .stack-table tfoot, .stack-table tr, .stack-table td { display: block; box-sizing: border-box; width: 100%; }
+      .stack-table thead { display: none; }
+      .stack-table tr { padding: 5px 0; border-bottom: 2px solid var(--line); }
+      .stack-table tbody tr:last-child { border-bottom: 0; }
+      .stack-table td { padding: 4px 13px; border-bottom: 0; }
+      .stack-table .num { text-align: left; }
+      .stack-table td[data-label]::before { content: attr(data-label) "："; color: var(--muted); font-size: 12px; font-weight: 700; }
+    }
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">本文へ移動</a>
   <header class="architecture-hero">
     <div class="hero-inner">
-      <nav><a href="../index.html">← 過去問ラボへ戻る</a><a href="../simple-rules/">法律家の常識</a><a href="../score-plan.html">得点設計</a></nav>
+      <nav><a href="../index.html">← 過去問ラボへ戻る</a><a href="../simple-rules/">← 法律家の常識</a></nav>
       <p class="eyebrow">NARROWING TECHNIQUE</p>
       <h1>絞り込みテクニック</h1>
-      <p class="lead">中途半端な知識でも、肢を切れれば点になります。<strong>肢の3割を確実に判定できれば、5択の正答率は約5割になります。</strong>このページの数字は、平成18〜令和7年度の過去問1,139問（選択式の約4,300肢）を集計した実測値です。</p>
+      <p class="lead">中身が分からない肢でも、形を見れば切れることがあります。語や言い回し、肢の長さなど、この試験の癖を平成18〜令和7年度の過去問で実測しました。</p>
     </div>
   </header>
 
   <main id="main-content">
     <section class="section">
-      <div class="section-heading">
-        <p class="kicker">WHY IT WORKS</p>
-        <h2>全部分からなくても点は取れる</h2>
-        <p>各肢を確実に判定できる割合と、そのときの正答率です（残った選択肢からは勘で選ぶとして計算しました）。</p>
+      <div class="flow">
+        <a class="flow-step" href="../simple-rules/"><span>1. 先に使う</span><strong>← 法律家の常識</strong>中身を考えて肢を切ります。知識や考え方で判定できる肢は、必ずそちらを優先します。</a>
+        <div class="flow-step now"><span>2. 残った肢に使う</span><strong>絞り込みテクニック（このページ）</strong>中身が分からない肢を、語や言い回し、肢の長さなど形で絞ります。</div>
       </div>
-      <div class="table-wrap">
-        <table class="tech-table">
-          <thead><tr><th>確実に判定できる肢</th><th class="num">0割</th><th class="num">2割</th><th class="num">3割</th><th class="num">4割</th><th class="num">5割</th><th class="num">6割</th></tr></thead>
-          <tbody>
-            <tr><td>「正しい／誤っているもの」の問題</td><td class="num">20%</td><td class="num">40%</td><td class="num">50%</td><td class="num">60%</td><td class="num">70%</td><td class="num">79%</td></tr>
-            <tr><td>組合せ問題</td><td class="num">20%</td><td class="num">41%</td><td class="num">52%</td><td class="num">63%</td><td class="num">73%</td><td class="num">82%</td></tr>
-          </tbody>
-        </table>
+      <div class="page-tabs" role="tablist" aria-label="表示を切り替える">
+        <button class="page-tab" type="button" role="tab" id="how-tab">解き方</button>
+        <button class="page-tab" type="button" role="tab" id="word-tab">語と言い回し</button>
+        <button class="page-tab" type="button" role="tab" id="length-tab">肢の長さと位置</button>
+        <button class="page-tab" type="button" role="tab" id="format-tab">多肢選択・記述</button>
+        <button class="page-tab" type="button" role="tab" id="no-tab">効かない手</button>
+        <button class="page-tab" type="button" role="tab" id="plan-tab">点の取り方・日程</button>
       </div>
-      <div class="note-card warn">
-        <h3>条件は「確実に」です</h3>
-        <p>この表は、判定した肢が全部合っている場合の数字です。間違った判定で正解を切ると、その問題は0点になります。<strong>自信のない肢は切らずに△にしてください。</strong></p>
-      </div>
-
-      <h3 class="subhead">180点の組み立て（一例）</h3>
-      <div class="table-wrap">
-        <table class="tech-table">
-          <thead><tr><th>形式（配点）</th><th>実力で取る</th><th class="num">点</th><th>絞って拾う</th><th class="num">点</th></tr></thead>
-          <tbody>
-            <tr><td>択一54問（216点）</td><td>24問は確実に解く</td><td class="num">96</td><td>2択まで15問（当たり7.5問）・3択まで10問（3.3問）・4択まで5問（1.25問）</td><td class="num">48</td></tr>
-            <tr><td>多肢選択12空欄（24点）</td><td>6空欄</td><td class="num">12</td><td>残り6空欄を、語群の組分けで2〜3語まで絞る</td><td class="num">5</td></tr>
-            <tr><td>記述3問（60点）</td><td>キーワードまで書く</td><td class="num">12</td><td>結論・相手・訴訟の種類だけでも書く</td><td class="num">9</td></tr>
-          </tbody>
-          <tfoot><tr><td>合計 182点</td><td></td><td class="num">120</td><td></td><td class="num">62</td></tr></tfoot>
-        </table>
-      </div>
-      <p class="page-foot">記述の部分点の配分は公表されていないので、9点は推測です。法令等122点以上と基礎知識24点以上の基準点も別に必要です。</p>
     </section>
 
-    <section class="section">
+    <section class="section" id="how-section">
       <div class="section-heading">
         <p class="kicker">PROCEDURE</p>
         <h2>1問の解き方</h2>
+        <p>上から順に使います。</p>
       </div>
-      <ol class="steps">
-        <li><strong>問いの向きに丸を付ける。</strong>「正しいもの」か「誤っているもの」か。ここを取り違えると、知っていても落とします。</li>
-        <li><strong>肢の横に ○ × △ を書く。</strong>確実なものだけ○×にし、迷ったら△にします。</li>
-        <li><strong>組合せ問題は、判定できる肢を探して選択肢を消す。</strong>1肢だけ判定できれば、当たる確率は20%から約40%に上がります。全部読む必要はありません。</li>
-        <li><strong>△が残ったら、下の表の語を見る。</strong>語は決め手ではなく傾向です。知識で判定した○×を語で覆さないでください。</li>
-        <li><strong>憲法・民法・商法で「正しい／誤っているもの」の問題なら</strong>、それでも残るときは、最も短い肢と1番を外して最も長い肢を選びます。</li>
-        <li><strong>時間をかけない。</strong>決まらなければマークして問題番号に印を付け、次へ進みます。最後に時間が余ったら戻ります。</li>
-      </ol>
+      <div class="tip-grid">
+          <article class="tip-card step"><div class="step-no">1</div><h4>問いの向きに丸を付ける</h4><p>「正しいもの」か「誤っているもの」か。ここを取り違えると、知っていても落とします。</p></article>
+          <article class="tip-card step"><div class="step-no">2</div><h4>肢の横に ○ × △ を書く</h4><p>確実なものだけ○×にし、迷ったら△にします。</p></article>
+          <article class="tip-card step"><div class="step-no">3</div><h4>組合せ問題は、判定できる肢から選択肢を消す</h4><p>1肢だけ判定できれば、当たる確率は20%から約40%に上がります。全部読む必要はありません。</p></article>
+          <article class="tip-card step"><div class="step-no">4</div><h4>△が残ったら、語と言い回しを見る</h4><p>語は決め手ではなく傾向です。知識で判定した○×を語で覆さないでください。</p></article>
+          <article class="tip-card step"><div class="step-no">5</div><h4>それでも残れば、長さと位置を見る</h4><p>憲法・民法・商法で「正しい／誤っているもの」の問題なら、最も短い肢と1番を外して、最も長い肢を選びます。</p></article>
+          <article class="tip-card step"><div class="step-no">6</div><h4>時間をかけない</h4><p>決まらなければマークして問題番号に印を付け、次へ進みます。最後に時間が余ったら戻ります。</p></article>
+      </div>
+      <h3 class="subhead">誤りの肢は、6つの壊し方で作られている</h3>
+      <p class="plain">試験委員は、正しい文を1か所だけ壊して誤りの肢を作ります。直近10年の誤り肢から100肢を無作為に抜き取り、解説を読んで分類しました（分類はAIの判断なので目安です）。数字の入れ替えはほとんどありませんでした。細かい数字を思い出すより、まず主語と相手、次に文末の向きを見ます。</p>
+      <div class="tip-grid" style="margin-top:12px">
+          <article class="tip-card"><div class="count-badge"><strong>32</strong>肢</div><h4>別物と入れ替える</h4><p>主語・相手・制度をすり替えます。</p><div class="tip-part"><span>見る場所</span><p>誰が、誰に、どの制度で</p></div></article>
+          <article class="tip-card"><div class="count-badge"><strong>23</strong>肢</div><h4>結論を逆にする</h4><p>できる↔できない、義務↔任意をひっくり返します。</p><div class="tip-part"><span>見る場所</span><p>文末の向き</p></div></article>
+          <article class="tip-card"><div class="count-badge"><strong>16</strong>肢</div><h4>理由で結論をねじる</h4><p>もっともらしい理屈を足して、誤った結論を自然に見せます。</p><div class="tip-part"><span>見る場所</span><p>理由を隠して結論だけを判定する</p></div></article>
+          <article class="tip-card"><div class="count-badge"><strong>12</strong>肢</div><h4>範囲を広げる</h4><p>いつでも、全部、誰でも、と広げます。</p><div class="tip-part"><span>見る場所</span><p>本当に全部に当てはまるか</p></div></article>
+          <article class="tip-card"><div class="count-badge"><strong>11</strong>肢</div><h4>ない制度を語る</h4><p>条文にない規定や自動の仕組みを語ります。</p><div class="tip-part"><span>見る場所</span><p>その条文を見たことがあるか</p></div></article>
+          <article class="tip-card"><div class="count-badge"><strong>6</strong>肢</div><h4>勝手に条件を足す</h4><p>「に限られる」「〜の承諾を得て」と条件を足します。</p><div class="tip-part"><span>見る場所</span><p>その条件は条文にあったか</p></div></article>
+      </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="word-section">
       <div class="section-heading">
         <p class="kicker">WORD SIGNALS</p>
-        <h2>この語があると、正誤に傾きがある</h2>
-        <p>「正しい割合」は、その語を含む肢のうち内容が正しかった割合です。「平均」はその科目の全肢の平均です。前半は平成18〜27年度、後半は平成28年度以降で、<strong>両方で同じ向きに出たものを中心に</strong>載せました。</p>
+        <h2>この言い回しがあると、正誤に傾きがある</h2>
+        <p>「誤り 90%」は、その語を含む肢の9割が誤りだったという意味です。横の「平均」は、同じ問題の肢の平均です。この2つの差が大きいほど、語が効いています。</p>
       </div>
-      <h3 class="subhead">誤りが多い語</h3>
-      <div class="table-wrap">
-        <table class="tech-table">
-          <thead><tr><th>語</th><th>科目</th><th class="num">正しい割合</th><th class="num">平均</th><th class="num">肢数</th><th class="num">前半／後半</th></tr></thead>
-          <tbody>
-            <tr><td>「にかかわらず」「問わず」</td><td>行政法</td><td class="num low">8%</td><td class="num">32%</td><td class="num">25</td><td class="num">12%／6%</td></tr>
-            <tr><td>「にかかわらず」「問わず」</td><td>基礎知識</td><td class="num low">9%</td><td class="num">44%</td><td class="num">11</td><td class="num">0%／25%</td></tr>
-            <tr><td>「にかかわらず」「問わず」</td><td>全科目</td><td class="num low">27%</td><td class="num">42%</td><td class="num">83</td><td class="num">23%／29%</td></tr>
-            <tr><td>「違反する」「違憲」</td><td>憲法</td><td class="num low">29%</td><td class="num">48%</td><td class="num">31</td><td class="num">17%／37%</td></tr>
-            <tr><td>「書面」</td><td>全科目</td><td class="num low">29%</td><td class="num">42%</td><td class="num">62</td><td class="num">27%／33%</td></tr>
-            <tr><td>「しなければならない」</td><td>民法</td><td class="num low">28%</td><td class="num">46%</td><td class="num">29</td><td class="num">27%／29%</td></tr>
-            <tr><td>「家庭裁判所」</td><td>家族法</td><td class="num low">18%</td><td class="num">37%</td><td class="num">22</td><td class="num">23%／11%</td></tr>
-          </tbody>
-        </table>
+      <div class="note-card">
+        <h3>語は補助です</h3>
+        <p>語の傾向だけで全問を解くと、正答率は<strong id="sim-accuracy">-</strong>%です（勘は20%）。<a href="../simple-rules/">法律家の常識</a>で中身から切り、それでも残った肢に使ってください。知識で判定した○×を語で覆さないでください。</p>
       </div>
-      <h3 class="subhead">正しいことが多い語</h3>
-      <div class="table-wrap">
-        <table class="tech-table">
-          <thead><tr><th>語</th><th>科目</th><th class="num">正しい割合</th><th class="num">平均</th><th class="num">肢数</th><th class="num">前半／後半</th></tr></thead>
-          <tbody>
-            <tr><td>「ことがある」「場合がある」</td><td>全科目</td><td class="num high">67%</td><td class="num">42%</td><td class="num">60</td><td class="num">70%／64%</td></tr>
-            <tr><td>「違反しない」「合憲」</td><td>憲法</td><td class="num high">63%</td><td class="num">48%</td><td class="num">19</td><td class="num">67%／62%</td></tr>
-            <tr><td>「努める」「努力」</td><td>行政法</td><td class="num high">63%</td><td class="num">32%</td><td class="num">27</td><td class="num">89%／50%</td></tr>
-            <tr><td>「ただし」「除き」「原則」</td><td>商法</td><td class="num high">80%</td><td class="num">55%</td><td class="num">30</td><td class="num">75%／83%</td></tr>
-            <tr><td>「ただし」「除き」「原則」</td><td>民法</td><td class="num high">63%</td><td class="num">46%</td><td class="num">30</td><td class="num">85%／47%</td></tr>
-            <tr><td>「当然には」「必ずしも」</td><td>全科目</td><td class="num high">64%</td><td class="num">42%</td><td class="num">14</td><td class="num">60%／75%</td></tr>
-            <tr><td>「特段の事情」</td><td>全科目</td><td class="num high">56%</td><td class="num">42%</td><td class="num">18</td><td class="num">55%／57%</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <div class="subject-filter" id="word-filter" aria-label="科目で絞り込む"></div>
+      <div id="word-list"></div>
+      <p class="load-error" id="word-error" hidden></p>
       <h3 class="subhead">実際の肢で確かめる</h3>
       <div class="table-wrap">
-        <table class="tech-table">
+        <table class="tech-table stack-table">
           <thead><tr><th>語</th><th>実際の肢（要旨）</th><th>正誤</th><th>問題</th></tr></thead>
           <tbody>
             <tr><td>「にかかわらず」</td><td>届出書の記載事項に不備があるか否かにかかわらず、到達すれば届出の義務は履行されたものとされる</td><td class="low">誤り</td><td><a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1583">令和4年問13</a></td></tr>
@@ -143,31 +151,21 @@
           </tbody>
         </table>
       </div>
-      <p class="page-foot">「相当の期間が経過したにもかかわらず」のように、事実を述べているだけの「にかかわらず」もあります。条件を外す使い方のときに疑ってください。</p>
+      <p class="plain">「相当の期間が経過したにもかかわらず」のように、事実を述べているだけの「にかかわらず」もあります。条件を外す使い方のときに疑ってください。</p>
       <div class="note-card">
         <h3>なぜ傾くのか（これは推測です）</h3>
         <p>「〜を問わず」は、本当は条件がある制度を、条件なしに広げて誤りの肢を作るときに便利な言い方です。逆に「〜ことがある」は、例が1つあれば正しくなるので、誤りの肢にしにくい言い方です。憲法では、最高裁が合憲と判断した事件のほうが多いことが効いていると考えられます。</p>
       </div>
-      <div class="note-card warn">
-        <h3>効かなかった手（使わない）</h3>
-        <ul>
-          <li><strong>「すべて」「必ず」「一切」があるから誤り:</strong> 正しい割合は37%で、全科目の平均42%とほぼ同じです。よく言われますが、この試験では決め手になりません。</li>
-          <li><strong>他の肢と似ている肢を選ぶ:</strong> 当たる確率は約20%で、差がありません。</li>
-          <li><strong>組合せ問題で「オ」を外す:</strong> 正解に入る字として「オ」は少ないのですが、当たる確率は増えません。</li>
-          <li><strong>多肢選択の語群の番号:</strong> 正解の番号に偏りはありません。</li>
-          <li><strong>去年出た論点を飛ばす:</strong> 2年連続の出題は普通にあります。前年に出たカード論点が翌年も出た割合は、平成28年度以降で14〜36%でした（令和6年度→令和7年度は74論点中20論点で27%）。偶然より約1割少ないだけです。</li>
-        </ul>
-      </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="length-section">
       <div class="section-heading">
-        <p class="kicker">BY SUBJECT</p>
-        <h2>科目ごとの使い分け</h2>
-        <p>「正しい／誤っているもの」の問題で、その位置の肢が正解だった割合です。何も手がかりがなければ20%です。</p>
+        <p class="kicker">LENGTH AND POSITION</p>
+        <h2>長い肢は正解か、1番は外れか</h2>
+        <p>「正しい／誤っているもの」の問題で、その位置の肢が正解だった割合です。何も手がかりがなければ20%です。<strong>効くのは憲法・民法・商法だけ</strong>で、行政法では効かず、基礎知識では最も短い肢を外してはいけません。</p>
       </div>
       <div class="table-wrap">
-        <table class="tech-table">
+        <table class="tech-table stack-table">
           <thead><tr><th>科目</th><th class="num">1番</th><th class="num">最も短い肢</th><th class="num">最も長い肢</th><th>使い方</th></tr></thead>
           <tbody>
             <tr><td>憲法・民法・商法（252問）</td><td class="num low">10%</td><td class="num low">13%</td><td class="num high">26%</td><td>1番と最も短い肢を外し、最も長い肢を選ぶ（全部合わせて26%）</td></tr>
@@ -182,14 +180,15 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="format-section">
       <div class="section-heading">
-        <p class="kicker">MULTIPLE BLANK</p>
-        <h2>多肢選択は20語ではなく5語ずつ</h2>
-        <p>語群の20語は、空欄ごとの候補が5語ずつ混ざっていることが多いです。<a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1793">令和7年問43</a>なら次の4組に分かれます。<a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1791">令和7年問41</a>も同じ形でした（全60問を確かめたわけではありません）。</p>
+        <p class="kicker">MULTIPLE BLANK AND WRITTEN</p>
+        <h2>多肢選択と記述の絞り方</h2>
       </div>
-      <div class="table-wrap">
-        <table class="tech-table">
+      <h3 class="subhead">多肢選択は20語ではなく5語ずつ</h3>
+      <p class="plain">語群の20語は、空欄ごとの候補が5語ずつ混ざっていることが多いです。令和7年問43なら次の4組に分かれます。令和7年問41も同じ形でした（全60問を確かめたわけではありません）。</p>
+      <div class="table-wrap" style="margin-top:10px">
+        <table class="tech-table stack-table">
           <thead><tr><th>語の種類</th><th>語群の語（太字が正解）</th></tr></thead>
           <tbody>
             <tr><td>「〜関係」「〜の不服」など</td><td><strong>公法上の法律関係</strong>／法令の憲法適合性／処分もしくは裁決の存否…／行政庁の公権力の行使に関する不服／裁判を受ける権利</td></tr>
@@ -199,24 +198,18 @@
           </tbody>
         </table>
       </div>
-      <ol class="steps">
+      <ol class="numbered">
         <li>本文を読む前に、語群を4組に分けます。</li>
         <li>空欄の前後の言葉から、どの組が入るかを決めます。これで20語が5語になります。</li>
         <li>同じ語は2回使わないので、確実な空欄から埋めて語を消します。</li>
       </ol>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
-        <p class="kicker">WRITTEN</p>
-        <h2>記述も実質は選択問題</h2>
-        <p>部分点の配分は公表されていませんが、結論・相手・訴訟の種類を書けば点が入る可能性があります（推測）。文章を整えるより、白紙にしないことを優先します。</p>
-      </div>
+      <h3 class="subhead">記述も実質は選択問題</h3>
+      <p class="plain">部分点の配分は公表されていませんが、結論・相手・訴訟の種類を書けば点が入る可能性があります（推測）。文章を整えるより、白紙にしないことを優先します。</p>
       <h3 class="subhead">行政法（問44）：被告と訴訟の種類を選ぶ</h3>
-      <p>直近8年のうち6年は「誰を被告に、どの訴訟か」を問う形でした（<a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1374">平成30年</a>・<a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1494">令和2年</a>・<a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1614">令和4年</a>・<a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1674">令和5年</a>・<a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1734">令和6年</a>・<a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1794">令和7年</a>）。</p>
+      <p class="plain">直近8年のうち6年は「誰を被告に、どの訴訟か」を問う形でした（平成30年・令和2年・令和4年・令和5年・令和6年・令和7年）。</p>
       <p class="template">「◯◯（市・県・国）を被告として、◯◯の訴えを提起する」</p>
-      <div class="table-wrap" style="margin-top: 12px;">
-        <table class="tech-table">
+      <div class="table-wrap" style="margin-top:10px">
+        <table class="tech-table stack-table">
           <thead><tr><th>場面</th><th>訴訟</th><th>出た年</th></tr></thead>
           <tbody>
             <tr><td>申請を拒否された</td><td>取消訴訟＋義務付け訴訟を併合</td><td>平成20年</td></tr>
@@ -230,8 +223,7 @@
           </tbody>
         </table>
       </div>
-      <p class="page-foot">被告は、処分をした行政庁が所属する国や公共団体です（行政事件訴訟法11条1項）。行政庁がどこにも所属しなければ、その行政庁自身が被告になります（同条2項。令和2年は組合が被告）。</p>
-
+      <p class="plain">被告は、処分をした行政庁が所属する国や公共団体です（行政事件訴訟法11条1項）。行政庁がどこにも所属しなければ、その行政庁自身が被告になります（同条2項。令和2年は組合が被告）。</p>
       <h3 class="subhead">民法（問45・46）：相手・根拠・結論を選ぶ</h3>
       <p class="template">「Aは、Bに対し、◯◯に基づき、◯◯を請求できる」</p>
       <div class="note-card ok">
@@ -240,31 +232,74 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="no-section">
       <div class="section-heading">
-        <p class="kicker">NEXT 9 DAYS</p>
-        <h2>これからの9日間でやること</h2>
-        <p>予定表の時間は増やしません。<strong>今やっている勉強の見方を変えます。</strong></p>
+        <p class="kicker">DOES NOT WORK</p>
+        <h2>効かなかった手（使わない）</h2>
+        <p>よく言われるものでも、測ると効かないものがあります。ここに時間を使わないでください。</p>
       </div>
-      <ol class="steps">
-        <li><strong>毎日のカードと肢別過去問:</strong> ○×を当てるだけでなく、「どの語で判定が分かれたか」を1語言えるようにします。深い理解まで行かなくても、この1語があれば肢を切れます。</li>
-        <li><strong>毎日の行政法:</strong> 上の問44の表を5分で見直します。場面を見て、訴訟の種類を言えるようにします。</li>
-        <li><strong>11/1の通し演習:</strong> このページの手順で解きます。問題番号の横に、<strong>A（確信）・B（2択まで）・C（3択まで）・D（勘）</strong>を書いてください。</li>
-        <li><strong>通し演習の採点後:</strong> A〜Dごとの正解率を数えます。目安はAが9割、Bが5割、Cが3割です。<strong>Bが5割を切るなら、切ってはいけない肢を切っています。</strong>△を増やしてください。</li>
-        <li><strong>11/2〜11/4:</strong> 肢別過去問の「間違えた肢」を回すときに、通し演習のBとCで外した論点を優先します。</li>
-        <li><strong>11/5〜11/7の本番通し:</strong> 同じ手順と時間配分で解きます。目安は法令択一95分・基礎知識40分・多肢選択15分・記述25分・見直し5分です。商法の5問を5分で済ませれば、そのぶん法令択一に回せます。</li>
-      </ol>
-      <div class="note-card">
-        <h3>カードは増やしません</h3>
-        <p>テクニックは、問題を解く場面で使う手順です。カードにして○×で反復しても身につかないので、このページと演習の章の青い箱に置きます。章ごとの知識は<a href="../shoho-d/">商法</a>・<a href="../gyosei-d/">行政法</a>・<a href="../minpo-d/">民法</a>の演習ページにあります。</p>
-      </div>
-      <div class="note-card warn">
-        <h3>これは過去の傾向です</h3>
-        <p>試験委員が意図して作った癖かどうかは分かりません。今年も同じとは限らず、肢数の少ない行は偶然の可能性もあります。知識で判定できる肢があれば、必ずそちらを優先してください。</p>
+      <div class="tip-grid">
+          <article class="tip-card no"><h4>「すべて」「必ず」「一切」があるから誤り</h4><p>正しい割合は39%で、同じ問題の平均41%とほぼ同じです。よく言われますが、この試験では決め手になりません。</p></article>
+          <article class="tip-card no"><h4>「〜のみ」「〜だけ」があるから誤り</h4><p>同じ問題の平均と差がありません。行政法の「に限られる」だけが別です。</p></article>
+          <article class="tip-card no"><h4>処分性・訴えの利益・原告適格を語の向きで判定する</h4><p>「当たる」「当たらない」のどちらにも傾きがありません。</p></article>
+          <article class="tip-card no"><h4>民法の「請求できる／できない」「対抗できる／できない」</h4><p>安定した傾きがありません。</p></article>
+          <article class="tip-card no"><h4>他の肢と似ている肢を選ぶ</h4><p>当たる確率は約20%で、差がありません。</p></article>
+          <article class="tip-card no"><h4>組合せ問題で「オ」を外す</h4><p>正解に入る字として「オ」は少ないのですが、当たる確率は増えません。</p></article>
+          <article class="tip-card no"><h4>多肢選択の語群の番号</h4><p>正解の番号に偏りはありません。</p></article>
+          <article class="tip-card no"><h4>去年出た論点を飛ばす</h4><p>2年連続の出題は普通にあります。前年に出たカード論点が翌年も出た割合は、平成28年度以降で14〜36%でした（令和6年度→令和7年度は74論点中20論点で27%）。偶然より約1割少ないだけです。</p></article>
       </div>
     </section>
 
-    <p class="page-foot">集計の範囲は、ラボが持つ平成18〜令和7年度の過去問です。肢の正誤は各問の正解から機械的に求めました。語は文字列の一致で数えており、文脈は見ていません。時間配分の目安は<a href="https://column.itojuku.co.jp/gyosei/detail/jikanhaibun/">伊藤塾の記事</a>によります。</p>
+    <section class="section" id="plan-section">
+      <div class="section-heading">
+        <p class="kicker">WHY IT WORKS</p>
+        <h2>全部分からなくても点は取れる</h2>
+        <p>各肢を確実に判定できる割合と、そのときの正答率です（残った選択肢からは勘で選ぶとして計算しました）。</p>
+      </div>
+      <div class="table-wrap">
+        <table class="tech-table stack-table">
+          <thead><tr><th>確実に判定できる肢</th><th class="num">0割</th><th class="num">2割</th><th class="num">3割</th><th class="num">4割</th><th class="num">5割</th><th class="num">6割</th></tr></thead>
+          <tbody>
+            <tr><td>「正しい／誤っているもの」の問題</td><td class="num">20%</td><td class="num">40%</td><td class="num">50%</td><td class="num">60%</td><td class="num">70%</td><td class="num">79%</td></tr>
+            <tr><td>組合せ問題</td><td class="num">20%</td><td class="num">41%</td><td class="num">52%</td><td class="num">63%</td><td class="num">73%</td><td class="num">82%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note-card warn">
+        <h3>条件は「確実に」です</h3>
+        <p>この表は、判定した肢が全部合っている場合の数字です。間違った判定で正解を切ると、その問題は0点になります。自信のない肢は切らずに△にしてください。</p>
+      </div>
+      <h3 class="subhead">180点の組み立て（一例）</h3>
+      <div class="table-wrap">
+        <table class="tech-table stack-table">
+          <thead><tr><th>形式（配点）</th><th>実力で取る</th><th class="num">点</th><th>絞って拾う</th><th class="num">点</th></tr></thead>
+          <tbody>
+            <tr><td>択一54問（216点）</td><td>24問は確実に解く</td><td class="num">96</td><td>2択まで15問（当たり7.5問）・3択まで10問（3.3問）・4択まで5問（1.25問）</td><td class="num">48</td></tr>
+            <tr><td>多肢選択12空欄（24点）</td><td>6空欄</td><td class="num">12</td><td>残り6空欄を、語群の組分けで2〜3語まで絞る</td><td class="num">5</td></tr>
+            <tr><td>記述3問（60点）</td><td>キーワードまで書く</td><td class="num">12</td><td>結論・相手・訴訟の種類だけでも書く</td><td class="num">9</td></tr>
+          </tbody>
+          <tfoot><tr><td>合計 182点</td><td></td><td class="num">120</td><td></td><td class="num">62</td></tr></tfoot>
+        </table>
+      </div>
+      <p class="plain">記述の部分点の配分は公表されていないので、9点は推測です。法令等122点以上と基礎知識24点以上の基準点も別に必要です。全体の得点の考え方は<a href="../score-plan.html">得点設計</a>にあります。</p>
+      <h3 class="subhead">試験までにやること</h3>
+      <p class="plain">予定表の時間は増やしません。今やっている勉強の見方を変えます。</p>
+      <div class="tip-grid" style="margin-top:12px">
+          <article class="tip-card"><h4>毎日のカードと肢別過去問</h4><p>○×を当てるだけでなく、「どの語で判定が分かれたか」を1語言えるようにします。深い理解まで行かなくても、この1語があれば肢を切れます。</p></article>
+          <article class="tip-card"><h4>毎日の行政法</h4><p>「多肢選択・記述」タブの問44の表を5分で見直します。場面を見て、訴訟の種類を言えるようにします。</p></article>
+          <article class="tip-card"><h4>11/1の通し演習</h4><p>このページの手順で解きます。問題番号の横に、A（確信）・B（2択まで）・C（3択まで）・D（勘）を書いてください。</p></article>
+          <article class="tip-card"><h4>通し演習の採点後</h4><p>A〜Dごとの正解率を数えます。目安はAが9割、Bが5割、Cが3割です。Bが5割を切るなら、切ってはいけない肢を切っています。△を増やしてください。</p></article>
+          <article class="tip-card"><h4>11/2〜11/4</h4><p>肢別過去問の「間違えた肢」を回すときに、通し演習のBとCで外した論点を優先します。</p></article>
+          <article class="tip-card"><h4>11/5〜11/7の本番通し</h4><p>同じ手順と時間配分で解きます。目安は法令択一95分・基礎知識40分・多肢選択15分・記述25分・見直し5分です。商法の5問を5分で済ませれば、そのぶん法令択一に回せます。</p></article>
+      </div>
+      <div class="note-card">
+        <h3>カードは増やしません</h3>
+        <p>テクニックは、問題を解く場面で使う手順です。カードにして○×で反復しても身につかないので、このページと演習の章の青い箱に置きます。章ごとの知識は商法・行政法・民法の演習ページにあります。</p>
+      </div>
+    </section>
+
+    <p class="page-foot">これは過去の傾向です。試験委員が意図して作った癖かどうかは分かりません。今年も同じとは限らず、肢数の少ないものは偶然の可能性もあります（語は総当たりで探したものも含みます）。知識で判定できる肢があれば、必ずそちらを優先してください。集計の範囲は、ラボが持つ平成18〜令和7年度の過去問です。肢の正誤は各問の正解から機械的に求め、語は文字列の一致で数えており、文脈は見ていません。語の割合は scripts/simple_rules/measure.py で作っています。時間配分の目安は伊藤塾の記事によります。</p>
   </main>
+  <script src="app.js?v=20261031-2"></script>
 </body>
 </html>

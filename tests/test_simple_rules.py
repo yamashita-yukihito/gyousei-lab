@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "static" / "simple-rules"
-FIELD = re.compile(r"^\s*(?:-\s+)?(概念|解説|具体例|過去問|カード|実測|目安|理由|使い方)\s*::\s*(.+)$")
+FIELD = re.compile(r"^\s*(?:-\s+)?(概念|解説|具体例|過去問|カード|目安|理由|使い方)\s*::\s*(.+)$")
 TABLES = ("sense", "ok", "ng")
 # static/simple-rules/app.js の EXAM と同じ形。
 EXAM = re.compile(r"^(.+?年問\d+)(?:肢([^○×]+))?([○×])?$")
@@ -52,25 +52,33 @@ class SimpleRulesTest(unittest.TestCase):
                 for key in ("概念", "解説", "具体例", "過去問"):
                     self.assertTrue(item.get(key), f"{item['概念']}: {key}")
 
-    def test_every_sense_item_has_evidence_and_how_to_use(self) -> None:
-        measured = json.loads((PAGE / "measured.json").read_text(encoding="utf-8"))
+    def test_every_sense_item_has_reason_and_how_to_use(self) -> None:
         self.assertGreater(len(self.tables["sense"]), 0)
         for item in self.tables["sense"]:
-            for key in ("理由", "使い方"):
+            for key in ("目安", "理由", "使い方"):
                 self.assertTrue(item.get(key), f"{item['概念']}: {key}")
-            # 割合は measured.json から出す。本文の「目安」に手で割合を書かない。
-            self.assertTrue(item.get("実測") or item.get("目安"), item["概念"])
-            if item.get("実測"):
-                self.assertIn(item["実測"], measured, item["概念"])
-            self.assertNotRegex(item.get("目安", ""), r"\d+%", item["概念"])
+            # 常識のページは中身で考える場所。語の割合はテクニックのページだけに置く。
+            for key in ("目安", "理由", "使い方"):
+                self.assertNotRegex(item[key], r"\d+%", item["概念"])
 
-    def test_measured_numbers_are_percentages(self) -> None:
-        measured = json.loads((PAGE / "measured.json").read_text(encoding="utf-8"))
-        for rule_id, value in measured.items():
-            self.assertIn(value["direction"], {"true", "false"}, rule_id)
-            self.assertTrue(0 <= value["hit"] <= 100, rule_id)
-            self.assertTrue(0 <= value["base"] <= 100, rule_id)
-            self.assertGreater(value["count"], 0, rule_id)
+    def test_word_signals_live_on_the_technique_page(self) -> None:
+        data = json.loads((ROOT / "static" / "technique" / "word-signals.json").read_text(encoding="utf-8"))
+        self.assertGreater(data["simulation"]["questions"], 0)
+        self.assertEqual({"全科目", "行政法", "民法", "憲法", "商法・会社法", "基礎知識", "基礎法学"}, {r["subject"] for r in data["rules"]})
+        for rule in data["rules"]:
+            self.assertIn(rule["direction"], {"true", "false"}, rule["id"])
+            self.assertTrue(0 <= rule["hit"] <= 100, rule["id"])
+            self.assertTrue(0 <= rule["base"] <= 100, rule["id"])
+            self.assertGreater(rule["count"], 0, rule["id"])
+            self.assertTrue(rule["label"] and rule["note"], rule["id"])
+
+    def test_both_pages_show_the_order_and_link_each_other(self) -> None:
+        technique = (ROOT / "static" / "technique" / "index.html").read_text(encoding="utf-8")
+        rules = (PAGE / "index.html").read_text(encoding="utf-8")
+        self.assertIn('href="../simple-rules/"', technique)
+        self.assertIn('href="../technique/"', rules)
+        self.assertIn("1. 先に使う", technique)
+        self.assertIn("1. 先に使う", rules)
 
     def test_exam_references_resolve_to_links(self) -> None:
         links = json.loads((PAGE / "exam-links.json").read_text(encoding="utf-8"))

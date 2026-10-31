@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const FIELD = /^\s*(?:-\s+)?(概念|解説|具体例|過去問|カード|実測|目安|理由|使い方)\s*::\s*(.*)$/;
+  const FIELD = /^\s*(?:-\s+)?(概念|解説|具体例|過去問|カード|目安|理由|使い方)\s*::\s*(.*)$/;
   const EXAM = /^(.+?年問\d+)(?:肢([^○×]+))?([○×])?$/;
   const TABS = ["sense", "ok", "ng"];
   const ALL = "all";
@@ -142,23 +142,10 @@
     document.getElementById(key + "-count").textContent = String(total);
   }
 
-  // 「当たりの目安」の欄。割合は measured.json から出し、本文へ手で書かない。
-  function evidence(item, measured) {
-    const box = document.createElement("div");
-    const id = item["実測"];
-    const value = id && measured[id];
-    if (value) {
-      box.className = "evidence " + (value.direction === "true" ? "lean-true" : "lean-false");
-      const rate = document.createElement("strong");
-      rate.className = "evidence-rate";
-      rate.textContent = (value.direction === "true" ? "正しい " : "誤り ") + value.hit + "%";
-      const note = document.createElement("span");
-      note.textContent = value.count + "肢。同じ問題の平均は" + value.base + "%";
-      box.append(rate, note);
-    } else {
-      box.className = "evidence lean-note";
-      box.textContent = item["目安"] || "";
-    }
+  function hint(text) {
+    const box = document.createElement("p");
+    box.className = "evidence";
+    box.textContent = text || "";
     return box;
   }
 
@@ -174,7 +161,7 @@
     return block;
   }
 
-  function renderSense(subjects, links, measured) {
+  function renderSense(subjects, links) {
     const root = document.getElementById("sense-list");
     root.replaceChildren();
     let total = 0;
@@ -188,7 +175,8 @@
         card.className = "sense-card";
         const title = document.createElement("h4");
         appendRich(title, item["概念"]);
-        card.append(title, evidence(item, measured));
+        card.append(title);
+        if (item["目安"]) card.append(hint(item["目安"]));
         if (item["理由"]) card.append(labelled("なぜそう考えるか", item["理由"]));
         if (item["使い方"]) card.append(labelled("本番での使い方", item["使い方"]));
         if (item["過去問"]) card.append(examChips(item["過去問"], links));
@@ -256,7 +244,7 @@
   showTab("sense");
 
   function load(path, read) {
-    return fetch(path + "?v=20261031-5").then((res) => {
+    return fetch(path + "?v=20261031-6").then((res) => {
       if (!res.ok) throw new Error(path + ": HTTP " + res.status);
       return read(res);
     });
@@ -265,10 +253,9 @@
   Promise.all([
     load("content.md", (res) => res.text()),
     load("exam-links.json", (res) => res.json()),
-    load("measured.json", (res) => res.json()),
-  ]).then(([text, links, measured]) => {
+  ]).then(([text, links]) => {
     const groups = parse(text);
-    renderSense(groups.sense, links, measured);
+    renderSense(groups.sense, links);
     renderTable("ok", groups.ok, links);
     renderTable("ng", groups.ng, links);
     renderFilter(groups);
