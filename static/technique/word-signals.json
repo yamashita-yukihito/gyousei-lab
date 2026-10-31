@@ -1,9 +1,21 @@
 {
  "choices": 4557,
+ "criteria": {
+  "splitYear": 2016,
+  "minCount": 10,
+  "minLift": 5
+ },
  "simulation": {
   "questions": 692,
-  "accuracy": 29,
-  "withSignal": 61
+  "accuracy": 27,
+  "withSignal": 57,
+  "lateQuestions": 356,
+  "lateAccuracy": 27,
+  "pairs": {
+   "pairs": 2768,
+   "decided": 29,
+   "accuracy": 78
+  }
  },
  "rules": [
   {
@@ -16,7 +28,11 @@
    "hit": 83,
    "base": 71,
    "early": 84,
-   "late": 82
+   "earlyBase": 74,
+   "late": 82,
+   "lateBase": 66,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "all-exists",
@@ -28,7 +44,11 @@
    "hit": 83,
    "base": 64,
    "early": 95,
-   "late": 76
+   "earlyBase": 68,
+   "late": 76,
+   "lateBase": 62,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "all-reason",
@@ -36,11 +56,15 @@
    "label": "「であるから」「ため、」「ので、」",
    "note": "理屈を足して誤った結論を自然に見せる形です。",
    "direction": "false",
-   "count": 463,
-   "hit": 75,
-   "base": 65,
-   "early": 77,
-   "late": 72
+   "count": 375,
+   "hit": 78,
+   "base": 68,
+   "early": 80,
+   "earlyBase": 69,
+   "late": 75,
+   "lateBase": 66,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "all-notnec",
@@ -52,7 +76,11 @@
    "hit": 69,
    "base": 47,
    "early": 67,
-   "late": 75
+   "earlyBase": 48,
+   "late": 75,
+   "lateBase": 45,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "all-may",
@@ -64,7 +92,11 @@
    "hit": 61,
    "base": 50,
    "early": 65,
-   "late": 57
+   "earlyBase": 53,
+   "late": 57,
+   "lateBase": 46,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "all-degree",
@@ -76,7 +108,11 @@
    "hit": 60,
    "base": 47,
    "early": 61,
-   "late": 60
+   "earlyBase": 51,
+   "late": 60,
+   "lateBase": 45,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "all-special",
@@ -88,7 +124,11 @@
    "hit": 54,
    "base": 43,
    "early": 50,
-   "late": 60
+   "earlyBase": 37,
+   "late": 60,
+   "lateBase": 54,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "gy-suit",
@@ -100,7 +140,11 @@
    "hit": 100,
    "base": 77,
    "early": 100,
-   "late": 100
+   "earlyBase": 78,
+   "late": 100,
+   "lateBase": 76,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "gy-relief",
@@ -112,7 +156,11 @@
    "hit": 97,
    "base": 76,
    "early": 100,
-   "late": 95
+   "earlyBase": 78,
+   "late": 95,
+   "lateBase": 74,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "gy-block",
@@ -124,7 +172,11 @@
    "hit": 92,
    "base": 76,
    "early": 90,
-   "late": 94
+   "earlyBase": 78,
+   "late": 94,
+   "lateBase": 74,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "gy-limit",
@@ -136,7 +188,11 @@
    "hit": 90,
    "base": 77,
    "early": 87,
-   "late": 95
+   "earlyBase": 77,
+   "late": 95,
+   "lateBase": 78,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "gy-exists",
@@ -148,7 +204,11 @@
    "hit": 79,
    "base": 71,
    "early": 78,
-   "late": 81
+   "earlyBase": 70,
+   "late": 81,
+   "lateBase": 71,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "gy-fiction",
@@ -160,7 +220,11 @@
    "hit": 73,
    "base": 67,
    "early": 71,
-   "late": 75
+   "earlyBase": 69,
+   "late": 75,
+   "lateBase": 65,
+   "stable": false,
+   "unstableReason": "旧10年では平均との差が小さい"
   },
   {
    "id": "gy-discretion",
@@ -172,7 +236,11 @@
    "hit": 71,
    "base": 53,
    "early": 78,
-   "late": 67
+   "earlyBase": 67,
+   "late": 67,
+   "lateBase": 43,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "gy-effort",
@@ -184,7 +252,11 @@
    "hit": 64,
    "base": 49,
    "early": 89,
-   "late": 53
+   "earlyBase": 67,
+   "late": 53,
+   "lateBase": 40,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "mi-guardian",
@@ -196,7 +268,11 @@
    "hit": 92,
    "base": 67,
    "early": 88,
-   "late": 100
+   "earlyBase": 68,
+   "late": 100,
+   "lateBase": 65,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "mi-norescind",
@@ -208,7 +284,11 @@
    "hit": 88,
    "base": 68,
    "early": 67,
-   "late": 100
+   "earlyBase": 53,
+   "late": 100,
+   "lateBase": 76,
+   "stable": false,
+   "unstableReason": "8肢しかない"
   },
   {
    "id": "mi-exists",
@@ -220,7 +300,11 @@
    "hit": 83,
    "base": 64,
    "early": 100,
-   "late": 71
+   "earlyBase": 71,
+   "late": 71,
+   "lateBase": 60,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "mi-joint",
@@ -232,7 +316,11 @@
    "hit": 75,
    "base": 63,
    "early": 86,
-   "late": 69
+   "earlyBase": 60,
+   "late": 69,
+   "lateBase": 65,
+   "stable": false,
+   "unstableReason": "新10年では平均との差が小さい"
   },
   {
    "id": "mi-solo",
@@ -244,7 +332,11 @@
    "hit": 73,
    "base": 55,
    "early": 62,
-   "late": 86
+   "earlyBase": 57,
+   "late": 86,
+   "lateBase": 51,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "mi-register",
@@ -256,19 +348,27 @@
    "hit": 77,
    "base": 57,
    "early": 67,
-   "late": 86
+   "earlyBase": 50,
+   "late": 86,
+   "lateBase": 63,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "ke-noviolate",
    "subject": "憲法",
-   "label": "文末が「違反しない」「合憲である」",
-   "note": "判例を知らない問題で残します（平成28年度以降だけの7肢です）。",
+   "label": "文末が「違反しない」「違反するものではない」「合憲である」",
+   "note": "判例を知らない問題で残します。",
    "direction": "true",
-   "count": 7,
-   "hit": 100,
-   "base": 71,
-   "early": null,
-   "late": 100
+   "count": 11,
+   "hit": 73,
+   "base": 64,
+   "early": 0,
+   "earlyBase": 20,
+   "late": 80,
+   "lateBase": 68,
+   "stable": false,
+   "unstableReason": "旧10年では平均を下回る"
   },
   {
    "id": "ke-case",
@@ -280,7 +380,11 @@
    "hit": 100,
    "base": 80,
    "early": 100,
-   "late": 100
+   "earlyBase": 80,
+   "late": 100,
+   "lateBase": 80,
+   "stable": false,
+   "unstableReason": "8肢しかない"
   },
   {
    "id": "ke-law",
@@ -292,7 +396,11 @@
    "hit": 100,
    "base": 75,
    "early": 100,
-   "late": 100
+   "earlyBase": 80,
+   "late": 100,
+   "lateBase": 71,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "ke-strict",
@@ -304,7 +412,11 @@
    "hit": 89,
    "base": 67,
    "early": 100,
-   "late": 83
+   "earlyBase": 60,
+   "late": 83,
+   "lateBase": 70,
+   "stable": false,
+   "unstableReason": "9肢しかない"
   },
   {
    "id": "ke-allow",
@@ -312,11 +424,15 @@
    "label": "「を認める」",
    "note": "権利や権限を肯定する肢を残します。",
    "direction": "true",
-   "count": 16,
-   "hit": 81,
-   "base": 58,
+   "count": 13,
+   "hit": 85,
+   "base": 62,
    "early": 100,
-   "late": 67
+   "earlyBase": 60,
+   "late": 71,
+   "lateBase": 63,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "ke-mandate",
@@ -328,7 +444,11 @@
    "hit": 72,
    "base": 62,
    "early": 64,
-   "late": 77
+   "earlyBase": 50,
+   "late": 77,
+   "lateBase": 69,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "ke-unconst",
@@ -336,11 +456,15 @@
    "label": "「違憲」「違反する」「許されない」",
    "note": "合憲の判決を逆にした形です。",
    "direction": "false",
-   "count": 50,
-   "hit": 70,
-   "base": 62,
-   "early": 82,
-   "late": 61
+   "count": 45,
+   "hit": 69,
+   "base": 61,
+   "early": 85,
+   "earlyBase": 70,
+   "late": 56,
+   "lateBase": 54,
+   "stable": false,
+   "unstableReason": "新10年では平均との差が小さい"
   },
   {
    "id": "sh-offering",
@@ -352,7 +476,11 @@
    "hit": 100,
    "base": 53,
    "early": 100,
-   "late": 100
+   "earlyBase": 55,
+   "late": 100,
+   "lateBase": 52,
+   "stable": false,
+   "unstableReason": "9肢しかない"
   },
   {
    "id": "sh-court",
@@ -364,7 +492,11 @@
    "hit": 100,
    "base": 48,
    "early": 100,
-   "late": 100
+   "earlyBase": 50,
+   "late": 100,
+   "lateBase": 40,
+   "stable": false,
+   "unstableReason": "5肢しかない"
   },
   {
    "id": "sh-cannot",
@@ -376,7 +508,11 @@
    "hit": 84,
    "base": 66,
    "early": 88,
-   "late": 82
+   "earlyBase": 62,
+   "late": 82,
+   "lateBase": 69,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "sh-charter",
@@ -388,7 +524,11 @@
    "hit": 80,
    "base": 66,
    "early": 83,
-   "late": 79
+   "earlyBase": 53,
+   "late": 79,
+   "lateBase": 71,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "sh-all",
@@ -400,7 +540,11 @@
    "hit": 69,
    "base": 61,
    "early": 67,
-   "late": 70
+   "earlyBase": 60,
+   "late": 70,
+   "lateBase": 62,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "ch-basis",
@@ -412,7 +556,11 @@
    "hit": 92,
    "base": 70,
    "early": 100,
-   "late": 89
+   "earlyBase": 67,
+   "late": 89,
+   "lateBase": 71,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "ch-country",
@@ -424,7 +572,11 @@
    "hit": 85,
    "base": 58,
    "early": 100,
-   "late": 71
+   "earlyBase": 48,
+   "late": 71,
+   "lateBase": 67,
+   "stable": false,
+   "unstableReason": "新10年では平均との差が小さい"
   },
   {
    "id": "ch-may",
@@ -436,7 +588,11 @@
    "hit": 77,
    "base": 63,
    "early": 57,
-   "late": 100
+   "earlyBase": 51,
+   "late": 100,
+   "lateBase": 77,
+   "stable": true,
+   "unstableReason": ""
   },
   {
    "id": "ki-may",
@@ -448,7 +604,11 @@
    "hit": 100,
    "base": 68,
    "early": 100,
-   "late": 100
+   "earlyBase": 75,
+   "late": 100,
+   "lateBase": 40,
+   "stable": false,
+   "unstableReason": "5肢しかない"
   },
   {
    "id": "ki-can",
@@ -460,7 +620,39 @@
    "hit": 86,
    "base": 69,
    "early": 100,
-   "late": 80
+   "earlyBase": 80,
+   "late": 80,
+   "lateBase": 64,
+   "stable": false,
+   "unstableReason": "7肢しかない"
+  }
+ ],
+ "noEffect": [
+  {
+   "id": "no-absolute",
+   "subject": "全科目",
+   "label": "「すべて」「必ず」「一切」",
+   "note": "断定の語があれば誤り、とよく言われる。「必ずしも」は逆の向きなので数えない。",
+   "count": 94,
+   "base": 38,
+   "early": 44,
+   "earlyBase": 39,
+   "late": 28,
+   "lateBase": 37,
+   "truth": 36
+  },
+  {
+   "id": "no-only",
+   "subject": "全科目",
+   "label": "「〜のみ」「〜だけ」",
+   "note": "限定の語があれば誤り、とよく言われる。「できるだけ」「だけでなく」は数えない。",
+   "count": 156,
+   "base": 38,
+   "early": 43,
+   "earlyBase": 38,
+   "late": 34,
+   "lateBase": 38,
+   "truth": 39
   }
  ]
 }

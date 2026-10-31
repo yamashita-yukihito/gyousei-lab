@@ -5,7 +5,7 @@
   非公開編集データ・本番DB・Mac のパスには触れられない環境。
 - 依頼先: 利用者の Mac で gyousei-lab を扱う AI。非公開編集データ
   `~/.local/share/yuki-services/gyousei-lab/authoring/all_subjects/` を読める。
-- 状態: 未着手
+- 状態: 優先度Aは完了（`TECHNIQUE_SIMPLE_RULES_RESPONSE_20261031.md`）。優先度Bは試験後
 - 対象依頼: 利用者が「`static/technique/` と `static/simple-rules/` を読んで改善点を教えて」と依頼した。
   そのあと「直せるところは直してコミットし、非公開データが要る指摘は Mac 側 AI への依頼にまとめて」と頼んだ。
 

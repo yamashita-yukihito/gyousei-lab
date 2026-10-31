@@ -185,7 +185,7 @@
     });
   }
 
-  fetch("word-signals.json?v=20261031-3").then((res) => {
+  fetch("word-signals.json?v=20261031-4").then((res) => {
     if (!res.ok) throw new Error("word-signals.json: HTTP " + res.status);
     return res.json();
   }).then((data) => {
