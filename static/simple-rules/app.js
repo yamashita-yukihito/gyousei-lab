@@ -1,20 +1,18 @@
 (function () {
   "use strict";
 
-  const SECTIONS = {
-    ok: { root: "ok-tables", count: "ok-count" },
-    ng: { root: "ng-tables", count: "ng-count" },
-  };
-  const FIELD = /^\s*(?:-\s+)?(概念|解説|具体例|過去問|カード)\s*::\s*(.*)$/;
+  const FIELD = /^\s*(?:-\s+)?(概念|解説|具体例|過去問|カード|実測|目安|理由|使い方)\s*::\s*(.*)$/;
   const EXAM = /^(.+?年問\d+)(?:肢([^○×]+))?([○×])?$/;
+  const TABS = ["sense", "ok", "ng"];
+  const ALL = "all";
 
   function parse(text) {
-    const groups = { ok: [], ng: [] };
+    const groups = { sense: [], ok: [], ng: [] };
     let table = null;
     let subject = null;
     let item = null;
     text.replace(/<!--[\s\S]*?-->/g, "").split("\n").forEach((line) => {
-      const top = line.match(/^#\s+(ok|ng)\s*$/);
+      const top = line.match(/^#\s+(sense|ok|ng)\s*$/);
       if (top) {
         table = groups[top[1]];
         subject = null;
@@ -96,19 +94,23 @@
     return td;
   }
 
-  function renderSection(key, subjects, links) {
-    const root = document.getElementById(SECTIONS[key].root);
+  function groupSection(subject, count) {
+    const group = document.createElement("section");
+    group.className = "subject-group";
+    group.dataset.subject = subject;
+    const heading = document.createElement("h3");
+    heading.textContent = subject + "（" + count + "）";
+    group.append(heading);
+    return group;
+  }
+
+  function renderTable(key, subjects, links) {
+    const root = document.getElementById(key + "-tables");
     root.replaceChildren();
     let total = 0;
     subjects.forEach((subject) => {
       total += subject.items.length;
-      const group = document.createElement("section");
-      group.className = "subject-group";
-      group.dataset.subject = subject.name;
-      const heading = document.createElement("h3");
-      heading.textContent = subject.name + "（" + subject.items.length + "）";
-      group.append(heading);
-
+      const group = groupSection(subject.name, subject.items.length);
       const table = document.createElement("table");
       table.className = "rule-table " + key;
       const head = table.createTHead().insertRow();
@@ -137,12 +139,84 @@
       group.append(table);
       root.append(group);
     });
-    document.getElementById(SECTIONS[key].count).textContent = String(total);
+    document.getElementById(key + "-count").textContent = String(total);
+  }
+
+  // 「当たりの目安」の欄。割合は measured.json から出し、本文へ手で書かない。
+  function evidence(item, measured) {
+    const box = document.createElement("div");
+    const id = item["実測"];
+    const value = id && measured[id];
+    if (value) {
+      box.className = "evidence " + (value.direction === "true" ? "lean-true" : "lean-false");
+      const rate = document.createElement("strong");
+      rate.className = "evidence-rate";
+      rate.textContent = (value.direction === "true" ? "正しい " : "誤り ") + value.hit + "%";
+      const note = document.createElement("span");
+      note.textContent = value.count + "肢。同じ問題の平均は" + value.base + "%";
+      box.append(rate, note);
+    } else {
+      box.className = "evidence lean-note";
+      box.textContent = item["目安"] || "";
+    }
+    return box;
+  }
+
+  function labelled(label, text) {
+    const block = document.createElement("div");
+    block.className = "sense-part";
+    const name = document.createElement("span");
+    name.className = "sense-label";
+    name.textContent = label;
+    const body = document.createElement("p");
+    appendRich(body, text);
+    block.append(name, body);
+    return block;
+  }
+
+  function renderSense(subjects, links, measured) {
+    const root = document.getElementById("sense-list");
+    root.replaceChildren();
+    let total = 0;
+    subjects.forEach((subject) => {
+      total += subject.items.length;
+      const group = groupSection(subject.name, subject.items.length);
+      const list = document.createElement("div");
+      list.className = "sense-grid";
+      subject.items.forEach((item) => {
+        const card = document.createElement("article");
+        card.className = "sense-card";
+        const title = document.createElement("h4");
+        appendRich(title, item["概念"]);
+        card.append(title, evidence(item, measured));
+        if (item["理由"]) card.append(labelled("なぜそう考えるか", item["理由"]));
+        if (item["使い方"]) card.append(labelled("本番での使い方", item["使い方"]));
+        if (item["過去問"]) card.append(examChips(item["過去問"], links));
+        const link = cardLink(item["カード"]);
+        if (link) card.append(link);
+        list.append(card);
+      });
+      group.append(list);
+      root.append(group);
+    });
+    document.getElementById("sense-count").textContent = String(total);
   }
 
   function applyFilter(name) {
     document.querySelectorAll(".subject-group").forEach((group) => {
-      group.hidden = name !== "all" && group.dataset.subject !== name;
+      group.hidden = name !== ALL && group.dataset.subject !== name;
+    });
+    // 「試験全体」は考え方にしかない。表で選んだときに画面が空にならないよう案内を出す。
+    ["sense-list", "ok-tables", "ng-tables"].forEach((id) => {
+      const root = document.getElementById(id);
+      let note = root.querySelector(".empty-note");
+      if (!note) {
+        note = document.createElement("p");
+        note.className = "empty-note";
+        note.textContent = "この表には、選んだ区分の項目がありません。「考え方」のタブか、別の科目を選んでください。";
+        root.append(note);
+      }
+      note.hidden = [...root.querySelectorAll(".subject-group")].some((group) => !group.hidden);
     });
     document.querySelectorAll(".filter-button").forEach((button) => {
       button.setAttribute("aria-pressed", String(button.dataset.subject === name));
@@ -151,36 +225,52 @@
 
   function renderFilter(groups) {
     const names = [];
-    groups.ok.concat(groups.ng).forEach((subject) => {
+    groups.sense.concat(groups.ok, groups.ng).forEach((subject) => {
       if (!names.includes(subject.name)) names.push(subject.name);
     });
     const bar = document.getElementById("subject-filter");
     bar.replaceChildren();
-    ["all"].concat(names).forEach((name) => {
+    [ALL].concat(names).forEach((name) => {
       const button = document.createElement("button");
       button.type = "button";
       button.className = "filter-button";
       button.dataset.subject = name;
-      button.textContent = name === "all" ? "全科目" : name;
+      button.textContent = name === ALL ? "すべて" : name;
       button.addEventListener("click", () => applyFilter(name));
       bar.append(button);
     });
-    applyFilter("all");
+    applyFilter(ALL);
+  }
+
+  function showTab(name) {
+    TABS.forEach((tab) => {
+      document.getElementById(tab + "-section").hidden = tab !== name;
+      const button = document.getElementById(tab + "-tab");
+      button.setAttribute("aria-selected", String(tab === name));
+    });
+  }
+
+  TABS.forEach((tab) => {
+    document.getElementById(tab + "-tab").addEventListener("click", () => showTab(tab));
+  });
+  showTab("sense");
+
+  function load(path, read) {
+    return fetch(path + "?v=20261031-5").then((res) => {
+      if (!res.ok) throw new Error(path + ": HTTP " + res.status);
+      return read(res);
+    });
   }
 
   Promise.all([
-    fetch("content.md?v=20261031-1").then((res) => {
-      if (!res.ok) throw new Error("content.md: HTTP " + res.status);
-      return res.text();
-    }),
-    fetch("exam-links.json?v=20261031-1").then((res) => {
-      if (!res.ok) throw new Error("exam-links.json: HTTP " + res.status);
-      return res.json();
-    }),
-  ]).then(([text, links]) => {
+    load("content.md", (res) => res.text()),
+    load("exam-links.json", (res) => res.json()),
+    load("measured.json", (res) => res.json()),
+  ]).then(([text, links, measured]) => {
     const groups = parse(text);
-    renderSection("ok", groups.ok, links);
-    renderSection("ng", groups.ng, links);
+    renderSense(groups.sense, links, measured);
+    renderTable("ok", groups.ok, links);
+    renderTable("ng", groups.ng, links);
     renderFilter(groups);
   }).catch((error) => {
     const message = document.getElementById("load-error");

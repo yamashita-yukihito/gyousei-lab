@@ -5,18 +5,32 @@
   <link rel="icon" type="image/svg+xml" href="../assets/favicons/tech.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#183a34">
-  <title>単純化の見極め | 行政書士 過去問ラボ</title>
+  <title>法律家の常識 | 行政書士 過去問ラボ</title>
   <link rel="stylesheet" href="../architecture.css?v=20260807-1">
   <style>
     .legend { margin: 14px 0 0; padding: 13px 16px; border: 1px solid var(--line); border-left: 4px solid var(--amber); border-radius: 12px; background: #fff; font-size: 14px; }
     .legend ul { margin: 0; padding-left: 20px; }
     .legend li + li { margin-top: 5px; }
-    .subject-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
+    .page-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
+    .page-tab { min-height: 44px; padding: 8px 16px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--deep); font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; }
+    .page-tab[aria-selected="true"] { border-color: var(--deep); background: var(--deep); color: #fff; }
+    .subject-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
     .filter-button { min-height: 40px; padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--deep); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
-    .filter-button[aria-pressed="true"] { border-color: var(--deep); background: var(--deep); color: #fff; }
+    .filter-button[aria-pressed="true"] { border-color: var(--green); background: var(--green-soft); }
+    .section[hidden], .subject-group[hidden], .load-error[hidden] { display: none; }
     .subject-group { margin-top: 22px; }
-    .subject-group[hidden] { display: none; }
     .subject-group h3 { margin: 0 0 9px; color: var(--deep); font-size: 17px; }
+    .sense-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .sense-card { padding: 15px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); font-size: 14.5px; line-height: 1.7; }
+    .sense-card h4 { margin: 0; color: var(--deep); font-size: 16px; line-height: 1.5; }
+    .evidence { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 9px; margin-top: 9px; padding: 7px 10px; border-radius: 8px; font-size: 12.5px; line-height: 1.55; }
+    .evidence-rate { font-size: 17px; font-weight: 900; }
+    .lean-false { background: #fdeaea; color: #8a2424; }
+    .lean-true { background: var(--green-soft); color: #155d42; }
+    .lean-note { background: #f1f1ea; color: var(--deep); }
+    .sense-part { margin-top: 10px; }
+    .sense-label { display: block; color: var(--muted); font-size: 11.5px; font-weight: 800; }
+    .sense-part p { margin: 1px 0 0; }
     .rule-table { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 12px; border-collapse: separate; border-spacing: 0; overflow: hidden; background: var(--paper); font-size: 14.5px; line-height: 1.7; table-layout: fixed; }
     .rule-table th, .rule-table td { padding: 11px 13px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; overflow-wrap: anywhere; }
     .rule-table th { font-size: 12.5px; }
@@ -34,10 +48,19 @@
     a.exam-chip:hover { background: var(--green-soft); }
     .mark-true { color: var(--green); }
     .mark-false { color: #9b2c2c; }
+    .empty-note { margin-top: 22px; color: var(--muted); }
+    .empty-note[hidden] { display: none; }
     .load-error { margin-top: 14px; padding: 12px 14px; border-radius: 10px; background: #fdeaea; color: #8a2424; font-weight: 700; }
-    .load-error[hidden] { display: none; }
+    .fact-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+    .fact { padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font-size: 13.5px; line-height: 1.6; }
+    .fact strong { display: block; color: var(--deep); font-size: 22px; line-height: 1.3; }
+    .no-use { margin-top: 22px; padding: 13px 16px; border: 1px solid var(--line); border-left: 4px solid #9b2c2c; border-radius: 12px; background: #fff; font-size: 14px; }
+    .no-use h3 { margin: 0 0 6px; font-size: 15px; color: var(--deep); }
+    .no-use ul { margin: 0; padding-left: 20px; }
+    .no-use li + li { margin-top: 5px; }
     .page-foot { padding: 24px 0 40px; color: var(--muted); font-size: 12.5px; }
     @media (max-width: 720px) {
+      .sense-grid, .fact-grid { grid-template-columns: minmax(0, 1fr); }
       .rule-table, .rule-table tbody, .rule-table tr, .rule-table td { display: block; box-sizing: border-box; width: 100%; }
       .rule-table thead { display: none; }
       .rule-table tr { padding: 4px 0; border-bottom: 2px solid var(--line); }
@@ -52,31 +75,52 @@
   <header class="architecture-hero">
     <div class="hero-inner">
       <nav><a href="../index.html">← 過去問ラボへ戻る</a><a href="../technique/">絞り込みテクニック</a></nav>
-      <p class="eyebrow">SIMPLIFY OR NOT</p>
-      <h1>単純化の見極め</h1>
-      <p class="lead">短く言い切って覚えても点を落とさないルールと、言い切ると引っかかるルールを、平成18〜令和7年度の過去問1,139問で分けました。</p>
+      <p class="eyebrow">LEGAL COMMON SENSE</p>
+      <h1>法律家の常識</h1>
+      <p class="lead">個別の論点を暗記しきれなくても、肢を切る考え方を持っていれば点は取れます。目標は満点ではなく6割なので、例外があっても高い確率で当たるものを、平成18〜令和7年度の過去問4,557肢で確かめて集めました。</p>
     </div>
   </header>
 
   <main id="main-content">
     <section class="section">
-      <div class="legend">
-        <ul>
-          <li><strong>単純化してよい</strong>は、20年分を語句で検索した範囲で、そのルールを崩す肢が見つからなかったものです。今後も例外が出ないという保証ではありません。</li>
-          <li><strong>単純化してはだめ</strong>は、似た場面で結論が分かれるものと、短い覚え方を狙ったひっかけが実際に出ているものです。</li>
-          <li>過去問の○×は、<strong>その肢の文章が正しいか誤りか</strong>です。問全体の正解番号ではありません。押すと合格道場の問題が開きます。</li>
-          <li>結論は2026年4月1日の法令で書いています。改正前の過去問は、今の法令と結論が同じものを中心に載せ、違うものは解説に書いています。</li>
-        </ul>
+      <div class="fact-grid">
+        <div class="fact"><strong>肢3割で約5割</strong>肢の3割を確実に切れれば、5択の正答率は約5割になります（絞り込みテクニックの計算）。</div>
+        <div class="fact"><strong>語だけなら26%</strong>語の傾向だけで全問を解くと、勘の20%から26%までしか上がりません。語だけで判定できる問題も14%です。</div>
+        <div class="fact"><strong>だから考え方が主役</strong>考え方で肢を切り、それでも残った肢に語の傾向を使います。知識で判定できる肢は、知識を優先してください。</div>
+      </div>
+      <div class="page-tabs" role="tablist" aria-label="表示を切り替える">
+        <button class="page-tab" type="button" role="tab" id="sense-tab">考え方（<span id="sense-count">0</span>）</button>
+        <button class="page-tab" type="button" role="tab" id="ok-tab">言い切ってよい（<span id="ok-count">0</span>）</button>
+        <button class="page-tab" type="button" role="tab" id="ng-tab">言い切るとだめ（<span id="ng-count">0</span>）</button>
       </div>
       <div class="subject-filter" id="subject-filter" aria-label="科目で絞り込む"></div>
       <p class="load-error" id="load-error" hidden></p>
     </section>
 
+    <section class="section" id="sense-section">
+      <div class="section-heading">
+        <p class="kicker">HOW TO THINK</p>
+        <h2>問題を解くときの考え方</h2>
+        <p>科目ごとに、使いやすく当たりやすいものを上に置きました。「誤り 90%」は、その言い回しの肢の9割が誤りだったという意味です。横の「平均」は、同じ問題の肢の平均です。</p>
+      </div>
+      <div id="sense-list"></div>
+      <div class="no-use">
+        <h3>測ってみたら効かなかった常識（頼らない）</h3>
+        <ul>
+          <li><strong>「必ず」「一切」「常に」があるから誤り：</strong>同じ問題の平均と差がありませんでした（正しい39%、平均41%）。</li>
+          <li><strong>「〜のみ」「〜だけ」があるから誤り：</strong>これも差がありません。行政法の「に限られる」だけが別です。</li>
+          <li><strong>処分性・訴えの利益・原告適格を語の向きで判定する：</strong>「当たる」「当たらない」のどちらにも傾きがありません。「みんなに同じか、特定の人か」で判定し、事案はカードで覚えます。</li>
+          <li><strong>「被害者を救う方向が正しい」：</strong>国家賠償の肢を語の向きで数えると、傾きはほとんどありません。救済の方向だけでは決めず、上の「賠償の責任は組織が負う」のように個別の考え方で判定します。</li>
+          <li><strong>民法の「請求できる／できない」「対抗できる／できない」：</strong>安定した傾きがありません。民法は語より、誰に落ち度があるかで考えます。</li>
+        </ul>
+      </div>
+    </section>
+
     <section class="section" id="ok-section">
       <div class="section-heading">
         <p class="kicker">SAFE TO SIMPLIFY</p>
-        <h2>単純化して覚えてよいもの（<span id="ok-count">0</span>件）</h2>
-        <p>細かい条件を思い出さなくても、この一言で肢を切れます。</p>
+        <h2>短く言い切って覚えてよいもの</h2>
+        <p>細かい条件を思い出さなくても、この一言で肢を切れます。20年分を語句で検索した範囲で、崩す肢が見つからなかったものです。</p>
       </div>
       <div id="ok-tables"></div>
     </section>
@@ -84,14 +128,14 @@
     <section class="section" id="ng-section">
       <div class="section-heading">
         <p class="kicker">DO NOT SIMPLIFY</p>
-        <h2>単純化して覚えてはだめなもの（<span id="ng-count">0</span>件）</h2>
-        <p>概念の欄の「」は、やりがちな単純化です。この形で覚えると、解説にある場面で間違えます。</p>
+        <h2>言い切って覚えるとだめなもの</h2>
+        <p>概念の欄の「」は、やりがちな単純化です。似た場面で結論が分かれていて、この形で覚えると解説にある場面で間違えます。</p>
       </div>
       <div id="ng-tables"></div>
     </section>
 
-    <p class="page-foot">内容の正本は static/simple-rules/content.md です。カードへのリンクから解いた回答は、ふつうの学習として記録されます。このページ自体は何も書き込みません。</p>
+    <p class="page-foot">割合は、各問の正解番号と問いの向きから求めた肢の正誤を、語の文字列一致で数えた傾向です。文脈は見ていません。語は総当たりで探したものも含むので、肢数の少ない行には偶然が混ざります。今年も同じとは限りません。過去問の○×は、その肢の文章の正誤です（問全体の正解番号ではありません）。絞り込みテクニックのページの割合は科目の平均と比べているので、ここの数字とは基準が違います。内容の正本は static/simple-rules/content.md、数字は scripts/simple_rules/measure.py で作っています。カードへのリンクから解いた回答はふつうの学習として記録され、このページ自体は何も書き込みません。</p>
   </main>
-  <script src="app.js?v=20261031-3"></script>
+  <script src="app.js?v=20261031-5"></script>
 </body>
 </html>

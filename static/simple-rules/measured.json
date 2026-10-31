@@ -1,0 +1,314 @@
+{
+ "all-exists": {
+  "direction": "false",
+  "count": 58,
+  "hit": 83,
+  "base": 64,
+  "early": 95,
+  "late": 76
+ },
+ "all-block": {
+  "direction": "false",
+  "count": 184,
+  "hit": 83,
+  "base": 71,
+  "early": 84,
+  "late": 82
+ },
+ "all-reason": {
+  "direction": "false",
+  "count": 463,
+  "hit": 75,
+  "base": 65,
+  "early": 77,
+  "late": 72
+ },
+ "all-may": {
+  "direction": "true",
+  "count": 62,
+  "hit": 61,
+  "base": 50,
+  "early": 65,
+  "late": 57
+ },
+ "all-notnec": {
+  "direction": "true",
+  "count": 16,
+  "hit": 69,
+  "base": 47,
+  "early": 67,
+  "late": 75
+ },
+ "all-degree": {
+  "direction": "true",
+  "count": 86,
+  "hit": 60,
+  "base": 47,
+  "early": 61,
+  "late": 60
+ },
+ "all-special": {
+  "direction": "true",
+  "count": 26,
+  "hit": 54,
+  "base": 43,
+  "early": 50,
+  "late": 60
+ },
+ "gy-limit": {
+  "direction": "false",
+  "count": 52,
+  "hit": 90,
+  "base": 77,
+  "early": 87,
+  "late": 95
+ },
+ "gy-block": {
+  "direction": "false",
+  "count": 75,
+  "hit": 92,
+  "base": 76,
+  "early": 90,
+  "late": 94
+ },
+ "gy-suit": {
+  "direction": "false",
+  "count": 20,
+  "hit": 100,
+  "base": 77,
+  "early": 100,
+  "late": 100
+ },
+ "gy-relief": {
+  "direction": "false",
+  "count": 35,
+  "hit": 97,
+  "base": 76,
+  "early": 100,
+  "late": 95
+ },
+ "gy-exists": {
+  "direction": "false",
+  "count": 63,
+  "hit": 79,
+  "base": 71,
+  "early": 78,
+  "late": 81
+ },
+ "gy-fiction": {
+  "direction": "false",
+  "count": 15,
+  "hit": 73,
+  "base": 67,
+  "early": 71,
+  "late": 75
+ },
+ "gy-effort": {
+  "direction": "true",
+  "count": 28,
+  "hit": 64,
+  "base": 49,
+  "early": 89,
+  "late": 53
+ },
+ "gy-discretion": {
+  "direction": "true",
+  "count": 21,
+  "hit": 71,
+  "base": 53,
+  "early": 78,
+  "late": 67
+ },
+ "mi-exists": {
+  "direction": "false",
+  "count": 23,
+  "hit": 83,
+  "base": 64,
+  "early": 100,
+  "late": 71
+ },
+ "mi-guardian": {
+  "direction": "false",
+  "count": 12,
+  "hit": 92,
+  "base": 67,
+  "early": 88,
+  "late": 100
+ },
+ "mi-solo": {
+  "direction": "false",
+  "count": 15,
+  "hit": 73,
+  "base": 55,
+  "early": 62,
+  "late": 86
+ },
+ "mi-joint": {
+  "direction": "false",
+  "count": 20,
+  "hit": 75,
+  "base": 63,
+  "early": 86,
+  "late": 69
+ },
+ "mi-register": {
+  "direction": "true",
+  "count": 13,
+  "hit": 77,
+  "base": 57,
+  "early": 67,
+  "late": 86
+ },
+ "mi-norescind": {
+  "direction": "false",
+  "count": 8,
+  "hit": 88,
+  "base": 68,
+  "early": 67,
+  "late": 100
+ },
+ "ke-unconst": {
+  "direction": "false",
+  "count": 50,
+  "hit": 70,
+  "base": 62,
+  "early": 82,
+  "late": 61
+ },
+ "ke-const": {
+  "direction": "true",
+  "count": 27,
+  "hit": 59,
+  "base": 53,
+  "early": 55,
+  "late": 62
+ },
+ "ke-noviolate": {
+  "direction": "true",
+  "count": 7,
+  "hit": 100,
+  "base": 71,
+  "early": null,
+  "late": 100
+ },
+ "ke-case": {
+  "direction": "false",
+  "count": 8,
+  "hit": 100,
+  "base": 80,
+  "early": 100,
+  "late": 100
+ },
+ "ke-mandate": {
+  "direction": "false",
+  "count": 36,
+  "hit": 72,
+  "base": 62,
+  "early": 64,
+  "late": 77
+ },
+ "ke-strict": {
+  "direction": "false",
+  "count": 9,
+  "hit": 89,
+  "base": 67,
+  "early": 100,
+  "late": 83
+ },
+ "ke-allow": {
+  "direction": "true",
+  "count": 16,
+  "hit": 81,
+  "base": 58,
+  "early": 100,
+  "late": 67
+ },
+ "ke-law": {
+  "direction": "false",
+  "count": 12,
+  "hit": 100,
+  "base": 75,
+  "early": 100,
+  "late": 100
+ },
+ "sh-charter": {
+  "direction": "true",
+  "count": 20,
+  "hit": 80,
+  "base": 66,
+  "early": 83,
+  "late": 79
+ },
+ "sh-cannot": {
+  "direction": "true",
+  "count": 19,
+  "hit": 84,
+  "base": 66,
+  "early": 88,
+  "late": 82
+ },
+ "sh-all": {
+  "direction": "true",
+  "count": 16,
+  "hit": 69,
+  "base": 61,
+  "early": 67,
+  "late": 70
+ },
+ "sh-offering": {
+  "direction": "false",
+  "count": 9,
+  "hit": 100,
+  "base": 53,
+  "early": 100,
+  "late": 100
+ },
+ "sh-court": {
+  "direction": "false",
+  "count": 5,
+  "hit": 100,
+  "base": 48,
+  "early": 100,
+  "late": 100
+ },
+ "ch-country": {
+  "direction": "true",
+  "count": 13,
+  "hit": 85,
+  "base": 58,
+  "early": 100,
+  "late": 71
+ },
+ "ch-basis": {
+  "direction": "false",
+  "count": 12,
+  "hit": 92,
+  "base": 70,
+  "early": 100,
+  "late": 89
+ },
+ "ch-may": {
+  "direction": "true",
+  "count": 13,
+  "hit": 77,
+  "base": 63,
+  "early": 57,
+  "late": 100
+ },
+ "ki-can": {
+  "direction": "true",
+  "count": 7,
+  "hit": 86,
+  "base": 69,
+  "early": 100,
+  "late": 80
+ },
+ "ki-may": {
+  "direction": "true",
+  "count": 5,
+  "hit": 100,
+  "base": 68,
+  "early": 100,
+  "late": 100
+ }
+}
