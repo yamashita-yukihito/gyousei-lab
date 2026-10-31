@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 470" role="img" aria-labelledby="t d">
+  <title id="t">審査基準は義務、処分基準は努力義務。その理由の違い</title>
+  <desc id="d">審査基準は申請に許可を出すかの物差しで、設定は義務、公表は原則義務。申請する人が事前に知る必要があるため。処分基準は違反した人を処分するかの物差しで、設定も公表も努力義務。設定は、裁量が広く事情が事案ごとに違い前もって決めにくいため。公表は、脱法的な行為を助長するおそれがあるため。ただし定めて公にした処分基準と異なる取扱いは、特段の事情がない限り裁量権の逸脱濫用になる。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 21px; font-weight: 800; fill: #183a34; }
+    .th { font-size: 17px; font-weight: 800; fill: #183a34; }
+    .row { font-size: 14px; font-weight: 800; fill: #55635d; }
+    .cell { font-size: 14px; }
+    .must { font-size: 17px; font-weight: 800; fill: #ffffff; }
+    .note { font-size: 14px; font-weight: 700; }
+  </style>
+  <rect width="640" height="470" fill="#ffffff"/>
+  <text class="h" x="320" y="36" text-anchor="middle">同じ「基準」でも、義務の強さが逆になる理由</text>
+
+  <text class="th" x="245" y="78" text-anchor="middle">審査基準（5条）</text>
+  <text class="th" x="505" y="78" text-anchor="middle">処分基準（12条）</text>
+
+  <text class="row" x="20" y="116">場面</text>
+  <text class="cell" x="245" y="116" text-anchor="middle">申請に許可を出すか</text>
+  <text class="cell" x="505" y="116" text-anchor="middle">違反した人を処分するか</text>
+
+  <text class="row" x="20" y="160">設定</text>
+  <rect x="130" y="134" width="230" height="40" rx="8" fill="#8a2f3f"/>
+  <text class="must" x="245" y="160" text-anchor="middle">義務</text>
+  <rect x="390" y="134" width="230" height="40" rx="8" fill="#2f6b4f"/>
+  <text class="must" x="505" y="160" text-anchor="middle">努力義務</text>
+
+  <text class="row" x="20" y="210">公表</text>
+  <rect x="130" y="184" width="230" height="40" rx="8" fill="#8a2f3f"/>
+  <text class="must" x="245" y="210" text-anchor="middle">原則義務</text>
+  <rect x="390" y="184" width="230" height="40" rx="8" fill="#2f6b4f"/>
+  <text class="must" x="505" y="210" text-anchor="middle">努力義務</text>
+
+  <text class="row" x="20" y="262">設定の</text>
+  <text class="row" x="20" y="282">理由</text>
+  <text class="cell" x="245" y="262" text-anchor="middle">申請する人が</text>
+  <text class="cell" x="245" y="282" text-anchor="middle">許可の条件を事前に知る必要</text>
+  <text class="cell" x="505" y="262" text-anchor="middle">裁量が広く、事情も事案ごとに</text>
+  <text class="cell" x="505" y="282" text-anchor="middle">違うので、前もって決めにくい</text>
+
+  <text class="row" x="20" y="326">公表の</text>
+  <text class="row" x="20" y="346">理由</text>
+  <text class="cell" x="245" y="326" text-anchor="middle">申請する人に見せる必要がある</text>
+  <text class="cell" x="245" y="346" text-anchor="middle">（支障があるときは例外）</text>
+  <text class="cell" x="505" y="326" text-anchor="middle">「ここまでなら処分されない」と</text>
+  <text class="cell" x="505" y="346" text-anchor="middle">読まれ、脱法を助けるおそれ</text>
+
+  <rect x="20" y="376" width="600" height="72" rx="10" fill="#eef5f1" stroke="#2f6b4f" stroke-width="2"/>
+  <text class="note" x="320" y="405" text-anchor="middle">ただし、定めて公にした処分基準と違う扱いをすると、</text>
+  <text class="note" x="320" y="430" text-anchor="middle">特段の事情がない限り裁量権の逸脱・濫用になる（最判平27.3.3）</text>
+</svg>
