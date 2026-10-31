@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicons/tech.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183a34">
+  <title>単純化の見極め | 行政書士 過去問ラボ</title>
+  <link rel="stylesheet" href="../architecture.css?v=20260807-1">
+  <style>
+    .legend { margin: 14px 0 0; padding: 13px 16px; border: 1px solid var(--line); border-left: 4px solid var(--amber); border-radius: 12px; background: #fff; font-size: 14px; }
+    .legend ul { margin: 0; padding-left: 20px; }
+    .legend li + li { margin-top: 5px; }
+    .subject-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
+    .filter-button { min-height: 40px; padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--deep); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .filter-button[aria-pressed="true"] { border-color: var(--deep); background: var(--deep); color: #fff; }
+    .subject-group { margin-top: 22px; }
+    .subject-group[hidden] { display: none; }
+    .subject-group h3 { margin: 0 0 9px; color: var(--deep); font-size: 17px; }
+    .rule-table { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 12px; border-collapse: separate; border-spacing: 0; overflow: hidden; background: var(--paper); font-size: 14.5px; line-height: 1.7; table-layout: fixed; }
+    .rule-table th, .rule-table td { padding: 11px 13px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+    .rule-table th { font-size: 12.5px; }
+    .rule-table.ok th { background: var(--green-soft); }
+    .rule-table.ng th { background: #fdeaea; }
+    .rule-table th:first-child { width: 24%; }
+    .rule-table th:nth-child(2) { width: 38%; }
+    .rule-table tbody tr:last-child td { border-bottom: 0; }
+    .rule-table .concept { font-weight: 800; color: var(--deep); }
+    .rule-table.ng .concept { color: #8a2424; }
+    .card-link { display: block; margin-top: 8px; font-size: 12.5px; font-weight: 700; }
+    .example-text { display: block; }
+    .exam-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+    .exam-chip { display: inline-block; padding: 2px 8px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font-size: 12px; line-height: 1.6; text-decoration: none; }
+    a.exam-chip:hover { background: var(--green-soft); }
+    .mark-true { color: var(--green); }
+    .mark-false { color: #9b2c2c; }
+    .load-error { margin-top: 14px; padding: 12px 14px; border-radius: 10px; background: #fdeaea; color: #8a2424; font-weight: 700; }
+    .load-error[hidden] { display: none; }
+    .page-foot { padding: 24px 0 40px; color: var(--muted); font-size: 12.5px; }
+    @media (max-width: 720px) {
+      .rule-table, .rule-table tbody, .rule-table tr, .rule-table td { display: block; box-sizing: border-box; width: 100%; }
+      .rule-table thead { display: none; }
+      .rule-table tr { padding: 4px 0; border-bottom: 2px solid var(--line); }
+      .rule-table tbody tr:last-child { border-bottom: 0; }
+      .rule-table td { box-sizing: border-box; border-bottom: 0; padding: 8px 13px; }
+      .rule-table td::before { content: attr(data-label); display: block; margin-bottom: 2px; color: var(--muted); font-size: 11.5px; font-weight: 700; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
+  <header class="architecture-hero">
+    <div class="hero-inner">
+      <nav><a href="../index.html">← 過去問ラボへ戻る</a><a href="../technique/">絞り込みテクニック</a></nav>
+      <p class="eyebrow">SIMPLIFY OR NOT</p>
+      <h1>単純化の見極め</h1>
+      <p class="lead">短く言い切って覚えても点を落とさないルールと、言い切ると引っかかるルールを、平成18〜令和7年度の過去問1,139問で分けました。</p>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="section">
+      <div class="legend">
+        <ul>
+          <li><strong>単純化してよい</strong>は、20年分を語句で検索した範囲で、そのルールを崩す肢が見つからなかったものです。今後も例外が出ないという保証ではありません。</li>
+          <li><strong>単純化してはだめ</strong>は、似た場面で結論が分かれるものと、短い覚え方を狙ったひっかけが実際に出ているものです。</li>
+          <li>過去問の○×は、<strong>その肢の文章が正しいか誤りか</strong>です。問全体の正解番号ではありません。押すと合格道場の問題が開きます。</li>
+          <li>結論は2026年4月1日の法令で書いています。改正前の過去問は、今の法令と結論が同じものを中心に載せ、違うものは解説に書いています。</li>
+        </ul>
+      </div>
+      <div class="subject-filter" id="subject-filter" aria-label="科目で絞り込む"></div>
+      <p class="load-error" id="load-error" hidden></p>
+    </section>
+
+    <section class="section" id="ok-section">
+      <div class="section-heading">
+        <p class="kicker">SAFE TO SIMPLIFY</p>
+        <h2>単純化して覚えてよいもの（<span id="ok-count">0</span>件）</h2>
+        <p>細かい条件を思い出さなくても、この一言で肢を切れます。</p>
+      </div>
+      <div id="ok-tables"></div>
+    </section>
+
+    <section class="section" id="ng-section">
+      <div class="section-heading">
+        <p class="kicker">DO NOT SIMPLIFY</p>
+        <h2>単純化して覚えてはだめなもの（<span id="ng-count">0</span>件）</h2>
+        <p>概念の欄の「」は、やりがちな単純化です。この形で覚えると、解説にある場面で間違えます。</p>
+      </div>
+      <div id="ng-tables"></div>
+    </section>
+
+    <p class="page-foot">内容の正本は static/simple-rules/content.md です。カードへのリンクから解いた回答は、ふつうの学習として記録されます。このページ自体は何も書き込みません。</p>
+  </main>
+  <script src="app.js?v=20261031-3"></script>
+</body>
+</html>
