@@ -3,7 +3,7 @@
 - 更新日: 2026-10-31
 - 書き手: クラウドの Claude Code（教材総点検 `docs/CLOUD_AUDIT_TASK_20261031.md` の途中で見つけたもの）
 - 依頼元: 利用者（2026-10-31「作業の過程で概念ページやテクニックページに追加するべき要素がありそうならメモ書きしてリポジトリに含めておいて」）
-- 状態: メモを集めている途中。**ページ本体（`static/simple-rules/content.md`・`static/technique/index.html`）はまだ変えていない**
+- 状態: Mac側で処理済み（2026-11-01）。考え方の候補1・2・3・5と、ok の候補3件を `static/simple-rules/content.md` へ足した。考え方の候補4は既存の項目と重なるので足していない
 - 進捗の正本: `docs/CLOUD_AUDIT_PROGRESS.md`
 
 ## 使い方（Mac側AIへ）
