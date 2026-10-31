@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="t d">
+  <title id="t">聴聞で閲覧できる資料と期間、弁明には閲覧の規定がないこと</title>
+  <desc id="d">不利益処分の原因となる事実を証する資料は、聴聞の通知から聴聞の終結まで閲覧を求められる（18条1項）。主宰者が作る調書と報告書は、聴聞の終結後も閲覧を求められる（24条4項）。弁明の機会の付与には、閲覧の規定がない。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 21px; font-weight: 800; fill: #183a34; }
+    .mark { font-size: 14px; font-weight: 800; fill: #183a34; }
+    .bar { font-size: 15px; font-weight: 800; fill: #ffffff; }
+    .row { font-size: 13px; fill: #55635d; }
+    .note { font-size: 14px; font-weight: 700; }
+  </style>
+  <rect width="640" height="400" fill="#ffffff"/>
+  <text class="h" x="320" y="36" text-anchor="middle">何を、いつまで見られるか</text>
+
+  <line x1="40" y1="100" x2="610" y2="100" stroke="#183a34" stroke-width="3"/>
+  <polygon points="610,93 624,100 610,107" fill="#183a34"/>
+  <circle cx="70" cy="100" r="7" fill="#183a34"/>
+  <text class="mark" x="70" y="80" text-anchor="middle">通知</text>
+  <circle cx="190" cy="100" r="7" fill="#183a34"/>
+  <text class="mark" x="190" y="80" text-anchor="middle">期日</text>
+  <circle cx="340" cy="100" r="7" fill="#183a34"/>
+  <text class="mark" x="340" y="80" text-anchor="middle">終結</text>
+  <circle cx="520" cy="100" r="7" fill="#183a34"/>
+  <text class="mark" x="520" y="80" text-anchor="middle">処分</text>
+
+  <text class="row" x="70" y="134">原因の資料（行政庁が調べたもの）</text>
+  <rect x="70" y="142" width="270" height="42" rx="8" fill="#2f6b4f"/>
+  <text class="bar" x="205" y="169" text-anchor="middle">○ 終結まで（18条1項）</text>
+
+  <text class="row" x="190" y="212">調書・報告書（主宰者が作るもの）</text>
+  <rect x="190" y="220" width="420" height="42" rx="8" fill="#2f6b4f"/>
+  <text class="bar" x="400" y="247" text-anchor="middle">○ 終結後も見られる（24条4項）</text>
+
+  <text class="row" x="70" y="290">弁明の機会の付与</text>
+  <rect x="70" y="298" width="540" height="42" rx="8" fill="#8a2f3f"/>
+  <text class="bar" x="340" y="325" text-anchor="middle">✕ 閲覧の規定なし（31条は18条を準用しない）</text>
+
+  <text class="note" x="320" y="378" text-anchor="middle">18条の資料も、正当な理由があれば行政庁は閲覧を拒める</text>
+</svg>
