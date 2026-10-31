@@ -31,7 +31,7 @@
 >
 > 新しいカードを作るときは、その論点を直接問う肢が `all_subjects/` の1,139問の中に実在することを先に確かめてください。判断基準は `authoring/CARD_AUTHORING.md` の「1.1 出題された論点だけをカードにする」です。
 >
-> 既存の問題ID・カードID・deck ID・`production.sqlite3`の行を変更しないでください。このディレクトリはprivate Gitリポジトリとして管理し、親の `yuki-services` では `git init` しないでください。
+> 既存の問題ID・カードID・deck ID・`production.sqlite3`の行を変更しないでください。このディレクトリはGitリポジトリ（GitHub上はpublic）として管理し、親の `yuki-services` では `git init` しないでください。
 
 2026年7月29日のカード全体精査では、正本JSONをMac外とローカルの両方へ退避したうえで、10枚を追加し、1枚を取り下げて167枚にした。追加は憲法の目的効果基準1枚、行政事件訴訟3枚、会社法6枚。取り下げたのは、出題履歴がなく、時点依存の「諸外国との比較」だけを問う基礎知識1枚である。行政手続法・行政不服審査法・会社法・個人情報保護法等の説明精度を上げ、2026年4月1日施行の家族法改正も反映した。Bの末尾に繰り返されていた定型句191か所を削り、優先10枚はBそのものも書き直した。⑤は重複を除いて628肢、延べ701表示となった。変更判断と検証結果は非公開編集領域の `review/decisions/card-curation-20260729.md` に残す。
 
@@ -917,7 +917,7 @@ safe ○×候補へ分解せず、問題単位reviewへ残す。全分野の件�
 
 ## 10. 既知の注意点
 
-- このディレクトリはprivate Gitリポジトリ `yamashita-yukihito/gyousei-lab` で管理する。親の `yuki-services` はGitリポジトリではない。
+- このディレクトリはGitリポジトリ `yamashita-yukihito/gyousei-lab`（GitHub上はpublic）で管理する。親の `yuki-services` はGitリポジトリではない。
 - タブ補足と本番掲載件数はAPI集計から動的表示する。行政法の現件数を固定値へ戻さない。
 - `static/app.js` の版は `20260802-4`。UI資産を変更する時はHTMLのクエリ版と一緒に更新する。
 - カードの`review.currentLawStatus`は原則`provider-backed`系だが、`min-property-co-ownership-claims-001`だけは取得元解説が未収録の原問があるため`provider-partial`（公式正解からの機械確定で補完済み）。
