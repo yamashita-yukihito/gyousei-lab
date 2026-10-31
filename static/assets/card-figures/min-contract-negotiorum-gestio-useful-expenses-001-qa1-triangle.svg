@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 430" role="img" aria-labelledby="t d">
+  <title id="t">修理屋Cは頼まれて修理したので、持ち主Aに事務管理で請求できない</title>
+  <desc id="d">持ち主Aは機械を借り主Bに貸し、修理代はBが持つ代わりに賃料を値引きしている。借り主Bは修理屋Cに修理を頼み、Cには修理する義務がある。そのためCは持ち主Aに事務管理で請求できない。Aは賃料の値引きで修理代の分を負担済みなので、不当利得でも請求できない。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 21px; font-weight: 800; fill: #183a34; }
+    .name { font-size: 18px; font-weight: 800; fill: #183a34; }
+    .role { font-size: 13px; fill: #55635d; }
+    .label { font-size: 14px; }
+    .no { font-size: 16px; font-weight: 800; fill: #8a2f3f; }
+    .nos { font-size: 13px; fill: #8a2f3f; }
+    .note { font-size: 14px; font-weight: 700; }
+  </style>
+  <rect width="640" height="430" fill="#ffffff"/>
+  <text class="h" x="320" y="42" text-anchor="middle">Cは「頼まれて」修理した。だから事務管理にならない</text>
+
+  <line x1="210" y1="125" x2="430" y2="125" stroke="#2f6b4f" stroke-width="3"/>
+  <text class="label" x="320" y="112" text-anchor="middle">機械を貸す（賃貸借）</text>
+  <text class="label" x="320" y="148" text-anchor="middle">修理代はBが持つ代わりに</text>
+  <text class="label" x="320" y="168" text-anchor="middle">賃料を値引き</text>
+
+  <line x1="515" y1="160" x2="515" y2="290" stroke="#2f6b4f" stroke-width="3"/>
+  <text class="label" x="503" y="218" text-anchor="end">Bが修理を頼む（請負）</text>
+  <text class="label" x="503" y="240" text-anchor="end">Cには修理する義務がある</text>
+
+  <line x1="430" y1="325" x2="200" y2="160" stroke="#8a2f3f" stroke-width="3" stroke-dasharray="8 6"/>
+  <text class="no" x="30" y="300">✕ CはAに事務管理で請求できない</text>
+  <text class="nos" x="30" y="322">頼まれて動いたので「義務なく」に当たらない</text>
+
+  <rect x="40" y="90" width="170" height="70" rx="10" fill="#eef5f1" stroke="#2f6b4f" stroke-width="2"/>
+  <text class="name" x="125" y="120" text-anchor="middle">A 持ち主</text>
+  <text class="role" x="125" y="142" text-anchor="middle">機械を貸している</text>
+  <rect x="430" y="90" width="170" height="70" rx="10" fill="#eef5f1" stroke="#2f6b4f" stroke-width="2"/>
+  <text class="name" x="515" y="120" text-anchor="middle">B 借り主</text>
+  <text class="role" x="515" y="142" text-anchor="middle">修理代を払わず無資力に</text>
+  <rect x="430" y="290" width="170" height="70" rx="10" fill="#eef5f1" stroke="#2f6b4f" stroke-width="2"/>
+  <text class="name" x="515" y="320" text-anchor="middle">C 修理屋</text>
+  <text class="role" x="515" y="342" text-anchor="middle">修理代をもらえていない</text>
+
+  <text class="note" x="320" y="402" text-anchor="middle">Aは賃料の値引きで修理代の分を負担済み → 不当利得でも請求できない</text>
+</svg>
