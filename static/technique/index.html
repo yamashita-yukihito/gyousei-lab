@@ -33,6 +33,12 @@
     .rate strong { font-size: 17px; font-weight: 900; }
     .lean-false { background: #fdeaea; color: #8a2424; }
     .lean-true { background: var(--green-soft); color: #155d42; }
+    .rate .lift { padding: 1px 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.75); font-weight: 800; }
+    .period { margin: 6px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.55; }
+    .tip-card.reference { border-style: dashed; background: #f7f7f4; }
+    .tip-card.reference h4, .tip-card.reference .rate { opacity: 0.72; }
+    .ref-why { margin: 6px 0 0; color: #8a2424; font-size: 12.5px; font-weight: 700; line-height: 1.55; }
+    .reference-head { margin: 18px 0 9px; color: var(--muted); font-size: 14px; }
     .subject-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
     .filter-button { min-height: 40px; padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--deep); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
     .filter-button[aria-pressed="true"] { border-color: var(--green); background: var(--green-soft); }
@@ -89,16 +95,16 @@
         <div class="flow-step now"><span>2. 残った肢に使う</span><strong>絞り込みテクニック（このページ）</strong>中身が分からない肢を、語や言い回し、肢の長さなど形で絞ります。</div>
       </div>
       <div class="page-tabs" role="tablist" aria-label="表示を切り替える">
-        <button class="page-tab" type="button" role="tab" id="how-tab">解き方</button>
-        <button class="page-tab" type="button" role="tab" id="word-tab">語と言い回し</button>
-        <button class="page-tab" type="button" role="tab" id="length-tab">肢の長さと位置</button>
-        <button class="page-tab" type="button" role="tab" id="format-tab">多肢選択・記述</button>
-        <button class="page-tab" type="button" role="tab" id="no-tab">効かない手</button>
-        <button class="page-tab" type="button" role="tab" id="plan-tab">点の取り方・日程</button>
+        <button class="page-tab" type="button" role="tab" id="how-tab" aria-controls="how-section">解き方</button>
+        <button class="page-tab" type="button" role="tab" id="word-tab" aria-controls="word-section">語と言い回し</button>
+        <button class="page-tab" type="button" role="tab" id="length-tab" aria-controls="length-section">肢の長さと位置</button>
+        <button class="page-tab" type="button" role="tab" id="format-tab" aria-controls="format-section">多肢選択・記述</button>
+        <button class="page-tab" type="button" role="tab" id="no-tab" aria-controls="no-section">効かない手</button>
+        <button class="page-tab" type="button" role="tab" id="plan-tab" aria-controls="plan-section">点の取り方・日程</button>
       </div>
     </section>
 
-    <section class="section" id="how-section">
+    <section class="section" id="how-section" role="tabpanel" aria-labelledby="how-tab">
       <div class="section-heading">
         <p class="kicker">PROCEDURE</p>
         <h2>1問の解き方</h2>
@@ -106,11 +112,15 @@
       </div>
       <div class="tip-grid">
           <article class="tip-card step"><div class="step-no">1</div><h4>問いの向きに丸を付ける</h4><p>「正しいもの」か「誤っているもの」か。ここを取り違えると、知っていても落とします。</p></article>
-          <article class="tip-card step"><div class="step-no">2</div><h4>肢の横に ○ × △ を書く</h4><p>確実なものだけ○×にし、迷ったら△にします。</p></article>
-          <article class="tip-card step"><div class="step-no">3</div><h4>組合せ問題は、判定できる肢から選択肢を消す</h4><p>1肢だけ判定できれば、当たる確率は20%から約40%に上がります。全部読む必要はありません。</p></article>
+          <article class="tip-card step"><div class="step-no">2</div><h4>肢の横に ○ × △ を書く</h4><p>確実なものだけ○×にし、迷ったら△にします。5肢から1つ選ぶ問題では、確実に判定できる肢が1つ増えるごとに、当たる確率がちょうど20%ずつ上がります（1肢で40%、2肢で60%、3肢で80%）。</p></article>
+          <article class="tip-card step"><div class="step-no">3</div><h4>組合せ問題は、判定できる肢から選択肢を消す</h4><p>1肢だけ判定できれば、当たる確率は20%から約40%に上がります。全部読む必要はありません。1肢判定したら、残った選択肢を見比べ、違いになっている字の肢だけを次に読みます。</p></article>
           <article class="tip-card step"><div class="step-no">4</div><h4>△が残ったら、語と言い回しを見る</h4><p>語は決め手ではなく傾向です。知識で判定した○×を語で覆さないでください。</p></article>
           <article class="tip-card step"><div class="step-no">5</div><h4>それでも残れば、長さと位置を見る</h4><p>憲法・民法・商法で「正しい／誤っているもの」の問題なら、最も短い肢と1番を外して、最も長い肢を選びます。</p></article>
           <article class="tip-card step"><div class="step-no">6</div><h4>時間をかけない</h4><p>決まらなければマークして問題番号に印を付け、次へ進みます。最後に時間が余ったら戻ります。</p></article>
+      </div>
+      <div class="note-card">
+        <h3>自信のない個数問題は最後に回す</h3>
+        <p>「正しいものはいくつあるか」の個数問題は、全部の肢を判定しないと点になりにくい形です。確実に判定できる肢が3割なら当たるのは約26%、6割でも約41%で、5肢から1つ選ぶ問題（50%・78%）より大きく下がります。4肢を判定できて、やっと半分です。知らない論点の個数問題は印だけ付けて先へ進み、時間が余ったら戻ります。</p>
       </div>
       <h3 class="subhead">誤りの肢は、6つの壊し方で作られている</h3>
       <p class="plain">試験委員は、正しい文を1か所だけ壊して誤りの肢を作ります。直近10年の誤り肢から100肢を無作為に抜き取り、解説を読んで分類しました（分類はAIの判断なので目安です）。数字の入れ替えはほとんどありませんでした。細かい数字を思い出すより、まず主語と相手、次に文末の向きを見ます。</p>
@@ -124,15 +134,16 @@
       </div>
     </section>
 
-    <section class="section" id="word-section">
+    <section class="section" id="word-section" role="tabpanel" aria-labelledby="word-tab">
       <div class="section-heading">
         <p class="kicker">WORD SIGNALS</p>
         <h2>この言い回しがあると、正誤に傾きがある</h2>
-        <p>「誤り 90%」は、その語を含む肢の9割が誤りだったという意味です。横の「平均」は、同じ問題の肢の平均です。この2つの差が大きいほど、語が効いています。</p>
+        <p>「誤り 90%」は、その語を含む肢の9割が誤りだったという意味です。「平均」は、同じ問題の肢の平均です。効き目は「平均より+◯ポイント」の差で見ます。「誤り」の割合が大きくても、もともと誤りの肢が多い問題ばかりなら、語は効いていません。</p>
+        <p>旧10年（平成18〜27年度）と新10年（平成28〜令和7年度）に分けても、両方で平均より<span id="crit-lift">5</span>ポイント以上同じ向きに傾き、<span id="crit-count">10</span>肢以上ある語だけを上に出しました。片方の10年でしか傾かない語や、肢の少ない語は、偶然の可能性が高いので「参考」として薄く出します。</p>
       </div>
       <div class="note-card">
         <h3>語は補助です</h3>
-        <p>語の傾向だけで全問を解くと、正答率は<strong id="sim-accuracy">-</strong>%です（勘は20%）。<a href="../simple-rules/">法律家の常識</a>で中身から切り、それでも残った肢に使ってください。知識で判定した○×を語で覆さないでください。</p>
+        <p>語の傾向だけで全問を解くと、正答率は<strong id="sim-accuracy">-</strong>%です（勘は20%）。語の手がかりがある問題は<span id="sim-signal">-</span>%です。<span id="pair-note" hidden>2択まで絞ったあと、残った2肢の語に差がつくのは<span id="pair-decided">-</span>%の組で、差がついたときに語で選ぶと<span id="pair-accuracy">-</span>%当たります（勘なら50%）。</span>どちらも語を選んだのと同じ20年分で測った数字なので、本番ではこれより下がると見てください。<a href="../simple-rules/">法律家の常識</a>で中身から切り、それでも残った肢に使ってください。知識で判定した○×を語で覆さないでください。</p>
       </div>
       <div class="subject-filter" id="word-filter" aria-label="科目で絞り込む"></div>
       <div id="word-list"></div>
@@ -147,7 +158,7 @@
             <tr><td>「違反しない」</td><td>傍聴人と証人の間に遮へい措置を採っても、裁判の公開に関する憲法の規定には違反しない</td><td class="high">正しい</td><td><a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1577">令和4年問7</a></td></tr>
             <tr><td>「場合がある」</td><td>瑕疵が重大な処分は、明白とまでいえなくても、無効とされる場合がある</td><td class="high">正しい</td><td><a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1698">令和6年問8</a></td></tr>
             <tr><td>「努めなければならない」</td><td>地方公共団体は、情報の公開に必要な施策を策定し実施するよう努めなければならない</td><td class="high">正しい</td><td><a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1656">令和5年問26</a></td></tr>
-            <tr><td>「ただし」</td><td>商行為の代理は本人に効力を生じる。ただし、相手方が知らなかったときは代理人にも請求できる</td><td class="high">正しい</td><td><a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1666">令和5年問36</a></td></tr>
+            <tr><td>「に限られる」</td><td>申請を拒否する処分の理由を示すのは、申請者から求められた場合に限られる</td><td class="low">誤り</td><td><a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1763">令和7年問13</a></td></tr>
           </tbody>
         </table>
       </div>
@@ -158,7 +169,7 @@
       </div>
     </section>
 
-    <section class="section" id="length-section">
+    <section class="section" id="length-section" role="tabpanel" aria-labelledby="length-tab">
       <div class="section-heading">
         <p class="kicker">LENGTH AND POSITION</p>
         <h2>長い肢は正解か、1番は外れか</h2>
@@ -180,7 +191,7 @@
       </div>
     </section>
 
-    <section class="section" id="format-section">
+    <section class="section" id="format-section" role="tabpanel" aria-labelledby="format-tab">
       <div class="section-heading">
         <p class="kicker">MULTIPLE BLANK AND WRITTEN</p>
         <h2>多肢選択と記述の絞り方</h2>
@@ -232,15 +243,15 @@
       </div>
     </section>
 
-    <section class="section" id="no-section">
+    <section class="section" id="no-section" role="tabpanel" aria-labelledby="no-tab">
       <div class="section-heading">
         <p class="kicker">DOES NOT WORK</p>
         <h2>効かなかった手（使わない）</h2>
         <p>よく言われるものでも、測ると効かないものがあります。ここに時間を使わないでください。</p>
       </div>
       <div class="tip-grid">
-          <article class="tip-card no"><h4>「すべて」「必ず」「一切」があるから誤り</h4><p>正しい割合は39%で、同じ問題の平均41%とほぼ同じです。よく言われますが、この試験では決め手になりません。</p></article>
-          <article class="tip-card no"><h4>「〜のみ」「〜だけ」があるから誤り</h4><p>同じ問題の平均と差がありません。行政法の「に限られる」だけが別です。</p></article>
+          <article class="tip-card no"><h4>「すべて」「必ず」「一切」があるから誤り</h4><p><span data-no="no-absolute">正しい割合は<b data-field="truth">39</b>%で、同じ問題の平均<b data-field="base">41</b>%</span>とほぼ同じです。よく言われますが、この試験では決め手になりません。</p></article>
+          <article class="tip-card no"><h4>「〜のみ」「〜だけ」があるから誤り</h4><p>同じ問題の平均と差がありません<span data-no="no-only" hidden>（正しい割合<b data-field="truth">-</b>%、同じ問題の平均<b data-field="base">-</b>%）</span>。行政法の「に限られる」だけが別です。</p></article>
           <article class="tip-card no"><h4>処分性・訴えの利益・原告適格を語の向きで判定する</h4><p>「当たる」「当たらない」のどちらにも傾きがありません。</p></article>
           <article class="tip-card no"><h4>民法の「請求できる／できない」「対抗できる／できない」</h4><p>安定した傾きがありません。</p></article>
           <article class="tip-card no"><h4>他の肢と似ている肢を選ぶ</h4><p>当たる確率は約20%で、差がありません。</p></article>
@@ -250,21 +261,23 @@
       </div>
     </section>
 
-    <section class="section" id="plan-section">
+    <section class="section" id="plan-section" role="tabpanel" aria-labelledby="plan-tab">
       <div class="section-heading">
         <p class="kicker">WHY IT WORKS</p>
         <h2>全部分からなくても点は取れる</h2>
-        <p>各肢を確実に判定できる割合と、そのときの正答率です（残った選択肢からは勘で選ぶとして計算しました）。</p>
+        <p>各肢を確実に判定できる割合と、そのときの正答率です（肢ごとにその割合で判定でき、残った選択肢からは勘で選ぶとして計算しました）。</p>
       </div>
       <div class="table-wrap">
         <table class="tech-table stack-table">
           <thead><tr><th>確実に判定できる肢</th><th class="num">0割</th><th class="num">2割</th><th class="num">3割</th><th class="num">4割</th><th class="num">5割</th><th class="num">6割</th></tr></thead>
           <tbody>
-            <tr><td>「正しい／誤っているもの」の問題</td><td class="num">20%</td><td class="num">40%</td><td class="num">50%</td><td class="num">60%</td><td class="num">70%</td><td class="num">79%</td></tr>
+            <tr><td>「正しい／誤っているもの」の問題</td><td class="num">20%</td><td class="num">40%</td><td class="num">50%</td><td class="num">60%</td><td class="num">69%</td><td class="num">78%</td></tr>
             <tr><td>組合せ問題</td><td class="num">20%</td><td class="num">41%</td><td class="num">52%</td><td class="num">63%</td><td class="num">73%</td><td class="num">82%</td></tr>
+            <tr><td>個数問題（いくつあるか）</td><td class="num">20%</td><td class="num low">23%</td><td class="num low">26%</td><td class="num low">30%</td><td class="num low">35%</td><td class="num low">41%</td></tr>
           </tbody>
         </table>
       </div>
+      <p class="plain">5肢から1つ選ぶ問題では、確実に判定できる肢が1つ増えるごとに、当たる確率がちょうど20%ずつ上がります。全部が分からなくても、1肢ずつ確実にすることがそのまま点になります。個数問題だけは、全部の肢を判定しないと上がりません。</p>
       <div class="note-card warn">
         <h3>条件は「確実に」です</h3>
         <p>この表は、判定した肢が全部合っている場合の数字です。間違った判定で正解を切ると、その問題は0点になります。自信のない肢は切らずに△にしてください。</p>
@@ -281,14 +294,14 @@
           <tfoot><tr><td>合計 182点</td><td></td><td class="num">120</td><td></td><td class="num">62</td></tr></tfoot>
         </table>
       </div>
-      <p class="plain">記述の部分点の配分は公表されていないので、9点は推測です。法令等122点以上と基礎知識24点以上の基準点も別に必要です。全体の得点の考え方は<a href="../score-plan.html">得点設計</a>にあります。</p>
+      <p class="plain">記述の部分点の配分は公表されていないので、9点は推測です。法令等122点以上と基礎知識24点以上の基準点も別に必要です。択一54問の内訳を、法令40問は確実18問＋2択11問・3択7問・4択4問（約107点）、基礎知識14問は確実6問＋2択4問・3択3問・4択1問（約37点）とすれば、法令等は107＋17＋21＝145点、基礎知識は37点で、どちらの基準点も越えます。全体の得点の考え方は<a href="../score-plan.html">得点設計</a>にあります。</p>
       <h3 class="subhead">試験までにやること</h3>
       <p class="plain">予定表の時間は増やしません。今やっている勉強の見方を変えます。</p>
       <div class="tip-grid" style="margin-top:12px">
           <article class="tip-card"><h4>毎日のカードと肢別過去問</h4><p>○×を当てるだけでなく、「どの語で判定が分かれたか」を1語言えるようにします。深い理解まで行かなくても、この1語があれば肢を切れます。</p></article>
           <article class="tip-card"><h4>毎日の行政法</h4><p>「多肢選択・記述」タブの問44の表を5分で見直します。場面を見て、訴訟の種類を言えるようにします。</p></article>
           <article class="tip-card"><h4>11/1の通し演習</h4><p>このページの手順で解きます。問題番号の横に、A（確信）・B（2択まで）・C（3択まで）・D（勘）を書いてください。</p></article>
-          <article class="tip-card"><h4>通し演習の採点後</h4><p>A〜Dごとの正解率を数えます。目安はAが9割、Bが5割、Cが3割です。Bが5割を切るなら、切ってはいけない肢を切っています。△を増やしてください。</p></article>
+          <article class="tip-card"><h4>通し演習の採点後</h4><p>A〜Dごとの正解率を数えます。目安はAが9割、Bが5割、Cが3割です。ただしBは1回分で10問前後しかないので、全部正しく2択に絞れていても、5割を少し切ることはよくあります（10問中4問以下になる確率は約4割）。判定は2回分以上を合わせ、Bが4割を切るなら、切ってはいけない肢を切っています。△を増やしてください。</p></article>
           <article class="tip-card"><h4>11/2〜11/4</h4><p>肢別過去問の「間違えた肢」を回すときに、通し演習のBとCで外した論点を優先します。</p></article>
           <article class="tip-card"><h4>11/5〜11/7の本番通し</h4><p>同じ手順と時間配分で解きます。目安は法令択一95分・基礎知識40分・多肢選択15分・記述25分・見直し5分です。商法の5問を5分で済ませれば、そのぶん法令択一に回せます。</p></article>
       </div>
@@ -300,6 +313,6 @@
 
     <p class="page-foot">これは過去の傾向です。試験委員が意図して作った癖かどうかは分かりません。今年も同じとは限らず、肢数の少ないものは偶然の可能性もあります（語は総当たりで探したものも含みます）。知識で判定できる肢があれば、必ずそちらを優先してください。集計の範囲は、ラボが持つ平成18〜令和7年度の過去問です。肢の正誤は各問の正解から機械的に求め、語は文字列の一致で数えており、文脈は見ていません。語の割合は scripts/simple_rules/measure.py で作っています。時間配分の目安は伊藤塾の記事によります。</p>
   </main>
-  <script src="app.js?v=20261031-2"></script>
+  <script src="app.js?v=20261031-3"></script>
 </body>
 </html>
