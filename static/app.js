@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20261030-1";
+  const APP_VERSION = "20261101-2";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -117,6 +117,7 @@
     });
     loadMinpoDrillIndex();
     loadCardPriorityIndex();
+    loadCardHintIndex();
 
     try {
       let studyReady = false;
@@ -1231,6 +1232,7 @@
       button.classList.remove("correct-answer", "selected-wrong");
     });
     renderStudyAnswerPreview();
+    renderStudyHints(item);
     startStudyTimer();
   }
 
@@ -1362,6 +1364,195 @@
       cardPriority = out;
       if (state.studyCurrent) renderStudyBadges(state.studyCurrent);
     });
+  }
+
+  // カードを解く画面に、法律家の常識（simple-rules）と絞り込みテクニック（technique）のうち、
+  // そのカードで使えるものだけを出す（2026-11-01に利用者が依頼。答えが分かってもよい）。
+  // 正本は3つで、カード正本やbundleには書かない。読めなければ欄が出ないだけで、学習は止めない。
+  //   常識：simple-rules/content.md の「カード ::」（手で結んだもの）
+  //   誤りの壊し方：technique/card-breaks.json（×のカードを手で分類したもの）
+  //   語：technique/word-signals.json の本表の語（問題文との文字列の一致）
+  const HINT_RULE_LIMIT = 3;
+  const HINT_WORD_LIMIT = 2;
+  const HINT_RULE_TABLES = {
+    sense: { text: "考え方", field: "使い方" },
+    ok: { text: "言い切ってよい", field: "解説" },
+    ng: { text: "言い切るとだめ", field: "解説" }
+  };
+  const HINT_SUBJECT_NAMES = {
+    "administrative-law": "行政法",
+    "civil-law": "民法",
+    "constitutional-law": "憲法",
+    "commercial-law": "商法・会社法",
+    "general-knowledge": "基礎知識",
+    "legal-foundations": "基礎法学"
+  };
+  let cardHints = { rules: new Map(), breaks: new Map(), kinds: {}, words: [] };
+
+  function parseSimpleRuleLinks(text) {
+    const out = new Map();
+    const field = /^\s*(?:-\s+)?(概念|解説|使い方|カード)\s*::\s*(.*)$/;
+    let table = "";
+    let item = null;
+    const flush = () => {
+      if (!item || !item["カード"]) return;
+      item["カード"].split(/\s+/).filter(Boolean).forEach((id) => {
+        if (!out.has(id)) out.set(id, []);
+        out.get(id).push(item);
+      });
+    };
+    text.replace(/<!--[\s\S]*?-->/g, "").split(/\r?\n/).forEach((line) => {
+      const top = line.match(/^#\s+(sense|ok|ng)\s*$/);
+      if (top) {
+        flush();
+        table = top[1];
+        item = null;
+        return;
+      }
+      const found = line.match(field);
+      if (!found || !table) return;
+      if (found[1] === "概念") {
+        flush();
+        item = { table };
+      }
+      if (item) item[found[1]] = found[2].trim();
+    });
+    flush();
+    return out;
+  }
+
+  function loadCardHintIndex() {
+    const read = (url, type) => fetch(url, { cache: "no-store" })
+      .then((res) => {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return type === "json" ? res.json() : res.text();
+      })
+      .catch((error) => {
+        console.warn(url + " を読めませんでした", error);
+        return null;
+      });
+    Promise.all([
+      read("simple-rules/content.md", "text"),
+      read("technique/card-breaks.json", "json"),
+      read("technique/word-signals.json", "json")
+    ]).then(([rules, breaks, signals]) => {
+      const next = { rules: new Map(), breaks: new Map(), kinds: {}, words: [] };
+      if (rules) next.rules = parseSimpleRuleLinks(rules);
+      if (breaks) {
+        next.kinds = breaks.kinds || {};
+        Object.entries(breaks.cards || {}).forEach(([kind, ids]) => ids.forEach((id) => next.breaks.set(id, kind)));
+      }
+      if (signals) {
+        (signals.rules || []).filter((rule) => rule.stable && rule.pattern).forEach((rule) => {
+          next.words.push(Object.assign({}, rule, {
+            regex: new RegExp(rule.pattern),
+            excludeRegex: rule.exclude ? new RegExp(rule.exclude) : null
+          }));
+        });
+      }
+      cardHints = next;
+      if (state.studyCurrent) renderStudyHints(state.studyCurrent);
+    });
+  }
+
+  // 科目の語を先に見る。全科目の語と同じ文字に当たったら、科目の語だけを残す。
+  function matchStudyWords(item) {
+    const text = String((item.variants && item.variants.a) || "").replace(/\*\*|__|==|!!|%%|@@/g, "");
+    const subject = HINT_SUBJECT_NAMES[item.subjectId];
+    const seen = new Set();
+    const rank = (rule) => (rule.subject === "全科目" ? 1 : 0);
+    return cardHints.words
+      .filter((rule) => rule.subject === "全科目" || rule.subject === subject)
+      .sort((a, b) => rank(a) - rank(b))
+      .map((rule) => {
+        if (rule.excludeRegex && rule.excludeRegex.test(text)) return null;
+        const found = text.match(rule.regex);
+        return found ? { rule, word: found[0] } : null;
+      })
+      .filter((entry) => {
+        if (!entry || seen.has(entry.word)) return false;
+        seen.add(entry.word);
+        return true;
+      })
+      .slice(0, HINT_WORD_LIMIT);
+  }
+
+  // 正規表現は語幹で当てているので（「に限られ」）、画面の語は見出しの言い方（「に限られる」）で出す。
+  function studyWordLabel(rule, word) {
+    const named = (rule.label.match(/「[^」]+」/g) || []).find((part) => part.includes(word));
+    if (named) return named;
+    return word.length <= 12 ? "「" + word + "」" : rule.label;
+  }
+
+  function firstSentence(text) {
+    const value = String(text || "");
+    const end = value.indexOf("。");
+    return end < 0 ? value : value.slice(0, end + 1);
+  }
+
+  function studyHintRow(kind, href, tagText, title, note) {
+    const row = make("li", { className: "study-hint study-hint-" + kind });
+    row.append(make("a", { className: "study-hint-tag", href, target: "_blank", rel: "noopener" }, tagText));
+    const body = make("div", { className: "study-hint-body" });
+    const head = make("p", { className: "study-hint-title" });
+    setRichText(head, title);
+    body.append(head);
+    if (note) {
+      const line = make("p", { className: "study-hint-note" });
+      setRichText(line, note);
+      body.append(line);
+    }
+    row.append(body);
+    return row;
+  }
+
+  function renderStudyHints(item) {
+    const box = $("study-hints");
+    const list = $("study-hints-list");
+    list.replaceChildren();
+    // 高速○×は時間を測るので出さない。
+    if (!item || isRapidStudyView()) {
+      box.hidden = true;
+      return;
+    }
+    const id = studyCardId(item);
+    const rules = (cardHints.rules.get(id) || []).slice()
+      .sort((a, b) => (a.table === "sense" ? 1 : 0) - (b.table === "sense" ? 1 : 0))
+      .slice(0, HINT_RULE_LIMIT);
+    rules.forEach((rule) => {
+      const info = HINT_RULE_TABLES[rule.table];
+      list.append(studyHintRow(
+        "rule",
+        "simple-rules/#" + rule.table,
+        "常識：" + info.text,
+        rule["概念"],
+        firstSentence(rule[info.field])
+      ));
+    });
+    const breakKind = cardHints.kinds[cardHints.breaks.get(id)];
+    if (breakKind) {
+      list.append(studyHintRow(
+        "break",
+        "technique/#how",
+        "テクニック：誤りの作り方",
+        "「" + breakKind.label + "」で作られた×の肢",
+        "見る場所：" + breakKind.look
+      ));
+    }
+    matchStudyWords(item).forEach(({ rule, word }) => {
+      const sideText = rule.direction === "true" ? "正しい" : "誤り";
+      const fits = (rule.direction === "true") === Boolean(item.correct);
+      list.append(studyHintRow(
+        "word",
+        "technique/#word",
+        "テクニック：語",
+        studyWordLabel(rule, word) + "があると" + sideText + "寄り",
+        rule.subject + "の過去問で" + rule.count + "肢中" + rule.hit + "%が" + sideText
+          + "（同じ問題の平均は" + rule.base + "%）。"
+          + (fits ? "このカードも傾向どおりです。" : "このカードは傾向と逆です。語は決め手にせず、中身で判定します。")
+      ));
+    });
+    box.hidden = !list.children.length;
   }
 
   function renderStudyPriority(item) {
@@ -2890,6 +3081,7 @@
         $("study-variant-b-style").textContent = variants.bCasualStyle || "やわらかくほどく";
         setRichText($("study-variant-c"), variants.c || "");
         $("study-subtopic").textContent = card.subtopic || "";
+        renderStudyHints(card);
         const selected = state.studyLastSelected;
         renderStudyAnswer(card, selected, selected === Boolean(card.correct));
       } else {

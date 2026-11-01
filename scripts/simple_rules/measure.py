@@ -177,7 +177,7 @@ def percent(part: list[dict], key: str, direction: str) -> int | None:
 
 
 def rule_stats(rule: tuple, rows: list[dict]) -> dict | None:
-    rule_id, subject, _, direction, _, label, note = rule
+    rule_id, subject, pattern, direction, exclude, label, note = rule
     hit = [row for row in rows if matches(rule, row)]
     if not hit:
         return None
@@ -185,6 +185,8 @@ def rule_stats(rule: tuple, rows: list[dict]) -> dict | None:
     late = [row for row in hit if row["year"] >= SPLIT_YEAR]
     result = {
         "id": rule_id, "subject": subject or "全科目", "label": label, "note": note,
+        # 学習カードの画面（static/app.js）が、同じ語で問題文を判定するために読む。
+        "pattern": pattern, "exclude": exclude,
         "direction": direction, "count": len(hit),
         "hit": percent(hit, "truth", direction), "base": percent(hit, "base", direction),
         "early": percent(early, "truth", direction), "earlyBase": percent(early, "base", direction),

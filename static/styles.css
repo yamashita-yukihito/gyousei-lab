@@ -1115,3 +1115,17 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .study-rating-buttons button[aria-pressed="true"] { background: #eef6f2; border-color: #1f775b; font-weight: 700; }
 .study-rating-group.for-wrong-answer .study-rating-buttons { display: none; }
 @media (max-width: 640px) { .study-rating-buttons { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* カードの出題面に出す「この問題で使える常識・テクニック」 */
+.study-hints { margin: 16px 0 0; padding: 13px 15px; border: 1px solid #c9dcd2; border-radius: 12px; background: #f4faf6; }
+.study-hints h3 { margin: 0 0 9px; color: var(--deep); font-size: 14px; font-weight: 900; }
+.study-hints ul { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.study-hint { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 4px 10px; align-items: start; }
+.study-hint-tag { justify-self: start; padding: 3px 8px; border-radius: 999px; background: #dcefe5; color: #1f5f49; font-size: 11.5px; font-weight: 800; line-height: 1.5; text-decoration: none; }
+.study-hint-tag:hover { text-decoration: underline; }
+.study-hint-break .study-hint-tag, .study-hint-word .study-hint-tag { background: #e4f0f8; color: #2d6285; }
+.study-hint-title { margin: 0; font-size: 14px; font-weight: 800; line-height: 1.6; }
+.study-hint-note { margin: 2px 0 0; color: #4c5a54; font-size: 13.5px; line-height: 1.7; }
+@media (max-width: 640px) {
+  .study-hint { grid-template-columns: minmax(0, 1fr); }
+}
