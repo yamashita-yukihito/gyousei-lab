@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20261101-3";
+  const APP_VERSION = "20261101-4";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -1367,12 +1367,10 @@
   }
 
   // カードを解く画面に、法律家の常識（simple-rules）と絞り込みテクニック（technique）のうち、
-  // そのカードで使えるものだけを出す（2026-11-01に利用者が依頼。答えが分かってもよい）。
-  // 正本は3つで、カード正本やbundleには書かない。読めなければ欄が出ないだけで、学習は止めない。
-  //   常識：simple-rules/content.md の「カード ::」（手で結んだもの）
-  //   誤りの壊し方：technique/card-breaks.json（×のカードを手で分類したもの）
-  //   語：technique/word-signals.json の本表の語（問題文との文字列の一致）
-  const HINT_RULE_LIMIT = 3;
+  // そのカードで使えるものだけを、「この問題でどう当てはまるか」と一緒に出す（2026-11-01に利用者が依頼。答えが分かってもよい）。
+  // 正本は assets/card-hints.json（全カードを全文で読んで手で書いた）。カード正本やbundleには書かない。
+  // 常識の説明文は simple-rules/content.md から引き、全文を出す。語は technique/word-signals.json の本表の語が
+  // 問題文に一致したときに出す（wordsOff で文脈が違うものを止める）。読めなければ欄が出ないだけで、学習は止めない。
   const HINT_WORD_LIMIT = 2;
   const HINT_RULE_TABLES = {
     sense: { text: "考え方", field: "使い方" },
@@ -1387,24 +1385,16 @@
     "general-knowledge": "基礎知識",
     "legal-foundations": "基礎法学"
   };
-  let cardHints = { rules: new Map(), breaks: new Map(), kinds: {}, words: [] };
+  let cardHints = { rules: new Map(), cards: {}, kinds: {}, words: [] };
 
-  function parseSimpleRuleLinks(text) {
+  function parseSimpleRules(text) {
     const out = new Map();
-    const field = /^\s*(?:-\s+)?(概念|解説|使い方|カード)\s*::\s*(.*)$/;
+    const field = /^\s*(?:-\s+)?(概念|解説|使い方)\s*::\s*(.*)$/;
     let table = "";
     let item = null;
-    const flush = () => {
-      if (!item || !item["カード"]) return;
-      item["カード"].split(/\s+/).filter(Boolean).forEach((id) => {
-        if (!out.has(id)) out.set(id, []);
-        out.get(id).push(item);
-      });
-    };
     text.replace(/<!--[\s\S]*?-->/g, "").split(/\r?\n/).forEach((line) => {
       const top = line.match(/^#\s+(sense|ok|ng)\s*$/);
       if (top) {
-        flush();
         table = top[1];
         item = null;
         return;
@@ -1412,12 +1402,11 @@
       const found = line.match(field);
       if (!found || !table) return;
       if (found[1] === "概念") {
-        flush();
         item = { table };
+        out.set(found[2].trim(), item);
       }
       if (item) item[found[1]] = found[2].trim();
     });
-    flush();
     return out;
   }
 
@@ -1433,14 +1422,14 @@
       });
     Promise.all([
       read("simple-rules/content.md", "text"),
-      read("technique/card-breaks.json", "json"),
+      read("assets/card-hints.json", "json"),
       read("technique/word-signals.json", "json")
-    ]).then(([rules, breaks, signals]) => {
-      const next = { rules: new Map(), breaks: new Map(), kinds: {}, words: [] };
-      if (rules) next.rules = parseSimpleRuleLinks(rules);
-      if (breaks) {
-        next.kinds = breaks.kinds || {};
-        Object.entries(breaks.cards || {}).forEach(([kind, ids]) => ids.forEach((id) => next.breaks.set(id, kind)));
+    ]).then(([rules, hints, signals]) => {
+      const next = { rules: new Map(), cards: {}, kinds: {}, words: [] };
+      if (rules) next.rules = parseSimpleRules(rules);
+      if (hints) {
+        next.cards = hints.cards || {};
+        next.kinds = hints.kinds || {};
       }
       if (signals) {
         (signals.rules || []).filter((rule) => rule.stable && rule.pattern).forEach((rule) => {
@@ -1461,8 +1450,10 @@
     const subject = HINT_SUBJECT_NAMES[item.subjectId];
     const seen = new Set();
     const rank = (rule) => (rule.subject === "全科目" ? 1 : 0);
+    const off = (cardHints.cards[studyCardId(item)] || {}).wordsOff || [];
     return cardHints.words
       .filter((rule) => rule.subject === "全科目" || rule.subject === subject)
+      .filter((rule) => !off.includes(rule.id))
       .sort((a, b) => rank(a) - rank(b))
       .map((rule) => {
         if (rule.excludeRegex && rule.excludeRegex.test(text)) return null;
@@ -1484,13 +1475,21 @@
     return word.length <= 12 ? "「" + word + "」" : rule.label;
   }
 
-  function studyHintRow(kind, href, tagText, title, note) {
+  function studyHintRow(kind, href, tagText, title, apply, note) {
     const row = make("li", { className: "study-hint study-hint-" + kind });
     row.append(make("a", { className: "study-hint-tag", href, target: "_blank", rel: "noopener" }, tagText));
     const body = make("div", { className: "study-hint-body" });
     const head = make("p", { className: "study-hint-title" });
     setRichText(head, title);
     body.append(head);
+    if (apply) {
+      const line = make("p", { className: "study-hint-apply" });
+      line.append(make("b", {}, "この問題では"), " ");
+      const text = make("span", {});
+      setRichText(text, apply);
+      line.append(text);
+      body.append(line);
+    }
     if (note) {
       const line = make("p", { className: "study-hint-note" });
       setRichText(line, note);
@@ -1509,28 +1508,31 @@
       box.hidden = true;
       return;
     }
-    const id = studyCardId(item);
-    const rules = (cardHints.rules.get(id) || []).slice()
-      .sort((a, b) => (a.table === "sense" ? 1 : 0) - (b.table === "sense" ? 1 : 0))
-      .slice(0, HINT_RULE_LIMIT);
-    rules.forEach((rule) => {
+    const hint = cardHints.cards[studyCardId(item)] || {};
+    let hasNg = false;
+    (hint.rules || []).forEach((entry) => {
+      const rule = cardHints.rules.get(entry.name);
+      if (!rule) return;
       const info = HINT_RULE_TABLES[rule.table];
+      if (rule.table === "ng") hasNg = true;
       list.append(studyHintRow(
         "rule",
         "simple-rules/#" + rule.table,
         "常識：" + info.text,
         rule["概念"],
+        entry.apply,
         rule[info.field]
       ));
     });
-    const breakKind = cardHints.kinds[cardHints.breaks.get(id)];
-    if (breakKind) {
+    const kind = hint.break && cardHints.kinds[hint.break.kind];
+    if (kind) {
       list.append(studyHintRow(
         "break",
         "technique/#how",
         "テクニック：誤りの作り方",
-        "「" + breakKind.label + "」で作られた×の肢",
-        "見る場所：" + breakKind.look
+        "「" + kind.label + "」で作られた×の肢",
+        hint.break.where,
+        "見る場所：" + kind.look
       ));
     }
     matchStudyWords(item).forEach(({ rule, word }) => {
@@ -1541,13 +1543,12 @@
         "technique/#word",
         "テクニック：語",
         studyWordLabel(rule, word) + "があると" + sideText + "寄り",
-        rule.subject + "の過去問で" + rule.count + "肢中" + rule.hit + "%が" + sideText
-          + "（同じ問題の平均は" + rule.base + "%）。"
-          + (fits ? "このカードも傾向どおりです。" : "このカードは傾向と逆です。語は決め手にせず、中身で判定します。")
+        fits ? "この文も傾向どおりです。" : "この文は傾向と逆です。語は決め手にせず、中身で判定します。",
+        rule.subject + "の過去問で" + rule.count + "肢中" + rule.hit + "%が" + sideText + "（同じ問題の平均は" + rule.base + "%）。"
       ));
     });
     // 「言い切るとだめ」を「このカードの答えは逆」と読まないようにする（2026-11-01に利用者が実際にそう読んだ）。
-    $("study-hints-ng-note").hidden = !rules.some((rule) => rule.table === "ng");
+    $("study-hints-ng-note").hidden = !hasNg;
     box.hidden = !list.children.length;
   }
 

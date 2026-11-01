@@ -20,23 +20,70 @@ class CardHintsTest(unittest.TestCase):
     def setUpClass(cls):
         items = json.loads((ROOT / "content" / "explanation_cards.json").read_text(encoding="utf-8"))["items"]
         cls.cards = {card["id"]: card for card in items}
-        cls.breaks = json.loads((STATIC / "technique" / "card-breaks.json").read_text(encoding="utf-8"))
+        cls.hints = json.loads((STATIC / "assets" / "card-hints.json").read_text(encoding="utf-8"))
         cls.signals = json.loads((STATIC / "technique" / "word-signals.json").read_text(encoding="utf-8"))
         cls.app = (STATIC / "app.js").read_text(encoding="utf-8")
         cls.html = (STATIC / "index.html").read_text(encoding="utf-8")
+        cls.content = (STATIC / "simple-rules" / "content.md").read_text(encoding="utf-8")
 
-    def test_every_false_card_has_one_break_kind(self):
-        listed = [card_id for ids in self.breaks["cards"].values() for card_id in ids]
-        self.assertEqual(len(listed), len(set(listed)), "同じカードを2つの壊し方に入れない")
-        expected = {card_id for card_id, card in self.cards.items() if not card["correct"]}
-        self.assertEqual(set(listed), expected, "×のカードを足したら card-breaks.json にも入れる")
+    def rule_links(self):
+        links, name = {}, None
+        for line in self.content.split("-->", 1)[1].splitlines():
+            if line.startswith("- 概念 :: "):
+                name = line.split("::", 1)[1].strip()
+                links[name] = []
+            elif line.startswith("  カード :: "):
+                links[name] = line.split("::", 1)[1].split()
+        return links
+
+    def test_every_false_card_has_a_break_with_the_place(self):
+        for card_id, card in self.cards.items():
+            hint = self.hints["cards"].get(card_id, {})
+            if card["correct"]:
+                self.assertNotIn("break", hint, card_id)
+            else:
+                self.assertIn("break", hint, "×のカードを足したら card-hints.json にも書く: " + card_id)
+                self.assertIn(hint["break"]["kind"], self.hints["kinds"])
+                self.assertTrue(hint["break"]["where"].strip(), card_id)
 
     def test_break_kinds_match_the_technique_page(self):
         page = (STATIC / "technique" / "index.html").read_text(encoding="utf-8")
-        self.assertEqual(set(self.breaks["kinds"]), set(self.breaks["cards"]))
-        for kind in self.breaks["kinds"].values():
+        for kind in self.hints["kinds"].values():
             self.assertIn(kind["label"], page)
             self.assertIn(kind["look"], page)
+
+    def test_rules_exist_and_apply_to_the_card(self):
+        links = self.rule_links()
+        for card_id, hint in self.hints["cards"].items():
+            self.assertIn(card_id, self.cards)
+            rules = hint.get("rules", [])
+            self.assertLessEqual(len(rules), 3, card_id)
+            for rule in rules:
+                self.assertIn(rule["name"], links, card_id)
+                self.assertTrue(rule["apply"].strip(), card_id)
+
+    def test_apply_text_agrees_with_the_answer(self):
+        for card_id, hint in self.hints["cards"].items():
+            correct = self.cards[card_id]["correct"]
+            for rule in hint.get("rules", []):
+                if "この文は○" in rule["apply"]:
+                    self.assertTrue(correct, card_id)
+                if "この文は×" in rule["apply"]:
+                    self.assertFalse(correct, card_id)
+
+    def test_content_card_links_are_copied_from_the_hints(self):
+        expected = {}
+        for card_id, hint in self.hints["cards"].items():
+            for rule in hint.get("rules", []):
+                expected.setdefault(rule["name"], []).append(card_id)
+        for name, ids in self.rule_links().items():
+            self.assertEqual(sorted(ids), sorted(expected.get(name, [])), name)
+
+    def test_words_off_are_real_rules(self):
+        known = {rule["id"] for rule in self.signals["rules"]}
+        for card_id, hint in self.hints["cards"].items():
+            for rule_id in hint.get("wordsOff", []):
+                self.assertIn(rule_id, known, card_id)
 
     def test_word_patterns_are_the_measured_ones(self):
         rules = {rule[0]: rule for rule in measure.RULES}
@@ -64,6 +111,7 @@ class CardHintsTest(unittest.TestCase):
     def test_rule_text_is_not_cut_to_the_first_sentence(self):
         # 1文目だけを出すと「目的によって逆になります」で切れ、カードの答えを逆に読ませた。
         self.assertNotIn("firstSentence", self.app)
+        self.assertIn("rule[info.field]", self.app)
         self.assertIn('id="study-hints-ng-note"', self.html)
 
     def test_only_stable_words_are_shown(self):
