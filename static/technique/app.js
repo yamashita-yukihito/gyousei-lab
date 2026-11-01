@@ -189,6 +189,27 @@
     });
   }
 
+  // 6つの壊し方の説明に、同じ作り方の×のカードをまとめて解く入口を付ける（AGENTS.md §5.9）。読めなければリンクが出ないだけ。
+  fetch("../assets/card-hints.json", { cache: "no-store" }).then((res) => {
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    return res.json();
+  }).then((data) => {
+    const ids = {};
+    Object.entries(data.cards || {}).forEach(([id, hint]) => {
+      if (hint.break) (ids[hint.break.kind] = ids[hint.break.kind] || []).push(id);
+    });
+    document.querySelectorAll(".tip-card").forEach((card) => {
+      const title = card.querySelector("h4");
+      const entry = Object.entries(data.kinds || {}).find(([, kind]) => title && kind.label === title.textContent.trim());
+      if (!entry || !ids[entry[0]]) return;
+      const link = document.createElement("a");
+      link.className = "solve-link";
+      link.href = "../?cardIds=" + ids[entry[0]].join(",") + "&from=technique#study";
+      link.textContent = "この形のカードを解く（" + ids[entry[0]].length + "枚）→";
+      card.append(link);
+    });
+  }).catch((error) => console.warn("card-hints.json を読めませんでした", error));
+
   fetch("word-signals.json?v=20261031-4").then((res) => {
     if (!res.ok) throw new Error("word-signals.json: HTTP " + res.status);
     return res.json();

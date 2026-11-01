@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20261101-4";
+  const APP_VERSION = "20261101-5";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -525,6 +525,7 @@
     $("study-show-answer").checked = studyShowAnswerEnabled();
     $("study-show-answer").addEventListener("change", () => {
       try { localStorage.setItem(STUDY_SHOW_ANSWER_KEY, $("study-show-answer").checked ? "on" : "off"); } catch (_) {}
+      renderStudyHints(state.studyCurrent);
       renderStudyAnswerPreview();
     });
     $("study-kind").addEventListener("change", () => {
@@ -1475,6 +1476,32 @@
     return word.length <= 12 ? "「" + word + "」" : rule.label;
   }
 
+  // Aの文のうち、誤りの肢として壊された箇所に印を付ける。色の記法で文字列が要素に分かれていても囲めるよう、範囲で切り出す。
+  function markStudyBrokenSpot(item, spot) {
+    const node = $("study-variant-a");
+    setRichText(node, (item.variants && item.variants.a) || "");
+    if (!spot) return;
+    const start = node.textContent.indexOf(spot);
+    if (start < 0) return;
+    const end = start + spot.length;
+    const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+    const range = document.createRange();
+    let offset = 0;
+    while (walker.nextNode()) {
+      const text = walker.currentNode;
+      const next = offset + text.length;
+      if (offset <= start && start < next) range.setStart(text, start - offset);
+      if (offset < end && end <= next) {
+        range.setEnd(text, end - offset);
+        break;
+      }
+      offset = next;
+    }
+    const mark = make("span", { className: "study-broken-spot" });
+    mark.append(range.extractContents());
+    range.insertNode(mark);
+  }
+
   function studyHintRow(kind, href, tagText, title, apply, note) {
     const row = make("li", { className: "study-hint study-hint-" + kind });
     row.append(make("a", { className: "study-hint-tag", href, target: "_blank", rel: "noopener" }, tagText));
@@ -1504,11 +1531,15 @@
     const list = $("study-hints-list");
     list.replaceChildren();
     // 高速○×は時間を測るので出さない。
-    if (!item || isRapidStudyView()) {
+    // 「解く前に答えを表示」を切っているときは、回答するまで出さない。この欄も問題文の印も答えが分かるため。
+    const visible = Boolean(item) && !isRapidStudyView()
+      && (state.studyAnswered || $("study-show-answer").checked);
+    const hint = visible ? cardHints.cards[studyCardId(item)] || {} : {};
+    if (item) markStudyBrokenSpot(item, hint.break && hint.break.spot);
+    if (!visible) {
       box.hidden = true;
       return;
     }
-    const hint = cardHints.cards[studyCardId(item)] || {};
     let hasNg = false;
     (hint.rules || []).forEach((entry) => {
       const rule = cardHints.rules.get(entry.name);
@@ -1532,7 +1563,7 @@
         "テクニック：誤りの作り方",
         "「" + kind.label + "」で作られた×の肢",
         hint.break.where,
-        "見る場所：" + kind.look
+        (hint.break.spot ? "問題文の赤い部分です。" : "") + "見る場所：" + kind.look
       ));
     }
     matchStudyWords(item).forEach(({ rule, word }) => {
@@ -1834,6 +1865,7 @@
     // selected が null のときは「答えを見る」で開いた場合。回答していないので、
     // 正解・不正解の判定文も、選んだ答えも出さない。正答率にも入らない。
     const revealedOnly = selected === null;
+    renderStudyHints(item);
     $("study-feedback").textContent = revealedOnly
       ? "答えを見ました（この回は記録していません）"
       : isCorrect ? "正解です！" : "今回は不正解です";
@@ -2129,7 +2161,9 @@
     if (!ids.length) return false;
     const from = new URLSearchParams(search || "").get("from");
     state.pickedCardIds = ids;
-    state.pickedLabel = from === "mock" ? "通し演習で間違えた問題のカード" : "指定されたカード";
+    state.pickedLabel = from === "mock"
+      ? "通し演習で間違えた問題のカード"
+      : from === "technique" ? "同じ作り方の誤りのカード" : "指定されたカード";
     const option = $("study-view").querySelector('option[value="picked"]');
     option.hidden = false;
     option.disabled = false;

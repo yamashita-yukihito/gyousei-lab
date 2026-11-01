@@ -46,6 +46,22 @@ class CardHintsTest(unittest.TestCase):
                 self.assertIn(hint["break"]["kind"], self.hints["kinds"])
                 self.assertTrue(hint["break"]["where"].strip(), card_id)
 
+    def test_every_break_spot_is_in_the_question_once(self):
+        for card_id, hint in self.hints["cards"].items():
+            if "break" not in hint:
+                continue
+            text = re.sub(r"\*\*|__|==|!!|%%|@@", "", self.cards[card_id]["variants"]["a"])
+            self.assertEqual(text.count(hint["break"].get("spot", "\0")), 1, card_id)
+
+    def test_hints_wait_for_the_answer_when_preview_is_off(self):
+        body = self.app[self.app.index("function renderStudyHints"):]
+        self.assertIn('state.studyAnswered || $("study-show-answer").checked', body[:500])
+
+    def test_technique_page_links_to_cards_by_kind(self):
+        script = (STATIC / "technique" / "app.js").read_text(encoding="utf-8")
+        self.assertIn("../assets/card-hints.json", script)
+        self.assertIn("from=technique#study", script)
+
     def test_break_kinds_match_the_technique_page(self):
         page = (STATIC / "technique" / "index.html").read_text(encoding="utf-8")
         for kind in self.hints["kinds"].values():

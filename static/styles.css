@@ -1132,3 +1132,4 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 @media (max-width: 640px) {
   .study-hint { grid-template-columns: minmax(0, 1fr); }
 }
+.study-broken-spot { padding: 1px 2px; border-radius: 4px; background: #fbdcd8; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
