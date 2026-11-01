@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 590" role="img" aria-labelledby="t d">
+  <title id="t">土地に居座る4人は時効で土地を取れるか</title>
+  <desc id="d">架空の4人の比較。脅して居座る組の若頭は平穏でないので取れない。苦情を受けても使い続ける植木屋は平穏のままで、信じて始めたなら10年で取れる。賃借権を主張する占有屋は所有の意思がないので何年でも取れない。他人の土地と知りながら黙って堂々と資材を置く元事件屋は、悪意なので20年で取れる。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 14px; fill: #55635d; }
+    .lab { font-size: 16px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 14px; fill: #1d2a26; }
+    .ok { font-size: 15px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 15px; font-weight: 800; fill: #b23a2e; }
+  </style>
+  <rect width="640" height="590" fill="#ffffff"/>
+  <text class="h" x="320" y="34" text-anchor="middle">同じ居座りでも、どの要件で落ちるかが違う</text>
+  <text class="sub" x="320" y="58" text-anchor="middle">人物はすべて架空。悪意（知っている）と平穏（暴力なし）は別の話</text>
+
+  <rect x="16" y="72" width="608" height="118" rx="12" fill="#fbf1ef" stroke="#e3c3bd"/>
+  <text class="lab" x="32" y="98">若頭：脅して居座る</text>
+  <text class="t" x="32" y="124">持ち主に「二度と来るな」と脅して、夜のうちにプレハブを建てた</text>
+  <text class="ng" x="32" y="150">× 平穏でない → 時効で取れない</text>
+  <text class="t" x="32" y="174">ただし平穏は推定されるので、脅されたことは持ち主が証明する</text>
+
+  <rect x="16" y="202" width="608" height="118" rx="12" fill="#eef7f1" stroke="#b9d9c4"/>
+  <text class="lab" x="32" y="228">植木屋：文句を言われても使い続ける</text>
+  <text class="t" x="32" y="254">自分の土地と信じて使い始め、後から持ち主に「返せ」と言われた</text>
+  <text class="ok" x="32" y="280">○ 文句を言われただけなら平穏のまま → 10年で取れる</text>
+  <text class="t" x="32" y="304">暴力を振るう側が平穏でなくなる。文句を受けた側ではない</text>
+
+  <rect x="16" y="332" width="608" height="118" rx="12" fill="#fbf1ef" stroke="#e3c3bd"/>
+  <text class="lab" x="32" y="358">占有屋：「借りている」と言い張る</text>
+  <text class="t" x="32" y="384">競売の家に賃貸借契約書を持って住みつき、立退料を求める</text>
+  <text class="ng" x="32" y="410">× 所有の意思がない → 何年いても取れない</text>
+  <text class="t" x="32" y="434">平穏かどうかを見る前に落ちる</text>
+
+  <rect x="16" y="462" width="608" height="112" rx="12" fill="#f2f6f8" stroke="#c4d4dc"/>
+  <text class="lab" x="32" y="488">元事件屋：知っていて、黙って堂々と使う</text>
+  <text class="t" x="32" y="514">他人の土地と知りながら、脅しもせず資材を置き続けた</text>
+  <text class="ok" x="32" y="540">○ 悪意でも平穏・公然 → 20年で取れる</text>
+  <text class="t" x="32" y="562">悪いやつでも取れる。悪意と平穏は別の要件</text>
+</svg>
