@@ -256,7 +256,7 @@
   showTab(hashTab() || "sense", false);
 
   function load(path, read) {
-    return fetch(path + "?v=20261101-3").then((res) => {
+    return fetch(path + "?v=20261101-4").then((res) => {
       if (!res.ok) throw new Error(path + ": HTTP " + res.status);
       return read(res);
     });

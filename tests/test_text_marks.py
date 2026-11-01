@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import subprocess
 import unittest
@@ -33,7 +34,13 @@ out.plain = kinds('行政庁は30日以内に取り消せません（5条）。'
 out.noWarn = kinds('ひっかけに注意します。', {warn: false});
 out.scenario = kinds('のび太は追認していません。', {mark: false});
 out.quiet = T.segments('処分は無効です（行政事件訴訟法36条）。').map((p) => [p.kind || '', p.text]);
-out.era = kinds('令和3年に改正しました。', {});
+out.era = kinds('令和3年に改正しました。2026年に施行です。過去20年で6問。', {});
+out.split = T.segments('甲は明け渡さなければならない。').map((p) => [p.kind || '', p.text]);
+out.advice = kinds('細部は追わない。', {});
+out.who = kinds('内閣府と住民票と行政書士法と第三者提供。', {});
+out.bad = kinds('背信的悪意者です。', {}).includes('underline');
+out.first = T.segments('○。訴えは残りません（5条）。').map((p) => [p.kind || '', p.text]);
+out.fallback = kinds('×。保証債務は利息などをすべて含むものです。', {});
 console.log(JSON.stringify(out));
 """
 
@@ -46,6 +53,19 @@ class TextMarksTest(unittest.TestCase):
             self.assertIn('../assets/text-marks.css?v=', html, page)
             # app.js より先に読まないと TextMarks が無い。
             self.assertLess(html.index("text-marks.js"), html.index('app.js?v='), page)
+
+    def test_manual_phrases_exist_in_the_pages(self) -> None:
+        pages = [(STATIC / "simple-rules" / "content.md").read_text(encoding="utf-8")]
+        pages.append(re.sub(r"<[^>]+>", "", (STATIC / "technique" / "index.html").read_text(encoding="utf-8")))
+        pages += [path.read_text(encoding="utf-8") for path in STATIC.glob("*-d/chapters.json")]
+        pages += [path.read_text(encoding="utf-8") for path in STATIC.glob("*-map/content.md")]
+        text = "\n".join(pages)
+        result = subprocess.run(
+            [NODE, "-e", "console.log(JSON.stringify(require(process.argv[1]).MANUAL))", str(STATIC / "assets" / "text-marks.js")],
+            capture_output=True, text=True, check=True,
+        )
+        missing = [phrase for phrase, _ in json.loads(result.stdout) if phrase not in text]
+        self.assertEqual([], missing)
 
     def test_recall_mode_keeps_answers_hidden(self) -> None:
         css = (STATIC / "assets" / "text-marks.css").read_text(encoding="utf-8")
@@ -78,6 +98,14 @@ class TextMarksTest(unittest.TestCase):
         self.assertIn(["quiet", "（行政事件訴訟法36条）"], out["quiet"])
         # 元号の年を期間と取り違えない。
         self.assertNotIn("underline", out["era"])
+        # 「ならない」を「なら｜ない」と切らない。読み方の助言は結論にしない。
+        self.assertIn(["mark", "明け渡さなければならない"], out["split"])
+        self.assertEqual([], out["advice"])
+        # 別の語の一部を「だれ」として塗らない。背信的悪意者の「悪意」に下線を引かない。
+        self.assertEqual([], out["who"])
+        self.assertFalse(out["bad"])
+        # 解説の冒頭には必ず黄色が付く。
+        self.assertIn("mark", out["fallback"])
 
 
 if __name__ == "__main__":
