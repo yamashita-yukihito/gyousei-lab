@@ -131,7 +131,7 @@ function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function appendRichText(target, value, chapter) {
+function appendRichText(target, value, chapter, scenario = false) {
   target.textContent = '';
   const names = (chapter.castIds || []).map((id) => ({
     id,
@@ -139,8 +139,10 @@ function appendRichText(target, value, chapter) {
     color: state.mode === 'exam' ? '#1d2925' : (state.cast.get(id)?.color || '#1d2925'),
   })).filter((row) => row.token);
   const text = aliasText(value, chapter);
+  // 問題文の色は語の種類だけで機械的に付くので、○×は割れない。カードのAと同じく赤は使わない。本番変換では色を付けない。
+  const marks = { warn: false, mark: !scenario, plain: state.mode === 'exam' };
   if (!names.length) {
-    target.textContent = text;
+    target.append(...TextMarks.nodes(text, marks));
     return;
   }
   const tokenMap = new Map(names.map((row) => [row.token, row]));
@@ -148,7 +150,7 @@ function appendRichText(target, value, chapter) {
   text.split(pattern).forEach((part) => {
     const hit = tokenMap.get(part);
     if (!hit) {
-      target.appendChild(document.createTextNode(part));
+      target.append(...TextMarks.nodes(part, marks));
       return;
     }
     const span = el('span', 'name', part);
@@ -257,8 +259,10 @@ function renderChapterHeader(chapter) {
   setText('chapter-number', exam ? `第${chapter.number}章　本番変換` : `第${chapter.number}章　${chapter.topic}`);
   setText('chapter-title', exam ? '共通事例を読んで○×を判断する' : aliasText(chapter.title, chapter));
   setText('chapter-lead', aliasText(chapter.lead, chapter));
-  setText('chapter-goal', aliasText(chapter.goal, chapter));
-  appendRichText(document.getElementById('base-scenario'), chapter.baseScenario, chapter);
+  const goal = document.getElementById('chapter-goal');
+  goal.replaceChildren(...TextMarks.nodes(aliasText(chapter.goal, chapter), { plain: exam }));
+  renderMarksLegend();
+  appendRichText(document.getElementById('base-scenario'), chapter.baseScenario, chapter, true);
   renderChapterGuide(chapter);
   const strip = document.getElementById('cast-strip');
   strip.textContent = '';
@@ -274,6 +278,21 @@ function renderChapterHeader(chapter) {
 
 // 捨てる範囲で点を拾うための「勘で解くコツ」。章に guide があるときだけ、共通事例の上に出す。
 // 本番変換は論点名を隠すので出さない。
+function renderMarksLegend() {
+  document.getElementById('marks-legend')?.remove();
+  if (state.mode === 'exam') return;
+  const legend = TextMarks.legend();
+  legend.id = 'marks-legend';
+  document.querySelector('.goal-box').after(legend);
+}
+
+// 回答後の解説と章の本文に、カードと同じ色を付ける。
+function rich(tag, className, text) {
+  const node = el(tag, className);
+  node.append(...TextMarks.nodes(text));
+  return node;
+}
+
 function renderChapterGuide(chapter) {
   document.getElementById('chapter-guide')?.remove();
   if (!chapter.guide || state.mode === 'exam') return;
@@ -282,7 +301,7 @@ function renderChapterGuide(chapter) {
   box.open = true;
   box.appendChild(el('summary', '', chapter.guide.title));
   const list = el('ul');
-  chapter.guide.items.forEach((item) => list.appendChild(el('li', '', item)));
+  chapter.guide.items.forEach((item) => list.appendChild(rich('li', '', item)));
   box.appendChild(list);
   document.querySelector('.goal-box').after(box);
 }
@@ -358,7 +377,7 @@ function renderQuestionCard(chapter, question, index, options = {}) {
   const headCount = card.childNodes.length;
 
   const scenario = el('p', 'current-scenario');
-  appendRichText(scenario, question.currentScenario, chapter);
+  appendRichText(scenario, question.currentScenario, chapter, true);
   card.appendChild(scenario);
   if (state.mode !== 'exam') card.appendChild(renderDelta(question, chapter, index));
 
@@ -493,7 +512,7 @@ function renderExplanation(chapter, question, reading, answered) {
     verdictText = `不正解　答えは ${answerMark(question.answer)}`;
     verdictClass = 'wrong';
   }
-  box.append(el('p', `verdict ${verdictClass}`, verdictText), el('p', 'answer-summary', aliasText(ex.summary, chapter)));
+  box.append(el('p', `verdict ${verdictClass}`, verdictText), rich('p', 'answer-summary', aliasText(ex.summary, chapter)));
   // 対応する学習カードがある問は、答えのすぐ下にカードへのリンクを出す。
   // 以前は開閉式の欄の奥（条文リンクの隣）に置いていて、見つけにくかった（2026-10-22に移した）。
   if (question.cardId) {
@@ -519,14 +538,14 @@ function renderExplanation(chapter, question, reading, answered) {
 
   const reasons = el('div', 'reason-grid');
   const protectedSide = el('article');
-  protectedSide.append(el('h3', '', '誰を守る？'), el('p', '', aliasText(`${ex.protectWho}。${ex.why}`, chapter)));
+  protectedSide.append(el('h3', '', '誰を守る？'), rich('p', '', aliasText(`${ex.protectWho}。${ex.why}`, chapter)));
   const opposite = el('article');
-  opposite.append(el('h3', '', '反対の結論だと何が困る？'), el('p', '', aliasText(ex.ifOpposite, chapter)));
+  opposite.append(el('h3', '', '反対の結論だと何が困る？'), rich('p', '', aliasText(ex.ifOpposite, chapter)));
   reasons.append(protectedSide, opposite);
   box.appendChild(reasons);
 
   const sense = el('section', 'sense-box');
-  sense.append(el('h3', '', '法律家の常識へ補正'), el('p', '', aliasText(ex.legalSense, chapter)));
+  sense.append(el('h3', '', '法律家の常識へ補正'), rich('p', '', aliasText(ex.legalSense, chapter)));
   box.appendChild(sense);
   box.appendChild(renderDiagramFigure(chapter, question, true));
 
@@ -537,7 +556,7 @@ function renderExplanation(chapter, question, reading, answered) {
   const remedy = el('article');
   remedy.append(
     el('h3', '', 'この結論で終わりにしない'),
-    el('p', '', aliasText(ex.remedy || chapter.remedyGuide || '別の契約上・手続上の救済がないかを確認します。', chapter)),
+    rich('p', '', aliasText(ex.remedy || chapter.remedyGuide || '別の契約上・手続上の救済がないかを確認します。', chapter)),
   );
   deepGrid.appendChild(remedy);
   // どの本試験で問われた論点かを示す。原文は載せず、年度・問・肢だけを出す。
@@ -573,7 +592,7 @@ function renderExplanation(chapter, question, reading, answered) {
   deepGrid.appendChild(links);
   deep.appendChild(deepGrid);
   box.appendChild(deep);
-  box.append(el('p', 'minimum', aliasText(ex.minimum, chapter)), el('p', 'next-preview', aliasText(ex.next, chapter)));
+  box.append(rich('p', 'minimum', aliasText(ex.minimum, chapter)), el('p', 'next-preview', aliasText(ex.next, chapter)));
   return box;
 }
 
@@ -872,7 +891,7 @@ function renderSummaryTable(chapter) {
   thead.appendChild(headRow);
   table.rows.forEach((row) => {
     const tr = el('tr');
-    row.forEach((value) => tr.appendChild(el('td', '', aliasText(value, chapter))));
+    row.forEach((value) => tr.appendChild(rich('td', '', aliasText(value, chapter))));
     tbody.appendChild(tr);
   });
 }

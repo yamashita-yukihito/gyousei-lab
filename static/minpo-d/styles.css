@@ -148,7 +148,7 @@ main { max-width: 1040px; margin: 0 auto; padding: 18px 16px 48px; }
 .verdict.correct { color: var(--green); }
 .verdict.wrong { color: var(--red); }
 .verdict.read { color: var(--purple); }
-.answer-summary { margin: 8px 0 0; padding: 11px 13px; border: 1px solid var(--line); border-radius: 9px; background: #fff; font-weight: 800; }
+.answer-summary { margin: 8px 0 0; padding: 11px 13px; border: 1px solid var(--line); border-radius: 9px; background: #fff; font-weight: 600; }
 .logic-flow { display: grid; grid-template-columns: 1fr 24px 1fr 24px 1fr; gap: 6px; margin-top: 11px; }
 .logic-flow article { padding: 9px; border-radius: 9px; text-align: center; background: var(--green-soft); }
 .logic-flow article:nth-of-type(2) { background: var(--blue-soft); }

@@ -128,11 +128,11 @@
         const link = cardLink(item["カード"]);
         if (link) concept.append(link);
         const explain = cell("解説");
-        appendRich(explain, item["解説"]);
+        TextMarks.append(explain, item["解説"]);
         const example = cell("具体例");
         const sentence = document.createElement("span");
         sentence.className = "example-text";
-        appendRich(sentence, item["具体例"]);
+        TextMarks.append(sentence, item["具体例"]);
         example.append(sentence, examChips(item["過去問"], links));
         row.append(concept, explain, example);
       });
@@ -156,7 +156,7 @@
     name.className = "sense-label";
     name.textContent = label;
     const body = document.createElement("p");
-    appendRich(body, text);
+    TextMarks.append(body, text);
     block.append(name, body);
     return block;
   }
@@ -256,7 +256,7 @@
   showTab(hashTab() || "sense", false);
 
   function load(path, read) {
-    return fetch(path + "?v=20261101-1").then((res) => {
+    return fetch(path + "?v=20261101-3").then((res) => {
       if (!res.ok) throw new Error(path + ": HTTP " + res.status);
       return read(res);
     });
@@ -271,6 +271,7 @@
     renderTable("ok", groups.ok, links);
     renderTable("ng", groups.ng, links);
     renderFilter(groups);
+    document.getElementById("subject-filter").after(TextMarks.legend());
   }).catch((error) => {
     const message = document.getElementById("load-error");
     message.hidden = false;

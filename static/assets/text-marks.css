@@ -1,0 +1,22 @@
+/* 学習カードと同じ文字装飾（static/styles.css の .mk-* と同じ見た目）。ページごとに色の変数が違うので値を直に持つ。 */
+.mk-strong { color: #183a34; font-weight: 800; }
+.mk-underline { font-weight: 700; text-decoration: underline; text-decoration-color: #2f8f6b; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.mk-mark { padding: 0 2px; background: linear-gradient(transparent 56%, #ffe487 56%); color: inherit; font-weight: 700; }
+.mk-warn { color: #b3261e; font-weight: 800; }
+.mk-key { padding: 1px 3px; border-radius: 5px; background: #e4f0f8; color: #2d6285; font-weight: 800; }
+.mk-quiet { color: #66736d; font-size: 0.94em; font-weight: 400; }
+
+/* ページ側の「strong は改行して小見出し」「span は block」などの指定に負けて、文の途中で改行されないようにする。 */
+.mk-strong, .mk-underline, .mk-mark, .mk-warn, .mk-key, .mk-quiet { display: inline !important; margin: 0 !important; }
+strong.mk-strong { color: #183a34 !important; font-size: inherit !important; }
+
+.markup-legend { margin: 12px 0 0; }
+.markup-legend > summary { display: inline-flex; align-items: center; gap: 5px; min-height: 28px; padding: 3px 10px; border: 1px solid #d5dfd9; border-radius: 999px; background: #f3f7f4; color: #66736d; font-size: 12px; font-weight: 800; cursor: pointer; list-style: none; }
+.markup-legend > summary::-webkit-details-marker { display: none; }
+.markup-legend > summary::before { content: "🎨"; font-size: 11px; }
+.markup-legend > p { margin: 9px 0 7px; color: #66736d; font-size: 12.5px; line-height: 1.7; }
+.markup-legend ul { display: flex; flex-wrap: wrap; gap: 6px 15px; margin: 0; padding: 0 0 4px; list-style: none; color: #66736d; font-size: 12px; }
+.markup-legend li { display: flex; align-items: center; gap: 5px; }
+
+/* マップの「隠して思い出す」。子要素の色や背景が透けると答えが見えてしまう。 */
+body.recall .ans:not(.shown) * { background: none !important; color: transparent !important; text-decoration-color: transparent !important; }

@@ -219,6 +219,7 @@
         (state.warnings.length > 20 ? " ほか" : "") + "</div>";
     }
     $("content").innerHTML = html;
+    TextMarks.decorate($("content"), "li");
   }
 
   function countKind(subjects, kind) {

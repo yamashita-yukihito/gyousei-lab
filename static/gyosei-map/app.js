@@ -227,7 +227,10 @@
       twisty.tabIndex = -1;
       twisty.setAttribute("aria-hidden", "true");
     }
-    row.append(twisty, el("span", "label", node.label));
+    // 短い見出しはそのまま、文になっている長い見出しだけに色を付ける。
+    const label = el("span", "label");
+    label.append(...TextMarks.nodes(node.label, { plain: node.label.length < 16 }));
+    row.append(twisty, label);
     // 親と同じ優先度なら印を重ねない（見出しの段だけ、または親と違うときに出す）。
     if (node.prio !== parentPrio) row.append(prioBadge(node.prio));
     node.marks.forEach((mark) => row.append(el("span", "mark " + MARKS[mark], mark)));
@@ -236,7 +239,8 @@
       if (best) row.append(el("span", "mark freq", best));
     }
     if (node.answer) {
-      const ans = el("button", "ans", node.answer);
+      const ans = el("button", "ans");
+      ans.append(...TextMarks.nodes(node.answer));
       ans.type = "button";
       ans.addEventListener("click", () => { if (state.recall) ans.classList.toggle("shown"); });
       row.append(ans);
@@ -341,7 +345,11 @@
       h2.append(prioBadge(branch.priority));
       head.append(h2, actions);
       section.append(head);
-      if (branch.note) section.append(el("p", "note", branch.note));
+      if (branch.note) {
+        const note = el("p", "note");
+        note.append(...TextMarks.nodes(branch.note));
+        section.append(note);
+      }
       const ul = el("ul", "tree");
       roots.forEach((node) => ul.append(renderNode(node, view, "")));
       section.append(ul);
@@ -403,6 +411,7 @@
       legend.append(p);
     });
     $("progress-note").before(legend);
+    legend.after(TextMarks.legend());
   }
 
   function bind() {

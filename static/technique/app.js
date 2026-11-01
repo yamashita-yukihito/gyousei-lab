@@ -30,6 +30,10 @@
   });
   showTab(hashTab() || "how", false);
 
+  // HTMLに直接書いた本文へ、カードと同じ色を付ける。語の表の数字（.rate など）は対象にしない。
+  TextMarks.decorate(document, ".tip-card > p, .tip-part p, .note-card p, .note-card li, .plain, .numbered li, .stack-table td:not(.num):not(.low):not(.high)");
+  document.querySelector(".page-tabs").after(TextMarks.legend());
+
   // スマホでは表を縦に積むので、各欄に見出しの名前を持たせる。
   document.querySelectorAll(".stack-table").forEach((table) => {
     const names = [...table.querySelectorAll("thead th")].map((th) => th.textContent.trim());
@@ -91,7 +95,7 @@
       card.append(why);
     }
     const note = document.createElement("p");
-    note.textContent = rule.note;
+    TextMarks.append(note, rule.note);
     card.append(note);
     return card;
   }
