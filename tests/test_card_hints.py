@@ -61,6 +61,11 @@ class CardHintsTest(unittest.TestCase):
         self.assertNotIn("POST", self.app[start:end])
         self.assertNotIn("localStorage", self.app[start:end])
 
+    def test_rule_text_is_not_cut_to_the_first_sentence(self):
+        # 1文目だけを出すと「目的によって逆になります」で切れ、カードの答えを逆に読ませた。
+        self.assertNotIn("firstSentence", self.app)
+        self.assertIn('id="study-hints-ng-note"', self.html)
+
     def test_only_stable_words_are_shown(self):
         self.assertTrue(re.search(r"rule\.stable && rule\.pattern", self.app))
 

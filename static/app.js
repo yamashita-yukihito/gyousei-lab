@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20261101-2";
+  const APP_VERSION = "20261101-3";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -1484,12 +1484,6 @@
     return word.length <= 12 ? "「" + word + "」" : rule.label;
   }
 
-  function firstSentence(text) {
-    const value = String(text || "");
-    const end = value.indexOf("。");
-    return end < 0 ? value : value.slice(0, end + 1);
-  }
-
   function studyHintRow(kind, href, tagText, title, note) {
     const row = make("li", { className: "study-hint study-hint-" + kind });
     row.append(make("a", { className: "study-hint-tag", href, target: "_blank", rel: "noopener" }, tagText));
@@ -1526,7 +1520,7 @@
         "simple-rules/#" + rule.table,
         "常識：" + info.text,
         rule["概念"],
-        firstSentence(rule[info.field])
+        rule[info.field]
       ));
     });
     const breakKind = cardHints.kinds[cardHints.breaks.get(id)];
@@ -1552,6 +1546,8 @@
           + (fits ? "このカードも傾向どおりです。" : "このカードは傾向と逆です。語は決め手にせず、中身で判定します。")
       ));
     });
+    // 「言い切るとだめ」を「このカードの答えは逆」と読まないようにする（2026-11-01に利用者が実際にそう読んだ）。
+    $("study-hints-ng-note").hidden = !rules.some((rule) => rule.table === "ng");
     box.hidden = !list.children.length;
   }
 

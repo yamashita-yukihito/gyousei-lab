@@ -1125,6 +1125,7 @@ footer { padding: 25px 18px 42px; color: var(--muted); text-align: center; font-
 .study-hint-tag:hover { text-decoration: underline; }
 .study-hint-break .study-hint-tag, .study-hint-word .study-hint-tag { background: #e4f0f8; color: #2d6285; }
 .study-hint-title { margin: 0; font-size: 14px; font-weight: 800; line-height: 1.6; }
+.study-hints-note { margin: 10px 0 0; color: #66736d; font-size: 12.5px; line-height: 1.6; }
 .study-hint-note { margin: 2px 0 0; color: #4c5a54; font-size: 13.5px; line-height: 1.7; }
 @media (max-width: 640px) {
   .study-hint { grid-template-columns: minmax(0, 1fr); }
