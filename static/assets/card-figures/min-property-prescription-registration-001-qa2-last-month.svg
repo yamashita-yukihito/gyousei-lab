@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 560" role="img" aria-labelledby="t d">
+  <title id="t">時効完成まで残り1か月で土地を買ったCがすること</title>
+  <desc id="d">時効完成の1か月前にCが土地を買った例。Cが追い出す必要はなく、完成前に明渡しの裁判を起こすか、内容証明で催告して6か月以内に裁判を起こせば時効は止まり、判決が完成後になってもよい。Bに実力で出て行かせる自力救済は禁止で、Bが占有回収の訴えを起こせば占有は続いていた扱いになる。何もしなければ完成し、Bの援用でCは土地を失い、BはCに登記の移転を求める。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 22px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 14px; fill: #55635d; }
+    .yr { font-size: 14px; font-weight: 800; fill: #183a34; }
+    .ev { font-size: 13px; fill: #1d2a26; }
+    .lab { font-size: 16px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 14px; fill: #1d2a26; }
+    .ok { font-size: 15px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 15px; font-weight: 800; fill: #b23a2e; }
+  </style>
+  <defs>
+    <marker id="ah4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2f6f8f"/></marker>
+  </defs>
+  <rect width="640" height="560" fill="#ffffff"/>
+  <text class="h" x="320" y="34" text-anchor="middle">期限までに必要なのは、追い出すことではない</text>
+  <text class="sub" x="320" y="58" text-anchor="middle">C＝時効完成の1か月前に土地を買った人　B＝時効で土地を取りそうな人</text>
+
+  <rect x="16" y="72" width="608" height="104" rx="12" fill="#f2f6f8" stroke="#c4d4dc"/>
+  <line x1="50" y1="124" x2="600" y2="124" stroke="#2f6f8f" stroke-width="4" marker-end="url(#ah4)"/>
+  <circle cx="150" cy="124" r="7" fill="#c98a2b"/>
+  <text class="yr" x="150" y="102" text-anchor="middle">Cが買う</text>
+  <text class="ev" x="150" y="152" text-anchor="middle">2010年3月1日</text>
+  <circle cx="440" cy="124" r="7" fill="#b23a2e"/>
+  <text class="yr" x="440" y="102" text-anchor="middle">時効完成</text>
+  <text class="ev" x="440" y="152" text-anchor="middle">2010年4月1日</text>
+  <text class="ev" x="295" y="112" text-anchor="middle">残り1か月</text>
+
+  <rect x="16" y="190" width="608" height="120" rx="12" fill="#eef7f1" stroke="#b9d9c4"/>
+  <text class="lab" x="32" y="216">① 完成前に、法律の手続で止める</text>
+  <text class="t" x="32" y="242">・明渡しの裁判を起こす（147条）。判決は完成の後でもよい</text>
+  <text class="t" x="32" y="264">・内容証明で催告する（150条）。6か月のあいだに裁判を起こす</text>
+  <text class="ok" x="32" y="292">→ 時効は完成せず、Cが勝つ</text>
+
+  <rect x="16" y="324" width="608" height="96" rx="12" fill="#fbf1ef" stroke="#e3c3bd"/>
+  <text class="lab" x="32" y="350">② 実力で追い出す</text>
+  <text class="t" x="32" y="376">自力救済は禁止。Bは占有回収の訴えで取り戻せ（200条）、占有は続く（203条）</text>
+  <text class="ng" x="32" y="404">→ 違法なうえに、時効も止まらない</text>
+
+  <rect x="16" y="434" width="608" height="110" rx="12" fill="#fbf1ef" stroke="#e3c3bd"/>
+  <text class="lab" x="32" y="460">③ 何もしない</text>
+  <text class="t" x="32" y="486">完成してBが援用すると（145条）、Cは土地を失う。</text>
+  <text class="t" x="32" y="508">BはCに「登記を移して」と求める。Cの登記があってもBの勝ち</text>
+  <text class="ng" x="32" y="534">→ Bが占有を始めた日にさかのぼってBの土地になる（144条）</text>
+</svg>
