@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20261101-5";
+  const APP_VERSION = "20261102-2";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -528,6 +528,17 @@
       renderStudyHints(state.studyCurrent);
       renderStudyAnswerPreview();
     });
+    // ブラウザが再読み込みでselectの値を復元しても、黙って絞り続けないよう必ず戻す。
+    $("study-easy").value = "off";
+    $("study-easy").addEventListener("change", () => {
+      syncStudyEasyControls();
+      refreshStudyPool();
+    });
+    $("study-clear-easy").addEventListener("click", () => {
+      $("study-easy").value = "off";
+      syncStudyEasyControls();
+      refreshStudyPool();
+    });
     $("study-kind").addEventListener("change", () => {
       try { localStorage.setItem(STUDY_KIND_KEY, $("study-kind").value); } catch (_) {}
       if ($("study-scope").value === "today") {
@@ -889,6 +900,7 @@
       (kind === "all" || item.learningType === kind) &&
       // 頻出度は「このラベル以上」で絞る。時間が足りない時に上位から固めるため。
       matchesStudyFrequency(item) &&
+      matchesStudyEasy(item) &&
       matchesStudySearch(item, words)
     );
   }
@@ -909,6 +921,64 @@
       document.createTextNode(points.total + "点 ＝ " + points.detail + "。"),
       make("a", { href: "score-plan.html" }, "得点設計を見る")
     );
+  }
+
+  // 「集中が切れた時」（2026-11-02に利用者が依頼）。重点のカードのうち、疲れていても読める問題文だけに絞る。
+  // 文の長さと読点と人物記号で機械的に選び、それでも読みにくいものを全候補を読んで EASY_READ_EXCLUDE で外した。
+  // カード正本とbundleには書かない。重点の印は科目別マップが正本（cardPriority）。
+  const EASY_READ = { maxChars: 70, maxCommas: 3, maxParties: 1 };
+  const EASY_READ_EXCLUDE = new Set([
+    "con-academic-freedom-001",
+    "gk-pip-public-private-001",
+    "gyo-aps-hearing-report-001",
+    "gyo-litigation-invalidity-subsidiarity-001",
+    "gyo-litigation-no-provisional-disposition-001",
+    "gyo-local-autonomous-affairs-001",
+    "gyo-local-ordinance-direct-request-001",
+    "gyo-written-h30-duty-inaction-001",
+    "gyo-written-r7-decision-defect-001",
+    "min-general-assistance-consent-agency-001",
+    "min-general-unauthorized-agency-succession-001",
+    "min-security-movables-sale-preference-third-party-001"
+  ]);
+
+  function studyEasyOn() {
+    return $("study-easy").value === "on";
+  }
+
+  function isEasyReadCard(item) {
+    if (EASY_READ_EXCLUDE.has(studyCardId(item))) return false;
+    const text = stripMarkup((item.variants || {}).a || "");
+    const parties = new Set(text.match(/(?<![A-Za-zＡ-Ｚ])[A-ZＡ-Ｚ](?![A-Za-zＡ-Ｚ])|[甲乙丙丁]/g) || []);
+    return text.length <= EASY_READ.maxChars
+      && (text.match(/、/g) || []).length <= EASY_READ.maxCommas
+      && parties.size <= EASY_READ.maxParties;
+  }
+
+  function isEasyFocusCard(item) {
+    const entry = cardPriority.get(studyCardId(item));
+    return Boolean(entry) && entry.prio === "重点" && isEasyReadCard(item);
+  }
+
+  function matchesStudyEasy(item) {
+    return !studyEasyOn() || isEasyFocusCard(item);
+  }
+
+  // 「今日の学習」はサーバーが全カードから枠を配るので、あとから絞ると枚数が大きく減って見える。
+  // このモードの間は選べないようにし、選んでいたら「おまかせ」へ移す（回答は同じように期日へ反映される）。
+  function syncStudyEasyControls() {
+    const on = studyEasyOn();
+    $("study-scope").querySelector('option[value="today"]').disabled = on;
+    if (on && $("study-scope").value === "today") {
+      $("study-scope").value = "review";
+      $("study-pace-row").hidden = true;
+    }
+    if (!on) {
+      $("study-easy-summary").textContent = "問題文が短く、人物記号（A・B）が出てこない重点カードだけを出します。";
+      return;
+    }
+    const total = state.studyDecks.filter(isEasyFocusCard).length;
+    $("study-easy-summary").textContent = "全科目で" + total + "枚が該当します。「今日の学習」とは併用できません。";
   }
 
   function matchesStudyFrequency(item) {
@@ -1124,7 +1194,14 @@
     $("study-show-all-topics").hidden = !topicSelected;
     $("study-clear-search").hidden = !searching;
     $("study-clear-frequency").hidden = studyFrequencyFloor() < 0;
-    if (studyFrequencyFloor() >= 0 && !cards.length) {
+    $("study-clear-easy").hidden = !studyEasyOn();
+    if (studyEasyOn()) {
+      // 全部習得した場合と、ほかの絞り込みと重なって0枚になった場合をまとめて案内する。
+      $("study-empty-title").textContent = "読みやすい重点カードが残っていません";
+      $("study-empty-message").textContent = cards.length
+        ? "いまの条件の" + cards.length + "枚はすべて習得済みか「絶対覚えた」です。もう一度解くなら、出題範囲を「全問題を出す」に変えてください。"
+        : "ほかの絞り込み（科目・分野・種類・頻出度・検索語）と重なって0枚です。絞り込みを広げるか、このモードをやめてください。";
+    } else if (studyFrequencyFloor() >= 0 && !cards.length) {
       // 頻出度で絞った結果ゼロ枚になったときは、そこが原因だと分かるようにする。
       // 「この科目にカードが無い」と読み違えると、作ったはずの論点を探しに行ってしまう。
       $("study-empty-title").textContent = "この頻出度に合うカードがありません";
@@ -1364,6 +1441,10 @@
       loaded.filter(Boolean).forEach(({ map, text }) => parseMapPriorities(text, map, out));
       cardPriority = out;
       if (state.studyCurrent) renderStudyBadges(state.studyCurrent);
+      if (studyEasyOn()) {
+        syncStudyEasyControls();
+        refreshStudyPool();
+      }
     });
   }
 
@@ -2115,6 +2196,8 @@
     $("study-topic").value = target.topic || "all";
     $("study-view").value = "standard";
     $("study-scope").value = "all";
+    $("study-easy").value = "off";
+    syncStudyEasyControls();
     // 頻出度の絞り込みも外す。外さないと、⑥で結んだ先が「重要論点」だったときに
     // 母集団から落ち、indexOf が -1 になって開けない。
     $("study-frequency-level").value = "all";
