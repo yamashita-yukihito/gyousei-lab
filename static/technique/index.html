@@ -98,6 +98,7 @@
       </div>
       <div class="page-tabs" role="tablist" aria-label="表示を切り替える">
         <button class="page-tab" type="button" role="tab" id="how-tab" aria-controls="how-section">解き方</button>
+        <button class="page-tab" type="button" role="tab" id="skip-tab" aria-controls="skip-section">捨てる3分野</button>
         <button class="page-tab" type="button" role="tab" id="word-tab" aria-controls="word-section">語と言い回し</button>
         <button class="page-tab" type="button" role="tab" id="length-tab" aria-controls="length-section">肢の長さと位置</button>
         <button class="page-tab" type="button" role="tab" id="format-tab" aria-controls="format-section">多肢選択・記述</button>
@@ -134,6 +135,20 @@
           <article class="tip-card"><div class="count-badge"><strong>11</strong>肢</div><h4>ない制度を語る</h4><p>条文にない規定や自動の仕組みを語ります。</p><div class="tip-part"><span>見る場所</span><p>その条文を見たことがあるか</p></div></article>
           <article class="tip-card"><div class="count-badge"><strong>6</strong>肢</div><h4>勝手に条件を足す</h4><p>「に限られる」「〜の承諾を得て」と条件を足します。</p><div class="tip-part"><span>見る場所</span><p>その条件は条文にあったか</p></div></article>
       </div>
+    </section>
+
+    <section class="section" id="skip-section" role="tabpanel" aria-labelledby="skip-tab">
+      <div class="section-heading">
+        <p class="kicker">GIVEN-UP FIELDS</p>
+        <h2>勉強しない3分野を、形だけで解く</h2>
+        <p>地方自治法（毎年3問）、家族法（毎年1問）、商法と問37以外の会社法（毎年4問）の8問32点が対象です。時間が余れば考えて解き、余らなければここの手順だけで塗ります。</p>
+      </div>
+      <div class="note-card">
+        <h3>期待しすぎない</h3>
+        <p>8問を全部勘で塗ると、当たるのは平均約1.6問（約6点）です。この手順で約2.7問（約11点）になる見込みで、増えるのは<strong>約4点</strong>です。形の手順だけでは足りないことがあるので、知識で1肢切れるときは必ずそちらを優先します。</p>
+      </div>
+      <p class="plain" id="skip-error" hidden></p>
+      <div id="skip-list"></div>
     </section>
 
     <section class="section" id="word-section" role="tabpanel" aria-labelledby="word-tab">
@@ -186,6 +201,10 @@
             <tr><td>基礎知識（118問）</td><td class="num">15%</td><td class="num">25%</td><td class="num">22%</td><td>最も短い肢を外さない。1番は避けてよい</td></tr>
           </tbody>
         </table>
+      </div>
+      <div class="note-card">
+        <h3>商法の「正しいもの」の問題は例外です</h3>
+        <p>商法・会社法では、最も長い肢を選んでよいのは「誤っているもの」の問題だけです。地方自治法は長さより番号が効きます。「捨てる3分野」のタブにまとめました。</p>
       </div>
       <div class="note-card">
         <h3>どうしても分からない問題が並ぶとき</h3>
@@ -316,6 +335,6 @@
     <p class="page-foot">これは過去の傾向です。試験委員が意図して作った癖かどうかは分かりません。今年も同じとは限らず、肢数の少ないものは偶然の可能性もあります（語は総当たりで探したものも含みます）。知識で判定できる肢があれば、必ずそちらを優先してください。集計の範囲は、ラボが持つ平成18〜令和7年度の過去問です。肢の正誤は各問の正解から機械的に求め、語は文字列の一致で数えており、文脈は見ていません。語の割合は scripts/simple_rules/measure.py で作っています。時間配分の目安は伊藤塾の記事によります。</p>
   </main>
   <script src="../assets/text-marks.js?v=20261101-4"></script>
-  <script src="app.js?v=20261101-5"></script>
+  <script src="app.js?v=20261102-1"></script>
 </body>
 </html>

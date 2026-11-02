@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const TABS = ["how", "word", "length", "format", "no", "plan"];
+  const TABS = ["how", "skip", "word", "length", "format", "no", "plan"];
   const ALL = "all";
   // word-signals.json に criteria が無い古い版のときの既定値。正本は scripts/simple_rules/measure.py の MIN_COUNT・MIN_LIFT。
   const DEFAULT_CRITERIA = { minCount: 10, minLift: 5 };
@@ -209,6 +209,153 @@
       card.append(link);
     });
   }).catch((error) => console.warn("card-hints.json を読めませんでした", error));
+
+  // 勉強しない3分野。数字は scripts/simple_rules/skip_fields.py が過去問から数えた skip-fields.json だけから読む。
+  function range(value) {
+    const low = Math.min(value.oldToNew, value.newToOld);
+    const high = Math.max(value.oldToNew, value.newToOld);
+    return low === high ? low + "%" : low + "〜" + high + "%";
+  }
+
+  function periodCell(value) {
+    return "旧10年 " + value.old + "% ／ 新10年 " + value.new + "%";
+  }
+
+  const SKIP_FIELDS = [
+    {
+      key: "local",
+      title: "地方自治法（問22〜24）",
+      steps: (f) => [
+        ["番号で塗る", "何も判定できなければ<5番>を塗ります。「正しい／誤っているもの」の問題で" + f.singleNumbers["5"].rate + "%です。行政法の他の分野にこの偏りはなく、理由は説明できません。偶然の可能性もありますが、勘で塗るなら損はありません。"],
+        ["語で覆さない", "語で選んでも別の10年で試すと" + range(f.outOfSample.single) + "で、5番に届きません。語は時間が余ったときの補助です。"],
+        ["組合せは1肢だけ判定", "語で組合せを選んでも" + range(f.outOfSample.combo) + "で、効きません。知っている肢が無ければ、ここも5番を塗ります。"],
+      ],
+      methods: (f) => [
+        ["5番を塗る（正しい／誤りの問題）", f.singleNumbers["5"], "使う"],
+        ["5番を塗る（組合せなども含む全部）", f.numbers["5"], "使う"],
+        ["最も長い肢（誤っているものの問題）", f.longestFalse, "使わない。問題が少なく、新10年で落ちます"],
+        ["最も長い肢（正しいものの問題）", f.longestTrue, "使わない"],
+      ],
+    },
+    {
+      key: "family",
+      title: "家族法（問35）",
+      steps: (f) => [
+        ["組合せは知識で1肢", "22問中" + f.formats.combo + "問が組合せです。民法演習D案の家族法の章の「勘で解くコツ」にある知識を1つ使い、選択肢を減らします。"],
+        ["語は当てにしない", "語で選んでも別の10年で試すと、正しい／誤りの問題で" + range(f.outOfSample.single) + "、組合せで" + range(f.outOfSample.combo) + "です。問題が少なく、語で解ける分野ではありません。"],
+        ["番号で塗る", "何も分からなければ<3番>を塗ります。" + f.numbers["3"].rate + "%ですが、22問しかないので目安です。"],
+      ],
+      methods: (f) => [
+        ["3番を塗る", f.numbers["3"], "他に手がなければ使う（22問だけの目安）"],
+      ],
+    },
+    {
+      key: "company",
+      title: "商法と、問37以外の会社法（問36・38〜40）",
+      steps: (f) => [
+        ["語で選ぶ", "3分野でいちばん語が効きます。「誤っているもの」の問題は誤り寄りの語がある肢を選び、「正しいもの」の問題は誤り寄りの語がある肢を切って、正しい寄りの語がある肢を選びます。別の10年で試して" + range(f.outOfSample.single) + "でした。"],
+        ["組合せも語で足し算", "ア〜オのうち正しい寄りの語を+1、誤り寄りの語を-1として、組合せごとに足します。別の10年で試して" + range(f.outOfSample.combo) + "でした。"],
+        ["語で決まらなければ長さ", "「誤っているもの」の問題だけ最も長い肢を選びます（" + f.longestFalse.rate + "%）。「正しいもの」の問題で最も長い肢は" + f.longestTrue.rate + "%なので、選びません。"],
+        ["最後は番号", "1番を外します（正しい／誤りの問題で" + f.singleNumbers["1"].rate + "%）。何も分からなければ<4番>を塗ります（" + f.numbers["4"].rate + "%）。問37が設立でない年は、その問題もここの手順で解きます。"],
+      ],
+      methods: (f) => [
+        ["最も長い肢（誤っているものの問題）", f.longestFalse, "使う"],
+        ["最も長い肢（正しいものの問題）", f.longestTrue, "使わない"],
+        ["1番（正しい／誤りの問題）", f.singleNumbers["1"], "外す"],
+        ["4番を塗る", f.numbers["4"], "最後の手段"],
+      ],
+    },
+  ];
+
+  function stepCard(number, heading, body) {
+    const card = document.createElement("article");
+    card.className = "tip-card step";
+    const no = document.createElement("div");
+    no.className = "step-no";
+    no.textContent = number;
+    const title = document.createElement("h4");
+    title.textContent = heading;
+    const text = document.createElement("p");
+    // <5番> のように山かっこで囲んだ語だけを太字にする。
+    body.split(/(<[^>]+>)/).forEach((part) => {
+      if (/^<.+>$/.test(part)) {
+        const strong = document.createElement("strong");
+        strong.textContent = part.slice(1, -1);
+        text.append(strong);
+      } else if (part) {
+        TextMarks.append(text, part);
+      }
+    });
+    card.append(no, title, text);
+    return card;
+  }
+
+  function methodTable(rows) {
+    const wrap = document.createElement("div");
+    wrap.className = "table-wrap";
+    const table = document.createElement("table");
+    table.className = "tech-table stack-table";
+    const names = ["手", "当たり", "10年ごと", "判断"];
+    const head = document.createElement("thead");
+    const headRow = document.createElement("tr");
+    names.forEach((name) => {
+      const th = document.createElement("th");
+      th.textContent = name;
+      headRow.append(th);
+    });
+    head.append(headRow);
+    const body = document.createElement("tbody");
+    rows.forEach(([name, value, verdict]) => {
+      const row = document.createElement("tr");
+      [name, value.rate + "%（" + value.count + "問）", periodCell(value), verdict].forEach((cell, index) => {
+        const td = document.createElement("td");
+        td.textContent = cell;
+        if (index > 0) td.dataset.label = names[index];
+        row.append(td);
+      });
+      body.append(row);
+    });
+    table.append(head, body);
+    wrap.append(table);
+    return wrap;
+  }
+
+  function renderSkip(data) {
+    const root = document.getElementById("skip-list");
+    SKIP_FIELDS.forEach((def) => {
+      const field = data.fields[def.key];
+      const group = document.createElement("section");
+      group.className = "subject-group";
+      const heading = document.createElement("h3");
+      heading.textContent = def.title;
+      group.append(heading);
+      const steps = document.createElement("div");
+      steps.className = "tip-grid";
+      def.steps(field).forEach(([title, body], index) => steps.append(stepCard(index + 1, title, body)));
+      group.append(steps, methodTable(def.methods(field)));
+      const wordHead = document.createElement("h3");
+      wordHead.className = "subhead";
+      wordHead.textContent = "語（両方の10年で同じ向きに傾いたものだけ）";
+      group.append(wordHead);
+      group.append(grid(field.words.map((rule) => ({ rule, check: { stable: true, reason: "" } }))));
+      if (field.notWords.length) {
+        const none = document.createElement("p");
+        none.className = "plain";
+        none.textContent = "傾きが確かめられなかった語（使いません）：" + field.notWords.join("、");
+        group.append(none);
+      }
+      root.append(group);
+    });
+  }
+
+  fetch("skip-fields.json?v=20261102-1").then((res) => {
+    if (!res.ok) throw new Error("skip-fields.json: HTTP " + res.status);
+    return res.json();
+  }).then(renderSkip).catch((error) => {
+    const message = document.getElementById("skip-error");
+    message.hidden = false;
+    message.textContent = "3分野の表を読み込めませんでした（" + error.message + "）。";
+  });
 
   fetch("word-signals.json?v=20261031-4").then((res) => {
     if (!res.ok) throw new Error("word-signals.json: HTTP " + res.status);

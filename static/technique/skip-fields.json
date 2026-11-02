@@ -1,0 +1,723 @@
+{
+ "criteria": {
+  "minCount": 10,
+  "minLift": 5
+ },
+ "fields": {
+  "local": {
+   "questions": 70,
+   "formats": {
+    "single": 54,
+    "other": 2,
+    "count": 4,
+    "combo": 10
+   },
+   "numbers": {
+    "1": {
+     "count": 70,
+     "rate": 16,
+     "oldCount": 39,
+     "old": 10,
+     "newCount": 31,
+     "new": 23
+    },
+    "2": {
+     "count": 70,
+     "rate": 26,
+     "oldCount": 39,
+     "old": 33,
+     "newCount": 31,
+     "new": 16
+    },
+    "3": {
+     "count": 70,
+     "rate": 14,
+     "oldCount": 39,
+     "old": 15,
+     "newCount": 31,
+     "new": 13
+    },
+    "4": {
+     "count": 70,
+     "rate": 14,
+     "oldCount": 39,
+     "old": 13,
+     "newCount": 31,
+     "new": 16
+    },
+    "5": {
+     "count": 70,
+     "rate": 30,
+     "oldCount": 39,
+     "old": 28,
+     "newCount": 31,
+     "new": 32
+    }
+   },
+   "singleNumbers": {
+    "1": {
+     "count": 54,
+     "rate": 19,
+     "oldCount": 29,
+     "old": 14,
+     "newCount": 25,
+     "new": 24
+    },
+    "2": {
+     "count": 54,
+     "rate": 19,
+     "oldCount": 29,
+     "old": 31,
+     "newCount": 25,
+     "new": 4
+    },
+    "3": {
+     "count": 54,
+     "rate": 13,
+     "oldCount": 29,
+     "old": 10,
+     "newCount": 25,
+     "new": 16
+    },
+    "4": {
+     "count": 54,
+     "rate": 15,
+     "oldCount": 29,
+     "old": 10,
+     "newCount": 25,
+     "new": 20
+    },
+    "5": {
+     "count": 54,
+     "rate": 35,
+     "oldCount": 29,
+     "old": 34,
+     "newCount": 25,
+     "new": 36
+    }
+   },
+   "longestTrue": {
+    "count": 40,
+    "rate": 24,
+    "oldCount": 22,
+    "old": 27,
+    "newCount": 18,
+    "new": 19
+   },
+   "longestFalse": {
+    "count": 14,
+    "rate": 43,
+    "oldCount": 7,
+    "old": 57,
+    "newCount": 7,
+    "new": 29
+   },
+   "words": [
+    {
+     "label": "「過半数」「◯分の◯」",
+     "note": "数字を変えて誤りにする定番です。",
+     "direction": "false",
+     "count": 11,
+     "hit": 91,
+     "base": 80,
+     "early": 86,
+     "earlyBase": 80,
+     "late": 100,
+     "lateBase": 80,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「〜であり、」",
+     "note": "理屈を足して誤った結論を自然に見せる形です。",
+     "direction": "false",
+     "count": 20,
+     "hit": 85,
+     "base": 58,
+     "early": 70,
+     "earlyBase": 53,
+     "late": 100,
+     "lateBase": 64,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "文末が「〜ならない」",
+     "note": "義務を足して重くする形です。",
+     "direction": "false",
+     "count": 29,
+     "hit": 66,
+     "base": 51,
+     "early": 70,
+     "earlyBase": 56,
+     "late": 63,
+     "lateBase": 49,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「ため」",
+     "note": "理由を足して誤った結論を自然に見せる形です。",
+     "direction": "false",
+     "count": 31,
+     "hit": 58,
+     "base": 48,
+     "early": 64,
+     "earlyBase": 50,
+     "late": 55,
+     "lateBase": 48,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「◯◯を有する者」",
+     "note": "選挙権を有する者の署名の話に多い形です。",
+     "direction": "true",
+     "count": 11,
+     "hit": 55,
+     "base": 27,
+     "early": 50,
+     "earlyBase": 30,
+     "late": 60,
+     "lateBase": 24,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「することができる」",
+     "note": "「誤っているもの」の問題では選ばず、「正しいもの」の問題で残します。",
+     "direction": "true",
+     "count": 58,
+     "hit": 43,
+     "base": 34,
+     "early": 44,
+     "earlyBase": 37,
+     "late": 42,
+     "lateBase": 32,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「監査委員」",
+     "note": "監査委員の肢は条文どおりのことが多めです。",
+     "direction": "true",
+     "count": 15,
+     "hit": 40,
+     "base": 24,
+     "early": 29,
+     "earlyBase": 20,
+     "late": 50,
+     "lateBase": 28,
+     "stable": true,
+     "hasNote": true
+    }
+   ],
+   "notWords": [
+    "「規則」",
+    "「条例」",
+    "「議決」",
+    "「必要」",
+    "「大臣」",
+    "「知事」",
+    "「委員会」",
+    "文末が「できない」",
+    "「できるが」",
+    "「のみ」「に限る」"
+   ],
+   "outOfSample": {
+    "single": {
+     "oldToNew": 26,
+     "oldToNewCount": 25,
+     "newToOld": 32,
+     "newToOldCount": 29
+    },
+    "combo": {
+     "oldToNew": 17,
+     "oldToNewCount": 6,
+     "newToOld": 26,
+     "newToOldCount": 4
+    }
+   }
+  },
+  "family": {
+   "questions": 22,
+   "formats": {
+    "single": 8,
+    "combo": 13,
+    "count": 1
+   },
+   "numbers": {
+    "1": {
+     "count": 22,
+     "rate": 14,
+     "oldCount": 11,
+     "old": 18,
+     "newCount": 11,
+     "new": 9
+    },
+    "2": {
+     "count": 22,
+     "rate": 18,
+     "oldCount": 11,
+     "old": 9,
+     "newCount": 11,
+     "new": 27
+    },
+    "3": {
+     "count": 22,
+     "rate": 32,
+     "oldCount": 11,
+     "old": 36,
+     "newCount": 11,
+     "new": 27
+    },
+    "4": {
+     "count": 22,
+     "rate": 18,
+     "oldCount": 11,
+     "old": 9,
+     "newCount": 11,
+     "new": 27
+    },
+    "5": {
+     "count": 22,
+     "rate": 18,
+     "oldCount": 11,
+     "old": 27,
+     "newCount": 11,
+     "new": 9
+    }
+   },
+   "singleNumbers": {
+    "1": {
+     "count": 8,
+     "rate": 12,
+     "oldCount": 3,
+     "old": 0,
+     "newCount": 5,
+     "new": 20
+    },
+    "2": {
+     "count": 8,
+     "rate": 12,
+     "oldCount": 3,
+     "old": 0,
+     "newCount": 5,
+     "new": 20
+    },
+    "3": {
+     "count": 8,
+     "rate": 62,
+     "oldCount": 3,
+     "old": 100,
+     "newCount": 5,
+     "new": 40
+    },
+    "4": {
+     "count": 8,
+     "rate": 0,
+     "oldCount": 3,
+     "old": 0,
+     "newCount": 5,
+     "new": 0
+    },
+    "5": {
+     "count": 8,
+     "rate": 12,
+     "oldCount": 3,
+     "old": 0,
+     "newCount": 5,
+     "new": 20
+    }
+   },
+   "longestTrue": {
+    "count": 6,
+    "rate": 33,
+    "oldCount": 2,
+    "old": 50,
+    "newCount": 4,
+    "new": 25
+   },
+   "longestFalse": {
+    "count": 2,
+    "rate": 0,
+    "oldCount": 1,
+    "old": 0,
+    "newCount": 1,
+    "new": 0
+   },
+   "words": [
+    {
+     "label": "「家庭裁判所」",
+     "note": "手続を足して誤りにする形です。",
+     "direction": "false",
+     "count": 19,
+     "hit": 79,
+     "base": 66,
+     "early": 70,
+     "earlyBase": 62,
+     "late": 89,
+     "lateBase": 71,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "文末が「できる」",
+     "note": "できないことをできると広げる形です。",
+     "direction": "false",
+     "count": 19,
+     "hit": 68,
+     "base": 58,
+     "early": 64,
+     "earlyBase": 53,
+     "late": 75,
+     "lateBase": 65,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「配偶者」",
+     "note": "相続分や権利を認める肢に多い語です。",
+     "direction": "true",
+     "count": 13,
+     "hit": 69,
+     "base": 43,
+     "early": 57,
+     "earlyBase": 49,
+     "late": 83,
+     "lateBase": 37,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「原則」「ただし」「除き」",
+     "note": "例外まで書いた肢は、条文を写したものが多めです。",
+     "direction": "true",
+     "count": 11,
+     "hit": 55,
+     "base": 39,
+     "early": 75,
+     "earlyBase": 57,
+     "late": 43,
+     "lateBase": 29,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「遺言」",
+     "note": "肢数が少ないので目安です。",
+     "direction": "true",
+     "count": 14,
+     "hit": 50,
+     "base": 39,
+     "early": 100,
+     "earlyBase": 40,
+     "late": 46,
+     "lateBase": 38,
+     "stable": true,
+     "hasNote": true
+    }
+   ],
+   "notWords": [
+    "「請求」",
+    "文末が「できない」",
+    "文末が「ならない」",
+    "「養子」",
+    "「相続」",
+    "「であっても」"
+   ],
+   "outOfSample": {
+    "single": {
+     "oldToNew": 28,
+     "oldToNewCount": 5,
+     "newToOld": 8,
+     "newToOldCount": 3
+    },
+    "combo": {
+     "oldToNew": 14,
+     "oldToNewCount": 6,
+     "newToOld": 29,
+     "newToOldCount": 7
+    }
+   }
+  },
+  "company": {
+   "questions": 85,
+   "formats": {
+    "combo": 24,
+    "single": 54,
+    "other": 6,
+    "count": 1
+   },
+   "numbers": {
+    "1": {
+     "count": 85,
+     "rate": 13,
+     "oldCount": 45,
+     "old": 9,
+     "newCount": 40,
+     "new": 18
+    },
+    "2": {
+     "count": 85,
+     "rate": 24,
+     "oldCount": 45,
+     "old": 24,
+     "newCount": 40,
+     "new": 22
+    },
+    "3": {
+     "count": 85,
+     "rate": 16,
+     "oldCount": 45,
+     "old": 18,
+     "newCount": 40,
+     "new": 15
+    },
+    "4": {
+     "count": 85,
+     "rate": 28,
+     "oldCount": 45,
+     "old": 31,
+     "newCount": 40,
+     "new": 25
+    },
+    "5": {
+     "count": 85,
+     "rate": 19,
+     "oldCount": 45,
+     "old": 18,
+     "newCount": 40,
+     "new": 20
+    }
+   },
+   "singleNumbers": {
+    "1": {
+     "count": 54,
+     "rate": 9,
+     "oldCount": 27,
+     "old": 7,
+     "newCount": 27,
+     "new": 11
+    },
+    "2": {
+     "count": 54,
+     "rate": 26,
+     "oldCount": 27,
+     "old": 26,
+     "newCount": 27,
+     "new": 26
+    },
+    "3": {
+     "count": 54,
+     "rate": 19,
+     "oldCount": 27,
+     "old": 22,
+     "newCount": 27,
+     "new": 15
+    },
+    "4": {
+     "count": 54,
+     "rate": 22,
+     "oldCount": 27,
+     "old": 22,
+     "newCount": 27,
+     "new": 22
+    },
+    "5": {
+     "count": 54,
+     "rate": 24,
+     "oldCount": 27,
+     "old": 22,
+     "newCount": 27,
+     "new": 26
+    }
+   },
+   "longestTrue": {
+    "count": 18,
+    "rate": 11,
+    "oldCount": 11,
+    "old": 9,
+    "newCount": 7,
+    "new": 14
+   },
+   "longestFalse": {
+    "count": 36,
+    "rate": 36,
+    "oldCount": 16,
+    "old": 25,
+    "newCount": 20,
+    "new": 45
+   },
+   "words": [
+    {
+     "label": "「問わず」「にかかわらず」「〜らず、」",
+     "note": "要件を消して制度を広げる形です。",
+     "direction": "false",
+     "count": 14,
+     "hit": 71,
+     "base": 43,
+     "early": 86,
+     "earlyBase": 57,
+     "late": 57,
+     "lateBase": 29,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「株主総会の決議」",
+     "note": "軽い手続を重い手続へ書き換える定番です。",
+     "direction": "false",
+     "count": 28,
+     "hit": 61,
+     "base": 41,
+     "early": 56,
+     "earlyBase": 46,
+     "late": 67,
+     "lateBase": 35,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「しなければならない」",
+     "note": "義務を足して重くする形です。",
+     "direction": "false",
+     "count": 37,
+     "hit": 59,
+     "base": 44,
+     "early": 67,
+     "earlyBase": 53,
+     "late": 53,
+     "lateBase": 35,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「発行」",
+     "note": "株式発行の手続を細かく変えて作りやすい場所です。",
+     "direction": "false",
+     "count": 49,
+     "hit": 59,
+     "base": 50,
+     "early": 79,
+     "earlyBase": 63,
+     "late": 51,
+     "lateBase": 45,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「から」",
+     "note": "理屈を足す形、手続の起点をずらす形です。",
+     "direction": "false",
+     "count": 36,
+     "hit": 56,
+     "base": 38,
+     "early": 63,
+     "earlyBase": 47,
+     "late": 47,
+     "lateBase": 28,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「場合に」",
+     "note": "肢が多いぶん差は小さめです。",
+     "direction": "false",
+     "count": 82,
+     "hit": 55,
+     "base": 45,
+     "early": 56,
+     "earlyBase": 46,
+     "late": 53,
+     "lateBase": 44,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「定款で定める」",
+     "note": "「定款で別段の定めができる」は正しいことが多めです。",
+     "direction": "true",
+     "count": 15,
+     "hit": 87,
+     "base": 69,
+     "early": 80,
+     "earlyBase": 56,
+     "late": 90,
+     "lateBase": 76,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「種類」",
+     "note": "種類株式の肢は条文どおりのことが多めです。",
+     "direction": "true",
+     "count": 19,
+     "hit": 84,
+     "base": 64,
+     "early": 88,
+     "earlyBase": 62,
+     "late": 82,
+     "lateBase": 65,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「原則」「ただし」「除き」",
+     "note": "例外まで書いた肢は、条文を写したものが多めです。",
+     "direction": "true",
+     "count": 18,
+     "hit": 78,
+     "base": 67,
+     "early": 71,
+     "earlyBase": 57,
+     "late": 82,
+     "lateBase": 73,
+     "stable": true,
+     "hasNote": true
+    },
+    {
+     "label": "「または」「もしくは」",
+     "note": "条文を写すと残る言葉です。",
+     "direction": "true",
+     "count": 82,
+     "hit": 71,
+     "base": 60,
+     "early": 70,
+     "earlyBase": 57,
+     "late": 71,
+     "lateBase": 62,
+     "stable": true,
+     "hasNote": true
+    }
+   ],
+   "notWords": [
+    "「定款」（定める以外も含む）",
+    "「取締役会」",
+    "「できない」",
+    "文末が「できる」",
+    "「責任」",
+    "「請求」",
+    "「旨」",
+    "「必要」",
+    "「過半数」「◯分の◯」",
+    "「のみ」「に限る」",
+    "「すべて」「一切」「必ず」"
+   ],
+   "outOfSample": {
+    "single": {
+     "oldToNew": 49,
+     "oldToNewCount": 27,
+     "newToOld": 30,
+     "newToOldCount": 27
+    },
+    "combo": {
+     "oldToNew": 28,
+     "oldToNewCount": 12,
+     "newToOld": 32,
+     "newToOldCount": 12
+    }
+   }
+  }
+ }
+}
