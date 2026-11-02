@@ -133,6 +133,10 @@ class CardHintsTest(unittest.TestCase):
     def test_only_stable_words_are_shown(self):
         self.assertTrue(re.search(r"rule\.stable && rule\.pattern", self.app))
 
+    def test_legend_explains_the_broken_spot(self):
+        legend = self.html[self.html.index('class="markup-legend"'):self.html.index("</details>", self.html.index('class="markup-legend"'))]
+        self.assertIn('class="study-broken-spot"', legend)
+
 
 if __name__ == "__main__":
     unittest.main()
