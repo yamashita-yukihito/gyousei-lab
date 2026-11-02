@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 450" font-family="Hiragino Sans, Hiragino Kaku Gothic ProN, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="#334155"/></marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="#b91c1c"/></marker>
+  </defs>
+  <rect width="640" height="450" fill="#ffffff"/>
+  <rect x="240" y="16" width="160" height="50" rx="8" fill="#e0f2fe" stroke="#0369a1" stroke-width="2"/>
+  <text x="320" y="48" font-size="17" font-weight="700" text-anchor="middle" fill="#0c4a6e">生徒（被害者）</text>
+  <path d="M270 66 L140 164" stroke="#334155" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+  <path d="M370 66 L500 164" stroke="#334155" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+  <text x="320" y="104" font-size="14" font-weight="700" text-anchor="middle" fill="#334155">どちらにも請求できる</text>
+  <text x="320" y="124" font-size="13" text-anchor="middle" fill="#334155">（国賠法1条1項・3条1項）</text>
+  <rect x="20" y="166" width="200" height="72" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="2"/>
+  <text x="120" y="195" font-size="17" font-weight="700" text-anchor="middle" fill="#0f172a">市町村</text>
+  <text x="120" y="220" font-size="13" text-anchor="middle" fill="#0f172a">学校を設置し、教諭を監督</text>
+  <rect x="420" y="166" width="200" height="72" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="2"/>
+  <text x="520" y="195" font-size="17" font-weight="700" text-anchor="middle" fill="#0f172a">都道府県</text>
+  <text x="520" y="220" font-size="13" text-anchor="middle" fill="#0f172a">教諭の給与を負担</text>
+  <path d="M420 202 L224 202" stroke="#b91c1c" stroke-width="2.5" fill="none" marker-end="url(#b)"/>
+  <text x="320" y="172" font-size="13" font-weight="700" text-anchor="middle" fill="#b91c1c">全額を求償できる</text>
+  <text x="320" y="190" font-size="12" text-anchor="middle" fill="#b91c1c">（3条2項・最判平21.10.23）</text>
+  <text x="320" y="224" font-size="12" text-anchor="middle" fill="#b91c1c">都道府県が払ったとき</text>
+  <rect x="30" y="346" width="210" height="58" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="135" y="382" font-size="17" font-weight="700" text-anchor="middle" fill="#78350f">教諭（公務員個人）</text>
+  <path d="M135 238 L135 342" stroke="#b91c1c" stroke-width="2.5" fill="none" marker-end="url(#b)"/>
+  <text x="150" y="278" font-size="13" font-weight="700" fill="#b91c1c">故意・重大な過失のときだけ</text>
+  <text x="150" y="298" font-size="13" font-weight="700" fill="#b91c1c">求償できる（1条2項）</text>
+  <text x="380" y="372" font-size="14" font-weight="700" fill="#334155">生徒は教諭個人へは</text>
+  <text x="380" y="394" font-size="14" font-weight="700" fill="#334155">直接請求できない（判例）</text>
+</svg>
