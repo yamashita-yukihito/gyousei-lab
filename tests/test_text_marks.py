@@ -15,6 +15,7 @@ PAGES = [
     *(f"{name}-map" for name in ("minpo", "gyosei", "kenpo", "shoho", "kiso", "chishiki")),
     "memorize-map",
     "simple-rules",
+    "legal-doctrines",
     "technique",
 ]
 
