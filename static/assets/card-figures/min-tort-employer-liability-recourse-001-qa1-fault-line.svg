@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 560" role="img" aria-labelledby="t d">
+  <title id="t">使用者から従業員への求償は、どの程度の落ち度で問題になるか</title>
+  <desc id="d">上の図：事故を起こした従業員は被害者に自分でも責任を負う。会社が被害者へ全額賠償し、そのあと会社が従業員へ信義則上相当な限度で求償する。下の表：民法では故意、重大な過失、軽い過失なら限度内で求償でき、過失なしなら使用者責任自体が成立しない。国家賠償法では故意と重大な過失だけ求償でき、軽い過失は求償できず、過失なしなら国の責任自体が成立しない。</desc>
+  <defs>
+    <marker id="qa1-arrow-green" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#1f6b45"/></marker>
+    <marker id="qa1-arrow-red" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#b23a2e"/></marker>
+  </defs>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 21px; font-weight: 800; fill: #183a34; }
+    .box { font-size: 17px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 14px; }
+    .arrow { font-size: 13px; font-weight: 800; }
+    .col { font-size: 14px; font-weight: 800; fill: #183a34; }
+    .row { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .ok { font-size: 14px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 14px; font-weight: 800; fill: #b23a2e; }
+    .none { font-size: 13px; fill: #55635d; }
+  </style>
+  <rect width="640" height="560" fill="#ffffff"/>
+  <text class="h" x="320" y="32" text-anchor="middle">求償は「本人も加害者」が出発点、額は判例が絞る</text>
+
+  <path d="M540,104 C540,58 100,58 100,104" fill="none" stroke="#b23a2e" stroke-width="2" marker-end="url(#qa1-arrow-red)"/>
+  <text class="arrow" x="320" y="62" text-anchor="middle" fill="#b23a2e" style="fill:#b23a2e">事故を起こした従業員も、被害者に責任を負う（709条）</text>
+
+  <rect x="30" y="106" width="140" height="52" rx="10" fill="#fbf1ef" stroke="#e3c3bd"/>
+  <text class="box" x="100" y="138" text-anchor="middle">被害者</text>
+  <rect x="250" y="106" width="140" height="52" rx="10" fill="#eef3f8" stroke="#bccbdb"/>
+  <text class="box" x="320" y="138" text-anchor="middle">会社</text>
+  <rect x="470" y="106" width="140" height="52" rx="10" fill="#fdf6e3" stroke="#e5d6a6"/>
+  <text class="box" x="540" y="138" text-anchor="middle">従業員</text>
+
+  <path d="M250,132 L172,132" fill="none" stroke="#1f6b45" stroke-width="2.5" marker-end="url(#qa1-arrow-green)"/>
+  <text class="arrow" x="211" y="122" text-anchor="middle" style="fill:#1f6b45">①賠償</text>
+  <path d="M390,132 L468,132" fill="none" stroke="#1f6b45" stroke-width="2.5" marker-end="url(#qa1-arrow-green)"/>
+  <text class="arrow" x="429" y="122" text-anchor="middle" style="fill:#1f6b45">②求償</text>
+
+  <text class="t" x="30" y="186">① 会社が被害者に全額を賠償する（715条1項）</text>
+  <text class="t" x="30" y="210">② 会社が従業員に請求する。ただし信義則上相当な限度まで（最判昭51.7.8）</text>
+
+  <text class="h" x="320" y="258" text-anchor="middle" style="font-size:18px">落ち度の重さと求償：民法と国家賠償法は線が違う</text>
+
+  <rect x="16" y="274" width="608" height="48" fill="#f2f5f3"/>
+  <text class="col" x="178" y="303" text-anchor="middle">故意</text>
+  <text class="col" x="303" y="303" text-anchor="middle">重大な過失</text>
+  <text class="col" x="428" y="303" text-anchor="middle">軽い過失</text>
+  <text class="col" x="553" y="303" text-anchor="middle">過失なし</text>
+
+  <rect x="16" y="322" width="608" height="84" fill="#ffffff" stroke="#dfe5e1"/>
+  <text class="row" x="28" y="358">民法</text>
+  <text class="none" x="28" y="380">（会社）</text>
+  <text class="ok" x="178" y="358" text-anchor="middle">限度内で</text>
+  <text class="ok" x="178" y="380" text-anchor="middle">求償できる</text>
+  <text class="ok" x="303" y="358" text-anchor="middle">限度内で</text>
+  <text class="ok" x="303" y="380" text-anchor="middle">求償できる</text>
+  <text class="ok" x="428" y="358" text-anchor="middle">限度内で</text>
+  <text class="ok" x="428" y="380" text-anchor="middle">求償できる</text>
+  <text class="none" x="553" y="358" text-anchor="middle">使用者責任が</text>
+  <text class="none" x="553" y="380" text-anchor="middle">成立しない</text>
+
+  <rect x="16" y="406" width="608" height="84" fill="#ffffff" stroke="#dfe5e1"/>
+  <text class="row" x="28" y="442">国賠法</text>
+  <text class="none" x="28" y="464">（国など）</text>
+  <text class="ok" x="178" y="442" text-anchor="middle">求償</text>
+  <text class="ok" x="178" y="464" text-anchor="middle">できる</text>
+  <text class="ok" x="303" y="442" text-anchor="middle">求償</text>
+  <text class="ok" x="303" y="464" text-anchor="middle">できる</text>
+  <text class="ng" x="428" y="442" text-anchor="middle">求償</text>
+  <text class="ng" x="428" y="464" text-anchor="middle">できない</text>
+  <text class="none" x="553" y="442" text-anchor="middle">国の責任が</text>
+  <text class="none" x="553" y="464" text-anchor="middle">成立しない</text>
+
+  <text class="t" x="320" y="526" text-anchor="middle">民法で「過失なしでも求償される」場面は、そもそも出てこない</text>
+</svg>
