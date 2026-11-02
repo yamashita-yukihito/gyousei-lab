@@ -101,6 +101,16 @@ class VariantAMatchesSourceTest(unittest.TestCase):
         )
 
 
+
+class VariantAHasMarkupTest(unittest.TestCase):
+    """Aを原文へ差し替えるときに装飾を付け直し忘れないようにする（2026-07-31に19枚で落ちていた）。"""
+
+    def test_every_a_has_markup(self):
+        items = json.loads((Path(__file__).resolve().parents[1] / "content" / "explanation_cards.json").read_text(encoding="utf-8"))["items"]
+        plain = [card["id"] for card in items if not re.search(r"\*\*|__|==|%%|@@", card["variants"]["a"])]
+        self.assertEqual(plain, [])
+
+
 if __name__ == "__main__":
     unittest.main()
 
