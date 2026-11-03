@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 514" role="img" aria-labelledby="t d">
+  <title id="t">1つずつ覚える数字は、この6つで足りる</title>
+  <desc id="d">取得時効（土地の占有）：善意・無過失で始めたら10年／それ以外は20年（正直者は半分。民法162条）。失踪の宣告：普通は7年／戦争・沈没などの危難は去ってから1年（危難なら亡くなった可能性が高い。民法30条）。相続の承認・放棄：知った時から3か月（四十九日が済んで遺品を調べ終わる頃。民法915条）。売買の不具合の通知：不具合を知った時から1年（使えばすぐ分かるので早く締める。民法566条）。審査請求（役所に不服）：知った日の翌日から3か月／処分の翌日から1年（役所への文句は3か月。行審法18条）。取消訴訟（裁判）：知った日から6か月／処分の日から1年（裁判は準備が要るので倍。行訴法14条）。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 20px; font-weight: 800; fill: #183a34; }
+    .th { font-size: 14px; font-weight: 800; }
+    .who { font-size: 14.5px; font-weight: 800; }
+    .sub { font-size: 12.5px; fill: #55635d; }
+    .big { font-size: 22px; font-weight: 800; }
+    .c { font-size: 13px; }
+    .law { font-size: 12.5px; fill: #55635d; }
+    .note { font-size: 13px; fill: #55635d; }
+  </style>
+  <rect x="0" y="0" width="860" height="514" fill="#f7faf8"/>
+  <text class="h" x="20" y="38">1つずつ覚える数字は、この6つで足りる</text>
+  <rect x="12" y="74" width="836" height="58" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="who" x="24" y="99">取得時効（土地の占有）</text><text class="law" x="24" y="120">民法162条</text>
+  <text class="th" x="250" y="99">善意・無過失で始めたら10年／それ以外は20年</text>
+  <text class="sub" x="250" y="120">覚え方：正直者は半分</text>
+  <rect x="12" y="140" width="836" height="58" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="who" x="24" y="165">失踪の宣告</text><text class="law" x="24" y="186">民法30条</text>
+  <text class="th" x="250" y="165">普通は7年／戦争・沈没などの危難は去ってから1年</text>
+  <text class="sub" x="250" y="186">覚え方：危難なら亡くなった可能性が高い</text>
+  <rect x="12" y="206" width="836" height="58" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="who" x="24" y="231">相続の承認・放棄</text><text class="law" x="24" y="252">民法915条</text>
+  <text class="th" x="250" y="231">知った時から3か月</text>
+  <text class="sub" x="250" y="252">覚え方：四十九日が済んで遺品を調べ終わる頃</text>
+  <rect x="12" y="272" width="836" height="58" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="who" x="24" y="297">売買の不具合の通知</text><text class="law" x="24" y="318">民法566条</text>
+  <text class="th" x="250" y="297">不具合を知った時から1年</text>
+  <text class="sub" x="250" y="318">覚え方：使えばすぐ分かるので早く締める</text>
+  <rect x="12" y="338" width="836" height="58" rx="8" fill="#eef4fb" stroke="#d3ddd8"/>
+  <text class="who" x="24" y="363">審査請求（役所に不服）</text><text class="law" x="24" y="384">行審法18条</text>
+  <text class="th" x="250" y="363">知った日の翌日から3か月／処分の翌日から1年</text>
+  <text class="sub" x="250" y="384">覚え方：役所への文句は3か月</text>
+  <rect x="12" y="404" width="836" height="58" rx="8" fill="#eef4fb" stroke="#d3ddd8"/>
+  <text class="who" x="24" y="429">取消訴訟（裁判）</text><text class="law" x="24" y="450">行訴法14条</text>
+  <text class="th" x="250" y="429">知った日から6か月／処分の日から1年</text>
+  <text class="sub" x="250" y="450">覚え方：裁判は準備が要るので倍</text>
+  <text class="note" x="20" y="498">青い2行は行政法。20年でそれぞれ12問・14問出ている最頻出。憲法の期間の数字は、20年の択一でほぼ出ていない。</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 524" role="img" aria-labelledby="t d">
+  <title id="t">民法の期間は「知ったら短く、知らなくても長くて打ち切り」</title>
+  <desc id="d">普通の債権：知った時などから5年、起きた時などから10年（166条1項）。人の生命・身体の侵害：知った時などから5年、起きた時などから20年（167条・724条の2）。それ以外の不法行為：知った時などから3年、起きた時などから20年（724条）。取消権：知った時などから5年、起きた時などから20年（126条）。詐害行為取消権：知った時などから2年、起きた時などから10年（426条）。遺留分侵害額請求：知った時などから1年、起きた時などから10年（1048条）。どちらか早いほうで消える。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 20px; font-weight: 800; fill: #183a34; }
+    .th { font-size: 14px; font-weight: 800; }
+    .who { font-size: 14.5px; font-weight: 800; }
+    .sub { font-size: 12.5px; fill: #55635d; }
+    .big { font-size: 22px; font-weight: 800; }
+    .c { font-size: 13px; }
+    .law { font-size: 12.5px; fill: #55635d; }
+    .note { font-size: 13px; fill: #55635d; }
+  </style>
+  <rect x="0" y="0" width="850" height="524" fill="#f7faf8"/>
+  <text class="h" x="20" y="38">民法の期間は「知ったら短く、知らなくても長くて打ち切り」</text>
+  <text class="th" x="24" y="88" style="fill:#55635d">権利</text>
+  <rect x="300" y="64" width="170" height="34" rx="6" fill="#fdecdc"/><text class="th" x="314" y="87" style="fill:#9a3412">知った時などから</text>
+  <rect x="480" y="64" width="190" height="34" rx="6" fill="#e3ecf6"/><text class="th" x="494" y="87" style="fill:#1e4e8c">起きた時などから</text>
+  <text class="th" x="684" y="88" style="fill:#55635d">条文</text>
+  <rect x="12" y="108" width="826" height="54" rx="8" fill="#ffffff" stroke="#d3ddd8" stroke-width="1"/>
+  <text class="who" x="24" y="132">普通の債権</text><text class="sub" x="24" y="152">貸したお金・売掛金など</text>
+  <text class="big" x="352" y="143" style="fill:#9a3412">5年</text><text class="big" x="540" y="143" style="fill:#1e4e8c">10年</text>
+  <text class="law" x="684" y="142">166条1項</text>
+  <rect x="12" y="170" width="826" height="54" rx="8" fill="#fff8e1" stroke="#e0a800" stroke-width="2"/>
+  <text class="who" x="24" y="194">人の生命・身体の侵害</text><text class="sub" x="24" y="214">不法行為でも契約違反でも</text>
+  <text class="big" x="352" y="205" style="fill:#9a3412">5年</text><text class="big" x="540" y="205" style="fill:#1e4e8c">20年</text>
+  <text class="law" x="684" y="204">167条・724条の2</text>
+  <rect x="12" y="232" width="826" height="54" rx="8" fill="#ffffff" stroke="#d3ddd8" stroke-width="1"/>
+  <text class="who" x="24" y="256">それ以外の不法行為</text><text class="sub" x="24" y="276">物を壊された・名誉など</text>
+  <text class="big" x="352" y="267" style="fill:#9a3412">3年</text><text class="big" x="540" y="267" style="fill:#1e4e8c">20年</text>
+  <text class="law" x="684" y="266">724条</text>
+  <rect x="12" y="294" width="826" height="54" rx="8" fill="#ffffff" stroke="#d3ddd8" stroke-width="1"/>
+  <text class="who" x="24" y="318">取消権</text><text class="sub" x="24" y="338">詐欺・未成年など</text>
+  <text class="big" x="352" y="329" style="fill:#9a3412">5年</text><text class="big" x="540" y="329" style="fill:#1e4e8c">20年</text>
+  <text class="law" x="684" y="328">126条</text>
+  <rect x="12" y="356" width="826" height="54" rx="8" fill="#ffffff" stroke="#d3ddd8" stroke-width="1"/>
+  <text class="who" x="24" y="380">詐害行為取消権</text><text class="sub" x="24" y="400">債務者の財産隠し</text>
+  <text class="big" x="352" y="391" style="fill:#9a3412">2年</text><text class="big" x="540" y="391" style="fill:#1e4e8c">10年</text>
+  <text class="law" x="684" y="390">426条</text>
+  <rect x="12" y="418" width="826" height="54" rx="8" fill="#ffffff" stroke="#d3ddd8" stroke-width="1"/>
+  <text class="who" x="24" y="442">遺留分侵害額請求</text><text class="sub" x="24" y="462">家族の取り分</text>
+  <text class="big" x="352" y="453" style="fill:#9a3412">1年</text><text class="big" x="540" y="453" style="fill:#1e4e8c">10年</text>
+  <text class="law" x="684" y="452">1048条</text>
+  <text class="note" x="20" y="508">どちらか早いほうが来た時点で消える。黄色の行がこのカード（命と体は重いので、両方とも1段長い）。</text>
+</svg>
