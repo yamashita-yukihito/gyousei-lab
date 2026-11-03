@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 512" role="img" aria-labelledby="t d">
+  <title id="t">最判昭63.3.1の事案：先に死んだのは無権代理をした妻</title>
+  <desc id="d">昭和35年：妻Bが、入院中の夫Aの代理人と称して、A名義の農地をCに売る。昭和42〜43年：買主の地位がCから転々として最後はYへ。Yが所有権移転登記。昭和44年：妻B（無権代理人）が死亡 → 夫Aと子X1〜X3がBを相続。昭和48年：夫A（本人）が死亡 → 子X1〜X3がAを相続。訴え：子らがYに登記の抹消を求める。一審は子らの勝ち。昭和58年：名古屋高裁：順番を問わず、自分で無権代理をしていない子らは拒絶できる。昭和63年：最高裁：先にBの立場を継いだ子らは拒絶できない。破棄して差戻し。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 20px; font-weight: 800; fill: #183a34; }
+    .yr { font-size: 14px; font-weight: 800; fill: #55635d; }
+    .ev { font-size: 14.5px; }
+    .note { font-size: 13px; fill: #55635d; }
+  </style>
+  <rect x="0" y="0" width="820" height="512" fill="#f7faf8"/>
+  <text class="h" x="20" y="38">最判昭63.3.1の事案：先に死んだのは無権代理をした妻</text>
+  <line x1="142" y1="70" x2="142" y2="464" stroke="#b8c6c0" stroke-width="3"/>
+  <text class="yr" x="20" y="99">昭和35年</text>
+  <circle cx="142" cy="94" r="7" fill="#7a8782"/>
+  <rect x="160" y="74" width="640" height="44" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="ev" x="174" y="100">妻Bが、入院中の夫Aの代理人と称して、A名義の農地をCに売る</text>
+  <text class="yr" x="20" y="157">昭和42〜43年</text>
+  <circle cx="142" cy="152" r="7" fill="#7a8782"/>
+  <rect x="160" y="132" width="640" height="44" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="ev" x="174" y="158">買主の地位がCから転々として最後はYへ。Yが所有権移転登記</text>
+  <text class="yr" x="20" y="215">昭和44年</text>
+  <circle cx="142" cy="210" r="7" fill="#c2410c"/>
+  <rect x="160" y="190" width="640" height="44" rx="8" fill="#fff4e8" stroke="#ea8a3a"/>
+  <text class="ev" x="174" y="216">妻B（無権代理人）が死亡 → 夫Aと子X1〜X3がBを相続</text>
+  <text class="yr" x="20" y="273">昭和48年</text>
+  <circle cx="142" cy="268" r="7" fill="#c2410c"/>
+  <rect x="160" y="248" width="640" height="44" rx="8" fill="#fff4e8" stroke="#ea8a3a"/>
+  <text class="ev" x="174" y="274">夫A（本人）が死亡 → 子X1〜X3がAを相続</text>
+  <text class="yr" x="20" y="331">訴え</text>
+  <circle cx="142" cy="326" r="7" fill="#7a8782"/>
+  <rect x="160" y="306" width="640" height="44" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="ev" x="174" y="332">子らがYに登記の抹消を求める。一審は子らの勝ち</text>
+  <text class="yr" x="20" y="389">昭和58年</text>
+  <circle cx="142" cy="384" r="7" fill="#1f6f5c"/>
+  <rect x="160" y="364" width="640" height="44" rx="8" fill="#e3f1ea" stroke="#1f6f5c"/>
+  <text class="ev" x="174" y="390">名古屋高裁：順番を問わず、自分で無権代理をしていない子らは拒絶できる</text>
+  <text class="yr" x="20" y="447">昭和63年</text>
+  <circle cx="142" cy="442" r="7" fill="#b42318"/>
+  <rect x="160" y="422" width="640" height="44" rx="8" fill="#fde8e4" stroke="#b42318"/>
+  <text class="ev" x="174" y="448">最高裁：先にBの立場を継いだ子らは拒絶できない。破棄して差戻し</text>
+  <text class="note" x="20" y="500">事案は高森八四郎「無権代理と二重相続」関西大学法学論集39巻1号（1989年）の紹介による。</text>
+</svg>
