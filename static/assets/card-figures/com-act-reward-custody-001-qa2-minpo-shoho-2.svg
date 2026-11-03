@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 610" role="img" aria-labelledby="t d">
+  <title id="t">民法と商法で結論が違うもの（2）債務・担保・売買</title>
+  <desc id="d">何人かで1つの債務を負った：民法は分割債務（427条）1人が払うのは自分の割合だけ、商法は1人または全員の商行為なら連帯債務（511条1項）。保証人を付けた：民法は普通の保証。催告・検索の抗弁がある（452条・453条）、商法は主債務が商行為で生じた等なら連帯保証になる（511条2項）。返せなければ質物をもらう約束（流質契約）：民法は禁止（349条）、商法は商行為で生じた債権の質権なら許される（515条）。代金を払うまで物を返さない（留置権）：民法はその物に関して生じた債権が必要（牽連性。295条）、商法は商人間なら牽連性は不要。商行為で占有した債務者の物（521条）。店が客から預かった物がなくなった（場屋）：民法は注意を尽くしたことを示せば責任を負わない（415条）、商法は不可抗力を証明しないと責任を免れない（596条1項）。買った品物に不具合（商人間の売買）：民法は不具合を知った時から1年以内に通知（566条）、商法は受け取ったら遅滞なく検査し、直ちに通知（分からなければ6か月。526条）。お金を出した人の対外的な責任（組合）：民法は組合員は組合の債権者に直接責任を負う（675条2項）、商法は匿名組合員は第三者に権利も義務もない（536条4項）。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 20px; font-weight: 800; fill: #183a34; }
+    .th { font-size: 15px; font-weight: 800; }
+    .who { font-size: 14px; font-weight: 800; }
+    .sub { font-size: 12.5px; fill: #55635d; }
+    .c { font-size: 13px; }
+    .ex { font-size: 12.5px; font-weight: 800; fill: #183a34; }
+    .ex1 { font-size: 12.5px; fill: #7a8782; }
+    .note { font-size: 13px; fill: #55635d; }
+  </style>
+  <rect x="0" y="0" width="840" height="610" fill="#f7faf8"/>
+  <text class="h" x="20" y="38">民法と商法で結論が違うもの（2）債務・担保・売買</text>
+  <rect x="236" y="56" width="250" height="34" rx="6" fill="#e3ecf6"/><text class="th" x="250" y="79" style="fill:#1e4e8c">民法</text>
+  <rect x="492" y="56" width="262" height="34" rx="6" fill="#fdecdc"/><text class="th" x="506" y="79" style="fill:#9a3412">商法</text>
+  <text class="th" x="20" y="79" style="fill:#55635d">場面</text><text class="th" x="764" y="79" style="fill:#55635d">出題</text>
+  <rect x="12" y="104" width="816" height="60" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="who" x="22" y="130">何人かで1つの債務を負った</text>
+  <text class="c" x="246" y="130">分割債務（427条）</text>
+  <text class="c" x="246" y="150">1人が払うのは自分の割合だけ</text>
+  <text class="c" x="502" y="130">1人または全員の商行為なら</text>
+  <text class="c" x="502" y="150">連帯債務（511条1項）</text>
+  <text class="ex" x="768" y="130">平成18</text>
+  <text class="ex" x="768" y="150">平成30</text>
+  <rect x="12" y="170" width="816" height="60" rx="8" fill="#f0f5f2" stroke="#d3ddd8"/>
+  <text class="who" x="22" y="196">保証人を付けた</text>
+  <text class="c" x="246" y="196">普通の保証。催告・検索の</text>
+  <text class="c" x="246" y="216">抗弁がある（452条・453条）</text>
+  <text class="c" x="502" y="196">主債務が商行為で生じた等なら</text>
+  <text class="c" x="502" y="216">連帯保証になる（511条2項）</text>
+  <text class="ex1" x="768" y="206">平成30</text>
+  <rect x="12" y="236" width="816" height="60" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="who" x="22" y="262">返せなければ質物をもらう約束</text>
+  <text class="sub" x="22" y="282">（流質契約）</text>
+  <text class="c" x="246" y="272">禁止（349条）</text>
+  <text class="c" x="502" y="262">商行為で生じた債権の</text>
+  <text class="c" x="502" y="282">質権なら許される（515条）</text>
+  <text class="ex1" x="768" y="272">平成18</text>
+  <rect x="12" y="302" width="816" height="60" rx="8" fill="#f0f5f2" stroke="#d3ddd8"/>
+  <text class="who" x="22" y="328">代金を払うまで物を返さない</text>
+  <text class="sub" x="22" y="348">（留置権）</text>
+  <text class="c" x="246" y="328">その物に関して生じた債権が</text>
+  <text class="c" x="246" y="348">必要（牽連性。295条）</text>
+  <text class="c" x="502" y="328">商人間なら牽連性は不要。商行為で</text>
+  <text class="c" x="502" y="348">占有した債務者の物（521条）</text>
+  <text class="ex" x="768" y="328">平成18</text>
+  <text class="ex" x="768" y="348">平成24</text>
+  <rect x="12" y="368" width="816" height="60" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="who" x="22" y="394">店が客から預かった物が</text>
+  <text class="sub" x="22" y="414">なくなった（場屋）</text>
+  <text class="c" x="246" y="394">注意を尽くしたことを示せば</text>
+  <text class="c" x="246" y="414">責任を負わない（415条）</text>
+  <text class="c" x="502" y="394">不可抗力を証明しないと</text>
+  <text class="c" x="502" y="414">責任を免れない（596条1項）</text>
+  <text class="ex" x="768" y="394">平成19</text>
+  <text class="ex" x="768" y="414">平成27</text>
+  <rect x="12" y="434" width="816" height="60" rx="8" fill="#f0f5f2" stroke="#d3ddd8"/>
+  <text class="who" x="22" y="460">買った品物に不具合</text>
+  <text class="sub" x="22" y="480">（商人間の売買）</text>
+  <text class="c" x="246" y="460">不具合を知った時から</text>
+  <text class="c" x="246" y="480">1年以内に通知（566条）</text>
+  <text class="c" x="502" y="460">受け取ったら遅滞なく検査し、直ちに</text>
+  <text class="c" x="502" y="480">通知（分からなければ6か月。526条）</text>
+  <text class="ex1" x="768" y="470">平成21</text>
+  <rect x="12" y="500" width="816" height="60" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="who" x="22" y="526">お金を出した人の対外的な責任</text>
+  <text class="sub" x="22" y="546">（組合）</text>
+  <text class="c" x="246" y="526">組合員は組合の債権者に</text>
+  <text class="c" x="246" y="546">直接責任を負う（675条2項）</text>
+  <text class="c" x="502" y="526">匿名組合員は第三者に</text>
+  <text class="c" x="502" y="546">権利も義務もない（536条4項）</text>
+  <text class="ex" x="768" y="526">平成20</text>
+  <text class="ex" x="768" y="546">令和6</text>
+  <text class="note" x="20" y="594">出題は平成18〜令和7年度で確かめた年度。太字は2回以上、灰色は1回。条文は2026年4月1日時点。</text>
+</svg>

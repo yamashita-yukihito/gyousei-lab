@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 610" role="img" aria-labelledby="t d">
+  <title id="t">民法と商法で結論が違うもの（1）契約と代理・仕事</title>
+  <desc id="d">代理人が本人の名を出さずに契約（顕名なし）：民法は代理人自身の契約になる相手方が知り得たなら本人へ（100条）、商法は本人に効果。知らなかった相手方は代理人にも履行を請求できる（504条）。代理を頼んだ本人が死亡：民法は代理権は消える（111条）、商法は商行為の委任による代理権は消えない（506条）。期間の定めのない申込み（離れた場所の商人間）：民法は相当な期間は撤回できない自然に失効する定めはない（525条）、商法は相当の期間内に承諾の通知を発しなければ失効（508条）。いつもの取引先からの申込みに黙っていた：民法は沈黙は承諾にならない、商法は遅滞なく諾否を通知。怠ると承諾したとみなす（509条）。申込みと一緒に物が届き、申込みを断った：民法は保管する義務はない、商法は断っても申込者の費用で保管する（510条）。他人のために仕事をした（報酬の約束なし）：民法は委任は特約がなければ報酬なし（648条1項）、商法は営業の範囲内なら相当な報酬を請求できる（512条）。無報酬で物を預かった：民法は自己の財産と同一の注意（659条）、商法は営業の範囲内なら善良な管理者の注意（595条）。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 20px; font-weight: 800; fill: #183a34; }
+    .th { font-size: 15px; font-weight: 800; }
+    .who { font-size: 14px; font-weight: 800; }
+    .sub { font-size: 12.5px; fill: #55635d; }
+    .c { font-size: 13px; }
+    .ex { font-size: 12.5px; font-weight: 800; fill: #183a34; }
+    .ex1 { font-size: 12.5px; fill: #7a8782; }
+    .note { font-size: 13px; fill: #55635d; }
+  </style>
+  <rect x="0" y="0" width="840" height="610" fill="#f7faf8"/>
+  <text class="h" x="20" y="38">民法と商法で結論が違うもの（1）契約と代理・仕事</text>
+  <rect x="236" y="56" width="250" height="34" rx="6" fill="#e3ecf6"/><text class="th" x="250" y="79" style="fill:#1e4e8c">民法</text>
+  <rect x="492" y="56" width="262" height="34" rx="6" fill="#fdecdc"/><text class="th" x="506" y="79" style="fill:#9a3412">商法</text>
+  <text class="th" x="20" y="79" style="fill:#55635d">場面</text><text class="th" x="764" y="79" style="fill:#55635d">出題</text>
+  <rect x="12" y="104" width="816" height="60" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="who" x="22" y="130">代理人が本人の名を出さずに契約</text>
+  <text class="sub" x="22" y="150">（顕名なし）</text>
+  <text class="c" x="246" y="130">代理人自身の契約になる</text>
+  <text class="c" x="246" y="150">相手方が知り得たなら本人へ（100条）</text>
+  <text class="c" x="502" y="130">本人に効果。知らなかった相手方は</text>
+  <text class="c" x="502" y="150">代理人にも履行を請求できる（504条）</text>
+  <text class="ex" x="768" y="130">令和元</text>
+  <text class="ex" x="768" y="150">令和5</text>
+  <rect x="12" y="170" width="816" height="60" rx="8" fill="#f0f5f2" stroke="#d3ddd8"/>
+  <text class="who" x="22" y="196">代理を頼んだ本人が死亡</text>
+  <text class="c" x="246" y="206">代理権は消える（111条）</text>
+  <text class="c" x="502" y="196">商行為の委任による代理権は</text>
+  <text class="c" x="502" y="216">消えない（506条）</text>
+  <text class="ex1" x="768" y="206">平成30</text>
+  <rect x="12" y="236" width="816" height="60" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="who" x="22" y="262">期間の定めのない申込み</text>
+  <text class="sub" x="22" y="282">（離れた場所の商人間）</text>
+  <text class="c" x="246" y="262">相当な期間は撤回できない</text>
+  <text class="c" x="246" y="282">自然に失効する定めはない（525条）</text>
+  <text class="c" x="502" y="262">相当の期間内に承諾の通知を</text>
+  <text class="c" x="502" y="282">発しなければ失効（508条）</text>
+  <text class="ex" x="768" y="262">平成25</text>
+  <text class="ex" x="768" y="282">令和5</text>
+  <rect x="12" y="302" width="816" height="60" rx="8" fill="#f0f5f2" stroke="#d3ddd8"/>
+  <text class="who" x="22" y="328">いつもの取引先からの申込み</text>
+  <text class="sub" x="22" y="348">に黙っていた</text>
+  <text class="c" x="246" y="338">沈黙は承諾にならない</text>
+  <text class="c" x="502" y="328">遅滞なく諾否を通知。怠ると</text>
+  <text class="c" x="502" y="348">承諾したとみなす（509条）</text>
+  <text class="ex" x="768" y="328">平成25</text>
+  <text class="ex" x="768" y="348">令和5</text>
+  <rect x="12" y="368" width="816" height="60" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="who" x="22" y="394">申込みと一緒に物が届き、</text>
+  <text class="sub" x="22" y="414">申込みを断った</text>
+  <text class="c" x="246" y="404">保管する義務はない</text>
+  <text class="c" x="502" y="394">断っても申込者の費用で</text>
+  <text class="c" x="502" y="414">保管する（510条）</text>
+  <text class="ex" x="768" y="394">平成18</text>
+  <text class="ex" x="768" y="414">令和5</text>
+  <rect x="12" y="434" width="816" height="60" rx="8" fill="#f0f5f2" stroke="#d3ddd8"/>
+  <text class="who" x="22" y="460">他人のために仕事をした</text>
+  <text class="sub" x="22" y="480">（報酬の約束なし）</text>
+  <text class="c" x="246" y="460">委任は特約がなければ</text>
+  <text class="c" x="246" y="480">報酬なし（648条1項）</text>
+  <text class="c" x="502" y="460">営業の範囲内なら</text>
+  <text class="c" x="502" y="480">相当な報酬を請求できる（512条）</text>
+  <text class="ex" x="768" y="460">平成18</text>
+  <text class="ex" x="768" y="480">平成30</text>
+  <rect x="12" y="500" width="816" height="60" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="who" x="22" y="526">無報酬で物を預かった</text>
+  <text class="c" x="246" y="526">自己の財産と同一の注意</text>
+  <text class="c" x="246" y="546">（659条）</text>
+  <text class="c" x="502" y="526">営業の範囲内なら</text>
+  <text class="c" x="502" y="546">善良な管理者の注意（595条）</text>
+  <text class="ex" x="768" y="526">平成19</text>
+  <text class="ex" x="768" y="546">平成30</text>
+  <text class="note" x="20" y="594">出題は平成18〜令和7年度で確かめた年度。太字は2回以上、灰色は1回。条文は2026年4月1日時点。</text>
+</svg>
