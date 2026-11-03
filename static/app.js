@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20261103-2";
+  const APP_VERSION = "20261103-3";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -1467,6 +1467,13 @@
     "general-knowledge": "基礎知識",
     "legal-foundations": "基礎法学"
   };
+  // 数字の覚え方の仕分け（numbers/#sorting と同じ4つ）。
+  const HINT_NUMBER_SORTS = {
+    exact: "★ 数字まで正確に覚える数字です。",
+    effect: "○ 数字は感覚でよく、そのあと何が起きるかを覚えます。",
+    exists: "△ その制度に数字（期間・人数など）があるか無いかを覚えます。",
+    skip: "× 数字ページでは今年は覚えない側に入れた数字です。このカードを解く分だけ押さえます。"
+  };
   let cardHints = { rules: new Map(), cards: {}, kinds: {}, words: [] };
 
   function parseSimpleRules(text) {
@@ -1645,6 +1652,18 @@
         "「" + kind.label + "」で作られた×の肢",
         hint.break.where,
         (hint.break.spot ? "問題文の赤い部分です。" : "") + "見る場所：" + kind.look
+      ));
+    }
+    // 数字を使った問題には、数字の覚え方（numbers/）のどこを見ればよいかを、この問題での読み方と一緒に出す（2026-11-03に利用者が依頼）。
+    const numbers = hint.numbers;
+    if (numbers && numbers.to) {
+      list.append(studyHintRow(
+        "number",
+        "numbers/#" + numbers.to,
+        "数字の覚え方",
+        numbers.label,
+        numbers.apply,
+        HINT_NUMBER_SORTS[numbers.sort] || ""
       ));
     }
     matchStudyWords(item).forEach(({ rule, word }) => {

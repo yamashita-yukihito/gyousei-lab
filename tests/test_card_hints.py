@@ -78,6 +78,28 @@ class CardHintsTest(unittest.TestCase):
                 self.assertIn(rule["name"], links, card_id)
                 self.assertTrue(rule["apply"].strip(), card_id)
 
+    def test_number_hints_point_to_the_numbers_page(self):
+        page = (STATIC / "numbers" / "index.html").read_text(encoding="utf-8")
+        sections = set(re.findall(r'<section class="section" id="([a-z]+)">', page))
+        sorts = set(re.findall(r'^\s+(\w+): "', self.app[self.app.index("const HINT_NUMBER_SORTS"):].split("};", 1)[0], re.M))
+        self.assertEqual(sorts, {"exact", "effect", "exists", "skip"})
+        found = 0
+        for card_id, hint in self.hints["cards"].items():
+            numbers = hint.get("numbers")
+            if not numbers:
+                continue
+            found += 1
+            self.assertIn(numbers["to"], sections, card_id)
+            self.assertIn(numbers["sort"], sorts, card_id)
+            self.assertTrue(numbers["label"].strip(), card_id)
+            # ○のカードには「○の文」と書き、×のカードに「○の文」と書かない（答えと逆に読ませない）。
+            if self.cards[card_id]["correct"]:
+                self.assertIn("○の文", numbers["apply"], card_id)
+            else:
+                self.assertNotIn("○の文", numbers["apply"], card_id)
+        self.assertGreaterEqual(found, 15)
+        self.assertIn('"numbers/#" + numbers.to', self.app)
+
     def test_apply_text_agrees_with_the_answer(self):
         for card_id, hint in self.hints["cards"].items():
             correct = self.cards[card_id]["correct"]
