@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" role="img" aria-labelledby="t d">
+  <title id="t">数字の仕分け：どこまで正確に覚えるか</title>
+  <desc id="d">★ 数字まで正確に：不法行為3年・命と体5年、債権5年／10年（命と体20年）、取得時効 10年／20年、盗品 盗難の時から2年、失踪 7年／危難1年、審査請求3か月・取消訴訟6か月、（どちらも処分から1年）、行政書士の資格 公務員20年、出生届 14日以内、設立：4分の1・2分の1、定款変更は発起人全員。○ 数字より「どうなるか」：失踪：7年満了時に死亡、不適合：1年以内に通知で足りる、取消権：5年で時効消滅、熟慮3か月：限定承認は全員で、催告1か月：相手で効果が変わる、国務大臣の過半数は国会議員、（任命に国会の同意は不要）。△ 「無い」「要る」だけ：遺産分割はいつでも、義務付け・差止め・不作為の、違法確認に出訴期間はない、根抵当は極度額まで全部、最低資本金は無い、事務監査請求は50分の1の署名、（住民監査請求は1人で可）。× 覚えない：詐害行為取消 2年／10年、遺留分 1年／10年、相続回復 5年／20年、占有回収 1年、憲法の日数・定足数、会社法の機関の割合、地方自治法のほかの数字、一般知識の統計。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 20px; font-weight: 800; fill: #183a34; }
+    .k { font-size: 15px; font-weight: 800; }
+    .c { font-size: 13px; }
+    .s { font-size: 12.5px; fill: #55635d; }
+    .note { font-size: 13px; fill: #55635d; }
+  </style>
+  <rect x="0" y="0" width="960" height="500" fill="#f7faf8"/>
+  <text class="h" x="20" y="38">数字の仕分け：どこまで正確に覚えるか</text>
+  <rect x="12" y="58" width="230" height="390" rx="8" fill="#fde8e4"/>
+  <text class="k" x="24" y="86" style="fill:#b42318">★ 数字まで正確に</text>
+  <text class="c" x="24" y="118">不法行為3年・命と体5年</text>
+  <text class="c" x="24" y="148">債権5年／10年（命と体20年）</text>
+  <text class="c" x="24" y="178">取得時効 10年／20年</text>
+  <text class="c" x="24" y="208">盗品 盗難の時から2年</text>
+  <text class="c" x="24" y="238">失踪 7年／危難1年</text>
+  <text class="c" x="24" y="268">審査請求3か月・取消訴訟6か月</text>
+  <text class="c" x="24" y="298">　（どちらも処分から1年）</text>
+  <text class="c" x="24" y="328">行政書士の資格 公務員20年</text>
+  <text class="c" x="24" y="358">出生届 14日以内</text>
+  <text class="c" x="24" y="388">設立：4分の1・2分の1</text>
+  <text class="c" x="24" y="418">　定款変更は発起人全員</text>
+  <rect x="247" y="58" width="230" height="390" rx="8" fill="#e3ecf6"/>
+  <text class="k" x="259" y="86" style="fill:#1e4e8c">○ 数字より「どうなるか」</text>
+  <text class="c" x="259" y="118">失踪：7年満了時に死亡</text>
+  <text class="c" x="259" y="148">不適合：1年以内に通知で足りる</text>
+  <text class="c" x="259" y="178">取消権：5年で時効消滅</text>
+  <text class="c" x="259" y="208">熟慮3か月：限定承認は全員で</text>
+  <text class="c" x="259" y="238">催告1か月：相手で効果が変わる</text>
+  <text class="c" x="259" y="268">国務大臣の過半数は国会議員</text>
+  <text class="c" x="259" y="298">　（任命に国会の同意は不要）</text>
+  <rect x="482" y="58" width="230" height="390" rx="8" fill="#e3f1ea"/>
+  <text class="k" x="494" y="86" style="fill:#1f6f5c">△ 「無い」「要る」だけ</text>
+  <text class="c" x="494" y="118">遺産分割はいつでも</text>
+  <text class="c" x="494" y="148">義務付け・差止め・不作為の</text>
+  <text class="c" x="494" y="178">　違法確認に出訴期間はない</text>
+  <text class="c" x="494" y="208">根抵当は極度額まで全部</text>
+  <text class="c" x="494" y="238">最低資本金は無い</text>
+  <text class="c" x="494" y="268">事務監査請求は50分の1の署名</text>
+  <text class="c" x="494" y="298">　（住民監査請求は1人で可）</text>
+  <rect x="717" y="58" width="230" height="390" rx="8" fill="#eceeed"/>
+  <text class="k" x="729" y="86" style="fill:#55635d">× 覚えない</text>
+  <text class="c" x="729" y="118">詐害行為取消 2年／10年</text>
+  <text class="c" x="729" y="148">遺留分 1年／10年</text>
+  <text class="c" x="729" y="178">相続回復 5年／20年</text>
+  <text class="c" x="729" y="208">占有回収 1年</text>
+  <text class="c" x="729" y="238">憲法の日数・定足数</text>
+  <text class="c" x="729" y="268">会社法の機関の割合</text>
+  <text class="c" x="729" y="298">地方自治法のほかの数字</text>
+  <text class="c" x="729" y="328">一般知識の統計</text>
+  <text class="note" x="20" y="466">★は数字の入れ替え・計算・記述で数字そのものが問われたもの、または正しい数字のまま何度も出たもの。×は出題が少ないか、捨てる分野。</text>
+  <text class="note" x="20" y="486">2本立ての期間は「短い数字には『知った時から』、長い数字には『〜の時から』」が付く。逆なら×を疑う。</text>
+</svg>
