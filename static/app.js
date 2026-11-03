@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20261103-3";
+  const APP_VERSION = "20261104-1";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -72,6 +72,7 @@
     quizPool: [],
     quizIndex: 0,
     quizAnswered: false,
+    pickedQuestionIds: [],
     writtenAllItems: [],
     writtenItems: [],
     writtenIndex: 0,
@@ -156,7 +157,8 @@
       const requestedTab = location.hash.slice(1);
       // cardIdの指定はタブ指定より優先し、必ず○×学習の対象カードを開く。
       const openedRequestedCard = studyReady && openRequestedStudyCard(location.search)
-        || studyReady && openRequestedPickedCards(location.search);
+        || studyReady && openRequestedPickedCards(location.search)
+        || openRequestedPickedQuestions(location.search);
       if (
         !openedRequestedCard
         && requestedTab
@@ -2273,7 +2275,8 @@
     state.pickedCardIds = ids;
     state.pickedLabel = from === "mock"
       ? "通し演習で間違えた問題のカード"
-      : from === "technique" ? "同じ作り方の誤りのカード" : "指定されたカード";
+      : from === "technique" ? "同じ作り方の誤りのカード"
+      : from === "practice" ? "本試験形式の練習のカード" : "指定されたカード";
     const option = $("study-view").querySelector('option[value="picked"]');
     option.hidden = false;
     option.disabled = false;
@@ -2285,6 +2288,27 @@
     $("study-view").value = "picked";
     updateStudyViewControls();
     refreshStudyPool();
+    return true;
+  }
+
+  // 本試験形式の練習（exam-practice/）から、選んだ過去問を渡された順に解く入口。?questionIds=a,b,c&from=practice#quiz
+  // URLの値はselectorやHTMLへ渡さず、取得元の問題IDの形だけを通す。読込済みの問題との照合は、過去問タブを読み込んだあと setupQuiz で行う。
+  function requestedPickedQuestionIds(search) {
+    const raw = new URLSearchParams(search || "").get("questionIds");
+    if (!raw || raw.length > 4000) return [];
+    const ids = [];
+    raw.split(",").forEach((value) => {
+      const id = value.trim();
+      if (/^goukakudojyo:\d{1,8}$/.test(id) && !ids.includes(id)) ids.push(id);
+    });
+    return ids.slice(0, 100);
+  }
+
+  function openRequestedPickedQuestions(search) {
+    const ids = requestedPickedQuestionIds(search);
+    if (!ids.length) return false;
+    state.pickedQuestionIds = ids;
+    activateTab("quiz");
     return true;
   }
 
@@ -3256,6 +3280,16 @@
     populateQuestionSubjectSelect($("quiz-subject"), quizItems);
     $("quiz-year").replaceChildren(make("option", { value: "all" }, "すべて"));
     populateSelect($("quiz-year"), uniqueSorted(quizItems.map((q) => q.exam.year), true), yearLabel);
+    const loaded = new Set(quizItems.map((q) => q.id));
+    state.pickedQuestionIds = state.pickedQuestionIds.filter((id) => loaded.has(id));
+    if (state.pickedQuestionIds.length) {
+      const option = $("quiz-scope").querySelector('option[value="picked"]');
+      option.hidden = false;
+      option.disabled = false;
+      option.textContent = "本試験形式の練習セット（" + state.pickedQuestionIds.length + "問・渡された順）";
+      $("quiz-scope").value = "picked";
+      state.quizIndex = 0;
+    }
     refreshQuizTopicOptions();
     refreshQuizPool();
   }
@@ -3285,14 +3319,18 @@
     const topic = $("quiz-topic").value;
     const format = $("quiz-format").value;
     const scope = $("quiz-scope").value;
-    state.quizPool = state.questions
+    // 練習セット（picked）は渡された順のまま出し、習得済みも外さない。
+    const picked = scope === "picked";
+    const byId = new Map(state.questions.map((q) => [q.id, q]));
+    const base = picked ? state.pickedQuestionIds.map((id) => byId.get(id)).filter(Boolean) : state.questions;
+    state.quizPool = base
       .filter((q) => q.format !== "written")
       .filter((q) => subject === "all" || questionSubjectId(q) === subject)
       .filter((q) => year === "all" || String(q.exam.year) === year)
       .filter((q) => topic === "all" || (q.labels || []).includes(topic))
       .filter((q) => format === "all" || q.format === format)
-      .filter((q) => scope === "all" || !isMastered(q.id))
-      .sort((a, b) => b.exam.year - a.exam.year || a.exam.number - b.exam.number);
+      .filter((q) => scope !== "review" || !isMastered(q.id));
+    if (!picked) state.quizPool.sort((a, b) => b.exam.year - a.exam.year || a.exam.number - b.exam.number);
     state.quizIndex = clamp(state.quizIndex, 0, Math.max(0, state.quizPool.length - 1));
     $("quiz-pool-count").textContent = state.quizPool.length + "問";
     renderOverallAccuracy();

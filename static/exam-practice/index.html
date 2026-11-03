@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicons/tech.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183a34">
+  <title>本試験形式の練習 | 行政書士 過去問ラボ</title>
+  <link rel="stylesheet" href="../architecture.css?v=20260807-1">
+  <link rel="stylesheet" href="../assets/text-marks.css?v=20261101-4">
+  <link rel="stylesheet" href="styles.css?v=20261104-2">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
+  <header class="architecture-hero">
+    <div class="hero-inner">
+      <nav><a href="../index.html">← 過去問ラボへ戻る</a><a href="../mock-exam/">通し演習 →</a></nav>
+      <p class="eyebrow">FIVE CHOICES</p>
+      <h1>本試験形式の練習</h1>
+      <p class="lead">本番と同じ5肢択一の形で、科目別に選んだ40問を解きます。1周目は答えを表示したまま、各肢の○×と理由、知識が足りないときの絞り方、使える常識とテクニックを読みながら解きます。</p>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="page-tabs" role="tablist" aria-label="ページの切り替え">
+      <button class="page-tab" type="button" role="tab" id="practice-tab" aria-controls="practice-section">練習する</button>
+      <button class="page-tab" type="button" role="tab" id="guide-tab" aria-controls="guide-section">知識が足りないときの解き方</button>
+      <button class="page-tab" type="button" role="tab" id="why-tab" aria-controls="why-section">5肢で練習する理由</button>
+    </div>
+
+    <section class="section" id="practice-section" role="tabpanel" aria-labelledby="practice-tab">
+      <div id="set-list-wrap">
+        <div class="section-heading">
+          <p class="kicker">PRACTICE SETS</p>
+          <h2>科目別の練習セット</h2>
+          <p>1セット10問です。問題文はラボのAPIから読み込みます。記録はこの端末のブラウザにだけ残し、学習カードの回答履歴や期日は動かしません。</p>
+        </div>
+        <ol class="howto">
+          <li><b>1周目：答えを見ながら</b>「解く前に答えを表示する」をオンのまま（最初からオン）。各肢の○×と理由、絞り方を読んでから答えを選びます。</li>
+          <li><b>2周目：答えを隠して</b>オフにして、分かる肢にだけ ○ × を付けます。残る選択肢が出るので、そこから選びます。</li>
+          <li><b>仕上げ：本番と同じ画面</b>セットの「本番と同じ画面で解く」から、過去問原文タブで解きます。こちらは過去問の回答履歴に残ります。</li>
+        </ol>
+        <div id="set-list" class="set-grid"><p class="note">練習セットを読み込んでいます…</p></div>
+      </div>
+
+      <div id="solver" hidden>
+        <div class="solver-bar">
+          <button type="button" id="back-to-sets">← セットの一覧</button>
+          <strong id="solver-title"></strong>
+          <span id="solver-position"></span>
+        </div>
+        <div id="solver-progress" class="progress-dots" aria-label="問題の番号"></div>
+        <div class="solver-options">
+          <label class="show-answer"><input type="checkbox" id="show-answer" checked> 解く前に答えを表示する</label>
+          <span id="legend-slot"></span>
+        </div>
+        <div id="question-area"></div>
+      </div>
+    </section>
+
+    <section class="section" id="guide-section" role="tabpanel" aria-labelledby="guide-tab" hidden>
+      <div class="section-heading">
+        <p class="kicker">WHEN KNOWLEDGE RUNS SHORT</p>
+        <h2>知識が足りないときの5肢の解き方</h2>
+        <p>本番では、知らない肢が必ず混ざります。全部の肢が分からなくても、答えが決まる形があります。上から順に使います。数字は直近10年（平成28〜令和7年度）の択一509問（文章理解を除く）で数えたものです。</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>問いの向きに丸を付ける</h3>
+          <p>「正しいもの」を選ぶのか、「誤っているもの」を選ぶのか。知っていても、ここを取り違えると落とします。民法は約半分、商法・会社法は約3分の2が「誤っているもの」を選ぶ問題です。練習の画面では、問題文の上に向きを色で出し、問題文の中の語にも色を付けています。</p>
+        </li>
+        <li>
+          <h3>分かる肢にだけ ○ × を付ける</h3>
+          <p>分からない肢は空けておきます。5肢から1つ選ぶ問題で、確実に判定できる肢が1つ増えるごとに、当たる確率は20%ずつ上がります。</p>
+          <div class="prob" aria-label="確実に判定できる肢の数と、当たる確率">
+            <div>0肢（勘）<strong>20%</strong></div>
+            <div>1肢<strong>40%</strong></div>
+            <div>2肢<strong>60%</strong></div>
+            <div>3肢<strong>80%</strong></div>
+          </div>
+          <p>練習の画面の各肢にある ○ × ボタンで付けると、残る選択肢をその場で出します。</p>
+        </li>
+        <li>
+          <h3>1つ選ぶ問題は、「問われている側」の肢を1つ探す</h3>
+          <p>「正しいもの」を選ぶなら○の肢、「誤っているもの」を選ぶなら×の肢です。1つ見つかれば、ほかの4肢を読み込まなくても決まります。反対側の肢は、分かったら消すだけです。</p>
+        </li>
+        <li>
+          <h3>組合せは、2肢で決まる</h3>
+          <ul>
+            <li>正誤の組合せの問題137問のすべてで、2肢の正誤が分かれば答えが1つに決まる組み方がありました。</li>
+            <li>どの2肢が分かった場合でも、137問中129問は2択以下まで絞れます。</li>
+            <li>問われている側の肢が1つ分かると、ほとんどの問題で選択肢は2つに減ります。反対側の肢が1つ分かっても、3つまでしか減りません。</li>
+          </ul>
+          <p>練習の画面では、問題ごとに「この2肢が分かれば決まる」組を計算して出します。</p>
+        </li>
+        <li>
+          <h3>知らない肢は、常識で中身から判定する</h3>
+          <p>条文や判例を覚えていなくても、「何のための制度か」「誰を守るための決まりか」から結論を出せる肢があります。練習セット40問の絞り方のうち、32問で<a href="../simple-rules/">法律家の常識</a>を使っています。使った常識は、問題ごとに説明つきで出します。</p>
+        </li>
+        <li>
+          <h3>それでも残ったら、語、最後に長さと位置</h3>
+          <p>語の傾向や肢の長さで上がる確率は、数%です（<a href="../technique/">絞り込みテクニック</a>）。行政法では、肢の長さと位置は効きません。知識や常識で付けた○×を、語や長さで覆さないでください。練習の画面では、各肢に当てはまる語と、形だけで選んだときにこの問題で当たったかどうかを出します。効かなかった例も、そのまま出します。</p>
+        </li>
+        <li>
+          <h3>1問3分で次へ</h3>
+          <p>本番は択一54問・多肢選択3問・記述3問を180分で解くので、1問に使えるのは平均3分です。3分で決まらなければ、残った中から選んで問題番号に印を付け、先へ進みます。</p>
+        </li>
+      </ol>
+      <div class="box">
+        <h3>全部の肢が分かる問題は少ない</h3>
+        <p>勉強する範囲（地方自治法・家族法・商法の問37以外・一般知識を除いた356問）で、カードで正誤が分かる肢だけを使ったときの結果です。答えが1つに決まるのは117問（33%）、2択まで絞れるのは20問（6%）、1〜3肢だけ切れるのは77問（22%）、カードで分かる肢が無いのは103問（29%）でした。残りの39問（11%）は、語句を選ぶ組合せと個数の問題です。カードで切ったあと、残った肢を常識で比べる。この「切って、比べる」が、知識が足りないときの中心です。</p>
+      </div>
+    </section>
+
+    <section class="section" id="why-section" role="tabpanel" aria-labelledby="why-tab" hidden>
+      <div class="section-heading">
+        <p class="kicker">WHY FIVE CHOICES</p>
+        <h2>5肢の形でしか練習できないこと</h2>
+        <p>カードと肢別過去問集は、1つの文に○か×を付ける練習です。直近10年の択一509問（ラボに入っている問題。文章理解を除く）で数えました。</p>
+      </div>
+      <div class="box conclusion">
+        <p><strong>5肢の形でしか練習できないのは、①分かる肢だけで答えを決めること、②「誤っているもの」を選ぶ向きに切り替えること、③3時間で60問を回すことの3つです。</strong></p>
+        <p>毎日の練習には科目別の練習セット（1セット10問）を使います。1年分を通すのは、本番の時間配分と解く順番を確かめるために、試験前に1回だけにします。</p>
+      </div>
+      <div class="box">
+        <h3>① 分かる肢だけで答えを決める</h3>
+        <ul>
+          <li>「妥当なものの組合せはどれか」の形（正誤の組合せ）は、509問中137問（27%）でした。</li>
+          <li>1つを選ぶ問題（328問）は、正解の肢1つに確信が持てれば、ほかの4肢を読み込まなくても決まります。</li>
+          <li>カードは1つの文を完全に判断する練習なので、「どの肢から判断するか」「分かる肢だけで止める」は、5肢の形でしか練習できません。</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>② 問いの向きを切り替える</h3>
+        <p>択一の31%（158問）は「誤っている（妥当でない）もの」を選ぶ問題でした。科目で差が大きく、民法は約半分、商法・会社法は約3分の2です。</p>
+        <div class="rate" aria-label="「誤っているもの」を選ぶ問題の割合（科目別）">
+          <div><span>行政法</span><strong>14%</strong></div>
+          <div><span>憲法</span><strong>30%</strong></div>
+          <div><span>民法</span><strong>46%</strong></div>
+          <div><span>商法・会社法</span><strong>65%</strong></div>
+          <div><span>基礎法学</span><strong>20%</strong></div>
+          <div><span>基礎知識</span><strong>36%</strong></div>
+        </div>
+        <p>カードはいつも「この文は正しいか」を聞くので、向きの読み違え（「誤っているもの」を選ぶ問題で正しい肢を選んでしまう）は、5肢の形でしか練習できません。本番では、ほとんどが「妥当なもの」を選ぶ行政法（問8〜26）のすぐあとに、約半分が「誤っているもの」を選ぶ民法（問27〜35）が並びます。民法に入ったら、向きをとくに確かめます。</p>
+      </div>
+      <div class="box">
+        <h3>③ 時間の中で回す</h3>
+        <p>1問の問題文と肢は、中央値で約470字です（民法と憲法は約550字）。解く順番、商法・会社法を1問1分で通すこと、迷った問題に印を付けて先へ進むことは、1年分を通さないと練習できません。</p>
+      </div>
+      <div class="grid2">
+        <div class="box">
+          <h3>1年分を通す</h3>
+          <dl class="compare">
+            <dt>練習できること</dt><dd>時間配分、解く順番、捨てる問題の判断、3時間の集中</dd>
+            <dt>1回にかかる時間</dt><dd>解く3時間＋見直し1時間半</dd>
+            <dt>勉強しない範囲の問題</dt><dd>1年分の択一（文章理解を除く51問）のうち13〜17問が、一般知識・商法の問37以外・地方自治法・家族法。本番どおり、形だけで塗る練習として使う</dd>
+            <dt>使い方</dt><dd>試験前に1回だけ。本番と同じ13時〜16時に通す。使うのはラボの<a href="../mock-exam/">通し演習</a></dd>
+          </dl>
+        </div>
+        <div class="box">
+          <h3>科目別の練習セット</h3>
+          <dl class="compare">
+            <dt>練習できること</dt><dd>分かる肢で切って比べること、問いの向きの切り替え、組合せの絞り方</dd>
+            <dt>1回にかかる時間</dt><dd>10問で、解く30分＋見直し30分</dd>
+            <dt>勉強しない範囲の問題</dt><dd>入れていない。頻出度の高いカードの論点に当たる問題だけ</dd>
+            <dt>使い方</dt><dd>毎日1セット。肢別過去問集の時間の一部と入れ替える</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="box">
+        <h3>1年分を通すなら令和6年度</h3>
+        <ul>
+          <li>令和6年度から、基礎知識に行政書士法・住民基本台帳法・戸籍法などの諸法令が入った今の形になりました。今の形の年度は令和6年度と令和7年度だけです。</li>
+          <li>令和6年度は、勉強しない範囲の問題が13問で、10年の中でいちばん少ない年度です。</li>
+          <li>実際に受けた年度なので、点は少し高めに出ます。点を測るためではなく、時間配分と解く順番を確かめるために使います。文章理解（問58〜60）は試験研究センターの問題PDFで解き、採点のときに正解数を入れます。</li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="page-foot">調べ方：直近10年（平成28〜令和7年度）の択一509問（ラボに入っている合格道場の問題。文章理解を除く）で、問いの向き、組合せの形、カードで正誤が分かる肢（カードの⑤と出典に結び付いた肢）を数えた（2026-11-03）。練習セットは、頻出度の高いカードの論点に当たる問題から科目ごとに選び、今の法律（2026年4月1日時点）で答えが変わっていないことを1問ずつ確かめた（2026-11-04）。各肢の理由と絞り方は自分で書いたもので、合格道場の解説は写していない。正本は同じフォルダの sets.json。</p>
+  </main>
+
+  <script src="../assets/text-marks.js?v=20261101-4"></script>
+  <script src="app.js?v=20261104-2"></script>
+</body>
+</html>
