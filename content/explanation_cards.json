@@ -1420,7 +1420,8 @@
         "questionId": "goukakudojyo:1794",
         "label": "令和7年度 問44",
         "promptSummary": "建築確認を拒否されたXが審査請求をしたところ、利害関係のある委員が審査会の議事に加わっていた。この瑕疵の種類、被告、提起すべき抗告訴訟を40字程度で答える問題。（場面の要約）",
-        "officialQuestionUrl": "https://gyosei-shiken.or.jp/pdf/r7_mondai.pdf"
+        "officialQuestionUrl": "https://gyosei-shiken.or.jp/pdf/r7_mondai.pdf",
+        "providerUrl": "https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1794"
       },
       "review": {
         "currentLawStatus": "official-answer-derived-preview",
@@ -1838,7 +1839,8 @@
         "questionId": "goukakudojyo:1374",
         "label": "平成30年度 問44",
         "promptSummary": "農地転用許可の申請書をB市農業委員会へ提出したが返送されたXが、誰を被告としてどの訴訟を提起すべきかを40字程度で答える問題。（場面の要約）",
-        "officialQuestionUrl": "https://gyosei-shiken.or.jp/pdf/h30_mondai.pdf"
+        "officialQuestionUrl": "https://gyosei-shiken.or.jp/pdf/h30_mondai.pdf",
+        "providerUrl": "https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1374"
       },
       "review": {
         "currentLawStatus": "official-answer-derived-and-current-law-reviewed",

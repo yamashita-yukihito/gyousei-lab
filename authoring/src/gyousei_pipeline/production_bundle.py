@@ -531,7 +531,7 @@ def _project_reconciliation(
 
 def _project_written_origin(value: Any, context: str) -> dict[str, str]:
     origin = _object(value, context)
-    return {
+    projected = {
         "questionId": _text(origin.get("questionId"), f"{context}.questionId"),
         "label": _text(origin.get("label"), f"{context}.label"),
         "promptSummary": _text(
@@ -541,6 +541,12 @@ def _project_written_origin(value: Any, context: str) -> dict[str, str]:
             origin.get("officialQuestionUrl"), f"{context}.officialQuestionUrl"
         ),
     }
+    # 合格道場の問題ページ。あれば画面はこちらへリンクする（2026-11-03に利用者が指示）
+    if "providerUrl" in origin:
+        projected["providerUrl"] = _text(
+            origin.get("providerUrl"), f"{context}.providerUrl"
+        )
+    return projected
 
 
 def _project_cross_field_comparison(value: Any, context: str) -> dict[str, str]:
@@ -1134,7 +1140,14 @@ def _project_related_question_evidence(
         }
         # URLを省けるのは旧10年（sourceEra が archive）の肢だけ。2026-10-24から旧10年にも
         # 合格道場の問題ページのURLを入れたので、あればそのまま出す。それ以外の年度は必須。
-        if record.get("sourceEra") != "archive":
+        # リンク先は合格道場の問題ページ（providerUrl）を先に使う（2026-11-03に利用者が指示）。
+        # 公式コーパス由来の記録（official-*）は officialQuestionUrl が試験研究センターの
+        # 年度PDFで、そのまま出すと⑤から問題ページへ飛べなかった。
+        if record.get("providerUrl"):
+            evidence["sourceUrl"] = _text(
+                record.get("providerUrl"), f"{context}.providerUrl"
+            )
+        elif record.get("sourceEra") != "archive":
             evidence["sourceUrl"] = _text(
                 record.get("officialQuestionUrl"), f"{context}.officialQuestionUrl"
             )

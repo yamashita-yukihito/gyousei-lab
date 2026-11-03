@@ -526,6 +526,7 @@ class ProductionBundleTests(unittest.TestCase):
         self.assertEqual(7, card["frequency"]["occurrences"])
         self.assertEqual(3, card["frequency"]["archiveOccurrences"])
         self.assertEqual("q:written", card["derivedFromWritten"]["questionId"])
+        self.assertNotIn("providerUrl", card["derivedFromWritten"])
 
         source_ref = card["sourceRefs"][0]
         self.assertEqual("令和7年", source_ref["eraYear"])
@@ -540,6 +541,8 @@ class ProductionBundleTests(unittest.TestCase):
         evidence = bundle["relatedQuestionEvidence"][0]
         self.assertEqual("official-test-q1-co", evidence["choiceId"])
         self.assertEqual("オ", evidence["choiceNumber"])
+        # ⑤のリンクは公式PDFより合格道場の問題ページを先に使う（2026-11-03）
+        self.assertEqual("https://provider.example.test/q1", evidence["sourceUrl"])
         self.assertTrue(evidence["historicalTruth"])
         self.assertEqual(
             "行政庁は理由を示さなければならない。", evidence["statementText"]
@@ -762,6 +765,13 @@ class ProductionBundleTests(unittest.TestCase):
         non_written_origin["items"][0]["derivedFromWritten"]["questionId"] = "q:regular"
         with self.assertRaisesRegex(ProductionBundleError, "origin is not a written"):
             self.build(explanation_cards=non_written_origin)
+
+    def test_written_origin_carries_provider_url(self) -> None:
+        cards = explanation_cards()
+        cards["items"][0]["derivedFromWritten"]["providerUrl"] = "https://provider.example.test/written"
+        bundle = self.build(explanation_cards=cards)
+        origin = bundle["explanationCards"][0]["derivedFromWritten"]
+        self.assertEqual("https://provider.example.test/written", origin["providerUrl"])
 
     def test_comparison_table_fails_closed(self) -> None:
         single_row = explanation_cards()

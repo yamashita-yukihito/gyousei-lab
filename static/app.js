@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20261103-1";
+  const APP_VERSION = "20261103-2";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -2048,7 +2048,9 @@
       const meta = make("footer");
       meta.appendChild(make("span", {}, "記述式から○×化"));
       meta.appendChild(make("span", {}, origin.label || "記述式"));
-      if (safeUrl(origin.officialQuestionUrl)) meta.appendChild(make("a", { href: origin.officialQuestionUrl, target: "_blank", rel: "noopener noreferrer" }, "公式問題を見る ↗"));
+      // 合格道場の問題ページを優先する（2026-11-03に利用者が指示）。無いときだけ公式PDF
+      if (safeUrl(origin.providerUrl)) meta.appendChild(make("a", { href: origin.providerUrl, target: "_blank", rel: "noopener noreferrer" }, "出典を見る ↗"));
+      else if (safeUrl(origin.officialQuestionUrl)) meta.appendChild(make("a", { href: origin.officialQuestionUrl, target: "_blank", rel: "noopener noreferrer" }, "公式問題を見る ↗"));
       article.appendChild(meta);
       nodes.push(article);
     }
