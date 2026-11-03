@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 440" role="img" aria-labelledby="t d">
+  <title id="t">無報酬で注意が軽くなるのは民法の寄託だけ</title>
+  <desc id="d">民法の寄託は、有償なら善良な管理者の注意（400条）、無償なら自己の財産に対するのと同一の注意（659条）。民法の委任は、有償でも無償でも善良な管理者の注意（644条）。商法では、商人が営業の範囲内で寄託を受けたときは、無報酬でも善良な管理者の注意（595条）。軽くなるのは民法の無償寄託の1か所だけ。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 21px; font-weight: 800; fill: #183a34; }
+    .th { font-size: 15px; font-weight: 800; fill: #55635d; }
+    .who { font-size: 16px; font-weight: 800; }
+    .sub { font-size: 13px; fill: #55635d; }
+    .care { font-size: 16px; font-weight: 800; fill: #ffffff; }
+    .law { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .note { font-size: 14px; font-weight: 800; fill: #9a3412; }
+  </style>
+  <rect x="0" y="0" width="700" height="440" fill="#f7faf8"/>
+  <text class="h" x="24" y="40">無報酬で注意が軽くなるのは「民法の寄託」だけ</text>
+
+  <text class="th" x="32" y="82">場面</text>
+  <text class="th" x="330" y="82">注意の程度</text>
+  <text class="th" x="588" y="82">条文</text>
+
+  <!-- 1 -->
+  <rect x="20" y="96" width="660" height="68" rx="10" fill="#ffffff" stroke="#c9d6d0"/>
+  <text class="who" x="32" y="124">民法の寄託・報酬あり</text>
+  <text class="sub" x="32" y="148">倉庫にお金を払って預ける</text>
+  <rect x="318" y="110" width="250" height="40" rx="8" fill="#1f6f5c"/>
+  <text class="care" x="336" y="136">善良な管理者の注意</text>
+  <text class="law" x="588" y="136">400条</text>
+
+  <!-- 2 -->
+  <rect x="20" y="176" width="660" height="68" rx="10" fill="#fff4e8" stroke="#ea8a3a" stroke-width="2.5"/>
+  <text class="who" x="32" y="204">民法の寄託・報酬なし</text>
+  <text class="sub" x="32" y="228">友人の荷物をただで預かる</text>
+  <rect x="318" y="190" width="250" height="40" rx="8" fill="#c2410c"/>
+  <text class="care" x="330" y="216">自己の財産と同一の注意</text>
+  <text class="law" x="588" y="216">659条</text>
+
+  <!-- 3 -->
+  <rect x="20" y="256" width="660" height="68" rx="10" fill="#ffffff" stroke="#c9d6d0"/>
+  <text class="who" x="32" y="284">民法の委任・報酬あり／なし</text>
+  <text class="sub" x="32" y="308">手続をまるごと任せる</text>
+  <rect x="318" y="270" width="250" height="40" rx="8" fill="#1f6f5c"/>
+  <text class="care" x="336" y="296">善良な管理者の注意</text>
+  <text class="law" x="588" y="296">644条</text>
+
+  <!-- 4 -->
+  <rect x="20" y="336" width="660" height="68" rx="10" fill="#ffffff" stroke="#c9d6d0"/>
+  <text class="who" x="32" y="364">商人が営業の範囲内で寄託</text>
+  <text class="sub" x="32" y="388">倉庫業者が今回だけ無料で</text>
+  <rect x="318" y="350" width="250" height="40" rx="8" fill="#1f6f5c"/>
+  <text class="care" x="336" y="376">善良な管理者の注意</text>
+  <text class="law" x="588" y="376">商法595条</text>
+
+  <text class="note" x="24" y="428">オレンジの1か所だけが軽い。ほかは報酬がなくても善管注意。</text>
+</svg>
