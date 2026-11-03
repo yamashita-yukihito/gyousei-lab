@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 516" role="img" aria-labelledby="t d">
+  <title id="t">憲法の割合は3つの意味に分かれる</title>
+  <desc id="d">3分の2＝重い決定（特別多数）：衆議院の再可決（法律案）は出席議員（59条2項）、秘密会にするは出席議員（57条1項）、議員の議席を失わせる（資格争訟）は出席議員（55条）、議員を除名するは出席議員（58条2項）、憲法改正の発議は総議員（ここだけ）（96条1項）。少数でも動かせる（少数派の声）：臨時会の召集を要求するは総議員の4分の1（53条）、表決を会議録に載せるは出席議員の5分の1（57条3項）。会議の最低ライン・ふつうの議決：会議を開く（定足数）は総議員の3分の1（56条1項）、ふつうの議決は出席議員の過半数（56条2項）。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 20px; font-weight: 800; fill: #183a34; }
+    .k { font-size: 15px; font-weight: 800; }
+    .c { font-size: 14px; }
+    .b { font-size: 14px; font-weight: 800; }
+    .s { font-size: 12.5px; fill: #55635d; }
+    .note { font-size: 13px; fill: #55635d; }
+  </style>
+  <rect x="0" y="0" width="860" height="516" fill="#f7faf8"/>
+  <text class="h" x="20" y="38">憲法の割合は3つの意味に分かれる</text>
+  <rect x="12" y="60" width="836" height="190" rx="8" fill="#fde8e4"/>
+  <text class="k" x="26" y="87" style="fill:#b42318">3分の2＝重い決定（特別多数）</text>
+  <text class="c" x="40" y="116">衆議院の再可決（法律案）</text><text class="b" x="420" y="116">出席議員</text><text class="s" x="700" y="116">59条2項</text>
+  <text class="c" x="40" y="146">秘密会にする</text><text class="b" x="420" y="146">出席議員</text><text class="s" x="700" y="146">57条1項</text>
+  <text class="c" x="40" y="176">議員の議席を失わせる（資格争訟）</text><text class="b" x="420" y="176">出席議員</text><text class="s" x="700" y="176">55条</text>
+  <text class="c" x="40" y="206">議員を除名する</text><text class="b" x="420" y="206">出席議員</text><text class="s" x="700" y="206">58条2項</text>
+  <text class="c" x="40" y="236">憲法改正の発議</text><text class="b" x="420" y="236">総議員（ここだけ）</text><text class="s" x="700" y="236">96条1項</text>
+  <rect x="12" y="262" width="836" height="100" rx="8" fill="#e3ecf6"/>
+  <text class="k" x="26" y="289" style="fill:#1e4e8c">少数でも動かせる（少数派の声）</text>
+  <text class="c" x="40" y="318">臨時会の召集を要求する</text><text class="b" x="420" y="318">総議員の4分の1</text><text class="s" x="700" y="318">53条</text>
+  <text class="c" x="40" y="348">表決を会議録に載せる</text><text class="b" x="420" y="348">出席議員の5分の1</text><text class="s" x="700" y="348">57条3項</text>
+  <rect x="12" y="374" width="836" height="100" rx="8" fill="#e3f1ea"/>
+  <text class="k" x="26" y="401" style="fill:#1f6f5c">会議の最低ライン・ふつうの議決</text>
+  <text class="c" x="40" y="430">会議を開く（定足数）</text><text class="b" x="420" y="430">総議員の3分の1</text><text class="s" x="700" y="430">56条1項</text>
+  <text class="c" x="40" y="460">ふつうの議決</text><text class="b" x="420" y="460">出席議員の過半数</text><text class="s" x="700" y="460">56条2項</text>
+  <text class="note" x="20" y="504">3分の2で「総議員」なのは憲法改正の発議だけ。4分の1は臨時会の話で、参議院の緊急集会ではない。</text>
+</svg>
