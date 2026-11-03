@@ -118,6 +118,19 @@ class ExamPracticeSetsTest(unittest.TestCase):
             # 1つ選ぶ問題は問われている側の肢がちょうど1つ、2肢の組合せは2つ
             self.assertEqual(marks.count(asked), 2 if combo else 1, question["exam"])
 
+    def test_every_false_choice_has_its_broken_spot(self):
+        kinds = set(json.loads(HINTS.read_text(encoding="utf-8"))["kinds"])
+        for question in self.questions():
+            breaks = question["breaks"]
+            for label, note in question["notes"].items():
+                if note.startswith("×"):
+                    self.assertIn(label, breaks, question["exam"] + " " + label)
+                else:
+                    self.assertNotIn(label, breaks, question["exam"] + " " + label)
+            for label, entry in breaks.items():
+                self.assertIn(entry["kind"], kinds, question["exam"])
+                self.assertTrue(0 < len(entry["spot"]) <= 40, question["exam"])
+
     def test_route_names_exist(self):
         rule_names = set(re.findall(r"概念\s*::\s*(.+)", RULES.read_text(encoding="utf-8")))
         kinds = {kind["label"] for kind in json.loads(HINTS.read_text(encoding="utf-8"))["kinds"].values()}
@@ -173,6 +186,22 @@ class ExamPracticeAgainstBundleTest(unittest.TestCase):
                 expected = {label: asked if label == answer else other for label in choices}
             actual = {label: text[:1] for label, text in item["notes"].items()}
             self.assertEqual(actual, expected, item["exam"])
+
+    def test_broken_spot_appears_once_in_the_choice(self):
+        for item in all_questions(self.data):
+            question = self.bundle_questions[item["questionId"]]
+            content = question["content"]
+            if "組合せ" in item["format"]:
+                text = content.get("question") or ""
+                marks = list(re.finditer(r"(^|\s)([ア-オ])[．.]", text))
+                texts = {}
+                for i, match in enumerate(marks):
+                    end = marks[i + 1].start() if i + 1 < len(marks) else len(text)
+                    texts[match.group(2)] = text[match.end():end]
+            else:
+                texts = {str(choice["label"]): choice["text"] for choice in content["choices"]}
+            for label, entry in item["breaks"].items():
+                self.assertEqual(texts[label].count(entry["spot"]), 1, item["exam"] + " " + label)
 
     def test_question_text_is_not_copied(self):
         for item in all_questions(self.data):

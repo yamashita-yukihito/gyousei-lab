@@ -476,11 +476,16 @@
     head.append(marks);
     li.append(head);
 
-    // 誤りの肢で、結び付いたカードの「壊された箇所」が肢の文にそのまま出ていれば、赤で囲む。
+    // 誤りの肢は、誤りとして作り変えられた箇所の背景を赤くする（学習カードの問題文と同じ印）。
+    // 箇所と作り方は sets.json の breaks（肢ごとに自分で書いたもの）を使う。無い肢だけ、結び付いたカードの記録から探す。
     let spot = "";
     let breakInfo = null;
     const textKey = plain(item.text);
-    if (visible && model.truthOk && !truth) {
+    const own = entry.breaks && entry.breaks[item.label];
+    if (visible && model.truthOk && !truth && own && item.text.includes(own.spot)) {
+      spot = own.spot;
+      breakInfo = { kind: own.kind, where: "" };
+    } else if (visible && model.truthOk && !truth) {
       mainIds.some((id) => {
         const hint = state.hints.cards[id];
         const card = state.cards.get(id);
@@ -538,7 +543,8 @@
         const line = make("p", { className: "item-hint" });
         line.append(make("a", { className: "hint-tag break", href: "../technique/#how", target: "_blank", rel: "noopener" }, "誤りの作り方"), " ");
         line.append(make("b", {}, kind.label), " ");
-        marked(line, (breakInfo.where || "") + (spot ? "（赤で囲んだ部分）" : ""));
+        marked(line, (breakInfo.where ? breakInfo.where + " " : "")
+          + (spot ? "背景が赤い部分が、誤りとして作り変えられた箇所です。" : "") + "見る場所：" + kind.look);
         detail.append(line);
       }
     }
