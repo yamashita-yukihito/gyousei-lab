@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20261102-2";
+  const APP_VERSION = "20261103-1";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -2103,9 +2103,15 @@
       article.appendChild(make("p", {}, comparison.explanation));
       if (comparison.memoryCue) article.appendChild(make("small", {}, "見分け方：" + comparison.memoryCue));
       if (comparison.relatedCardId && state.studyById.has(comparison.relatedCardId)) {
-        const button = make("button", { type: "button", className: "cross-field-jump" }, "関連論点を開く");
-        button.addEventListener("click", () => openRelatedStudyCard(comparison.relatedCardId));
-        article.appendChild(button);
+        // 新しいタブで開く（2026-11-03に利用者が依頼）。解いている途中のカードを離れずに見比べられる。
+        // 開いた先は既存のdeep link（?cardId=）で、読込済みIDとの完全一致だけを通す。
+        const link = make("a", {
+          className: "cross-field-jump",
+          href: "?cardId=" + encodeURIComponent(comparison.relatedCardId) + "#study",
+          target: "_blank",
+          rel: "noopener",
+        }, "関連論点を開く ↗");
+        article.appendChild(link);
       }
       return article;
     });
