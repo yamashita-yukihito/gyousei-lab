@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" role="img" aria-labelledby="t d">
+  <title id="t">誰が先に死に、誰が誰の立場を継いだかで決まる</title>
+  <desc id="d">①本人Aが死亡 → 息子B（無権代理人）が1人で相続：Bは拒絶できない（最判昭40.6.18）。②息子Bが死亡 → 本人Aが相続：Aは拒絶できるただしBの責任（117条）は継ぐ（最判昭37.4.20、最判昭48.7.3）。③本人Aが死亡 → 息子Bと娘Cが共同相続：Cは拒絶できるCが拒絶すればBの分も有効にならない（最判平5.1.21）。④Bが死亡 → AとAの妻Dが相続 → Aが死亡 → Dが相続：Dは拒絶できない先にBの立場を継いだから（最判昭63.3.1）。⑤Aが死亡 → BとCが相続 → Bが死亡 → Cが相続：Cは拒絶できるとされる判例はない（—）。⑥Aが追認を拒絶してから死亡 → Bが相続：契約は有効にならない拒絶はもう確定している（最判平10.7.17）。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 20px; font-weight: 800; fill: #183a34; }
+    .th { font-size: 14px; font-weight: 800; fill: #55635d; }
+    .no { font-size: 20px; font-weight: 800; fill: #183a34; }
+    .flow { font-size: 14px; font-weight: 800; }
+    .r1 { font-size: 14px; font-weight: 800; }
+    .r2 { font-size: 12.5px; fill: #3d4a45; }
+    .case { font-size: 12.5px; fill: #55635d; }
+    .note { font-size: 13px; fill: #55635d; }
+  </style>
+  <rect x="0" y="0" width="880" height="570" fill="#f7faf8"/>
+  <text class="h" x="20" y="38">誰が先に死に、誰が誰の立場を継いだかで決まる</text>
+  <text class="th" x="62" y="80">死亡と相続の流れ</text><text class="th" x="474" y="80">追認拒絶</text><text class="th" x="742" y="80">判例</text>
+  <rect x="12" y="98" width="856" height="64" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="no" x="26" y="138">①</text>
+  <text class="flow" x="62" y="136">本人Aが死亡 → 息子B（無権代理人）が1人で相続</text>
+  <rect x="462" y="106" width="268" height="48" rx="6" fill="#fde8e4"/>
+  <text class="r1" x="474" y="128" style="fill:#b42318">Bは拒絶できない</text>
+  <text class="case" x="742" y="136">最判昭40.6.18</text>
+  <rect x="12" y="170" width="856" height="64" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="no" x="26" y="210">②</text>
+  <text class="flow" x="62" y="208">息子Bが死亡 → 本人Aが相続</text>
+  <rect x="462" y="178" width="268" height="48" rx="6" fill="#e3f1ea"/>
+  <text class="r1" x="474" y="200" style="fill:#1f6f5c">Aは拒絶できる</text>
+  <text class="r2" x="474" y="220">ただしBの責任（117条）は継ぐ</text>
+  <text class="case" x="742" y="200">最判昭37.4.20</text>
+  <text class="case" x="742" y="220">最判昭48.7.3</text>
+  <rect x="12" y="242" width="856" height="64" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="no" x="26" y="282">③</text>
+  <text class="flow" x="62" y="280">本人Aが死亡 → 息子Bと娘Cが共同相続</text>
+  <rect x="462" y="250" width="268" height="48" rx="6" fill="#e3f1ea"/>
+  <text class="r1" x="474" y="272" style="fill:#1f6f5c">Cは拒絶できる</text>
+  <text class="r2" x="474" y="292">Cが拒絶すればBの分も有効にならない</text>
+  <text class="case" x="742" y="280">最判平5.1.21</text>
+  <rect x="12" y="314" width="856" height="64" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="no" x="26" y="354">④</text>
+  <text class="flow" x="62" y="352">Bが死亡 → AとAの妻Dが相続 → Aが死亡 → Dが相続</text>
+  <rect x="462" y="322" width="268" height="48" rx="6" fill="#fde8e4"/>
+  <text class="r1" x="474" y="344" style="fill:#b42318">Dは拒絶できない</text>
+  <text class="r2" x="474" y="364">先にBの立場を継いだから</text>
+  <text class="case" x="742" y="352">最判昭63.3.1</text>
+  <rect x="12" y="386" width="856" height="64" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="no" x="26" y="426">⑤</text>
+  <text class="flow" x="62" y="424">Aが死亡 → BとCが相続 → Bが死亡 → Cが相続</text>
+  <rect x="462" y="394" width="268" height="48" rx="6" fill="#e3f1ea"/>
+  <text class="r1" x="474" y="416" style="fill:#1f6f5c">Cは拒絶できるとされる</text>
+  <text class="r2" x="474" y="436">判例はない</text>
+  <text class="case" x="742" y="424">—</text>
+  <rect x="12" y="458" width="856" height="64" rx="8" fill="#ffffff" stroke="#d3ddd8"/>
+  <text class="no" x="26" y="498">⑥</text>
+  <text class="flow" x="62" y="496">Aが追認を拒絶してから死亡 → Bが相続</text>
+  <rect x="462" y="466" width="268" height="48" rx="6" fill="#eef0f6"/>
+  <text class="r1" x="474" y="488" style="fill:#3b4a8c">契約は有効にならない</text>
+  <text class="r2" x="474" y="508">拒絶はもう確定している</text>
+  <text class="case" x="742" y="496">最判平10.7.17</text>
+  <text class="note" x="20" y="556">A＝本人（土地の持ち主）、B＝無権代理で土地を売った息子、C＝娘、D＝Aの妻（Bの母）。</text>
+</svg>
