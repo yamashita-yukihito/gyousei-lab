@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 470" role="img" aria-labelledby="t d">
+  <title id="t">善意なのに悪意と偽って、時効完成を後ろへずらせるか</title>
+  <desc id="d">Bは2000年から善意無過失で占有し、2010年に10年の時効が完成した。2015年にCが買って登記した。Bが悪意と偽って20年の時効にすると、完成が2020年になり、Cは完成前の第三者になるように見える。しかし完成の時期を占有者の都合で動かすことは、起算点の判例と同じ理由で認められない。正攻法は、Cの登記の2015年から10年占有を続けて2025年に再び時効取得することで、これなら登記なしでCに勝てる。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .y { font-size: 13px; font-weight: 800; fill: #183a34; }
+    .ok { font-size: 14px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 14px; font-weight: 800; fill: #b23a2e; }
+  </style>
+  <rect width="640" height="470" fill="#fbfaf6"/>
+  <text x="320" y="30" text-anchor="middle" class="h">「本当は悪意でした」で、完成を後ろへずらせるか</text>
+
+  <line x1="40" y1="110" x2="610" y2="110" stroke="#1d2a26" stroke-width="2"/>
+  <line x1="60" y1="102" x2="60" y2="118" stroke="#1d2a26" stroke-width="2"/>
+  <text x="60" y="96" text-anchor="middle" class="y">2000</text>
+  <text x="60" y="136" text-anchor="middle" class="t">Bが占有開始</text>
+  <text x="60" y="152" text-anchor="middle" class="t">（善意・無過失）</text>
+  <line x1="190" y1="102" x2="190" y2="118" stroke="#1f6b45" stroke-width="3"/>
+  <text x="190" y="96" text-anchor="middle" class="y">2010</text>
+  <text x="190" y="136" text-anchor="middle" class="ok">10年で完成</text>
+  <line x1="255" y1="102" x2="255" y2="118" stroke="#8a5a1f" stroke-width="3"/>
+  <text x="255" y="96" text-anchor="middle" class="y">2015</text>
+  <text x="270" y="136" class="t">Cが買って登記</text>
+  <text x="270" y="152" class="t">（完成後の第三者）</text>
+  <line x1="320" y1="102" x2="320" y2="118" stroke="#b23a2e" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="320" y="96" text-anchor="middle" class="y" fill="#b23a2e">2020</text>
+  <text x="320" y="74" text-anchor="middle" class="ng">悪意なら20年で完成?</text>
+  <line x1="385" y1="102" x2="385" y2="118" stroke="#1f6b45" stroke-width="3"/>
+  <text x="385" y="96" text-anchor="middle" class="y">2025</text>
+  <text x="430" y="136" class="ok">Cの登記から10年</text>
+  <text x="430" y="152" class="ok">＝もう一度完成</text>
+
+  <rect x="20" y="180" width="295" height="270" rx="10" fill="#fff4f1" stroke="#b23a2e" stroke-width="2"/>
+  <text x="36" y="208" class="ng">ウソの作戦：悪意を名乗る</text>
+  <text x="36" y="236" class="t">完成を2020年へずらし、Cを</text>
+  <text x="36" y="256" class="t">「完成前の第三者」に変える狙い</text>
+  <line x1="36" y1="270" x2="300" y2="270" stroke="#e4c8c2"/>
+  <text x="36" y="294" class="t">× 完成の時期を、占有者の都合で</text>
+  <text x="36" y="312" class="t">　動かすことはできない</text>
+  <text x="36" y="330" class="t">　（起算点の判例 最判昭35.7.27</text>
+  <text x="36" y="348" class="t">　　と同じ理由）</text>
+  <text x="36" y="374" class="t">× 善意は推定される（186条1項）。</text>
+  <text x="36" y="392" class="t">　悪意だと言うなら証拠が要る</text>
+  <text x="36" y="418" class="t">× 法廷でのウソは過料の対象</text>
+  <text x="36" y="436" class="t">　（民事訴訟法209条）</text>
+
+  <rect x="325" y="180" width="295" height="270" rx="10" fill="#f0f7f2" stroke="#1f6b45" stroke-width="2"/>
+  <text x="341" y="208" class="ok">正攻法：使い続ける</text>
+  <text x="341" y="236" class="t">Cの登記（2015年）の後も</text>
+  <text x="341" y="256" class="t">時効に必要な期間、占有を続ける</text>
+  <line x1="341" y1="270" x2="605" y2="270" stroke="#c8e0cf"/>
+  <text x="341" y="294" class="t">○ 新しい時効から見れば、Cは</text>
+  <text x="341" y="312" class="t">　完成時の持ち主＝当事者</text>
+  <text x="341" y="338" class="t">○ 登記なしでCに勝てる</text>
+  <text x="341" y="356" class="t">　（最判昭36.7.20）</text>
+  <text x="341" y="390" class="t">ウソをつかなくても、2025年に</text>
+  <text x="341" y="408" class="t">2回目の10年がたっていれば、</text>
+  <text x="341" y="426" class="t">正直なBがそのまま勝つ。</text>
+</svg>
