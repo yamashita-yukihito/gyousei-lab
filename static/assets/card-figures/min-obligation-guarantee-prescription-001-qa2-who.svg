@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-labelledby="t d">
+  <title id="t">誰に請求・誰が承認したら、主たる債務の時効は止まるか</title>
+  <desc id="d">主たる債務者に請求すれば、主債務も保証債務も止まる。保証人に請求すると、保証債務だけ止まり主債務は止まらない。連帯保証人に請求しても、原則として主債務は止まらず、債権者と主たる債務者が別の合意をしていれば止まる。物上保証人の土地を競売にかけた場合は、主たる債務者に通知すれば主債務も止まる。主たる債務者が承認すれば、物上保証人も更新を否定できない。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 14px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .ok { font-size: 15px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 15px; font-weight: 800; fill: #b23a2e; }
+  </style>
+  <rect width="640" height="480" fill="#fbfaf6"/>
+  <text x="320" y="32" text-anchor="middle" class="h">誰に向けた手続なら、主たる債務の時効が止まるか</text>
+  <rect x="20" y="52" width="600" height="410" rx="10" fill="#fff" stroke="#c9c2b0"/>
+  <text x="36" y="82" class="b">銀行が手続をした相手</text>
+  <text x="300" y="82" class="b">主たる債務</text>
+  <text x="440" y="82" class="b">保証債務</text>
+  <line x1="20" y1="96" x2="620" y2="96" stroke="#c9c2b0"/>
+
+  <text x="36" y="126" class="t">主たる債務者に請求</text>
+  <text x="36" y="146" class="s">（このカード・457条1項）</text>
+  <text x="300" y="126" class="ok">○ 止まる</text>
+  <text x="440" y="126" class="ok">○ 止まる</text>
+  <line x1="20" y1="162" x2="620" y2="162" stroke="#e4dfd2"/>
+
+  <text x="36" y="192" class="t">保証人に請求</text>
+  <text x="36" y="212" class="s">（保証人だけの話で終わる）</text>
+  <text x="300" y="192" class="ng">× 止まらない</text>
+  <text x="440" y="192" class="ok">○ 止まる</text>
+  <text x="440" y="212" class="s">（でも主債務の時効を</text>
+  <text x="440" y="228" class="s">　援用されれば負ける）</text>
+  <line x1="20" y1="242" x2="620" y2="242" stroke="#e4dfd2"/>
+
+  <text x="36" y="272" class="t">連帯保証人に請求</text>
+  <text x="36" y="292" class="s">（458条→441条）</text>
+  <text x="300" y="272" class="ng">× 原則止まらない</text>
+  <text x="300" y="292" class="s">別の合意があれば止まる</text>
+  <text x="440" y="272" class="ok">○ 止まる</text>
+  <line x1="20" y1="308" x2="620" y2="308" stroke="#e4dfd2"/>
+
+  <text x="36" y="338" class="t">物上保証人の土地を競売</text>
+  <text x="36" y="358" class="s">（154条・平成22年問28）</text>
+  <text x="300" y="338" class="ok">○ 主たる債務者に</text>
+  <text x="300" y="358" class="ok">　通知すれば止まる</text>
+  <text x="440" y="338" class="t">（保証債務はない）</text>
+  <line x1="20" y1="374" x2="620" y2="374" stroke="#c9c2b0"/>
+
+  <text x="36" y="404" class="b">逆向き：主たる債務者が承認した</text>
+  <text x="36" y="428" class="t">→ 保証人にも及ぶ（457条1項）。物上保証人も否定できない</text>
+  <text x="36" y="446" class="s">　（平成21年問28・平成22年問28）</text>
+</svg>
