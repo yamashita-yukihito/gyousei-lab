@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 600" role="img" aria-labelledby="t d">
+  <title id="t">二重譲渡で負けた買主が詐害行為取消しを使える流れ</title>
+  <desc id="d">AがBに甲不動産を売ったが、Cにも売ってCが先に登記した。BはCに負け、Aに対する甲の引渡しの債権は損害賠償の債権に変わる。甲を手放してAが無資力になったとき、BはAからCへの譲渡を詐害行為として取り消せる。登記はAへ戻るだけで、Bは自分への移転登記を求められない。Bは、Aに戻った甲を差し押さえて損害賠償の分を回収する。債権者代位権とは別の制度。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .ng { font-size: 13px; font-weight: 800; fill: #b23a2e; }
+    .ok { font-size: 13px; font-weight: 800; fill: #1f6b45; }
+    .n { font-size: 15px; font-weight: 800; fill: #ffffff; }
+  </style>
+  <defs>
+    <marker id="qa4arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7a8a85"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="640" height="600" fill="#ffffff"/>
+  <text class="h" x="20" y="34">二重譲渡で負けたBが、詐害行為取消しを使える流れ</text>
+  <text class="s" x="20" y="56">Bはお金を貸した人ではなく、甲を買った人。それでも「債権者」になれる。</text>
+
+  <!-- 1 -->
+  <rect x="20" y="72" width="600" height="72" rx="10" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <circle cx="44" cy="96" r="13" fill="#183a34"/><text class="n" x="39" y="101">1</text>
+  <text class="b" x="66" y="101">AがBに甲を売った（Bは登記していない）</text>
+  <text class="t" x="66" y="126">BはAに対して「甲を引き渡せ」という債権を持つ（特定物の債権）。</text>
+  <line x1="320" y1="146" x2="320" y2="160" stroke="#7a8a85" stroke-width="2" marker-end="url(#qa4arrow)"/>
+
+  <!-- 2 -->
+  <rect x="20" y="164" width="600" height="72" rx="10" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <circle cx="44" cy="188" r="13" fill="#183a34"/><text class="n" x="39" y="193">2</text>
+  <text class="b" x="66" y="193">AがCにも売り、Cが先に登記した</text>
+  <text class="t" x="66" y="218">177条でCの勝ち。Bの「引き渡せ」は <tspan class="ng">損害賠償（お金）の債権</tspan> に変わる。</text>
+  <line x1="320" y1="238" x2="320" y2="252" stroke="#7a8a85" stroke-width="2" marker-end="url(#qa4arrow)"/>
+
+  <!-- 3 -->
+  <rect x="20" y="256" width="600" height="72" rx="10" fill="#fdf8e8" stroke="#e2cf8f"/>
+  <circle cx="44" cy="280" r="13" fill="#183a34"/><text class="n" x="39" y="285">3</text>
+  <text class="b" x="66" y="285">甲を手放して、Aにはほかに財産がない（無資力）</text>
+  <text class="t" x="66" y="310">BがAに損害賠償を求めても、払ってもらう当てがない。</text>
+  <line x1="320" y1="330" x2="320" y2="344" stroke="#7a8a85" stroke-width="2" marker-end="url(#qa4arrow)"/>
+
+  <!-- 4 -->
+  <rect x="20" y="348" width="600" height="72" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <circle cx="44" cy="372" r="13" fill="#183a34"/><text class="n" x="39" y="377">4</text>
+  <text class="b" x="66" y="377">BはA→Cの譲渡を詐害行為として取り消せる（424条）</text>
+  <text class="t" x="66" y="402">だから平成28年問32肢4の「取り消すことはできない」は <tspan class="ng">×</tspan>。</text>
+  <line x1="320" y1="422" x2="320" y2="436" stroke="#7a8a85" stroke-width="2" marker-end="url(#qa4arrow)"/>
+
+  <!-- 5 -->
+  <rect x="20" y="440" width="600" height="92" rx="10" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <circle cx="44" cy="464" r="13" fill="#183a34"/><text class="n" x="39" y="469">5</text>
+  <text class="b" x="66" y="469">甲の登記はAへ戻るだけ</text>
+  <text class="t" x="66" y="494"><tspan class="ng">×</tspan> Bは「自分の名義にしろ」とは言えない（最判昭53.10.5）。</text>
+  <text class="t" x="66" y="516"><tspan class="ok">○</tspan> Aに戻った甲を差し押さえて、損害賠償の分を回収する。</text>
+
+  <text class="t" x="20" y="560">・使うのは詐害行為取消権（424条）。債権者代位権（423条）とは別の制度。</text>
+  <text class="t" x="20" y="582">・土地そのものは取れない。取れるのは「お金の回収の当て」。</text>
+</svg>
