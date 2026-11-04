@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 690" role="img" aria-labelledby="t d">
+  <title id="t">登記があるのに負ける過去問の型</title>
+  <desc id="d">登記で勝負が決まるのは、同じ人から権利を取り合った対抗関係のときだけ。相手が第三者でないときは、登記があっても負ける。無権利者から買った人（共同相続人の単独登記）、時効完成前に買った人、相続人、背信的悪意者がこれに当たる。登記より強い別のルールが働くときも、登記があっても負ける。時効完成後に登記されても、その後また時効期間占有された場合、相続放棄、通行地役権、詐害行為取消し、先に仮登記があった場合。登記名義を残した建物の元の持ち主は、建物を売ったと言って収去を免れない。逆に、遺産分割後・遺贈・相続させる遺言の法定相続分を超える部分・時効完成後は、登記がないと負ける。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .ng { font-size: 13px; font-weight: 800; fill: #b23a2e; }
+    .ok { font-size: 13px; font-weight: 800; fill: #1f6b45; }
+  </style>
+  <rect width="640" height="690" fill="#fbfaf6"/>
+  <text x="320" y="30" text-anchor="middle" class="h">登記があるのに負ける：過去問の型</text>
+  <text x="320" y="54" text-anchor="middle" class="t">登記で決まるのは「同じ人から権利を取り合った」ときだけ</text>
+
+  <rect x="20" y="68" width="600" height="196" rx="10" fill="#fff" stroke="#c9c2b0"/>
+  <text x="36" y="94" class="b">A 相手がそもそも「第三者」ではない</text>
+  <text x="36" y="120" class="ng">無権利者から買った</text>
+  <text x="196" y="120" class="t">共同相続人の勝手な単独登記（登記に公信力なし）</text>
+  <text x="196" y="138" class="s">平成30年問29ウ・令和6年問29肢1</text>
+  <text x="36" y="164" class="ng">時効完成前に買った</text>
+  <text x="196" y="164" class="t">時効取得者と「当事者」の関係になる</text>
+  <text x="196" y="182" class="s">令和5年問28肢1</text>
+  <text x="36" y="208" class="ng">相続人</text>
+  <text x="196" y="208" class="t">亡くなった人の立場をそのまま引き継ぐ</text>
+  <text x="196" y="226" class="s">平成18年問30肢3</text>
+  <text x="36" y="250" class="ng">背信的悪意者</text>
+  <text x="196" y="250" class="t">令和5年問28肢2・平成25年問28肢5・令和2年問46</text>
+
+  <rect x="20" y="276" width="600" height="250" rx="10" fill="#fff" stroke="#c9c2b0"/>
+  <text x="36" y="302" class="b">B 登記より強い、別のルールが働く</text>
+  <text x="36" y="328" class="ng">時効がもう一度完成</text>
+  <text x="196" y="328" class="t">完成後に登記されても、そこからまた時効期間占有</text>
+  <text x="196" y="346" class="s">令和5年問28肢3（所有権）・肢4（抵当権が消える）</text>
+  <text x="36" y="372" class="ng">相続放棄</text>
+  <text x="196" y="372" class="t">放棄は登記なしで誰にでも。差押債権者も負ける</text>
+  <text x="196" y="390" class="s">令和6年問29肢4</text>
+  <text x="36" y="416" class="ng">通行地役権</text>
+  <text x="196" y="416" class="t">通路と分かる土地の買主は、登記がないと言えない</text>
+  <text x="196" y="434" class="s">平成24年問29肢5（理由は背信的悪意ではない）</text>
+  <text x="36" y="460" class="ng">詐害行為取消し</text>
+  <text x="196" y="460" class="t">二重譲渡でAが無資力なら、Cの登記があっても取り消せる</text>
+  <text x="196" y="478" class="s">平成28年問32肢4</text>
+  <text x="36" y="504" class="ng">先に仮登記</text>
+  <text x="196" y="504" class="t">仮登記の人が本登記すると、間に登記した人は負ける</text>
+  <text x="196" y="520" class="s">平成30年問29エ（本登記するまでは勝てない）</text>
+
+  <rect x="20" y="538" width="600" height="56" rx="10" fill="#fff" stroke="#c9c2b0"/>
+  <text x="36" y="562" class="ng">登記名義を残した元の持ち主</text>
+  <text x="236" y="562" class="t">「建物はもう売った」と言って収去を免れない</text>
+  <text x="236" y="582" class="s">平成30年問29オ（登記が自分に不利に働く）</text>
+
+  <rect x="20" y="606" width="600" height="72" rx="10" fill="#eef6f0" stroke="#9cc5ab"/>
+  <text x="36" y="630" class="ok">逆に「登記がないと負ける」と覚え直す型</text>
+  <text x="36" y="650" class="t">遺産分割後・遺贈・相続させる遺言の法定相続分を超える部分・時効完成後</text>
+  <text x="36" y="668" class="s">令和6年問29肢2・3・5、令和3年問35ア、令和5年問28肢5、留置権は平成27年問30肢2</text>
+</svg>
