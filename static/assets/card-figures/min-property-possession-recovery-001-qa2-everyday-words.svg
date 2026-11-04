@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 600" role="img" aria-labelledby="t d">
+  <title id="t">占有の訴えと物権的請求権を日常語で覚える</title>
+  <desc id="d">時間の順に3つに分ける。取られた（過去）は債権回収のイメージで、占有回収の訴え＝返還と損害賠償、物権的請求権は返還請求権。邪魔されている（今）はボール保持のイメージで、占有保持の訴え＝妨害の停止と損害賠償、物権的請求権は妨害排除請求権。危ない（これから）は環境保全のイメージで、占有保全の訴え＝妨害の予防または損害賠償の担保、物権的請求権は妨害予防請求権。損害が出ている回収と保持には賠償が付き、まだ損害がない保全は賠償の代わりに担保。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 13px; fill: #4b5a55; }
+    .col { font-size: 12px; font-weight: 800; fill: #4b5a55; }
+    .big { font-size: 17px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 14px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .red { font-size: 14px; font-weight: 800; fill: #b23a2e; }
+    .note { font-size: 13px; }
+  </style>
+  <rect x="0" y="0" width="640" height="600" fill="#ffffff"/>
+  <text class="h" x="20" y="34">「回収・保持・保全」は日常語で覚える</text>
+  <text class="sub" x="20" y="58">時間の順に並べる：取られた（過去）→ 邪魔されている（今）→ 危ない（これから）</text>
+
+  <text class="col" x="28" y="90">いつ・何が</text>
+  <text class="col" x="168" y="90">日常語</text>
+  <text class="col" x="328" y="90">占有の訴え（占有者）</text>
+  <text class="col" x="488" y="90">物権的請求権（所有者）</text>
+
+  <!-- 行1 回収 -->
+  <rect x="20" y="100" width="600" height="128" rx="10" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <text class="big" x="30" y="134">取られた</text>
+  <text class="s" x="30" y="158">過去</text>
+  <text class="s" x="30" y="178">Cが追い出して</text>
+  <text class="s" x="30" y="196">居座っている</text>
+  <text class="big" x="168" y="134">債権回収</text>
+  <text class="t" x="168" y="158">貸したお金を取り戻す</text>
+  <text class="s" x="168" y="180">取り立てるのは</text>
+  <text class="s" x="168" y="198">元金＋遅延損害金</text>
+  <text class="b" x="328" y="134">占有回収の訴え</text>
+  <text class="red" x="328" y="160">返還＋損害賠償</text>
+  <text class="s" x="328" y="184">奪われて1年以内</text>
+  <text class="s" x="328" y="202">（200条・201条3項）</text>
+  <text class="b" x="488" y="134">返還請求権</text>
+  <text class="t" x="488" y="160">「返せ」</text>
+
+  <!-- 行2 保持 -->
+  <rect x="20" y="238" width="600" height="128" rx="10" fill="#fdf8e8" stroke="#e2cf8f"/>
+  <text class="big" x="30" y="272">邪魔されている</text>
+  <text class="s" x="30" y="296">今</text>
+  <text class="s" x="30" y="316">Cが産廃を</text>
+  <text class="s" x="30" y="334">捨てていった</text>
+  <text class="big" x="168" y="272">ボール保持</text>
+  <text class="t" x="168" y="296">持ったまま邪魔される</text>
+  <text class="s" x="168" y="318">反則なら笛で止めて</text>
+  <text class="s" x="168" y="336">フリーキックで埋め合わせ</text>
+  <text class="b" x="328" y="272">占有保持の訴え</text>
+  <text class="red" x="328" y="298">停止＋損害賠償</text>
+  <text class="s" x="328" y="322">妨害中・やんで1年以内</text>
+  <text class="s" x="328" y="340">（198条・201条1項）</text>
+  <text class="b" x="488" y="272">妨害排除請求権</text>
+  <text class="t" x="488" y="298">「どけろ」</text>
+
+  <!-- 行3 保全 -->
+  <rect x="20" y="376" width="600" height="128" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <text class="big" x="30" y="410">危ない</text>
+  <text class="s" x="30" y="434">これから</text>
+  <text class="s" x="30" y="454">隣の掘削で</text>
+  <text class="s" x="30" y="472">崩れそう</text>
+  <text class="big" x="168" y="410">環境保全</text>
+  <text class="t" x="168" y="434">汚れる前に守る</text>
+  <text class="s" x="168" y="456">対策をするか</text>
+  <text class="s" x="168" y="474">保証金を預けるか</text>
+  <text class="b" x="328" y="410">占有保全の訴え</text>
+  <text class="red" x="328" y="436">予防 または 担保</text>
+  <text class="s" x="328" y="460">危険がある間</text>
+  <text class="s" x="328" y="478">（199条・201条2項）</text>
+  <text class="b" x="488" y="410">妨害予防請求権</text>
+  <text class="t" x="488" y="436">「防げ」</text>
+
+  <text class="note" x="20" y="536">・賠償が付くのは、損害がもう出ている「回収」と「保持」だけ。</text>
+  <text class="note" x="20" y="558">・「保全」はまだ損害がないので、賠償の代わりに担保（保証金）。</text>
+  <text class="note" x="20" y="580">・物権的請求権は「返せ・どけろ・防げ」だけ。お金は不法行為（709条）で別に請求。</text>
+</svg>
