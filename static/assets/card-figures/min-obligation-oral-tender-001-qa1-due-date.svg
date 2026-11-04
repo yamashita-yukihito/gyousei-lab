@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" role="img" aria-labelledby="t d">
+  <title id="t">期限の3種類と、履行遅滞・消滅時効が始まる時</title>
+  <desc id="d">確定期限は、期限が来た時から遅滞になり、時効も期限が来た時から進む。不確定期限は、期限が来た後に請求を受けた時か期限の到来を知った時のどちらか早い時から遅滞になり、時効は期限が来た時から進む。期限の定めのない債務は、請求を受けた時から遅滞になり、時効は債権が生まれた時から進む。例外として、返還時期を決めていない消費貸借は相当の期間を定めた催告が必要で、不法行為の損害賠償は不法行為の時から遅滞になる。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .r { font-size: 13px; font-weight: 800; fill: #b23a2e; }
+    .g { font-size: 13px; font-weight: 800; fill: #1f6b45; }
+  </style>
+  <rect width="640" height="500" fill="#fbfaf6"/>
+  <text x="320" y="30" text-anchor="middle" class="h">期限の3種類：いつから遅滞？いつから時効？</text>
+  <rect x="20" y="48" width="600" height="300" rx="10" fill="#fff" stroke="#c9c2b0"/>
+  <text x="36" y="76" class="b">種類</text>
+  <text x="250" y="76" class="b">遅滞になる時（412条）</text>
+  <text x="460" y="76" class="b">時効が進み始める時</text>
+  <text x="460" y="94" class="s">（客観的起算点 166条1項2号）</text>
+  <line x1="20" y1="104" x2="620" y2="104" stroke="#c9c2b0"/>
+
+  <text x="36" y="132" class="b">確定期限</text>
+  <text x="36" y="152" class="s">「12月1日に払う」</text>
+  <text x="250" y="132" class="r">期限が来た時</text>
+  <text x="250" y="152" class="s">（1項）</text>
+  <text x="460" y="132" class="g">期限が来た時</text>
+  <line x1="20" y1="168" x2="620" y2="168" stroke="#e4dfd2"/>
+
+  <text x="36" y="196" class="b">不確定期限</text>
+  <text x="36" y="216" class="s">「父が亡くなった時に払う」</text>
+  <text x="36" y="232" class="s">（必ず来るが、いつかは不明）</text>
+  <text x="250" y="196" class="r">期限が来た後で</text>
+  <text x="250" y="214" class="r">「請求を受けた時」か</text>
+  <text x="250" y="232" class="r">「来たと知った時」の早い方</text>
+  <text x="250" y="250" class="s">（2項）</text>
+  <text x="460" y="196" class="g">期限が来た時</text>
+  <text x="460" y="214" class="s">（知らなくても進む）</text>
+  <line x1="20" y1="266" x2="620" y2="266" stroke="#e4dfd2"/>
+
+  <text x="36" y="294" class="b">期限の定めなし</text>
+  <text x="36" y="314" class="s">「間違って振り込まれたお金」</text>
+  <text x="36" y="330" class="s">など、いつまでと決めていない</text>
+  <text x="250" y="294" class="r">請求を受けた時</text>
+  <text x="250" y="314" class="s">（3項）</text>
+  <text x="460" y="294" class="g">債権が生まれた時</text>
+  <text x="460" y="314" class="s">（いつでも請求できたから）</text>
+
+  <rect x="20" y="362" width="600" height="124" rx="10" fill="#fff4f1" stroke="#b23a2e" stroke-width="1.5"/>
+  <text x="36" y="390" class="b">例外（期限の定めがないのに、3項どおりにならない）</text>
+  <text x="36" y="416" class="t">・返還時期を決めていない消費貸借：貸主は相当の期間を定めて催告する（591条1項）</text>
+  <text x="36" y="436" class="s">　　→ 「いつでも返せと言え、請求した時から直ちに遅滞」は×（令和7年問33オ）</text>
+  <text x="36" y="462" class="t">・不法行為の損害賠償：請求がなくても、不法行為の時から遅滞（最判昭37.9.4）</text>
+</svg>
