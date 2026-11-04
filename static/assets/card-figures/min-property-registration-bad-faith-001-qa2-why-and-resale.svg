@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 600" role="img" aria-labelledby="t d">
+  <title id="t">単純悪意のCが勝つ理由と、高値で売る目的のどこが背信的か</title>
+  <desc id="d">上の段は、知っていただけのCが勝つ理由。誰の土地かは登記を見れば分かるようにしておき、買う人の心の中は問わない。心の中で決めると、後から買う人は誰も安心できず、知っていたかどうかの争いが終わらない。Bは登記をすぐできたのにしなかった。Bの損はAに賠償させる。下の段は、高値で売る目的の比較。市場で次の買主に高く売るのは普通の取引で、単純悪意のまま。先に買ったBに高値で買い戻させるのは、Bの登記がないという弱みだけを利益の元にしているので、背信的悪意者になる。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .ok { font-size: 14px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 14px; font-weight: 800; fill: #b23a2e; }
+  </style>
+  <rect width="640" height="600" fill="#fbfaf6"/>
+  <text x="320" y="30" text-anchor="middle" class="h">なぜ「知っていた」Cが勝つ？ 高値で売るのはダメ？</text>
+
+  <rect x="20" y="48" width="600" height="250" rx="10" fill="#fff" stroke="#c9c2b0"/>
+  <text x="36" y="76" class="b">① 知っていただけのCが勝つ理由（177条）</text>
+  <text x="36" y="104" class="t">・誰の土地かは「登記」という目に見える印で決める。心の中は問わない</text>
+  <text x="36" y="130" class="t">・心の中で決めると、Cの次に買うDもEも安心できない</text>
+  <text x="50" y="148" class="s">「本当は知っていたはず」という争いが、何年も終わらなくなる</text>
+  <text x="36" y="174" class="t">・Bは登記をすぐにできたのに、しなかった（Bにも落ち度）</text>
+  <text x="36" y="200" class="t">・BとAの売買契約は、AとBの間の約束。Cはその約束に縛られない</text>
+  <text x="36" y="226" class="t">・いちばん悪いのは二重に売ったA</text>
+  <text x="50" y="244" class="s">→ BはAに対して損害賠償・解除を求める（415条・542条）</text>
+  <text x="36" y="274" class="ok">→ 登記をした人が勝つ、で一律に片づける</text>
+
+  <rect x="20" y="314" width="600" height="270" rx="10" fill="#fff" stroke="#c9c2b0"/>
+  <text x="36" y="342" class="b">② 「高値で売る目的」の、どこがいけないのか</text>
+
+  <rect x="36" y="356" width="276" height="176" rx="8" fill="#eef6f0" stroke="#9cc5ab"/>
+  <text x="50" y="382" class="ok">○ 単純悪意のまま</text>
+  <text x="50" y="406" class="t">土地を買って、市場の誰かに</text>
+  <text x="50" y="426" class="t">高く売る（転売で儲ける）</text>
+  <text x="50" y="454" class="s">儲けの元：土地そのものの価値</text>
+  <text x="50" y="474" class="s">買う人は自由に選べる</text>
+  <text x="50" y="494" class="s">ふつうの商売・自由競争</text>
+  <text x="50" y="518" class="s">（転売目的の業者もこちら）</text>
+
+  <rect x="328" y="356" width="276" height="176" rx="8" fill="#fbeeec" stroke="#d9a39b"/>
+  <text x="342" y="382" class="ng">× 背信的悪意者</text>
+  <text x="342" y="406" class="t">先に買ったBに、高値で</text>
+  <text x="342" y="426" class="t">買い戻させる（売りつける）</text>
+  <text x="342" y="454" class="s">儲けの元：Bに登記がない弱み</text>
+  <text x="342" y="474" class="s">Bは断れない（代金払い済み・</text>
+  <text x="342" y="494" class="s">家を建てた・もう住んでいる）</text>
+  <text x="342" y="518" class="s">競争ではなく、身代金に近い</text>
+
+  <text x="36" y="560" class="t">分かれ目は「高く売るか」ではなく、「誰から取るか」。</text>
+  <text x="36" y="578" class="t">Bの弱みに付け込んで、B本人から取るのが背信的（最判昭43.8.2）。</text>
+</svg>
