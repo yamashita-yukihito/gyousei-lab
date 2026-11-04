@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" role="img" aria-labelledby="t d">
+  <title id="t">最後の2年分の制限は誰のためか</title>
+  <desc id="d">普通抵当権の利息の最後の2年分の制限（375条）は、後順位抵当権者やほかの債権者を守るためのもの。後順位抵当権者やほかの債権者がいるときは、利息は最後の2年分までしか抵当権で優先されない。後順位抵当権者やほかの債権者がいないときは、2年分を超える利息も抵当権で回収できる。債務者は、元本と最後の2年分だけを払っても抵当権を消せず、全額を払う必要がある。根抵当権には2年分の制限がなく、極度額までなら利息も全部担保されるが、極度額は超えられない。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 13px; fill: #4b5a55; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .ng { font-size: 14px; font-weight: 800; fill: #b23a2e; }
+    .ok { font-size: 14px; font-weight: 800; fill: #1f6b45; }
+  </style>
+  <rect x="0" y="0" width="640" height="500" fill="#ffffff"/>
+  <text class="h" x="20" y="34">「最後の2年分」は、ほかの債権者のための線</text>
+  <text class="sub" x="20" y="58">普通抵当権の利息の制限（375条）が効くのは、誰と比べるときか</text>
+
+  <rect x="20" y="74" width="600" height="96" rx="10" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <text class="b" x="36" y="102">2番抵当権者やほかの債権者がいる</text>
+  <text class="ng" x="36" y="128">利息は「最後の2年分」まで</text>
+  <text class="s" x="36" y="152">後から来た人が、登記を見て「1番がいくら持っていくか」を見積もれるようにする</text>
+
+  <rect x="20" y="182" width="600" height="96" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <text class="b" x="36" y="210">2番抵当権者もほかの債権者もいない</text>
+  <text class="ok" x="36" y="236">2年分を超える利息も、抵当権で回収できる</text>
+  <text class="s" x="36" y="260">守る相手がいないので、線を引く理由がない（判例）</text>
+
+  <rect x="20" y="290" width="600" height="96" rx="10" fill="#fdf8e8" stroke="#e2cf8f"/>
+  <text class="b" x="36" y="318">債務者が「元本＋最後の2年分」だけ払った</text>
+  <text class="ng" x="36" y="344">抵当権は消えない。全額を払う必要がある</text>
+  <text class="s" x="36" y="368">債務者は、借りたお金の利息を全部払う約束をした本人（平成21年問29ウは ×）</text>
+
+  <rect x="20" y="398" width="600" height="84" rx="10" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <text class="b" x="36" y="426">根抵当権には「2年分」の制限がない</text>
+  <text class="t" x="36" y="450">極度額までなら、元本・利息・損害金を全部担保する（398条の3）。</text>
+  <text class="t" x="36" y="470">ただし、2年分でも極度額は超えられない（令和4年問29肢4は ×）。</text>
+</svg>
