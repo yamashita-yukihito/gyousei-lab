@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 470" role="img" aria-labelledby="t d">
+  <title id="t">民法と商法の違いを雑に解く3つの手順</title>
+  <desc id="d">手順1：民法の結論を思い出し、商法はその逆を正解とする。商人に厳しい方ではなく、取引が早く回る方。報酬と流質と留置権は商人に有利なので、商人に厳しい方で選ぶと外れる。民法と同じ結論の肢は誤り。手順2：例外を2つだけ覚える。匿名組合員は表に出ないので第三者に責任を負わない。高価品は種類と価額を通知しないと運送人も場屋も責任を負わない。手順3：条件と費用を見る。商人間や平常取引の条件が外されていたら誤り。保管の費用は申込者持ち。過去問11問に当てはめると、手順1だけで約5割、3つ全部で約7割。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .n { font-size: 15px; font-weight: 800; fill: #ffffff; }
+    .ng { font-size: 13px; font-weight: 800; fill: #b23a2e; }
+    .ok { font-size: 13px; font-weight: 800; fill: #1f6b45; }
+  </style>
+  <rect x="0" y="0" width="640" height="470" fill="#ffffff"/>
+  <text class="h" x="20" y="34">民法と商法の違いは、3つの手順で雑に解く</text>
+
+  <rect x="20" y="52" width="600" height="118" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <circle cx="44" cy="76" r="13" fill="#183a34"/><text class="n" x="39" y="81">1</text>
+  <text class="b" x="66" y="81">民法の結論を思い出し、商法は「その逆」が正解</text>
+  <text class="t" x="66" y="106">逆＝取引が早く回る方（早く決める・責任は重く・ただ働きなし・担保は強く）</text>
+  <text class="ng" x="66" y="130">「商人に厳しい方」で選ばない</text>
+  <text class="s" x="66" y="150">報酬（512条）・流質（515条）・留置権（521条）は商人に有利。民法と同じ結論の肢は×。</text>
+
+  <rect x="20" y="182" width="600" height="104" rx="10" fill="#fdf8e8" stroke="#e2cf8f"/>
+  <circle cx="44" cy="206" r="13" fill="#183a34"/><text class="n" x="39" y="211">2</text>
+  <text class="b" x="66" y="211">例外を2つだけ覚える（商人側が守られる）</text>
+  <text class="t" x="66" y="236">・匿名組合員は表に出ない → 第三者に責任を負わない（536条4項）</text>
+  <text class="t" x="66" y="260">・高価品は通知しないと → 運送人も場屋も責任を負わない（577条・597条）</text>
+
+  <rect x="20" y="298" width="600" height="104" rx="10" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <circle cx="44" cy="322" r="13" fill="#183a34"/><text class="n" x="39" y="327">3</text>
+  <text class="b" x="66" y="327">条件の言葉と「費用」だけは読む</text>
+  <text class="t" x="66" y="352">・「商人間」「平常取引」「営業の範囲内」が外されていたら×</text>
+  <text class="t" x="66" y="376">・断った申込みの物品の保管費用は「申込者（相手）持ち」</text>
+
+  <text class="t" x="20" y="430">民法との違いを問う過去問11問に当てはめると、</text>
+  <text class="t" x="20" y="452"><tspan class="ok">手順1だけで約5割</tspan>、<tspan class="ok">3つ全部で約7割</tspan>（勘なら2割）。11問だけなので目安。</text>
+</svg>
