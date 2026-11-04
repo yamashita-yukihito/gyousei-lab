@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 540" role="img" aria-labelledby="t d">
+  <title id="t">時効が存在する3つの理由と、そこから出てくるルール</title>
+  <desc id="d">理由1、長く続いた事実の状態を壊さない：起算日にさかのぼる144条、占有の承継187条。理由2、昔の証拠を求めない：消滅時効の客観10年、援用は法定証拠を出すことという説明。理由3、権利の上に眠る者は守らない：裁判などで完成猶予・更新、知ってから5年の主観期間。下段：時効には本当の権利者から奪う面があるので、使うかどうかは本人の良心に任せる。だから援用が要り、完成前の放棄はできず、完成後に承認したら援用できない。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 20px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+  </style>
+  <rect width="640" height="540" fill="#fbfaf6"/>
+  <text x="320" y="32" text-anchor="middle" class="h">時効はなぜあるか：3つの理由と1つのブレーキ</text>
+
+  <rect x="20" y="58" width="190" height="250" rx="10" fill="#fff" stroke="#2c5f8a" stroke-width="2"/>
+  <text x="115" y="86" text-anchor="middle" class="b">① 長く続いた形を</text>
+  <text x="115" y="106" text-anchor="middle" class="b">壊さない</text>
+  <text x="34" y="136" class="t">周りの人はその形を信じて</text>
+  <text x="34" y="154" class="t">取引や生活を積み上げている</text>
+  <line x1="34" y1="170" x2="196" y2="170" stroke="#d8d2c4"/>
+  <text x="34" y="194" class="t">→ 起算日にさかのぼる</text>
+  <text x="34" y="212" class="t">　（144条）</text>
+  <text x="34" y="238" class="t">→ 占有の承継で期間を</text>
+  <text x="34" y="256" class="t">　足せる（187条）</text>
+
+  <rect x="225" y="58" width="190" height="250" rx="10" fill="#fff" stroke="#1f6b45" stroke-width="2"/>
+  <text x="320" y="86" text-anchor="middle" class="b">② 昔の証拠を</text>
+  <text x="320" y="106" text-anchor="middle" class="b">求めない</text>
+  <text x="239" y="136" class="t">本当は払った人・本当の</text>
+  <text x="239" y="154" class="t">持ち主が、領収書や契約書を</text>
+  <text x="239" y="172" class="t">なくして負けるのを防ぐ</text>
+  <line x1="239" y1="186" x2="401" y2="186" stroke="#d8d2c4"/>
+  <text x="239" y="210" class="t">→ 知らなくても10年で</text>
+  <text x="239" y="228" class="t">　消える（166条1項2号）</text>
+  <text x="239" y="254" class="t">→ 平成19年問28のB説</text>
+  <text x="239" y="272" class="t">　（援用＝法定証拠）</text>
+
+  <rect x="430" y="58" width="190" height="250" rx="10" fill="#fff" stroke="#8a5a1f" stroke-width="2"/>
+  <text x="525" y="86" text-anchor="middle" class="b">③ 権利の上に眠る</text>
+  <text x="525" y="106" text-anchor="middle" class="b">者は守らない</text>
+  <text x="444" y="136" class="t">言えたのに何年も</text>
+  <text x="444" y="154" class="t">何もしなかった人は負ける</text>
+  <line x1="444" y1="170" x2="606" y2="170" stroke="#d8d2c4"/>
+  <text x="444" y="194" class="t">→ 知ってから5年</text>
+  <text x="444" y="212" class="t">　（166条1項1号）</text>
+  <text x="444" y="238" class="t">→ 裁判などで動けば</text>
+  <text x="444" y="256" class="t">　完成猶予・更新</text>
+  <text x="444" y="274" class="t">　（147条〜）</text>
+
+  <rect x="20" y="330" width="600" height="190" rx="10" fill="#fff4f1" stroke="#b23a2e" stroke-width="2"/>
+  <text x="320" y="360" text-anchor="middle" class="b">ブレーキ：本当の権利者から奪う面があるので、使うかは本人の良心に任せる</text>
+  <text x="40" y="394" class="t">・期間が過ぎても、「援用します」と言わなければ効果は出ない（145条）</text>
+  <text x="40" y="420" class="t">・援用できるのは、直接得をする人だけ（物上保証人・第三取得者は○、後順位抵当権者は×）</text>
+  <text x="40" y="446" class="t">・完成前に「時効を使いません」と約束しても無効（146条）</text>
+  <text x="40" y="472" class="t">・完成後に借金を認めたら、知らなかったとしても援用できない（最大判昭41.4.20）</text>
+  <text x="40" y="500" class="t">　※ 完成前に認める（承認）と、時効の時計が0に戻る（152条）。こちらは①②の話（証拠ができる）。</text>
+</svg>
