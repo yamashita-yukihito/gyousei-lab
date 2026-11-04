@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 520" role="img" aria-labelledby="t d">
+  <title id="t">占有の承継：前の人の期間を足すか、自分の期間だけで行くか</title>
+  <desc id="d">上の帯：父Bが5年占有し、子Cが相続して10年占有した、合計15年。足す場合は判定の時点がBの占有開始時になる。下の表：Bが善意無過失でCが悪意なら、足せば15年で10年の時効が成立し、自分だけでは10年で悪意なので20年に足りず成立しない。Bが悪意でCが善意無過失なら、足すと悪意も引き継いで20年が必要になり15年では成立せず、自分だけなら10年で成立する。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 20px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 16px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 14px; }
+    .s { font-size: 13px; }
+    .ok { font-size: 15px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 15px; font-weight: 800; fill: #b23a2e; }
+  </style>
+  <rect width="640" height="520" fill="#fbfaf6"/>
+  <text x="320" y="32" text-anchor="middle" class="h">占有の承継（187条）：足すか、自分だけか、選べる</text>
+
+  <rect x="40" y="70" width="170" height="44" rx="6" fill="#e3eef7" stroke="#2c5f8a"/>
+  <text x="125" y="98" text-anchor="middle" class="b">父B　5年</text>
+  <rect x="210" y="70" width="340" height="44" rx="6" fill="#e7f2ea" stroke="#1f6b45"/>
+  <text x="380" y="98" text-anchor="middle" class="b">子C（相続）　10年</text>
+  <line x1="40" y1="124" x2="40" y2="150" stroke="#b23a2e" stroke-width="2"/>
+  <text x="46" y="146" class="s" fill="#b23a2e">足すなら判定はここ</text>
+  <line x1="210" y1="124" x2="210" y2="172" stroke="#2c5f8a" stroke-width="2"/>
+  <text x="216" y="168" class="s" fill="#2c5f8a">自分だけなら判定はここ（善意・無過失）</text>
+  <text x="560" y="98" class="t">＝15年</text>
+
+  <text x="40" y="214" class="t">持ち主Aから見ると、15年ずっと誰かに使われていて、15年ずっと放っておいた。</text>
+  <text x="40" y="236" class="t">使う人が替わっても、Aが放っておいた事実は変わらない → だから期間を足せる。</text>
+
+  <rect x="24" y="262" width="592" height="240" rx="10" fill="#fff" stroke="#c9c2b0"/>
+  <text x="40" y="292" class="b">選び方（10年の時効＝善意・無過失、20年＝それ以外）</text>
+  <line x1="24" y1="306" x2="616" y2="306" stroke="#c9c2b0"/>
+  <text x="40" y="330" class="b">ケース</text>
+  <text x="300" y="330" class="b">足す（15年）</text>
+  <text x="470" y="330" class="b">自分だけ（10年）</text>
+  <line x1="24" y1="342" x2="616" y2="342" stroke="#c9c2b0"/>
+  <text x="40" y="372" class="t">B善意・無過失／C悪意</text>
+  <text x="300" y="372" class="ok">○ 10年で足りる</text>
+  <text x="470" y="372" class="ng">× 悪意は20年</text>
+  <text x="40" y="394" class="s">（平成23年問28肢2の場面）</text>
+  <line x1="24" y1="410" x2="616" y2="410" stroke="#e4dfd2"/>
+  <text x="40" y="440" class="t">B悪意／C善意・無過失</text>
+  <text x="300" y="440" class="ng">× 悪意も引き継ぎ</text>
+  <text x="300" y="460" class="ng">　20年要る</text>
+  <text x="470" y="440" class="ok">○ 10年で足りる</text>
+  <text x="40" y="490" class="s">足すと、期間と一緒に前の人の「キズ」（悪意・過失など）も引き継ぐ（187条2項）。</text>
+</svg>
