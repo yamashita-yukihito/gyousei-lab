@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 450" role="img" aria-labelledby="t d">
+  <title id="t">善意・無過失・所有の意思は、誰が証明するか</title>
+  <desc id="d">取得時効では、所有の意思・善意・平穏・公然は推定され、持ち主が崩す。無過失は推定されず、10年を主張する占有者が自分で示す。即時取得では、平穏・公然・善意に加えて無過失も推定される。詐害行為取消権では、受益者が自分の善意を自分で示す。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .ok { font-size: 14px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 14px; font-weight: 800; fill: #b23a2e; }
+  </style>
+  <rect width="640" height="450" fill="#fbfaf6"/>
+  <text x="320" y="30" text-anchor="middle" class="h">「推定される」＝証明しなくてよい。崩したい側が証明する</text>
+  <rect x="20" y="50" width="600" height="380" rx="10" fill="#fff" stroke="#c9c2b0"/>
+  <text x="36" y="80" class="b">場面</text>
+  <text x="200" y="80" class="b">推定される（相手が崩す）</text>
+  <text x="430" y="80" class="b">自分で示すもの</text>
+  <line x1="20" y1="94" x2="620" y2="94" stroke="#c9c2b0"/>
+
+  <text x="36" y="124" class="t">取得時効</text>
+  <text x="36" y="144" class="s">（162条・186条1項）</text>
+  <text x="200" y="124" class="ok">所有の意思・善意</text>
+  <text x="200" y="144" class="ok">平穏・公然</text>
+  <text x="430" y="124" class="ng">無過失</text>
+  <text x="430" y="144" class="s">（10年を言いたい占有者が示す）</text>
+  <text x="200" y="168" class="s">所有の意思を崩すには、持ち主が「他主占有権原」か</text>
+  <text x="200" y="184" class="s">「他主占有事情」のどちらかを示せば足りる</text>
+  <line x1="20" y1="200" x2="620" y2="200" stroke="#e4dfd2"/>
+
+  <text x="36" y="230" class="t">即時取得</text>
+  <text x="36" y="250" class="s">（192条・188条）</text>
+  <text x="200" y="230" class="ok">平穏・公然・善意</text>
+  <text x="200" y="250" class="ok">＋ 無過失も推定</text>
+  <text x="430" y="230" class="t">なし</text>
+  <text x="200" y="274" class="s">前の人が持っていれば、持ち主と信じるのが普通（188条）</text>
+  <line x1="20" y1="290" x2="620" y2="290" stroke="#e4dfd2"/>
+
+  <text x="36" y="320" class="t">詐害行為取消権</text>
+  <text x="36" y="340" class="s">（424条1項ただし書）</text>
+  <text x="200" y="320" class="t">（受益者の悪意は</text>
+  <text x="200" y="340" class="t">　推定されるのと同じ）</text>
+  <text x="430" y="320" class="ng">受益者の善意</text>
+  <text x="430" y="340" class="s">（受益者が自分で示す）</text>
+  <line x1="20" y1="356" x2="620" y2="356" stroke="#c9c2b0"/>
+
+  <text x="36" y="384" class="b">過去問</text>
+  <text x="36" y="408" class="t">即時取得：令和4年問28肢1（○）・平成23年問29イ（×）　所有の意思：令和4年問28肢2（×）</text>
+  <text x="36" y="426" class="t">・平成23年問28肢1（×）　詐害行為：平成28年問32肢5（×）</text>
+</svg>
