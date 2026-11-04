@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" role="img" aria-labelledby="t d">
+  <title id="t">3人で60万円の債務を負ったとき、民法と商法でどう違うか</title>
+  <desc id="d">左、民法：友人3人が知人からキャンプ道具を60万円で買う。頭数で割られ、売主は各人に20万円ずつしか請求できない。1人がお金を持っていなければ、その20万円は売主の損になる。右、商法：3人が商売のために業者から食材を60万円で仕入れる。連帯になり、業者は誰にでも60万円全額を請求できる。下段：民法でも連帯になるのは、連帯の特約、共同不法行為、日常家事債務、併存的債務引受など。保証は、民法では特約がなければ普通の保証、商法では当然に連帯保証。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 16px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .ok { font-size: 14px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 14px; font-weight: 800; fill: #b23a2e; }
+  </style>
+  <rect width="640" height="500" fill="#fbfaf6"/>
+  <text x="320" y="30" text-anchor="middle" class="h">3人で60万円：民法は割る、商法は全員に全額</text>
+
+  <rect x="20" y="50" width="295" height="250" rx="10" fill="#fff" stroke="#2c5f8a" stroke-width="2"/>
+  <text x="36" y="78" class="b">民法（427条）＝分割債務</text>
+  <text x="36" y="102" class="t">友人3人が、知人からキャンプ道具を</text>
+  <text x="36" y="120" class="t">60万円で買う</text>
+  <rect x="36" y="136" width="80" height="34" rx="6" fill="#e3eef7"/><text x="76" y="158" text-anchor="middle" class="t">A 20万</text>
+  <rect x="124" y="136" width="80" height="34" rx="6" fill="#e3eef7"/><text x="164" y="158" text-anchor="middle" class="t">B 20万</text>
+  <rect x="212" y="136" width="80" height="34" rx="6" fill="#f3e3e0"/><text x="252" y="158" text-anchor="middle" class="t">C 20万</text>
+  <text x="36" y="196" class="t">売主は、Aに20万円しか請求できない</text>
+  <text x="36" y="222" class="ng">Cが無一文なら、Cの20万円は</text>
+  <text x="36" y="242" class="ng">売主がかぶる</text>
+  <text x="36" y="272" class="s">一人ひとりが「自分の分はいくら」と</text>
+  <text x="36" y="288" class="s">先に分かるようにする</text>
+
+  <rect x="325" y="50" width="295" height="250" rx="10" fill="#fff" stroke="#1f6b45" stroke-width="2"/>
+  <text x="341" y="78" class="b">商法（511条1項）＝連帯債務</text>
+  <text x="341" y="102" class="t">3人が商売のために、業者から食材を</text>
+  <text x="341" y="120" class="t">60万円で仕入れる</text>
+  <rect x="341" y="136" width="80" height="34" rx="6" fill="#e7f2ea"/><text x="381" y="158" text-anchor="middle" class="t">A 60万</text>
+  <rect x="429" y="136" width="80" height="34" rx="6" fill="#e7f2ea"/><text x="469" y="158" text-anchor="middle" class="t">B 60万</text>
+  <rect x="517" y="136" width="80" height="34" rx="6" fill="#e7f2ea"/><text x="557" y="158" text-anchor="middle" class="t">C 60万</text>
+  <text x="341" y="196" class="t">業者は、誰にでも60万円全額を請求できる</text>
+  <text x="341" y="222" class="ok">Cが無一文でも、AかBから</text>
+  <text x="341" y="242" class="ok">全額取れる</text>
+  <text x="341" y="272" class="s">商売の相手が安心して取引できる。</text>
+  <text x="341" y="288" class="s">3人のうち1人にとって商行為なら足りる</text>
+
+  <rect x="20" y="314" width="600" height="170" rx="10" fill="#fff" stroke="#c9c2b0"/>
+  <text x="36" y="342" class="b">民法でも連帯になる場面（割らないのが例外）</text>
+  <text x="36" y="368" class="t">・連帯の特約をした（436条）　・共同不法行為（719条）</text>
+  <text x="36" y="390" class="t">・夫婦の日常家事の債務（761条）　・併存的債務引受（470条1項）</text>
+  <line x1="36" y1="406" x2="604" y2="406" stroke="#e4dfd2"/>
+  <text x="36" y="432" class="b">保証もちがう</text>
+  <text x="36" y="456" class="t">民法：特約がなければ普通の保証（「まず本人に」と言える 452条・453条）</text>
+  <text x="36" y="476" class="t">商法：商行為の債務の保証は、特約なしで連帯保証（511条2項）</text>
+</svg>
