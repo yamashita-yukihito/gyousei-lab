@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 600" role="img" aria-labelledby="t d">
+  <title id="t">二重譲渡で、Cが単純悪意か背信的悪意かによる勝ち負け</title>
+  <desc id="d">AがBに売り、Bが登記をしないうちに、AがCにも売ってCが先に登記をした。Cが先の売買を知っていただけの単純悪意なら、Cは177条の第三者に当たり、先に登記をしたCが勝つ。Cが嫌がらせや高値での売りつけを狙った背信的悪意者なら、Cは第三者に当たらず、Bは登記がなくてもCに勝つ。負けたBは、Aに対して損害賠償や解除を求める。Cに対しては、単純悪意だけでは不法行為の責任を追及できない。背信的悪意者Cから買った転得者Dは、D自身が背信的悪意者でなければ、登記をしたDが勝つ。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .ok { font-size: 14px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 14px; font-weight: 800; fill: #b23a2e; }
+    .p { font-size: 15px; font-weight: 800; fill: #183a34; }
+  </style>
+  <rect width="640" height="600" fill="#fbfaf6"/>
+  <text x="320" y="30" text-anchor="middle" class="h">「知っていた」だけでは、Bは登記なしで勝てない</text>
+
+  <!-- 事案 -->
+  <rect x="270" y="48" width="100" height="36" rx="8" fill="#fff" stroke="#8a8270"/>
+  <text x="320" y="72" text-anchor="middle" class="p">A（売主）</text>
+  <rect x="70" y="122" width="150" height="36" rx="8" fill="#fff" stroke="#8a8270"/>
+  <text x="145" y="146" text-anchor="middle" class="p">B（先に買った）</text>
+  <rect x="420" y="122" width="150" height="36" rx="8" fill="#fff" stroke="#8a8270"/>
+  <text x="495" y="146" text-anchor="middle" class="p">C（後から買った）</text>
+  <line x1="290" y1="84" x2="180" y2="120" stroke="#8a8270" stroke-width="2"/>
+  <line x1="350" y1="84" x2="460" y2="120" stroke="#8a8270" stroke-width="2"/>
+  <text x="170" y="100" text-anchor="middle" class="s">①売買（登記なし）</text>
+  <text x="470" y="100" text-anchor="middle" class="s">②売買・先に登記</text>
+  <text x="320" y="146" text-anchor="middle" class="s">どちらが土地の持ち主？</text>
+
+  <!-- 左：単純悪意 -->
+  <rect x="20" y="176" width="290" height="196" rx="10" fill="#fff" stroke="#c9c2b0"/>
+  <text x="36" y="202" class="b">Cが「単純悪意」</text>
+  <text x="36" y="222" class="s">Bへの売買を知っていただけ</text>
+  <text x="36" y="250" class="t">Cは177条の「第三者」に当たる</text>
+  <text x="36" y="276" class="ng">→ 先に登記したCの勝ち</text>
+  <text x="36" y="296" class="t">　Bは登記なしでは対抗できない</text>
+  <text x="36" y="324" class="s">理由：もっと高く買う、先に登記する、は</text>
+  <text x="36" y="342" class="s">自由競争の範囲。177条に善意の要件はない。</text>
+  <text x="36" y="360" class="s">（最判昭43.8.2）</text>
+
+  <!-- 右：背信的悪意 -->
+  <rect x="330" y="176" width="290" height="196" rx="10" fill="#fff" stroke="#c9c2b0"/>
+  <text x="346" y="202" class="b">Cが「背信的悪意者」</text>
+  <text x="346" y="222" class="s">Bを困らせる・高値で売りつける目的など</text>
+  <text x="346" y="250" class="t">Cは177条の「第三者」に当たらない</text>
+  <text x="346" y="276" class="ok">→ Bは登記なしでも勝つ</text>
+  <text x="346" y="296" class="t">　Cは「Bに登記がない」と言えない</text>
+  <text x="346" y="324" class="s">理由：信義に反する人まで登記の</text>
+  <text x="346" y="342" class="s">早い者勝ちで守る必要はない。</text>
+  <text x="346" y="360" class="s">背信性を証明するのはB。</text>
+
+  <!-- 下：Bが負けたら -->
+  <rect x="20" y="388" width="600" height="196" rx="10" fill="#fff" stroke="#c9c2b0"/>
+  <text x="36" y="414" class="b">単純悪意のCに負けたBにできること・できないこと</text>
+  <text x="36" y="442" class="ok">○</text>
+  <text x="58" y="442" class="t">BはAに対して、債務不履行の損害賠償・契約の解除を求める（415条・542条）</text>
+  <text x="36" y="468" class="ng">×</text>
+  <text x="58" y="468" class="t">BはCに対して、知っていただけを理由に不法行為責任を追及できない</text>
+  <text x="58" y="486" class="s">（平成20年問32肢3）</text>
+  <text x="36" y="512" class="b">背信的悪意者Cがさらに転売したら（転得者D）</text>
+  <text x="36" y="538" class="t">D自身が背信的悪意者でなければ、Dは177条の第三者に当たる</text>
+  <text x="36" y="560" class="ng">→ 登記をしたDに、Bは登記なしでは対抗できない</text>
+  <text x="400" y="576" class="s">（最判平8.10.29・令和2年問46）</text>
+</svg>
