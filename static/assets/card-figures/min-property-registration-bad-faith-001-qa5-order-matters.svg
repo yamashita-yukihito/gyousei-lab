@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 430" role="img" aria-labelledby="t d">
+  <title id="t">詐害行為取消しは契約の順番で決まる</title>
+  <desc id="d">AがBに売った後で、AがCに譲渡してCが登記した場合は、BはAからCへの譲渡を詐害行為として取り消せる。AがCに先に譲渡し、その後でAがBに売った場合は、Cの登記がBの契約より後でも、BはAからCへの譲渡を取り消せない。前後は登記の時期ではなく、Bの債権の原因となる契約と、Aの譲渡の行為の時期で比べる。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .ng { font-size: 15px; font-weight: 800; fill: #b23a2e; }
+    .ok { font-size: 15px; font-weight: 800; fill: #1f6b45; }
+  </style>
+  <defs>
+    <marker id="qa5arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7a8a85"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="640" height="430" fill="#ffffff"/>
+  <text class="h" x="20" y="34">取り消せるかは「契約の順番」で決まる</text>
+  <text class="s" x="20" y="56">左から右へ時間が進む。比べるのは、Bの契約とAの譲渡の行為。登記の時期ではない。</text>
+
+  <!-- ケース1 -->
+  <rect x="20" y="72" width="600" height="146" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <text class="ok" x="36" y="100">○ 取り消せる：Bの契約が先、Cへの譲渡が後</text>
+  <line x1="50" y1="146" x2="590" y2="146" stroke="#7a8a85" stroke-width="2" marker-end="url(#qa5arrow)"/>
+  <circle cx="130" cy="146" r="7" fill="#1f6b45"/>
+  <text class="b" x="80" y="130">A→B 売買</text>
+  <text class="s" x="76" y="172">Bの債権のもと</text>
+  <circle cx="360" cy="146" r="7" fill="#183a34"/>
+  <text class="b" x="290" y="130">A→C 譲渡・登記</text>
+  <text class="s" x="300" y="172">Aの財産が減る</text>
+  <text class="t" x="36" y="204">ACの時点でBはもう債権者 → ACはBを害した（424条3項の「前の原因」）</text>
+
+  <!-- ケース2 -->
+  <rect x="20" y="230" width="600" height="146" rx="10" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <text class="ng" x="36" y="258">× 取り消せない：Cへの譲渡が先、Bの契約が後</text>
+  <line x1="50" y1="304" x2="590" y2="304" stroke="#7a8a85" stroke-width="2" marker-end="url(#qa5arrow)"/>
+  <circle cx="130" cy="304" r="7" fill="#183a34"/>
+  <text class="b" x="80" y="288">A→C 譲渡</text>
+  <text class="s" x="80" y="330">（登記はまだ）</text>
+  <circle cx="300" cy="304" r="7" fill="#b23a2e"/>
+  <text class="b" x="250" y="288">A→B 売買</text>
+  <text class="s" x="246" y="330">Bの債権のもと</text>
+  <circle cx="470" cy="304" r="7" fill="#7a8a85"/>
+  <text class="b" x="430" y="288">Cが登記</text>
+  <text class="s" x="404" y="330">登記が後でも同じ</text>
+  <text class="t" x="36" y="362">ACの時点でBは債権者ではない → ACはBを害していない（最判昭55.1.24）</text>
+
+  <text class="t" x="20" y="404">・177条（どちらが土地を取るか）は登記の順。424条（取り消せるか）は契約の順。</text>
+</svg>
