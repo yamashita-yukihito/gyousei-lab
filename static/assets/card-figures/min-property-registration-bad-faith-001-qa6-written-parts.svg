@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 520" role="img" aria-labelledby="t d">
+  <title id="t">詐害行為取消しを記述式で書くときの部品</title>
+  <desc id="d">記述式の答えは、問いの部品に一つずつ答える。誰を相手に：Cを被告として。債務者Aは被告にしない。何を：AC間の譲渡を。どうやって：詐害行為として取消しを裁判所に請求する。裁判の外で取り消すことはできない。何のために：損害賠償請求権を保全するため。その結果：登記の抹消を求める。Bの名義への移転登記は求められない。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .sub { font-size: 12px; fill: #4b5a55; }
+    .col { font-size: 12px; font-weight: 800; fill: #4b5a55; }
+    .k { font-size: 14px; font-weight: 800; fill: #183a34; }
+    .w { font-size: 14px; font-weight: 800; fill: #1f6b45; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .ng { font-size: 12px; font-weight: 800; fill: #b23a2e; }
+  </style>
+  <rect x="0" y="0" width="640" height="520" fill="#ffffff"/>
+  <text class="h" x="20" y="34">記述は「問いの部品」に一つずつ答える</text>
+  <text class="sub" x="20" y="56">二重譲渡で負けたBが、AからCへの譲渡を取り消す場面</text>
+
+  <text class="col" x="32" y="86">問いの部品</text>
+  <text class="col" x="152" y="86">書く言葉</text>
+  <text class="col" x="390" y="86">落とし穴</text>
+
+  <rect x="20" y="96" width="600" height="66" rx="8" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <text class="k" x="32" y="124">誰を相手に</text>
+  <text class="w" x="152" y="124">Cを被告として</text>
+  <text class="ng" x="390" y="122">Aを被告にしない</text>
+  <text class="s" x="390" y="142">（424条の7。Aには訴訟告知）</text>
+
+  <rect x="20" y="170" width="600" height="66" rx="8" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <text class="k" x="32" y="198">何を</text>
+  <text class="w" x="152" y="198">AC間の譲渡（売買）を</text>
+  <text class="ng" x="390" y="196">「取り消せる」だけだと</text>
+  <text class="s" x="390" y="216">何を取り消すかが抜ける</text>
+
+  <rect x="20" y="244" width="600" height="84" rx="8" fill="#eef6f1" stroke="#a9cdb8"/>
+  <text class="k" x="32" y="272">どうやって</text>
+  <text class="w" x="152" y="272">詐害行為として取消しを</text>
+  <text class="w" x="152" y="294">裁判所に請求する</text>
+  <text class="s" x="152" y="316">（＝詐害行為取消請求）</text>
+  <text class="ng" x="390" y="270">裁判の外では取り消せない</text>
+  <text class="s" x="390" y="290">「裁判所に請求」「裁判上」が</text>
+  <text class="s" x="390" y="308">この制度の芯（424条1項）</text>
+
+  <rect x="20" y="336" width="600" height="66" rx="8" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <text class="k" x="32" y="364">何のために</text>
+  <text class="w" x="152" y="364">損害賠償請求権を</text>
+  <text class="w" x="152" y="386">保全するため</text>
+  <text class="ng" x="390" y="362">「に基づく」より</text>
+  <text class="s" x="390" y="382">「保全するため」が正確</text>
+
+  <rect x="20" y="410" width="600" height="66" rx="8" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <text class="k" x="32" y="438">その結果</text>
+  <text class="w" x="152" y="438">登記の抹消を求める</text>
+  <text class="ng" x="390" y="436">Bの名義への移転登記は×</text>
+  <text class="s" x="390" y="456">（最判昭53.10.5）</text>
+
+  <text class="sub" x="20" y="504">問いが聞いている部品だけを書く。聞かれていない部品で字数を使わない。</text>
+</svg>

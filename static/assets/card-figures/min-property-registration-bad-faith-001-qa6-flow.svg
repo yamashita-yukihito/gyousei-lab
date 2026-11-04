@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 520" role="img" aria-labelledby="t d">
+  <title id="t">損害賠償請求権の発生から回収までの流れ</title>
+  <desc id="d">Cが登記するとAのBへの債務は履行不能になり、損害賠償請求権は判決を待たずに当然に発生する。額は原則として履行不能時の時価で客観的に決まり、裁判はそれを確かめるだけ。BはAへの判決がなくても、Cを被告に詐害行為取消請求の訴えを起こせる。Aへの損害賠償請求の訴えと一緒に起こしてもよい。取消しの判決で登記はAに戻る。不動産は分けられないので、価格が債権額より大きくても全部取り消せる。甲を差し押さえて回収するには、Aに対する損害賠償の判決が要る。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .n { font-size: 15px; font-weight: 800; fill: #ffffff; }
+    .ok { font-size: 13px; font-weight: 800; fill: #1f6b45; }
+  </style>
+  <defs>
+    <marker id="qa6arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7a8a85"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="640" height="520" fill="#ffffff"/>
+  <text class="h" x="20" y="34">判決を待たずに、取消しの訴えを起こせる</text>
+
+  <rect x="20" y="52" width="600" height="72" rx="10" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <circle cx="44" cy="76" r="13" fill="#183a34"/><text class="n" x="39" y="81">1</text>
+  <text class="b" x="66" y="81">Cが登記 → AのBへの債務は履行不能</text>
+  <text class="t" x="66" y="106">二重譲渡の相手が登記した時に不能になる（最判昭35.4.21）。</text>
+  <line x1="320" y1="126" x2="320" y2="140" stroke="#7a8a85" stroke-width="2" marker-end="url(#qa6arrow)"/>
+
+  <rect x="20" y="144" width="600" height="92" rx="10" fill="#fdf8e8" stroke="#e2cf8f"/>
+  <circle cx="44" cy="168" r="13" fill="#183a34"/><text class="n" x="39" y="173">2</text>
+  <text class="b" x="66" y="173">損害賠償請求権は、その時に当然に生まれる（415条）</text>
+  <text class="t" x="66" y="198">額は原則として「不能になった時の時価」で、もう決まっている。</text>
+  <text class="t" x="66" y="220">裁判は額を「確かめる」だけで、権利を「作る」わけではない。</text>
+  <line x1="320" y1="238" x2="320" y2="252" stroke="#7a8a85" stroke-width="2" marker-end="url(#qa6arrow)"/>
+
+  <rect x="20" y="256" width="600" height="92" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <circle cx="44" cy="280" r="13" fill="#183a34"/><text class="n" x="39" y="285">3</text>
+  <text class="b" x="66" y="285">Cを被告に、詐害行為取消請求の訴え</text>
+  <text class="t" x="66" y="310"><tspan class="ok">○</tspan> Aへの判決がなくても起こせる。弁済期の前でもよい。</text>
+  <text class="t" x="66" y="332"><tspan class="ok">○</tspan> Aへの損害賠償請求の訴えと一緒に起こしてもよい。</text>
+  <line x1="320" y1="350" x2="320" y2="364" stroke="#7a8a85" stroke-width="2" marker-end="url(#qa6arrow)"/>
+
+  <rect x="20" y="368" width="600" height="72" rx="10" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <circle cx="44" cy="392" r="13" fill="#183a34"/><text class="n" x="39" y="397">4</text>
+  <text class="b" x="66" y="397">取消しの判決 → 登記はAへ戻る</text>
+  <text class="t" x="66" y="422">土地は分けられないので、債権額より高くても全部取り消せる。</text>
+  <line x1="320" y1="442" x2="320" y2="456" stroke="#7a8a85" stroke-width="2" marker-end="url(#qa6arrow)"/>
+
+  <rect x="20" y="460" width="600" height="52" rx="10" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <circle cx="44" cy="486" r="13" fill="#183a34"/><text class="n" x="39" y="491">5</text>
+  <text class="b" x="66" y="491">差し押さえて回収するには、Aへの損害賠償の判決が要る</text>
+</svg>
