@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 470" role="img" aria-labelledby="t d">
+  <title id="t">有効・取消し・無効・撤回の見分け方</title>
+  <desc id="d">ラーメン店と保健所の場面で、処分の行方を3つの質問で見分ける。処分に欠陥がなければ有効で、市民は争っても負ける。欠陥がなく事情が後から変わったなら撤回で、これから先だけ効力がなくなる。欠陥が最初からあり、重大かつ明白なら無効で、初めから効力がない。欠陥が最初からあるが重大かつ明白とまではいえないなら取消しで、取り消されるまでは有効。市民が期間内に審査請求や取消訴訟で争うか、保健所が自分で取り消す。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 14px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .y { font-size: 12px; font-weight: 800; fill: #183a34; }
+  </style>
+  <defs>
+    <marker id="patternsArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#183a34"/></marker>
+  </defs>
+  <rect x="0" y="0" width="640" height="470" fill="#ffffff"/>
+  <text class="h" x="20" y="34">処分の行方は、3つの質問で分かれる</text>
+
+  <rect x="20" y="52" width="290" height="48" rx="8" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <text class="b" x="34" y="82">Q1 処分を出した時点で、欠陥はある？</text>
+  <line x1="310" y1="76" x2="356" y2="76" stroke="#183a34" stroke-width="2" marker-end="url(#patternsArrow)"/>
+  <text class="y" x="318" y="68">ない</text>
+  <rect x="360" y="52" width="260" height="48" rx="8" fill="#ffffff" stroke="#c9d6d1"/>
+  <text class="b" x="374" y="74">有効（市民は争っても負ける）</text>
+  <text class="s" x="374" y="92">ただし、後から事情が変われば ↓ Q2</text>
+
+  <line x1="160" y1="100" x2="160" y2="132" stroke="#183a34" stroke-width="2" marker-end="url(#patternsArrow)"/>
+  <text class="y" x="170" y="122">ある</text>
+
+  <rect x="360" y="116" width="260" height="76" rx="8" fill="#fdf8e8" stroke="#e2cf8f"/>
+  <text class="b" x="374" y="140">Q2 後から事情が変わった</text>
+  <text class="b" x="374" y="162">→ 撤回</text>
+  <text class="s" x="374" y="182">これから先だけ効力がなくなる</text>
+  <line x1="490" y1="100" x2="490" y2="114" stroke="#183a34" stroke-width="2" marker-end="url(#patternsArrow)"/>
+
+  <rect x="20" y="136" width="290" height="48" rx="8" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <text class="b" x="34" y="166">Q3 その欠陥は、重大かつ明白？</text>
+
+  <line x1="90" y1="184" x2="90" y2="222" stroke="#183a34" stroke-width="2" marker-end="url(#patternsArrow)"/>
+  <text class="y" x="100" y="208">はい</text>
+  <line x1="250" y1="184" x2="380" y2="222" stroke="#183a34" stroke-width="2" marker-end="url(#patternsArrow)"/>
+  <text class="y" x="320" y="202">いいえ</text>
+
+  <rect x="20" y="226" width="290" height="120" rx="10" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <text class="b" x="36" y="252">無効</text>
+  <text class="t" x="36" y="276">初めから効力がない</text>
+  <text class="t" x="36" y="298">期間の制限なし</text>
+  <text class="s" x="36" y="322">例：権限のない観光課が出した</text>
+  <text class="s" x="36" y="338">　　営業停止命令</text>
+
+  <rect x="330" y="226" width="290" height="120" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <text class="b" x="346" y="252">取消し</text>
+  <text class="t" x="346" y="276">取り消されるまでは有効</text>
+  <text class="t" x="346" y="298">市民が期間内に争う／行政が自分で</text>
+  <text class="s" x="346" y="322">例：保健所の調べ不足で、原因は</text>
+  <text class="s" x="346" y="338">　　仕入れ先だった</text>
+
+  <rect x="20" y="360" width="600" height="96" rx="10" fill="#ffffff" stroke="#c9d6d1"/>
+  <text class="b" x="36" y="386">効力がなくなる範囲</text>
+  <text class="t" x="36" y="410">無効：初めから無い　／　取消し：処分の時にさかのぼって消える</text>
+  <text class="t" x="36" y="432">撤回：撤回した時から先だけ消える（それまでの営業は適法のまま）</text>
+</svg>

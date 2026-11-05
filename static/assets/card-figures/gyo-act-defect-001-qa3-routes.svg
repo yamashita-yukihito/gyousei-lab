@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 440" role="img" aria-labelledby="t d">
+  <title id="t">無効だと言った後のルート</title>
+  <desc id="d">市民が処分は無効だと考えたときのルート。1 処分庁に申し出て、処分庁が自分で取り消す。2 期間内なら、審査請求や取消訴訟で取消しを求める。3 無効等確認訴訟（行政事件訴訟法36条）。後に続く処分で損害を受けるおそれがあるときなどに限る。4 争点訴訟（45条）。所有権など民事の権利を争う裁判の中で、前提として処分の無効を主張する。5 実質的当事者訴訟（4条後段）。公務員の地位など公法上の地位の確認を求める。6 国家賠償。損害をお金で求め、取消しは要らない。7 何もせず、刑事裁判などになったらその中で無効を主張する。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 14px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .n { font-size: 14px; font-weight: 800; fill: #ffffff; }
+  </style>
+  <rect x="0" y="0" width="640" height="440" fill="#ffffff"/>
+  <text class="h" x="20" y="34">「この処分は無効だ」と思ったら、使える道は7つ</text>
+
+  <rect x="20" y="50" width="600" height="46" rx="8" fill="#eef6f1" stroke="#a9cdb8"/>
+  <circle cx="42" cy="73" r="12" fill="#183a34"/><text class="n" x="37" y="78">1</text>
+  <text class="b" x="62" y="70">行政に言う</text>
+  <text class="s" x="62" y="88">処分庁が誤りを認め、自分で取り消す（職権取消し）。いちばん早い</text>
+
+  <rect x="20" y="102" width="600" height="46" rx="8" fill="#eef6f1" stroke="#a9cdb8"/>
+  <circle cx="42" cy="125" r="12" fill="#183a34"/><text class="n" x="37" y="130">2</text>
+  <text class="b" x="62" y="122">期間内なら、審査請求・取消訴訟</text>
+  <text class="s" x="62" y="140">無効な処分も違法なので、取消しを求めてよい（3か月・6か月以内）</text>
+
+  <rect x="20" y="154" width="600" height="46" rx="8" fill="#fdf8e8" stroke="#e2cf8f"/>
+  <circle cx="42" cy="177" r="12" fill="#183a34"/><text class="n" x="37" y="182">3</text>
+  <text class="b" x="62" y="174">無効等確認訴訟（36条）</text>
+  <text class="s" x="62" y="192">後に続く差押えなどのおそれがあるとき、または4・5では足りないときに限る</text>
+
+  <rect x="20" y="206" width="600" height="46" rx="8" fill="#fdf8e8" stroke="#e2cf8f"/>
+  <circle cx="42" cy="229" r="12" fill="#183a34"/><text class="n" x="37" y="234">4</text>
+  <text class="b" x="62" y="226">争点訴訟（45条）＝ 民事の権利を争う裁判</text>
+  <text class="s" x="62" y="244">例：農地買収は無効だから、土地は今も私のもの（所有権の確認）</text>
+
+  <rect x="20" y="258" width="600" height="46" rx="8" fill="#fdf8e8" stroke="#e2cf8f"/>
+  <circle cx="42" cy="281" r="12" fill="#183a34"/><text class="n" x="37" y="286">5</text>
+  <text class="b" x="62" y="278">実質的当事者訴訟（4条後段）＝ 公法上の地位を争う裁判</text>
+  <text class="s" x="62" y="296">例：免職処分は無効だから、私は今も公務員だ（地位の確認）</text>
+
+  <rect x="20" y="310" width="600" height="46" rx="8" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <circle cx="42" cy="333" r="12" fill="#183a34"/><text class="n" x="37" y="338">6</text>
+  <text class="b" x="62" y="330">国家賠償</text>
+  <text class="s" x="62" y="348">損害をお金で求める。処分を先に取り消しておく必要はない</text>
+
+  <rect x="20" y="362" width="600" height="46" rx="8" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <circle cx="42" cy="385" r="12" fill="#183a34"/><text class="n" x="37" y="390">7</text>
+  <text class="b" x="62" y="382">何もしない</text>
+  <text class="s" x="62" y="400">命令違反で起訴されたら、刑事裁判の中で「命令は無効」と主張する</text>
+
+  <text class="s" x="20" y="430">4・5が36条の「現在の法律関係に関する訴え」。差押えのおそれがなく4・5で足りるなら、3は使えない。</text>
+</svg>
