@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 430" role="img" aria-labelledby="t d">
+  <title id="t">匿名組合のルーツ</title>
+  <desc id="d">中世イタリアの海上交易のコンメンダでは、陸に残る資本家が航海する商人にお金や商品を託し、利益を分け合い、損は託した分までにとどめた。そこから2つに分かれた。出資者の名前を表に出す形は合資会社になり、有限責任社員は登記に名前が載り、出資の額まで会社の債権者に直接責任を負う。出資者の名前を出さない形は匿名組合になり、匿名組合員は取引先に責任を負わず、出資が減るだけ。名前を出したら責任を負うという考え方は両方に共通する。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .ok { font-size: 13px; font-weight: 800; fill: #1f6b45; }
+  </style>
+  <defs>
+    <marker id="rootsArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#183a34"/></marker>
+  </defs>
+  <rect x="0" y="0" width="640" height="430" fill="#ffffff"/>
+  <text class="h" x="20" y="34">匿名組合のルーツは中世の海上交易「コンメンダ」</text>
+
+  <rect x="20" y="52" width="600" height="104" rx="10" fill="#fdf8e8" stroke="#e2cf8f"/>
+  <text class="b" x="36" y="78">コンメンダ（中世イタリアの港町）</text>
+  <text class="t" x="36" y="102">陸に残る資本家が、航海する商人にお金や商品を託す</text>
+  <text class="t" x="36" y="124">船が戻れば利益を分け合う。沈んでも、資本家の損は託した分まで</text>
+  <text class="s" x="36" y="144">利息を取る貸付が教会に禁じられていた時代の、「貸付ではない」資金の出し方でもあった</text>
+
+  <line x1="170" y1="156" x2="170" y2="190" stroke="#183a34" stroke-width="2" marker-end="url(#rootsArrow)"/>
+  <line x1="470" y1="156" x2="470" y2="190" stroke="#183a34" stroke-width="2" marker-end="url(#rootsArrow)"/>
+  <text class="s" x="182" y="178">名前を出す</text>
+  <text class="s" x="482" y="178">名前を出さない</text>
+
+  <rect x="20" y="194" width="290" height="160" rx="10" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <text class="b" x="36" y="220">合資会社の有限責任社員</text>
+  <text class="t" x="36" y="246">会社の社員として、名前が</text>
+  <text class="t" x="36" y="266">定款と登記に載る</text>
+  <text class="t" x="36" y="292">出資の額まで、会社の債権者に</text>
+  <text class="t" x="36" y="312">直接払う責任がある</text>
+  <text class="s" x="36" y="338">（会社法576条・580条2項）</text>
+
+  <rect x="330" y="194" width="290" height="160" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <text class="b" x="346" y="220">匿名組合員</text>
+  <text class="t" x="346" y="246">営業者との2人の契約だけ。</text>
+  <text class="t" x="346" y="266">名前はどこにも出ない</text>
+  <text class="t" x="346" y="292">取引先への責任はない。</text>
+  <text class="t" x="346" y="312">損は出資が減るだけ</text>
+  <text class="s" x="346" y="338">（商法535条・536条4項）</text>
+
+  <rect x="20" y="368" width="600" height="48" rx="10" fill="#ffffff" stroke="#a9cdb8"/>
+  <text class="ok" x="36" y="398">共通する筋：名前を出した分だけ、取引先への責任が出てくる（商法537条）</text>
+</svg>
