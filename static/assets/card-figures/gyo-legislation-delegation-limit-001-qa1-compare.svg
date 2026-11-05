@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 470" role="img" aria-labelledby="t d">
+  <title id="t">違法な処分と違法な命令の違い</title>
+  <desc id="d">行政処分と委任命令の比較。中身：処分は特定の人への個別の決定、命令はみんなに向けた一般的なルール。違法なとき：処分は取り消されるまで有効で、重大かつ明白なら無効、命令は委任の範囲を越えた部分が初めから無効。争い方：処分は取消訴訟で6か月以内、命令はそれを使った処分などを争う裁判の中で主張し、期間の制限なし。判決の効果：処分の取消判決は第三者にも効く、命令の無効の判断はその事件だけ。無効にならなかった例：日本刀に限った登録規則（最判平2.2.1）、教科書検定の省令・告示（最判平5.3.16）、人事院規則への委任（最判平24.12.7）。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #3c4a45; }
+    .sub { font-size: 12px; font-weight: 800; fill: #2d6b5e; }
+  </style>
+  <rect x="0" y="0" width="640" height="470" fill="#ffffff"/>
+  <text class="h" x="20" y="34">違法な「処分」と違法な「命令」は扱いが違う</text>
+
+  <rect x="140" y="52" width="236" height="40" rx="8" fill="#eaf2fb" stroke="#a8c4e3"/>
+  <text class="b" x="152" y="77">行政処分</text>
+  <rect x="384" y="52" width="236" height="40" rx="8" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <text class="b" x="396" y="77">委任命令（政令・省令）</text>
+
+  <rect x="20" y="100" width="600" height="46" rx="6" fill="#f6f6f4" stroke="#d9dcd8"/>
+  <text class="sub" x="32" y="128">中身</text>
+  <text class="t" x="152" y="120">特定の人への個別の決定</text>
+  <text class="s" x="152" y="138">（免許の停止、手当の打切り）</text>
+  <text class="t" x="396" y="120">みんなに向けた一般的なルール</text>
+  <text class="s" x="396" y="138">（法律の細かい中身を決める）</text>
+
+  <rect x="20" y="152" width="600" height="46" rx="6" fill="#ffffff" stroke="#d9dcd8"/>
+  <text class="sub" x="32" y="180">違法なとき</text>
+  <text class="t" x="152" y="172">取り消されるまで有効</text>
+  <text class="s" x="152" y="190">（重大かつ明白なら無効）</text>
+  <text class="t" x="396" y="172">越えた部分は初めから無効</text>
+  <text class="s" x="396" y="190">（取消しを待たない）</text>
+
+  <rect x="20" y="204" width="600" height="46" rx="6" fill="#f6f6f4" stroke="#d9dcd8"/>
+  <text class="sub" x="32" y="232">争い方</text>
+  <text class="t" x="152" y="224">取消訴訟</text>
+  <text class="s" x="152" y="242">（知った日から6か月以内）</text>
+  <text class="t" x="396" y="224">使った処分などの裁判で主張</text>
+  <text class="s" x="396" y="242">（期間の制限なし）</text>
+
+  <rect x="20" y="256" width="600" height="46" rx="6" fill="#ffffff" stroke="#d9dcd8"/>
+  <text class="sub" x="32" y="284">判決の効果</text>
+  <text class="t" x="152" y="276">取消判決は第三者にも効く</text>
+  <text class="s" x="152" y="294">（行訴法32条1項）</text>
+  <text class="t" x="396" y="276">その事件だけ</text>
+  <text class="s" x="396" y="294">（条文は改正まで残る）</text>
+
+  <rect x="20" y="318" width="600" height="134" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <text class="b" x="36" y="342">無効にならなかった例（委任の範囲内と判断）</text>
+  <text class="t" x="36" y="368">・登録する刀剣を日本刀に限った規則（最判平2.2.1）</text>
+  <text class="t" x="36" y="390">・教科書検定の基準を省令・告示で決めたこと（最判平5.3.16）</text>
+  <text class="t" x="36" y="412">・禁止する政治的行為を人事院規則に任せたこと（最判平24.12.7）</text>
+  <text class="s" x="36" y="436">3つとも平成26年問9で「無効ではない」側として出た。</text>
+</svg>

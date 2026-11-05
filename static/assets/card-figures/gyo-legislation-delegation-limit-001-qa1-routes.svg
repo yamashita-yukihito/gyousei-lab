@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 560" role="img" aria-labelledby="t d">
+  <title id="t">委任命令が無効と扱われるまで</title>
+  <desc id="d">委任命令が無効と扱われるまでの流れ。1、命令が作られる。2、命令に基づいて処分などが行われる。3、不利益を受けた人は、命令そのものを取消訴訟で争うことはできず、命令を使った処分などを争う裁判の中で、根拠の命令は委任の範囲を越えて無効だと主張する。ルートは、処分の取消訴訟（児童扶養手当、最判平14.1.31）、国家賠償（監獄法施行規則、最判平3.7.9）、当事者訴訟の確認（医薬品ネット販売、最判平25.1.11）、選挙管理委員会の決定を争う訴訟（解職請求、最大判平21.11.18）。4、裁判所が委任の範囲外と判断すると、その部分は初めから無効で、その事件の処分などは違法になる。判決はその事件だけ。5、条文は残るので、作った内閣や大臣が改正や削除をする。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #3c4a45; }
+    .sub { font-size: 12px; font-weight: 800; fill: #2d6b5e; }
+    .ng { font-size: 13px; font-weight: 800; fill: #a33a2c; }
+  </style>
+  <defs>
+    <marker id="delegRouteArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#183a34"/></marker>
+  </defs>
+  <rect x="0" y="0" width="640" height="560" fill="#ffffff"/>
+  <text class="h" x="20" y="34">委任命令が「無効」と扱われるまで</text>
+
+  <rect x="20" y="52" width="600" height="52" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <text class="b" x="36" y="74">① 内閣や大臣が命令を作る（政令・省令）</text>
+  <text class="s" x="36" y="94">法律が「細かいことは政令で」と任せた範囲で作る。作る前に意見公募手続（行手法39条）。</text>
+  <line x1="320" y1="104" x2="320" y2="122" stroke="#183a34" stroke-width="2" marker-end="url(#delegRouteArrow)"/>
+
+  <rect x="20" y="124" width="600" height="52" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <text class="b" x="36" y="146">② 命令に基づいて、行政が処分や取扱いをする</text>
+  <text class="s" x="36" y="166">手当を打ち切る、面会を断る、ネット販売を禁じる、署名を無効にする、など。</text>
+  <line x1="320" y1="176" x2="320" y2="194" stroke="#183a34" stroke-width="2" marker-end="url(#delegRouteArrow)"/>
+
+  <rect x="20" y="196" width="600" height="56" rx="10" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <text class="b" x="36" y="218">③ 不利益を受けた人が、裁判の中で「根拠の命令は無効」と主張</text>
+  <text class="ng" x="36" y="240">命令そのものを取消訴訟で争うのは×（一般的なルールで処分ではない）</text>
+
+  <g>
+    <rect x="20" y="264" width="146" height="104" rx="8" fill="#f3f1fb" stroke="#bdb5e0"/>
+    <text class="sub" x="30" y="284">処分の取消訴訟</text>
+    <text class="s" x="30" y="304">児童扶養手当の</text>
+    <text class="s" x="30" y="320">打切りを争う</text>
+    <text class="s" x="30" y="344">最判平14.1.31</text>
+    <text class="s" x="30" y="360">→ 命令は無効</text>
+
+    <rect x="171" y="264" width="146" height="104" rx="8" fill="#fdf7e6" stroke="#e2cc8a"/>
+    <text class="sub" x="181" y="284">国家賠償</text>
+    <text class="s" x="181" y="304">幼い子との面会</text>
+    <text class="s" x="181" y="320">禁止で賠償を求める</text>
+    <text class="s" x="181" y="344">最判平3.7.9</text>
+    <text class="s" x="181" y="360">→ 無効だが過失なし</text>
+
+    <rect x="322" y="264" width="146" height="104" rx="8" fill="#eaf2fb" stroke="#a8c4e3"/>
+    <text class="sub" x="332" y="284">当事者訴訟（確認）</text>
+    <text class="s" x="332" y="304">ネットで薬を売れる</text>
+    <text class="s" x="332" y="320">地位の確認を求める</text>
+    <text class="s" x="332" y="344">最判平25.1.11</text>
+    <text class="s" x="332" y="360">→ 命令は無効</text>
+
+    <rect x="473" y="264" width="147" height="104" rx="8" fill="#eef6f1" stroke="#a9cdb8"/>
+    <text class="sub" x="483" y="284">選管の決定を争う</text>
+    <text class="s" x="483" y="304">解職請求の署名を</text>
+    <text class="s" x="483" y="320">無効にされた</text>
+    <text class="s" x="483" y="344">最大判平21.11.18</text>
+    <text class="s" x="483" y="360">→ 命令は無効</text>
+  </g>
+  <line x1="320" y1="372" x2="320" y2="392" stroke="#183a34" stroke-width="2" marker-end="url(#delegRouteArrow)"/>
+
+  <rect x="20" y="394" width="600" height="72" rx="10" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <text class="b" x="36" y="416">④ 裁判所が「委任の範囲外」と判断</text>
+  <text class="t" x="36" y="438">越えた部分は初めから無効。それを使った処分などは違法になる。</text>
+  <text class="s" x="36" y="457">取消しを待たない。期間の制限もない。ただし判決が効くのは、その事件だけ。</text>
+  <line x1="320" y1="466" x2="320" y2="484" stroke="#183a34" stroke-width="2" marker-end="url(#delegRouteArrow)"/>
+
+  <rect x="20" y="486" width="600" height="56" rx="10" fill="#f6f6f4" stroke="#c9ccc8"/>
+  <text class="b" x="36" y="508">⑤ 条文は残るので、作った内閣や大臣が改正・削除する</text>
+  <text class="s" x="36" y="528">裁判所は命令を消しゴムで消せない。消すのは、作った側の仕事。</text>
+</svg>
