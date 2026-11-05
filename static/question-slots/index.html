@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicons/tech.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183a34">
+  <title>問番号ごとの出題傾向 | 行政書士 過去問ラボ</title>
+  <link rel="stylesheet" href="../architecture.css?v=20260807-1">
+  <style>
+    .box { margin-top: 14px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); font-size: 15px; line-height: 1.8; }
+    .box h3 { margin: 0 0 6px; color: var(--deep); font-size: 17px; }
+    .box ul { margin: 6px 0 0; padding-left: 20px; }
+    .box li + li { margin-top: 4px; }
+    .box p { margin: 6px 0 0; }
+    .draft { border-left: 4px solid var(--amber); background: var(--amber-soft); }
+    .draft strong { color: var(--amber); }
+    .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .sample-card { border: 2px dashed #9fcbb5; background: #fff; }
+    .sample-card .tag { display: inline-block; margin-bottom: 6px; padding: 1px 8px; border-radius: 999px; background: var(--green-soft); color: var(--green); font-size: 12px; font-weight: 800; }
+    .sample-card dl { display: grid; grid-template-columns: 9em minmax(0, 1fr); gap: 6px 12px; margin: 8px 0 0; }
+    .sample-card dt { color: var(--muted); font-size: 13px; font-weight: 700; }
+    .sample-card dd { margin: 0; }
+    .sample-card .pending { color: var(--muted); }
+    .years a { white-space: nowrap; margin-right: 8px; }
+    .slots { width: 100%; min-width: 0; border-collapse: collapse; background: var(--paper); font-size: 14.5px; line-height: 1.6; }
+    .slots th, .slots td { padding: 9px 12px; border-bottom: 1px solid var(--line); border-left: 0; border-right: 0; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+    .slots thead th { background: var(--green-soft); font-size: 12.5px; }
+    .slots .num { white-space: nowrap; font-weight: 800; color: var(--deep); }
+    .slots .guess { color: #4d5b55; }
+    .slots .todo { color: var(--muted); font-size: 13px; }
+    .slots tr.sample td { background: #f4fbf7; }
+    .slots tr.sample .todo { color: var(--green); font-weight: 700; }
+    .note { color: var(--muted); font-size: 13px; }
+    .page-foot { padding: 24px 0 40px; color: var(--muted); font-size: 12.5px; }
+    @media (max-width: 720px) {
+      .grid2 { grid-template-columns: minmax(0, 1fr); }
+      .sample-card dl { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+      .sample-card dd { margin-bottom: 8px; }
+      .slots thead { display: none; }
+      .slots, .slots tbody, .slots tr, .slots td { display: block; width: 100%; }
+      .slots tr { padding: 8px 0; border-bottom: 1px solid var(--line); }
+      .slots td { padding: 2px 12px; border: 0; }
+      .slots td:nth-child(2), .slots td:nth-child(3) { display: inline-block; width: auto; padding-right: 0; color: var(--muted); font-size: 13px; }
+      .slots td:nth-child(3)::before { content: "・"; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
+  <header class="architecture-hero">
+    <div class="hero-inner">
+      <nav><a href="../index.html">← 過去問ラボへ戻る</a><a href="../mock-exam/">通し演習 →</a></nav>
+      <p class="eyebrow">BY QUESTION NUMBER</p>
+      <h1>問番号ごとの出題傾向</h1>
+      <p class="lead">行政書士試験は、問番号ごとに出る科目と分野がほぼ決まっています。「問37は会社の設立」のように、問1〜60のそれぞれでよく出るテーマを、平成18〜令和7年度の20年分の過去問から調べて一覧にします。</p>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="section" id="status">
+      <div class="box draft">
+        <p><strong>下書きです。まだ過去問を調べていません。</strong>このページは、できあがりの形を見てもらうための骨組みです。下の表の「見込み」は一般によく言われる割り当てを置いただけで、確かめていません。過去問を調べたら、この列を実際の出題テーマと回数に置き換えます。</p>
+        <p>確かめたのは<strong>問番号と科目の対応だけ</strong>です。20年分の1,139問すべてで、問1〜57の科目は毎年同じでした（問1〜2が基礎法学、問3〜7が憲法、問8〜26が行政法、問27〜35が民法、問36〜40が商法・会社法、問41が憲法の多肢選択、問42〜43が行政法の多肢選択、問44が行政法の記述、問45〜46が民法の記述、問47〜57が基礎知識）。平成29年度の問39だけはデータにありません。問58〜60（文章理解）はラボに収録していません。</p>
+      </div>
+    </section>
+
+    <section class="section" id="use">
+      <div class="section-heading">
+        <p class="kicker">HOW TO USE</p>
+        <h2>何に使うか</h2>
+        <p>本番で問題用紙を開いたとき、問番号を見ただけで「何が出るか」「取りに行くか流すか」が分かる状態にします。</p>
+      </div>
+      <div class="grid2">
+        <div class="box">
+          <h3>本番の時間配分</h3>
+          <p>問37（設立）は取りに行き、問38〜40は1問1分で流す、というように、番号ごとの方針を先に決めておけます（得点設計の「商法は5問中1問」とつながります）。</p>
+        </div>
+        <div class="box">
+          <h3>直前の見直し</h3>
+          <p>毎年ほぼ同じ番号に出るテーマは、毎年1問ぶんの点になります。直前の数日で、毎年出る番号のテーマから先に見直せます。</p>
+        </div>
+        <div class="box">
+          <h3>出題の型を知る</h3>
+          <p>テーマだけでなく、「個数問題が多い」「判例の文章の穴埋め」など、その番号でよく使われる問い方も書きます。</p>
+        </div>
+        <div class="box">
+          <h3>ラボの他の教材へ戻る</h3>
+          <p>各番号から、そのテーマの学習カード、演習D案の章、科目別マップへ移れるようにします。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sample">
+      <div class="section-heading">
+        <p class="kicker">SAMPLE</p>
+        <h2>完成したときの1問ぶん（見本）</h2>
+        <p>調べ終わったら、問1〜60のそれぞれをこの形で書きます。いまは問37だけ、ラボに既にある記録を使って見本を置きました。</p>
+      </div>
+      <div class="box sample-card">
+        <span class="tag">見本</span>
+        <h3>問37　商法・会社法（5肢択一）</h3>
+        <dl>
+          <dt>よく出るテーマ</dt>
+          <dd><strong>株式会社の設立</strong>。直近10年のうち9年が設立でした（ラボの既存の記録）。<span class="pending">20年分の内訳はこれから数えます。</span></dd>
+          <dt>20年の内訳</dt>
+          <dd class="pending">例：設立 ◯回、株式 ◯回、……（テーマごとの回数）</dd>
+          <dt>直近5年</dt>
+          <dd class="pending">例：令和3年 設立／令和4年 設立／……（毎年のテーマ）</dd>
+          <dt>よく使われる問い方</dt>
+          <dd class="pending">例：正しいものの組合せ、個数問題 など</dd>
+          <dt>本番での方針</dt>
+          <dd class="pending">例：取りに行く。知っている肢2つで組合せを絞る</dd>
+          <dt>ラボの教材</dt>
+          <dd class="pending">例：学習カード（出資の履行と仮装払込みなど）、演習D案の商法の章、商法マップの枝</dd>
+          <dt>20年分の問37</dt>
+          <dd class="years"><a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1547">令和3年</a><a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1607">令和4年</a><a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1667">令和5年</a><a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1727">令和6年</a><a href="https://www.pro.goukakudojyo.com/worksheet2/w_mainnendo.php?queID=1787">令和7年</a><span class="pending">（完成時は20年分すべて）</span></dd>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section" id="list">
+      <div class="section-heading">
+        <p class="kicker">ALL 60</p>
+        <h2>問1〜60の一覧（骨組み）</h2>
+        <p>「科目」と「形式」は確かめた値です。「見込み」は調べる前の仮の割り当てで、調べたあとに実際のテーマと回数へ置き換えます。</p>
+      </div>
+      <div class="table-wrap">
+        <table class="slots">
+          <thead><tr><th>問番号</th><th>科目</th><th>形式</th><th>見込み（未確認）</th><th>調査の状態</th></tr></thead>
+          <tbody>
+          <tr><td class="num">問1</td><td>基礎法学</td><td>5肢択一</td><td class="guess">法学の基礎（法の解釈・裁判制度など）</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問2</td><td>基礎法学</td><td>5肢択一</td><td class="guess">法学の基礎（法の解釈・裁判制度など）</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問3</td><td>憲法</td><td>5肢択一</td><td class="guess">人権と統治（どの番号が人権でどの番号が統治か）</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問4</td><td>憲法</td><td>5肢択一</td><td class="guess">人権と統治（どの番号が人権でどの番号が統治か）</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問5</td><td>憲法</td><td>5肢択一</td><td class="guess">人権と統治（どの番号が人権でどの番号が統治か）</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問6</td><td>憲法</td><td>5肢択一</td><td class="guess">人権と統治（どの番号が人権でどの番号が統治か）</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問7</td><td>憲法</td><td>5肢択一</td><td class="guess">人権と統治（どの番号が人権でどの番号が統治か）</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問8</td><td>行政法</td><td>5肢択一</td><td class="guess">行政法の一般的な法理論（総論）</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問9</td><td>行政法</td><td>5肢択一</td><td class="guess">行政法の一般的な法理論（総論）</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問10</td><td>行政法</td><td>5肢択一</td><td class="guess">行政法の一般的な法理論（総論）</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問11</td><td>行政法</td><td>5肢択一</td><td class="guess">行政手続法</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問12</td><td>行政法</td><td>5肢択一</td><td class="guess">行政手続法</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問13</td><td>行政法</td><td>5肢択一</td><td class="guess">行政手続法</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問14</td><td>行政法</td><td>5肢択一</td><td class="guess">行政不服審査法</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問15</td><td>行政法</td><td>5肢択一</td><td class="guess">行政不服審査法</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問16</td><td>行政法</td><td>5肢択一</td><td class="guess">行政不服審査法</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問17</td><td>行政法</td><td>5肢択一</td><td class="guess">行政事件訴訟法</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問18</td><td>行政法</td><td>5肢択一</td><td class="guess">行政事件訴訟法</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問19</td><td>行政法</td><td>5肢択一</td><td class="guess">行政事件訴訟法</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問20</td><td>行政法</td><td>5肢択一</td><td class="guess">国家賠償法・損失補償</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問21</td><td>行政法</td><td>5肢択一</td><td class="guess">国家賠償法・損失補償</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問22</td><td>行政法</td><td>5肢択一</td><td class="guess">地方自治法</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問23</td><td>行政法</td><td>5肢択一</td><td class="guess">地方自治法</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問24</td><td>行政法</td><td>5肢択一</td><td class="guess">地方自治法</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問25</td><td>行政法</td><td>5肢択一</td><td class="guess">総合問題（個別の法律・判例）</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問26</td><td>行政法</td><td>5肢択一</td><td class="guess">総合問題（個別の法律・判例）</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問27</td><td>民法</td><td>5肢択一</td><td class="guess">総則 → 物権 → 債権 → 家族の順に並ぶ</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問28</td><td>民法</td><td>5肢択一</td><td class="guess">総則 → 物権 → 債権 → 家族の順に並ぶ</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問29</td><td>民法</td><td>5肢択一</td><td class="guess">総則 → 物権 → 債権 → 家族の順に並ぶ</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問30</td><td>民法</td><td>5肢択一</td><td class="guess">総則 → 物権 → 債権 → 家族の順に並ぶ</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問31</td><td>民法</td><td>5肢択一</td><td class="guess">総則 → 物権 → 債権 → 家族の順に並ぶ</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問32</td><td>民法</td><td>5肢択一</td><td class="guess">総則 → 物権 → 債権 → 家族の順に並ぶ</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問33</td><td>民法</td><td>5肢択一</td><td class="guess">総則 → 物権 → 債権 → 家族の順に並ぶ</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問34</td><td>民法</td><td>5肢択一</td><td class="guess">総則 → 物権 → 債権 → 家族の順に並ぶ</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問35</td><td>民法</td><td>5肢択一</td><td class="guess">総則 → 物権 → 債権 → 家族の順に並ぶ</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問36</td><td>商法・会社法</td><td>5肢択一</td><td class="guess">商法（総則・商行為）</td><td class="todo">調査中</td></tr>
+          <tr class="sample"><td class="num">問37</td><td>商法・会社法</td><td>5肢択一</td><td class="guess">会社法・設立</td><td class="todo">直近10年のうち9年が設立（ラボの既存の記録）。20年分を数え直す</td></tr>
+          <tr><td class="num">問38</td><td>商法・会社法</td><td>5肢択一</td><td class="guess">会社法・株式</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問39</td><td>商法・会社法</td><td>5肢択一</td><td class="guess">会社法・機関</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問40</td><td>商法・会社法</td><td>5肢択一</td><td class="guess">会社法・その他</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問41</td><td>憲法</td><td>多肢選択</td><td class="guess">判例の文章の穴埋め</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問42</td><td>行政法</td><td>多肢選択</td><td class="guess">判例・条文の穴埋め</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問43</td><td>行政法</td><td>多肢選択</td><td class="guess">判例・条文の穴埋め</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問44</td><td>行政法</td><td>記述（40字）</td><td class="guess">行政事件訴訟法など</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問45</td><td>民法</td><td>記述（40字）</td><td class="guess">事例から要件・効果を書く</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問46</td><td>民法</td><td>記述（40字）</td><td class="guess">事例から要件・効果を書く</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問47</td><td>基礎知識</td><td>5肢択一</td><td class="guess">一般知識（政治・経済・社会）、令和6年度から行政書士法などの諸法令</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問48</td><td>基礎知識</td><td>5肢択一</td><td class="guess">一般知識（政治・経済・社会）、令和6年度から行政書士法などの諸法令</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問49</td><td>基礎知識</td><td>5肢択一</td><td class="guess">一般知識（政治・経済・社会）、令和6年度から行政書士法などの諸法令</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問50</td><td>基礎知識</td><td>5肢択一</td><td class="guess">一般知識（政治・経済・社会）、令和6年度から行政書士法などの諸法令</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問51</td><td>基礎知識</td><td>5肢択一</td><td class="guess">一般知識（政治・経済・社会）、令和6年度から行政書士法などの諸法令</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問52</td><td>基礎知識</td><td>5肢択一</td><td class="guess">一般知識（政治・経済・社会）、令和6年度から行政書士法などの諸法令</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問53</td><td>基礎知識</td><td>5肢択一</td><td class="guess">一般知識（政治・経済・社会）、令和6年度から行政書士法などの諸法令</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問54</td><td>基礎知識</td><td>5肢択一</td><td class="guess">情報通信・個人情報保護</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問55</td><td>基礎知識</td><td>5肢択一</td><td class="guess">情報通信・個人情報保護</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問56</td><td>基礎知識</td><td>5肢択一</td><td class="guess">情報通信・個人情報保護</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問57</td><td>基礎知識</td><td>5肢択一</td><td class="guess">情報通信・個人情報保護</td><td class="todo">調査中</td></tr>
+          <tr><td class="num">問58</td><td>基礎知識</td><td>5肢択一</td><td class="guess">文章理解</td><td class="todo">データに無い（文章理解は収録していない）。調査の対象外にする予定</td></tr>
+          <tr><td class="num">問59</td><td>基礎知識</td><td>5肢択一</td><td class="guess">文章理解</td><td class="todo">データに無い（文章理解は収録していない）。調査の対象外にする予定</td></tr>
+          <tr><td class="num">問60</td><td>基礎知識</td><td>5肢択一</td><td class="guess">文章理解</td><td class="todo">データに無い（文章理解は収録していない）。調査の対象外にする予定</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">形式は、問1〜40と問47〜60が5肢択一、問41〜43が多肢選択（空欄4つ）、問44〜46が記述（40字程度）です。</p>
+    </section>
+
+    <section class="section" id="next">
+      <div class="section-heading">
+        <p class="kicker">NEXT</p>
+        <h2>これから調べること</h2>
+      </div>
+      <div class="box">
+        <ul>
+          <li>平成18〜令和7年度の問1〜57（約1,140問）を、問番号ごとに読んでテーマを付ける。</li>
+          <li>番号ごとに、テーマ別の回数、直近5年の流れ、よく使われる問い方を数える。</li>
+          <li>年度によって並びがずれる番号（行政法の後半、民法、基礎知識など）は、ずれ方も書く。基礎知識は令和6年度に科目の中身が変わったので、前後を分けて数える。</li>
+          <li>テーマに当たる学習カード、演習D案の章、科目別マップへのリンクを付ける。</li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="page-foot">下書き（2026-11-05）。過去問の問題文や取得元の解説は載せず、テーマ名と回数だけを書きます。</p>
+  </main>
+</body>
+</html>
