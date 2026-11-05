@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 620" role="img" aria-labelledby="t d">
+  <title id="t">講学上の名前で決まること</title>
+  <desc id="d">講学上の名前が分かると、4つのことが決まる。1、許可か特許かで、断られたときに争いやすいかが決まる。許可は要件を満たせば原則として出し、特許は行政庁の裁量が広い。2、許可か認可かで、許可なしの契約が有効かが決まる。許可なしの営業での売買は有効、認可なしの契約は効力がない。農地の売買は許可を得てから所有権が移る。3、取消しか撤回かで、さかのぼるかと補償があるかが決まる。違反がないのに工事の都合で河川の占用許可を撤回されたら損失の補償を求められる。4、期限か負担かで、自動で消えるか、違反で消えるかが決まる。建設業許可は5年ごとの更新、免許の更新を忘れると違反がなくても失効する。眼鏡なしの運転は違反だが免許はすぐには消えない。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #3c4a45; }
+    .sub { font-size: 12px; font-weight: 800; fill: #2d6b5e; }
+  </style>
+  <rect x="0" y="0" width="640" height="620" fill="#ffffff"/>
+  <text class="h" x="20" y="34">名前が分かると、こう決まる</text>
+
+  <g transform="translate(0,52)">
+    <rect x="20" y="0" width="600" height="128" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+    <text class="b" x="36" y="24">① 許可か特許か → 断られたとき争いやすいか</text>
+    <text class="t" x="36" y="47">許可は要件を満たせば原則出す。特許は行政庁の裁量が広い。</text>
+    <text class="sub" x="36" y="72">行政書士の場面</text>
+    <text class="s" x="36" y="90">建設業や飲食店の許可は、要件の書類を</text>
+    <text class="s" x="36" y="106">そろえれば通る仕事。埋立免許や河川の</text>
+    <text class="s" x="36" y="122">占用は、事前の調整が要る仕事。</text>
+    <text class="sub" x="330" y="72">市民の場面</text>
+    <text class="s" x="330" y="90">許可を断られたら「要件は満たしている」</text>
+    <text class="s" x="330" y="106">と争える。特許だと「裁量の範囲を外れ</text>
+    <text class="s" x="330" y="122">た・濫用した」まで言う必要がある。</text>
+  </g>
+
+  <g transform="translate(0,192)">
+    <rect x="20" y="0" width="600" height="128" rx="10" fill="#f3f1fb" stroke="#bdb5e0"/>
+    <text class="b" x="36" y="24">② 許可か認可か → 許可なしの契約が有効か</text>
+    <text class="t" x="36" y="47">許可なしの営業での売買は有効。認可なしの契約は効力がない。</text>
+    <text class="sub" x="36" y="72">行政書士の場面</text>
+    <text class="s" x="36" y="90">農地の売買は、農業委員会の許可を得て</text>
+    <text class="s" x="36" y="106">から所有権が移る。許可の申請書づくり</text>
+    <text class="s" x="36" y="122">が、そのまま定番の仕事。</text>
+    <text class="sub" x="330" y="72">市民の場面</text>
+    <text class="s" x="330" y="90">許可なしで農地を買うと、代金を払って</text>
+    <text class="s" x="330" y="106">も自分のものにならない（農地法3条）。</text>
+    <text class="s" x="330" y="122">無許可の肉屋から買った肉の売買は有効。</text>
+  </g>
+
+  <g transform="translate(0,332)">
+    <rect x="20" y="0" width="600" height="128" rx="10" fill="#fdf1ef" stroke="#e3b3ab"/>
+    <text class="b" x="36" y="24">③ 取消しか撤回か → さかのぼるか・補償があるか</text>
+    <text class="t" x="36" y="47">取消しは最初から無かったことに。撤回はこれから先だけ。</text>
+    <text class="sub" x="36" y="72">行政書士の場面</text>
+    <text class="s" x="36" y="90">許可を取り消される（撤回）前の聴聞や</text>
+    <text class="s" x="36" y="106">弁明で、依頼者の代理ができる。何が</text>
+    <text class="s" x="36" y="122">「後から起きた理由」かを整理する。</text>
+    <text class="sub" x="330" y="72">市民の場面</text>
+    <text class="s" x="330" y="90">違反がないのに工事の都合で占用許可を</text>
+    <text class="s" x="330" y="106">撤回されたら、損失の補償を求められる</text>
+    <text class="s" x="330" y="122">（河川法76条、平成24年問24）。</text>
+  </g>
+
+  <g transform="translate(0,472)">
+    <rect x="20" y="0" width="600" height="128" rx="10" fill="#fdf7e6" stroke="#e2cc8a"/>
+    <text class="b" x="36" y="24">④ 期限か負担か → 自動で消えるか・違反で消えるか</text>
+    <text class="t" x="36" y="47">期限が来れば許可は自動で消える。負担の違反では、すぐには消えない。</text>
+    <text class="sub" x="36" y="72">行政書士の場面</text>
+    <text class="s" x="36" y="90">建設業許可は5年ごとの更新（建設業法</text>
+    <text class="s" x="36" y="106">3条）。期限の前に更新申請を出すよう、</text>
+    <text class="s" x="36" y="122">顧客の期限を管理するのが定番の仕事。</text>
+    <text class="sub" x="330" y="72">市民の場面</text>
+    <text class="s" x="330" y="90">免許の更新を忘れると、違反がなくても</text>
+    <text class="s" x="330" y="106">失効する。眼鏡なしの運転は違反だが、</text>
+    <text class="s" x="330" y="122">それだけで免許が消えるわけではない。</text>
+  </g>
+</svg>

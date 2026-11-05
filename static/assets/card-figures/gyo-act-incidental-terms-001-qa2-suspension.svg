@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" role="img" aria-labelledby="t d">
+  <title id="t">免許停止の取消訴訟と訴えの利益</title>
+  <desc id="d">免許停止処分の取消訴訟の途中で停止期間が終わっても、処分の日から1年間は前歴が残り、次に違反すると処分が重くなるので、訴えの利益は残る。処分の日から1年間、無違反・無処分で過ぎると前歴は消え、訴えの利益もなくなる。免停になった人と見られて悔しいという名誉・感情・信用は事実上の不利益で、訴えの利益にならない。最判昭55.11.25。平成19年問10肢5と令和2年問26肢2は、違反点数が残っていても利益は消えるとして誤り、令和6年問17肢4は名誉や信用の回復があれば消えないとして誤り。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #3c4a45; }
+    .ok { font-size: 14px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 14px; font-weight: 800; fill: #a33a2c; }
+  </style>
+  <defs>
+    <marker id="suspensionArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#183a34"/></marker>
+  </defs>
+  <rect x="0" y="0" width="640" height="380" fill="#ffffff"/>
+  <text class="h" x="20" y="34">免停の取消訴訟は、いつまで続ける意味があるか</text>
+
+  <line x1="30" y1="96" x2="612" y2="96" stroke="#183a34" stroke-width="2" marker-end="url(#suspensionArrow)"/>
+  <circle cx="60" cy="96" r="7" fill="#183a34"/>
+  <circle cx="170" cy="96" r="7" fill="#183a34"/>
+  <circle cx="420" cy="96" r="7" fill="#183a34"/>
+  <text class="t" x="30" y="72">処分の日</text>
+  <text class="t" x="120" y="72">停止30日が終わる</text>
+  <text class="t" x="370" y="72">処分から1年</text>
+  <text class="s" x="580" y="80">時間</text>
+
+  <rect x="60" y="114" width="360" height="104" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <text class="ok" x="76" y="140">訴えの利益あり（続ける意味がある）</text>
+  <text class="t" x="76" y="164">停止が終わっても、1年間は「前歴」が残る。</text>
+  <text class="t" x="76" y="184">この間に違反すると、次の処分が重くなる。</text>
+  <text class="s" x="76" y="206">取消判決で前歴を消す意味がある（行訴法9条1項）</text>
+
+  <rect x="428" y="114" width="192" height="104" rx="10" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <text class="ng" x="442" y="140">訴えの利益なし</text>
+  <text class="t" x="442" y="164">1年間、無違反・</text>
+  <text class="t" x="442" y="184">無処分なら前歴が</text>
+  <text class="t" x="442" y="204">消える。</text>
+
+  <rect x="20" y="236" width="600" height="128" rx="10" fill="#f6f6f4" stroke="#c9ccc8"/>
+  <text class="b" x="36" y="260">「免停になった人と見られて悔しい」は理由にならない</text>
+  <text class="t" x="36" y="284">名誉・感情・信用の傷は事実上の不利益で、訴えの利益にならない（最判昭55.11.25）。</text>
+  <text class="s" x="36" y="310">平成19年問10肢5・令和2年問26肢2：「違反点数が残っていても利益は消える」で×</text>
+  <text class="s" x="36" y="330">令和6年問17肢4：「名誉・信用の回復の見込みがあれば利益は消えない」で×</text>
+  <text class="s" x="36" y="350">平成19年問10と令和2年問26では、許可・特許・期限の肢と同じ問題の中に出た。</text>
+</svg>
