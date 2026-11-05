@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 626" role="img" aria-labelledby="t d">
+  <title id="t">免停の1つの場面で学ぶ7つの論点</title>
+  <desc id="d">佐藤さんの免許停止を7つの場面で追う。1、免許をもらう（講学上・行政組織）：免許＝許可、有効期限＝期限、眼鏡等＝負担。出すのは合議制の公安委員会そのもの（委員長ではない）。2、違反して反則金の通告（処分性）：通告は処分ではないので、取消訴訟では争えない。納めずに刑事手続へ進み、そこで争う（最判昭57.7.15）。3、免停の前の手続（行政手続法）：処分基準（12条）と理由の提示（14条）だけが働く。聴聞・弁明は外れ、90日以上なら公開の意見の聴取（道交法104条）。4、免停処分（講学上）：免許の効力を一時的に止める不利益処分。違反を理由に免許を取り消すなら、講学上の撤回。5、争う（不服審査法・事件訴訟法）：審査請求でも取消訴訟でも、両方同時でもよい（行訴法8条1項）。30日の停止は先に終わるので、執行停止も申し立てる。6、停止期間が終わった（訴えの利益）：処分から1年は前歴が残るので、争い続けられる。1年無違反・無処分なら利益なし（最判昭55.11.25）。7、休んだ分のお金（国家賠償法）：都道府県に賠償を求める（国家賠償法1条1項）。取消判決を先にもらわなくてよい（最判昭36.4.21）。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #3c4a45; }
+    .sub { font-size: 12px; font-weight: 800; fill: #2d6b5e; }
+    .n { font-size: 15px; font-weight: 800; fill: #ffffff; }
+  </style>
+
+  <rect x="0" y="0" width="640" height="626" fill="#ffffff"/>
+  <text class="h" x="20" y="34">佐藤さんの免停を追うと、7つの論点が出てくる</text>
+  <line x1="44" y1="80" x2="44" y2="562" stroke="#183a34" stroke-width="2"/>
+  <rect x="64" y="56" width="556" height="70" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <circle cx="44" cy="80" r="14" fill="#183a34"/>
+  <text class="n" x="39.5" y="85">1</text>
+  <text class="b" x="78" y="78">免許をもらう</text>
+  <text class="sub" x="180" y="78">【講学上・行政組織】</text>
+  <text class="t" x="78" y="100">免許＝許可、有効期限＝期限、眼鏡等＝負担。</text>
+  <text class="t" x="78" y="118">出すのは合議制の公安委員会そのもの（委員長ではない）。</text>
+  <rect x="64" y="136" width="556" height="70" rx="10" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <circle cx="44" cy="160" r="14" fill="#183a34"/>
+  <text class="n" x="39.5" y="165">2</text>
+  <text class="b" x="78" y="158">違反して反則金の通告</text>
+  <text class="sub" x="240" y="158">【処分性】</text>
+  <text class="t" x="78" y="180">通告は処分ではないので、取消訴訟では争えない。</text>
+  <text class="t" x="78" y="198">納めずに刑事手続へ進み、そこで争う（最判昭57.7.15）。</text>
+  <rect x="64" y="216" width="556" height="70" rx="10" fill="#eaf2fb" stroke="#a8c4e3"/>
+  <circle cx="44" cy="240" r="14" fill="#183a34"/>
+  <text class="n" x="39.5" y="245">3</text>
+  <text class="b" x="78" y="238">免停の前の手続</text>
+  <text class="sub" x="195" y="238">【行政手続法】</text>
+  <text class="t" x="78" y="260">処分基準（12条）と理由の提示（14条）だけが働く。</text>
+  <text class="t" x="78" y="278">聴聞・弁明は外れ、90日以上なら公開の意見の聴取（道交法104条）。</text>
+  <rect x="64" y="296" width="556" height="70" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <circle cx="44" cy="320" r="14" fill="#183a34"/>
+  <text class="n" x="39.5" y="325">4</text>
+  <text class="b" x="78" y="318">免停処分</text>
+  <text class="sub" x="150" y="318">【講学上】</text>
+  <text class="t" x="78" y="340">免許の効力を一時的に止める不利益処分。</text>
+  <text class="t" x="78" y="358">違反を理由に免許を取り消すなら、講学上の撤回。</text>
+  <rect x="64" y="376" width="556" height="70" rx="10" fill="#f3f1fb" stroke="#bdb5e0"/>
+  <circle cx="44" cy="400" r="14" fill="#183a34"/>
+  <text class="n" x="39.5" y="405">5</text>
+  <text class="b" x="78" y="398">争う</text>
+  <text class="sub" x="120" y="398">【不服審査法・事件訴訟法】</text>
+  <text class="t" x="78" y="420">審査請求でも取消訴訟でも、両方同時でもよい（行訴法8条1項）。</text>
+  <text class="t" x="78" y="438">30日の停止は先に終わるので、執行停止も申し立てる。</text>
+  <rect x="64" y="456" width="556" height="70" rx="10" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <circle cx="44" cy="480" r="14" fill="#183a34"/>
+  <text class="n" x="39.5" y="485">6</text>
+  <text class="b" x="78" y="478">停止期間が終わった</text>
+  <text class="sub" x="225" y="478">【訴えの利益】</text>
+  <text class="t" x="78" y="500">処分から1年は前歴が残るので、争い続けられる。</text>
+  <text class="t" x="78" y="518">1年無違反・無処分なら利益なし（最判昭55.11.25）。</text>
+  <rect x="64" y="536" width="556" height="70" rx="10" fill="#fdf7e6" stroke="#e2cc8a"/>
+  <circle cx="44" cy="560" r="14" fill="#183a34"/>
+  <text class="n" x="39.5" y="565">7</text>
+  <text class="b" x="78" y="558">休んだ分のお金</text>
+  <text class="sub" x="195" y="558">【国家賠償法】</text>
+  <text class="t" x="78" y="580">都道府県に賠償を求める（国家賠償法1条1項）。</text>
+  <text class="t" x="78" y="598">取消判決を先にもらわなくてよい（最判昭36.4.21）。</text>
+</svg>

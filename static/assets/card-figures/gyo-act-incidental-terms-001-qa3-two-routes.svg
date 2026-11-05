@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 492" role="img" aria-labelledby="t d">
+  <title id="t">免停を争う2つの道</title>
+  <desc id="d">免停を争う道は、行政不服審査法の審査請求と行政事件訴訟法の取消訴訟の2つ。どこへ：審査請求は処分をした公安委員会へ（上級行政庁がない：4条1号）、取消訴訟は裁判所へ。被告は都道府県（公安委員会ではない：11条1項）。いつまで：審査請求は知った日の翌日から3か月（18条1項）、取消訴訟は知った日から6か月（14条1項）。誰が審理：審査請求は審理員は指名しない（委員会が審査庁：9条1項3号）、取消訴訟は裁判官。何を見る：審査請求は違法だけでなく、不当も、取消訴訟は違法だけ。止める：審査請求は執行停止（25条）、取消訴訟は執行停止の申立て（25条）。判例では：審査請求は選ばれなかった道、取消訴訟は最判昭55.11.25はこちら。どちらから始めても、両方同時でもよい。警察官が現場でした処分は審査請求できない。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #3c4a45; }
+    .sub { font-size: 12px; font-weight: 800; fill: #2d6b5e; }
+    .n { font-size: 15px; font-weight: 800; fill: #ffffff; }
+  </style>
+
+  <rect x="0" y="0" width="640" height="492" fill="#ffffff"/>
+  <text class="h" x="20" y="34">免停を争う2つの道</text>
+  <rect x="140" y="56" width="236" height="40" rx="8" fill="#f3f1fb" stroke="#bdb5e0"/>
+  <text class="b" x="152" y="81">審査請求（不服審査法）</text>
+  <rect x="384" y="56" width="236" height="40" rx="8" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <text class="b" x="396" y="81">取消訴訟（事件訴訟法）</text>
+  <rect x="20" y="104" width="600" height="44" rx="6" fill="#f6f6f4" stroke="#d9dcd8"/>
+  <text class="sub" x="32" y="131">どこへ</text>
+  <text class="t" x="152" y="123">処分をした公安委員会へ</text>
+  <text class="s" x="152" y="141">（上級行政庁がない：4条1号）</text>
+  <text class="t" x="396" y="123">裁判所へ。被告は都道府県</text>
+  <text class="s" x="396" y="141">（公安委員会ではない：11条1項）</text>
+  <rect x="20" y="154" width="600" height="44" rx="6" fill="#ffffff" stroke="#d9dcd8"/>
+  <text class="sub" x="32" y="181">いつまで</text>
+  <text class="t" x="152" y="173">知った日の翌日から3か月</text>
+  <text class="s" x="152" y="191">（18条1項）</text>
+  <text class="t" x="396" y="173">知った日から6か月</text>
+  <text class="s" x="396" y="191">（14条1項）</text>
+  <rect x="20" y="204" width="600" height="44" rx="6" fill="#f6f6f4" stroke="#d9dcd8"/>
+  <text class="sub" x="32" y="231">誰が審理</text>
+  <text class="t" x="152" y="223">審理員は指名しない</text>
+  <text class="s" x="152" y="241">（委員会が審査庁：9条1項3号）</text>
+  <text class="t" x="396" y="231">裁判官</text>
+  <rect x="20" y="254" width="600" height="44" rx="6" fill="#ffffff" stroke="#d9dcd8"/>
+  <text class="sub" x="32" y="281">何を見る</text>
+  <text class="t" x="152" y="281">違法だけでなく、不当も</text>
+  <text class="t" x="396" y="281">違法だけ</text>
+  <rect x="20" y="304" width="600" height="44" rx="6" fill="#f6f6f4" stroke="#d9dcd8"/>
+  <text class="sub" x="32" y="331">止める</text>
+  <text class="t" x="152" y="331">執行停止（25条）</text>
+  <text class="t" x="396" y="331">執行停止の申立て（25条）</text>
+  <rect x="20" y="354" width="600" height="44" rx="6" fill="#ffffff" stroke="#d9dcd8"/>
+  <text class="sub" x="32" y="381">判例では</text>
+  <text class="t" x="152" y="381">選ばれなかった道</text>
+  <text class="t" x="396" y="381">最判昭55.11.25はこちら</text>
+  <rect x="20" y="412" width="600" height="72" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <text class="b" x="36" y="438">どちらから始めても、両方同時でもよい（行訴法8条1項）</text>
+  <text class="s" x="36" y="458">道路交通法に「先に審査請求を」という定めがないため。</text>
+  <text class="s" x="36" y="475">ただし、警察官が現場でした処分は審査請求できない（道交法113条の3）。</text>
+</svg>
