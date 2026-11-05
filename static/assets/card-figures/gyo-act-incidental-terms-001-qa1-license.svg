@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 430" role="img" aria-labelledby="t d">
+  <title id="t">運転免許証で覚える講学上の名前</title>
+  <desc id="d">運転免許証の記載ごとの行政法学上の名前。有効期限の日付は、必ず来る日なので期限であり、条件ではない。免許の条件等の欄の眼鏡等は、許可に付け加えた義務なので負担であり、欄の名前に条件とあっても講学上の条件ではない。運転免許そのものは、一度禁止した運転を解除するものなので許可であり、特許ではない。違反を理由とする免許の取消しは、免許の後に起きた事情が理由なので撤回である。運転免許は過去20年で3回、この分類の素材になった。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 14px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .ok { font-size: 15px; font-weight: 800; fill: #1f6b45; }
+    .ng { font-size: 12px; font-weight: 800; fill: #b23a2e; }
+  </style>
+  <rect x="0" y="0" width="640" height="430" fill="#ffffff"/>
+  <text class="h" x="20" y="34">運転免許証で覚える（20年で3回の素材）</text>
+
+  <rect x="20" y="52" width="250" height="300" rx="12" fill="#eef3fb" stroke="#9fb5d6"/>
+  <text class="b" x="36" y="80">運転免許証</text>
+  <rect x="36" y="96" width="218" height="40" rx="6" fill="#ffffff" stroke="#9fb5d6"/>
+  <text class="t" x="46" y="121">令和9年3月31日まで有効</text>
+  <rect x="36" y="150" width="218" height="40" rx="6" fill="#ffffff" stroke="#9fb5d6"/>
+  <text class="t" x="46" y="175">免許の条件等：眼鏡等</text>
+  <rect x="36" y="204" width="218" height="40" rx="6" fill="#ffffff" stroke="#9fb5d6"/>
+  <text class="t" x="46" y="229">免許そのもの</text>
+  <rect x="36" y="258" width="218" height="40" rx="6" fill="#ffffff" stroke="#9fb5d6"/>
+  <text class="t" x="46" y="283">違反したので免許の取消し</text>
+
+  <line x1="254" y1="116" x2="300" y2="116" stroke="#183a34" stroke-width="2"/>
+  <line x1="254" y1="170" x2="300" y2="170" stroke="#183a34" stroke-width="2"/>
+  <line x1="254" y1="224" x2="300" y2="224" stroke="#183a34" stroke-width="2"/>
+  <line x1="254" y1="278" x2="300" y2="278" stroke="#183a34" stroke-width="2"/>
+
+  <text class="ok" x="306" y="112">期限</text>
+  <text class="s" x="350" y="112">必ず来る日</text>
+  <text class="ng" x="306" y="130">「条件」は×（令和2年・令和7年）</text>
+
+  <text class="ok" x="306" y="166">負担</text>
+  <text class="s" x="350" y="166">許可に付け足した義務</text>
+  <text class="ng" x="306" y="184">欄の名前が「条件」でも講学上は負担</text>
+
+  <text class="ok" x="306" y="220">許可</text>
+  <text class="s" x="350" y="220">一度禁止した運転を解除</text>
+  <text class="ng" x="306" y="238">「特許」は×（平成19年・令和2年）</text>
+
+  <text class="ok" x="306" y="274">撤回</text>
+  <text class="s" x="350" y="274">免許の後に起きた違反が理由</text>
+  <text class="ng" x="306" y="292">条文は「取消し」でも講学上は撤回</text>
+
+  <rect x="20" y="366" width="600" height="50" rx="10" fill="#fdf8e8" stroke="#e2cf8f"/>
+  <text class="t" x="36" y="388">日常の言葉（条件・取消し・許可）と講学上の名前がずれるところを、</text>
+  <text class="t" x="36" y="406">ひっかけに使ってくる。条文や書類の名前ではなく、中身で名前を決める。</text>
+</svg>

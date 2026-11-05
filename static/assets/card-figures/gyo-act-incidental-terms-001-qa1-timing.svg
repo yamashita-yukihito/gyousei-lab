@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 330" role="img" aria-labelledby="t d">
+  <title id="t">条文の取消しは理由の時点で見分ける</title>
+  <desc id="d">条文に取消しと書いてあっても、理由が許可を出した時点にあれば講学上の取消し、許可の後に起きたことなら講学上の撤回。取消しの例は、不正の手段で許可や認可を受けた、処分を受けるべき事由がもともと無かった。撤回の例は、命令に違反した、許可に付けた条件や負担に違反した、不誠実な行為をした、許可から1年以内に営業を始めない、基準が後から変わって合わなくなった。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+  </style>
+  <defs>
+    <marker id="timingArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#183a34"/></marker>
+  </defs>
+  <rect x="0" y="0" width="640" height="330" fill="#ffffff"/>
+  <text class="h" x="20" y="34">条文の「取消し」は、理由がいつのことかで見分ける</text>
+
+  <line x1="30" y1="78" x2="610" y2="78" stroke="#183a34" stroke-width="2" marker-end="url(#timingArrow)"/>
+  <circle cx="220" cy="78" r="7" fill="#183a34"/>
+  <text class="b" x="186" y="64">許可を出した時</text>
+  <text class="s" x="560" y="64">時間</text>
+
+  <rect x="20" y="98" width="290" height="216" rx="10" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <text class="b" x="36" y="124">理由が許可の時点にある</text>
+  <text class="b" x="36" y="146">→ 講学上の「取消し」</text>
+  <text class="t" x="36" y="174">・不正の手段で認可を受けた</text>
+  <text class="t" x="36" y="198">・処分を受ける理由が、</text>
+  <text class="t" x="36" y="216">　もともと無かった</text>
+  <text class="s" x="36" y="246">許可を出した時にさかのぼって</text>
+  <text class="s" x="36" y="264">効力がなくなる</text>
+
+  <rect x="330" y="98" width="290" height="216" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <text class="b" x="346" y="124">理由が許可の後に起きた</text>
+  <text class="b" x="346" y="146">→ 講学上の「撤回」</text>
+  <text class="t" x="346" y="174">・命令に違反した</text>
+  <text class="t" x="346" y="196">・条件や負担に違反した</text>
+  <text class="t" x="346" y="218">・不誠実な行為をした</text>
+  <text class="t" x="346" y="240">・1年以内に営業を始めない</text>
+  <text class="t" x="346" y="262">・基準が後から変わった</text>
+  <text class="s" x="346" y="290">撤回した時から先だけ効力がなくなる</text>
+</svg>
