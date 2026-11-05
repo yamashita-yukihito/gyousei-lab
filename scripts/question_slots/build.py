@@ -18,6 +18,7 @@ sys.path.insert(0, str(HERE))
 import slots_data as D  # noqa: E402
 
 OUT = ROOT / "static/question-slots/index.html"
+OUT_JSON = ROOT / "static/question-slots/slots.json"
 LINKS = json.loads((ROOT / "static/simple-rules/exam-links.json").read_text())
 CARDS = json.loads((HERE / "cards_by_slot.json").read_text())
 RECENT = ["平成28年", "平成29年", "平成30年", "令和元年", "令和2年", "令和3年", "令和4年", "令和5年", "令和6年", "令和7年"]
@@ -277,14 +278,26 @@ TEMPLATE = """<!doctype html>
 """
 
 
+def slots_json():
+    """ほかのページ（本試験形式の練習・法理・法原則）が問番号からテーマを引くための写し。"""
+    names = {key: name for name, key, _, _ in D.GROUPS}
+    data = {str(n): {"group": names[s["group"]], "title": s["title"], "fix": s["fix"], "tip": s["tip"]}
+            for n, s in sorted(D.S.items())}
+    return json.dumps({"note": "scripts/question_slots/build.py --write で書き出す。平成28年度以降の並び。", "slots": data},
+                      ensure_ascii=False, indent=1) + "\n"
+
+
 def main():
     text = build()
+    data = slots_json()
     if "--write" in sys.argv:
         OUT.write_text(text)
-        print("wrote", OUT)
+        OUT_JSON.write_text(data)
+        print("wrote", OUT, OUT_JSON)
     else:
         current = OUT.read_text() if OUT.exists() else ""
-        print("unchanged" if current == text else "differs (use --write)")
+        current_json = OUT_JSON.read_text() if OUT_JSON.exists() else ""
+        print("unchanged" if (current, current_json) == (text, data) else "differs (use --write)")
     rows, legal, general = score_rows()
     print(f"expected total {legal + general:.1f} (legal {legal:.1f}, general {general:.1f})")
 

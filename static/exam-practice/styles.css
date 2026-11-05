@@ -55,6 +55,7 @@ button:disabled { opacity: .45; cursor: default; }
 .q-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
 .q-exam { color: var(--deep); font-size: 17px; font-weight: 900; }
 .q-aim { margin: 10px 0 0; color: #43514b; font-size: 14px; }
+.q-slot { margin: 4px 0 0; color: var(--muted, #62706a); font-size: 13px; }
 .ask { display: grid; gap: 2px; margin: 12px 0 0; padding: 10px 14px; border-radius: 10px; border-left: 5px solid; }
 .ask strong { font-size: 16px; }
 .ask span { font-size: 13px; }

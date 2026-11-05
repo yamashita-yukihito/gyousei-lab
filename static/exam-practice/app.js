@@ -47,6 +47,7 @@
     rules: new Map(),
     words: [],
     marks: {},
+    slots: {},
     justAnswered: {},
     resultMode: false,
     loading: false
@@ -154,9 +155,11 @@
     return Promise.all([
       soft(fetchText("../simple-rules/content.md"), "法律家の常識"),
       soft(fetchJson("../assets/card-hints.json"), "カードの常識・テクニック"),
-      soft(fetchJson("../technique/word-signals.json"), "語の傾向")
-    ]).then(([rules, hints, signals]) => {
+      soft(fetchJson("../technique/word-signals.json"), "語の傾向"),
+      soft(fetchJson("../question-slots/slots.json"), "問番号ごとの出題傾向")
+    ]).then(([rules, hints, signals, slots]) => {
       if (rules) state.rules = parseSimpleRules(rules);
+      if (slots && slots.slots) state.slots = slots.slots;
       if (hints) state.hints = { cards: hints.cards || {}, kinds: hints.kinds || {} };
       if (signals) {
         state.words = (signals.rules || []).filter((rule) => rule.stable && rule.pattern).map((rule) => Object.assign({}, rule, {
@@ -596,6 +599,19 @@
     return node;
   }
 
+  // 問番号ごとの出題傾向（question-slots/slots.json）から、本番でこの番号に毎年何が出るかを1行で出す。
+  // 平成28年度以降の並びなので、それより前の年度の問には出さない。テーマだけで、答えの手がかりは含まない。
+  function renderSlotLine(entry) {
+    const found = /^(平成(\d+)|令和(元|\d+))年問(\d+)$/.exec(String(entry.exam || ""));
+    if (!found || (found[2] && Number(found[2]) < 28)) return null;
+    const slot = state.slots[found[4]];
+    if (!slot) return null;
+    const line = make("p", { className: "q-slot" });
+    line.append("本番の問" + found[4] + "：" + slot.title + "（" + slot.fix + "）。 ");
+    line.append(make("a", { href: "../question-slots/#q" + found[4] }, "この番号の出題傾向 →"));
+    return line;
+  }
+
   function renderQuestion(model) {
     const entry = model.entry;
     const qid = entry.questionId;
@@ -613,6 +629,8 @@
     if (record) meta.append(make("span", { className: "tag past" + (record.lastOk ? " ok" : " ng") }, "前回 " + (record.lastOk ? "正解" : "不正解") + "（" + record.tries + "回目まで）"));
     card.append(meta);
     card.append(marked(make("p", { className: "q-aim" }, null), "ねらい：" + entry.aim));
+    const slotLine = renderSlotLine(entry);
+    if (slotLine) card.append(slotLine);
     card.append(askBanner(model));
 
     const stem = make("div", { className: "q-stem" });

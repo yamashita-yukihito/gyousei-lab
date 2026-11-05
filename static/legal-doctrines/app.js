@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "20261102-3";
+  const VERSION = "20261105-1";
   const FIELD = /^\s*(?:-\s+)?(法理|別名|正確|やさしく|根拠|過去問|カード)\s*::\s*(.*)$/;
   const ALL = "all";
 
@@ -79,7 +79,32 @@
     return box;
   }
 
-  function renderDoctrine(item, links, titles) {
+  // 過去問の欄（平成28年度以降の分だけ）から、本番でどの問番号に出たかを数えて1行にする。
+  // 問番号ごとの出題傾向（question-slots/slots.json）は平成28年度以降の並びなので、それより前の年度は数えない。
+  function slotLine(value, slots) {
+    const counts = new Map();
+    String(value || "").split(/\s+/).forEach((token) => {
+      const found = /^(平成(\d+)|令和(元|\d+))年問(\d+)$/.exec(token);
+      if (!found || (found[2] && Number(found[2]) < 28)) return;
+      counts.set(found[4], (counts.get(found[4]) || 0) + 1);
+    });
+    const numbers = Array.from(counts.keys()).filter((n) => slots[n])
+      .sort((a, b) => counts.get(b) - counts.get(a) || Number(a) - Number(b)).slice(0, 3);
+    if (!numbers.length) return null;
+    const line = document.createElement("p");
+    line.className = "slot-line";
+    line.append("本番で出た番号（平成28年度以降）：");
+    numbers.forEach((n, i) => {
+      if (i) line.append("、");
+      const link = document.createElement("a");
+      link.href = "../question-slots/#q" + n;
+      link.textContent = "問" + n + "（" + slots[n].title + "）" + (counts.get(n) > 1 ? counts.get(n) + "回" : "");
+      line.append(link);
+    });
+    return line;
+  }
+
+  function renderDoctrine(item, links, titles, slots) {
     const card = document.createElement("article");
     card.className = "doctrine";
     const title = document.createElement("h4");
@@ -113,7 +138,11 @@
       basis.textContent = "根拠：" + item["根拠"];
       card.append(basis);
     }
-    if (item["過去問"]) card.append(examChips(item["過去問"], links));
+    if (item["過去問"]) {
+      const line = slotLine(item["過去問"], slots || {});
+      if (line) card.append(line);
+      card.append(examChips(item["過去問"], links));
+    }
     const cards = cardBlock(item["カード"], titles);
     if (cards) card.append(cards);
     return card;
@@ -128,7 +157,7 @@
     });
   }
 
-  function render(groups, links, titles) {
+  function render(groups, links, titles, slots) {
     const root = document.getElementById("doctrine-list");
     root.replaceChildren();
     const bar = document.getElementById("subject-filter");
@@ -152,7 +181,7 @@
       heading.textContent = group.name + "（" + group.items.length + "）";
       const list = document.createElement("div");
       list.className = "doctrine-list";
-      group.items.forEach((item) => list.append(renderDoctrine(item, links, titles)));
+      group.items.forEach((item) => list.append(renderDoctrine(item, links, titles, slots)));
       section.append(heading, list);
       root.append(section);
     });
@@ -172,9 +201,11 @@
     load("../simple-rules/exam-links.json?v=" + VERSION, (res) => res.json()),
     // カード名が取れなくても、本文とリンクは出す（名前の代わりにカードIDを出す）。
     load("../api/cards", (res) => res.json()).catch(() => null),
-  ]).then(([text, links, cards]) => {
+    // 問番号ごとの出題傾向が読めなくても、本文は出す。
+    load("../question-slots/slots.json?v=" + VERSION, (res) => res.json()).catch(() => null),
+  ]).then(([text, links, cards, slotData]) => {
     const titles = new Map(((cards && cards.explanationCards) || []).map((card) => [card.id, card.subtopic || card.id]));
-    render(parse(text), links, titles);
+    render(parse(text), links, titles, (slotData && slotData.slots) || {});
     document.getElementById("subject-filter").after(TextMarks.legend());
   }).catch((error) => {
     const message = document.getElementById("load-error");

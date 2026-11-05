@@ -42,6 +42,8 @@ class QuestionSlotsTest(unittest.TestCase):
     def test_written_html_is_up_to_date(self):
         current = (ROOT / "static" / "question-slots" / "index.html").read_text()
         self.assertEqual(current, build.build(), "build.py --write で書き出し直す")
+        current_json = (ROOT / "static" / "question-slots" / "slots.json").read_text()
+        self.assertEqual(current_json, build.slots_json(), "build.py --write で書き出し直す")
 
 
 if __name__ == "__main__":
