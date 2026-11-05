@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const APP_VERSION = "20261104-1";
+  const APP_VERSION = "20261105-1";
   const API = "api";
   const PAGE_SIZE = 250;
   const MASTERY_SCORE = 3;
@@ -2276,7 +2276,8 @@
     state.pickedLabel = from === "mock"
       ? "通し演習で間違えた問題のカード"
       : from === "technique" ? "同じ作り方の誤りのカード"
-      : from === "practice" ? "本試験形式の練習のカード" : "指定されたカード";
+      : from === "practice" ? "本試験形式の練習のカード"
+      : from === "slots" ? "問番号ごとの出題傾向のカード" : "指定されたカード";
     const option = $("study-view").querySelector('option[value="picked"]');
     option.hidden = false;
     option.disabled = false;
