@@ -54,6 +54,17 @@ class DrillDPagesTest(unittest.TestCase):
         self.assertNotIn("minpoD:v1", stores)
         self.assertEqual(len(stores), len(DRILLS))
 
+    def test_back_button_returns_to_the_chapter_list(self) -> None:
+        # 章を開いたときだけ履歴を積み、戻るボタン（popstate）で章一覧へ戻す。
+        # replaceStateだけだと、戻るボタンでD案の前のページ（ラボ）まで戻ってしまう（2026-11-05）。
+        app = (STATIC / "minpo-d" / "app.js").read_text(encoding="utf-8")
+        self.assertIn("openChapter(chapter.id, undefined, { push: true })", app)
+        self.assertIn("history.pushState(", app)
+        self.assertIn("window.addEventListener('popstate', onPopState)", app)
+        # 画面内の「章一覧へ」も戻るボタンと同じ動きにし、一覧の履歴を二重に積まない。
+        self.assertIn("button.addEventListener('click', goHome)", app)
+        self.assertNotIn("addEventListener('click', renderHome)", app)
+
     def test_chapters_follow_the_d_rules(self) -> None:
         cards = {
             c["id"]

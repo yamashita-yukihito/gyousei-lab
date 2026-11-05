@@ -232,14 +232,14 @@ function renderHome() {
     const open = el('button', 'primary chapter-open');
     open.type = 'button';
     open.textContent = state.mode === 'read' ? '答えから読む' : state.mode === 'solve' ? '普通に解く' : '本番で解く';
-    open.addEventListener('click', () => openChapter(chapter.id));
+    open.addEventListener('click', () => openChapter(chapter.id, undefined, { push: true }));
     card.append(body, open);
     grid.appendChild(card);
   });
   updateHash();
 }
 
-function openChapter(chapterId, requestedIndex) {
+function openChapter(chapterId, requestedIndex, options = {}) {
   const chapter = chapterById(chapterId);
   if (!chapter) return;
   state.chapterId = chapterId;
@@ -251,7 +251,7 @@ function openChapter(chapterId, requestedIndex) {
       ? Math.min(Math.max(requestedIndex, 0), chapter.questions.length - 1)
       : Math.min(Math.max(Number(current.index || 0), 0), chapter.questions.length - 1);
   }
-  renderStudy();
+  renderStudy(options);
 }
 
 function renderChapterHeader(chapter) {
@@ -306,7 +306,7 @@ function renderChapterGuide(chapter) {
   document.querySelector('.goal-box').after(box);
 }
 
-function renderStudy() {
+function renderStudy(options = {}) {
   const chapter = currentChapter();
   if (!chapter) return renderHome();
   state.summary = null;
@@ -331,7 +331,7 @@ function renderStudy() {
     single.appendChild(renderQuestionCard(chapter, question, state.index, { answer }));
     finish.hidden = true;
   }
-  updateHash();
+  updateHash(false, options);
 }
 
 function renderDelta(question, chapter, index) {
@@ -834,7 +834,7 @@ function finishRound() {
   if (!solved.length) {
     rec.current[state.mode] = blankCurrent();
     saveStore();
-    renderHome();
+    goHome();
     return;
   }
   const session = {
@@ -905,7 +905,13 @@ function repeatChapter() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function updateHash(summary = false) {
+// 1枚のページの中で表示を切り替えているので、履歴は自分で積む。積むのは
+// 「章一覧から章を開いた」ときだけ。問の移動・結果画面・モード切替は上書きにする
+// （8問解いたあと戻るボタンを8回押させない）。戻るボタンは popstate で受ける。
+const HISTORY_CHAPTER = 'drillD:chapter';
+let restoringHistory = false;
+
+function updateHash(summary = false, options = {}) {
   const params = new URLSearchParams();
   params.set('mode', state.mode);
   if (state.chapterId) {
@@ -913,7 +919,41 @@ function updateHash(summary = false) {
     if (state.mode !== 'read') params.set('q', String(state.index + 1));
     if (summary) params.set('summary', '1');
   }
-  history.replaceState(null, '', `#${params.toString()}`);
+  const url = `#${params.toString()}`;
+  if (options.push && !restoringHistory) history.pushState({ drillD: HISTORY_CHAPTER }, '', url);
+  else history.replaceState(state.chapterId ? history.state : null, '', url);
+}
+
+// 画面内の「章一覧へ」。章一覧から開いた章なら履歴を1つ戻し、戻るボタンと同じ動きにする
+// （一覧の履歴を二重に積まない）。URLで直接開いた章は、その場で一覧に書き換える。
+function goHome() {
+  if (state.chapterId && history.state && history.state.drillD === HISTORY_CHAPTER) history.back();
+  else renderHome();
+}
+
+function showRoute(route, mode) {
+  setMode(mode, { skipRender: true });
+  if (route.chapter && chapterById(route.chapter)) {
+    if (route.summary) {
+      state.chapterId = route.chapter;
+      state.index = route.index;
+      const summary = savedSummary(route.chapter, mode);
+      if (summary) showSummary(summary);
+      else openChapter(route.chapter, route.index);
+    } else openChapter(route.chapter, route.index);
+  } else renderHome();
+}
+
+// 戻る・進むボタン。モードはURLから戻さない（章の中で「解く」に切り替えてから戻ると、
+// 一覧のURLには古いモードが残っているため）。いまの設定のまま表示し直す。
+function onPopState() {
+  if (!state.data) return;
+  restoringHistory = true;
+  try {
+    showRoute(parseHash(), state.mode);
+  } finally {
+    restoringHistory = false;
+  }
 }
 
 function parseHash() {
@@ -950,7 +990,8 @@ function bind() {
   document.querySelectorAll('.mode-button').forEach((button) => {
     button.addEventListener('click', () => setMode(button.dataset.mode));
   });
-  document.querySelectorAll('[data-action="home"]').forEach((button) => button.addEventListener('click', renderHome));
+  document.querySelectorAll('[data-action="home"]').forEach((button) => button.addEventListener('click', goHome));
+  window.addEventListener('popstate', onPopState);
   document.getElementById('reset-all').addEventListener('click', resetAll);
   document.getElementById('complete-read').addEventListener('click', completeReadRound);
   document.getElementById('repeat-chapter').addEventListener('click', repeatChapter);
@@ -973,16 +1014,7 @@ async function init() {
     setText('as-of', `法令基準日 ${state.data.asOf}`);
     const initial = parseHash();
     const initialMode = MODES[initial.mode] ? initial.mode : (MODES[state.store.mode] ? state.store.mode : 'read');
-    setMode(initialMode, { skipRender: true });
-    if (initial.chapter && chapterById(initial.chapter)) {
-      if (initial.summary) {
-        state.chapterId = initial.chapter;
-        state.index = initial.index;
-        const summary = savedSummary(initial.chapter, initialMode);
-        if (summary) showSummary(summary);
-        else openChapter(initial.chapter, initial.index);
-      } else openChapter(initial.chapter, initial.index);
-    } else renderHome();
+    showRoute(initial, initialMode);
   } catch (error) {
     const grid = document.getElementById('chapter-grid');
     grid.textContent = `問題データを読み込めませんでした。${error.message}`;
