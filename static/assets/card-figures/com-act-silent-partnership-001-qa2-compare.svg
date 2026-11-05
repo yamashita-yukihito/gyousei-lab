@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 330" role="img" aria-labelledby="t d">
+  <title id="t">金貸し・匿名組合員・共同経営者のくらべ</title>
+  <desc id="d">お金を貸す人は、もうけは決まった利息だけ、商売の損はかぶらず元本を返してもらう、経営はしない、取引先への責任はない。匿名組合員は、もうけは利益の分配、損は出資した額までかぶり出資が損失で減れば残りしか返らない、経営はできない、取引先への責任はない（名前を貸したときだけ連帯）。民法の組合員や合名会社の社員のような共同経営者は、もうけは利益の分配、損は出資を超えてかぶる、経営をする、取引先に対して自分の財産でも責任を負う。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 14px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 11px; fill: #4b5a55; }
+    .ng { font-size: 13px; font-weight: 800; fill: #b23a2e; }
+    .ok { font-size: 13px; font-weight: 800; fill: #1f6b45; }
+  </style>
+  <rect x="0" y="0" width="640" height="330" fill="#ffffff"/>
+  <text class="h" x="20" y="34">匿名組合員は「金貸し」と「共同経営者」のあいだ</text>
+
+  <rect x="140" y="52" width="160" height="44" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <rect x="300" y="52" width="160" height="44" fill="#fdf8e8" stroke="#e2cf8f"/>
+  <rect x="460" y="52" width="160" height="44" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <text class="b" x="152" y="79">お金を貸す人</text>
+  <text class="b" x="312" y="79">匿名組合員</text>
+  <text class="b" x="472" y="72">共同経営者</text>
+  <text class="s" x="472" y="88">組合員・合名会社の社員</text>
+
+  <rect x="20" y="96" width="600" height="54" fill="#ffffff" stroke="#c9d6d1"/>
+  <text class="b" x="30" y="128">もうけ</text>
+  <text class="t" x="152" y="128">決まった利息だけ</text>
+  <text class="ok" x="312" y="128">利益の分配</text>
+  <text class="t" x="472" y="128">利益の分配</text>
+
+  <rect x="20" y="150" width="600" height="54" fill="#ffffff" stroke="#c9d6d1"/>
+  <text class="b" x="30" y="182">商売の損</text>
+  <text class="t" x="152" y="182">かぶらない</text>
+  <text class="ng" x="312" y="174">出資した額まで</text>
+  <text class="s" x="312" y="194">減った出資は戻らない</text>
+  <text class="t" x="472" y="182">出資を超えてかぶる</text>
+
+  <rect x="20" y="204" width="600" height="54" fill="#ffffff" stroke="#c9d6d1"/>
+  <text class="b" x="30" y="236">経営</text>
+  <text class="t" x="152" y="236">しない</text>
+  <text class="ok" x="312" y="236">できない</text>
+  <text class="t" x="472" y="236">する</text>
+
+  <rect x="20" y="258" width="600" height="54" fill="#ffffff" stroke="#c9d6d1"/>
+  <text class="b" x="30" y="282">取引先への</text>
+  <text class="b" x="30" y="300">責任</text>
+  <text class="t" x="152" y="290">ない</text>
+  <text class="ok" x="312" y="282">ない</text>
+  <text class="s" x="312" y="300">名前を貸したときだけ連帯</text>
+  <text class="t" x="472" y="282">ある</text>
+  <text class="s" x="472" y="300">自分の財産からも払う</text>
+</svg>
