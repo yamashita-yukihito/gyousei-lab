@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="t d">
+  <title id="t">匿名組合の3人の関係</title>
+  <desc id="d">匿名組合員（出資しただけの人）は営業者（お店を営む人）に出資し、営業者は利益を分配する。これが匿名組合契約。営業者は自分の名前で取引先と取引し、代金を払う義務を負う。匿名組合員と取引先のあいだには権利も義務もない。取引先が匿名組合員の存在を知っていても同じ。匿名組合員が自分の名前を営業者の商号に使うことを許したときだけ、その後の債務について営業者と連帯して責任を負う。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 15px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 12px; fill: #4b5a55; }
+    .ng { font-size: 13px; font-weight: 800; fill: #b23a2e; }
+    .ok { font-size: 13px; font-weight: 800; fill: #1f6b45; }
+  </style>
+  <defs>
+    <marker id="silentArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#183a34"/></marker>
+  </defs>
+  <rect x="0" y="0" width="640" height="400" fill="#ffffff"/>
+  <text class="h" x="20" y="34">匿名組合は「裏で出資するだけ」の契約</text>
+
+  <rect x="20" y="60" width="180" height="86" rx="10" fill="#fdf8e8" stroke="#e2cf8f"/>
+  <text class="b" x="36" y="88">匿名組合員</text>
+  <text class="t" x="36" y="110">出資しただけの人</text>
+  <text class="s" x="36" y="130">（例：佐藤さん）</text>
+
+  <rect x="230" y="60" width="180" height="86" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <text class="b" x="246" y="88">営業者</text>
+  <text class="t" x="246" y="110">お店を営む人</text>
+  <text class="s" x="246" y="130">（例：田中ベーカリー）</text>
+
+  <rect x="440" y="60" width="180" height="86" rx="10" fill="#f4f7f6" stroke="#c9d6d1"/>
+  <text class="b" x="456" y="88">取引先（債権者）</text>
+  <text class="t" x="456" y="110">お店と取引した人</text>
+  <text class="s" x="456" y="130">（例：小麦粉問屋）</text>
+
+  <line x1="200" y1="88" x2="228" y2="88" stroke="#183a34" stroke-width="2" marker-end="url(#silentArrow)"/>
+  <line x1="230" y1="122" x2="202" y2="122" stroke="#183a34" stroke-width="2" marker-end="url(#silentArrow)"/>
+  <text class="s" x="20" y="166">→ 出資 ／ ← 利益の分配（これが匿名組合契約）</text>
+  <line x1="410" y1="103" x2="438" y2="103" stroke="#183a34" stroke-width="2"/>
+  <text class="s" x="330" y="166">営業者が自分の名前で取引し、代金を払う</text>
+
+  <rect x="20" y="186" width="600" height="92" rx="10" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <text class="b" x="36" y="212">匿名組合員 と 取引先 のあいだ</text>
+  <text class="ng" x="36" y="238">権利も義務もない（536条4項）</text>
+  <text class="t" x="36" y="262">取引先が「出資者がいる」と知っていても同じ。だからAは ×</text>
+
+  <rect x="20" y="290" width="600" height="92" rx="10" fill="#eef6f1" stroke="#a9cdb8"/>
+  <text class="b" x="36" y="316">例外：名前を看板（商号）に使わせたとき</text>
+  <text class="ok" x="36" y="342">その後の債務は、営業者と連帯して払う（537条）</text>
+  <text class="t" x="36" y="366">例：店名を「佐藤・田中ベーカリー」にするのを佐藤さんが許した</text>
+</svg>
