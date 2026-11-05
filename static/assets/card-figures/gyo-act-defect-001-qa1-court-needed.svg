@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="t d">
+  <title id="t">当然無効に裁判は要るか</title>
+  <desc id="d">取り消しうる処分と当然無効の処分のくらべ。効力：取り消されるまで有効／初めから効力なし。期間：取消訴訟は6か月などの出訴期間がある／期間の制限なし。どこで争うか：取消訴訟だけ／民事訴訟・当事者訴訟・刑事裁判の前提問題としても、無効等確認訴訟でも主張できる。裁判の役割：効力を消すために必要／無効を作るためには要らない。ただし行政庁が有効だと扱って差押えなどを進めるときは、止めるために裁判を使う。</desc>
+  <style>
+    text { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; fill: #1d2a26; }
+    .h { font-size: 19px; font-weight: 800; fill: #183a34; }
+    .b { font-size: 14px; font-weight: 800; fill: #183a34; }
+    .t { font-size: 13px; }
+    .s { font-size: 11px; fill: #4b5a55; }
+    .ng { font-size: 13px; font-weight: 800; fill: #b23a2e; }
+    .ok { font-size: 13px; font-weight: 800; fill: #1f6b45; }
+  </style>
+  <rect x="0" y="0" width="640" height="400" fill="#ffffff"/>
+  <text class="h" x="20" y="34">当然無効は、裁判で「無効にしてもらう」必要がない</text>
+
+  <rect x="130" y="52" width="245" height="40" fill="#fdf1ef" stroke="#e3b3ab"/>
+  <rect x="375" y="52" width="245" height="40" fill="#eef6f1" stroke="#a9cdb8"/>
+  <text class="b" x="142" y="78">取り消しうる処分（ふつうの違法）</text>
+  <text class="b" x="387" y="78">当然無効（重大かつ明白）</text>
+
+  <rect x="20" y="92" width="600" height="50" fill="#ffffff" stroke="#c9d6d1"/>
+  <text class="b" x="30" y="122">効力</text>
+  <text class="t" x="142" y="122">取り消されるまで有効</text>
+  <text class="ok" x="387" y="122">初めから効力なし</text>
+
+  <rect x="20" y="142" width="600" height="50" fill="#ffffff" stroke="#c9d6d1"/>
+  <text class="b" x="30" y="172">期間</text>
+  <text class="t" x="142" y="172">出訴期間6か月など（14条）</text>
+  <text class="ok" x="387" y="172">期間の制限なし</text>
+
+  <rect x="20" y="192" width="600" height="72" fill="#ffffff" stroke="#c9d6d1"/>
+  <text class="b" x="30" y="222">どこで</text>
+  <text class="b" x="30" y="240">争うか</text>
+  <text class="t" x="142" y="222">取消訴訟（取消しの不服</text>
+  <text class="t" x="142" y="242">申立て）だけ</text>
+  <text class="t" x="387" y="216">民事訴訟・当事者訴訟・刑事裁判の</text>
+  <text class="t" x="387" y="236">前提として主張できる。</text>
+  <text class="t" x="387" y="256">無効等確認訴訟もある（36条）</text>
+
+  <rect x="20" y="264" width="600" height="72" fill="#ffffff" stroke="#c9d6d1"/>
+  <text class="b" x="30" y="294">裁判の</text>
+  <text class="b" x="30" y="312">役割</text>
+  <text class="ng" x="142" y="294">効力を消すために必要</text>
+  <text class="ok" x="387" y="288">無効を「作る」ためには要らない</text>
+  <text class="t" x="387" y="310">無効を確かめてもらう・</text>
+  <text class="t" x="387" y="328">差押えなどを止めるために使う</text>
+
+  <text class="t" x="20" y="366">ただし「重大かつ明白か」は行政庁と争いになりやすい。</text>
+  <text class="t" x="20" y="386">行政庁が有効だと扱って手続を進めるなら、止めるには結局、裁判所の判断が要る。</text>
+</svg>
