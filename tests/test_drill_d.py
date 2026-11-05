@@ -59,6 +59,8 @@ class DrillDPagesTest(unittest.TestCase):
         # replaceStateだけだと、戻るボタンでD案の前のページ（ラボ）まで戻ってしまう（2026-11-05）。
         app = (STATIC / "minpo-d" / "app.js").read_text(encoding="utf-8")
         self.assertIn("openChapter(chapter.id, undefined, { push: true })", app)
+        # 一覧の下のほうから開いても章は先頭から出す。
+        self.assertIn("window.scrollTo({ top: 0, behavior: 'instant' })", app)
         self.assertIn("history.pushState(", app)
         self.assertIn("window.addEventListener('popstate', onPopState)", app)
         # 画面内の「章一覧へ」も戻るボタンと同じ動きにし、一覧の履歴を二重に積まない。

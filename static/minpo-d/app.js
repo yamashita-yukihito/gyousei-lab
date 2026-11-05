@@ -232,7 +232,12 @@ function renderHome() {
     const open = el('button', 'primary chapter-open');
     open.type = 'button';
     open.textContent = state.mode === 'read' ? '答えから読む' : state.mode === 'solve' ? '普通に解く' : '本番で解く';
-    open.addEventListener('click', () => openChapter(chapter.id, undefined, { push: true }));
+    open.addEventListener('click', () => {
+      openChapter(chapter.id, undefined, { push: true });
+      // 一覧の下のほうから開いても、章は先頭から見せる。一覧のスクロール位置は
+      // 履歴を積んだ時点でブラウザが覚えているので、戻ると元の場所へ戻る。
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
     card.append(body, open);
     grid.appendChild(card);
   });
